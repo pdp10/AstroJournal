@@ -1,0 +1,203 @@
+<?xml version="1.0"?>
+<!-- 
+Created by Piero Dalle Pezze (pdp10)
+-->
+
+<project default ="usage" basedir="./">
+	<!-- =================================================================== -->
+	<!-- Initialization target                                               -->
+	<!-- =================================================================== -->
+
+	<target name="init">
+		<tstamp>
+			<format property="YEAR" pattern="yyyy"/>
+		</tstamp>
+		<property name="Name" value="AstroJournal"/>
+		<property name="name" value="astrojournal"/>
+		<property name="version" value="0.4"/>
+		<property name="year" value="${YEAR}"/>
+
+		<echo message="------ ${Name} ${version} [${year}]"/>
+		<echo message="------ ${TODAY}"/>
+		<echo message="------ ${DSTAMP} ${TSTAMP}"/>
+
+		<property environment="env"/>
+		<property name="build.compiler" value="modern"/>
+		<property name="build.sysclasspath" value="ignore"/>
+		<property name="debug" value="on"/>
+		<property name="optimize" value="on"/>
+		<property name="deprecation" value="false"/>
+		<property name="depend" value="true"/>
+		<property name="verbose" value="false"/>
+
+		<property name="build.number" value="${DSTAMP}-${TSTAMP}"/>
+		<property name="build.name" value="${version} (build ${build.number})"/>
+
+		<property name="src.dir" value="${basedir}/src"/>
+		<property name="src.images" value="${basedir}/images"/>
+		<property name="src.observations" value="${basedir}/observations"/>
+		<property name="src.tsv_files" value="${basedir}/tsv_files"/>
+		
+		<property name="build.dir" value="${basedir}/build"/>
+		<property name="build.src" value="${basedir}/build/src"/>
+		<property name="build.dest" value="${basedir}/build/classes"/>
+		<property name="build.javadocs" value="${basedir}/build/apidocs"/>
+		<property name="lib.dir" value="${basedir}/lib"/>
+
+		<filter token="year" value="${year}"/>
+		<filter token="version" value="${version}"/>
+		<filter token="date" value="${TODAY}"/>
+		<filter token="log" value="true"/>
+		<filter token="verbose" value="true"/>
+
+		<!-- add everything needed to the classpath -->
+		<!-- adjust the settings to your local environment -->
+		<path id="org.astrojournal.classpath">
+			<fileset dir="${lib.dir}">
+				<include name="*.jar"/>
+				<exclude name="{name}.jar"/>
+			</fileset>
+		</path>
+	</target>
+
+
+	<!-- =================================================================== -->
+	<!-- Help on usage                                                       -->
+	<!-- =================================================================== -->
+	<target name="usage" depends="init">
+		<echo message=""/>
+		<echo message=""/>
+		<echo message="Ant build.xml for ${Name}"/>
+		<echo message="-------------------------------------------------------------"/>
+		<echo message=""/>
+		<echo message=" Available targets:"/>
+		<echo message=""/>
+		<echo message="   compile  --> compiles the source code"/>
+		<echo message="   jar      --> generates the ${name}-${version}.jar file"/>
+		<echo message="   javadoc  --> generates the API documentation"/>
+		<echo message="   clean    --> cleans up the directory"/>
+		<echo message=""/>
+		<echo message=" See the comments inside the build.xml file for more details."/>
+		<echo message="-------------------------------------------------------------"/>
+		<echo message=""/>
+		<echo message=""/>
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- Prepares the build directory                                        -->
+	<!-- =================================================================== -->
+	<target name="prepare" depends="init">
+		<mkdir dir="${build.dir}"/>
+		<echo message="Done"/>
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- Prepares the source code                                            -->
+	<!-- =================================================================== -->
+	<target name="prepare-src" depends="prepare">
+		<!-- create directories -->
+		<mkdir dir="${build.src}"/>
+		<mkdir dir="${build.dest}"/>
+
+		<!-- copy src files -->
+		<copy todir="${build.src}" overwrite="yes">
+			<fileset dir="${src.dir}"
+                        excludes="**/.git*, **/*.class, **/*~, **/*.tgz">
+			</fileset>
+		</copy>
+ 		<copy todir="${build.dir}" overwrite="yes">
+			<fileset dir="${basedir}"
+		                        includes="log4j.properties">
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- Compiles the source directory                                       -->
+	<!-- =================================================================== -->
+	<target name="compile" depends="prepare-src">
+		<javac srcdir="${build.src}"
+           destdir="${build.dest}"
+           debug="${debug}"
+           optimize="${optimize}"
+           verbose="${verbose}"
+           source="1.6"
+           target="1.6"
+           classpathref="org.astrojournal.classpath">
+		</javac>
+	</target>
+
+
+	<!-- =================================================================== -->
+	<!-- Creates the class package                                           -->
+	<!-- =================================================================== -->
+	<target name="jar" depends="compile">
+
+		<copy todir="${build.dest}">
+			<fileset dir="${build.src}"
+                                 includes="**/*.png **/*.gif **/data/* **/*.xml **/*.properties">
+			</fileset>
+		</copy>
+
+		<jar destfile="${name}-${version}.jar"  basedir="${build.dir}">
+		  <fileset dir="${build.dir}/classes"/>
+		  <zipgroupfileset dir="${lib.dir}" includes="**/*.jar" />
+		  <manifest>
+		    <attribute name="Main-Class" value="org.astrojournal.AstroJournal"/>
+		  </manifest>
+		</jar>
+				
+		<copy todir="${basedir}/lib" preservelastmodified="true" overwrite="true" verbose="true">
+			<fileset dir="${build.dir}"
+                                 includes="${name}-${version}.jar">
+			</fileset>
+		</copy>
+	</target>
+
+
+
+	<!-- =================================================================== -->
+	<!-- Creates the API documentation                                       -->
+	<!-- =================================================================== -->
+	<target name="javadoc" depends="prepare-src">
+		<mkdir dir="${build.javadocs}"/>
+		
+		<!-- packagename="*" -->
+          <javadoc packagenames="org.astrojournal.*" 
+                          sourcepath="${build.src}"
+                          defaultexcludes="yes"
+                          destdir="${build.javadocs}"
+                          classpathref="org.astrojournal.classpath" 
+		          maxmemory="256m" 
+			  author="true" 
+			  version="true" 
+			  use="true" 
+			  splitindex="true" 
+			  noindex="false" 
+			  windowtitle="${Name} API" 
+			  doctitle="${Name}" 
+		   breakiterator="yes">
+			<link href="http://docs.oracle.com/javase/7/docs/api"/>
+		</javadoc>
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- Cleans everything                                                   -->
+	<!-- =================================================================== -->
+	<target name="clean" depends="init">
+		<delete includeEmptyDirs="true" quiet="yes">
+			<fileset dir="${build.dir}" includes="**"/>
+		</delete>
+		<delete includeEmptyDirs="true" quiet="yes">
+			<fileset dir="${lib.dir}/" includes="${name}-${version}.jar"/>
+		</delete>
+		<delete includeEmptyDirs="true" quiet="yes">
+			<fileset dir="${basedir}" includes="*.aux *~ *.log"/>
+		</delete>
+		<delete includeEmptyDirs="true" quiet="yes">
+			<fileset dir="${src.observations}" includes="*.aux"/>
+		</delete>		
+	</target>
+</project>
+
+<!-- End of file -->
