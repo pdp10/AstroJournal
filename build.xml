@@ -14,7 +14,7 @@ Created by Piero Dalle Pezze (pdp10)
 		</tstamp>
 		<property name="Name" value="AstroJournal"/>
 		<property name="name" value="astrojournal"/>
-		<property name="version" value="0.4"/>
+		<property name="version" value="0.5"/>
 		<property name="year" value="${YEAR}"/>
 
 		<echo message="------ ${Name} ${version} [${year}]"/>
@@ -35,8 +35,8 @@ Created by Piero Dalle Pezze (pdp10)
 
 		<property name="src.dir" value="${basedir}/src"/>
 		<property name="src.images" value="${basedir}/images"/>
-		<property name="src.observations" value="${basedir}/observations"/>
-		<property name="src.tsv_files" value="${basedir}/tsv_files"/>
+		<property name="src.latex_reports" value="${basedir}/latex_reports"/>
+		<property name="src.tsv_reports" value="${basedir}/tsv_reports"/>
 		
 		<property name="build.dir" value="${basedir}/build"/>
 		<property name="build.src" value="${basedir}/build/src"/>
@@ -195,7 +195,7 @@ Created by Piero Dalle Pezze (pdp10)
 			<fileset dir="${basedir}" includes="*.aux *~ *.log"/>
 		</delete>
 		<delete includeEmptyDirs="true" quiet="yes">
-			<fileset dir="${src.observations}" includes="*.aux"/>
+			<fileset dir="${src.latex_reports}" includes="*.aux"/>
 		</delete>		
 	</target>
 </project>

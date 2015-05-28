@@ -25,6 +25,12 @@ You can download AstroJournal here. After downloading and uncompressing the file
 
 History of AstroJournal:
 ========================
+v0.5
+- added additional controls
+- bug fixes
+- increased code modularity
+- renamed observations/ and tsv_files/ into latex_reports/ and tsv_reports/
+- source code cleaning
 v0.4
 - wiki links point to the last version directly. No need to update each time 
 - simplified scripts for creating journal
