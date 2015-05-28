@@ -27,16 +27,16 @@ public class AstroJournal {
   /** The relative path containing the tsv files. */
   private static String tsvFilesFolder    = "tsv_files";
   /** The name of the folder containing the observation files. */
-  private static String observationFolder = "observations";
+  private static String observationsFolder = "observations";
   /** The name of the main Latex file. */
   private static String mainLatex         = "astrojournal.tex";
 
   /** It imports an observation record */
   private static void importObservation(Observation obs, String line,
-    BufferedReader reader) throws IOException {
+					BufferedReader reader, String delimiter) throws IOException {
     log.debug(line);
     // copy the first line
-    String[] values = line.split("\t");
+    String[] values = line.split(delimiter);
     
     log.debug("Line length (A): " + values.length);
     if (values.length == 2 && values[0].equals(Observation.DATENAME)) {
@@ -45,7 +45,7 @@ public class AstroJournal {
     }
     // Read the other lines for this observation
     while ((line = reader.readLine()) != null) {
-      values = line.split("\t");
+      values = line.split(delimiter);
       log.debug("Line length (B): " + values.length);      
 
       if (values.length == 0 || values[0].equals("")) {
@@ -102,7 +102,7 @@ public class AstroJournal {
 		 && values[3].equals(ObservationItem.POWERNAME)
 		 && values[4].equals(ObservationItem.NOTESNAME)) {
 	  while ((line = reader.readLine()) != null) {
-	      values = line.split("\t");
+	      values = line.split(delimiter);
 	      if (values.length != 5 ||	values[0].equals("")) {
 		  break;
 	      }
@@ -122,7 +122,7 @@ public class AstroJournal {
   }
 
 
-  /** It export an observation record to latex */
+  /** Exports an observation record to Latex */
   private static void exportObservation(Observation obs) {
     Writer table = null;
     
@@ -140,7 +140,7 @@ public class AstroJournal {
     log.debug(obs.getEyepieces());
     try {
       table = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
-        new File(observationFolder, "obs" + filenameOut + ".tex")), "utf-8"));
+        new File(observationsFolder, "obs" + filenameOut + ".tex")), "utf-8"));
       table.write("% General observation data\n");
       table.write("\\begin{tabular}{ p{1.7in} p{1.2in} p{1.5in} p{4.2in}}\n");
       table.write("{\\bf " + Observation.DATENAME + ":} & "
@@ -167,7 +167,6 @@ public class AstroJournal {
       table.write("% Detailed observation data\n");
       table.write("\\centering \n");
       table.write("\\begin{longtable}{ p{0.8in}  p{0.3in}  p{0.5in}  p{0.9in}  p{5.8in} }\n");
-      //table.write("\\begin{tabular}{ p{0.8in}  p{0.3in}  p{0.5in}  p{0.9in}  p{5.8in} }\n");
       table.write("\\hline \n");
       table.write("{\\bf " + ObservationItem.TARGETNAME + "} & {\\bf "
         + ObservationItem.CONSTELLATIONNAME + "} & {\\bf "
@@ -183,7 +182,6 @@ public class AstroJournal {
       }
       table.write("\\hline \n");
       table.write("\\end{longtable} \n");
-      //table.write("\\end{tabular} \n");
     } catch (IOException ex) {
       System.out.println("Error when opening the file");
     } catch (Exception ex) {
@@ -200,9 +198,9 @@ public class AstroJournal {
 
 
   /**
-   * It generates a tex file (2 tables) per observation.
+   * Generates a tex file (2 tables) per observation.
    * 
-   * @return true if the procedure succeeded.
+   * @return true if the procedure succeeds.
    */
   private static boolean generateObsLatex() {
     // You need to create a reader reading the file tvs
@@ -213,6 +211,7 @@ public class AstroJournal {
     // line
     File[] files = new File(tsvFilesFolder).listFiles();
     Arrays.sort(files);
+    String delimiter = "\t";
     if (files == null) {
       log.warn("folder " + tsvFilesFolder + " not found");
       return false;
@@ -235,7 +234,7 @@ public class AstroJournal {
             log.debug(line);
             if (line.indexOf(Observation.DATENAME) > -1) {
               Observation obs = new Observation();
-              importObservation(obs, line, reader);
+              importObservation(obs, line, reader, delimiter);
               exportObservation(obs);
               log.info("\t- Exported observation: " + obs.getDate()
                 + " ... DONE\n");
@@ -259,6 +258,12 @@ public class AstroJournal {
   }
 
 
+    /** Generates the Latex code for the Astro Journal
+     *
+     * @param writer the writer object
+     * @return true if the Latex code is generated
+     * @throws IOException
+     */
   private static boolean generateLatexCode(Writer writer) throws IOException {
     if (!generateObsLatex()) {
       return false;
@@ -325,33 +330,17 @@ public class AstroJournal {
     writer.write("\\item Somewhat Clear - Cirrus or moderate haze. 3 or 4 Little Dipper stars visible. \n");
     writer.write("\\item Partly Clear - Slight haze. 4 or 5 Little Dipper stars visible. \n");
     writer.write("\\item Clear - No clouds. Milky Way visible with averted vision. 6 Little Dipper stars visible. \n");
-    writer.write("\\item Very Clear - Milky Way and M31 visible. stars fainter than mag 6.0 are just seen and fainter parts of the Milky Way are more obvious \n");
+    writer.write("\\item Very Clear - Milky Way and M31 visible. Stars fainter than mag 6.0 are just seen and fainter parts of the Milky Way are more obvious \n");
     writer.write("\\item Extremely Clear - overwhelming profusion of stars, Zodiacal light and the gegenschein form continuous band across the sky, the Milky Way is very wide and bright throughout\n");
     writer.write("\\end{enumerate}\n");
-    
-
-    //writer.write("\\newpage\n\n");
-    //writer.write("\\includegraphics[scale=0.5]{images/planets}\n");
-    //writer.write("\\newpage\n\n");
-    //writer.write("\\includegraphics[scale=1.7]{images/jupiter_clouds}\n");
-    //writer.write("\\newline\n\n");    
-    //writer.write("{\\it Source: http://mvas-ny.org/HowObsPlanets.htm}\n");
-    //writer.write("\\newpage\n\n");    
-    //writer.write("\\includegraphics[scale=1.7]{images/saturn_clouds_rings}\n");
-    //writer.write("\\newline\n\n");    
-    //writer.write("{\\it Source: http://mvas-ny.org/HowObsPlanets.htm}\n");    
-    //writer.write("\\newpage\n\n");    
-    //writer.write("\\includegraphics[scale=0.8]{images/ursa_minor}\n");
-    //writer.write("\\newline\n\n");    
-    //writer.write("{\\it Source: http://www.satobs.org/magnitude.html}\n");    
     writer.write("\\newpage\n\n");
     
     // for each file in the folder obs (sorted by observation increasing), add a
     // line
-    File[] files = new File(observationFolder).listFiles();
+    File[] files = new File(observationsFolder).listFiles();
     Arrays.sort(files, Collections.reverseOrder());
     if (files == null) {
-      log.warn("Folder " + observationFolder
+      log.warn("Folder " + observationsFolder
         + " not found");
       return false;
     }
@@ -360,7 +349,7 @@ public class AstroJournal {
     for (File file : files) {
       if (file.isFile() && file.getName().endsWith(".tex")) {
         // include the file removing the extension .tex
-        writer.write("\\include{" + observationFolder + "/"
+        writer.write("\\include{" + observationsFolder + "/"
           + file.getName().replaceFirst("[.][^.]+$", "") + "}\n");
         //writer.write("\\newpage\n");
       }
@@ -377,7 +366,7 @@ public class AstroJournal {
      */
     public static void generate(String tsvDir, String obsDir) {
 	tsvFilesFolder = tsvDir;
-	observationFolder = obsDir;
+	observationsFolder = obsDir;
 	Writer writer = null;
 	try {
 	    writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
@@ -403,7 +392,7 @@ public class AstroJournal {
 
     /** 
      * Main function 
-     * @param args a list of two arguments: tsv_files and observation folders
+     * @param args a list of two arguments representing the input and output folders
      */
     public static void main(String[] args) {
 	try {
@@ -412,7 +401,7 @@ public class AstroJournal {
 		String obsDir = args[1];
 		AstroJournal.generate(tsvDir, obsDir);
 	    } else {
-		throw new Exception("Please, pass the folders tsv_files/ and observations/ as arguments.");
+		throw new Exception("Please, specify the folders + " + tsvFilesFolder + "/ and " + observationsFolder + "/ as arguments.");
 	    }
 	} catch (Exception ex) {
 	    log.warn(ex);
