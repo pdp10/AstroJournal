@@ -16,11 +16,19 @@ import org.apache.log4j.Logger;
  */ 
 public class AJObservationImporter {
 
+  /** The log associated to this class */
   private static Logger log = Logger.getLogger(AJObservationImporter.class);  
 
-  public static String INITIAL_KEYWORD = AJObservation.DATE_NAME;
+  /** The keyword denoting the first line of the observation record */
+  protected static String initialKeyword = AJObservation.DATE_NAME;
     
-  /** Imports an observation record */
+  /** 
+   * Imports an observation record 
+   * @param obs the object containing the observation to import
+   * @param line the current line parsed in the file (the first line of the record)
+   * @param reader the buffered reader associated to the file
+   * @throws IOException if reader cannot read the observation
+   */
   public static void importObservation(AJObservation obs, String line,
 					BufferedReader reader) throws IOException {
     String delimiter = "\t";  
@@ -110,5 +118,10 @@ public class AJObservationImporter {
       }
     }
   }
-    
+
+  /** Returns the initial keyword denoting the beginning of the observation record 
+   * @return initialKeyword
+   */
+  public static String getInitialKeyword() { return initialKeyword; }
+
 }

@@ -12,7 +12,7 @@ package org.astrojournal;
 public class AJLatexHeaderFooter {
     
     /** The header of the Latex main file. */
-    private static String header =
+    protected static String header =
 	"\\documentclass[10pt,twoside,a4paper]{article}\n" +
 	"\\usepackage[a4paper,margin=1in,landscape]{geometry}\n" +
 	"\\usepackage{color}\n" +
@@ -81,7 +81,7 @@ public class AJLatexHeaderFooter {
 
 
     /** The footer of the Latex document. */
-    private static String footer = "\\end{document}\n";
+    protected static String footer = "\\end{document}\n";
     
     /**
      * Returns the header of the document.

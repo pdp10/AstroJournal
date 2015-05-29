@@ -34,7 +34,6 @@ Created by Piero Dalle Pezze (pdp10)
 		<property name="build.name" value="${version} (build ${build.number})"/>
 
 		<property name="src.dir" value="${basedir}/src"/>
-		<property name="src.images" value="${basedir}/images"/>
 		<property name="src.latex_reports" value="${basedir}/latex_reports"/>
 		<property name="src.tsv_reports" value="${basedir}/tsv_reports"/>
 		
@@ -143,7 +142,7 @@ Created by Piero Dalle Pezze (pdp10)
 		  <fileset dir="${build.dir}/classes"/>
 		  <zipgroupfileset dir="${lib.dir}" includes="**/*.jar" />
 		  <manifest>
-		    <attribute name="Main-Class" value="org.astrojournal.AstroJournal"/>
+		    <attribute name="Main-Class" value="org.astrojournal.AJMain"/>
 		  </manifest>
 		</jar>
 				

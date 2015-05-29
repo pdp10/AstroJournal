@@ -15,13 +15,17 @@ import java.io.IOException;
 import org.apache.log4j.Logger;
 
 /**
- * Exports an AstroJournal observation to Latex code
+ * Exports an AstroJournal observation to Latex code.
  */
 public class AJObservationExporter {
 
+  /** The log associated to this class */
   private static Logger log = Logger.getLogger(AJObservationExporter.class);
     
-  /** Exports an observation record to Latex */
+  /** Exports an observation record to Latex
+   * @param obs the observation to exportObservation
+   * @param latexReportsFolder the folder to write the observation in.
+   */
   public static void exportObservation(AJObservation obs, String latexReportsFolder) {
     Writer table = null;
     
