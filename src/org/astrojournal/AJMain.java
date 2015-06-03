@@ -57,7 +57,7 @@ public class AJMain {
 	if (file.isFile() && file.getName().endsWith(".tsv")) {
 	  // Get the current file name.
 	  String tsvFilename = file.getName();
-	  log.info("Processing the file ... " + tsvFilename + "\n");
+	  System.out.println("Processing file " + tsvFilename);
 	  // Create a buffered reader to read the file
 	  BufferedReader reader = null;
 	  try {
@@ -73,8 +73,7 @@ public class AJMain {
 		// (obs, line, reader) and manage the reader thing internally.
 		AJObservationImporter.importObservation(obs, line, reader);
 		AJObservationExporter.exportObservation(obs, latexReportsFolder);
-		log.info("\t- Exported observation: " + obs.getDate()
-		  + " ... DONE\n");
+		System.out.println("\tExported observation " + obs.getDate());
 	      }
 	    } // end while
 	  } catch (IOException ex) {
