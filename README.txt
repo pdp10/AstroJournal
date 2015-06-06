@@ -86,11 +86,11 @@ Piero
 
 
 
-OTHER NOTES FOR ME (so far): 
-============================
-- edit your observation using a SpreadSheet (e.g. Google Drive);
-- save your observations as .tsv (tab separated values) and put the .tsv file in the folder tsv_files;
-- ./create_report.sh
-- git add tsv_files/*.tsv observations/*.tex astrojournal*.pdf astrojournal.tex
-- git commit -m 'added observation $today'
-- git push origin master
+Use case
+========
+# 1. edit your observation using a SpreadSheet (e.g. Google Drive);
+# 2. save your observations as .tsv (tab separated values) and put this .tsv file in the folder tsv_reports/;
+# 3. run the following command for creating or updating the journal
+./create_journal.sh
+# 4. run the following command for versioning the new files (just me).
+./push_obs_git.sh
