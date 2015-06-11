@@ -22,11 +22,15 @@ public class AJObservationExporter {
   /** The log associated to this class */
   private static Logger log = Logger.getLogger(AJObservationExporter.class);
     
+  
+  /** Default constructor */
+  public void AJObservationExporter() {} 
+
   /** Exports an observation record to Latex
    * @param obs the observation to exportObservation
    * @param latexReportsFolder the folder to write the observation in.
    */
-  public static void exportObservation(AJObservation obs, String latexReportsFolder) {
+  public void exportObservation(AJObservation obs, String latexReportsFolder) {
     Writer table = null;
     
     String filenameOut = obs.getDate();

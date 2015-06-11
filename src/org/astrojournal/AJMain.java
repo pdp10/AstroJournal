@@ -26,36 +26,43 @@ public class AJMain {
     private static Logger log = Logger.getLogger(AJMain.class);
 
     /** The relative path containing the tsv files (input folder). */
-    private static String tsvReportsFolder = "tsv_reports";
+    private String tsvReportsFolder = "tsv_reports";
     /** The name of the folder containing the observation files (output folder). */
-    private static String latexReportsFolder = "latex_reports";
+    private String latexReportsFolder = "latex_reports";
     /** The name of the main Latex file. */
-    private static String mainLatex = "astrojournal.tex";
+    private String mainLatex = "astrojournal.tex";
     /** The name of the folder of the Latex header file inclusive with relative path. */
-    private static String latexHeader = "latex_header_footer/header.tex";
+    private String latexHeader = "latex_header_footer/header.tex";
     /** The name of the folder of the Latex footer file inclusive with relative path. */
-    private static String latexFooter = "latex_header_footer/footer.tex";
+    private String latexFooter = "latex_header_footer/footer.tex";
+
+
+    /** Default constructor */
+    public AJMain() {}
 
     /**
     * Generates a tex file (2 tables) per observation.
     * 
     * @return true if the procedure succeeds, false otherwise.
     */
-    private static boolean generateObservationsLatexCode() {
+    private boolean generateObservationsLatexCode() {
       // You need to create a reader reading the file tvs
       // Then parse the tvs file and for each table found (e.g. looking for the
       // word "Date",
       // write a latex table in a file. Date is the string date
       // for each file in the folder obs (sorted by observation increasing), add a
       // line
+      // If this pathname does not denote a directory, then listFiles() returns
+      // null.
       File[] files = new File(tsvReportsFolder).listFiles();
       if (files == null) {
 	log.warn("Folder " + tsvReportsFolder + " not found");
 	return false;
       }
       Arrays.sort(files);
-      // If this pathname does not denote a directory, then listFiles() returns
-      // null.
+      AJObservation obs;
+      AJObservationImporter ajImporter = new AJObservationImporter();
+      AJObservationExporter ajExporter = new AJObservationExporter();
       for (File file : files) {
 	if (file.isFile() && file.getName().endsWith(".tsv")) {
 	  // Get the current file name.
@@ -71,11 +78,11 @@ public class AJMain {
 	    while ((line = reader.readLine()) != null) {
 	      log.debug(line);
 	      if (line.indexOf(AJObservationImporter.getInitialKeyword()) > -1) {
-		AJObservation obs = new AJObservation();
+		obs = new AJObservation();
 		// this should receive (obs, tsvReportsFolder) as input instead of 
 		// (obs, line, reader) and manage the reader thing internally.
-		AJObservationImporter.importObservation(obs, line, reader);
-		AJObservationExporter.exportObservation(obs, latexReportsFolder);
+		ajImporter.importObservation(obs, line, reader);
+		ajExporter.exportObservation(obs, latexReportsFolder);
 		System.out.println("\tExported observation " + obs.getDate());
 	      }
 	    } // end while
@@ -102,7 +109,7 @@ public class AJMain {
      * @param tsvDir the directory containing the tsv files (input)
      * @param obsDir the directory containing the single observations in latex format (output)
      */
-    public static void generateLatexCode(String tsvDir, String obsDir) {
+    public void generateLatexCode(String tsvDir, String obsDir) {
 	tsvReportsFolder = tsvDir;
 	latexReportsFolder = obsDir;
 	//AJLatexHeaderFooter ajLatexHeaderFooter = new AJLatexHeaderFooter();
@@ -161,13 +168,14 @@ public class AJMain {
      * @param args a list of two arguments representing the input and output folders
      */
     public static void main(String[] args) {
+	AJMain ajMain = new AJMain();
 	try {
 	    if(args.length == 2) {
 		String tsvDir = args[0];
 		String obsDir = args[1];
-		AJMain.generateLatexCode(tsvDir, obsDir);
+		ajMain.generateLatexCode(tsvDir, obsDir);
 	    } else {
-		throw new Exception("Please, specify the folders + " + tsvReportsFolder + "/ and " + latexReportsFolder + "/ as arguments.");
+		throw new Exception("Please, specify the folders + " + ajMain.tsvReportsFolder + "/ and " + ajMain.latexReportsFolder + "/ as arguments.");
 	    }
 	} catch (Exception ex) {
 	    log.warn(ex);

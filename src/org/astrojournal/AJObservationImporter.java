@@ -22,6 +22,10 @@ public class AJObservationImporter {
   /** The keyword denoting the first line of the observation record */
   protected static String initialKeyword = AJObservation.DATE_NAME;
     
+
+  /** Default constructor */
+  public void AJObservationImporter() {} 
+
   /** 
    * Imports an observation record 
    * @param obs the object containing the observation to import
@@ -29,7 +33,7 @@ public class AJObservationImporter {
    * @param reader the buffered reader associated to the file
    * @throws IOException if reader cannot read the observation
    */
-  public static void importObservation(AJObservation obs, String line,
+  public void importObservation(AJObservation obs, String line,
 					BufferedReader reader) throws IOException {
     String delimiter = "\t";  
     log.debug(line);
