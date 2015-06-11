@@ -1,6 +1,6 @@
 /*
  * Author: Piero Dalle Pezze
- * Version: 0.1
+ * Version: 0.2
  * Created on: 28/05/2015
  */
 package org.astrojournal;
@@ -22,7 +22,7 @@ public class AJLatexHeaderFooter {
 
     /** The header of the Latex main file. */
     private String header =
-	"\\documentclass[10pt,twoside,a4paper]{article}\n" +
+	"\\documentclass[10pt,twoside,a4paper]{report}\n" +
 	"\\usepackage[a4paper,margin=1in,landscape]{geometry}\n" +
 	"\\usepackage[colorlinks=true,linkcolor={black},urlcolor={black}]{hyperref}\n" +
 	"\\usepackage{longtable}\n" +
@@ -31,39 +31,12 @@ public class AJLatexHeaderFooter {
 	"\\author{Piero Dalle Pezze}\n" +
 	"\\date{\\today}\n" +
 	"\\begin{document}\n" +
-	"\\maketitle\n" +
 	"\\let\\thefootnote\\relax\\footnotetext{This document was generated using Java software tool {\\it AstroJournal} " + 
 	"(\\href{https://pdp10@bitbucket.org/pdp10/astrojournal.git}{https://pdp10@bitbucket.org/pdp10/astrojournal.git}) " +
         "and {\\it pdflatex} (\\href{http://www.tug.org/texlive/}{http://www.tug.org/texlive/}).} \n" +
-	
-	"\\newpage\n" +
-	
+	"\\maketitle\n" +
 	"\\footnotesize\n\n" +
-	
 	"\\noindent \n" +
-	
-	"\\bigskip \n" +
-	"{\\bf Antoniadi Scale:}\n" +
-	"\\begin{enumerate}\n" +
-	"\\item Perfect seeing, without a quiver.\n" +
-	"\\item Slight undulations, with moments of calm lasting several seconds.\n" +
-	"\\item Moderate seeing, with larger air tremors.\n" +
-	"\\item Poor seeing, with constant troublesome undulations.\n" +
-	"\\item Very bad seeing, scarcely allowing the makings of a rough sketch.\n" +
-	"\\end{enumerate}\n" +
-	
-	"\\bigskip \n" +    
-	"{\\bf Transparency Scale (American Association of Amateur Astronomers):}\n" +
-	"\\begin{enumerate}\n" +
-	"\\item Do Not Observe - Completely cloudy or precipitating. (Why are you out?)\n" +
-	"\\item Very Poor - Mostly Cloudy. \n" +
-	"\\item Poor - Partly cloudy or heavy haze. 1 or 2 Little Dipper stars visible. \n" +
-	"\\item Somewhat Clear - Cirrus or moderate haze. 3 or 4 Little Dipper stars visible. \n" +
-	"\\item Partly Clear - Slight haze. 4 or 5 Little Dipper stars visible. \n" +
-	"\\item Clear - No clouds. Milky Way visible with averted vision. 6 Little Dipper stars visible. \n" +
-	"\\item Very Clear - Milky Way and M31 visible. Stars fainter than mag 6.0 are just seen and fainter parts of the Milky Way are more obvious \n" +
-	"\\item Extremely Clear - overwhelming profusion of stars, Zodiacal light and the gegenschein form continuous band across the sky, the Milky Way is very wide and bright throughout\n" +
-	"\\end{enumerate}\n" +
 	"\\newpage\n\n";
 
 

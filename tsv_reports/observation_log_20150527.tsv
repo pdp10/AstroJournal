@@ -13,7 +13,7 @@ Temperature (C)	1 (no wind)
 Seeing (Antoniadi scale)	2 - Slight undulations			
 Transparency (AAAA scale)	3 - Somewhat clear			
 Telescopes	Tele Vue 60 F6			
-Eyepieces	TV Panoptic 24mm, Plossl 20mm, Nagler 7mm T6, Vixen SLV 5mm, Bresser 2x SA Barlow			
+Eyepieces	TV Panoptic 24mm, Plossl 20mm, Nagler 7mm, Vixen SLV 5mm, Bresser 2x SA			
 Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 18x, 3.3mm, 2.73deg; 103x, 0.6mm, 0.77deg; 144x, 0.4mm, 0.35deg			
 Filters	Astronomik OIII, UHC			
 Target	Cons	Type	Power	Notes
@@ -43,7 +43,7 @@ Temperature (C)	3 (no wind)
 Seeing (Antoniadi scale)	2 - Slight undulations			
 Transparency (AAAA scale)	3 - Somewhat clear			
 Telescopes	Tele Vue 60 F6			
-Eyepieces	TV Panoptic 24mm, Nagler 7mm T6, Vixen SLV 5mm, Bresser 2x SA Barlow			
+Eyepieces	TV Panoptic 24mm, Nagler 7mm, Vixen SLV 5mm, Bresser 2x SA			
 Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 51x, 1.2mm, 1.54deg; 144x, 0.4mm, 0.35deg			
 Filters	Astronomik OIII			
 Target	Cons	Type	Power	Notes
@@ -82,7 +82,7 @@ Temperature (C)	5 (no wind)
 Seeing (Antoniadi scale)	3 - Moderate seeing			
 Transparency (AAAA scale)	3 - Somewhat clear			
 Telescopes	Tele Vue 60 F6			
-Eyepieces	TV Panoptic 24mm, Nagler 7mm T6, Vixen SLV 5mm, Bresser 2x SA Barlow			
+Eyepieces	TV Panoptic 24mm, Nagler 7mm, Vixen SLV 5mm, Bresser 2x SA			
 Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 51x, 1.2mm, 1.54deg; 72x, 0.8, 0.69deg; 144x, 0.4mm, 0.35deg			
 Filters				
 Target	Cons	Type	Power	Notes
@@ -110,7 +110,7 @@ Temperature (C)	6 (no wind)
 Seeing (Antoniadi scale)	2 - Slight undulations			
 Transparency (AAAA scale)	3 - Somewhat clear			
 Telescopes	Tele Vue 60 F6			
-Eyepieces	TV Panoptic 24mm, Plossl 20mm, Nagler 7mm T6, Vixen SLV 5mm, Bresser 2x SA Barlow			
+Eyepieces	TV Panoptic 24mm, Plossl 20mm, Nagler 7mm, Vixen SLV 5mm, Bresser 2x SA			
 Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 18x, 3.3mm, 2.73deg; 30x, 2mm, 2.15deg; 51x, 1.2mm, 1.54deg; 72x, 0.8mm, 0.69deg			
 Filters	Astronomik UHC, OIII			
 Target	Cons	Type	Power	Notes
@@ -137,7 +137,7 @@ Temperature (C)	8 (no wind)
 Seeing (Antoniadi scale)	2 - Slight undulations			
 Transparency (AAAA scale)	3 - Somewhat clear			
 Telescopes	Tele Vue 60 F6			
-Eyepieces	TV Panoptic 24mm, Nagler 7mm T6, Vixen SLV 5mm, Bresser 2x SA Barlow			
+Eyepieces	TV Panoptic 24mm, Nagler 7mm, Vixen SLV 5mm, Bresser 2x SA			
 Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 30x, 2mm, 2.15deg; 51x, 1.2mm, 1.54deg; 72x, 0.8mm, 0.69deg; 103x, 0.6mm, 0.77deg			
 Filters	Astronomik UHC, OIII			
 Target	Cons	Type	Power	Notes
@@ -163,11 +163,11 @@ Temperature (C)	9 (no wind)
 Seeing (Antoniadi scale)	2 - Slight undulations			
 Transparency (AAAA scale)	2 - Poor			
 Telescopes	Tele Vue 60 F6			
-Eyepieces	TV Panoptic 24mm, Nagler 3.5mm T6			
+Eyepieces	TV Panoptic 24mm, Nagler 3.5mm			
 Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 103x, 0.6mm, 0.77deg			
 Filters	Variable Polarizing Filter			
 Target	Cons	Type	Power	Notes
-Jupiter	Cnc	Planet	15x; 103x +/- VPF	At the eyepiece from right to left: Callisto, Io, Jupiter, Europa and Ganymede. This evening I decided to test my new eyepiece (Nagler 3.5mm). Due to the lack of transparency, I only tested this on Jupiter. This was the first time I observed at 103x without using a Bresser 2x SA. The difference was quite substantial. I had the impression that the Nagler 7mm T6 with Bresser 2x SA was more colour corrected than the Nagler 3.5mm T6 only at the edge (last 10% before the field stop). This might have been caused by the presence of light fog though, instead of the eyepiece. I will test this again. On the other hand, the lack of the Bresser 2x SA (4 lens less) improved transparency, and this was detectable. With a Nagler 7mm T6 and Bresser 2x SA, I am able to see a bit more than the two main bands only when the seeing is quite good. Tonight, although the seeing was acceptable, but the sky was quite foggy. The main two bands (North and South Equatorial Belts) were visible and other two bands at the poles were easily detectable (North Polar Region, S.S. Temperate Belt). In the North and South Equatorial Belts, some shades were also detectable. No direction was visible but it was possible to see that the borders and belt colours were rough and not homogeneous. This was particularly true for the North Equatorial Band. No GRS was detectable. The use of a single or double polarizing filter did not improve image quality. The whole image only appeared too dark and the minute details previously described were lost. Possibly, the VPF is more appropriate for brighter objects (e.g. the Sun and the Moon) or Jupiter during sunset or dawn. 
+Jupiter	Cnc	Planet	15x; 103x +/- VPF	At the eyepiece from right to left: Callisto, Io, Jupiter, Europa and Ganymede. This evening I decided to test my new eyepiece (Nagler 3.5mm). Due to the lack of transparency, I only tested this on Jupiter. This was the first time I observed at 103x without using a Bresser 2x SA. The difference was quite substantial. I had the impression that the Nagler 7mm with Bresser 2x SA was more colour corrected than the Nagler 3.5mm only at the edge (last 10% before the field stop). This might have been caused by the presence of light fog though, instead of the eyepiece. I will test this again. On the other hand, the lack of the Bresser 2x SA (4 lens less) improved transparency, and this was detectable. With a Nagler 7mm and Bresser 2x SA, I am able to see a bit more than the two main bands only when the seeing is quite good. Tonight, although the seeing was acceptable, but the sky was quite foggy. The main two bands (North and South Equatorial Belts) were visible and other two bands at the poles were easily detectable (North Polar Region, S.S. Temperate Belt). In the North and South Equatorial Belts, some shades were also detectable. No direction was visible but it was possible to see that the borders and belt colours were rough and not homogeneous. This was particularly true for the North Equatorial Band. No GRS was detectable. The use of a single or double polarizing filter did not improve image quality. The whole image only appeared too dark and the minute details previously described were lost. Possibly, the VPF is more appropriate for brighter objects (e.g. the Sun and the Moon) or Jupiter during sunset or dawn. 
 				
 				
 				
@@ -179,7 +179,7 @@ Temperature (C)	12 (wind)
 Seeing (Antoniadi scale)	2 - Slight undulations			
 Transparency (AAAA scale)	2 - Poor			
 Telescopes	Tele Vue 60 F6			
-Eyepieces	Nagler 7mm T6, Vixen SLV 5mm			
+Eyepieces	Nagler 7mm, Vixen SLV 5mm			
 Power, Exit pupil, FOV	51x, 1.2mm, 1.54deg; 72x, 0.8mm, 0.69deg			
 Filters	Variable Polarizing Filter			
 Target	Cons	Type	Power	Notes
@@ -195,7 +195,7 @@ Temperature (C)	21 (no wind)
 Seeing (Antoniadi scale)	2 - Slight undulations			
 Transparency (AAAA scale)	5 - Clear			
 Telescopes	Tele Vue 60 F6			
-Eyepieces	Nagler 7mm T6, Vixen SLV 5mm, Nagler 3.5mm T6			
+Eyepieces	Nagler 7mm, Vixen SLV 5mm, Nagler 3.5mm			
 Power, Exit pupil, FOV	51x, 1.2mm, 1.54deg; 72x, 0.8mm, 0.69deg; 103x, 0.6mm, 0.77deg			
 Filters	Variable Polarizing Filter			
 Target	Cons	Type	Power	Notes
@@ -211,7 +211,7 @@ Temperature (C)	9 (no wind)
 Seeing (Antoniadi scale)	2 - Slight undulations			
 Transparency (AAAA scale)	5 - Clear			
 Telescopes	Tele Vue 60 F6			
-Eyepieces	TV Panoptic 24mm, Plossl 20mm, Nagler 7mm T6, Vixen SLV 5mm, Nagler 3.5mm T6			
+Eyepieces	TV Panoptic 24mm, Plossl 20mm, Nagler 7mm, Vixen SLV 5mm, Nagler 3.5mm			
 Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 18x, 3.3mm, 2.7deg; 51x, 1.2mm, 1.54deg; 72x, 0.8mm, 0.69deg; 103x, 0.6mm, 0.77deg			
 Filters				
 Target	Cons	Type	Power	Notes
@@ -234,7 +234,7 @@ Temperature (C)	6 (no wind)
 Seeing (Antoniadi scale)	2 - Slight undulations			
 Transparency (AAAA scale)	5 - Clear			
 Telescopes	Tele Vue 60 F6			
-Eyepieces	TV Panoptic 24mm, Nagler 7mm T6, Nagler 3.5mm T6			
+Eyepieces	TV Panoptic 24mm, Nagler 7mm, Nagler 3.5mm			
 Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 51x, 1.2mm, 1.54deg; 103x, 0.6mm, 0.77deg			
 Filters				
 Target	Cons	Type	Power	Notes

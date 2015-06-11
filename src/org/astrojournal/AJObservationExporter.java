@@ -41,13 +41,14 @@ public class AJObservationExporter {
     if(obs.getDate().length() == 11) {
 	filenameOut = filenameOut + obs.getDate().charAt(10);
     }
-    
+
     ArrayList<AJObservationItem> observationItems = obs.getObservationItems();
     // debugging
     log.debug(obs.getEyepieces());
     try {
       table = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
         new File(latexReportsFolder, "obs" + filenameOut + ".tex")), "utf-8"));
+
       table.write("% General observation data\n");
       table.write("\\begin{tabular}{ p{1.7in} p{1.2in} p{1.5in} p{4.2in}}\n");
       table.write("{\\bf " + AJObservation.DATE_NAME + ":} & "
@@ -70,6 +71,7 @@ public class AJObservationExporter {
       table.write("{\\bf " + AJObservation.TRANSPARENCY_NAME + ":} & "
         + obs.getTransparency() + " & & \\\\ \n");
       table.write("\\end{tabular}\n");
+      
 
       table.write("% Detailed observation data\n");
       table.write("\\centering \n");
