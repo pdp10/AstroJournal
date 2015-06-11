@@ -112,7 +112,6 @@ public class AJMain {
     public void generateLatexCode(String tsvDir, String obsDir) {
 	tsvReportsFolder = tsvDir;
 	latexReportsFolder = obsDir;
-	//AJLatexHeaderFooter ajLatexHeaderFooter = new AJLatexHeaderFooter();
 	AJLatexHeaderFooter ajLatexHeaderFooter = new AJLatexHeaderFooter(latexHeader, latexFooter);
 	Writer writer = null;
 	try {
