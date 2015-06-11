@@ -65,6 +65,7 @@ v0.1
 
 Iced features:
 ==============
+- improve code for importing an observation without being dependent on AJMain.
 
 
 Open bugs:
