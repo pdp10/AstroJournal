@@ -47,12 +47,12 @@ if command -v pdflatex 2>/dev/null >&2; then {
     texi2pdf astrojournal.tex >/dev/null;
     printf "DONE\n"
 } else {
-    printf "You need to install either pdflatex or texi2tex for generating AstroReport PDF file. Aborting.\n";
+    printf "You need to install either pdflatex or texi2tex for generating AstroJournal PDF file. Aborting.\n";
     exit 1; 
 }
 fi
 
 
 # Clean the temporary and log files
-rm -rf *.aux *.log *~ observations/*.aux
+rm -rf *.aux *.log *~ *.out ${output_folder}/*.aux 
 
