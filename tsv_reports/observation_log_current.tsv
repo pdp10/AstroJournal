@@ -52,8 +52,8 @@ Temperature (C)	14 (wind: 5km/h)
 Seeing (Antoniadi scale)	3 - Moderate seeing			
 Transparency (AAAA scale)	5 - Clear			
 Telescopes	Tele Vue 60 F6			
-Eyepieces	TV Panoptic 24mm, Nagler 13mm, Nagler 7mm, Nagler 3.5mm			
-Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 28x, 2.2mm, 2.80deg; 51x, 1.2mm, 1.54deg; 103x, 0.6mm, 0.77deg			
+Eyepieces	TV Panoptic 24mm, Nagler 7mm, Nagler 3.5mm			
+Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 51x, 1.2mm, 1.54deg; 103x, 0.6mm, 0.77deg			
 Filters				
 Target	Cons	Type	Power	Notes
 Saturn	Lib	Planet	103x	Seen during civil twilight and later in the nautical twilight. Although the seeing was not great, Saturn appeared very crisp. The rings had a very nice inclination. The Cassini division was generally not detectable. For few seconds when the seeing stabilised, a hint of dimmer colour was visible on the external part of the rings. A nice band was visible all the time on the North Hemisphere of the planet. Titan was visible too. The view was really nice generally. Possibly due to the seeing, but I preferred the view when the sky was darker. 
@@ -66,3 +66,25 @@ NGC 6633	Sct	Opn CL	15x	From 71-72 Oph to East, NGC 6633 and Cr386 appear in suc
 IC 4756 - Cr386	Sct	Opn CL	15x	Graff's cluster. See above
 Epsilon Lyr	Lyr	Dbl star	51x	Double Double. I could not split at 51x. The image suggested a possible elongation of the two stars, but I would not bet on this if I did not know they are doubles.
 Beta1 Sco	Sco	Dbl star	51x	A very nice double star at 51x. The two stars have different colour and brightness. If I remember correctly the small one was blue. They were split but still quite tight. At 70x they should be split clearer. 
+M57	Lyr	Pln Neb	51x	It was lovely to see this planetary nebulae at 1.2mm exit pupil. The ring was clearly visible and the size was acceptable. No colour of course, but averted vision showed this object pretty well, although it was visible also via direct observation. As expected, the Nalger 7mm is perfect for this target and I expect that is more than adeguate for many other planetary nebulae.
+				
+				
+				
+Date	11/06/2015			
+Time	10.00pm-12.00pm			
+Location	Cambridge, UK			
+Altitude (MAMSL)	12m			
+Temperature (C)	15 (wind: 2km/h)			
+Seeing (Antoniadi scale)	2 - Slight undulations			
+Transparency (AAAA scale)	3 - Somewhat clear			
+Telescopes	Tele Vue 60 F6			
+Eyepieces	TV Panoptic 24mm, Nagler 13mm, Nagler 3.5mm, Bresser SA 2x			
+Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 28x, 2.2mm, 2.80deg; 103x, 0.6mm, 0.77deg; 206x, 0.3mm, 0.38deg			
+Filters				
+Target	Cons	Type	Power	Notes
+Saturn	Lib	Planet	103x, 206x	Very nice view of Saturn tonight. At both 103x and 206x, the Cassini division was detectable when the sky appeared steady for few seconds. It appeared as a soft grey shade on the lateral parts of the rings. This was not always visible, but just for few seconds when the seeing was steady and no wind blew. Titan was visible too. A band on the planet appeared as a soft darker gradient compared to the planet colour.
+Venus	Gem	Planet	103x, 206x	Phase about 50%. No detail visible, but the image was sufficiently stable. A SPF would have helped, but I forgot it at home. 
+Jupiter	Leo	Planet	103x, 206x	206x was too much for Jupiter tonight. Mostly seen it at 103x. Three moons visible, whereas the fourth seemed behind the planet. North and South Hemisphere bands visible. On the North Hemisphere another band was also detectable. No GRS visible.
+NGC6992 / NGC6960 - C33 / C34	Cyg	Glob CL	15x +/- OIII, 28x +/- OIII	Veil Nebula. No visible or detectable. I carefully searched the stars and positioned at 52 Cygni. 28x +OIII seemed to show a soft transparent cloud, but I cannot say that that was the Veil Nebula. The sky was not fully transparent and dark. This might be the reason.
+Epsilon Lyr	Lyr	Dbl star	103x	Double Double. Just managed to see the two pairs, although the separation was not clear. It was just a tiny more bare elongated stars. I am not sure, but I suspect this was more due to the Nagler 3.5mm. Next time I will test it with the Vixen 5mm which to me is better.
+Beta1 Sco	Sco	Dbl star	103x	It was clearly split, but the seeing was not very nice near the horizon and the stars light was not puntiform. The small star is blue. This double star is the top of the three stars of Scorpio.
