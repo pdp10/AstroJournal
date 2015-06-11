@@ -26,6 +26,7 @@ You can download AstroJournal here. After downloading and uncompressing the file
 History of AstroJournal:
 ========================
 v0.5
+- extracted Latex header and footer from Java code
 - added additional controls
 - bug fixes
 - increased code modularity
