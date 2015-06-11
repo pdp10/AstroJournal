@@ -31,7 +31,10 @@ public class AJMain {
     private static String latexReportsFolder = "latex_reports";
     /** The name of the main Latex file. */
     private static String mainLatex = "astrojournal.tex";
-
+    /** The name of the folder of the Latex header file inclusive with relative path. */
+    private static String latexHeader = "latex_header_footer/header.tex";
+    /** The name of the folder of the Latex footer file inclusive with relative path. */
+    private static String latexFooter = "latex_header_footer/footer.tex";
 
     /**
     * Generates a tex file (2 tables) per observation.
@@ -102,6 +105,8 @@ public class AJMain {
     public static void generateLatexCode(String tsvDir, String obsDir) {
 	tsvReportsFolder = tsvDir;
 	latexReportsFolder = obsDir;
+	//AJLatexHeaderFooter ajLatexHeaderFooter = new AJLatexHeaderFooter();
+	AJLatexHeaderFooter ajLatexHeaderFooter = new AJLatexHeaderFooter(latexHeader, latexFooter);
 	Writer writer = null;
 	try {
 	    writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
@@ -115,7 +120,7 @@ public class AJMain {
 	      return;
 	    }
 	    // write the Latex Header
-	    writer.write(AJLatexHeaderFooter.getHeader());
+	    writer.write(ajLatexHeaderFooter.getHeader());
 	    // write the Latex Body
 	    // for each file in the folder obs (sorted by observation increasing), add a
 	    // line
@@ -134,7 +139,7 @@ public class AJMain {
 	      }
 	    }
 	    // write the Latex Footer
-	    writer.write(AJLatexHeaderFooter.getFooter());
+	    writer.write(ajLatexHeaderFooter.getFooter());
 
 	} catch (IOException ex) {
 	    log.warn("Error when opening the file " + mainLatex);
