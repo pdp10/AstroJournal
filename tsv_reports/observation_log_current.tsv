@@ -20,11 +20,11 @@ Target	Cons	Type	Power	Notes
 Jupiter	Cnc	Planet	103x +/- SPF, 206x + SPF	Just a quick look until the sky became darker. No particular event tonight. It was very nice to see it. The two main bands revealed some subtle detail appearing like tiny shades. In particular these were more detectable for the main band in the North Hemisphere.  
 Moon	Sgt	Satellite	103x +/- SPF	Phase 96%. No many detail were revealed. The moon is not really interesting when full. Craters and seas were detectable but not immersive. 
 M57	Lyr	Pln Neb	103x	Ring nebula. The ring was visible with averted vision, but no other detail really. The contrast between the ring and the internal area is much more visible with an OIII filter. Still nice planetary nebula.
-Zeta Lyr	Lyr	Dbl star	15x, 103x	Already split at 15x, but much nicer at 103x. 
-Delta Lyr	Lyr	Dbl star	15x, 103x	This is a very nice system of stars already visible at 15x. A larger triangle with a little internal triangle. Just beautiful.
-Epsilon Lyr	Lyr	Dbl star	15x, 103x, 206x	Epsilon 1 and 2 were easily split at 15x. At 103x it was possible to detect that both Epsilon 1 and 2 are double stars themselves. At 206x this pair of tight double stars was visible although these double stars remained very close. Same colour.
-Beta Lyr	Lyr	Dbl star	15x, 103x	Sheliak. Splendid double already split at 15x. This was very nice at 103x. 
-Beta Cyg	Cyg	Dbl star	15x, 103x	Albireo. Wonderful double. A bit tight at 15x, but very nice at 103x. One orange, the other one blue.
+Zeta	Lyr	Dbl star	15x, 103x	Already split at 15x, but much nicer at 103x. 
+Delta	Lyr	Dbl star	15x, 103x	This is a very nice system of stars already visible at 15x. A larger triangle with a little internal triangle. Just beautiful.
+Epsilon	Lyr	Dbl star	15x, 103x, 206x	The Double Double. Epsilon 1 and 2 were easily split at 15x. At 103x it was possible to detect that both Epsilon 1 and 2 are double stars themselves. At 206x this pair of tight double stars was visible although these double stars remained very close. Same colour.
+Beta	Lyr	Dbl star	15x, 103x	Sheliak. Splendid double already split at 15x. This was very nice at 103x. 
+Beta	Cyg	Dbl star	15x, 103x	Albireo. Wonderful double. A bit tight at 15x, but very nice at 103x. One orange, the other one blue.
 				
 				
 				
@@ -56,16 +56,16 @@ Eyepieces	TV Panoptic 24mm, Nagler 7mm, Nagler 3.5mm
 Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 51x, 1.2mm, 1.54deg; 103x, 0.6mm, 0.77deg			
 Filters				
 Target	Cons	Type	Power	Notes
-Saturn	Lib	Planet	103x	Seen during civil twilight and later in the nautical twilight. Although the seeing was not great, Saturn appeared very crisp. The rings had a very nice inclination. The Cassini division was generally not detectable. For few seconds when the seeing stabilised, a hint of dimmer colour was visible on the external part of the rings. A nice belt was visible all the time on the North hemisphere (North hemisphere belt) of the planet. Titan was visible too. The view was really nice generally. Possibly due to the seeing, but I preferred the view when the sky was darker. 
-Alpha Sco	Sco	Star	15x	Antares. Lovely red star. I could see the Airy disc and difraction rings very nicely. Antares is one of my favourite stars. 
+Saturn	Lib	Planet	103x	Seen during civil twilight and later in the nautical twilight. Although the seeing was not great, Saturn appeared very crisp. The rings had a very nice inclination. The Cassini division was generally not detectable. For few seconds when the seeing stabilised, a hint of dimmer colour was visible on the external part of the rings. A nice belt was visible all the time on the North hemisphere (North Equatorial Belt) of the planet. Titan was visible too. The view was really nice generally. Possibly due to the seeing, but I preferred the view when the sky was darker. 
+Alpha	Sco	Star	15x	Antares. Lovely red star. I could see the Airy disc and difraction rings very nicely. Antares is one of my favourite stars. 
 M107	Ser	Glob CL	15x, 51x	From Han, Zeta Oph, go slightly South and see a triangle. M103 is on the outside of one of the verteces. It was barely visible at 15x, also due to the bright sky. At 51x was detectable but still with difficulty. Not much to see. Just a grey smudge visible with averted vision.
 M10	Oph	Glob CL	15x, 51x	Nice globular cluster. It does not have nearby stars, but is relatively large. Stars are not really visible, but the cluster appear with some hint of granulation particularly detectable on the outside.
 M12	Oph	Glob CL	15x, 51x	Like M10, this is another nice globular cluster. Somehow I preferred it to M10 because of the presence of surrounding close stars at east. I believe this cluster is slightly bigger than M10, or at least it seemed so. Like M10, a hint of granulation was detectable. 
-IC 4665 - Cr349	Oph	Opn CL	15x	Summer Beehive cluster. Amazing open cluster of large size above the star Cebalrai. A pleasure to see with a low power eyepiece. Stars have similar colours and magnitude, but the shape is nice.
-NGC 6633	Sct	Opn CL	15x	From 71-72 Oph to East, NGC 6633 and Cr386 appear in succession. Both are sufficiently large to be appreciable with a low power eyepiece. They are quite rich in stars. 
-IC 4756 - Cr386	Sct	Opn CL	15x	Graff's cluster. See above
-Epsilon Lyr	Lyr	Dbl star	51x	Double Double. I could not split the two. The image suggested a possible elongation of the two stars, but this was not obvious. I would not have detected it if I had not known that they are doubles. I carefully focused inward and outward to reach the optimum, but this was not sufficient. 
-Beta Sco	Sco	Dbl star	51x	A very nice double star at 51x. The two stars have different colour and brightness. If I remember correctly the small one was blue. They were split but still quite tight. At 70x they should be split clearer. 
+IC4665 - Cr349	Oph	Opn CL	15x	Summer Beehive cluster. Amazing open cluster of large size above the star Cebalrai. A pleasure to see with a low power eyepiece. Stars have similar colours and magnitude, but the shape is nice.
+NGC6633	Sct	Opn CL	15x	From 71-72 Oph to East, NGC6633 and Cr386 appear in succession. Both are sufficiently large to be appreciable with a low power eyepiece. They are quite rich in stars. 
+IC4756 - Cr386	Sct	Opn CL	15x	Graff's cluster. See above
+Epsilon	Lyr	Dbl star	51x	The Double Double. I could not split the two. The image suggested a possible elongation of the two stars, but this was not obvious. I would not have detected it if I had not known that they are doubles. I carefully focused inward and outward to reach the optimum, but this was not sufficient. 
+Beta	Sco	Mlt star	51x	Acrab or Graffias. Very fine multiple star system at 51x. The two stars have different colour and brightness. If I remember correctly the small one was blue. They were split but still quite tight. At 70x they should be split clearer. 
 M57	Lyr	Pln Neb	51x	It was lovely to see this planetary nebulae at 1.2mm exit pupil. The ring was clearly visible and the size was acceptable. No colour of course, but averted vision showed this object pretty well, although it was visible also via direct observation. As expected, the Nalger 7mm is perfect for this target and I expect that is more than adeguate for many other planetary nebulae.
 				
 				
@@ -82,9 +82,9 @@ Eyepieces	TV Panoptic 24mm, Nagler 13mm, Nagler 3.5mm, Bresser SA 2x
 Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 28x, 2.2mm, 2.80deg; 103x, 0.6mm, 0.77deg; 206x, 0.3mm, 0.38deg			
 Filters				
 Target	Cons	Type	Power	Notes
-Saturn	Lib	Planet	103x, 206x	Very nice view of Saturn tonight. At both 103x and 206x, the Cassini division was detectable when the sky appeared steady for few seconds. It appeared as a soft grey shade on the lateral parts of the rings. This was not always visible, but just for few seconds when the seeing was steady and no wind blew. Titan was visible too. The North hemisphere belt on the planet appeared as a soft darker gradient compared to the planet colour. No detail on the planet North pole was detectable.
+Saturn	Lib	Planet	103x, 206x	Very nice view of Saturn tonight. At both 103x and 206x, the Cassini division was detectable when the sky appeared steady for few seconds. It appeared as a soft grey shade on the lateral parts of the rings. Possibly what I was seeing was the shade between the A and B rings. This was not always visible, but just for few seconds when the seeing was steady and no wind blew, the difference in colour intensity was noticeable. Titan was also visible on the South of the planet. It seemed a grey dot. The North Equatorial Belt on the planet appeared as a soft darker gradient compared to the planet equatorial zone. The North Polar Region was not clearly detectable.
 Venus	Gem	Planet	103x, 206x	Phase about 50%. No detail visible, but the image was sufficiently stable. A SPF would have helped, but I forgot it at home. 
 Jupiter	Leo	Planet	103x, 206x	206x was too much for Jupiter tonight. Mostly seen it at 103x. Three moons visible, whereas the fourth seemed behind the planet. North and South Hemisphere bands visible. On the North Hemisphere another band was also detectable. No GRS visible.
 NGC6992 / NGC6960 - C33 / C34	Cyg	SN Rem	15x +/- OIII, 28x +/- OIII	Veil Nebula. No visible or detectable. I carefully searched the stars and positioned at 52 Cygni. 28x +OIII seemed to show a soft transparent cloud, but I cannot say that that was the Veil Nebula. The sky was not fully transparent and dark. This might be the reason.
-Epsilon Lyr	Lyr	Dbl star	103x	Double Double. Just managed to see the two pairs, although the separation was not clear. They appeared just a tiny more than elongated stars. I am not sure, but I suspect this was more due to the Nagler 3.5mm. I will try with the Vixen 5mm next time, as generally this eyepiece delivers better views than the Naglers, on planets at least.
-Beta Sco	Sco	Dbl star	103x	It was clearly split, but the seeing was not very nice near the horizon and the stars light was not puntiform. The small star is blue. This double star is the top of the three stars of Scorpio.
+Epsilon	Lyr	Dbl star	103x	The Double Double. Just managed to see the two pairs, although the separation was not clear. They appeared just a tiny more than elongated stars. I am not sure, but I suspect this was more due to the Nagler 3.5mm. I will try with the Vixen 5mm next time, as generally this eyepiece delivers better views than the Naglers, on planets at least.
+Beta	Sco	Mlt star	103x	Acrab or Graffias. It was clearly split, but the seeing was not very nice near the horizon and the stars light was not puntiform. The small star is blue. This double star is the top of the three stars of Scorpio.

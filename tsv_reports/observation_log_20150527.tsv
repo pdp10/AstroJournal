@@ -65,7 +65,7 @@ M65	Leo	Galaxy	15x	Leo triplet. From Chertan (theta Leo), use the star pointers 
 M66	Leo	Galaxy	15x	Leo triplet. As for M65. Maybe using an exit pupil of 2.7-2.0mm is better.
 M95	Leo	Galaxy	15x	Unsuccess
 M96	Leo	Galaxy	15x	Unsuccess
-Pherkad-Pherkad minor	UMi	Dbl Star	15x	Gamma Ursa Minor blue 3mag. It has a neighbour star 10.30mag. Pherkad Minor orange 5mag.
+Gamma	UMi	Dbl Star	15x	Pherkad. Blue 3mag. It has a neighbour star 10.30mag. Pherkad Minor orange 5mag.
 19-20	Dra	Dbl Star	15x	4.5mag and 7mag.
 Eta-HIP80309A	Dra	Dbl Star	15x	2.7mag and 6.05mag
 M51	CVn	Galaxy	15x	Whirlpool Galaxy. From UMA-Alkaid, move south to 24CVn. Continue on that direction until HIP65768. This forms a triangle with HIP66004 and HIP66116. They are all 7mag stars. HIP65768 is the brightest in the area. M51 lies externally of the line between HIP65768 and HIP66004. Averted vision for 10min is required. You will see a grey patch. No structure.
@@ -91,13 +91,13 @@ M46	Pup	Opn CL	15x, 51x	Missed as I confused it with the aggregation of stars at
 M48	Hya	Opn CL	15x	Not easy to see if the sky is not very dark. Fortunately it is quite large. It is the third vertex of the triangle formed by the trio of stars "1Hya C Hya 2Hya (CHya mag 3.8 is the brightest in the middle of the trio) and 29 Mon (mag 4.35). 
 Moon	Tau	Satellite	72x	Waxing crescent 25%. Very crisp details. 
 Venus	Cet	Planet	72x, 144x	144x was too much. Possibly because the planet was too low, or because the eyepiece did not cool down properly. In any case, even at 72x, no planet atmosphere detail. 
-Mintaka	Ori	Dbl Star	72x	Easily split. 
-Alnitak	Ori	Dbl Star	72x	Separated components A and C. Cannot remember if B was detectable.
+Delta	Ori	Dbl Star	72x	Mintaka. Easily split. 
+Zeta	Ori	Dbl Star	72x	Alnitak. Separated components A and C. Cannot remember if B was detectable.
 Sigma	Ori	Dbl Star	72x	Visible 5 stars, although only able to split Sigma Orionis into two stars.
-Hatsya	Ori	Dbl Star	72x	Very nice double star. The companion is quite dim and small compared to Hatsya. Companion is grey. 
-Sirius	CMa	Dbl Star	72x	Not able to split Sirius. Too much bright.
-Castor	Gem	Dbl Star	72x	The companion Castor B is also bright and the two stars are quite close to each other. Same colour. Castor C is very dim and more distant from the other two.
-Mekbuda	Gem	Dbl Star	72x	Easily split double star.
+Iota	Ori	Dbl Star	72x	Hatsya. Very nice double star. The companion is quite dim and small compared to Hatsya. Companion is grey. 
+Alpha	CMa	Dbl Star	72x	Sirius. Not able to split Sirius. Too much bright.
+Alpha	Gem	Dbl Star	72x	Castor. The companion Castor B is also bright and the two stars are quite close to each other. Same colour. Castor C is very dim and more distant from the other two.
+Zeta	Gem	Dbl Star	72x	Mekbuda. Easily split double star.
 M35	Gem	Opn CL	72x	Many other stars are visible. 
 				
 				
@@ -123,9 +123,9 @@ NGC2244	Mon	Opn CL	15x	Satellite cluster. Six stars in two columns
 NGC2264	Mon	CL+Neb	15x	Christmas tree. 
 NGC2392	Gem	Pln Neb	15x, 51x +/- OIII, UHC, 72x	Eskimo nebula, C39. From Wasat (Delta Gem) move east to 63 Gem. 63 Gem is the brightest star of a 'half moon' of 7 stars. The Eskimo nebula is next to the star HIP36370 (mag8.2), which is a bit isolated but very close to 63 on the opposite direction of Wasat. You can spot it at 15x without filters, but you see it only with averted vision. It appears as a very small patch next to the star. At 51x the nebula is visible as a grey little ball. The boundaries are obfuscated. An UHC filter helps increasing the contrast between the sky and the nebula. An OIII filter shows even more contrast, although I think an UHC filter is better at this exit pupil (1.2mm). Using these filters, the boundaries of the nebula appear much clearer although no structure is visible at this magnification. At 72x (and no filter) is still visible as a grey little ball. Boundaries are obfuscated.  
 Jupiter	Cnc	Planet	72x	Quick observation. Two bands and four satellite were visible. 
-Alphard	Hya	Star	72x	Yellow star
-Spica	Vir	Star	72x	Blue star
-Regulus	Leo	Dbl Star	15x, 72x	Blue-white double star visible at 15x. Clearly split at 72x although not all this magnification is actually required for split it.
+Alpha	Hya	Star	72x	Alphard. Yellow star
+Alpha	Vir	Star	72x	Spica. Blue star
+Alpha	Leo	Dbl Star	15x, 72x	Regulus. Blue-white double star visible at 15x. Clearly split at 72x although not all this magnification is actually required for split it.
 				
 				
 				
@@ -289,7 +289,7 @@ Target	Cons	Type	Power	Notes
 Jupiter	Cnc	Planet	103x, 206x	Observed in the twilight. The idea started as a joke because I thought the image would have been too dark for discerning any detail. Instead, it was possible to perceive a little amount of shades on the two major bands of the planet. The boundaries of the other two less visible bands (North and South hemisphere, respectively) were also there. At 103x I was able to see the boundaries of these two bands on the 'equator side', but not on the 'pole side'. At 206x these were noticeable. 4 moons were detectable and one was just about to get closer to Jupiter. I agree with Gerry (sgl: jetstream) that watching Jupiter in twilight shows more contrast. I was also able to see some red-ish colour on the major two bands, which instead is less noticeable when watching Jupiter in the dark. Looking at a bright source before watching the planet did not help me instead. I found I had more difficulty to notice details. Although the exit pupil was only 0.3mm, floaters did not cause me serious problems. Interestingly, I found floaters to be a problem when watching the Sun at 103x. Could these be related to overall image brightness? 
 Venus	Gem	Planet	103x, 206x	Observed in the twilight. Visible 60% of its phase. No cloud detail was detectable. At 206x, on one side of the focus, Venus appeared violet, on the other side green/yellow. When in focus, there was no colour aberration. Curiously, at this magnification it was still very bright suggesting that a variable polarising filter might be beneficial. 
 C1	UMi	Opn CL	28x	The detail of this target seemed accessible, but I did not manage to see anything in the position suggested by Stellarium. Unfortunately, I did not have a star atlas with me. 
-Polaris	UMi	Dbl Star	28x, 103x	A nice target because of the large difference in brightness between the two stars. The Alpha Polaris companion was dim grey and detectable at 28x with some difficulty. 103x easily split the two stars. 
+Alpha	UMi	Dbl Star	28x, 103x	Polaris. A nice target because of the large difference in brightness between the two stars. Polaris' companion was dim grey and detectable at 28x with some difficulty. 103x easily split the two stars. 
 M60	Vir	Galaxy	28x	It was detectable with averted vision at 28x. It appeared as a grey patch without a structure. I tried M58, but it was not visible. I believe that to see these targets with this small telescope, very dark skies are required.
 NGC6992 / NGC6960 - C33 / C34	Cyg	Glob CL	15x + OIII	Veil Nebula. No visible, although it is not the best time of the year to see this target.
 M57	Lyr	Pln Neb	15x + OIII	Ring Nebula. The OIII filter largely improves the detection of this nebula at 15x. Without a filter, its detection is not easy. It emerges in the sky as a grey little ball. I believe the Nagler 7mm or even the Vixen 5mm can give great views when combined with an OIII filter.
