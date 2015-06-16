@@ -1,6 +1,6 @@
 /* 
  * Author: Piero Dalle Pezze
- * Version: 0.2
+ * Version: 0.3
  * Created on: 13/04/2015
  */
 package org.astrojournal;
@@ -20,20 +20,20 @@ public class AJObservation {
     /** A string containing the location name. */
     public static final String LOCATION_NAME = "Location";
     /** A string containing the altitude name. */
-    public static final String ALTITUDE_NAME = "Altitude (MAMSL)";
+    public static final String ALTITUDE_NAME = "Altitude";
     /** A string containing the temperature name. */
-    public static final String TEMPERATURE_NAME = "Temperature (C)";
+    public static final String TEMPERATURE_NAME = "Temperature";
     /** A string containing the seeing name. */
-    public static final String SEEING_NAME = "Seeing (Antoniadi scale)";
+    public static final String SEEING_NAME = "Seeing";
     /** A string containing the transparency name. */
-    public static final String TRANSPARENCY_NAME = "Transparency (AAAA scale)";
+    public static final String TRANSPARENCY_NAME = "Transparency";
 
     /** A string containing the list of telescopes name. */
     public static final String TELESCOPES_NAME = "Telescopes";
     /** A string containing the list of eyepieces name. */
     public static final String EYEPIECES_NAME = "Eyepieces";
     /** A string containing the list of power/exit pupil/fov name. */
-    public static final String POWER_EXIT_PUPIL_FOV_NAME = "Power, Exit pupil, FOV";
+    public static final String POWER_EXIT_PUPIL_FOV_NAME = "Power, EP, FOV";
     /** A string containing the filters name. */
     public static final String FILTERS_NAME = "Filters";
 

@@ -1,6 +1,6 @@
 /*
  * Author: Piero Dalle Pezze
- * Version: 0.1
+ * Version: 0.2
  * Created on: 28/05/2015
  */
 package org.astrojournal;
@@ -50,7 +50,7 @@ public class AJObservationExporter {
         new File(latexReportsFolder, "obs" + filenameOut + ".tex")), "utf-8"));
 
       table.write("% General observation data\n");
-      table.write("\\begin{tabular}{ p{1.7in} p{1.2in} p{1.5in} p{4.2in}}\n");
+      table.write("\\begin{tabular}{ p{0.9in} p{1.3in} p{1.2in} p{5.2in}}\n");
       table.write("{\\bf " + AJObservation.DATE_NAME + ":} & "
         + obs.getDate() + " & {\\bf " + AJObservation.TELESCOPES_NAME
         + ":} & " + obs.getTelescopes() + " \\\\ \n");
@@ -75,7 +75,7 @@ public class AJObservationExporter {
 
       table.write("% Detailed observation data\n");
       table.write("\\centering \n");
-      table.write("\\begin{longtable}{ p{0.8in}  p{0.3in}  p{0.5in}  p{0.9in}  p{5.8in} }\n");
+      table.write("\\begin{longtable}{ p{0.7in}  p{0.3in}  p{0.6in}  p{0.9in}  p{5.8in} }\n");
       table.write("\\hline \n");
       table.write("{\\bf " + AJObservationItem.TARGET_NAME + "} & {\\bf "
         + AJObservationItem.CONSTELLATION_NAME + "} & {\\bf "

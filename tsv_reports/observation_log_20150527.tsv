@@ -8,13 +8,13 @@ spelling:	CHECKED
 Date	23/02/2015			
 Time	19:00-21:00			
 Location	Cambridge, UK			
-Altitude (MAMSL)	12m			
-Temperature (C)	1 (no wind)			
-Seeing (Antoniadi scale)	2 - Slight undulations			
-Transparency (AAAA scale)	3 - Somewhat clear			
+Altitude	12m			
+Temperature	1C (no wind)			
+Seeing	2 - Slight undulations			
+Transparency	3 - Somewhat clear			
 Telescopes	Tele Vue 60 F6			
 Eyepieces	TV Panoptic 24mm, Plossl 20mm, Nagler 7mm, Vixen SLV 5mm, Bresser 2x SA			
-Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 18x, 3.3mm, 2.73deg; 103x, 0.6mm, 0.77deg; 144x, 0.4mm, 0.35deg			
+Power, EP, FOV	15x, 4mm, 4.30deg; 18x, 3.3mm, 2.73deg; 103x, 0.6mm, 0.77deg; 144x, 0.4mm, 0.35deg			
 Filters	Astronomik OIII, UHC			
 Target	Cons	Type	Power	Notes
 M42	Ori	CL+Neb	15x, 18x	4mm exit pupil + UHC shows nebula extension. OIII shows more contrast.
@@ -38,13 +38,13 @@ Cr70	Ori	Opn CL	15x	Gorgeous Orion's belt. The chain of stars surrounding Alnila
 Date	22/03/2015			
 Time	19:00-22:00			
 Location	Cambridge, UK			
-Altitude (MAMSL)	12m			
-Temperature (C)	3 (no wind)			
-Seeing (Antoniadi scale)	2 - Slight undulations			
-Transparency (AAAA scale)	3 - Somewhat clear			
+Altitude	12m			
+Temperature	3C (no wind)			
+Seeing	2 - Slight undulations			
+Transparency	3 - Somewhat clear			
 Telescopes	Tele Vue 60 F6			
 Eyepieces	TV Panoptic 24mm, Nagler 7mm, Vixen SLV 5mm, Bresser 2x SA			
-Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 51x, 1.2mm, 1.54deg; 144x, 0.4mm, 0.35deg			
+Power, EP, FOV	15x, 4mm, 4.30deg; 51x, 1.2mm, 1.54deg; 144x, 0.4mm, 0.35deg			
 Filters	Astronomik OIII			
 Target	Cons	Type	Power	Notes
 M45	Tau	Opn CL	15x, 51x	Very clear and defined. 15x offers the best fov.
@@ -77,13 +77,13 @@ Jupiter	Cnc	Planet	144x	Order: Europa, Callisto, Jupiter, Io, Ganymede. Two band
 Date	24/03/2015			
 Time	19:00-21:30			
 Location	Cambridge, UK			
-Altitude (MAMSL)	12m			
-Temperature (C)	5 (no wind)			
-Seeing (Antoniadi scale)	3 - Moderate seeing			
-Transparency (AAAA scale)	3 - Somewhat clear			
+Altitude	12m			
+Temperature	5C (no wind)			
+Seeing	3 - Moderate seeing			
+Transparency	3 - Somewhat clear			
 Telescopes	Tele Vue 60 F6			
 Eyepieces	TV Panoptic 24mm, Nagler 7mm, Vixen SLV 5mm, Bresser 2x SA			
-Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 51x, 1.2mm, 1.54deg; 72x, 0.8, 0.69deg; 144x, 0.4mm, 0.35deg			
+Power, EP, FOV	15x, 4mm, 4.30deg; 51x, 1.2mm, 1.54deg; 72x, 0.8, 0.69deg; 144x, 0.4mm, 0.35deg			
 Filters				
 Target	Cons	Type	Power	Notes
 M47	Pup	Opn CL	15x, 51x	Superb anchor shape. 51x reveals many more details. Quite tight double star near the centre. From Alpha Mon, go 5 degrees South.
@@ -105,13 +105,13 @@ M35	Gem	Opn CL	72x	Many other stars are visible.
 Date	25/03/2015			
 Time	21:00-22:45			
 Location	Cambridge, UK			
-Altitude (MAMSL)	12m			
-Temperature (C)	6 (no wind)			
-Seeing (Antoniadi scale)	2 - Slight undulations			
-Transparency (AAAA scale)	3 - Somewhat clear			
+Altitude	12m			
+Temperature	6C (no wind)			
+Seeing	2 - Slight undulations			
+Transparency	3 - Somewhat clear			
 Telescopes	Tele Vue 60 F6			
 Eyepieces	TV Panoptic 24mm, Plossl 20mm, Nagler 7mm, Vixen SLV 5mm, Bresser 2x SA			
-Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 18x, 3.3mm, 2.73deg; 30x, 2mm, 2.15deg; 51x, 1.2mm, 1.54deg; 72x, 0.8mm, 0.69deg			
+Power, EP, FOV	15x, 4mm, 4.30deg; 18x, 3.3mm, 2.73deg; 30x, 2mm, 2.15deg; 51x, 1.2mm, 1.54deg; 72x, 0.8mm, 0.69deg			
 Filters	Astronomik UHC, OIII			
 Target	Cons	Type	Power	Notes
 M47	Pup	Opn CL	15x	Rich of stars. These are quite spread, making this cluster easy to detect and study.
@@ -132,13 +132,13 @@ Alpha	Leo	Dbl Star	15x, 72x	Regulus. Blue-white double star visible at 15x. Clea
 Date	06/04/2015			
 Time	21:00-22:45			
 Location	Cambridge, UK			
-Altitude (MAMSL)	12m			
-Temperature (C)	8 (no wind)			
-Seeing (Antoniadi scale)	2 - Slight undulations			
-Transparency (AAAA scale)	3 - Somewhat clear			
+Altitude	12m			
+Temperature	8C (no wind)			
+Seeing	2 - Slight undulations			
+Transparency	3 - Somewhat clear			
 Telescopes	Tele Vue 60 F6			
 Eyepieces	TV Panoptic 24mm, Nagler 7mm, Vixen SLV 5mm, Bresser 2x SA			
-Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 30x, 2mm, 2.15deg; 51x, 1.2mm, 1.54deg; 72x, 0.8mm, 0.69deg; 103x, 0.6mm, 0.77deg			
+Power, EP, FOV	15x, 4mm, 4.30deg; 30x, 2mm, 2.15deg; 51x, 1.2mm, 1.54deg; 72x, 0.8mm, 0.69deg; 103x, 0.6mm, 0.77deg			
 Filters	Astronomik UHC, OIII			
 Target	Cons	Type	Power	Notes
 NGC1647	Tau	Opn CL	15x, 51x	In this period of the year, Taurus is quite low on the horizon. This object did not show many stars due to the light pollution and atmosphere. You will need darker skies or look at it when it is higher on the horizon. From Aldebaran, go east for 4 degrees. It is near a couple of stars and i Tauri (mag 5), which is the brightest star in the area. 51x did not help tonight, as the object became too dim. I suspect a ~30x, exit pupil 2.0mm would be the best for these targets. 
@@ -158,13 +158,13 @@ NGC3242 - C59	Hya	Pln Neb	15x; 51x +/- OIII, UHC; 72x	Ghost of Jupiter. By naked
 Date	09/04/2015			
 Time	21:20-22:45			
 Location	Cambridge, UK			
-Altitude (MAMSL)	12m			
-Temperature (C)	9 (no wind)			
-Seeing (Antoniadi scale)	2 - Slight undulations			
-Transparency (AAAA scale)	2 - Poor			
+Altitude	12m			
+Temperature	9C (no wind)			
+Seeing	2 - Slight undulations			
+Transparency	2 - Poor			
 Telescopes	Tele Vue 60 F6			
 Eyepieces	TV Panoptic 24mm, Nagler 3.5mm			
-Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 103x, 0.6mm, 0.77deg			
+Power, EP, FOV	15x, 4mm, 4.30deg; 103x, 0.6mm, 0.77deg			
 Filters	Variable Polarizing Filter			
 Target	Cons	Type	Power	Notes
 Jupiter	Cnc	Planet	15x; 103x +/- VPF	At the eyepiece from right to left: Callisto, Io, Jupiter, Europa and Ganymede. This evening I decided to test my new eyepiece (Nagler 3.5mm). Due to the lack of transparency, I only tested this on Jupiter. This was the first time I observed at 103x without using a Bresser 2x SA. The difference was quite substantial. I had the impression that the Nagler 7mm with Bresser 2x SA was more colour corrected than the Nagler 3.5mm only at the edge (last 10% before the field stop). This might have been caused by the presence of light fog though, instead of the eyepiece. I will test this again. On the other hand, the lack of the Bresser 2x SA (4 lens less) improved transparency, and this was detectable. With a Nagler 7mm and Bresser 2x SA, I am able to see a bit more than the two main bands only when the seeing is quite good. Tonight, although the seeing was acceptable, but the sky was quite foggy. The main two bands (North and South Equatorial Belts) were visible and other two bands at the poles were easily detectable (North Polar Region, S.S. Temperate Belt). In the North and South Equatorial Belts, some shades were also detectable. No direction was visible but it was possible to see that the borders and belt colours were rough and not homogeneous. This was particularly true for the North Equatorial Band. No GRS was detectable. The use of a single or double polarizing filter did not improve image quality. The whole image only appeared too dark and the minute details previously described were lost. Possibly, the VPF is more appropriate for brighter objects (e.g. the Sun and the Moon) or Jupiter during sunset or dawn. 
@@ -174,13 +174,13 @@ Jupiter	Cnc	Planet	15x; 103x +/- VPF	At the eyepiece from right to left: Callist
 Date	11/04/2015			
 Time	18:00-19:00			
 Location	Cambridge, UK			
-Altitude (MAMSL)	12m			
-Temperature (C)	12 (wind)			
-Seeing (Antoniadi scale)	2 - Slight undulations			
-Transparency (AAAA scale)	2 - Poor			
+Altitude	12m			
+Temperature	12C (wind)			
+Seeing	2 - Slight undulations			
+Transparency	2 - Poor			
 Telescopes	Tele Vue 60 F6			
 Eyepieces	Nagler 7mm, Vixen SLV 5mm			
-Power, Exit pupil, FOV	51x, 1.2mm, 1.54deg; 72x, 0.8mm, 0.69deg			
+Power, EP, FOV	51x, 1.2mm, 1.54deg; 72x, 0.8mm, 0.69deg			
 Filters	Variable Polarizing Filter			
 Target	Cons	Type	Power	Notes
 Sun	Psc	Star	51x +/- VPF; 72x	Two spot areas: one in the north, the other one in the south. 5 small spots where visible in the north, 4-5 in the south spot area. 2 small spots in the centre of the sun. Best view 51x, using variable polarising filter. No granularity was visible due to the bad seeing.
@@ -190,13 +190,13 @@ Sun	Psc	Star	51x +/- VPF; 72x	Two spot areas: one in the north, the other one in
 Date	14/04/2015a			
 Time	18:00-19:00			
 Location	Cambridge, UK			
-Altitude (MAMSL)	12m			
-Temperature (C)	21 (no wind)			
-Seeing (Antoniadi scale)	2 - Slight undulations			
-Transparency (AAAA scale)	5 - Clear			
+Altitude	12m			
+Temperature	21C (no wind)			
+Seeing	2 - Slight undulations			
+Transparency	5 - Clear			
 Telescopes	Tele Vue 60 F6			
 Eyepieces	Nagler 7mm, Vixen SLV 5mm, Nagler 3.5mm			
-Power, Exit pupil, FOV	51x, 1.2mm, 1.54deg; 72x, 0.8mm, 0.69deg; 103x, 0.6mm, 0.77deg			
+Power, EP, FOV	51x, 1.2mm, 1.54deg; 72x, 0.8mm, 0.69deg; 103x, 0.6mm, 0.77deg			
 Filters	Variable Polarizing Filter			
 Target	Cons	Type	Power	Notes
 Sun	Psc	Star	51x +/- VPF; 72x, 103x	Today at 4pm there was a gigantic flare (CME) about 1 sun radius long. Unfortunately I was not at home. I looked at the Sun, but the flare was gone by the time I set up the telescope. A large group of black spots was visible in the North hemisphere. Around them granulation was clearly visible. Granulation was also detectable, although with some difficulty, on the Sun surface at 51x using a VPF. At 72x the Sun revealed a nice image where Sun spot details were visible as well as surface granulation. 103x was just too much for this seeing. Although it can be used for magnifying the solar spots, granulation is completely lost. In addition, floaters become a real issue when watching the sun using 0.6mm exit pupil. I think the best magnification is between 51x and 72x. The Vixen 5mm works very well with the Sun. This was used without VPF filter.
@@ -206,13 +206,13 @@ Sun	Psc	Star	51x +/- VPF; 72x, 103x	Today at 4pm there was a gigantic flare (CME
 Date	14/04/2015b			
 Time	21:30-23:20			
 Location	Cambridge, UK			
-Altitude (MAMSL)	12m			
-Temperature (C)	9 (no wind)			
-Seeing (Antoniadi scale)	2 - Slight undulations			
-Transparency (AAAA scale)	5 - Clear			
+Altitude	12m			
+Temperature	9C (no wind)			
+Seeing	2 - Slight undulations			
+Transparency	5 - Clear			
 Telescopes	Tele Vue 60 F6			
 Eyepieces	TV Panoptic 24mm, Plossl 20mm, Nagler 7mm, Vixen SLV 5mm, Nagler 3.5mm			
-Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 18x, 3.3mm, 2.7deg; 51x, 1.2mm, 1.54deg; 72x, 0.8mm, 0.69deg; 103x, 0.6mm, 0.77deg			
+Power, EP, FOV	15x, 4mm, 4.30deg; 18x, 3.3mm, 2.7deg; 51x, 1.2mm, 1.54deg; 72x, 0.8mm, 0.69deg; 103x, 0.6mm, 0.77deg			
 Filters				
 Target	Cons	Type	Power	Notes
 M35	Gem	Opn CL	15x	Under dark sky this object emerges clearly. A few bright stars with many little faint stars in background. Averted vision helps, but this object is not too demanding if the sky is sufficiently transparent.
@@ -229,13 +229,13 @@ Jupiter	Cnc	Planet	103x, 72x	Transit of Ganymede on Jupiter. Little black dot on
 Date	30/04/2015			
 Time	22:00-23:00			
 Location	Cambridge, UK			
-Altitude (MAMSL)	12m			
-Temperature (C)	6 (no wind)			
-Seeing (Antoniadi scale)	2 - Slight undulations			
-Transparency (AAAA scale)	5 - Clear			
+Altitude	12m			
+Temperature	6C (no wind)			
+Seeing	2 - Slight undulations			
+Transparency	5 - Clear			
 Telescopes	Tele Vue 60 F6			
 Eyepieces	TV Panoptic 24mm, Nagler 7mm, Nagler 3.5mm			
-Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 51x, 1.2mm, 1.54deg; 103x, 0.6mm, 0.77deg			
+Power, EP, FOV	15x, 4mm, 4.30deg; 51x, 1.2mm, 1.54deg; 103x, 0.6mm, 0.77deg			
 Filters				
 Target	Cons	Type	Power	Notes
 Moon	Vir	Satellite	51x, 103x	Moon phase 91%. The moon at 103x did not need a filter. It was very crisp and showed details in the south hemisphere despite it was almost full. At 51x, the moon is simply scaled of a factor of 1/2, indicating that the Nagler 3.5mm behaves as a perfect 2x Nagler 7mm. It would be useful to have a Moon map to check the crater's names. 
@@ -251,13 +251,13 @@ NGC2392 - C39	Gem	Pln Neb	15x, 51x	Eskimo nebula. At 15x it was detectable with 
 Date	12/05/2015			
 Time	21:00-23:45			
 Location	Cambridge, UK			
-Altitude (MAMSL)	12m			
-Temperature (C)	6 (wind: 20km/h)			
-Seeing (Antoniadi scale)	2 - Slight undulations			
-Transparency (AAAA scale)	5 - Clear			
+Altitude	12m			
+Temperature	6C (wind: 20km/h)			
+Seeing	2 - Slight undulations			
+Transparency	5 - Clear			
 Telescopes	Tele Vue 60 F6			
 Eyepieces	TV Panoptic 24mm, Nagler 13mm, Nagler 7mm, Nagler 3.5mm, Bresser SA 2x			
-Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 28x, 2.2mm, 2.80deg; 51x, 1.2mm, 1.54deg; 103x, 0.6mm, 0.77deg; 206x, 0.3mm, 0.38deg			
+Power, EP, FOV	15x, 4mm, 4.30deg; 28x, 2.2mm, 2.80deg; 51x, 1.2mm, 1.54deg; 103x, 0.6mm, 0.77deg; 206x, 0.3mm, 0.38deg			
 Filters				
 Target	Cons	Type	Power	Notes
 Jupiter	Cnc	Planet	103x, 206x	Observed in the twilight. Still visible at 206x with some detail but the new tripod is not up to this sort of magnifications. To be fair, the new tripod was fine at 103x but only when there was no wind. 3 bands and 4 moons visible. It would be interesting to try 206x with my solid tripod.
@@ -277,13 +277,13 @@ Saturn	Sco	Planet	103x	Very low on the horizon and therefore not the best moment
 Date	13/05/2015			
 Time	21:00-0:00			
 Location	Cambridge, UK			
-Altitude (MAMSL)	12m			
-Temperature (C)	8 (no wind)			
-Seeing (Antoniadi scale)	1 - Perfect seeing			
-Transparency (AAAA scale)	5 - Clear			
+Altitude	12m			
+Temperature	8C (no wind)			
+Seeing	1 - Perfect seeing			
+Transparency	5 - Clear			
 Telescopes	Tele Vue 60 F6			
 Eyepieces	TV Panoptic 24mm, Nagler 13mm, Nagler 3.5mm, Bresser SA 2x			
-Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 28x, 2.2mm, 2.80deg; 103x, 0.6mm, 0.77deg; 206x, 0.3mm, 0.38deg			
+Power, EP, FOV	15x, 4mm, 4.30deg; 28x, 2.2mm, 2.80deg; 103x, 0.6mm, 0.77deg; 206x, 0.3mm, 0.38deg			
 Filters	Astronomik OIII			
 Target	Cons	Type	Power	Notes
 Jupiter	Cnc	Planet	103x, 206x	Observed in the twilight. The idea started as a joke because I thought the image would have been too dark for discerning any detail. Instead, it was possible to perceive a little amount of shades on the two major bands of the planet. The boundaries of the other two less visible bands (North and South hemisphere, respectively) were also there. At 103x I was able to see the boundaries of these two bands on the 'equator side', but not on the 'pole side'. At 206x these were noticeable. 4 moons were detectable and one was just about to get closer to Jupiter. I agree with Gerry (sgl: jetstream) that watching Jupiter in twilight shows more contrast. I was also able to see some red-ish colour on the major two bands, which instead is less noticeable when watching Jupiter in the dark. Looking at a bright source before watching the planet did not help me instead. I found I had more difficulty to notice details. Although the exit pupil was only 0.3mm, floaters did not cause me serious problems. Interestingly, I found floaters to be a problem when watching the Sun at 103x. Could these be related to overall image brightness? 
@@ -300,13 +300,13 @@ Saturn	Sco	Planet	103x	It was a bit higher than yesterday, but unfortunately, my
 Date	20/05/2015			
 Time	21:30-0:00			
 Location	Cambridge, UK			
-Altitude (MAMSL)	12m			
-Temperature (C)	9 (no wind)			
-Seeing (Antoniadi scale)	3 - Moderate seeing			
-Transparency (AAAA scale)	5 - Clear			
+Altitude	12m			
+Temperature	9C (no wind)			
+Seeing	3 - Moderate seeing			
+Transparency	5 - Clear			
 Telescopes	Tele Vue 60 F6			
 Eyepieces	TV Panoptic 24mm, Nagler 13mm, Nagler 3.5mm, Bresser SA 2x			
-Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 28x, 2.2mm, 2.80deg; 103x, 0.6mm, 0.77deg; 206x, 0.3mm, 0.38deg			
+Power, EP, FOV	15x, 4mm, 4.30deg; 28x, 2.2mm, 2.80deg; 103x, 0.6mm, 0.77deg; 206x, 0.3mm, 0.38deg			
 Filters	Astronomik OIII, Single Polarising Filter			
 Target	Cons	Type	Power	Notes
 Jupiter	Cnc	Planet	103x +/- SPF, 206x + SPF	Observed in the twilight. The SPF noticeably improved the view. Four bands and the transit of Callisto were easily visible at both 103x and 206x. The use of a SPF seemed to stabilise the image and improved contrast. A fair amount of shades were also perceptible on the main two bands. The transit appeared as a crisp black dot on the planet atmosphere. Without the SPF it was only possible to see the two main bands and no shade on them. They simply appeared as two thick lines across the planet. Interestingly the transit shadow appeared a tiny bit better without the filter. To me, using the SPF requires a bit of experience in order to rotate the eyepiece to gain the best contrast. However this is feasible.
@@ -324,13 +324,13 @@ Saturn	Sco	Planet	103x, 206x	It is still fairly low on the horizon. Titan was vi
 Date	26/05/2015			
 Time	21:15-0:00			
 Location	Cambridge, UK			
-Altitude (MAMSL)	12m			
-Temperature (C)	9-14 (wind: 15km/h)			
-Seeing (Antoniadi scale)	2 - Slight undulations			
-Transparency (AAAA scale)	5 - Clear			
+Altitude	12m			
+Temperature	9-14C (wind: 15km/h)			
+Seeing	2 - Slight undulations			
+Transparency	5 - Clear			
 Telescopes	Tele Vue 60 F6			
 Eyepieces	TV Panoptic 24mm, Nagler 13mm, Nagler 3.5mm, Bresser SA 2x			
-Power, Exit pupil, FOV	15x, 4mm, 4.30deg; 28x, 2.2mm, 2.80deg; 103x, 0.6mm, 0.77deg; 206x, 0.3mm, 0.38deg			
+Power, EP, FOV	15x, 4mm, 4.30deg; 28x, 2.2mm, 2.80deg; 103x, 0.6mm, 0.77deg; 206x, 0.3mm, 0.38deg			
 Filters	Astronomik UHC, OIII, Single Polarising Filter			
 Target	Cons	Type	Power	Notes
 Jupiter	Cnc	Planet	103x +/- SPF	Observed in civil twilight. The seeing was not enough good for pushing magnification beyond 103x. At 103x, two major bands and two moons were visible. I did not spend much on this target tonight because it was too windy when I observed it.

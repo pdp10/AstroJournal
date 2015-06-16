@@ -1,6 +1,6 @@
 /*
  * Author: Piero Dalle Pezze
- * Version: 0.5
+ * Version: 0.6
  * Created on: 12/04/2015
  */
 package org.astrojournal;
