@@ -9,12 +9,12 @@ Git repository:	  https://pdp10@bitbucket.org/pdp10/astrojournal.git
 
 Object:
 =======
-This Java program generates Latex code from the tab-separated value (tsv) files containing astronomy observations edited in Google Drive.
+This Java application imports files containing astronomy observations and generates an integrated journal document in PDF format using Latex. Observation files can be edited using a common Spreadsheet software (e.g. Google Spreadsheet, LibreOffice Calc, Office Excel) and must be saved as tab-separated value (tsv) files
+.
 
 
-
-Using AstroJournal:
-===================
+Requirements:
+=============
 To use AstroJournal you need to install:
 - Java 1.6+
 - TeX Live (pdflatex or texi2tex must be installed)
@@ -23,9 +23,47 @@ You can download AstroJournal here. After downloading and uncompressing the file
 
 
 
+How to create an observation record:
+====================================
+As currently implemented, the format of the observation tables is specific. A sample of an observation table is provides below. The titles (e.g. Date, Time, Target, Cons, ..) cannot be changed as these are used by AstroJournal to retrieve the data. 
+
+Date	03/06/2015			
+Time	21:40-23:30			
+Location	Cambridge, UK			
+Altitude	12m			
+Temperature	12C (wind: 0km/h)			
+Seeing	1 - Perfect seeing			
+Transparency	5 - Clear			
+Telescopes	Tele Vue 60 F6			
+Eyepieces	TV Panoptic 24mm, Nagler 3.5mm			
+Power, EP, FOV	15x, 4mm, 4.30deg; 103x, 0.6mm, 0.77deg		
+Filters	Single Polarising Filter			
+Target	Cons	Type	Power	Notes
+Jupiter	Cnc	Planet	103x +/- SPF	Write description here.
+Moon	Sgr	Satellite	103x	Write description here.
+
+
+Use case
+========
+# 1. edit your observation using a SpreadSheet (e.g. Google Drive) (see above);
+# 2. save your observations as .tsv (tab separated values) and put this .tsv file in the folder tsv_reports/;
+# 3. run the following command for creating or updating the journal
+./create_journal.sh
+# 4. run the following command for versioning the new files (just me).
+./push_obs_git.sh
+
+
+
+Thanks for using AstroJournal!
+Piero
+
+
+
+
 History of AstroJournal:
 ========================
 v0.5
+- improved pdf layout
 - extracted Latex header and footer from Java code
 - added additional controls
 - bug fixes
@@ -62,7 +100,6 @@ v0.1
 
 
 
-
 Iced features:
 ==============
 - improve code for importing an observation without being dependent on AJMain.
@@ -76,23 +113,3 @@ Close bugs:
 ===========
 - Latex long table can generate an empty page if the current table spans until the end of the page. This empty page should be removed. [SOLVED] Replaced \begin{centre} ... \end{centre} with \centering for longtable
 
-
-
-Thanks for using AstroJournal!
-
-Piero
-
-
-
-
-
-
-
-Use case
-========
-# 1. edit your observation using a SpreadSheet (e.g. Google Drive);
-# 2. save your observations as .tsv (tab separated values) and put this .tsv file in the folder tsv_reports/;
-# 3. run the following command for creating or updating the journal
-./create_journal.sh
-# 4. run the following command for versioning the new files (just me).
-./push_obs_git.sh
