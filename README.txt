@@ -2,7 +2,9 @@
 # AstroJournal
 
 Author: Piero Dalle Pezze
+
 Licence: GPL v3 (2015)
+
 Git repository: https://pdp10@bitbucket.org/pdp10/astrojournal.git
 
 
@@ -32,7 +34,8 @@ As currently implemented, the format of the observation tables is
 specific. A sample of an observation table is provides below. The 
 titles (e.g. Date, Time, Target, Cons, ..) cannot be changed as these 
 are used by AstroJournal to retrieve the data. All fields are separated 
-by a tab character (\t) indicated with TAB on this example: 
+by a tab character (\t) explicitly shown in this example with a TAB text 
+when this must be included.  
 
 Date TAB 03/06/2015			
 Time TAB 21:40-23:30			
