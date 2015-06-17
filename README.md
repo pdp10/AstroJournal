@@ -52,6 +52,9 @@ Target TAB Cons TAB Type TAB Power TAB Notes
 Jupiter TAB Cnc TAB Planet TAB 103x +/- SPF TAB Write description here.
 Moon TAB Sgr TAB Satellite TAB 103x TAB Write description here.
 
+Examples of observations can also be found in the folder tsv_folder/ and 
+can be opened using a text editor or a spreadsheet software.
+
 
 
 ## Use case
