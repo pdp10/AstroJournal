@@ -89,10 +89,11 @@ v0.4
 
 v0.3
 - add latex command for showing tables on multiple pages ( http://users.sdsc.edu/~ssmallen/latex/longtable.html )
-- Draw of your own images to replace the existing ones. However, I decided to omit images 
-so the pdf is lighter and faster to load on the browser
-- use tsv_files and observations outside of dist/ . Not necessary to copy these two folders 
-into dist/ . Therefore, you only keep your data in one place. Simplified build.xml to have jar file in the current directory
+- Draw of your own images to replace the existing ones. However, I decided to omit 
+images so the pdf is lighter and faster to load on the browser
+- use tsv_files and observations outside of dist/ . Not necessary to copy these two 
+folders into dist/ . Therefore, you only keep your data in one place. Simplified 
+build.xml to have jar file in the current directory
 
 v0.2
 - improved code in Observation.java and ObservationItem.java
@@ -119,6 +120,6 @@ Open bugs:
 
 Close bugs:
 ===========
-- Latex long table can generate an empty page if the current table spans until the end of the 
-page. This empty page should be removed. [SOLVED] Replaced \begin{centre} ... \end{centre} 
-with \centering for longtable.
+- Latex long table can generate an empty page if the current table spans until the end 
+of the page. This empty page should be removed. [SOLVED] Replaced \begin{centre} ... 
+\end{centre} with \centering for longtable.
