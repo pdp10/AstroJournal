@@ -59,7 +59,7 @@ Piero
 
 # Additional information:
 
-## History of AstroJournal:
+## ChangeLog:
 v0.5
 - improved pdf layout
 - extracted Latex header and footer from Java code
