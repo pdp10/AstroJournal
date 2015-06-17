@@ -1,4 +1,3 @@
-
 # Application name: AstroJournal
 # Author: Piero Dalle Pezze
 # Licence: GPL v3 (2015)
@@ -24,7 +23,8 @@ typing: ./create_journal.sh.
 ## How to create an observation record:
 As currently implemented, the format of the observation tables is specific. A sample 
 of an observation table is provides below. The titles (e.g. Date, Time, Target, Cons, ..) 
-cannot be changed as these are used by AstroJournal to retrieve the data. All fields are separated by a TAB (\t) character.
+cannot be changed as these are used by AstroJournal to retrieve the data. All 
+fields are separated by a TAB (\t) character.
 
 Date	03/06/2015			
 Time	21:40-23:30			
