@@ -80,6 +80,7 @@ Piero
 
 v0.5
 
+- added Messier and Caldwell catalogues as reference in the end
 - improved pdf layout
 - extracted Latex header and footer from Java code
 - added additional controls
