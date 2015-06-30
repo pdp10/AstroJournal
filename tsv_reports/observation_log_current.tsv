@@ -2,8 +2,12 @@
 Astronomy observation log - Current				
 by Piero Dalle Pezze				
 				
-completed:	FALSE			
-spelling:	UNCHECKED			
+completed:	FALSE		TV Panoptic 24mm	15x, 4mm, 4.30deg
+spelling:	UNCHECKED		TV Plossl 20mm	18x, 3.3mm, 273deg
+			TV Nagler 13mm	28x, 2.2mm, 2.80deg
+			TV Nagler 7mm	51x, 1.2mm, 1.54deg
+			Vixen SLV 5mm	72x, 0.8mm, 0.69deg
+			TV Nagler 3.5mm	103x, 0.6mm, 0.77deg
 				
 Date	03/06/2015			
 Time	21:40-23:30			
@@ -137,10 +141,48 @@ Seeing	2 - Slight undulations
 Transparency	5 - Clear			
 Telescopes	Tele Vue 60 F6			
 Eyepieces	TV Plossl 20mm, Nagler 13mm, Vixen 5mm SLV, Nagler 3.5mm, Bresser SA 2x			
-Power, EP, FOV	18x, 3.3mm, 273deg; 28x, 2.2mm, 2.80deg; 72x, 0.8mm, 0.69deg; 103x, 0.6mm, 0.77deg; 206x, 0.3mm, 0.38deg			
+Power, EP, FOV	18x, 3.3mm, 2.73deg; 28x, 2.2mm, 2.80deg; 72x, 0.8mm, 0.69deg; 103x, 0.6mm, 0.77deg; 206x, 0.3mm, 0.38deg			
 Filters				
 Target	Cons	Type	Power	Notes
 Venus	Com	Planet	28x, 72x, 103x	Observation at twilight. Phase about 40%. Again, the Vixen revealed a wonderful Venus. Very crisp on the border and a clear arc defining the phase. A few times I had the impression of a slightly darker patch on the clouds located in the South hemisphere near the centre centre of the planet. This happened with Venus at different position in the eyepiece. At 103x Venus was still a pleasure to see, but not as much as at 72x. At 28x the phase was clearly there too, and the image was still crisp.
 Jupiter	Leo	Planet	72x, 103x	Observation at twilight. All four moons were visible tonight. At 72x 4 belts were detectable and colours were also visible. These appeared as brown-red for the belts and slightly darker white for the zones. At 103x the image was a bit degraded compared to 72x. I believe the Vixen SLV is just a tiny but noticeable bit better than the nagler 3.5mm
 Saturn	Lib	Planet	18x, 28x, 72x, 103x	Observation at twilight. At 72x, Titan was clearly visible and appeared yellow-orange. The planet appeared yellow globally, whereas one the North Equatorial Belt was more orange. The Cassini division was detectable on the lateral parts of the rings and the Ring A was distinguishable from the Ring B, due to the difference colour intensity. At 103x, no additional detail was visible, but the Cassini division was still there on the lateral parts. At 28x, the rings were visible and well separated from the planet. Titan's colour was a bit more orange. It is really interesting that these colours appear much more evident when the sky is clear rather than dark. I believe this is due to the eye cones which are more active than the eye rods. At 18x, I could not really distinguish the rings from the planet, although the non spherical shape was observable. No additional moon was detectable at these low powers. 
 Moon	Vir	Satellite	28x, 72x, 103x, 206x	Observation at twilight. Waxing crescent at about 40%. At 72x, the Moon was really beautiful and crisp. Very soft little clouds passed over the South hemisphere and the view was really suggestive. At 103x, some more detail were visible, although these were somehow lost at 206x due to the non perfect seeing which did not allow to get a perfect focus. At 28x, the Moon appeared as a lovely target floating on the sky. The ultra wide field of the Nagler 13mm really shows the Moon and the surrounding context.
+				
+				
+				
+Date	29/06/2015			
+Time	21:30-22:00			
+Location	Cambridge, UK			
+Altitude	12m			
+Temperature	21C (wind: 6km/h)			
+Seeing	2 - Slight undulations			
+Transparency	4 - Partly clear			
+Telescopes	Tele Vue 60 F6			
+Eyepieces	Vixen 5mm SLV, Nagler 3.5mm, Bresser SA 2x			
+Power, EP, FOV	72x, 0.8mm, 0.69deg; 103x, 0.6mm, 0.77deg; 206x, 0.3mm, 0.38deg			
+Filters				
+Target	Cons	Type	Power	Notes
+Moon	Oph	Satellite	72x, 103x, 206x	Observation at twilight. Waxing Gibbous, 94%. The moon was not very crisp tonight due to a little layer of high clouds caused by the high temperature during the day. I moved from Montes Apenninus to Copernicus. A small crater was visible inside, but many details on the circular border were not clear. Therefore I moved to Kepler as this was farther East hoping to improve the visible contrast. This showed a little shadow on one border. At 206x, from Kepler I moved North-East, following the crater chain formed by Kepler C, Marius D, F, A, C, and B. All these craters are relatively small and close to each other. Finally I moved North reaching Aristarchus which appeared beautiful. This white crater shows an impressive contrast and is close to a little half circle of hills at North-East and a dark crater (Herodotus) at East. Really nice view.
+				
+				
+				
+Date	30/06/2015			
+Time	21:30-23:20			
+Location	Cambridge, UK			
+Altitude	12m			
+Temperature	20C (wind: 10km/h)			
+Seeing	3 - Moderate seeing			
+Transparency	4 - Partly clear			
+Telescopes	Tele Vue 60 F6			
+Eyepieces	Nagler 13mm, Vixen 5mm SLV, Nagler 3.5mm, Bresser SA 2x			
+Power, EP, FOV	28x, 2.2mm, 2.80deg; 72x, 0.8mm, 0.69deg; 144x, 0.4mm, 0.35deg; 206x, 0.3mm, 0.38deg			
+Filters				
+Target	Cons	Type	Power	Notes
+Venus - Jupiter	Com	Planet	28x, 72x, 103x	Observation at twilight. Conjunction Venus-Jupiter. The two planets were about 0.3 / 0.5 degrees apart. Venus was largely brighter and bigger than Jupiter. Venus phase was less than 40%. The planet border was well defined. Jupiter bands were only visible at low power (28x) due to the mediocre seeing. It was possible to see 3 satellites but the sky was still too bright for detect them easily. It was nice to see this conjunction, but unfortunately the seeing did not allow sufficient resolution for Jupiter which was not easy to focus. At 28x the North and South Equatorial belts were visible in the early evening. It was an interesting conjunction but not as great as the one I saw when I was teenager. At the time the two planets were elongated at naked eye. It was spectacular.
+Saturn	Lib	Planet	72x	Observation at twilight. Due to the poor seeing, I did not push magnifications higher than 72x. Even at this zoom, the planet was not very crisp. 
+Moon	Oph	Satellite	72x, 144x, 206x	Observation at twilight. Waxing Gibbous and phase 97%. I observed Tycho, Copernicus and Kepler. 
+NGC6910	Cyg	Opn CL	28x	From Deneb (Alpha), I moved to Sadr (Gamma). This open cluster is on the line between these two stars, but on the side of Sadr. Its size is only 8', but is sufficiently bright (magnitude 7.4, surface brightness 11.7). It is formed by few bright stars and I could count about 7-8 dim stars. Apparently, many of these stars are variable. Very beautiful to me. 
+M29	Cyg	Opn CL	28x	Cooling Tower. From Sadr (Gamma), this cluster is East - South-East. The main six stars forming a little tower, or an academic hat, were easily visible. No dim star was detectable likely due to the Moon. This is a nice cluster which might be interesting to see at higher power (e.g. 51x). 
+IC4996 - Cr418	Cyg	Opn CL	28x	From M29, I moved South. This is a very small open cluster which is detectable at this low power, but would benefit of higher power. It is on a separate star near three pairs of aligned stars. Three - four stars were detectable apart from the main one.
+NGC6883 - Cr415	Cyg	Opn CL	28x	From IC4996, I moved South, using as a reference a group of stars reminding me of a pan and a long handle. NGC6883 is located below a line of 3 stars. It is quite easy to find. There are lovely double stars in this area, and in this beautiful little cluster. I counted 3-4 pairs forming this cluster. All these are well separated at 28x. Beautiful.
