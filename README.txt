@@ -78,6 +78,10 @@ Piero
 
 ## ChangeLog:
 
+v0.6
+
+- Imported list of objects observed by Catalogue.
+
 v0.5
 
 - added Messier and Caldwell catalogues as reference in the end
