@@ -1,21 +1,37 @@
 #!/bin/bash
 
-input_folder="tsv_reports"
-output_folder="latex_reports"
+input_reports_folder="tsv_reports"
+output_reports_folder="latex_reports"
+input_catalogues_folder="tsv_catalogues"
+output_catalogues_folder="latex_catalogues"
 aj_latex_file="astrojournal.tex"
 
 
-# Check if input_folder exists
-if [ ! -d ${input_folder} ]; then
-    printf "Folder ${input_folder} does not exist. Aborting.\n";
+# Check if input_reports_folder exists
+if [ ! -d ${input_reports_folder} ]; then
+    printf "Folder ${input_reports_folder} does not exist. Aborting.\n";
     exit 1;
 fi
 
-# Check if output_folder_exists
-if [ ! -d ${output_folder} ]; then
-    printf "Folder ${output_folder} does not exist. Aborting.\n";
+# Check if output_reports_folder exists
+if [ ! -d ${output_reports_folder} ]; then
+    printf "Folder ${output_reports_folder} does not exist. Aborting.\n";
     exit 1;
 fi
+
+# Check if input_catalogues_folder exists
+if [ ! -d ${input_catalogues_folder} ]; then
+    printf "Folder ${input_catalogues_folder} does not exist. Aborting.\n";
+    exit 1;
+fi
+
+# Check if output_catalogues_folder exists
+if [ ! -d ${output_catalogues_folder} ]; then
+    printf "Folder ${output_catalogues_folder} does not exist. Aborting.\n";
+    exit 1;
+fi
+
+
 
 
 # Remove previous aj_latex_file file 
@@ -25,7 +41,7 @@ rm -f ${aj_latex_file}
 
 
 # Run AstroJournal and generate the Latex code
-java -jar astrojournal-*.jar ${input_folder} ${output_folder}
+java -jar astrojournal-*.jar ${input_reports_folder} ${output_reports_folder} ${input_catalogues_folder} ${output_catalogues_folder}
 
 
 # Check whether astrojournal.tex is empty (has not been created correctly)
@@ -54,5 +70,5 @@ fi
 
 
 # Clean the temporary and log files
-rm -rf *.aux *.log *~ *.out ${output_folder}/*.aux 
+rm -rf *.aux *.log *~ *.out ${output_reports_folder}/*.aux ${output_catalogues_folder}/*.aux
 
