@@ -81,6 +81,7 @@ Piero
 v0.6
 
 - Imported list of objects observed by Catalogue.
+- Added list of contents, sections, moved to Article class
 
 v0.5
 

@@ -74,7 +74,6 @@ public class AJObservationExporter {
       
 
       table.write("% Detailed observation data\n");
-      table.write("\\centering \n");
       table.write("\\begin{longtable}{ p{0.7in}  p{0.3in}  p{0.6in}  p{0.9in}  p{5.8in} }\n");
       table.write("\\hline \n");
       table.write("{\\bf " + AJObservationItem.TARGET_NAME + "} & {\\bf "

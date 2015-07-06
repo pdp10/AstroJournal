@@ -57,9 +57,11 @@ fi
 if command -v pdflatex 2>/dev/null >&2; then {
     printf "Generating astrojournal.pdf using pdflatex ... ";
     pdflatex astrojournal.tex >/dev/null;
+    pdflatex astrojournal.tex >/dev/null;
     printf "DONE\n"
 } elif command -v texi2pdf 2>/dev/null >&2; then {
     printf "Generating astrojournal.pdf using texi2tex ... ";
+    texi2pdf astrojournal.tex >/dev/null;
     texi2pdf astrojournal.tex >/dev/null;
     printf "DONE\n"
 } else {
@@ -70,5 +72,5 @@ fi
 
 
 # Clean the temporary and log files
-rm -rf *.aux *.log *~ *.out ${output_reports_folder}/*.aux ${output_catalogues_folder}/*.aux
+rm -rf *.aux *.log *~ *.out *.toc ${output_reports_folder}/*.aux ${output_catalogues_folder}/*.aux
 

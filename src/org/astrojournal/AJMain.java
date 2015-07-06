@@ -206,8 +206,10 @@ public class AJMain {
 	    }	    
 	    // write the Latex Header
 	    writer.write(ajLatexHeaderFooter.getHeader());
+	    
 	    // write the Latex Body
-
+	    // Write the observation reports
+	    writer.write("\\section{Observation reports}\n");
 	    // for each file in the folder obs (sorted by observation increasing)
 	    File[] files = new File(latexReportsFolder).listFiles();
 	    if (files == null) {
@@ -219,11 +221,14 @@ public class AJMain {
 	    for (File file : files) {
 	      if (file.isFile() && file.getName().endsWith(".tex")) {
 		// include the file removing the extension .tex
-		writer.write("\\include{" + latexReportsFolder + "/"
+		writer.write("\\input{" + latexReportsFolder + "/"
 		  + file.getName().replaceFirst("[.][^.]+$", "") + "}\n");
+		writer.write("\\newpage \n");
 	      }
 	    }
-	    
+
+	    // Write observed objects by catalogue
+	    writer.write("\\section{Observed objects by catalogue}\n");
 	    // for each file in the catalogue obs folder (sorted by catalogue id increasing)
 	    files = new File(latexCataloguesFolder).listFiles();
 	    if (files == null) {
@@ -235,8 +240,9 @@ public class AJMain {
 	    for (File file : files) {
 	      if (file.isFile() && file.getName().endsWith(".tex")) {
 		// include the file removing the extension .tex
-		writer.write("\\include{" + latexCataloguesFolder + "/"
+		writer.write("\\input{" + latexCataloguesFolder + "/"
 		  + file.getName().replaceFirst("[.][^.]+$", "") + "}\n");
+		writer.write("\\newpage \n");
 	      }
 	    }	    
 	    // write the Latex Footer

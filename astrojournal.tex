@@ -1,4 +1,4 @@
-\documentclass[10pt,twoside,a4paper,english]{report} 
+\documentclass[10pt,twoside,a4paper,english]{article} 
 \usepackage[a4paper,margin=1in,landscape]{geometry} 
 \usepackage[colorlinks=true,linkcolor={black},urlcolor={black}]{hyperref} 
 \usepackage{longtable} 
@@ -7,9 +7,16 @@
 \author{Piero Dalle Pezze} 
 \date{\today} 
  
+ 
 \begin{document} 
-\let\thefootnote\relax\footnotetext{This document was generated using Java software tool {\it AstroJournal} (\href{https://pdp10@bitbucket.org/pdp10/astrojournal.git}{https://pdp10@bitbucket.org/pdp10/astrojournal.git}) and {\it pdflatex} (\href{http://www.tug.org/texlive/}{http://www.tug.org/texlive/}).} 
+ 
 \maketitle 
+ 
+\begin{abstract} 
+This document contains my observation reports and the objects listed by catalogue that I have so far observed. At the end the complete Messier and Caldwell catalogues are also presented. This file was generated using Java software tool {\it AstroJournal} (\href{https://pdp10@bitbucket.org/pdp10/astrojournal.git}{https://pdp10@bitbucket.org/pdp10/astrojournal.git}) and {\it pdflatex} (\href{http://www.tug.org/texlive/}{http://www.tug.org/texlive/}). {\it AstroJournal} imports files containing astronomy observation reports and observed objects by catalogues. Then it generates an integrated journal document in Latex which is then exported in PDF using the utility {\it pdflatex}. Observation files can be edited using a common Spreadsheet software (e.g. Google Spreadsheet, LibreOffice Calc, Office Excel) and must be saved as tab-separated value (tsv) files. {\it AstroJournal} is released under GPL v3 license. 
+\end{abstract} 
+ 
+\tableofcontents 
  
 \newpage 
  
@@ -18,6 +25,8 @@
 \small 
 %\normalsize 
  
+ 
+\section{Legends} 
  
 \noindent  
  
@@ -34,77 +43,115 @@
 \bigskip      
 {\bf Transparency Scale (American Association of Amateur Astronomers):} 
 \begin{enumerate} 
-\item Do Not Observe - Completely cloudy or precipitating (Why are you out?) 
-\item Very Poor - Mostly Cloudy 
-\item Poor - Partly cloudy or heavy haze. 1 or 2 Little Dipper stars visible 
-\item Somewhat Clear - Cirrus or moderate haze. 3 or 4 Little Dipper stars visible 
-\item Partly Clear - Slight haze. 4 or 5 Little Dipper stars visible 
-\item Clear - No clouds. Milky Way visible with averted vision. 6 Little Dipper stars visible 
-\item Very Clear - Milky Way and M31 visible. Stars fainter than mag 6.0 are just seen and fainter parts of the Milky Way are more obvious  
-\item Extremely Clear - overwhelming profusion of stars, Zodiacal light and the gegenschein form continuous band across the sky, the Milky Way is very wide and bright throughout 
+\item Do Not Observe: Completely cloudy or precipitating (Why are you out?) 
+\item Very Poor: Mostly Cloudy 
+\item Poor: Partly cloudy or heavy haze. 1 or 2 Little Dipper stars visible 
+\item Somewhat Clear: Cirrus or moderate haze. 3 or 4 Little Dipper stars visible 
+\item Partly Clear: Slight haze. 4 or 5 Little Dipper stars visible 
+\item Clear: No clouds. Milky Way visible with averted vision. 6 Little Dipper stars visible 
+\item Very Clear: Milky Way and M31 visible. Stars fainter than mag 6.0 are just seen and fainter parts of the Milky Way are more obvious  
+\item Extremely Clear: overwhelming profusion of stars, Zodiacal light and the gegenschein form continuous band across the sky, the Milky Way is very wide and bright throughout 
 \end{enumerate} 
  
 \bigskip 
 {\bf Target Types:} 
-\begin{itemize}   
-\item SN Rem - Supernova Remnant 
-\item Neb - Nebula 
-\item Galaxy - Galaxy 
-\item CL+Neb - Cluster with Nebula 
-\item Opn CL - Open Cluster 
-\item Glob CL - Globular Cluster 
-\item Pln Neb - Planetary Nebula 
-\item Satellite - Our Satellite (Moon) 
-\item Planet - Solar System Planet 
-\item Star - Star 
-\item Dbl Star - Double Star 
-\item Mlt Star - Multiple Star 
+\begin{itemize} 
+\renewcommand\labelitemi{--} 
+\item SN Rem: Supernova Remnant 
+\item Neb: Nebula 
+\item Galaxy: Galaxy 
+\item CL+Neb: Cluster with Nebula 
+\item Opn CL: Open Cluster 
+\item Glob CL: Globular Cluster 
+\item Pln Neb: Planetary Nebula 
+\item Satellite: Our Satellite (Moon) 
+\item Planet: Solar System Planet 
+\item Star: Star 
+\item Dbl Star: Double Star 
+\item Mlt Star: Multiple Star 
 \end{itemize} 
+ 
 \newpage 
  
  
 %\footnotesize 
 %\small 
 \normalsize 
-\include{latex_reports/obs20150702}
-\include{latex_reports/obs20150630}
-\include{latex_reports/obs20150629}
-\include{latex_reports/obs20150623}
-\include{latex_reports/obs20150615}
-\include{latex_reports/obs20150611}
-\include{latex_reports/obs20150610}
-\include{latex_reports/obs20150606}
-\include{latex_reports/obs20150603}
-\include{latex_reports/obs20150526}
-\include{latex_reports/obs20150520}
-\include{latex_reports/obs20150513}
-\include{latex_reports/obs20150512}
-\include{latex_reports/obs20150430}
-\include{latex_reports/obs20150414b}
-\include{latex_reports/obs20150414a}
-\include{latex_reports/obs20150411}
-\include{latex_reports/obs20150409}
-\include{latex_reports/obs20150406}
-\include{latex_reports/obs20150325}
-\include{latex_reports/obs20150324}
-\include{latex_reports/obs20150322}
-\include{latex_reports/obs20150223}
-\include{latex_reports/obs1998xxxx}
-\include{latex_catalogues/cat1--Messier}
-\include{latex_catalogues/cat2--Caldwell}
-\include{latex_catalogues/cat3--NGC}
-\include{latex_catalogues/cat4--IC}
-\include{latex_catalogues/cat5--Stock}
-\include{latex_catalogues/cat6--Melotte}
-\include{latex_catalogues/cat7--Collider}
-\include{latex_catalogues/cat8--DoubleStars}
+\section{Observation reports}
+\input{latex_reports/obs20150702}
+\newpage 
+\input{latex_reports/obs20150630}
+\newpage 
+\input{latex_reports/obs20150629}
+\newpage 
+\input{latex_reports/obs20150623}
+\newpage 
+\input{latex_reports/obs20150615}
+\newpage 
+\input{latex_reports/obs20150611}
+\newpage 
+\input{latex_reports/obs20150610}
+\newpage 
+\input{latex_reports/obs20150606}
+\newpage 
+\input{latex_reports/obs20150603}
+\newpage 
+\input{latex_reports/obs20150526}
+\newpage 
+\input{latex_reports/obs20150520}
+\newpage 
+\input{latex_reports/obs20150513}
+\newpage 
+\input{latex_reports/obs20150512}
+\newpage 
+\input{latex_reports/obs20150430}
+\newpage 
+\input{latex_reports/obs20150414b}
+\newpage 
+\input{latex_reports/obs20150414a}
+\newpage 
+\input{latex_reports/obs20150411}
+\newpage 
+\input{latex_reports/obs20150409}
+\newpage 
+\input{latex_reports/obs20150406}
+\newpage 
+\input{latex_reports/obs20150325}
+\newpage 
+\input{latex_reports/obs20150324}
+\newpage 
+\input{latex_reports/obs20150322}
+\newpage 
+\input{latex_reports/obs20150223}
+\newpage 
+\input{latex_reports/obs1998xxxx}
+\newpage 
+\section{Observed objects by catalogue}
+\input{latex_catalogues/cat1--Messier}
+\newpage 
+\input{latex_catalogues/cat2--Caldwell}
+\newpage 
+\input{latex_catalogues/cat3--NGC}
+\newpage 
+\input{latex_catalogues/cat4--IC}
+\newpage 
+\input{latex_catalogues/cat5--Stock}
+\newpage 
+\input{latex_catalogues/cat6--Melotte}
+\newpage 
+\input{latex_catalogues/cat7--Collider}
+\newpage 
+\input{latex_catalogues/cat8--DoubleStars}
+\newpage 
 \newpage 
 % inclusion of Messier and Caldwell catalogues as Appendix references 
  
 \small 
 \noindent 
  
-{\bf Complete Messier Catalogue} 
+\section{Complete Messier and Caldwell catalogues} 
+ 
+{\bf Messier Catalogue} 
 \begin{longtable}{@{}lllllllllll@{}} 
 \hline 
 {\bf Name} & {\bf Other} & {\bf Type} & {\bf Cons} & {\bf RA}  & {\bf Dec} & {\bf Mag} & {\bf Size (arc min)} & {\bf SB} & {\bf Distance (ly)} & {\bf Common Name}               \\ 
@@ -231,7 +278,7 @@ M110       & NGC205      & Galaxy     & And       & 23:24:12 & +41$^{\circ}$ 41'
 \newpage 
 \noindent 
  
-{\bf Complete Caldwell Catalogue}  
+{\bf Caldwell Catalogue}  
 \begin{longtable}{@{}lllllllllll@{}} 
 \hline 
 {\bf Name} & {\bf Other} & {\bf Type} & {\bf Cons} & {\bf RA}  & {\bf Dec} & {\bf Mag} & {\bf Size (arc min)} & {\bf SB} & {\bf Distance (ly)} & {\bf Common Name}               \\ 

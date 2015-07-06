@@ -1,4 +1,4 @@
-\documentclass[10pt,twoside,a4paper,english]{report}
+\documentclass[10pt,twoside,a4paper,english]{article}
 \usepackage[a4paper,margin=1in,landscape]{geometry}
 \usepackage[colorlinks=true,linkcolor={black},urlcolor={black}]{hyperref}
 \usepackage{longtable}
@@ -7,9 +7,16 @@
 \author{Piero Dalle Pezze}
 \date{\today}
 
+
 \begin{document}
-\let\thefootnote\relax\footnotetext{This document was generated using Java software tool {\it AstroJournal} (\href{https://pdp10@bitbucket.org/pdp10/astrojournal.git}{https://pdp10@bitbucket.org/pdp10/astrojournal.git}) and {\it pdflatex} (\href{http://www.tug.org/texlive/}{http://www.tug.org/texlive/}).}
+
 \maketitle
+
+\begin{abstract}
+This document contains my observation reports and the objects listed by catalogue that I have so far observed. At the end the complete Messier and Caldwell catalogues are also presented. This file was generated using Java software tool {\it AstroJournal} (\href{https://pdp10@bitbucket.org/pdp10/astrojournal.git}{https://pdp10@bitbucket.org/pdp10/astrojournal.git}) and {\it pdflatex} (\href{http://www.tug.org/texlive/}{http://www.tug.org/texlive/}). {\it AstroJournal} imports files containing astronomy observation reports and observed objects by catalogues. Then it generates an integrated journal document in Latex which is then exported in PDF using the utility {\it pdflatex}. Observation files can be edited using a common Spreadsheet software (e.g. Google Spreadsheet, LibreOffice Calc, Office Excel) and must be saved as tab-separated value (tsv) files. {\it AstroJournal} is released under GPL v3 license.
+\end{abstract}
+
+\tableofcontents
 
 \newpage
 
@@ -18,6 +25,8 @@
 \small
 %\normalsize
 
+
+\section{Legends}
 
 \noindent 
 
@@ -34,32 +43,34 @@
 \bigskip     
 {\bf Transparency Scale (American Association of Amateur Astronomers):}
 \begin{enumerate}
-\item Do Not Observe - Completely cloudy or precipitating (Why are you out?)
-\item Very Poor - Mostly Cloudy
-\item Poor - Partly cloudy or heavy haze. 1 or 2 Little Dipper stars visible
-\item Somewhat Clear - Cirrus or moderate haze. 3 or 4 Little Dipper stars visible
-\item Partly Clear - Slight haze. 4 or 5 Little Dipper stars visible
-\item Clear - No clouds. Milky Way visible with averted vision. 6 Little Dipper stars visible
-\item Very Clear - Milky Way and M31 visible. Stars fainter than mag 6.0 are just seen and fainter parts of the Milky Way are more obvious 
-\item Extremely Clear - overwhelming profusion of stars, Zodiacal light and the gegenschein form continuous band across the sky, the Milky Way is very wide and bright throughout
+\item Do Not Observe: Completely cloudy or precipitating (Why are you out?)
+\item Very Poor: Mostly Cloudy
+\item Poor: Partly cloudy or heavy haze. 1 or 2 Little Dipper stars visible
+\item Somewhat Clear: Cirrus or moderate haze. 3 or 4 Little Dipper stars visible
+\item Partly Clear: Slight haze. 4 or 5 Little Dipper stars visible
+\item Clear: No clouds. Milky Way visible with averted vision. 6 Little Dipper stars visible
+\item Very Clear: Milky Way and M31 visible. Stars fainter than mag 6.0 are just seen and fainter parts of the Milky Way are more obvious 
+\item Extremely Clear: overwhelming profusion of stars, Zodiacal light and the gegenschein form continuous band across the sky, the Milky Way is very wide and bright throughout
 \end{enumerate}
 
 \bigskip
 {\bf Target Types:}
-\begin{itemize}  
-\item SN Rem - Supernova Remnant
-\item Neb - Nebula
-\item Galaxy - Galaxy
-\item CL+Neb - Cluster with Nebula
-\item Opn CL - Open Cluster
-\item Glob CL - Globular Cluster
-\item Pln Neb - Planetary Nebula
-\item Satellite - Our Satellite (Moon)
-\item Planet - Solar System Planet
-\item Star - Star
-\item Dbl Star - Double Star
-\item Mlt Star - Multiple Star
+\begin{itemize}
+\renewcommand\labelitemi{--}
+\item SN Rem: Supernova Remnant
+\item Neb: Nebula
+\item Galaxy: Galaxy
+\item CL+Neb: Cluster with Nebula
+\item Opn CL: Open Cluster
+\item Glob CL: Globular Cluster
+\item Pln Neb: Planetary Nebula
+\item Satellite: Our Satellite (Moon)
+\item Planet: Solar System Planet
+\item Star: Star
+\item Dbl Star: Double Star
+\item Mlt Star: Multiple Star
 \end{itemize}
+
 \newpage
 
 
