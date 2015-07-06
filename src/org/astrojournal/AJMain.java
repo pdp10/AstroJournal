@@ -210,7 +210,9 @@ public class AJMain {
 	    // write the Latex Body
 	    // Write the observation reports
 	    writer.write("\\section{Observation reports}\n");
-	    // for each file in the folder obs (sorted by observation increasing)
+	    writer.write("\\vspace{4 mm}\n");
+	    writer.write("\\hspace{4 mm}\n");
+	    // parse each file in the latex obs folder (sorted by observation increasing)
 	    File[] files = new File(latexReportsFolder).listFiles();
 	    if (files == null) {
 	      log.warn("Folder " + latexReportsFolder + " not found");
@@ -229,7 +231,9 @@ public class AJMain {
 
 	    // Write observed objects by catalogue
 	    writer.write("\\section{Observed objects by catalogue}\n");
-	    // for each file in the catalogue obs folder (sorted by catalogue id increasing)
+	    writer.write("\\vspace{4 mm}\n");
+	    writer.write("\\hspace{4 mm}\n");
+	    // parse each file in the latex catalogue folder (sorted by catalogue id increasing)
 	    files = new File(latexCataloguesFolder).listFiles();
 	    if (files == null) {
 	      log.warn("Folder " + latexCataloguesFolder + " not found");
