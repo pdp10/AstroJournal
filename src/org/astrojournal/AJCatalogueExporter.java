@@ -47,8 +47,7 @@ public class AJCatalogueExporter {
       table.write("\\end{tabular}\n");
       
       table.write("% Catalogue data\n");
-      table.write("\\centering \n");
-      table.write("\\begin{longtable}{ p{0.7in}  p{1.0in}  p{0.6in}  p{0.9in}  p{4.0in} }\n");
+      table.write("\\begin{longtable}{ p{0.7in}  p{1.0in}  p{0.6in}  p{0.9in}  p{5.1in} }\n");
       table.write("\\hline \n");
       table.write("{\\bf " + AJCatalogueItem.NAME + "} & {\\bf "
         + AJCatalogueItem.OTHER_NAME + "} & {\\bf "
@@ -58,8 +57,8 @@ public class AJCatalogueExporter {
 
       table.write("\\hline \n");
       for (AJCatalogueItem item : catalogueItems) {
-        table.write(item.getName() + " & " + item.getOtherName() + " & "
-          + item.getType() + " & " + item.getConstellation() + " & " + item.getCommonName()
+	  table.write(item.getName() + " & " + item.getOtherName().replace("-", "") + " & "
+          + item.getType().replace("-", "") + " & " + item.getConstellation().replace("-", "") + " & " + item.getCommonName().replace("-", "")
           + " \\\\ \n");
       }
       table.write("\\hline \n");
