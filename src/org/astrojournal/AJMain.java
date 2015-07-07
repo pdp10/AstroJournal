@@ -26,7 +26,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
+
 import org.apache.log4j.Logger;
+import org.astrojournal.catalogue.AJCatalogue;
+import org.astrojournal.catalogue.AJCatalogueExporter;
+import org.astrojournal.catalogue.AJCatalogueImporter;
+import org.astrojournal.headerfooter.AJLatexHeader;
+import org.astrojournal.headerfooter.AJLatexFooter;
+import org.astrojournal.observation.AJObservation;
+import org.astrojournal.observation.AJObservationExporter;
+import org.astrojournal.observation.AJObservationImporter;
 
 /**
  * This class automatically generates the Latex code for the AstroJournal.
@@ -201,7 +210,8 @@ public class AJMain {
     latexReportsFolder = latexObsDir;
     tsvCataloguesFolder = tsvCatDir;
     latexCataloguesFolder = latexCatDir;	
-    AJLatexHeaderFooter ajLatexHeaderFooter = new AJLatexHeaderFooter(latexHeader, latexFooter);
+    AJLatexHeader ajLatexHeader = new AJLatexHeader(latexHeader);
+    AJLatexFooter ajLatexFooter = new AJLatexFooter(latexFooter);
     Writer writer = null;
     try {
       writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
@@ -217,7 +227,7 @@ public class AJMain {
         return;
       }	    
       // write the Latex Header
-      writer.write(ajLatexHeaderFooter.getHeader());
+      writer.write(ajLatexHeader.getHeader());
 
       // write the Latex Body
       // Write the observation reports
@@ -262,7 +272,7 @@ public class AJMain {
         }
       }	    
       // write the Latex Footer
-      writer.write(ajLatexHeaderFooter.getFooter());
+      writer.write(ajLatexFooter.getFooter());
 
     } catch (IOException ex) {
       log.warn("Error when opening the file " + mainLatex);
