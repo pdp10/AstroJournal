@@ -1,7 +1,18 @@
-/* 
- * Author: Piero Dalle Pezze
- * Version: 0.3
- * Created on: 13/04/2015
+/*
+ * This file is part of AstroJournal.
+ *
+ * AstroJournal is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * AstroJournal is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with AstroJournal.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.astrojournal;
 
@@ -9,6 +20,10 @@ import java.util.ArrayList;
 
 /** 
  * An Observation object contains the data of an observation.
+ * 
+ * @author Piero Dalle Pezze
+ * @version 0.3
+ * @since 13/04/2015
  */
 public class AJObservation {
 
