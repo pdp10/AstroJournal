@@ -21,10 +21,10 @@ public class AJCatalogueExporter {
 
   /** The log associated to this class */
   private static Logger log = Logger.getLogger(AJCatalogueExporter.class);
-    
-  
+
+
   /** Default constructor */
-  public void AJCatalogueExporter() {} 
+  public AJCatalogueExporter() {} 
 
   /** Exports a catalogue record to Latex
    * @param catalogue the catalogue to export
@@ -32,7 +32,7 @@ public class AJCatalogueExporter {
    */
   public void exportCatalogue(AJCatalogue catalogue, String latexReportsFolder) {
     Writer table = null;
-    
+
     String filenameOut = catalogue.getCatalogueName();
 
     ArrayList<AJCatalogueItem> catalogueItems = catalogue.getCatalogueItems();
@@ -43,23 +43,27 @@ public class AJCatalogueExporter {
       table.write("% Catalogue name\n");
       table.write("\\begin{tabular}{ p{0.9in} p{1.3in}}\n");
       table.write("{\\bf " + AJCatalogue.CATALOGUE_NAME + ":} & "
-        + catalogue.getCatalogueName() + " \\\\ \n");
+          + catalogue.getCatalogueName() + " \\\\ \n");
       table.write("\\end{tabular}\n");
-      
+
       table.write("% Catalogue data\n");
       table.write("\\begin{longtable}{ p{0.7in}  p{1.0in}  p{0.6in}  p{0.9in}  p{5.1in} }\n");
       table.write("\\hline \n");
       table.write("{\\bf " + AJCatalogueItem.NAME + "} & {\\bf "
-        + AJCatalogueItem.OTHER_NAME + "} & {\\bf "
-        + AJCatalogueItem.TYPE_NAME + "} & {\\bf "
-        + AJCatalogueItem.CONSTELLATION_NAME + "} & {\\bf "
-        + AJCatalogueItem.COMMON_NAME + "} \\\\ \n");
+          + AJCatalogueItem.OTHER_NAME + "} & {\\bf "
+          + AJCatalogueItem.TYPE_NAME + "} & {\\bf "
+          + AJCatalogueItem.CONSTELLATION_NAME + "} & {\\bf "
+          + AJCatalogueItem.COMMON_NAME + "} \\\\ \n");
 
       table.write("\\hline \n");
       for (AJCatalogueItem item : catalogueItems) {
-	  table.write(item.getName() + " & " + item.getOtherName().replace("-", "") + " & "
-          + item.getType().replace("-", "") + " & " + item.getConstellation().replace("-", "") + " & " + item.getCommonName().replace("-", "")
-          + " \\\\ \n");
+        log.debug("writing catalogue item " + item.getName());
+        table.write(item.getName() + " & " 
+            + item.getOtherName().replace("-", "") + " & "
+            + item.getType().replace("-", "") + " & " 
+            + item.getConstellation().replace("-", "") + " & " 
+            + item.getCommonName().replace("-", "")
+            + " \\\\ \n");
       }
       table.write("\\hline \n");
       table.write("\\end{longtable} \n");

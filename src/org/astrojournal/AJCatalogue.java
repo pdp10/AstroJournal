@@ -13,23 +13,48 @@ import java.util.ArrayList;
  */
 public class AJCatalogue {
 
-    /** A string containing the catalogue name identifier. */
-    public static final String CATALOGUE_NAME = "Catalogue";
+  /** A string containing the catalogue name identifier. */
+  public static final String CATALOGUE_NAME = "Catalogue";
 
-    /** A string containing the catalogue name. */
-    private String catalogueName = "";
+  /** A string containing the catalogue name. */
+  private String catalogueName = "";
 
-    private ArrayList<AJCatalogueItem> catalogueItems = new ArrayList<AJCatalogueItem>();
+  private ArrayList<AJCatalogueItem> catalogueItems = new ArrayList<AJCatalogueItem>();
 
 
-    /** Default constructor */
-    public AJCatalogue() {}
+  /** Default constructor */
+  public AJCatalogue() {}
 
-    // Getter and Setter
-    public void setCatalogueName(String catalogueName) {this.catalogueName = catalogueName; }
-    public String getCatalogueName() { return catalogueName; }
+  // Getter and Setter
+  /**
+   * Sets the catalogueName
+   * @param catalogueName
+   */
+  public void setCatalogueName(String catalogueName) {
+    this.catalogueName = catalogueName; 
+  }
+  /**
+   * Returns the catalogue name
+   * @return the catalogue name
+   */
+  public String getCatalogueName() { 
+    return catalogueName; 
+  }
 
-    public void addCatalogueItem(AJCatalogueItem catalogueItem) { catalogueItems.add(catalogueItem); }
-    public ArrayList<AJCatalogueItem> getCatalogueItems() { return catalogueItems; }
+  /**
+   * Adds an item to the catalogue
+   * @param catalogueItem
+   */
+  public void addCatalogueItem(AJCatalogueItem catalogueItem) { 
+    catalogueItems.add(catalogueItem); 
+  }
+  
+  /**
+   * Returns the list of catalogue items
+   * @return the catalogue items
+   */
+  public ArrayList<AJCatalogueItem> getCatalogueItems() { 
+    return catalogueItems; 
+  }
 
 }
