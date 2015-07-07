@@ -162,8 +162,6 @@ Created by Piero Dalle Pezze (pdp10)
 	<!-- =================================================================== -->
 	<target name="javadoc" depends="prepare-src">
 		<mkdir dir="${build.javadocs}"/>
-		
-		<!-- packagename="*" -->
           <javadoc packagenames="org.astrojournal.*" 
                           sourcepath="${build.src}"
                           defaultexcludes="yes"
@@ -193,7 +191,7 @@ Created by Piero Dalle Pezze (pdp10)
 			<fileset dir="${lib.dir}/" includes="${name}-${version}.jar"/>
 		</delete>
 		<delete includeEmptyDirs="true" quiet="yes">
-			<fileset dir="${basedir}" includes="*.aux *~ *.log"/>
+			<fileset dir="${basedir}" includes="*.aux *~ *.log *.toc"/>
 		</delete>
 		<delete includeEmptyDirs="true" quiet="yes">
 			<fileset dir="${src.latex_reports}" includes="*.aux"/>
