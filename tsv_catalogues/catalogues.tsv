@@ -17,6 +17,7 @@ M17	NGC6618	CL+Neb	Sgr	Omega, Swan, Horseshoe, or Lobster Nebula
 M18	NGC6613	Opn CL	Sgr	-
 M20	NGC6514	CL+Neb	Sgr	Trifid Nebula
 M21	NGC6531	Opn CL	Sgr	-
+M22	NGC6656	Glob CL	Sgr	-
 M23	NGC6494	Opn CL	Sgr	-
 M24	IC4715	Opn CL	Sgr	Sagittarius Star Cloud
 M25	IC4725	Opn CL	Sgr	-
@@ -45,6 +46,7 @@ M60	NGC4649	Galaxy	Vir	-
 M65	NGC3623	Galaxy	Leo	Leo Triplet
 M66	NGC3627	Galaxy	Leo	Leo Triplet
 M67	NGC2682	Opn CL	Cnc	-
+M71	NGC6838	Glob CL	Sge	-
 M81	NGC3031	Galaxy	UMa	Bode's Galaxy
 M82	NGC3034	Galaxy	UMa	Cigar Galaxy
 M92	NGC6341	Glob CL	Her	-
@@ -57,10 +59,12 @@ M110	NGC205	Galaxy	And	-
 Catalogue	2--Caldwell			
 Name	Other Name	Type	Cons	Common Name
 C14	NGC869/884	Opn CL	Per	Double Cluster, h or chi Persei
+C20	NGC7000	Neb	Cyg	North America
+C27	NGC6888	Neb	Cyg	Crescent Nebula
 C28	NGC752	Opn CL	And	-
-C37	NGC6885	Opn CL	Vul	-
+C37	NGC6885	Opn CL	Vul	20 Vulpeculae Cluster
 C39	NGC2392	Pln Neb	Gem	Eskimo or Clown Nebula
-C41	-	Opn CL	Tau	Hyades
+C41	Mel25	Opn CL	Tau	Hyades, Taurus Moving Cluster
 C49	NGC2237	Neb	Mon	Rosette Nebula
 C50	NGC2244	Opn CL	Mon	Satellite Cluster
 C59	NGC3242	Pln Neb	Hya	Ghost of Jupiter
@@ -80,8 +84,13 @@ NGC1931	-	CL+Neb	Aur	-
 NGC1980	-	Neb	Ori	-
 NGC1981	-	Opn CL	Ori	-
 NGC2264	-	CL+Neb	Mon	Christmas' tree
+NGC6530	-	Opn CL	Sgr	Cluster inside the Lagoon Nebula
+NGC6604	-	CL+Neb	Ser	-
 NGC6633	-	Opn CL	Oph	-
+NGC6823	Cr405	Opn CL	Vul	-
+NGC6830	Cr406	Opn CL	Vul	-
 NGC6871	-	Opn CL	Cyg	-
+NGC6882	Cr416	Opn CL	Vul	-
 NGC6883	Cr415	Opn CL	Cyg	-
 NGC6910	-	Opn CL	Cyg	-
 NGC7082	-	Opn CL	Cyg	-
@@ -92,9 +101,10 @@ NGC7261	-	Opn CL	Cep	-
 				
 Catalogue	4--IC			
 Name	Other Name	Type	Cons	Common Name
+IC1396	-	CL+Neb	Cep	Elephant's Trunk Nebula
+IC4665	Cr349	Opn CL	Oph	Summer Beehive Cluster
 IC4756	-	Opn CL	Ser	Graff's Cluster
 IC4996	Cr418	Opn CL	Cyg	-
-IC1396	-	CL+Neb	Cep	Elephant's Trunk Nebula
 				
 				
 Catalogue	5--Stock			
@@ -106,7 +116,6 @@ Stock2	-	-	Cas	-
 Catalogue	6--Melotte			
 Name	Other Name	Type	Cons	Common Name
 Mel20	-	Opn CL	Per	Alpha Persei Moving Cluster, Alpha Persei Cluster
-Mel25	-	Opn CL	Tau	Taurus Moving Cluster, Hyades
 Mel111	-	Opn CL	Com	Coma Berenices Star Cluster, Coarse Hair, Tuft
 				
 				
@@ -122,20 +131,26 @@ Cr399	-	Opn CL	Vul	Brocchi's Cluster, the Coathanger
 				
 Catalogue	8--DoubleStars			
 Name	Other Name	Type	Cons	Common Name
-27 Hydra	-	-	Hya	-
-Alpha	Polaris	-	UMi	-
-Gamma	Pherkad	-	UMi	-
+Gamma	Almach	-	And	-
+Delta	-	blue, orange	Cep	-
+Beta	Albireo	blue, orange	Cyg	-
 19-20	-	-	Dra	-
 Eta-HIP80309A	-	-	Dra	-
-Beta	Albireo	Blue, orange	Cyg	-
-Sigma	-	-	Ori	-
-Beta	Rigel	-	Ori	-
 Alpha	Castor	-	Gem	-
-Beta	Sheliak	Blue, orange	Lyr	-
+Alpha	Rasalgethi	orange, green	Her	-
+27 Hydra	-	-	Hya	-
+Beta	Sheliak	blue, orange	Lyr	-
 Delta	-	-	Lyr	-
-Epsilon	-	Double pair	Lyr	Double Double
+Epsilon	-	double pair	Lyr	Double Double
 Zeta	-	-	Lyr	-
 HD175634	-	-	Lyr	-
-Beta	-	Blue, orange	Sco	-
+61	-	blue, blue	Oph	-
+71-72	-	-	Oph	-
+Beta	Rigel	-	Ori	-
+Sigma	-	-	Ori	-
+Beta	-	blue, orange	Sco	-
 Omega	-	-	Sco	-
-Delta	-	Blue, orange	Cep	-
+Alpha	Dubhe	-	UMa	-
+Zeta	Mizar	-	UMa	Mizar / Alcor
+Alpha	Polaris	-	UMi	-
+Gamma	Pherkad	-	UMi	-
