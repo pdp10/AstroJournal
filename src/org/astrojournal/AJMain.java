@@ -247,12 +247,12 @@ public class AJMain {
           // include the file removing the extension .tex
           writer.write("\\input{" + latexReportsFolder + "/"
               + file.getName().replaceFirst("[.][^.]+$", "") + "}\n");
-          writer.write("\\newpage \n");
+          writer.write("\\clearpage \n");
         }
       }
       
       // Write observed objects by catalogue
-      writer.write("\\small\n");
+      writer.write("\n\\small\n");
       writer.write("\\section{Observed objects by catalogue}\n");
       writer.write("\\vspace{4 mm}\n");
       writer.write("\\hspace{4 mm}\n");
@@ -269,7 +269,7 @@ public class AJMain {
           // include the file removing the extension .tex
           writer.write("\\input{" + latexCataloguesFolder + "/"
               + file.getName().replaceFirst("[.][^.]+$", "") + "}\n");
-          writer.write("\\newpage \n");
+          writer.write("\\clearpage \n");
         }
       }	    
       // write the Latex Footer
