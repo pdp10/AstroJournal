@@ -250,8 +250,9 @@ public class AJMain {
           writer.write("\\newpage \n");
         }
       }
-
+      
       // Write observed objects by catalogue
+      writer.write("\\small\n");
       writer.write("\\section{Observed objects by catalogue}\n");
       writer.write("\\vspace{4 mm}\n");
       writer.write("\\hspace{4 mm}\n");
