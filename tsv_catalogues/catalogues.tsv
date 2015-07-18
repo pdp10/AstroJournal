@@ -11,6 +11,7 @@ M10	NGC6254	Glob CL	Oph	-
 M11	NGC6705	Opn CL	Sct	Wild Duck Cluster
 M12	NGC6218	Glob CL	Oph	-
 M13	NGC6205	Glob CL	Her	Great Globular Cluster in Hercules
+M14	NGC6402	Glob CL	Oph	-
 M15	NGC7078	Glob CL	Peg	-
 M16	NGC6611	CL+Neb	Ser	Eagle Nebula
 M17	NGC6618	CL+Neb	Sgr	Omega, Swan, Horseshoe, or Lobster Nebula
@@ -47,6 +48,8 @@ M65	NGC3623	Galaxy	Leo	Leo Triplet
 M66	NGC3627	Galaxy	Leo	Leo Triplet
 M67	NGC2682	Opn CL	Cnc	-
 M71	NGC6838	Glob CL	Sge	-
+M72	NGC6981	Glob CL	Aqr	-
+M73	NGC6994	Opn CL	Aqr	-
 M81	NGC3031	Galaxy	UMa	Bode's Galaxy
 M82	NGC3034	Galaxy	UMa	Cigar Galaxy
 M92	NGC6341	Glob CL	Her	-
@@ -58,13 +61,19 @@ M110	NGC205	Galaxy	And	-
 				
 Catalogue	2--Caldwell			
 Name	Other Name	Type	Cons	Common Name
+C8	NGC559	Opn CL	Cas	-
+C10	NGC663	Opn CL	Cas	-
+C13	NGC457	Opn CL	Cas	-
 C14	NGC869/884	Opn CL	Per	Double Cluster, h or chi Persei
 C20	NGC7000	Neb	Cyg	North America
 C27	NGC6888	Neb	Cyg	Crescent Nebula
 C28	NGC752	Opn CL	And	-
+C33	NGC6992	SN Rem	Cyg	The Easter Veil Nebula
+C34	NGC6960	SN Rem	Cyg	The Western Veil Nebula
 C37	NGC6885	Opn CL	Vul	20 Vulpeculae Cluster
 C39	NGC2392	Pln Neb	Gem	Eskimo or Clown Nebula
 C41	Mel25	Opn CL	Tau	Hyades, Taurus Moving Cluster
+C47	NGC6934	Glob Cl	Del	-
 C49	NGC2237	Neb	Mon	Rosette Nebula
 C50	NGC2244	Opn CL	Mon	Satellite Cluster
 C59	NGC3242	Pln Neb	Hya	Ghost of Jupiter
@@ -74,6 +83,14 @@ C59	NGC3242	Pln Neb	Hya	Ghost of Jupiter
 (Not previously included)				
 Catalogue	3--NGC			
 Name	Other Name	Type	Cons	Common Name
+NGC381	-	Opn CL	Cas	-
+NGC436	-	Opn CL	Cas	-
+NGC637	-	Opn CL	Cas	-
+NGC654	-	Opn CL	Cas	-
+NGC659	-	Opn CL	Cas	-
+NGC744	-	Opn CL	Per	-
+NGC957	-	Opn CL	Per	-
+NGC1027	-	Opn CL	Cas	-
 NGC1647	-	Opn CL	Tau	-
 NGC1662	-	Opn CL	Ori	-
 NGC1750	-	Opn CL	Tau	-
@@ -102,6 +119,8 @@ NGC7261	-	Opn CL	Cep	-
 Catalogue	4--IC			
 Name	Other Name	Type	Cons	Common Name
 IC1396	-	CL+Neb	Cep	Elephant's Trunk Nebula
+IC1805	-	CL+Neb	Cas	Heart Nebula
+IC1848	-	CL+Neb	Cas	Soul Nebula
 IC4665	Cr349	Opn CL	Oph	Summer Beehive Cluster
 IC4756	-	Opn CL	Ser	Graff's Cluster
 IC4996	Cr418	Opn CL	Cyg	-
@@ -132,6 +151,10 @@ Cr399	-	Opn CL	Vul	Brocchi's Cluster, the Coathanger
 Catalogue	8--DoubleStars			
 Name	Other Name	Type	Cons	Common Name
 Gamma	Almach	-	And	-
+Alpha	Algedi	different brighness	Cap	-
+Beta	Dabih	yellow, blue	Cap	-
+Omicron	-	yellow, blue; tight nicely	Cap	-
+Rho	-	yellow, yellow	Cap	-
 Delta	-	blue, orange	Cep	-
 Beta	Albireo	blue, orange	Cyg	-
 19-20	-	-	Dra	-
@@ -139,6 +162,7 @@ Eta-HIP80309A	-	-	Dra	-
 Alpha	Castor	-	Gem	-
 Alpha	Rasalgethi	orange, green	Her	-
 27 Hydra	-	-	Hya	-
+Alpha	Regulus	-	Leo	-
 Beta	Sheliak	blue, orange	Lyr	-
 Delta	-	-	Lyr	-
 Epsilon	-	double pair	Lyr	Double Double

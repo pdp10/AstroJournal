@@ -17,7 +17,7 @@ Eyepieces	TV Panoptic 24mm, Plossl 20mm, Nagler 7mm, Vixen SLV 5mm, Bresser 2x S
 Power, EP, FOV	15x, 4mm, 4.30deg; 18x, 3.3mm, 2.73deg; 103x, 0.6mm, 0.77deg; 144x, 0.4mm, 0.35deg			
 Filters	Astronomik OIII, UHC			
 Target	Cons	Type	Power	Notes
-M42	Ori	CL+Neb	15x, 18x	4mm exit pupil + UHC shows nebula extension. OIII shows more contrast.
+M42	Ori	CL+Neb	15x, 18x	Great Orion Nebula. M42 benefits from both UHC and OIII filters, but in different way. The OIII shows a sublime image where the border between the nebula and sky background really emerges. The same can be said about the North part (that one linked to M43). In the centre of the nebula, some 'waves' were also visible. It is a super target to my eye. The UHC shows a much larger extension for this nebula and this is amazing with a wide field telescope. Small fine details visible within the nebula with the OIII are less obvious with the UHC, but the nebula just appears as massive globally and faint details on the outside borders are accessible as pure diffuse bright areas. 
 C50 - NGC2244	Mon	Opn CL	15x, 18x	Satellite cluster. Six stars in two columns 
 C49 - NGC2237	Mon	Neb	15x, 18x	Rosette nebula. Detectable with OIII filter. Very soft grey patch. No structure. Invisible with UHC filter.
 M35	Gem	Opn CL	15x	Detectable but not much detailed.
@@ -48,9 +48,9 @@ Power, EP, FOV	15x, 4mm, 4.30deg; 51x, 1.2mm, 1.54deg; 144x, 0.4mm, 0.35deg
 Filters	Astronomik OIII			
 Target	Cons	Type	Power	Notes
 M45	Tau	Opn CL	15x, 51x	Very clear and defined. 15x offers the best fov.
-M42	Ori	CL+Neb	15x + OIII, 51x	4mm exit pupil + OIII shows nebula extension. 51x shows trapezium
+M42	Ori	CL+Neb	15x + OIII, 51x	Well balanced contrast at 15x with OIII. 51x shows trapezium
 Sigma	Ori	Mlt star	51x	Sufficient for seeing 5 stars
-NGC1980	Ori	Neb	15x + OIII	4mm exit pupil + OIII shows a bit of nebula around the star Hatsya
+NGC1980	Ori	Neb	15x + OIII	With 4mm exit pupil, OIII shows a bit of nebula around the star Hatsya
 M78	Ori	Neb	15x	Unsuccess
 C50 - NGC2244	Mon	Opn CL	15x	Satellite cluster. Six stars in two columns 
 C49 - NGC2237	Mon	Neb	15x + OIII	Rosette nebula. Detectable with OIII filter. A grey patch 2 degree large. No structure visible
@@ -146,7 +146,7 @@ NGC1746	Tau	Opn CL	15x, 51x	After finding NGC1647, from i Tauri, go east for oth
 NGC1817	Tau	Opn CL	15x, 51x	After finding NGC1647, from i Tauri, go south-east for 5 deg until you see m Tauri (mag 4.9). NGC1817 and 1807 appear on the same field of view at both 15x and 51x. 15x is not sufficient for seeing details of these two clusters. These are accessible at 51x. NGC1817 seems less visible than NGC1807
 NGC1807	Tau	Opn CL	15x, 51x	See NGC1817. NGC1807 is more spectacular than NGC1817 at 51x possibly because it has brighter stars. 
 NGC1662	Ori	Opn CL	15x, 51x	A little open cluster near the top of Orion's shield. It is also reachable from Aldebaran (Alpha Tauris) moving towards south for about 8deg. At 15x it only shows it compactness. At 51x it shows some stars. This is a compact open cluster formed by relatively visible stars.  
-M1	Tau	SN Rem	15x; 51x +/- OIII, UHC	Invisible after trying with different magnifications and averted vision. Filters did not help either. You need dark skies for this target. Possibly you need to use an eyepiece at 2.0mm exit pupil.
+M1	Tau	SN Rem	15x; 51x +/- OIII, UHC	Crab Nebula. Invisible after trying with different magnifications and averted vision. Filters did not help either. Darker skies are required for this target. Possibly try with an eyepiece at 2.0mm exit pupil.
 M65	Leo	Galaxy	30x	Leo triplet. Elongated grey patch visible with averted vision. Shape of a cigar. At 30x, the patch is visible more easily than at 15x. The leo triplet is more easily detectable when the telescope is slightly moved. The patches will move accordingly.
 M66	Leo	Galaxy	30x	Leo triplet. As for M65. 
 M51	CVn	Galaxy	30x	Whirlpool Galaxy. Grey patch without a structure visible with averted vision. A darker sky will make the difference on this target.
@@ -291,7 +291,7 @@ Venus	Gem	Planet	103x, 206x	Observed in the twilight. Visible 60% of its phase. 
 C1 - NGC188	UMi	Opn CL	28x	The detail of this target seemed accessible, but I did not manage to see anything in the position suggested by Stellarium. Unfortunately, I did not have a star atlas with me. 
 Alpha	UMi	Dbl Star	28x, 103x	Polaris. A nice target because of the large difference in brightness between the two stars. Polaris' companion was dim grey and detectable at 28x with some difficulty. 103x easily split the two stars. 
 M60	Vir	Galaxy	28x	It was detectable with averted vision at 28x. It appeared as a grey patch without a structure. I tried M58, but it was not visible. I believe that to see these targets with this small telescope, very dark skies are required.
-C33 / 34 - NGC6992 / 6960	Cyg	Glob CL	15x + OIII	Veil Nebula. No visible, although it is not the best time of the year to see this target.
+C33 / 34 - NGC6992 / 6960	Cyg	SN Rem	15x + OIII	Veil Nebula. No visible, although it is not the best time of the year to see this target.
 M57	Lyr	Pln Neb	15x + OIII	Ring Nebula. The OIII filter largely improves the detection of this nebula at 15x. Without a filter, its detection is not easy. It emerges in the sky as a grey little ball. I believe the Nagler 7mm or even the Vixen 5mm can give great views when combined with an OIII filter.
 Saturn	Sco	Planet	103x	It was a bit higher than yesterday, but unfortunately, my telescope and eyepieces were soaked with humidity and could not really see this target after the first 5 min. Rings were clearly defined, and I believe the Cassini division could have been detectable.
 				
@@ -316,7 +316,7 @@ M56	Lyr	Glob CL	15x, 28x	This is the first time I detect this target. It is quit
 M57	Lyr	Pln Neb	28x +/- OIII	Ring Nebula. I tried the OIII filter with the Nagler 3.5 (103x). Although the ring shape was noticeable, it was just too much magnification and the overall image was largely degraded. At 28x + OIII the Ring Nebula emerged from the background sky and appeared as a colourless bubble. I believe that an exit pupil of 1-1.5mm can improve the view for this target.
 M97	UMa	Pln Neb	28x +/- OIII	Owl Nebula. Interesting target. Completely invisible without OIII filter. With the OIII, it emerges from the sky and the nearby stars. It is a quite large planetary nebula. No colour or shape was detectable, but it simply appeared as a grey bubble. At 15x + OIII was detectable, but was too small to see any major detail.
 M108	UMa	Galaxy	15x, 28x	Surfboard Galaxy. Invisible at both 15x and 28x. This object as well as most of the other galaxies require larger aperture and / or a darker sky.
-C33 / 34 - NGC6992 / 6960	Cyg	Glob CL	15x + OIII	Veil Nebula. Again, no visible although it is too low on the horizon.
+C33 / 34 - NGC6992 / 6960	Cyg	SN Rem	15x + OIII	Veil Nebula. Again, no visible although it is too low on the horizon.
 Saturn	Sco	Planet	103x, 206x	It is still fairly low on the horizon. Titan was visible. The Cassini division was not detectable, but it was possible to see a shade in the middle of the ring. At 206x the image was just degraded and difficult to focus. I have to wait for a higher position of the planet.
 				
 				
