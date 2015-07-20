@@ -45,13 +45,18 @@ M81	UMa	Galaxy	15x	Bode's Galaxy. B15x70, Newcastle (UK).
 M82	UMa	Galaxy	15x	Cigar Galaxy. B15x70, Newcastle (UK).
 M92	Her	Glob CL	15x	B15x70, Newcastle (UK).
 M110	And	Galaxy	15x	M31 Companion. B15x70, Luton, Devon (UK).
-C14 - NGC869 / 884	Per	Opn CL	15x, 51x	Double Cluster. B15x70, Exeter, Newcastle (UK); TV60F6, Newcastle (UK).
-C28 - NGC752	And	Opn CL	15x	B15x70, Newcastle (UK).
-C37 - NGC6885	Vul	Opn CL	15x	B15x70, Newcastle (UK).
-C39 - NGC2392	Gem	Pln Neb	15x, 51x, 72x	Eskimo Nebula. TV60F6, Cambridge (UK).
-C41	Tau	Opn CL	36x; 15x, 18x, 51x	Hyades. C114F8, Venice (IT); B15x70, TV60F6, Newcastle (UK).
-C49 - NGC2237	Mon	Neb	15x	Rosette Nebula. TV60F6, Cambridge (UK).
-C50 - NGC2244	Mon	Opn CL	15x	Satellite cluster. TV60F6, Newcastle, Cambridge (UK).
+NGC752	And	Opn CL	15x	B15x70, Newcastle (UK).
+NGC869/ 884	Per	Opn CL	15x, 51x	Double Cluster. B15x70, Exeter, Newcastle (UK); TV60F6, Newcastle (UK).
+NGC1750	Tau	Opn CL	15x, 51x	TV60F6, Cambridge (UK).
+NGC1980	Ori	Neb	15x	TV60F6, Cambridge (UK).
+NGC1981	Ori	Opn CL	15x, 51x	TV60F6, Cambridge (UK).
+NGC2237	Mon	Neb	15x	Rosette Nebula. TV60F6, Cambridge (UK).
+NGC2244	Mon	Opn CL	15x	Satellite cluster. TV60F6, Newcastle, Cambridge (UK).
+NGC2264	Mon	Opn CL	36x; 15x, 51x	C114F8, Venice (IT); TV60F6, Cambridge (UK).
+NGC2392	Gem	Pln Neb	15x, 51x, 72x	Eskimo Nebula. TV60F6, Cambridge (UK).
+NGC6633	Oph	Opn CL	36x; 15x	C114F8, Venice (IT); B15x70, Newcastle (UK). A beautiful chain of stars.
+NGC6885	Vul	Opn CL	15x	B15x70, Newcastle (UK).
+IC4756	Ser	Opn CL	36x; 15x	Graff's Cluster. C114F8, Venice (IT); B15x70, Newcastle (UK).
 Stock1	Vul	Opn CL	15x	B15x70, Newcastle (UK).
 Stock2	Cas	Opn CL	15x	B15x70, TV60F6, Newcastle (UK).
 Mel20	Per	Opn CL	15x	B15x70, TV60F6, Newcastle (UK).
@@ -65,12 +70,6 @@ Cr97	Mon	Opn CL	15x, 30x	TV60F6, Cambridge (UK).
 Cr106	Mon	Opn CL	15x, 30x	TV60F6, Cambridge (UK).
 Cr107	Mon	Opn CL	15x, 30x	TV60F6, Cambridge (UK).
 Cr399	Vul	Opn CL	15x	Brocchi's Cluster, the Coathanger. B15x70, Newcastle (UK).
-NGC1750	Tau	Opn CL	15x, 51x	TV60F6, Cambridge (UK).
-NGC1980	Ori	Neb	15x	TV60F6, Cambridge (UK).
-NGC1981	Ori	Opn CL	15x, 51x	TV60F6, Cambridge (UK).
-NGC2264	Mon	Opn CL	36x; 15x, 51x	C114F8, Venice (IT); TV60F6, Cambridge (UK).
-NGC6633	Oph	Opn CL	36x; 15x	C114F8, Venice (IT); B15x70, Newcastle (UK). A beautiful chain of stars.
-IC4756	Ser	Opn CL	36x; 15x	Graff's Cluster. C114F8, Venice (IT); B15x70, Newcastle (UK).
 27 Hydra	Hya	Dbl Star	51x	TV60F6, Cambridge (UK).
 Gamma	UMi	Dbl Star	51x	Pherkad. TV60F6, Cambridge (UK).
 Beta	And	Dbl Star	15x	Mirach. B15x70, Newcastle (UK).
@@ -110,8 +109,8 @@ Power, EP, FOV	15x, 4mm, 4.30deg; 18x, 3.3mm, 2.73deg; 103x, 0.6mm, 0.77deg; 144
 Filters	Astronomik OIII, UHC			
 Target	Cons	Type	Power	Notes
 M42	Ori	CL+Neb	15x, 18x	Great Orion Nebula. M42 benefits from both UHC and OIII filters, but in different way. The OIII shows a sublime image where the border between the nebula and sky background really emerges. The same can be said about the North part (that one linked to M43). In the centre of the nebula, some 'waves' were also visible. It is a super target to my eye. The UHC shows a much larger extension for this nebula and this is amazing with a wide field telescope. Small fine details visible within the nebula with the OIII are less obvious with the UHC, but the nebula just appears as massive globally and faint details on the outside borders are accessible as pure diffuse bright areas. 
-C50 - NGC2244	Mon	Opn CL	15x, 18x	Satellite cluster. Six stars in two columns 
-C49 - NGC2237	Mon	Neb	15x, 18x	Rosette nebula. Detectable with OIII filter. Very soft grey patch. No structure. Invisible with UHC filter.
+NGC2244	Mon	Opn CL	15x, 18x	Satellite cluster. Six stars in two columns 
+NGC2237	Mon	Neb	15x, 18x	Rosette nebula. Detectable with OIII filter. Very soft grey patch. No structure. Invisible with UHC filter.
 M35	Gem	Opn CL	15x	Detectable but not much detailed.
 M36	Aur	Opn CL	15x	Very poor detail, but detectable. 
 M37	Aur	Opn CL	15x	Very poor detail, but detectable. 
@@ -144,8 +143,8 @@ M42	Ori	CL+Neb	15x + OIII, 51x	Well balanced contrast at 15x with OIII. 51x show
 Sigma	Ori	Mlt star	51x	Sufficient for seeing 5 stars
 NGC1980	Ori	Neb	15x + OIII	With 4mm exit pupil, OIII shows a bit of nebula around the star Hatsya
 M78	Ori	Neb	15x	Unsuccess
-C50 - NGC2244	Mon	Opn CL	15x	Satellite cluster. Six stars in two columns 
-C49 - NGC2237	Mon	Neb	15x + OIII	Rosette nebula. Detectable with OIII filter. A grey patch 2 degree large. No structure visible
+NGC2244	Mon	Opn CL	15x	Satellite cluster. Six stars in two columns 
+NGC2237	Mon	Neb	15x + OIII	Rosette nebula. Detectable with OIII filter. A grey patch 2 degree large. No structure visible
 NGC2264	Mon	CL+Neb	15x + OIII	Christmas tree + Cone nebula. Christmas tree is easily visible. Cone nebula is not detectable with or without an OIII filter near. Apparently apertures of at least 300mm and H-beta filter or UHC filters are required beside a moderately dark sky.
 M35	Gem	Opn CL	15x	Under transparent night, many stars are visible inside.
 M36	Aur	Opn CL	15x	Easy to find after finding M38. A bit difficult to see inside as it is quite dim.
@@ -211,9 +210,9 @@ M46	Pup	Opn CL	15x	This is a compact cluster. It is detectable.
 M48	Hya	Opn CL	15x	Dim open cluster. It requires transparent skies to shine properly.
 M65	Leo	Galaxy	15x, 18x, 30x	Invisible. Sky not transparent enough. I think an exit pupil of 3.3mm is a good compromise between 4mm and 2mm. 2mm is too much for the TV60 on this targets.
 M66	Leo	Galaxy	15x, 18x, 30x	Invisible. Sky not transparent enough.
-C50 - NGC2244	Mon	Opn CL	15x	Satellite cluster. Six stars in two columns 
+NGC2244	Mon	Opn CL	15x	Satellite cluster. Six stars in two columns 
 NGC2264	Mon	CL+Neb	15x	Christmas tree. 
-C39 - NGC2392	Gem	Pln Neb	15x, 51x +/- OIII, UHC, 72x	Eskimo nebula. From Wasat (Delta Gem) move east to 63 Gem. 63 Gem is the brightest star of a 'half moon' of 7 stars. The Eskimo nebula is next to the star HIP36370 (mag8.2), which is a bit isolated but very close to 63 on the opposite direction of Wasat. You can spot it at 15x without filters, but you see it only with averted vision. It appears as a very small patch next to the star. At 51x the nebula is visible as a grey little ball. The boundaries are obfuscated. An UHC filter helps increasing the contrast between the sky and the nebula. An OIII filter shows even more contrast, although I think an UHC filter is better at this exit pupil (1.2mm). Using these filters, the boundaries of the nebula appear much clearer although no structure is visible at this magnification. At 72x (and no filter) is still visible as a grey little ball. Boundaries are obfuscated.  
+NGC2392	Gem	Pln Neb	15x, 51x +/- OIII, UHC, 72x	Eskimo nebula. From Wasat (Delta Gem) move east to 63 Gem. 63 Gem is the brightest star of a 'half moon' of 7 stars. The Eskimo nebula is next to the star HIP36370 (mag8.2), which is a bit isolated but very close to 63 on the opposite direction of Wasat. You can spot it at 15x without filters, but you see it only with averted vision. It appears as a very small patch next to the star. At 51x the nebula is visible as a grey little ball. The boundaries are obfuscated. An UHC filter helps increasing the contrast between the sky and the nebula. An OIII filter shows even more contrast, although I think an UHC filter is better at this exit pupil (1.2mm). Using these filters, the boundaries of the nebula appear much clearer although no structure is visible at this magnification. At 72x (and no filter) is still visible as a grey little ball. Boundaries are obfuscated.  
 Jupiter	Cnc	Planet	72x	Quick observation. Two belts and four satellite were visible. 
 Alpha	Hya	Star	72x	Alphard. Yellow star
 Alpha	Vir	Star	72x	Spica. Blue star
@@ -243,7 +242,7 @@ M65	Leo	Galaxy	30x	Leo triplet. Elongated grey patch visible with averted vision
 M66	Leo	Galaxy	30x	Leo triplet. As for M65. 
 M51	CVn	Galaxy	30x	Whirlpool Galaxy. Grey patch without a structure visible with averted vision. A darker sky will make the difference on this target.
 Jupiter	Cnc	Planet	103x	Two belts clearly visible and a faint one in the South hemisphere was detectable. All four satellite were visible. Io and Europa were very tight at East of the planet.
-C59 - NGC3242	Hya	Pln Neb	15x; 51x +/- OIII, UHC; 72x	Ghost of Jupiter. By naked eye, from Alphard (Alpha Hydrae, mag 1.95), move east and detect the Lambda Hydrae (mag 3.6). This star appears like a star system extending north and south from Lambda Hydrae. Continue moving east following Hydrae body. The next star is slightly south of Lambda. This is Mu Hydra (mag 3.6). Then next one is Nu Hydra (mag 3.10). Mu Hydra will appear Yellow/Orange and almost isolated. It has a little star on the north. Slightly south, you see two bright couples of stars: two more distant at east (HIP50693, HIP50764), two closer at west (HIP51170, HIP51193). Consider the tight couple at west. There is a little star (near this couple in the direction of the other couple. If you use the tight couple and the little star as pointer and you move for another segment in the direction of the little star, the planetary nebula will appear. This appears as a faint tiny and diffuse light. No structure. At 51x it appears like a little full circle. An OIII seems more effective than an UHC filter here possibly because the planetary nebula is low on the horizon. The OIII filter makes it appear from the sky, whereas really few nearby stars are visible. 72x does not show more detail. UHC filter works fine but does not boost the object at the same level as the OIII does.
+NGC3242	Hya	Pln Neb	15x; 51x +/- OIII, UHC; 72x	Ghost of Jupiter. By naked eye, from Alphard (Alpha Hydrae, mag 1.95), move east and detect the Lambda Hydrae (mag 3.6). This star appears like a star system extending north and south from Lambda Hydrae. Continue moving east following Hydrae body. The next star is slightly south of Lambda. This is Mu Hydra (mag 3.6). Then next one is Nu Hydra (mag 3.10). Mu Hydra will appear Yellow/Orange and almost isolated. It has a little star on the north. Slightly south, you see two bright couples of stars: two more distant at east (HIP50693, HIP50764), two closer at west (HIP51170, HIP51193). Consider the tight couple at west. There is a little star (near this couple in the direction of the other couple. If you use the tight couple and the little star as pointer and you move for another segment in the direction of the little star, the planetary nebula will appear. This appears as a faint tiny and diffuse light. No structure. At 51x it appears like a little full circle. An OIII seems more effective than an UHC filter here possibly because the planetary nebula is low on the horizon. The OIII filter makes it appear from the sky, whereas really few nearby stars are visible. 72x does not show more detail. UHC filter works fine but does not boost the object at the same level as the OIII does.
 				
 				
 				
@@ -333,10 +332,10 @@ Target	Cons	Type	Power	Notes
 Moon	Vir	Satellite	51x, 103x	Moon phase 91%. The moon at 103x did not need a filter. It was very crisp and showed details in the South hemisphere despite it was almost full. At 51x, the moon is simply scaled of a factor of 1/2, indicating that the Nagler 3.5mm behaves as a perfect 2x Nagler 7mm. It would be useful to have a Moon map to check the crater's names. 
 Jupiter	Cnc	Planet	103x	At 103x Jupiter showed 4 moons and 4 belts. No specific events were visible this evening.
 M44	Cnc	Opn CL	15x	Beehive cluster. One of the best wide open cluster. Not many faint stars were visible because of almost full moon. However, the cluster still emerged in the sky.
-C14 - NGC869 / 884	Per	Opn CL	15x, 51x	Double cluster. Superb cluster. Even if low in the sky, it was a pleasure to see it. At 51x, the cluster emerged from the background and showed more faint stars.
+NGC869/ 884	Per	Opn CL	15x, 51x	Double cluster. Superb cluster. Even if low in the sky, it was a pleasure to see it. At 51x, the cluster emerged from the background and showed more faint stars.
 Stock2	Cas	Opn CL	15x	This cluster next to the double cluster is very nice and needs a wide field telescope. Its stars are not so bright and generally of similar magnitude and colour.
 Mel20	Per	Opn CL	15x	Alpha Per moving cluster. Wide field telescopes or binoculars are the best for this superb cluster. Even if low in the sky, it was very beautiful to see. >70 stars detectable.
-C39 - NGC2392	Gem	Pln Neb	15x, 51x	Eskimo nebula. At 15x it was detectable with averted vision. It was easily visible at 51x and appeared like a fuzzy blue/grey small patch next to the star. 
+NGC2392	Gem	Pln Neb	15x, 51x	Eskimo nebula. At 15x it was detectable with averted vision. It was easily visible at 51x and appeared like a fuzzy blue/grey small patch next to the star. 
 				
 				
 				
@@ -355,9 +354,9 @@ Target	Cons	Type	Power	Notes
 Jupiter	Cnc	Planet	103x, 206x	Observed in the twilight. Still visible at 206x with some detail but the new tripod is not up to this sort of magnifications. To be fair, the new tripod was fine at 103x but only when there was no wind. 3 belts and 4 moons visible. It would be interesting to try 206x with my solid tripod.
 Venus	Gem	Planet	103x	Observed in the twilight. Visible 60% of its phase. No cloud detail was detectable. A polarised filter might help on this target.
 M44	Cnc	Opn CL	15x, 28x	The Nagler 13mm offers the best view. Its fov covers the whole object nicely. Image not degraded at all and the background sky was darkened just the right amount for maximising contrast. Exit pupil of about 2.0mm shows a really nice brightness / contrast for point source DSO.
-C14 - NGC869 / 884	Per	Opn CL	15x, 28x	Double Cluster. Again, the Nagler 13 offering almost 3 degrees of fov shows the full object with great detail but conserving an adequate image brightness. 
+NGC869/ 884	Per	Opn CL	15x, 28x	Double Cluster. Again, the Nagler 13 offering almost 3 degrees of fov shows the full object with great detail but conserving an adequate image brightness. 
 Stock2	Cas	Opn CL	15x, 28x	As above. 
-M103 or C13 - NGC457	Cas	Opn CL	28x	Not sure whether I saw M103 or C13 (the Owl Cluster) though. A clear double star was well visible and there were a few dim stars in the background were also detectable. This object starts being visible at 28x. It is relatively small, but a lovely target. I think it was M103 as my memory seems more similar to the images.
+M103 or NGC457	Cas	Opn CL	28x	Not sure whether I saw M103 or NGC457 (the Owl Cluster) though. A clear double star was well visible and there were a few dim stars in the background were also detectable. This object starts being visible at 28x. It is relatively small, but a lovely target. I think it was M103 as my memory seems more similar to the images.
 M60	Vir	Galaxy	15x, 28x	Turn West to Vindemiatrix. A little crown of star is visible slightly South. Continue and you see a little arrow of stars and a single star in the North. M60 is between these two objects. Not detectable at 15x. Detectable via averted vision at 28x. A patch of grey. The sky was not fully dark though and my eye was not dark adapted. I believe this object can show more detail. 
 27 Hya	Hya	Dbl Star	15x, 28x	Easily split. Colours detectable.
 M13	Her	Glob CL	15x, 28x	Detectable at 15x, but nicer at 28x. No star was resolved. It would be interesting to try 51x although I guess this might be too much. 
@@ -380,10 +379,10 @@ Filters	Astronomik OIII
 Target	Cons	Type	Power	Notes
 Jupiter	Cnc	Planet	103x, 206x	Observed in the twilight. The idea started as a joke because I thought the image would have been too dark for discerning any detail. Instead, it was possible to perceive a little amount of shades on the two major belts of the planet. The boundaries of the other two less visible belts (North and South hemisphere, respectively) were also there. At 103x I was able to see the boundaries of these two belts on the 'equator side', but not on the 'pole side'. At 206x these were noticeable. 4 moons were detectable and one was just about to get closer to Jupiter. I agree with Gerry (sgl: jetstream) that watching Jupiter in twilight shows more contrast. I was also able to see some red-ish colour on the major two belts, which instead is less noticeable when watching Jupiter in the dark. Looking at a bright source before watching the planet did not help me instead. I found I had more difficulty to notice details. Although the exit pupil was only 0.3mm, floaters did not cause me serious problems. Interestingly, I found floaters to be a problem when watching the Sun at 103x. Could these be related to overall image brightness? 
 Venus	Gem	Planet	103x, 206x	Observed in the twilight. Visible 60% of its phase. No cloud detail was detectable. At 206x, on one side of the focus, Venus appeared violet, on the other side green/yellow. When in focus, there was no colour aberration. Curiously, at this magnification it was still very bright suggesting that a variable polarising filter might be beneficial. 
-C1 - NGC188	UMi	Opn CL	28x	The detail of this target seemed accessible, but I did not manage to see anything in the position suggested by Stellarium. Unfortunately, I did not have a star atlas with me. 
+NGC188	UMi	Opn CL	28x	The detail of this target seemed accessible, but I did not manage to see anything in the position suggested by Stellarium. Unfortunately, I did not have a star atlas with me. 
 Alpha	UMi	Dbl Star	28x, 103x	Polaris. A nice target because of the large difference in brightness between the two stars. Polaris' companion was dim grey and detectable at 28x with some difficulty. 103x easily split the two stars. 
 M60	Vir	Galaxy	28x	It was detectable with averted vision at 28x. It appeared as a grey patch without a structure. I tried M58, but it was not visible. I believe that to see these targets with this small telescope, very dark skies are required.
-C33 / 34 - NGC6992 / 6960	Cyg	SN Rem	15x + OIII	Veil Nebula. No visible, although it is not the best time of the year to see this target.
+NGC6992/ 6960	Cyg	SN Rem	15x + OIII	Veil Nebula. No visible, although it is not the best time of the year to see this target.
 M57	Lyr	Pln Neb	15x + OIII	Ring Nebula. The OIII filter largely improves the detection of this nebula at 15x. Without a filter, its detection is not easy. It emerges in the sky as a grey little ball. I believe the Nagler 7mm or even the Vixen 5mm can give great views when combined with an OIII filter.
 Saturn	Sco	Planet	103x	It was a bit higher than yesterday, but unfortunately, my telescope and eyepieces were soaked with humidity and could not really see this target after the first 5 min. Rings were clearly defined, and I believe the Cassini division could have been detectable.
 				
@@ -403,12 +402,12 @@ Filters	Astronomik OIII, Single Polarising Filter
 Target	Cons	Type	Power	Notes
 Jupiter	Cnc	Planet	103x +/- SPF, 206x + SPF	Observed in the twilight. The SPF noticeably improved the view. Four belts and the transit of Callisto were easily visible at both 103x and 206x. The use of a SPF seemed to stabilise the image and improved contrast. A fair amount of shades were also perceptible on the main two belts. The transit appeared as a crisp black dot on the planet atmosphere. Without the SPF it was only possible to see the two main belts and no shade on them. They simply appeared as two thick lines across the planet. Interestingly the transit shadow appeared a tiny bit better without the filter. To me, using the SPF requires a bit of experience in order to rotate the eyepiece to gain the best contrast. However this is feasible.
 Venus	Gem	Planet	103x +/- SPF, 206x + SPF	Observed in the twilight. Visible 60% of its phase. No cloud detail was detectable even with the SPF. Planet glare was reduced but it was very difficult to focus, likely due to the average seeing and high magnification.
-C14 - NGC869 / 884	Per	Opn CL	15x, 28x	Double Cluster. This target is superb with the Nagler 13. Although low on the horizon, it still offers nice contrast with the background sky and the 2.8deg of fov show the object with all its context.
+NGC869/ 884	Per	Opn CL	15x, 28x	Double Cluster. This target is superb with the Nagler 13. Although low on the horizon, it still offers nice contrast with the background sky and the 2.8deg of fov show the object with all its context.
 M56	Lyr	Glob CL	15x, 28x	This is the first time I detect this target. It is quite challenging to find with a 60mm but not impossible. I used the Sheliak (Beta Lyrae) and Sulafat (Gamma Lyrae) as pointers to target M56 along the line passing through these two stars on the side of Sulafat. M56 was detectable with a 15x using an atlas but was very faint and averted vision was almost required to find it. At 28x the object was more visible, but did not show much detail as it only appeared as a soft grey patch. This target required larger aperture and / or darker skies.
 M57	Lyr	Pln Neb	28x +/- OIII	Ring Nebula. I tried the OIII filter with the Nagler 3.5 (103x). Although the ring shape was noticeable, it was just too much magnification and the overall image was largely degraded. At 28x + OIII the Ring Nebula emerged from the background sky and appeared as a colourless bubble. I believe that an exit pupil of 1-1.5mm can improve the view for this target.
 M97	UMa	Pln Neb	28x +/- OIII	Owl Nebula. Interesting target. Completely invisible without OIII filter. With the OIII, it emerges from the sky and the nearby stars. It is a quite large planetary nebula. No colour or shape was detectable, but it simply appeared as a grey bubble. At 15x + OIII was detectable, but was too small to see any major detail.
 M108	UMa	Galaxy	15x, 28x	Surfboard Galaxy. Invisible at both 15x and 28x. This object as well as most of the other galaxies require larger aperture and / or a darker sky.
-C33 / 34 - NGC6992 / 6960	Cyg	SN Rem	15x + OIII	Veil Nebula. Again, no visible although it is too low on the horizon.
+NGC6992/ 6960	Cyg	SN Rem	15x + OIII	Veil Nebula. Again, no visible although it is too low on the horizon.
 Saturn	Sco	Planet	103x, 206x	It is still fairly low on the horizon. Titan was visible. The Cassini division was not detectable, but it was possible to see a shade in the middle of the ring. At 206x the image was just degraded and difficult to focus. I have to wait for a higher position of the planet.
 				
 				
@@ -500,9 +499,9 @@ Alpha	Sco	Star	15x	Antares. Lovely red star. I could see the Airy disc and diffr
 M107	Ser	Glob CL	15x, 51x	From Han, Zeta Oph, go slightly South and see a triangle. M103 is on the outside of one of the vertices. It was barely visible at 15x, also due to the bright sky. At 51x was detectable but still with difficulty. Not much to see. Just a grey smudge visible with averted vision.
 M10	Oph	Glob CL	15x, 51x	Nice globular cluster. It does not have nearby stars, but is relatively large. Stars are not really visible, but the cluster appear with some hint of granulation particularly detectable on the outside.
 M12	Oph	Glob CL	15x, 51x	Like M10, this is another nice globular cluster. Somehow I preferred it to M10 because of the presence of surrounding close stars at east. I believe this cluster is slightly bigger than M10, or at least it seemed so. Like M10, a hint of granulation was detectable. 
-IC4665 - Cr349	Oph	Opn CL	15x	Summer Beehive Cluster. Amazing open cluster of large size above the star Cebalrai. A pleasure to see with a low power eyepiece. Stars have similar colours and magnitude, but the shape is nice.
+IC4665	Oph	Opn CL	15x	Summer Beehive Cluster. Amazing open cluster of large size above the star Cebalrai. A pleasure to see with a low power eyepiece. Stars have similar colours and magnitude, but the shape is nice.
 NGC6633	Sct	Opn CL	15x	From 71-72 Oph to East, NGC6633 and Cr386 appear in succession. Both are sufficiently large to be appreciable with a low power eyepiece. They are quite rich in stars. 
-IC4756 - Cr386	Sct	Opn CL	15x	Graff's cluster. See above
+IC4756	Sct	Opn CL	15x	Graff's cluster. See above
 Epsilon	Lyr	Dbl star	51x	The Double Double. I could not split the two. The image suggested a possible elongation of the two stars, but this was not obvious. I would not have detected it if I had not known that they are doubles. I carefully focused inward and outward to reach the optimum, but this was not sufficient. 
 Beta	Sco	Mlt star	51x	Acrab or Graffias. Very fine multiple star system at 51x. The two stars have different colour and brightness. If I remember correctly the small one was blue. They were split but still quite tight. At 70x they should be split clearer. 
 M57	Lyr	Pln Neb	51x	It was lovely to see this planetary nebulae at 1.2mm exit pupil. The ring was clearly visible and the size was acceptable. No colour of course, but averted vision showed this object pretty well, although it was visible also via direct observation. As expected, the Nalger 7mm is perfect for this target and I expect that is more than adequate for many other planetary nebulae.
@@ -524,7 +523,7 @@ Target	Cons	Type	Power	Notes
 Saturn	Lib	Planet	103x, 206x	Very nice view of Saturn tonight. At both 103x and 206x, the Cassini division was detectable when the sky appeared steady for few seconds. It appeared as a soft grey shade on the lateral parts of the rings. Possibly what I was seeing was the shade between the A and B rings. This was not always visible, but just for few seconds when the seeing was steady and no wind blew, the difference in colour intensity was noticeable. Titan was also visible on the South of the planet. It seemed a grey dot. The North Equatorial Belt on the planet appeared as a soft darker gradient compared to the planet equatorial zone. The North Polar Region was not clearly detectable.
 Venus	Com	Planet	103x, 206x	Phase about 50%. No detail visible, but the image was sufficiently stable. A SPF would have helped, but I forgot it at home. 
 Jupiter	Leo	Planet	103x, 206x	206x was too much for Jupiter tonight. Mostly seen it at 103x. Three moons visible, whereas the fourth seemed behind the planet. North and South Equatorial Belts were visible. On the North Hemisphere another belt was also detectable. No GRS visible.
-C33 / 34 - NGC6992 / 6960	Cyg	SN Rem	15x +/- OIII, 28x +/- OIII	Veil Nebula. No visible or detectable. I carefully searched the stars and positioned at 52 Cygni. 28x +OIII seemed to show a soft transparent cloud, but I cannot say that that was the Veil Nebula. The sky was not fully transparent and dark. This might be the reason.
+NGC6992/ 6960	Cyg	SN Rem	15x +/- OIII, 28x +/- OIII	Veil Nebula. No visible or detectable. I carefully searched the stars and positioned at 52 Cygni. 28x +OIII seemed to show a soft transparent cloud, but I cannot say that that was the Veil Nebula. The sky was not fully transparent and dark. This might be the reason.
 Epsilon	Lyr	Dbl star	103x	The Double Double. Just managed to see the two pairs, although the separation was not clear. They appeared just a tiny more than elongated stars. I am not sure, but I suspect this was more due to the Nagler 3.5mm. I will try with the Vixen 5mm next time, as generally this eyepiece delivers better views than the Naglers, on planets at least.
 Beta	Sco	Mlt star	103x	Acrab or Graffias. It was clearly split, but the seeing was not very nice near the horizon and the stars light was not punctiform. The small star is blue. This double star is the top of the three stars of Scorpius.
 				
@@ -619,8 +618,8 @@ Saturn	Lib	Planet	72x	Observation at twilight. Due to the poor seeing, I did not
 Moon	Oph	Satellite	72x, 144x, 206x	Observation at twilight. Waxing Gibbous and phase 97%. I observed Tycho, Copernicus and Kepler. 
 NGC6910	Cyg	Opn CL	28x	From Deneb (Alpha), I moved to Sadr (Gamma). This open cluster is on the line between these two stars, but on the side of Sadr. Its size is only 8', but is sufficiently bright (magnitude 7.4, surface brightness 11.7). It is formed by few bright stars and I could count about 7-8 dim stars. Apparently, many of these stars are variable. Very beautiful to me. 
 M29	Cyg	Opn CL	28x	Cooling Tower. From Sadr (Gamma), this cluster is East - South-East. The main six stars forming a little tower, or an academic hat, were easily visible. No dim star was detectable likely due to the Moon. This is a nice cluster which might be interesting to see at higher power (e.g. 51x). 
-IC4996 - Cr418	Cyg	Opn CL	28x	From M29, I moved South. This is a very small open cluster which is detectable at this low power, but would benefit of higher power. It is near an isolated star near three pairs of aligned stars. Three - four stars were detectable apart from the main one.
-NGC6883 - Cr415	Cyg	Opn CL	28x	From IC4996, I moved South, using as a reference a group of stars reminding me of a pan and a long handle. NGC6883 is located below a line of 3 stars. It is quite easy to find.
+IC4996	Cyg	Opn CL	28x	From M29, I moved South. This is a very small open cluster which is detectable at this low power, but would benefit of higher power. It is near an isolated star near three pairs of aligned stars. Three - four stars were detectable apart from the main one.
+NGC6883	Cyg	Opn CL	28x	From IC4996, I moved South, using as a reference a group of stars reminding me of a pan and a long handle. NGC6883 is located below a line of 3 stars. It is quite easy to find.
 NGC6871	Cyg	Opn CL	28x	From NGC6883, I moved South-West. There is a chain of about 8-10 stars, leading to this wonderful open cluster. The cluster is of medium size. I could see about 10-15 blue bright stars, and 3-4 pairs seemed to be double stars. There are also lovely double stars in this area.
 				
 				
@@ -664,7 +663,7 @@ Power, EP, FOV	15x, 4.0mm, 4.30deg; 28x, 2.2mm, 2.80deg; 51x, 1.2mm, 1.54deg; 72
 Filters	Astronomik UHC, OIII			
 Target	Cons	Type	Power	Notes
 Saturn	Lib	Planet	28x, 51x, 72x, 103x 	Observation at twilight. At 72x, the North Equatorial Belt was easily visible. The Cassini division was detectable at the lateral sides of the rings, and the rings A and B were clearly distinct. Titan was visible and appeared like a small star. At 28x or 51x the planet looked crisper, but the NEB was not easily detectable. At 103x the Cassini division was not visible. The seeing was not good enough for higher power, unfortunately.
-IC4665 - Cr349	Oph	Opn CL	28x	Summer Beehive Cluster. Wonderful open cluster, close to Beta Oph (Cebalrai). Always worth having a look if in the area.
+IC4665	Oph	Opn CL	28x	Summer Beehive Cluster. Wonderful open cluster, close to Beta Oph (Cebalrai). Always worth having a look if in the area.
 61	Oph	Dbl Star	28x	From Beta Oph (Cebalrai), I moved South towards Gamma Oph. 61 Oph is a double star located at about 1 degree East of Gamma Oph. It is already split at 28x. It seems to me that they were both blue but with slightly different magnitude. The sky was not completely dark, so I might be wrong. Nice pair. 
 M8	Sgr	CL+Neb	15x +/- UHC or OIII, 28x	Lagoon Nebula. At 28x the stars in this cluster with nebula are much better separated. I decided to use a low power eyepiece on the nebulae in this area. The OIII was too strong mainly because the sky was not dark enough and this target is just above the horizon. Instead a UHC was ideal and revealed the nebula via direct vision clearly. This is one of my favourite targets in Sagittarius. 
 NGC6530	Sgr	Opn CL	15x +/- UHC, 28x	Cluster inside / East the Lagoon Nebula. This cluster emerges at 28x to me. 
@@ -675,13 +674,13 @@ M16	Ser	CL+Neb	15x +/- UHC, 28x	Eagle Nebula. This nebula was only visible with 
 NGC6604	Ser	CL+Neb	15x +/- UHC, 28x	This cluster with associated nebulosity is located at about 1.5 degrees North of the Eagle Nebula. It is a fairly spread cluster without many stars. The nebula shape was not really identifiable, but it was possible to spot the presence of diffuse nebulosity in the area. 
 M24	Sgr	Opn CL	28x	Sagittarius Star Cloud. I counted about 50 stars, although the sky was not dark yet. Fantastic cluster
 M29	Cyg	Opn CL	15x	Cooling Tower. Easily detectable as it is in the same field of view of Sadr. It is at about 2 degrees South from Sadr and 2 degrees East from the Cygnus' neck.
-IC4996 - Cr418	Cyg	Opn CL	15x	From Sadr, follow the line forming Cygnus' neck. This object is located at about 1.5-2 degrees East from the Cygnus' neck. It is easily detectable at 15x.
-NGC6883 - Cr415	Cyg	Opn CL	15x	As for IC4996.
+IC4996	Cyg	Opn CL	15x	From Sadr, follow the line forming Cygnus' neck. This object is located at about 1.5-2 degrees East from the Cygnus' neck. It is easily detectable at 15x.
+NGC6883	Cyg	Opn CL	15x	As for IC4996.
 NGC6871	Cyg	Opn CL	15x	As for IC4996.
-C27 - NGC6888	Cyg	Neb	15x +/- UHC or OIII	Crescent Nebula. The nearby group of stars is located on the Cygnus' neck at about 1.5 degrees from IC4996 (from IC4996, just move 1.5 degrees North-West). Spotting the nebula was difficult though. I suspect it requires a darker sky. With averted vision and a UHC filter, very faint small grey patches were suspected around the nearby stars. A OIII filter made these patches slightly more noticeable. However, in my opinion this seems to be a challenging target.
+NGC6888	Cyg	Neb	15x +/- UHC or OIII	Crescent Nebula. The nearby group of stars is located on the Cygnus' neck at about 1.5 degrees from IC4996 (from IC4996, just move 1.5 degrees North-West). Spotting the nebula was difficult though. I suspect it requires a darker sky. With averted vision and a UHC filter, very faint small grey patches were suspected around the nearby stars. A OIII filter made these patches slightly more noticeable. However, in my opinion this seems to be a challenging target.
 M27	Vul	Pln Neb	15x +/- UHC	The Dumbbell Nebula. This planetary nebula is clearly distinguishable from the background sky and shows up like a grey ball. No detail at this magnification was visible though. Really pretty target.
-C20 - NGC7000	Cyg	Neb	15x +/- UHC	North America Nebula. The presence of diffuse nebulosity was visible in the area, but it was not obvious to spot the presence of this nebula specifically. 
-C33 / 34 - NGC6992 / 6960	Cyg	SN Rem	15x +/- OIII	Veil Nebula. I did not spot it. After positioning at 52 Cyg, I gradually moved in the surrounding area at South, but was not able to spot any nebulosity. As for the Crescent Nebula, this is a challenging target and I believe it requires darker skies. 
+NGC7000	Cyg	Neb	15x +/- UHC	North America Nebula. The presence of diffuse nebulosity was visible in the area, but it was not obvious to spot the presence of this nebula specifically. 
+NGC6992/ 6960	Cyg	SN Rem	15x +/- OIII	Veil Nebula. I did not spot it. After positioning at 52 Cyg, I gradually moved in the surrounding area at South, but was not able to spot any nebulosity. As for the Crescent Nebula, this is a challenging target and I believe it requires darker skies. 
 				
 				
 				
@@ -702,8 +701,8 @@ M27	Vul	Pln Neb	15x, 28x +/- UHC or OIII, 51x	Great open cluster of medium size.
 NGC6830	Vul	Opn CL	15x, 51x	Located next to 12 Vul, this medium-small open cluster is detectable at 15x, but is more appreciable at 51x.
 NGC6823	Vul	Opn CL	15x, 51x	This cluster is located on the line formed by M27 and NGC6823. From it, two roads of stars form and converge at 3 degrees South East with Cr399, the Brocchi's cluster. Also this cluster is relatively smallish and emerges at 51x. 
 Cr399	Vul	Opn CL	15x	Brocchi's Cluster. Very nice open cluster at 15x. 
-C37 - NGC6885	Vul	Opn CL	15x, 51x	Also called 20 Vulpeculae cluster, this cluster surrounds the star 20 Vul. From this, the south part is C37, the North is NGC6882, another open cluster. C37 is about one third the size of NGC6882, but two magnitudes brighter.
-NGC6882	Vul	Opn CL	15x, 51x	See C37 - NGC6885.
+NGC6885	Vul	Opn CL	15x, 51x	Also called 20 Vulpeculae cluster, this cluster surrounds the star 20 Vul. From this, the south part is NGC6885, the North is NGC6882, another open cluster. NGC6885 is about one third the size of NGC6882, but two magnitudes brighter.
+NGC6882	Vul	Opn CL	15x, 51x	See NGC6885.
 M71	Sge	Glob CL	15x, 51x	This globular cluster appeared very faint, but noticeable via direct vision when the sky became sufficiently dark. No much difference at 51x. It requires larger aperture telescopes.
 M24	Sgr	Opn CL	28x	Sagittarius Star Cloud. Large open cluster.
 M25	Sgr	Opn CL	15x	This cluster is located at about 4-5 degrees West from M24. To me this is one of the best open cluster in this area. It is surrounded by bright stars, but dimmer stars are also present.
@@ -723,37 +722,37 @@ Eyepieces	Panoptic 24mm, Nagler 13mm, Nagler 7mm
 Power, EP, FOV	15x, 4.0mm, 4.30deg; 28x, 2.2mm, 2.80deg; 51x, 1.2mm, 1.54deg			
 Filters	Astronomik UHC, OIII			
 Target	Cons	Type	Power	Notes
-C33 / 34 - NGC6992 / 6960	Cyg	SN Rem	15x + OIII	Veil Nebula. The first time I observe this target and it is gorgeous. The Eastern part nicely emerged from the sky. The shape and some features were visible with direct vision, although other minute details, mainly about the extension, were accessible via averted vision. The Western part above 52 Cyg was also visible via direct vision. The Northern part was more difficult although the presence of nebulosity was detectable. Tonight the sky was very clear and sufficiently dark (nautical twilight). A bit of Milky Way was visible on Cygnus at Naked eyes. Superb.
-C20 - NGC7000	Cyg	Neb	15x + OIII	North America Nebula. The patch of nebula is visible but the America continent shape is not clearly identifiable. 
+NGC6992/ 6960	Cyg	SN Rem	15x + OIII	Veil Nebula. The first time I observe this target and it is gorgeous. The Eastern part nicely emerged from the sky. The shape and some features were visible with direct vision, although other minute details, mainly about the extension, were accessible via averted vision. The Western part above 52 Cyg was also visible via direct vision. The Northern part was more difficult although the presence of nebulosity was detectable. Tonight the sky was very clear and sufficiently dark (nautical twilight). A bit of Milky Way was visible on Cygnus at Naked eyes. Superb.
+NGC7000	Cyg	Neb	15x + OIII	North America Nebula. The patch of nebula is visible but the America continent shape is not clearly identifiable. 
 IC4665	Oph	Opn CL	15x	The Summer Beehive. I used this target for finding the Barnard's Star. It is a lovely target. 
 HIP87937	Oph	Star	15x, 51x	Barnard's Star. Located near 66 Oph. This faint star of 9 mag is the fourth closest star to the Sun. It is a red dwarf. At 51x it was slightly more visible. Interesting target.
 M14	Oph	Glob CL	15x	Bright globular cluster and relatively easy to find. As all the globular cluster I have observed with the TV60, no star is resolved.
 M29	Cyg	Opn CL	15x	Cooling Tower. About 8 stars were visible, 2 were very faint.
 NGC6871	Cyg	Opn CL	15x	Nice target with doubles inside. 
-C27 - NGC6888	Cyg	Neb	15x + OIII	Crescent Nebula. No real shape was visible, but the presence of a soft nebulosity was detectable to my eye.
+NGC6888	Cyg	Neb	15x + OIII	Crescent Nebula. No real shape was visible, but the presence of a soft nebulosity was detectable to my eye.
 M31	And	Galaxy	15x	Andromeda Galaxy. It is still low in this season. The core was very bright but the disc was loosely visible. 
 Mel20	Per	Opn CL	15x	Alpha Persei Cluster. Lovely large open cluster formed by very bright stars. Always a pleasure to see.
-C14 - NGC869/884	Per	Opn CL	15x, 28x	Double Cluster. As already found before, 28x and 2.7 degrees of field of view shows this target as a real gem. It is wonderful.
+NGC869/ 884	Per	Opn CL	15x, 28x	Double Cluster. As already found before, 28x and 2.7 degrees of field of view shows this target as a real gem. It is wonderful.
 NGC957	Per	Opn CL	28x	Faint small open cluster. Few dim stars were visible via direct vision.
 NGC744	Per	Opn CL	28x	As for NGC957.
 IC1805	Cas	CL+Neb	15x + OIII	Heart Nebula. The full nebula was not visible but the top part of the heart shape was detectable. It is the area where there are more stars. A faint but visible layer of grey patch was there. 
 NGC1027	Cas	Opn CL	15x + OIII	Cluster just below Heart Nebula.
 IC1848	Cas	CL+Neb	15x + OIII	Soul Nebula. Again, the whole nebula was not visible, but some nebulosity and the chain of stars was there.
 Stock2	Cas	Opn CL	28x	Large open cluster right above the Double Cluster. 
-C10 - NGC663	Cas	Opn CL	28x	Very pretty medium size open cluster. About 10-15 stars were visible. It contains some bright stars and the background is dusty.
+NGC663	Cas	Opn CL	28x	Very pretty medium size open cluster. About 10-15 stars were visible. It contains some bright stars and the background is dusty.
 NGC654	Cas	Opn CL	28x	As for NGC957.
 NGC659	Cas	Opn CL	28x	As for NGC957.
-M103	Cas	Opn CL	28x	This cluster has less impact than C10, but is still pretty. It is more compact than C10.
+M103	Cas	Opn CL	28x	This cluster has less impact than NGC663, but is still pretty. It is more compact than NGC663.
 NGC637	Cas	Opn CL	28x	As for NGC957.
-C8 - NGC559	Cas	Opn CL	28x	This cluster is relatively small compared to C10, but shows a little bit more content than the nearby NGC open clusters.
-C13 - NGC457	Cas	Opn CL	28x	Dragonfly Cluster. Very beautiful open cluster. Not sure why it is called Dragonfly. It reminds me of a bell where the two bright stars are at the bottom.
+NGC559	Cas	Opn CL	28x	This cluster is relatively small compared to NGC663, but shows a little bit more content than the nearby NGC open clusters.
+NGC457	Cas	Opn CL	28x	Dragonfly Cluster. Very beautiful open cluster. Not sure why it is called Dragonfly. It reminds me of a bell where the two bright stars are at the bottom.
 NGC436	Cas	Opn CL	28x	As for NGC957.
 NGC381	Cas	Opn CL	28x	As for NGC957.
 M16	Ser	CL+Neb	15x +/- UHC or OIII	Eagle Nebula. As previously found, the UHC seems to work better on these targets. I believe it is due to the lower position and to the sky which is not fully dark. The OIII largely shrank the nebulosity. Beautiful target as always.
 M17	Sgr	CL+Neb	15x +/- UHC or OIII	Omega Nebula. As for the Eagle nebula.
 M24	Sgr	Opn CL	15x	Sagittarius Star Cloud. Always superb to see this dense cloud of stars. 
 M25	Sgr	Opn CL	15x	Much more compact than M24, but this target shows stars of different magnitude really nicely.
-C47 - NGC6934	Del	Glob CL	28x	Easy to find. As usual a nice grey ball.
+NGC6934	Del	Glob CL	28x	Easy to find. As usual a nice grey ball.
 M15	Peg	Glob CL	28x	One of the most brightest globular cluster. 
 M2	Aqr	Glob CL	28x	As for M15.
 M72	Aqr	Glob CL	28x	Very difficult to detect. Even with averted vision, this target was very faint. It appeared like a grey faint patch.
