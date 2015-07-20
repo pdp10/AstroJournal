@@ -49,7 +49,7 @@ M66	NGC3627	Galaxy	Leo	Leo Triplet
 M67	NGC2682	Opn CL	Cnc	-
 M71	NGC6838	Glob CL	Sge	-
 M72	NGC6981	Glob CL	Aqr	-
-M73	NGC6994	Opn CL	Aqr	-
+M73	NGC6994	Asterism	Aqr	-
 M81	NGC3031	Galaxy	UMa	Bode's Galaxy
 M82	NGC3034	Galaxy	UMa	Cigar Galaxy
 M92	NGC6341	Glob CL	Her	-
@@ -59,36 +59,21 @@ M107	NGC6171	Glob CL	Oph	-
 M110	NGC205	Galaxy	And	-
 				
 				
-Catalogue	2--Caldwell			
-Name	Other Name	Type	Cons	Common Name
-C8	NGC559	Opn CL	Cas	-
-C10	NGC663	Opn CL	Cas	-
-C13	NGC457	Opn CL	Cas	-
-C14	NGC869/884	Opn CL	Per	Double Cluster, h or chi Persei
-C20	NGC7000	Neb	Cyg	North America
-C27	NGC6888	Neb	Cyg	Crescent Nebula
-C28	NGC752	Opn CL	And	-
-C33	NGC6992	SN Rem	Cyg	The Easter Veil Nebula
-C34	NGC6960	SN Rem	Cyg	The Western Veil Nebula
-C37	NGC6885	Opn CL	Vul	20 Vulpeculae Cluster
-C39	NGC2392	Pln Neb	Gem	Eskimo or Clown Nebula
-C41	Mel25	Opn CL	Tau	Hyades, Taurus Moving Cluster
-C47	NGC6934	Glob Cl	Del	-
-C49	NGC2237	Neb	Mon	Rosette Nebula
-C50	NGC2244	Opn CL	Mon	Satellite Cluster
-C59	NGC3242	Pln Neb	Hya	Ghost of Jupiter
-				
-				
-				
 (Not previously included)				
-Catalogue	3--NGC			
+Catalogue	2--NGC			
 Name	Other Name	Type	Cons	Common Name
 NGC381	-	Opn CL	Cas	-
 NGC436	-	Opn CL	Cas	-
+NGC457	C13	Opn CL	Cas	-
+NGC559	C8	Opn CL	Cas	-
 NGC637	-	Opn CL	Cas	-
 NGC654	-	Opn CL	Cas	-
 NGC659	-	Opn CL	Cas	-
+NGC663	C10	Opn CL	Cas	-
 NGC744	-	Opn CL	Per	-
+NGC752	C28	Opn CL	And	-
+NGC869	C14	Opn CL	Per	Double Cluster, h or chi Persei
+NGC884	C14	Opn CL	Per	Double Cluster, h or chi Persei
 NGC957	-	Opn CL	Per	-
 NGC1027	-	Opn CL	Cas	-
 NGC1647	-	Opn CL	Tau	-
@@ -100,7 +85,11 @@ NGC1817	-	Opn CL	Tau	-
 NGC1931	-	CL+Neb	Aur	-
 NGC1980	-	Neb	Ori	-
 NGC1981	-	Opn CL	Ori	-
+NGC2237	C49	Neb	Mon	Rosette Nebula
+NGC2244	C50	Opn CL	Mon	Satellite Cluster
 NGC2264	-	CL+Neb	Mon	Christmas' tree
+NGC2392	C39	Pln Neb	Gem	Eskimo or Clown Nebula
+NGC3242	C59	Pln Neb	Hya	Ghost of Jupiter
 NGC6530	-	Opn CL	Sgr	Cluster inside the Lagoon Nebula
 NGC6604	-	CL+Neb	Ser	-
 NGC6633	-	Opn CL	Oph	-
@@ -109,14 +98,20 @@ NGC6830	Cr406	Opn CL	Vul	-
 NGC6871	-	Opn CL	Cyg	-
 NGC6882	Cr416	Opn CL	Vul	-
 NGC6883	Cr415	Opn CL	Cyg	-
+NGC6885	C37	Opn CL	Vul	20 Vulpeculae Cluster
+NGC6888	C27	Neb	Cyg	Crescent Nebula
 NGC6910	-	Opn CL	Cyg	-
+NGC6934	C47	Glob Cl	Del	-
+NGC6960	C34	SN Rem	Cyg	The Western Veil Nebula
+NGC6992	C33	SN Rem	Cyg	The Easter Veil Nebula
+NGC7000	C20	Neb	Cyg	North America Nebula
 NGC7082	-	Opn CL	Cyg	-
 NGC7086	-	Opn CL	Cyg	-
 NGC7235	-	Opn CL	Cep	-
 NGC7261	-	Opn CL	Cep	-
 				
 				
-Catalogue	4--IC			
+Catalogue	3--IC			
 Name	Other Name	Type	Cons	Common Name
 IC1396	-	CL+Neb	Cep	Elephant's Trunk Nebula
 IC1805	-	CL+Neb	Cas	Heart Nebula
@@ -126,19 +121,20 @@ IC4756	-	Opn CL	Ser	Graff's Cluster
 IC4996	Cr418	Opn CL	Cyg	-
 				
 				
-Catalogue	5--Stock			
+Catalogue	4--Stock			
 Name	Other Name	Type	Cons	Common Name
 Stock1	-	-	Vul	-
 Stock2	-	-	Cas	-
 				
 				
-Catalogue	6--Melotte			
+Catalogue	5--Melotte			
 Name	Other Name	Type	Cons	Common Name
 Mel20	-	Opn CL	Per	Alpha Persei Moving Cluster, Alpha Persei Cluster
+Mel25	C41	Opn CL	Tau	Hyades, Taurus Moving Cluster
 Mel111	-	Opn CL	Com	Coma Berenices Star Cluster, Coarse Hair, Tuft
 				
 				
-Catalogue	7--Collider			
+Catalogue	6--Collider			
 Name	Other Name	Type	Cons	Common Name
 Cr65	nl	-	Tau	-
 Cr89	9-12 Gem	-	Gem	-
@@ -148,7 +144,7 @@ Cr107	-	-	Mon	-
 Cr399	-	Opn CL	Vul	Brocchi's Cluster, the Coathanger
 				
 				
-Catalogue	8--DoubleStars			
+Catalogue	7--DoubleStars			
 Name	Other Name	Type	Cons	Common Name
 Gamma	Almach	-	And	-
 Alpha	Algedi	different brighness	Cap	-

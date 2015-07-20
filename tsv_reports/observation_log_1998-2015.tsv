@@ -45,13 +45,18 @@ M81	UMa	Galaxy	15x	Bode's Galaxy. B15x70, Newcastle (UK).
 M82	UMa	Galaxy	15x	Cigar Galaxy. B15x70, Newcastle (UK).
 M92	Her	Glob CL	15x	B15x70, Newcastle (UK).
 M110	And	Galaxy	15x	M31 Companion. B15x70, Luton, Devon (UK).
-C14 - NGC869 / 884	Per	Opn CL	15x, 51x	Double Cluster. B15x70, Exeter, Newcastle (UK); TV60F6, Newcastle (UK).
-C28 - NGC752	And	Opn CL	15x	B15x70, Newcastle (UK).
-C37 - NGC6885	Vul	Opn CL	15x	B15x70, Newcastle (UK).
-C39 - NGC2392	Gem	Pln Neb	15x, 51x, 72x	Eskimo Nebula. TV60F6, Cambridge (UK).
-C41	Tau	Opn CL	36x; 15x, 18x, 51x	Hyades. C114F8, Venice (IT); B15x70, TV60F6, Newcastle (UK).
-C49 - NGC2237	Mon	Neb	15x	Rosette Nebula. TV60F6, Cambridge (UK).
-C50 - NGC2244	Mon	Opn CL	15x	Satellite cluster. TV60F6, Newcastle, Cambridge (UK).
+NGC752	And	Opn CL	15x	B15x70, Newcastle (UK).
+NGC869/ 884	Per	Opn CL	15x, 51x	Double Cluster. B15x70, Exeter, Newcastle (UK); TV60F6, Newcastle (UK).
+NGC1750	Tau	Opn CL	15x, 51x	TV60F6, Cambridge (UK).
+NGC1980	Ori	Neb	15x	TV60F6, Cambridge (UK).
+NGC1981	Ori	Opn CL	15x, 51x	TV60F6, Cambridge (UK).
+NGC2237	Mon	Neb	15x	Rosette Nebula. TV60F6, Cambridge (UK).
+NGC2244	Mon	Opn CL	15x	Satellite cluster. TV60F6, Newcastle, Cambridge (UK).
+NGC2264	Mon	Opn CL	36x; 15x, 51x	C114F8, Venice (IT); TV60F6, Cambridge (UK).
+NGC2392	Gem	Pln Neb	15x, 51x, 72x	Eskimo Nebula. TV60F6, Cambridge (UK).
+NGC6633	Oph	Opn CL	36x; 15x	C114F8, Venice (IT); B15x70, Newcastle (UK). A beautiful chain of stars.
+NGC6885	Vul	Opn CL	15x	B15x70, Newcastle (UK).
+IC4756	Ser	Opn CL	36x; 15x	Graff's Cluster. C114F8, Venice (IT); B15x70, Newcastle (UK).
 Stock1	Vul	Opn CL	15x	B15x70, Newcastle (UK).
 Stock2	Cas	Opn CL	15x	B15x70, TV60F6, Newcastle (UK).
 Mel20	Per	Opn CL	15x	B15x70, TV60F6, Newcastle (UK).
@@ -65,12 +70,6 @@ Cr97	Mon	Opn CL	15x, 30x	TV60F6, Cambridge (UK).
 Cr106	Mon	Opn CL	15x, 30x	TV60F6, Cambridge (UK).
 Cr107	Mon	Opn CL	15x, 30x	TV60F6, Cambridge (UK).
 Cr399	Vul	Opn CL	15x	Brocchi's Cluster, the Coathanger. B15x70, Newcastle (UK).
-NGC1750	Tau	Opn CL	15x, 51x	TV60F6, Cambridge (UK).
-NGC1980	Ori	Neb	15x	TV60F6, Cambridge (UK).
-NGC1981	Ori	Opn CL	15x, 51x	TV60F6, Cambridge (UK).
-NGC2264	Mon	Opn CL	36x; 15x, 51x	C114F8, Venice (IT); TV60F6, Cambridge (UK).
-NGC6633	Oph	Opn CL	36x; 15x	C114F8, Venice (IT); B15x70, Newcastle (UK). A beautiful chain of stars.
-IC4756	Ser	Opn CL	36x; 15x	Graff's Cluster. C114F8, Venice (IT); B15x70, Newcastle (UK).
 27 Hydra	Hya	Dbl Star	51x	TV60F6, Cambridge (UK).
 Gamma	UMi	Dbl Star	51x	Pherkad. TV60F6, Cambridge (UK).
 Beta	And	Dbl Star	15x	Mirach. B15x70, Newcastle (UK).
