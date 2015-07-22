@@ -32,14 +32,14 @@ import org.apache.log4j.Logger;
  * @version 0.2
  * @since 28/05/2015
  */
-public class AJObservationExporter {
+public class AJObservationExporterByDate {
 
   /** The log associated to this class */
-  private static Logger log = Logger.getLogger(AJObservationExporter.class);
+  private static Logger log = Logger.getLogger(AJObservationExporterByDate.class);
 
 
   /** Default constructor */
-  public AJObservationExporter() {} 
+  public AJObservationExporterByDate() {} 
 
   /** Exports an observation record to Latex
    * @param obs the observation to exportObservation

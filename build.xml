@@ -34,7 +34,8 @@ Created by Piero Dalle Pezze (pdp10)
 		<property name="build.name" value="${version} (build ${build.number})"/>
 
 		<property name="src.dir" value="${basedir}/src"/>
-		<property name="src.latex_reports" value="${basedir}/latex_reports"/>
+		<property name="src.latex_reports_by_date" value="${basedir}/latex_reports_by_date"/>
+		<property name="src.latex_reports_by_target" value="${basedir}/latex_reports_by_target"/>		
 		<property name="src.tsv_reports" value="${basedir}/tsv_reports"/>
 		<property name="src.latex_catalogues" value="${basedir}/latex_catalogues"/>
 		<property name="src.tsv_catalogues" value="${basedir}/tsv_catalogues"/>
@@ -194,8 +195,11 @@ Created by Piero Dalle Pezze (pdp10)
 			<fileset dir="${basedir}" includes="*.aux *~ *.log *.toc"/>
 		</delete>
 		<delete includeEmptyDirs="true" quiet="yes">
-			<fileset dir="${src.latex_reports}" includes="*.aux"/>
+			<fileset dir="${src.latex_reports_by_date}" includes="*.aux"/>
 		</delete>
+		<delete includeEmptyDirs="true" quiet="yes">
+			<fileset dir="${src.latex_reports_by_target}" includes="*.aux"/>
+		</delete>		
 		<delete includeEmptyDirs="true" quiet="yes">
 			<fileset dir="${src.latex_catalogues}" includes="*.aux"/>
 		</delete>		
