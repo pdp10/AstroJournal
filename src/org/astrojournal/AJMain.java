@@ -315,7 +315,7 @@ public class AJMain {
   public static void main(String[] args) {
     AJMain ajMain = new AJMain();
     try {
-      if(args.length == 4) {
+      if(args.length == 5) {
         String tsvObsDir = args[0];
         String latexObsByDateDir = args[1];
         String latexObsByTargetDir = args[2];
