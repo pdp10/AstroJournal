@@ -63,8 +63,11 @@ public class AJMain {
   /** The name of the folder containing the latex catalogue files (catalogue output folder). */
   private String latexCataloguesFolder = "latex_catalogues";
 
-  /** The name of the main Latex file. */
-  private String mainLatex = "astrojournal.tex";
+  /** The name of the main Latex file sorted by date. */
+  private String mainLatexByDate = "astrojournal_by_date.tex";
+  /** The name of the main Latex file sorted by target. */
+  private String mainLatexByTarget = "astrojournal_by_target.tex";
+  
   /** The name of the folder of the Latex header file inclusive with relative path. */
   private String latexHeader = "latex_header_footer/header.tex";
   /** The name of the folder of the Latex footer file inclusive with relative path. */
@@ -214,6 +217,142 @@ public class AJMain {
     return true;
   }
 
+  /**
+   * Generate the Latex document sorted by date
+   */
+  private void generateLatexCodeByDate() {
+    AJLatexHeader ajLatexHeader = new AJLatexHeader(latexHeader);
+    AJLatexFooter ajLatexFooter = new AJLatexFooter(latexFooter);
+    Writer writerByDate = null;
+    try {
+      writerByDate = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
+        mainLatexByDate), "utf-8"));
+
+      if (!generateObservationsLatexCode()) {
+        log.warn("tsv observation file is not valid. Cannot generate Latex code for the observations.");
+        return;
+      }
+
+      if (!generateCataloguesLatexCode()) {
+        log.warn("tsv catalogue file is not valid. Cannot generate Latex code for the catalogues.");
+        return;
+      }     
+      // write the Latex Header
+      writerByDate.write(ajLatexHeader.getHeader());
+
+      // write the Latex Body
+      // Write the observation reports
+      writerByDate.write("\\section{Observation reports}\n");
+      writerByDate.write("\\vspace{4 mm}\n");
+      writerByDate.write("\\hspace{4 mm}\n");
+      // parse each file in the latex obs folder (sorted by observation increasing)
+      File[] files = new File(latexReportsFolderByDate).listFiles();
+      if (files == null) {
+        log.warn("Folder " + latexReportsFolderByDate + " not found");
+        return;
+      }
+      Arrays.sort(files, Collections.reverseOrder());    
+      // If this pathname does not denote a directory, then listFiles() returns null.
+      for (File file : files) {
+        if (file.isFile() && file.getName().endsWith(".tex")) {
+          // include the file removing the extension .tex
+          writerByDate.write("\\input{" + latexReportsFolderByDate + "/"
+              + file.getName().replaceFirst("[.][^.]+$", "") + "}\n");
+          writerByDate.write("\\clearpage \n");
+        }
+      }
+      
+      // Write observed objects by catalogue
+      writerByDate.write("\n\\small\n");
+      writerByDate.write("\\section{Observed objects by catalogue}\n");
+      writerByDate.write("\\vspace{4 mm}\n");
+      writerByDate.write("\\hspace{4 mm}\n");
+      // parse each file in the latex catalogue folder (sorted by catalogue id increasing)
+      files = new File(latexCataloguesFolder).listFiles();
+      if (files == null) {
+        log.warn("Folder " + latexCataloguesFolder + " not found");
+        return;
+      }
+      Arrays.sort(files);
+      // If this pathname does not denote a directory, then listFiles() returns null.
+      for (File file : files) {
+        if (file.isFile() && file.getName().endsWith(".tex")) {
+          // include the file removing the extension .tex
+          writerByDate.write("\\input{" + latexCataloguesFolder + "/"
+              + file.getName().replaceFirst("[.][^.]+$", "") + "}\n");
+          writerByDate.write("\\clearpage \n");
+        }
+      }     
+      // write the Latex Footer
+      writerByDate.write(ajLatexFooter.getFooter());
+
+    } catch (IOException ex) {
+      log.warn("Error when opening the file " + mainLatexByDate);
+    } catch (Exception ex) {
+      log.warn(ex);
+    }
+    finally {
+      try {
+        if (writerByDate != null)
+          writerByDate.close();
+      } catch (Exception ex) {
+      }
+    }    
+  }
+  
+  
+  /**
+   * Generate the Latex document sorted by target
+   */
+  private void generateLatexCodeByTarget() {
+    AJLatexHeader ajLatexHeader = new AJLatexHeader(latexHeader);
+    AJLatexFooter ajLatexFooter = new AJLatexFooter(latexFooter);
+    Writer writerByTarget = null;
+    try {
+      writerByTarget = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
+        mainLatexByTarget), "utf-8"));
+      // write the Latex Header
+      writerByTarget.write(ajLatexHeader.getHeader());
+
+      // write the Latex Body
+      // Write the observation reports
+      writerByTarget.write("\\section{Observation reports}\n");
+      writerByTarget.write("\\vspace{4 mm}\n");
+      writerByTarget.write("\\hspace{4 mm}\n");
+      // parse each file in the latex obs folder (sorted by observation increasing)
+      File[] files = new File(latexReportsFolderByTarget).listFiles();
+      if (files == null) {
+        log.warn("Folder " + latexReportsFolderByTarget + " not found");
+        return;
+      }
+      Arrays.sort(files, Collections.reverseOrder());    
+      // If this pathname does not denote a directory, then listFiles() returns null.
+      for (File file : files) {
+        if (file.isFile() && file.getName().endsWith(".tex")) {
+          // include the file removing the extension .tex
+          writerByTarget.write("\\input{" + latexReportsFolderByTarget + "/"
+              + file.getName().replaceFirst("[.][^.]+$", "") + "}\n");
+          writerByTarget.write("\\clearpage \n");
+        }
+      }
+      // write the Latex Footer
+      writerByTarget.write(ajLatexFooter.getFooter());
+
+    } catch (IOException ex) {
+      log.warn("Error when opening the file " + mainLatexByTarget);
+    } catch (Exception ex) {
+      log.warn(ex);
+    }
+    finally {
+      try {
+        if (writerByTarget != null)
+          writerByTarget.close();
+      } catch (Exception ex) {
+      }
+    }    
+  }
+  
+  
 
   /** 
    * It generates the latex files for AstroJournal. 
@@ -229,83 +368,8 @@ public class AJMain {
     latexReportsFolderByTarget = latexObsByTargetDir;
     tsvCataloguesFolder = tsvCatDir;
     latexCataloguesFolder = latexCatDir;	
-    AJLatexHeader ajLatexHeader = new AJLatexHeader(latexHeader);
-    AJLatexFooter ajLatexFooter = new AJLatexFooter(latexFooter);
-    Writer writer = null;
-    try {
-      writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
-        mainLatex), "utf-8"));
-
-      if (!generateObservationsLatexCode()) {
-        log.warn("tsv observation file is not valid. Cannot generate Latex code for the observations.");
-        return;
-      }
-
-      if (!generateCataloguesLatexCode()) {
-        log.warn("tsv catalogue file is not valid. Cannot generate Latex code for the catalogues.");
-        return;
-      }	    
-      // write the Latex Header
-      writer.write(ajLatexHeader.getHeader());
-
-      // write the Latex Body
-      // Write the observation reports
-      writer.write("\\section{Observation reports}\n");
-      writer.write("\\vspace{4 mm}\n");
-      writer.write("\\hspace{4 mm}\n");
-      // parse each file in the latex obs folder (sorted by observation increasing)
-      File[] files = new File(latexReportsFolderByDate).listFiles();
-      if (files == null) {
-        log.warn("Folder " + latexReportsFolderByDate + " not found");
-        return;
-      }
-      Arrays.sort(files, Collections.reverseOrder());    
-      // If this pathname does not denote a directory, then listFiles() returns null.
-      for (File file : files) {
-        if (file.isFile() && file.getName().endsWith(".tex")) {
-          // include the file removing the extension .tex
-          writer.write("\\input{" + latexReportsFolderByDate + "/"
-              + file.getName().replaceFirst("[.][^.]+$", "") + "}\n");
-          writer.write("\\clearpage \n");
-        }
-      }
-      
-      // Write observed objects by catalogue
-      writer.write("\n\\small\n");
-      writer.write("\\section{Observed objects by catalogue}\n");
-      writer.write("\\vspace{4 mm}\n");
-      writer.write("\\hspace{4 mm}\n");
-      // parse each file in the latex catalogue folder (sorted by catalogue id increasing)
-      files = new File(latexCataloguesFolder).listFiles();
-      if (files == null) {
-        log.warn("Folder " + latexCataloguesFolder + " not found");
-        return;
-      }
-      Arrays.sort(files);
-      // If this pathname does not denote a directory, then listFiles() returns null.
-      for (File file : files) {
-        if (file.isFile() && file.getName().endsWith(".tex")) {
-          // include the file removing the extension .tex
-          writer.write("\\input{" + latexCataloguesFolder + "/"
-              + file.getName().replaceFirst("[.][^.]+$", "") + "}\n");
-          writer.write("\\clearpage \n");
-        }
-      }	    
-      // write the Latex Footer
-      writer.write(ajLatexFooter.getFooter());
-
-    } catch (IOException ex) {
-      log.warn("Error when opening the file " + mainLatex);
-    } catch (Exception ex) {
-      log.warn(ex);
-    }
-    finally {
-      try {
-        if (writer != null)
-          writer.close();
-      } catch (Exception ex) {
-      }
-    }
+    generateLatexCodeByDate();
+    generateLatexCodeByTarget();
   }
 
 

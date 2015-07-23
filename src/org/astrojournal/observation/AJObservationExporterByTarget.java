@@ -37,6 +37,8 @@ public class AJObservationExporterByTarget {
   /** The log associated to this class */
   private static Logger log = Logger.getLogger(AJObservationExporterByTarget.class);
 
+  /** A cache of the visited targets. */
+  private ArrayList<String> processedTargetCache = null;
 
   /** Default constructor */
   public AJObservationExporterByTarget() {} 
@@ -48,25 +50,27 @@ public class AJObservationExporterByTarget {
    * @return true if the observations are exported
    */
   public boolean exportObservations(ArrayList<AJObservation> observations, String latexReportsByTargetFolder) {
-
+    processedTargetCache = new ArrayList<String>(250);
     for(int i=0; i<observations.size(); i++) {
       AJObservation obs = observations.get(i);
       ArrayList<AJObservationItem> observationItems = obs.getObservationItems();
       for(int j=0; j<observationItems.size(); j++) {
         AJObservationItem obsItem = observationItems.get(j);
-        String filenameOut = obsItem.getTarget().replaceAll("\\s+","").replaceAll("/","-") + "_" + obsItem.getConstellation();
-        System.out.println("\tExported target " + filenameOut);
+        String filenameOut = computeFileName(obsItem);
         Writer targetWriter = null;
         try {
-          targetWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
-            new File(latexReportsByTargetFolder, filenameOut + ".tex")), "utf-8"));
-          
-          // TODO
-          // check if the file has already been created. If not, add target header
-          targetWriter.write("{\\bf " + obsItem.getTarget() + ", " 
-              + obsItem.getConstellation() + ", " 
-              + obsItem.getType() + "}:\n");
-          targetWriter.write("\\begin{itemize}\n");
+          if(!wasTargetProcessed(obsItem.getTarget())) {
+            processedTargetCache.add(obsItem.getTarget());
+            targetWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
+              new File(latexReportsByTargetFolder, filenameOut + ".tex")), "utf-8"));
+            targetWriter.write("{\\bf " + obsItem.getTarget() + ", " 
+                + obsItem.getConstellation() + ", " 
+                + obsItem.getType() + "}:\n");
+            targetWriter.write("\\begin{itemize}\n");
+          } else {
+            targetWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
+              new File(latexReportsByTargetFolder, filenameOut + ".tex"), true), "utf-8"));
+          }
           // if file already created skip the previous two lines
           targetWriter.write("\\item " + obs.getDate() + 
             " " + obs.getTime() + 
@@ -77,9 +81,9 @@ public class AJObservationExporterByTarget {
             ", " + obsItem.getPower() +
             ". " + obsItem.getNotes() + "\n");
 
-          // At this stage do not close the block itemize because nothing is known about other observations 
+          // do not close the Latex 'itemize' block now because nothing is known about other observations 
           // for this target.
-        
+
         } catch (IOException ex) {
           System.out.println("Error when opening the file");
           return false;
@@ -107,21 +111,22 @@ public class AJObservationExporterByTarget {
    * @return true if the lists are closed
    */
   private boolean closeLists(ArrayList<AJObservation> observations, String latexReportsByTargetFolder) {
-
+    processedTargetCache = new ArrayList<String>(250);
     for(int i=0; i<observations.size(); i++) {
       AJObservation obs = observations.get(i);
       ArrayList<AJObservationItem> observationItems = obs.getObservationItems();
       for(int j=0; j<observationItems.size(); j++) {
         AJObservationItem obsItem = observationItems.get(j);
-        String filenameOut = obsItem.getTarget().replaceAll("\\s+","").replaceAll("/","-") + "_" + obsItem.getConstellation();
+        String filenameOut = computeFileName(obsItem);
         Writer targetWriter = null;
         try {
-          
-          // TODO
-          // append only
-          targetWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
-            new File(latexReportsByTargetFolder, filenameOut + ".tex"), true), "utf-8"));
-          targetWriter.write("\\end{itemize}\n");
+          if(!wasTargetProcessed(obsItem.getTarget())) {
+            processedTargetCache.add(obsItem.getTarget());
+            targetWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
+              new File(latexReportsByTargetFolder, filenameOut + ".tex"), true), "utf-8"));
+            targetWriter.write("\\end{itemize}\n");
+            System.out.println("\tExported target " + filenameOut);
+          }
 
         } catch (IOException ex) {
           System.out.println("Error when opening the file");
@@ -141,6 +146,41 @@ public class AJObservationExporterByTarget {
     }
     return true;
   }
-  
-  
+
+  /**
+   * Create the filename with different formats depending on whether this is a planet, 
+   * a double/multiple star system, or everything else
+   * @return the name of the file
+   */
+  private String computeFileName(AJObservationItem obsItem) {
+    if(obsItem.getType().toLowerCase().equals("planet") ||
+        obsItem.getTarget().toLowerCase().equals("moon") ||
+        obsItem.getTarget().toLowerCase().equals("sun")) {
+      return obsItem.getTarget().replaceAll("\\s+","").replaceAll("/","-");
+    }
+    if(obsItem.getType().toLowerCase().equals("star") || 
+        obsItem.getType().toLowerCase().equals("dbl star") || 
+        obsItem.getType().toLowerCase().equals("mlt star")) {
+      return obsItem.getConstellation() + "_" + obsItem.getTarget().replaceAll("\\s+","").replaceAll("/","-");
+    }
+    return obsItem.getTarget().replaceAll("\\s+","").replaceAll("/","-") + "_" + obsItem.getConstellation();
+  }
+
+  /**
+   * Search whether the target has already been processed or not.
+   * @param target
+   * @return true if the target was already processed
+   */
+  private boolean wasTargetProcessed(String target) {
+    boolean processed = false;
+    for(int i=0; i<processedTargetCache.size() && !processed; i++) {
+      if(processedTargetCache.get(i).equals(target)) {
+        processed = true;
+      }
+    }
+    return processed;
+  }
+
+
+
 }
