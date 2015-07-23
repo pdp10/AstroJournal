@@ -78,6 +78,10 @@ Piero
 
 ## ChangeLog:
 
+v0.7
+
+- Export observations by target
+
 v0.6
 
 - Imported list of objects observed by Catalogue.

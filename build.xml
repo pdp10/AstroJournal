@@ -14,7 +14,7 @@ Created by Piero Dalle Pezze (pdp10)
 		</tstamp>
 		<property name="Name" value="AstroJournal"/>
 		<property name="name" value="astrojournal"/>
-		<property name="version" value="0.6"/>
+		<property name="version" value="0.7"/>
 		<property name="year" value="${YEAR}"/>
 
 		<echo message="------ ${Name} ${version} [${year}]"/>
