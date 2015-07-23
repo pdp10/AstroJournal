@@ -54,7 +54,7 @@ public class AJMain {
   /** The relative path containing the tsv files (observation input folder). */
   private String tsvReportsFolder = "tsv_reports";
   /** The name of the folder containing the latex observation files by date (observation output folder). */
-  private String latexReportsFolderByDate = "latex_reports";
+  private String latexReportsFolderByDate = "latex_reports_by_date";
   /** The name of the folder containing the latex observation files by target (observation output folder). */
   private String latexReportsFolderByTarget = "latex_reports_by_target";
 
@@ -142,9 +142,10 @@ public class AJMain {
         }
       } // end if
     } // end for
-      
+    
     // All observations, if any, have been loaded
     // Now, export them by target to Latex
+    System.out.println("\nExporting observation by targets:");
     return ajExporterByTarget.exportObservations(observations, latexReportsFolderByTarget);
   
   }

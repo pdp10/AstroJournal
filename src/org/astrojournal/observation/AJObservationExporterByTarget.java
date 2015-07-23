@@ -54,7 +54,8 @@ public class AJObservationExporterByTarget {
       ArrayList<AJObservationItem> observationItems = obs.getObservationItems();
       for(int j=0; j<observationItems.size(); j++) {
         AJObservationItem obsItem = observationItems.get(j);
-        String filenameOut = obsItem.getTarget() + "_" + obsItem.getConstellation();
+        String filenameOut = obsItem.getTarget().replaceAll("\\s+","").replaceAll("/","-") + "_" + obsItem.getConstellation();
+        System.out.println("\tExported target " + filenameOut);
         Writer targetWriter = null;
         try {
           targetWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
@@ -112,14 +113,14 @@ public class AJObservationExporterByTarget {
       ArrayList<AJObservationItem> observationItems = obs.getObservationItems();
       for(int j=0; j<observationItems.size(); j++) {
         AJObservationItem obsItem = observationItems.get(j);
-        String filenameOut = obsItem.getTarget() + "_" + obsItem.getConstellation();
+        String filenameOut = obsItem.getTarget().replaceAll("\\s+","").replaceAll("/","-") + "_" + obsItem.getConstellation();
         Writer targetWriter = null;
         try {
           
           // TODO
           // append only
           targetWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
-            new File(latexReportsByTargetFolder, filenameOut + ".tex")), "utf-8"));
+            new File(latexReportsByTargetFolder, filenameOut + ".tex"), true), "utf-8"));
           targetWriter.write("\\end{itemize}\n");
 
         } catch (IOException ex) {
@@ -140,4 +141,6 @@ public class AJObservationExporterByTarget {
     }
     return true;
   }
+  
+  
 }
