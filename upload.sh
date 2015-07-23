@@ -18,16 +18,19 @@
 
 
 # upload the last observation to my git repository
-git add astrojournal.pdf
-git add astrojournal.tex
-git add astrojournal.tsv
+git add astrojournal_by_date.pdf
+git add astrojournal_by_date.tex
+git add astrojournal_by_date.tsv
+git add astrojournal_by_target.pdf
+git add astrojournal_by_target.tex
 git add latex_header_footer/*.tex
-git add latex_reports/*.tex
+git add latex_reports_by_date/*.tex
+git add latex_reports_by_target/*.tex
 git add latex_catalogues/*.tex
 git add tsv_reports/*.tsv
 git add tsv_catalogues/*.tsv
 git commit -m 'uploaded last observation and catalogue records'
-git push origin master
+#git push origin master
 
 
 # upload the pdf to the website
