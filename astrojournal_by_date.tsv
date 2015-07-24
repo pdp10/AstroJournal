@@ -158,7 +158,7 @@ M95	Leo	Galaxy	15x	Unsuccess
 M96	Leo	Galaxy	15x	Unsuccess
 Gamma	UMi	Dbl Star	15x	Pherkad. Blue 3mag. It has a neighbour star 10.30mag. Pherkad Minor orange 5mag.
 19-20	Dra	Dbl Star	15x	4.5mag and 7mag.
-Eta-HIP80309A	Dra	Dbl Star	15x	2.7mag and 6.05mag
+Eta	Dra	Dbl Star	15x	2.7mag and 6.05mag
 M51	CVn	Galaxy	15x	Whirlpool Galaxy. From UMA-Alkaid, move south to 24CVn. Continue on that direction until HIP65768. This forms a triangle with HIP66004 and HIP66116. They are all 7mag stars. HIP65768 is the brightest in the area. M51 lies externally of the line between HIP65768 and HIP66004. Averted vision for 10min is required. You will see a grey patch. No structure.
 M101	UMa	Galaxy	15x	Unsuccess
 Jupiter	Cnc	Planet	144x	Order: Europa, Callisto, Jupiter, Io, Ganymede. Two belts very visible. The lower one was visible on the left (refractor). On the right the great red spot was detectable. Very minor belts north and south. 
@@ -358,7 +358,7 @@ NGC869/ 884	Per	Opn CL	15x, 28x	Double Cluster. Again, the Nagler 13 offering al
 Stock2	Cas	Opn CL	15x, 28x	As above. 
 M103 or NGC457	Cas	Opn CL	28x	Not sure whether I saw M103 or NGC457 (the Owl Cluster) though. A clear double star was well visible and there were a few dim stars in the background were also detectable. This object starts being visible at 28x. It is relatively small, but a lovely target. I think it was M103 as my memory seems more similar to the images.
 M60	Vir	Galaxy	15x, 28x	Turn West to Vindemiatrix. A little crown of star is visible slightly South. Continue and you see a little arrow of stars and a single star in the North. M60 is between these two objects. Not detectable at 15x. Detectable via averted vision at 28x. A patch of grey. The sky was not fully dark though and my eye was not dark adapted. I believe this object can show more detail. 
-27 Hya	Hya	Dbl Star	15x, 28x	Easily split. Colours detectable.
+27	Hya	Dbl Star	15x, 28x	Easily split. Colours detectable.
 M13	Her	Glob CL	15x, 28x	Detectable at 15x, but nicer at 28x. No star was resolved. It would be interesting to try 51x although I guess this might be too much. 
 M57	Lyr	Pln Neb	15x, 28x, 51x	Ring Nebula. For the first time, I managed to see this object with the TV-60. I find extremely difficult to detect it at 15x unless I map the nearby stars with Stellarium. At 28x M57 is clearly visible and appears as a grey blob. At 51x the ring is detectable. I did not try to use an OIII filter because I was freezing due to lack of cloths and about to leave. I believe this target will show much more detail at 51x with OIII filter.
 Saturn	Sco	Planet	103x	Very low on the horizon and therefore not the best moment for viewing this target. Despite this, rings and titan were visible. Neither the Cassini division nor belts were detectable.
@@ -771,15 +771,41 @@ spelling:	UNCHECKED		TV Plossl 20mm	18x, 3.3mm, 2.73deg
 			Vixen SLV 5mm	72x, 0.8mm, 0.69deg
 			TV Nagler 3.5mm	103x, 0.6mm, 0.77deg
 				
-NEW DATE	18/07/2015			
-Time	21:40-23:30			
+Date	19/07/2015			
+Time	15:50-16:45			
 Location	Cambridge, UK			
 Altitude	12m			
-Temperature	12C (wind: 0km/h)			
-Seeing	1 - Perfect seeing			
+Temperature	23C (wind: 27km/h)			
+Seeing	4 - Poor seeing			
 Transparency	5 - Clear			
 Telescopes	Tele Vue 60 F6			
-Eyepieces	Panoptic 24mm, Nagler 13mm, Nagler 7mm, Vixen 5mm SLV, Nagler 3.5mm			
-Power, EP, FOV	15x, 4.0mm, 4.30deg; 28x, 2.2mm, 2.80deg; 51x, 1.2mm, 1.54deg; 72x, 0.8mm, 0.69deg; 103x, 0.6mm, 0.76deg			
-Filters	Astronomik OIII, Single Polarising Filter			
+Eyepieces	Nagler 13mm, Nagler 7mm, Vixen 5mm SLV, Nagler 3.5mm			
+Power, EP, FOV	28x, 2.2mm, 2.80deg; 51x, 1.2mm, 1.54deg; 72x, 0.8mm, 0.69deg; 103x, 0.6mm, 0.76deg			
+Filters				
 Target	Cons	Type	Power	Notes
+Sun	Gem	Star	28x, 51x, 72x, 103x	It was generally windy, but sometimes the wind was mild for a few minutes. There were not many sun spots today. One was located at about the centre and was formed by a penumbra region followed by four little spots. A little bit North of this spot region, there was a chain of six spots. Faculae were detectable around these two areas when the wind was calm. 51x was generally the best magnification for today, whereas 72x could be used when the wind was mild.
+				
+				
+				
+Date	22/07/2015			
+Time	22:50-0:00			
+Location	Cambridge, UK			
+Altitude	12m			
+Temperature	13C (wind: 0km/h)			
+Seeing	2 - Slight undulations			
+Transparency	4 - Partly clear			
+Telescopes	Tele Vue 60 F6			
+Eyepieces	Panoptic 24mm, Nagler 13mm, Nagler 7mm, Vixen 5mm SLV			
+Power, EP, FOV	15x, 4.0mm, 4.30deg; 28x, 2.2mm, 2.80deg; 51x, 1.2mm, 1.54deg; 72x, 0.8mm, 0.69deg			
+Filters	Astronomik OIII			
+Target	Cons	Type	Power	Notes
+Beta	Sco	Dbl Star	15x, 28x	Acrab. Nice double star. The colours were not very clear because of the low position just above the horizon. Still very pretty though. Already split at 15x
+Omega	Sco	Dbl Star	15x, 28x	Largely separated double star, if it is a double.
+Nu	Sco	Dbl Star	15x, 28x	This is tighter than Beta, but at 28x the two stars are separated.
+M11	Sct	Opn CL	15x, 28x, 51x, 72x	The first time I observe M11 this year. Gorgeous. Stars were visible with averted vision at 51x and 72x. At this last magnificaiton, the cluster appeared really nice and clear. Apart from the limited field of view, it seems to me that the Vixen SLV works really nicely also on DSO.
+NGC6992/ 6960	Cyg	SN Rem	15x +/- OIII, 28x + OIII	Veil Nebula. At 28x (2.2mm exit pupil) + OIII, the nebula was difficult to identify. The view improved by choosing an exit pupil of 4mm. Without OIII the nebula is completely invisible. With the OIII, the Eastern component was easier to see than the western. The sky was not completely dark and the was some haze in the sky.
+NGC7063	Cyg	Opn CL	15x, 28x	I casually found this open cluster when exploring the sky in Cygnus. It a medium-small open cluster with about 10-15 stars visible directly and others via averted vision. Quite pretty.
+NGC6940	Cyg	Opn CL	15x	Large spread open cluster. I was a bit disappointed when I saw this open cluster as it did not show any striking feature, but just a collection of disconnected stars of similar magnitude, luminosity and colour. 
+NGC6871	Cyg	Opn CL	15x	Just passing across Cygnus' body and I stopped on this lovely open cluster. 
+M39	Cyg	Opn CL	15x, 28x	Nice medium size open cluster. 20-25 stars visible. Others required averted vision.
+NGC7082	Cyg	Opn CL	15x, 28x	Open cluster close to M39. It is spread and its stars do not have specific features.

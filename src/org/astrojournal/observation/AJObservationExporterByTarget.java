@@ -17,6 +17,7 @@
 package org.astrojournal.observation;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.io.OutputStreamWriter;
 import java.io.FileOutputStream;
 import java.io.BufferedWriter;
@@ -38,7 +39,7 @@ public class AJObservationExporterByTarget {
   private static Logger log = Logger.getLogger(AJObservationExporterByTarget.class);
 
   /** A cache of the visited targets. */
-  private ArrayList<String> processedTargetCache = null;
+  private HashSet<String> processedTargetCache = new HashSet<String>(500);
 
   /** Default constructor */
   public AJObservationExporterByTarget() {} 
@@ -50,7 +51,7 @@ public class AJObservationExporterByTarget {
    * @return true if the observations are exported
    */
   public boolean exportObservations(ArrayList<AJObservation> observations, String latexReportsByTargetFolder) {
-    processedTargetCache = new ArrayList<String>(250);
+    processedTargetCache.clear();
     for(int i=0; i<observations.size(); i++) {
       AJObservation obs = observations.get(i);
       ArrayList<AJObservationItem> observationItems = obs.getObservationItems();
@@ -59,19 +60,23 @@ public class AJObservationExporterByTarget {
         String filenameOut = computeFileName(obsItem);
         Writer targetWriter = null;
         try {
-          if(!wasTargetProcessed(obsItem.getTarget())) {
-            processedTargetCache.add(obsItem.getTarget());
+          if(!processedTargetCache.contains(filenameOut)) {
+            processedTargetCache.add(filenameOut);
             targetWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
               new File(latexReportsByTargetFolder, filenameOut + ".tex")), "utf-8"));
-            targetWriter.write("{\\bf " + obsItem.getTarget() + ", " 
-                + obsItem.getConstellation() + ", " 
-                + obsItem.getType() + "}:\n");
+            targetWriter.write("{\\bf " + obsItem.getTarget());
+	    if(!obsItem.getType().toLowerCase().equals("planet") &&
+	       !obsItem.getTarget().toLowerCase().equals("moon") &&
+	       !obsItem.getTarget().toLowerCase().equals("sun")) {
+               targetWriter.write(", " + obsItem.getConstellation());
+	    }
+            targetWriter.write(", " + obsItem.getType() + "}:\n");
             targetWriter.write("\\begin{itemize}\n");
           } else {
+            // if file was already created skip the previous two lines
             targetWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
               new File(latexReportsByTargetFolder, filenameOut + ".tex"), true), "utf-8"));
           }
-          // if file already created skip the previous two lines
           targetWriter.write("\\item " + obs.getDate() + 
             " " + obs.getTime() + 
             ", " + obs.getLocation() + 
@@ -111,7 +116,7 @@ public class AJObservationExporterByTarget {
    * @return true if the lists are closed
    */
   private boolean closeLists(ArrayList<AJObservation> observations, String latexReportsByTargetFolder) {
-    processedTargetCache = new ArrayList<String>(250);
+    processedTargetCache.clear();
     for(int i=0; i<observations.size(); i++) {
       AJObservation obs = observations.get(i);
       ArrayList<AJObservationItem> observationItems = obs.getObservationItems();
@@ -120,8 +125,8 @@ public class AJObservationExporterByTarget {
         String filenameOut = computeFileName(obsItem);
         Writer targetWriter = null;
         try {
-          if(!wasTargetProcessed(obsItem.getTarget())) {
-            processedTargetCache.add(obsItem.getTarget());
+          if(!processedTargetCache.contains(filenameOut)) {
+            processedTargetCache.add(filenameOut);
             targetWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
               new File(latexReportsByTargetFolder, filenameOut + ".tex"), true), "utf-8"));
             targetWriter.write("\\end{itemize}\n");
@@ -165,22 +170,5 @@ public class AJObservationExporterByTarget {
     }
     return obsItem.getTarget().replaceAll("\\s+","").replaceAll("/","-") + "_" + obsItem.getConstellation();
   }
-
-  /**
-   * Search whether the target has already been processed or not.
-   * @param target
-   * @return true if the target was already processed
-   */
-  private boolean wasTargetProcessed(String target) {
-    boolean processed = false;
-    for(int i=0; i<processedTargetCache.size() && !processed; i++) {
-      if(processedTargetCache.get(i).equals(target)) {
-        processed = true;
-      }
-    }
-    return processed;
-  }
-
-
 
 }

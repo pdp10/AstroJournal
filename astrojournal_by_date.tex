@@ -3,7 +3,7 @@
 \usepackage[colorlinks=true,linkcolor={black},urlcolor={black}]{hyperref} 
 \usepackage{longtable} 
 \usepackage{pdflscape} 
-\title{Astronomy Observation Journal} 
+\title{Astronomy Observation Journal by Date} 
 \author{Piero Dalle Pezze} 
 \date{\today} 
  
@@ -14,7 +14,7 @@
 \thispagestyle{empty} 
  
 \begin{abstract} 
-This document contains my observation reports and the objects listed by catalogue that I have so far observed. At the end the complete Messier and Caldwell catalogues are also presented. This file was generated using Java software tool {\it AstroJournal} (\href{https://pdp10@bitbucket.org/pdp10/astrojournal.git}{https://pdp10@bitbucket.org/pdp10/astrojournal.git}) and {\it pdflatex} (\href{http://www.tug.org/texlive/}{http://www.tug.org/texlive/}). {\it AstroJournal} imports files containing astronomy observation reports and observed objects by catalogues. Once imported, it generates an integrated journal document in \LaTeX\ which is then exported in PDF using the utility {\it pdflatex}. {\it AstroJournal} is released under GPL v3 license. 
+This document contains my observation reports by date and the objects listed by catalogue that I have so far observed. At the end the complete Messier and Caldwell catalogues are also presented. This file was generated using Java software tool {\it AstroJournal} (\href{https://pdp10@bitbucket.org/pdp10/astrojournal.git}{https://pdp10@bitbucket.org/pdp10/astrojournal.git}) and {\it pdflatex} (\href{http://www.tug.org/texlive/}{http://www.tug.org/texlive/}). {\it AstroJournal} imports files containing astronomy observation reports and observed objects by catalogues. Once imported, it generates an integrated journal document in \LaTeX\ which is then exported in PDF using the utility {\it pdflatex}. {\it AstroJournal} is released under GPL v3 license. 
 \end{abstract} 
  
 \tableofcontents 
@@ -26,54 +26,7 @@ This document contains my observation reports and the objects listed by catalogu
 %\footnotesize 
 \small 
 %\normalsize 
- 
- 
-\section{Legends} 
- 
-\noindent  
- 
-\bigskip  
-{\bf Seeing Scale (Antoniadi):} 
-\begin{enumerate} 
-\item Perfect seeing, without a quiver 
-\item Slight undulations, with moments of calm lasting several seconds 
-\item Moderate seeing, with larger air tremors 
-\item Poor seeing, with constant troublesome undulations 
-\item Very bad seeing, scarcely allowing the makings of a rough sketch 
-\end{enumerate} 
- 
-\bigskip      
-{\bf Transparency Scale (American Association of Amateur Astronomers):} 
-\begin{enumerate} 
-\item Do Not Observe: Completely cloudy or precipitating (Why are you out?) 
-\item Very Poor: Mostly Cloudy 
-\item Poor: Partly cloudy or heavy haze. 1 or 2 Little Dipper stars visible 
-\item Somewhat Clear: Cirrus or moderate haze. 3 or 4 Little Dipper stars visible 
-\item Partly Clear: Slight haze. 4 or 5 Little Dipper stars visible 
-\item Clear: No clouds. Milky Way visible with averted vision. 6 Little Dipper stars visible 
-\item Very Clear: Milky Way and M31 visible. Stars fainter than mag 6.0 are just seen and fainter parts of the Milky Way are more obvious  
-\item Extremely Clear: overwhelming profusion of stars, Zodiacal light and the gegenschein form continuous band across the sky, the Milky Way is very wide and bright throughout 
-\end{enumerate} 
- 
-\bigskip 
-{\bf Target Types:} 
-\begin{itemize} 
-\renewcommand\labelitemi{--} 
-\item SN Rem: Supernova Remnant 
-\item Neb: Nebula 
-\item Galaxy: Galaxy 
-\item CL+Neb: Cluster with Nebula 
-\item Opn CL: Open Cluster 
-\item Glob CL: Globular Cluster 
-\item Pln Neb: Planetary Nebula 
-\item Satellite: Our Satellite (Moon) 
-\item Planet: Solar System Planet 
-\item Star: Star 
-\item Dbl Star: Double Star 
-\item Mlt Star: Multiple Star 
-\item Asterism: Asterism 
-\end{itemize} 
- 
+\input{latex_header_footer/legend.tex} 
 \clearpage 
  
  
@@ -83,6 +36,10 @@ This document contains my observation reports and the objects listed by catalogu
 \section{Observation reports}
 \vspace{4 mm}
 \hspace{4 mm}
+\input{latex_reports_by_date/obs20150722}
+\clearpage 
+\input{latex_reports_by_date/obs20150719}
+\clearpage 
 \input{latex_reports_by_date/obs20150717}
 \clearpage 
 \input{latex_reports_by_date/obs20150707}

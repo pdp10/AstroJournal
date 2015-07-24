@@ -43,7 +43,7 @@ import org.astrojournal.observation.AJObservationImporter;
  * This class automatically generates the Latex code for the AstroJournal.
  * 
  * @author Piero Dalle Pezze
- * @version 0.7
+ * @version 0.8
  * @since 12/04/2015
  */
 public class AJMain {
@@ -68,13 +68,18 @@ public class AJMain {
   /** The name of the main Latex file sorted by target. */
   private String mainLatexByTarget = "astrojournal_by_target.tex";
   
-  /** The name of the folder of the Latex header file inclusive with relative path. */
-  private String latexHeader = "latex_header_footer/header.tex";
-  /** The name of the folder of the Latex footer file inclusive with relative path. */
-  private String latexFooter = "latex_header_footer/footer.tex";
-
+  /** The Latex header with path for astrojournal by date. */
+  private String latexHeaderByDate = "latex_header_footer/header_by_date.tex";
+  /** The Latex footer with path for astrojournal by date. */
+  private String latexFooterByDate = "latex_header_footer/footer_by_date.tex";
+  /** The Latex header with path for astrojournal by target. */
+  private String latexHeaderByTarget = "latex_header_footer/header_by_target.tex";
+  /** The Latex footer with path for astrojournal by target. */
+  private String latexFooterByTarget = "latex_header_footer/footer_by_target.tex";
+  
+  
   /** The list of observations. */
-  private ArrayList<AJObservation> observations = new ArrayList<AJObservation>(100);
+  private ArrayList<AJObservation> observations = new ArrayList<AJObservation>(1000);
 
   
   /** Default constructor */
@@ -86,14 +91,7 @@ public class AJMain {
    * @return true if the procedure succeeds, false otherwise.
    */
   private boolean generateObservationsLatexCode() {
-    // You need to create a reader reading the file tvs
-    // Then parse the tvs file and for each table found (e.g. looking for the
-    // word "Date",
-    // write a latex table in a file. Date is the string date
-    // for each file in the folder obs (sorted by observation increasing), add a
-    // line
-    // If this pathname does not denote a directory, then listFiles() returns
-    // null.
+
     File[] files = new File(tsvReportsFolder).listFiles();
     if (files == null) {
       log.warn("Folder " + tsvReportsFolder + " not found");
@@ -221,8 +219,8 @@ public class AJMain {
    * Generate the Latex document sorted by date
    */
   private void generateLatexCodeByDate() {
-    AJLatexHeader ajLatexHeader = new AJLatexHeader(latexHeader);
-    AJLatexFooter ajLatexFooter = new AJLatexFooter(latexFooter);
+    AJLatexHeader ajLatexHeaderByDate = new AJLatexHeader(latexHeaderByDate);
+    AJLatexFooter ajLatexFooterByDate = new AJLatexFooter(latexFooterByDate);
     Writer writerByDate = null;
     try {
       writerByDate = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
@@ -238,7 +236,7 @@ public class AJMain {
         return;
       }     
       // write the Latex Header
-      writerByDate.write(ajLatexHeader.getHeader());
+      writerByDate.write(ajLatexHeaderByDate.getHeader());
 
       // write the Latex Body
       // Write the observation reports
@@ -284,7 +282,7 @@ public class AJMain {
         }
       }     
       // write the Latex Footer
-      writerByDate.write(ajLatexFooter.getFooter());
+      writerByDate.write(ajLatexFooterByDate.getFooter());
 
     } catch (IOException ex) {
       log.warn("Error when opening the file " + mainLatexByDate);
@@ -305,38 +303,87 @@ public class AJMain {
    * Generate the Latex document sorted by target
    */
   private void generateLatexCodeByTarget() {
-    AJLatexHeader ajLatexHeader = new AJLatexHeader(latexHeader);
-    AJLatexFooter ajLatexFooter = new AJLatexFooter(latexFooter);
+    AJLatexHeader ajLatexHeaderByTarget = new AJLatexHeader(latexHeaderByTarget);
+    AJLatexFooter ajLatexFooterByTarget = new AJLatexFooter(latexFooterByTarget);
     Writer writerByTarget = null;
     try {
       writerByTarget = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
         mainLatexByTarget), "utf-8"));
       // write the Latex Header
-      writerByTarget.write(ajLatexHeader.getHeader());
+      writerByTarget.write(ajLatexHeaderByTarget.getHeader());
 
       // write the Latex Body
       // Write the observation reports
-      writerByTarget.write("\\section{Observation reports}\n");
-      writerByTarget.write("\\vspace{4 mm}\n");
-      writerByTarget.write("\\hspace{4 mm}\n");
       // parse each file in the latex obs folder (sorted by observation increasing)
       File[] files = new File(latexReportsFolderByTarget).listFiles();
       if (files == null) {
         log.warn("Folder " + latexReportsFolderByTarget + " not found");
         return;
       }
-      Arrays.sort(files, Collections.reverseOrder());    
+      sortFilesByTarget(files);
       // If this pathname does not denote a directory, then listFiles() returns null.
+      String target = null, type = "";
       for (File file : files) {
-        if (file.isFile() && file.getName().endsWith(".tex")) {
+        target = file.getName();
+      
+        if (file.isFile() && target.endsWith(".tex")) {
+          if(target.matches("^(sun|moon|mercury|venus|mars|jupiter|saturn|uranus|neptune|pluto|Sun|Moon|Mercury|Venus|Mars|Jupiter|Saturn|Uranus|Neptune|Pluto).*$")) {      
+	    if(!type.equals("Solar System")) {
+               type = "Solar System";
+               writerByTarget.write("\\clearpage\n");
+               writerByTarget.write("\\section{" + type + "}\n");                  
+	     }
+	  } else if(target.matches("^[m|M][0-9].*$")) {
+	    if(!type.equals("Messier")) {
+               type = "Messier";
+               writerByTarget.write("\\clearpage\n");               
+               writerByTarget.write("\\section{" + type + "}\n");
+	     }
+	  } else if(target.matches("^(ngc|NGC)[0-9].*$")) {
+	    if(!type.equals("NGC")) {
+               type = "NGC";
+               writerByTarget.write("\\clearpage\n");                  
+               writerByTarget.write("\\section{" + type + "}\n");
+	     }
+	  } else if(target.matches("^(ic|IC)[0-9].*$")) {
+	    if(!type.equals("IC")) {
+               type = "IC";
+               writerByTarget.write("\\clearpage\n");                  
+               writerByTarget.write("\\section{" + type + "}\n");
+	     }
+	  } else if(target.matches("^(stock|Stock)[0-9].*$")) {
+	    if(!type.equals("Stock")) {
+               type = "Stock";
+               writerByTarget.write("\\clearpage\n");                  
+               writerByTarget.write("\\section{" + type + "}\n");
+	     }
+	  } else if(target.matches("^(mel|Mel)[0-9].*$")) {
+	    if(!type.equals("Melotte")) {
+               type = "Melotte";
+               writerByTarget.write("\\clearpage\n");                  
+               writerByTarget.write("\\section{" + type + "}\n");
+	     }
+	  } else if(target.matches("^(cr|Cr)[0-9].*$")) {
+	    if(!type.equals("Collider")) {
+               type = "Collider";
+               writerByTarget.write("\\clearpage\n");                  
+	       writerByTarget.write("\\section{" + type + "}\n");
+	     }
+	  } else {
+	    if(!type.equals("Stars, Double Stars, Multiple Stars")) {
+               type = "Stars, Double Stars, Multiple Stars";
+               writerByTarget.write("\\clearpage\n");                  
+               writerByTarget.write("\\section{" + type + "}\n");
+	     }
+	  }
           // include the file removing the extension .tex
           writerByTarget.write("\\input{" + latexReportsFolderByTarget + "/"
-              + file.getName().replaceFirst("[.][^.]+$", "") + "}\n");
-          writerByTarget.write("\\clearpage \n");
+              + target.replaceFirst("[.][^.]+$", "") + "}\n");
+          writerByTarget.write("\\vspace{4 mm}\n");
         }
       }
       // write the Latex Footer
-      writerByTarget.write(ajLatexFooter.getFooter());
+      writerByTarget.write(ajLatexFooterByTarget.getFooter());
 
     } catch (IOException ex) {
       log.warn("Error when opening the file " + mainLatexByTarget);
@@ -352,8 +399,86 @@ public class AJMain {
     }    
   }
   
+  /** 
+   * Sort the files by target.  
+   * @param files the files to be sorted by target
+   */
+  private void sortFilesByTarget(File[] files) {
+    ArrayList<String> solarSystem = new ArrayList<String>(10);  
+    ArrayList<String> messier = new ArrayList<String>(110);
+    ArrayList<String> ngc = new ArrayList<String>(10000);
+    ArrayList<String> ic = new ArrayList<String>(1000);
+    ArrayList<String> stock = new ArrayList<String>(100);
+    ArrayList<String> melotte = new ArrayList<String>(400);
+    ArrayList<String> collider = new ArrayList<String>(300);
+    ArrayList<String> stars = new ArrayList<String>(500);
+    String target = null;
+    for(int i=0; i<files.length; i++) {
+      target = files[i].getName();
+      if(target.matches("^(sun|moon|mercury|venus|mars|jupiter|saturn|uranus|neptune|pluto|Sun|Moon|Mercury|Venus|Mars|Jupiter|Saturn|Uranus|Neptune|Pluto).*$")) {      
+	solarSystem.add(files[i].toString());
+	log.debug(target);
+      } else if(target.matches("^[m|M][0-9].*$")) {
+	messier.add(files[i].toString());
+	log.debug(target);
+      } else if(target.matches("^(ngc|NGC)[0-9].*$")) {
+	ngc.add(files[i].toString());
+	log.debug(target);
+      } else if(target.matches("^(ic|IC)[0-9].*$")) {
+	ic.add(files[i].toString());
+	log.debug(target);
+      } else if(target.matches("^(stock|Stock)[0-9].*$")) {
+	stock.add(files[i].toString());
+	log.debug(target);	
+      } else if(target.matches("^(mel|Mel)[0-9].*$")) {
+	melotte.add(files[i].toString());
+	log.debug(target);	
+      } else if(target.matches("^(cr|Cr)[0-9].*$")) {
+	collider.add(files[i].toString());
+	log.debug(target);
+      } else {
+	stars.add(files[i].toString());
+	log.info(target);
+      }
+    }
+    Collections.sort(solarSystem);    
+    Collections.sort(messier);
+    Collections.sort(ngc);
+    Collections.sort(ic);
+    Collections.sort(stock);
+    Collections.sort(melotte);
+    Collections.sort(collider);
+    Collections.sort(stars);
+    
+    int j=0;
+    j = addSortedFiles(solarSystem, files, j);
+    j = addSortedFiles(messier, files, j);
+    j = addSortedFiles(ngc, files, j);
+    j = addSortedFiles(ic, files, j);
+    j = addSortedFiles(stock, files, j);
+    j = addSortedFiles(melotte, files, j);
+    j = addSortedFiles(collider, files, j);
+    j = addSortedFiles(stars, files, j);
+  }
   
-
+  /**
+   * Recreate the list of files as sorted by catalogue
+   * @param list the sorted catalogue
+   * @param files the full list of files
+   * @param idx the current index for files
+   * @return idx the new index for files
+   */
+  private int addSortedFiles(ArrayList<String> list, File[] files, int idx) {
+    for(int i=0; i<list.size(); i++) {
+      if(idx < files.length) {
+	files[idx] = new File(list.get(i));
+	idx++;
+      }
+    }
+    return idx;
+  }
+  
+  
   /** 
    * It generates the latex files for AstroJournal. 
    * @param tsvObsDir the directory containing the tsv observation files (input)
