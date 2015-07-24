@@ -24,9 +24,12 @@ import java.io.BufferedWriter;
 import java.io.Writer;
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 
 import org.apache.log4j.Logger;
 import org.astrojournal.catalogue.AJCatalogue;
@@ -77,10 +80,20 @@ public class AJMain {
   /** The Latex footer with path for astrojournal by target. */
   private String latexFooterByTarget = "latex_header_footer/footer_by_target.tex";
   
-  
   /** The list of observations. */
   private ArrayList<AJObservation> observations = new ArrayList<AJObservation>(1000);
 
+  /** A comparator for sorting catalogues */ 
+  Comparator<String> catalogueItemComparator = new Comparator<String>() {
+      public int compare(String o1, String o2) {
+        return extractInt(o1) - extractInt(o2);
+      }
+      int extractInt(String s) {
+        String num = s.replaceAll("\\D", "");
+        // return 0 if no digits found
+        return num.isEmpty() ? 0 : Integer.parseInt(num);
+      }
+   };
   
   /** Default constructor */
   public AJMain() {}
@@ -334,38 +347,38 @@ public class AJMain {
                writerByTarget.write("\\section{" + type + "}\n");                  
 	     }
 	  } else if(target.matches("^[m|M][0-9].*$")) {
-	    if(!type.equals("Messier")) {
-               type = "Messier";
+	    if(!type.equals("Messier Catalogue")) {
+               type = "Messier Catalogue";
                writerByTarget.write("\\clearpage\n");               
                writerByTarget.write("\\section{" + type + "}\n");
 	     }
 	  } else if(target.matches("^(ngc|NGC)[0-9].*$")) {
-	    if(!type.equals("NGC")) {
-               type = "NGC";
+	    if(!type.equals("New General Catalogue (NGC)")) {
+               type = "New General Catalogue (NGC)";
                writerByTarget.write("\\clearpage\n");                  
                writerByTarget.write("\\section{" + type + "}\n");
 	     }
 	  } else if(target.matches("^(ic|IC)[0-9].*$")) {
-	    if(!type.equals("IC")) {
-               type = "IC";
+	    if(!type.equals("Index Catalogue (IC)")) {
+               type = "Index Catalogue (IC)";
                writerByTarget.write("\\clearpage\n");                  
                writerByTarget.write("\\section{" + type + "}\n");
 	     }
 	  } else if(target.matches("^(stock|Stock)[0-9].*$")) {
-	    if(!type.equals("Stock")) {
-               type = "Stock";
+	    if(!type.equals("Stock Catalogue")) {
+               type = "Stock Catalogue";
                writerByTarget.write("\\clearpage\n");                  
                writerByTarget.write("\\section{" + type + "}\n");
 	     }
 	  } else if(target.matches("^(mel|Mel)[0-9].*$")) {
-	    if(!type.equals("Melotte")) {
-               type = "Melotte";
+	    if(!type.equals("Melotte Catalogue")) {
+               type = "Melotte Catalogue";
                writerByTarget.write("\\clearpage\n");                  
                writerByTarget.write("\\section{" + type + "}\n");
 	     }
 	  } else if(target.matches("^(cr|Cr)[0-9].*$")) {
-	    if(!type.equals("Collider")) {
-               type = "Collider";
+	    if(!type.equals("Collider Catalogue")) {
+               type = "Collider Catalogue";
                writerByTarget.write("\\clearpage\n");                  
 	       writerByTarget.write("\\section{" + type + "}\n");
 	     }
@@ -404,7 +417,9 @@ public class AJMain {
    * @param files the files to be sorted by target
    */
   private void sortFilesByTarget(File[] files) {
-    ArrayList<String> solarSystem = new ArrayList<String>(10);  
+    // solar system in ArrayList instead of simple array, because we do not know
+    // how many conjuctions there are.
+    LinkedList<String> solarSystem = new LinkedList<String>();  
     ArrayList<String> messier = new ArrayList<String>(110);
     ArrayList<String> ngc = new ArrayList<String>(10000);
     ArrayList<String> ic = new ArrayList<String>(1000);
@@ -412,11 +427,39 @@ public class AJMain {
     ArrayList<String> melotte = new ArrayList<String>(400);
     ArrayList<String> collider = new ArrayList<String>(300);
     ArrayList<String> stars = new ArrayList<String>(500);
+    
+    // Add empty data for the solar system. Conjuctions will be added in the end.
+    solarSystem.add(""); solarSystem.add("");
+    solarSystem.add(""); solarSystem.add("");
+    solarSystem.add(""); solarSystem.add("");
+    solarSystem.add(""); solarSystem.add(""); 
+    solarSystem.add(""); solarSystem.add("");    
     String target = null;
     for(int i=0; i<files.length; i++) {
       target = files[i].getName();
-      if(target.matches("^(sun|moon|mercury|venus|mars|jupiter|saturn|uranus|neptune|pluto|Sun|Moon|Mercury|Venus|Mars|Jupiter|Saturn|Uranus|Neptune|Pluto).*$")) {      
-	solarSystem.add(files[i].toString());
+      if(target.matches("^(sun|moon|mercury|venus|mars|jupiter|saturn|uranus|neptune|pluto|Sun|Moon|Mercury|Venus|Mars|Jupiter|Saturn|Uranus|Neptune|Pluto).*$")) {
+      	if(target.matches("^(sun|Sun)\\.tex$")) 
+	    { solarSystem.remove(0); solarSystem.add(0, files[i].toString()); }
+	else if(target.matches("^(moon|Moon)\\.tex$")) 
+	    { solarSystem.remove(1); solarSystem.add(1, files[i].toString()); }	
+	else if(target.matches("^(mercury|Mercury)\\.tex$"))
+	    { solarSystem.remove(2); solarSystem.add(2, files[i].toString()); }
+	else if(target.matches("^(venus|Venus)\\.tex$")) 
+	    { solarSystem.remove(3); solarSystem.add(3, files[i].toString()); }
+	else if(target.matches("^(mars|Mars)\\.tex$")) 	
+	    { solarSystem.remove(4); solarSystem.add(4, files[i].toString()); }
+	else if(target.matches("^(jupiter|Jupiter)\\.tex$")) 
+	    { solarSystem.remove(5); solarSystem.add(5, files[i].toString()); }
+	else if(target.matches("^(saturn|Saturn)\\.tex$"))  
+	    { solarSystem.remove(6); solarSystem.add(6, files[i].toString()); }
+	else if(target.matches("^(uranus|Uranus)\\.tex$"))   
+	    { solarSystem.remove(7); solarSystem.add(7, files[i].toString()); }
+	else if(target.matches("^(neptune|Neptune)\\.tex$")) 
+	    { solarSystem.remove(8); solarSystem.add(8, files[i].toString()); }
+	else if(target.matches("^(pluto|Pluto)\\.tex$"))     
+	    { solarSystem.remove(9); solarSystem.add(9, files[i].toString()); }	
+	// conjunctions
+	else { solarSystem.add(files[i].toString()); }
 	log.debug(target);
       } else if(target.matches("^[m|M][0-9].*$")) {
 	messier.add(files[i].toString());
@@ -438,17 +481,17 @@ public class AJMain {
 	log.debug(target);
       } else {
 	stars.add(files[i].toString());
-	log.info(target);
+	log.debug(target);
       }
     }
-    Collections.sort(solarSystem);    
-    Collections.sort(messier);
-    Collections.sort(ngc);
-    Collections.sort(ic);
-    Collections.sort(stock);
-    Collections.sort(melotte);
-    Collections.sort(collider);
-    Collections.sort(stars);
+    // planets are manually sorted
+    Collections.sort(messier, catalogueItemComparator);
+    Collections.sort(ngc, catalogueItemComparator);
+    Collections.sort(ic, catalogueItemComparator);
+    Collections.sort(stock, catalogueItemComparator);
+    Collections.sort(melotte, catalogueItemComparator);
+    Collections.sort(collider, catalogueItemComparator);
+    Collections.sort(stars, catalogueItemComparator);
     
     int j=0;
     j = addSortedFiles(solarSystem, files, j);
@@ -468,7 +511,7 @@ public class AJMain {
    * @param idx the current index for files
    * @return idx the new index for files
    */
-  private int addSortedFiles(ArrayList<String> list, File[] files, int idx) {
+  private int addSortedFiles(List<String> list, File[] files, int idx) {
     for(int i=0; i<list.size(); i++) {
       if(idx < files.length) {
 	files[idx] = new File(list.get(i));

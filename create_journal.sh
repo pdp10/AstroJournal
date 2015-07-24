@@ -78,8 +78,8 @@ fi
 # Generate the PDF file from the Latex code generated previously
 if command -v pdflatex 2>/dev/null >&2; then {
     printf "Generating astrojournal by target using pdflatex ... ";
-    pdflatex ${aj_latex_file_by_target} #>/dev/null;
-    pdflatex ${aj_latex_file_by_target} #>/dev/null;
+    pdflatex ${aj_latex_file_by_target} >/dev/null;
+    pdflatex ${aj_latex_file_by_target} >/dev/null;
     printf "DONE\n"
 } elif command -v texi2pdf 2>/dev/null >&2; then {
     printf "Generating astrojournal by target using texi2tex ... ";

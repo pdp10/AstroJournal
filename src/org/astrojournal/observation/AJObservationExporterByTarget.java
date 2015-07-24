@@ -64,13 +64,20 @@ public class AJObservationExporterByTarget {
             processedTargetCache.add(filenameOut);
             targetWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
               new File(latexReportsByTargetFolder, filenameOut + ".tex")), "utf-8"));
-            targetWriter.write("{\\bf " + obsItem.getTarget());
-	    if(!obsItem.getType().toLowerCase().equals("planet") &&
-	       !obsItem.getTarget().toLowerCase().equals("moon") &&
-	       !obsItem.getTarget().toLowerCase().equals("sun")) {
+	    if(obsItem.getType().toLowerCase().equals("planet") ||
+	       obsItem.getTarget().toLowerCase().equals("moon") ||
+	       obsItem.getTarget().toLowerCase().equals("sun")) {
+               targetWriter.write("{\\bf " + obsItem.getTarget());
+	    } else if(obsItem.getType().toLowerCase().equals("star") || 
+	       obsItem.getType().toLowerCase().equals("dbl star") || 
+	       obsItem.getType().toLowerCase().equals("mlt star")) {
+               targetWriter.write("{\\bf " + obsItem.getConstellation());
+               targetWriter.write(", " + obsItem.getTarget());
+            } else {
+	       targetWriter.write("{\\bf " + obsItem.getTarget());
                targetWriter.write(", " + obsItem.getConstellation());
-	    }
-            targetWriter.write(", " + obsItem.getType() + "}:\n");
+            }
+            targetWriter.write(", " + obsItem.getType() + "}:\n");                        
             targetWriter.write("\\begin{itemize}\n");
           } else {
             // if file was already created skip the previous two lines
