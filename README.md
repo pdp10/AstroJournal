@@ -23,58 +23,25 @@ To use AstroJournal you need to install:
 
 - Java 1.6+
 - TeX Live (pdflatex or texi2tex must be installed)
+- Apache Ant
+- Git
 
-After downloading and uncompressing the file, you can execute AstroJournal 
-on GNU/Linux typing: ./create_journal.sh.
+You can clone AstroJournal repository with the git command:
+git clone https://pdp10@bitbucket.org/pdp10/astrojournal.git
+
+To compile AstroJournal on GNU/Linux type:
+ant jar
+
+Then, you can run AstroJournal on GNU/Linux typing:
+./create_journal.sh
 
 
-
-## How to create an observation record:
-As currently implemented, the format of the observation tables is 
-specific. A sample of an observation table is provides below. The 
-titles (e.g. Date, Time, Target, Cons, ..) cannot be changed as these 
-are used by AstroJournal to retrieve the data. All fields are separated 
-by a tab character (\t) explicitly shown in this example with a TAB text 
-when this must be included.  
-
-Date TAB 03/06/2015			
-Time TAB 21:40-23:30			
-Location TAB Cambridge, UK			
-Altitude TAB 12m			
-Temperature TAB 12C (wind: 0km/h)			
-Seeing TAB 1 - Perfect seeing			
-Transparency TAB 5 - Clear			
-Telescopes TAB Tele Vue 60 F6			
-Eyepieces TAB TV Panoptic 24mm, Nagler 3.5mm			
-Power, EP, FOV TAB 15x, 4mm, 4.30deg; 103x, 0.6mm, 0.77deg		
-Filters TAB Single Polarising Filter			
-Target TAB Cons TAB Type TAB Power TAB Notes
-Jupiter TAB Cnc TAB Planet TAB 103x +/- SPF TAB Write description here.
-Moon TAB Sgr TAB Satellite TAB 103x TAB Write description here.
-
-Examples of observations can also be found in the folder tsv_folder/ and 
-can be opened using a text editor or a spreadsheet software.
+## Samples of observation records
+Samples of observation record to test AstroJournal are already inserted in the folder tsv_reports and tsv_catalogue. These can be edited with any common text editor (e.g. emacs or kate).
 
 
 
-## Use case
-
-1. edit your observation using a SpreadSheet (e.g. Google Drive) (see above);
-2. save your observations as .tsv (tab separated values) and put this .tsv file in the 
-folder tsv_reports/;
-3. run the following command for creating or updating the journal: ./create_journal.sh
-4. run the following command for versioning the new files (just me): ./push_obs_git.sh
-
-
-
-Thanks for using AstroJournal!
-Piero
-
-
-
-
-
-# Additional information:
+# Development:
 
 ## ChangeLog:
 
