@@ -4,10 +4,6 @@ Created by Piero Dalle Pezze (pdp10)
 -->
 
 <project default ="usage" basedir="./">
-	<!-- =================================================================== -->
-	<!-- Initialization target                                               -->
-	<!-- =================================================================== -->
-
 	<target name="init">
 		<tstamp>
 			<format property="YEAR" pattern="yyyy"/>
@@ -17,9 +13,9 @@ Created by Piero Dalle Pezze (pdp10)
 		<property name="version" value="0.7"/>
 		<property name="year" value="${YEAR}"/>
 
-		<echo message="------ ${Name} ${version} [${year}]"/>
-		<echo message="------ ${TODAY}"/>
-		<echo message="------ ${DSTAMP} ${TSTAMP}"/>
+		<echo message="${Name} ${version} [${year}]"/>
+		<echo message="${TODAY}"/>
+		<echo message="${DSTAMP} ${TSTAMP}"/>
 
 		<property environment="env"/>
 		<property name="build.compiler" value="modern"/>
@@ -192,16 +188,16 @@ Created by Piero Dalle Pezze (pdp10)
 			<fileset dir="${lib.dir}/" includes="${name}-${version}.jar"/>
 		</delete>
 		<delete includeEmptyDirs="true" quiet="yes">
-			<fileset dir="${basedir}" includes="*.aux *~ *.log *.toc"/>
+			<fileset dir="${src.latex_reports_by_date}" includes="*.tex *.aux"/>
 		</delete>
 		<delete includeEmptyDirs="true" quiet="yes">
-			<fileset dir="${src.latex_reports_by_date}" includes="*.aux"/>
-		</delete>
-		<delete includeEmptyDirs="true" quiet="yes">
-			<fileset dir="${src.latex_reports_by_target}" includes="*.aux"/>
+			<fileset dir="${src.latex_reports_by_target}" includes="*.tex *.aux"/>
 		</delete>		
 		<delete includeEmptyDirs="true" quiet="yes">
-			<fileset dir="${src.latex_catalogues}" includes="*.aux"/>
+			<fileset dir="${src.latex_catalogues}" includes="*.tex *.aux"/>
+		</delete>
+		<delete includeEmptyDirs="true" quiet="yes">
+			<fileset dir="${basedir}" includes="*pdf *tex *jar *tsv *.aux *~ *.log *.toc latex_catalogues latex_reports*"/>
 		</delete>		
 	</target>
 </project>
