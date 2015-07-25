@@ -44,51 +44,50 @@ java -jar astrojournal-*.jar ${input_reports_folder} ${output_reports_folder_by_
 
 
 # Check whether astrojournal_by_date.tex is empty (has not been created correctly)
-if [ ! -s ${aj_latex_file_by_date} ]; then
+if [ ! -s ${aj_latex_file_by_date} ]; then {
     rm -f ${aj_latex_file_by_date}
-    printf "File ${aj_latex_file_by_date} was not created. Aborting.\n";
-    exit 1;
-fi
-
-# Check whether astrojournal_by_target.tex is empty (has not been created correctly)
-if [ ! -s ${aj_latex_file_by_target} ]; then
-    rm -f ${aj_latex_file_by_target}
-    printf "File ${aj_latex_file_by_target} was not created. Aborting.\n";
-    exit 1;
-fi
-
-# Generate the PDF file from the Latex code generated previously
-if command -v pdflatex 2>/dev/null >&2; then {
-    printf "Generating astrojournal by date using pdflatex ... ";
-    pdflatex ${aj_latex_file_by_date} >/dev/null;
-    pdflatex ${aj_latex_file_by_date} >/dev/null;
-    printf "DONE\n"
-} elif command -v texi2pdf 2>/dev/null >&2; then {
-    printf "Generating astrojournal by date using texi2tex ... ";
-    texi2pdf ${aj_latex_file_by_date} >/dev/null;
-    texi2pdf ${aj_latex_file_by_date} >/dev/null;
-    printf "DONE\n"
+    printf "WARNING: File ${aj_latex_file_by_date} was not created. \n";
 } else {
-    printf "You need to install either pdflatex or texi2tex for generating AstroJournal PDF file. Aborting.\n";
-    exit 1; 
+    # Generate the PDF file from the Latex code generated previously
+    if command -v pdflatex 2>/dev/null >&2; then {
+	printf "Generating astrojournal by date using pdflatex ... ";
+	pdflatex ${aj_latex_file_by_date} >/dev/null;
+	pdflatex ${aj_latex_file_by_date} >/dev/null;
+	printf "DONE\n"
+    } elif command -v texi2pdf 2>/dev/null >&2; then {
+        printf "Generating astrojournal by date using texi2tex ... ";
+        texi2pdf ${aj_latex_file_by_date} >/dev/null;
+	texi2pdf ${aj_latex_file_by_date} >/dev/null;
+	printf "DONE\n"
+    } else {
+        printf "You need to install either pdflatex or texi2tex for generating AstroJournal PDF file.\n";
+    }
+    fi 
 }
 fi
 
 
-# Generate the PDF file from the Latex code generated previously
-if command -v pdflatex 2>/dev/null >&2; then {
-    printf "Generating astrojournal by target using pdflatex ... ";
-    pdflatex ${aj_latex_file_by_target} >/dev/null;
-    pdflatex ${aj_latex_file_by_target} >/dev/null;
-    printf "DONE\n"
-} elif command -v texi2pdf 2>/dev/null >&2; then {
-    printf "Generating astrojournal by target using texi2tex ... ";
-    texi2pdf ${aj_latex_file_by_target} >/dev/null;
-    texi2pdf ${aj_latex_file_by_target} >/dev/null;
-    printf "DONE\n"
+
+# Check whether astrojournal_by_target.tex is empty (has not been created correctly)
+if [ ! -s ${aj_latex_file_by_target} ]; then {
+    rm -f ${aj_latex_file_by_target}
+    printf "WARNING: File ${aj_latex_file_by_target} was not created. \n";
 } else {
-    printf "You need to install either pdflatex or texi2tex for generating AstroJournal PDF file. Aborting.\n";
-    exit 1; 
+    # Generate the PDF file from the Latex code generated previously
+    if command -v pdflatex 2>/dev/null >&2; then {
+        printf "Generating astrojournal by target using pdflatex ... ";
+        pdflatex ${aj_latex_file_by_target} >/dev/null;
+        pdflatex ${aj_latex_file_by_target} >/dev/null;
+        printf "DONE\n"
+    } elif command -v texi2pdf 2>/dev/null >&2; then {
+        printf "Generating astrojournal by target using texi2tex ... ";
+        texi2pdf ${aj_latex_file_by_target} >/dev/null;
+        texi2pdf ${aj_latex_file_by_target} >/dev/null;
+        printf "DONE\n"
+    } else {
+        printf "You need to install either pdflatex or texi2tex for generating AstroJournal PDF file. \n";
+    }
+    fi
 }
 fi
 
@@ -96,7 +95,5 @@ fi
 # Concatenate all tsv files into one file
 cat ${input_reports_folder}/*.tsv > astrojournal_by_date.tsv
 
-
 # Clean the temporary and log files
 rm -rf *.aux *.log *~ *.out *.toc ${output_reports_folder_by_date}/*.aux ${output_reports_folder_by_target}/*.aux ${output_catalogues_folder}/*.aux
-

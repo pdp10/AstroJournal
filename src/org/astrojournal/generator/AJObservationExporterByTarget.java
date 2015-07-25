@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with AstroJournal.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.astrojournal.observation;
+package org.astrojournal.generator;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -24,7 +24,10 @@ import java.io.BufferedWriter;
 import java.io.Writer;
 import java.io.File;
 import java.io.IOException;
+
 import org.apache.log4j.Logger;
+import org.astrojournal.observation.AJObservation;
+import org.astrojournal.observation.AJObservationItem;
 
 /**
  * Exports an AstroJournal set of observations by target to Latex code.
@@ -64,18 +67,18 @@ public class AJObservationExporterByTarget {
             processedTargetCache.add(filenameOut);
             targetWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
               new File(latexReportsByTargetFolder, filenameOut + ".tex")), "utf-8"));
-	    if(obsItem.getType().toLowerCase().equals("planet") ||
-	       obsItem.getTarget().toLowerCase().equals("moon") ||
-	       obsItem.getTarget().toLowerCase().equals("sun")) {
-               targetWriter.write("{\\bf " + obsItem.getTarget());
-	    } else if(obsItem.getType().toLowerCase().equals("star") || 
-	       obsItem.getType().toLowerCase().equals("dbl star") || 
-	       obsItem.getType().toLowerCase().equals("mlt star")) {
-               targetWriter.write("{\\bf " + obsItem.getConstellation());
-               targetWriter.write(", " + obsItem.getTarget());
+            if(obsItem.getType().toLowerCase().equals("planet") ||
+                obsItem.getTarget().toLowerCase().equals("moon") ||
+                obsItem.getTarget().toLowerCase().equals("sun")) {
+              targetWriter.write("{\\bf " + obsItem.getTarget());
+            } else if(obsItem.getType().toLowerCase().equals("star") || 
+                obsItem.getType().toLowerCase().equals("dbl star") || 
+                obsItem.getType().toLowerCase().equals("mlt star")) {
+              targetWriter.write("{\\bf " + obsItem.getConstellation());
+              targetWriter.write(", " + obsItem.getTarget());
             } else {
-	       targetWriter.write("{\\bf " + obsItem.getTarget());
-               targetWriter.write(", " + obsItem.getConstellation());
+              targetWriter.write("{\\bf " + obsItem.getTarget());
+              targetWriter.write(", " + obsItem.getConstellation());
             }
             targetWriter.write(", " + obsItem.getType() + "}:\n");                        
             targetWriter.write("\\begin{itemize}\n");

@@ -14,11 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with AstroJournal.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.astrojournal.observation;
+package org.astrojournal.generator;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+
 import org.apache.log4j.Logger;
+import org.astrojournal.observation.AJObservation;
+import org.astrojournal.observation.AJObservationItem;
 
 
 /**
