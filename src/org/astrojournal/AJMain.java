@@ -484,14 +484,15 @@ public class AJMain {
 	log.debug(target);
       }
     }
-    // planets are manually sorted
+    // note planets are manually sorted
     Collections.sort(messier, catalogueItemComparator);
     Collections.sort(ngc, catalogueItemComparator);
     Collections.sort(ic, catalogueItemComparator);
     Collections.sort(stock, catalogueItemComparator);
     Collections.sort(melotte, catalogueItemComparator);
     Collections.sort(collider, catalogueItemComparator);
-    Collections.sort(stars, catalogueItemComparator);
+    // normal lexico-graphical sorting for stars 
+    Collections.sort(stars);
     
     int j=0;
     j = addSortedFiles(solarSystem, files, j);
