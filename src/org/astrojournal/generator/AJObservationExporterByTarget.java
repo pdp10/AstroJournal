@@ -61,6 +61,7 @@ public class AJObservationExporterByTarget {
       for(int j=0; j<observationItems.size(); j++) {
         AJObservationItem obsItem = observationItems.get(j);
         String filenameOut = computeFileName(obsItem);
+        log.debug("filename: " + filenameOut);
         Writer targetWriter = null;
         try {
           if(!processedTargetCache.contains(filenameOut)) {
@@ -100,10 +101,10 @@ public class AJObservationExporterByTarget {
           // for this target.
 
         } catch (IOException ex) {
-          System.out.println("Error when opening the file");
+          log.warn("Error when opening the file");
           return false;
         } catch (Exception ex) {
-          System.out.println(ex);
+          log.warn(ex);
           return false;
         } finally {
           try {
@@ -144,10 +145,10 @@ public class AJObservationExporterByTarget {
           }
 
         } catch (IOException ex) {
-          System.out.println("Error when opening the file");
+          log.warn("Error when opening the file");
           return false;
         } catch (Exception ex) {
-          System.out.println(ex);
+          log.warn(ex);
           return false;
         } finally {
           try {
