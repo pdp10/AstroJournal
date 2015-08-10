@@ -111,7 +111,7 @@ public class AJLatexGenerator {
    * @param latexCatDir the directory containing the catalogue in latex format (output)
    */
   public void generateLatexCode(String tsvObsDir, String latexObsByDateDir, String latexObsByTargetDir, String tsvCatDir, String latexCatDir) {
-    generateLatexCodeByDate(tsvObsDir, latexObsByDateDir, latexObsByTargetDir, tsvCatDir);
+    generateLatexCodeByDate(tsvObsDir, latexObsByDateDir, tsvCatDir, latexCatDir);
     generateLatexCodeByTarget(tsvObsDir, latexObsByTargetDir);
   }
 
