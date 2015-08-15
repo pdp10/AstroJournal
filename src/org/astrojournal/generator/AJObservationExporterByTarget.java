@@ -71,17 +71,17 @@ public class AJObservationExporterByTarget {
             if(obsItem.getType().toLowerCase().equals("planet") ||
                 obsItem.getTarget().toLowerCase().equals("moon") ||
                 obsItem.getTarget().toLowerCase().equals("sun")) {
-              targetWriter.write("{\\bf " + obsItem.getTarget());
+              targetWriter.write("\\subsection{" + obsItem.getTarget());
             } else if(obsItem.getType().toLowerCase().equals("star") || 
                 obsItem.getType().toLowerCase().equals("dbl star") || 
                 obsItem.getType().toLowerCase().equals("mlt star")) {
-              targetWriter.write("{\\bf " + obsItem.getConstellation());
+              targetWriter.write("\\subsection{" + obsItem.getConstellation());
               targetWriter.write(", " + obsItem.getTarget());
             } else {
-              targetWriter.write("{\\bf " + obsItem.getTarget());
+              targetWriter.write("\\subsection{" + obsItem.getTarget());
               targetWriter.write(", " + obsItem.getConstellation());
             }
-            targetWriter.write(", " + obsItem.getType() + "}:\n");                        
+            targetWriter.write(", " + obsItem.getType() + "}\n");                        
             targetWriter.write("\\begin{itemize}\n");
           } else {
             // if file was already created skip the previous two lines

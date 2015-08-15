@@ -40,25 +40,19 @@ public class AJMain {
     String tsvReportsFolder = null;
     String latexReportsFolderByDate = null;
     String latexReportsFolderByTarget = null;
-    String tsvCataloguesFolder = null;
-    String latexCataloguesFolder = null;
     try {
-      if(args.length == 5) {
+      if(args.length == 3) {
         tsvReportsFolder = args[0];
         latexReportsFolderByDate = args[1];
         latexReportsFolderByTarget = args[2];
-        tsvCataloguesFolder = args[3];
-        latexCataloguesFolder = args[4];
-        ajLatexGenerator.generateLatexCode(tsvReportsFolder, latexReportsFolderByDate, latexReportsFolderByTarget, tsvCataloguesFolder, latexCataloguesFolder);
-        //ajLatexGenerator.generateLatexCodeByDate(tsvReportsFolder, latexReportsFolderByDate, tsvCataloguesFolder, latexCataloguesFolder);
+        ajLatexGenerator.generateLatexCode(tsvReportsFolder, latexReportsFolderByDate, latexReportsFolderByTarget);
+        //ajLatexGenerator.generateLatexCodeByDate(tsvReportsFolder, latexReportsFolderByDate);
         //ajLatexGenerator.generateLatexCodeByTarget(tsvReportsFolder, latexReportsFolderByTarget);
       } else {
         throw new Exception("Please, specify the folders : " + 
                     tsvReportsFolder + "/ " + 
-                    latexReportsFolderByDate + "/ " + 
-                    latexReportsFolderByTarget + "/ " + 
-                    tsvCataloguesFolder + "/ and " + 
-                    latexCataloguesFolder + "/ as arguments.");
+                    latexReportsFolderByDate + "/ and " + 
+                    latexReportsFolderByTarget + "/ as arguments.");
       }
     } catch (Exception ex) {
       log.warn(ex);

@@ -20,8 +20,6 @@
 input_reports_folder="tsv_reports"
 output_reports_folder_by_date="latex_reports_by_date"
 output_reports_folder_by_target="latex_reports_by_target"
-input_catalogues_folder="tsv_catalogues"
-output_catalogues_folder="latex_catalogues"
 aj_latex_file_by_date="astrojournal_by_date.tex"
 aj_latex_file_by_target="astrojournal_by_target.tex"
 
@@ -30,8 +28,6 @@ aj_latex_file_by_target="astrojournal_by_target.tex"
 mkdir -p ${input_reports_folder}
 mkdir -p ${output_reports_folder_by_date}
 mkdir -p ${output_reports_folder_by_target}
-mkdir -p ${input_catalogues_folder}
-mkdir -p ${output_catalogues_folder}
 
 
 # Remove previous aj_latex_file file 
@@ -40,7 +36,7 @@ rm -f ${aj_latex_file_by_target}
 
 
 # Run AstroJournal and generate the Latex code
-java -jar astrojournal-*.jar ${input_reports_folder} ${output_reports_folder_by_date} ${output_reports_folder_by_target} ${input_catalogues_folder} ${output_catalogues_folder}
+java -jar astrojournal-*.jar ${input_reports_folder} ${output_reports_folder_by_date} ${output_reports_folder_by_target}
 
 
 # Check whether astrojournal_by_date.tex is empty (has not been created correctly)
@@ -96,4 +92,4 @@ fi
 cat ${input_reports_folder}/*.tsv > astrojournal_by_date.tsv
 
 # Clean the temporary and log files
-rm -rf *.aux *.log *~ *.out *.toc ${output_reports_folder_by_date}/*.aux ${output_reports_folder_by_target}/*.aux ${output_catalogues_folder}/*.aux
+rm -rf *.aux *.log *~ *.out *.toc ${output_reports_folder_by_date}/*.aux ${output_reports_folder_by_target}/*.aux

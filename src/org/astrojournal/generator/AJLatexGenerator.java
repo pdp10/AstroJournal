@@ -32,7 +32,6 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import org.apache.log4j.Logger;
-import org.astrojournal.catalogue.AJCatalogue;
 import org.astrojournal.generator.AJObservationExporterByDate;
 import org.astrojournal.generator.AJObservationExporterByTarget;
 import org.astrojournal.headerfooter.AJLatexHeader;
@@ -57,11 +56,6 @@ public class AJLatexGenerator {
   private String latexReportsFolderByDate = "latex_reports_by_date";
   /** The name of the folder containing the latex observation files by target (observation output folder). */
   private String latexReportsFolderByTarget = "latex_reports_by_target";
-
-  /** The relative path containing the tsv catalogue files (catalogue input folder). */
-  private String tsvCataloguesFolder = "tsv_catalogues";
-  /** The name of the folder containing the latex catalogue files (catalogue output folder). */
-  private String latexCataloguesFolder = "latex_catalogues";
 
   /** The name of the main Latex file sorted by date. */
   private String mainLatexByDate = "astrojournal_by_date.tex";
@@ -107,11 +101,9 @@ public class AJLatexGenerator {
    * @param tsvObsDir the directory containing the tsv observation files (input)
    * @param latexObsByDateDir the directory containing the single observations by date in latex format (output)
    * @param latexObsByTargetDir the directory containing the single observations by target in latex format (output)
-   * @param tsvCatDir the directory containing the tsv catalogue files (input)
-   * @param latexCatDir the directory containing the catalogue in latex format (output)
    */
-  public void generateLatexCode(String tsvObsDir, String latexObsByDateDir, String latexObsByTargetDir, String tsvCatDir, String latexCatDir) {
-    generateLatexCodeByDate(tsvObsDir, latexObsByDateDir, tsvCatDir, latexCatDir);
+  public void generateLatexCode(String tsvObsDir, String latexObsByDateDir, String latexObsByTargetDir) {
+    generateLatexCodeByDate(tsvObsDir, latexObsByDateDir);
     generateLatexCodeByTarget(tsvObsDir, latexObsByTargetDir);
   }
 
@@ -120,14 +112,10 @@ public class AJLatexGenerator {
    * Generate the Latex document sorted by date
    * @param tsvObsDir the directory containing the tsv observation files (input)
    * @param latexObsByDateDir the directory containing the single observations by date in latex format (output)
-   * @param tsvCatDir the directory containing the tsv catalogue files (input)
-   * @param latexCatDir the directory containing the catalogue in latex format (output)
    */
-  public void generateLatexCodeByDate(String tsvObsDir, String latexObsByDateDir, String tsvCatDir, String latexCatDir) {
+  public void generateLatexCodeByDate(String tsvObsDir, String latexObsByDateDir) {
     tsvReportsFolder = tsvObsDir;
     latexReportsFolderByDate = latexObsByDateDir;
-    tsvCataloguesFolder = tsvCatDir;
-    latexCataloguesFolder = latexCatDir;      
     AJLatexHeader ajLatexHeaderByDate = new AJLatexHeader(latexHeaderByDate);
     AJLatexFooter ajLatexFooterByDate = new AJLatexFooter(latexFooterByDate);
     Writer writerByDate = null;
@@ -140,10 +128,6 @@ public class AJLatexGenerator {
         return;
       }
 
-      if (!generateCataloguesLatexCode()) {
-        log.warn("tsv catalogue file is not valid. Cannot generate Latex code for the catalogues.");
-        return;
-      }     
       // write the Latex Header
       writerByDate.write(ajLatexHeaderByDate.getHeader());
 
@@ -169,27 +153,6 @@ public class AJLatexGenerator {
         }
       }
 
-      // Write observed objects by catalogue
-      writerByDate.write("\n\\small\n");
-      writerByDate.write("\\section{Observed objects by catalogue}\n");
-      writerByDate.write("\\vspace{4 mm}\n");
-      writerByDate.write("\\hspace{4 mm}\n");
-      // parse each file in the latex catalogue folder (sorted by catalogue id increasing)
-      files = new File(latexCataloguesFolder).listFiles();
-      if (files == null) {
-        log.warn("Folder " + latexCataloguesFolder + " not found");
-        return;
-      }
-      Arrays.sort(files);
-      // If this pathname does not denote a directory, then listFiles() returns null.
-      for (File file : files) {
-        if (file.isFile() && file.getName().endsWith(".tex")) {
-          // include the file removing the extension .tex
-          writerByDate.write("\\input{" + latexCataloguesFolder + "/"
-              + file.getName().replaceFirst("[.][^.]+$", "") + "}\n");
-          writerByDate.write("\\clearpage \n");
-        }
-      }     
       // write the Latex Footer
       writerByDate.write(ajLatexFooterByDate.getFooter());
 
@@ -385,73 +348,6 @@ public class AJLatexGenerator {
       System.out.println("\nExporting observation by targets:");
       AJObservationExporterByTarget ajExporterByTarget = new AJObservationExporterByTarget();
       return ajExporterByTarget.exportObservations(observations, latexReportsFolderByTarget);      
-    }
-    return true;
-  }
-
-
-  /**
-   * Generates a tex file (2 tables) per catalogue.
-   * 
-   * @return true if the procedure succeeds, false otherwise.
-   */
-  private boolean generateCataloguesLatexCode() {
-    if(!cataloguesProcessed) {
-      // You need to create a reader reading the file tvs
-      // Then parse the tvs file and for each table found (e.g. looking for the
-      // word "List:",
-      // write a latex table in a file. Date is the string date
-      // for each file in the folder obs, add a
-      // line
-      // If this pathname does not denote a directory, then listFiles() returns
-      // null.
-      File[] files = new File(tsvCataloguesFolder).listFiles();
-      if (files == null) {
-        log.warn("Folder " + tsvCataloguesFolder + " not found");
-        return false;
-      }
-      Arrays.sort(files);
-      AJCatalogue cat;
-      AJCatalogueImporter ajImporter = new AJCatalogueImporter();
-      AJCatalogueExporter ajExporter = new AJCatalogueExporter();
-      for (File file : files) {
-        if (file.isFile() && file.getName().endsWith(".tsv")) {
-          // Get the current file name.
-          String tsvFilename = file.getName();
-          System.out.println("Processing file " + tsvFilename);
-          // Create a buffered reader to read the file
-          BufferedReader reader = null;
-          try {
-            reader = new BufferedReader(new FileReader(new File(tsvCataloguesFolder,
-              tsvFilename)));
-            String line;
-            // Read all lines
-            while ((line = reader.readLine()) != null) {
-              log.debug(line);
-              if (line.indexOf(AJCatalogueImporter.getInitialKeyword()) > -1) {
-                cat = new AJCatalogue();
-                // this should receive (cat, tsvCatalogueFolder) as input instead of 
-                // (cat, line, reader) and manage the reader thing internally.
-                ajImporter.importCatalogue(cat, line, reader);
-                ajExporter.exportCatalogue(cat, latexCataloguesFolder);
-                System.out.println("\tExported catalogue " + cat.getCatalogueName());
-              }
-            } // end while
-          } catch (IOException ex) {
-            System.out.println(ex);
-            //} catch (Exception ex) {
-            //  System.out.println(ex);
-          }
-          finally {
-            try {
-              if (reader != null)
-                reader.close();
-            } catch (IOException ex) {
-            }
-          }
-        } // end if
-      } // end for
-      cataloguesProcessed = true;
     }
     return true;
   }

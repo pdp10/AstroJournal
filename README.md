@@ -47,6 +47,7 @@ Samples of observation record to test AstroJournal are already inserted in the f
 
 v0.7
 
+- Removed catalogue tsv and latex folder. List of observed targets is the list of contents for the second generated pdf (by_target)
 - Export observations by target
 
 v0.6
