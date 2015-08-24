@@ -110,6 +110,7 @@ to the folder tsv_files
 
 ## Iced features:
 
+- Create file create_journal.bat (for Windows Users).
 - Insert a new observation session using a GUI. All observations are stored in a csv (or tsv) file.
 - Have a GUI view where the previous observations can be visualised and edited.
 
