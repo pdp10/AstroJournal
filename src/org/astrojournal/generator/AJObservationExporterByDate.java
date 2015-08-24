@@ -77,11 +77,10 @@ public class AJObservationExporterByDate {
           + ":} & " + obs.getEyepieces() + " \\\\ \n");
       table.write("{\\bf " + AJObservation.LOCATION_NAME + ":} & "
           + obs.getLocation() + " & {\\bf "
-          + AJObservation.POWER_EXIT_PUPIL_FOV_NAME + ":} & "
-          + obs.getPowerExitPupilFOV() + " \\\\ \n");
-      table.write("{\\bf " + AJObservation.ALTITUDE_NAME + ":} & "
-          + obs.getAltitude() + " & {\\bf " + AJObservation.FILTERS_NAME
+          + AJObservation.FILTERS_NAME
           + ":} & " + obs.getFilters() + " \\\\ \n");
+      table.write("{\\bf " + AJObservation.ALTITUDE_NAME + ":} & "
+          + obs.getAltitude() + " & & \\\\ \n");      
       table.write("{\\bf " + AJObservation.TEMPERATURE_NAME + ":} & "
           + obs.getTemperature() + " & & \\\\ \n");
       table.write("{\\bf " + AJObservation.SEEING_NAME + ":} & "

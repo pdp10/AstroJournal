@@ -106,10 +106,6 @@ public class AJObservationImporter {
           obs.setEyepieces(values[1]);
           log.debug("values[0]==" + values[0] + " values[1]=" + values[1]);
 
-        } else if (values[0].equals(AJObservation.POWER_EXIT_PUPIL_FOV_NAME)) {
-          obs.setPowerExitPupilFOV(values[1]);
-          log.debug("values[0]==" + values[0] + " values[1]=" + values[1]);
-
         } else if (values[0].equals(AJObservation.FILTERS_NAME)) {
           obs.setFilters(values[1]);
           log.debug("values[0]==" + values[0] + " values[1]=" + values[1]);
