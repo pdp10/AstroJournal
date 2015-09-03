@@ -45,6 +45,10 @@ Samples of observation record to test AstroJournal are already inserted in the f
 
 ## ChangeLog:
 
+v0.8
+
+- Design of the main graphic user interface (still incomplete)
+
 v0.7
 
 - Create file create_journal.bat (for Windows Users) (not tested yet).
