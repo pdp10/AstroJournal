@@ -47,6 +47,7 @@ Samples of observation record to test AstroJournal are already inserted in the f
 
 v0.7
 
+- Create file create_journal.bat (for Windows Users) (not tested yet).
 - Removed the field PowerExitPupilFOV from the session reports. The eyepiece information is now inserted in the file legends.tex included at header level.
 - Removed catalogue tsv and latex folder. List of observed targets is the list of contents for the second generated pdf (by_target)
 - Export observations by target
@@ -110,7 +111,6 @@ to the folder tsv_files
 
 ## Iced features:
 
-- Create file create_journal.bat (for Windows Users).
 - Insert a new observation session using a GUI. All observations are stored in a csv (or tsv) file.
 - Have a GUI view where the previous observations can be visualised and edited.
 
