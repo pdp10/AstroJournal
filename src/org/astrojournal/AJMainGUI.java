@@ -31,6 +31,7 @@ public class AJMainGUI extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         AJToolbar = new javax.swing.JToolBar();
         btnGenerateJournal = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
         btnSearchTarget = new javax.swing.JButton();
         txtSearchTarget = new javax.swing.JTextField();
         AJTabPanel = new javax.swing.JTabbedPane();
@@ -63,12 +64,14 @@ public class AJMainGUI extends javax.swing.JFrame {
         btnSubmitReport = new javax.swing.JButton();
         cbxtransparency = new javax.swing.JComboBox();
         cbxseeing = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
+        txttime1 = new javax.swing.JTextField();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         jPanel1 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         tblreports = new javax.swing.JTable();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
-        labStatus = new javax.swing.JLabel();
         AJMenubar = new javax.swing.JMenuBar();
         menuMain = new javax.swing.JMenu();
         menuItemGenerateJournal = new javax.swing.JMenuItem();
@@ -99,6 +102,7 @@ public class AJMainGUI extends javax.swing.JFrame {
         btnGenerateJournal.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnGenerateJournal.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         AJToolbar.add(btnGenerateJournal);
+        AJToolbar.add(jSeparator1);
 
         btnSearchTarget.setText("Search Target");
         btnSearchTarget.setToolTipText("Search for a target (e.g. M42, NGC1502)");
@@ -134,13 +138,18 @@ public class AJMainGUI extends javax.swing.JFrame {
 
         txtdate.setToolTipText("Insert the date (e.g. 15/03/2015)");
 
-        txttime.setToolTipText("Insert the time (e.g. 21:00-0:00)");
+        txttime.setToolTipText("Insert the starting time (e.g. 21:00)");
 
         txtlocation.setToolTipText("Insert the location (e.g. Cambridge, UK)");
+        txtlocation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtlocationActionPerformed(evt);
+            }
+        });
 
         txtaltitude.setToolTipText("Insert the location altitude (e.g. 12m)");
 
-        txttemperature.setToolTipText("Insert the temperature (e.g. 5C (7km/h SSW))");
+        txttemperature.setToolTipText("Insert the temperature (e.g. 5C (7km/h SSW) )");
 
         labTelescopes.setText("Telescopes:");
 
@@ -232,6 +241,10 @@ public class AJMainGUI extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("-");
+
+        txttime1.setToolTipText("Insert the ending time (e.g. 0:00)");
+
         javax.swing.GroupLayout tabPaneNewReportLayout = new javax.swing.GroupLayout(tabPaneNewReport);
         tabPaneNewReport.setLayout(tabPaneNewReportLayout);
         tabPaneNewReportLayout.setHorizontalGroup(
@@ -248,28 +261,6 @@ public class AJMainGUI extends javax.swing.JFrame {
                         .addComponent(btnSubmitReport))
                     .addGroup(tabPaneNewReportLayout.createSequentialGroup()
                         .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(tabPaneNewReportLayout.createSequentialGroup()
-                                .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labDate)
-                                    .addComponent(labTime)
-                                    .addComponent(labLocation)
-                                    .addComponent(labAltitude))
-                                .addGap(55, 55, 55)
-                                .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtaltitude, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                                    .addComponent(txtlocation, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                                    .addComponent(txtdate)
-                                    .addComponent(txttime))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labTelescopes)
-                                    .addComponent(labEyepieces)))
-                            .addGroup(tabPaneNewReportLayout.createSequentialGroup()
-                                .addComponent(labTemperature)
-                                .addGap(24, 24, 24)
-                                .addComponent(txttemperature, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(labFilters))
                             .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, tabPaneNewReportLayout.createSequentialGroup()
                                     .addComponent(labTransparency)
@@ -278,69 +269,99 @@ public class AJMainGUI extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, tabPaneNewReportLayout.createSequentialGroup()
                                     .addComponent(labSeeing)
                                     .addGap(67, 67, 67)
-                                    .addComponent(cbxseeing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(13, 13, 13)
+                                    .addComponent(cbxseeing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(tabPaneNewReportLayout.createSequentialGroup()
+                                .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labDate)
+                                    .addComponent(labTime)
+                                    .addComponent(labLocation)
+                                    .addComponent(labAltitude)
+                                    .addComponent(labTemperature))
+                                .addGap(24, 24, 24)
+                                .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(tabPaneNewReportLayout.createSequentialGroup()
+                                        .addComponent(txttime, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(10, 10, 10)
+                                        .addComponent(txttime1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtlocation, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtaltitude, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txttemperature, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtdate))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                            .addComponent(labTelescopes)
+                            .addComponent(labEyepieces)
+                            .addComponent(labFilters))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
                             .addComponent(jScrollPane2)
-                            .addComponent(jScrollPane1))))
+                            .addComponent(jScrollPane3))))
                 .addContainerGap())
         );
         tabPaneNewReportLayout.setVerticalGroup(
             tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tabPaneNewReportLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(tabPaneNewReportLayout.createSequentialGroup()
-                        .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labDate)
-                            .addComponent(txtdate, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labTelescopes))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labTime)
-                            .addComponent(txttime, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(tabPaneNewReportLayout.createSequentialGroup()
-                        .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labLocation)
-                            .addComponent(txtlocation, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labEyepieces))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labAltitude)
-                            .addComponent(txtaltitude, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(tabPaneNewReportLayout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9)
-                        .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labTransparency)
-                            .addComponent(cbxtransparency, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(filler2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(21, 21, 21))
                     .addGroup(tabPaneNewReportLayout.createSequentialGroup()
-                        .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labTemperature)
-                            .addComponent(txttemperature, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labFilters))
+                        .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(tabPaneNewReportLayout.createSequentialGroup()
+                                .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(labDate)
+                                    .addComponent(txtdate, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(labTime)
+                                    .addComponent(txttime, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(txttime1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(labTelescopes)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbxseeing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labSeeing))))
-                .addGap(15, 15, 15)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSubmitReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(tabPaneNewReportLayout.createSequentialGroup()
-                        .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnRemoveTarget)
-                            .addComponent(btnAddTarget))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(54, 54, 54))
+                        .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labEyepieces)
+                            .addGroup(tabPaneNewReportLayout.createSequentialGroup()
+                                .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(labLocation)
+                                    .addComponent(txtlocation, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(labAltitude)
+                                    .addComponent(txtaltitude, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labFilters)
+                            .addGroup(tabPaneNewReportLayout.createSequentialGroup()
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(9, 9, 9)
+                                .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(labTransparency)
+                                    .addComponent(cbxtransparency, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(tabPaneNewReportLayout.createSequentialGroup()
+                                .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(labTemperature)
+                                    .addComponent(txttemperature, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cbxseeing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labSeeing))))
+                        .addGap(18, 18, Short.MAX_VALUE)))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(tabPaneNewReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRemoveTarget)
+                    .addComponent(btnAddTarget)
+                    .addComponent(btnSubmitReport, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         AJTabPanel.addTab("New Report", tabPaneNewReport);
@@ -372,15 +393,15 @@ public class AJMainGUI extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 840, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         AJTabPanel.addTab("Target", jPanel1);
@@ -423,37 +444,24 @@ public class AJMainGUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(AJTabPanel)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(AJToolbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(labStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(AJToolbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addComponent(AJTabPanel)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(AJToolbar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addComponent(AJTabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE)
-                .addContainerGap())
+                    .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AJToolbar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
+                .addComponent(AJTabPanel))
         );
 
         pack();
@@ -471,6 +479,10 @@ public class AJMainGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_menuItemGenerateJournalActionPerformed
 
+    private void cbxseeingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxseeingActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxseeingActionPerformed
+
     private void cbxtransparencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxtransparencyActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxtransparencyActionPerformed
@@ -483,9 +495,9 @@ public class AJMainGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAddTargetActionPerformed
 
-    private void cbxseeingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxseeingActionPerformed
+    private void txtlocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtlocationActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbxseeingActionPerformed
+    }//GEN-LAST:event_txtlocationActionPerformed
 
     /**
      * @param args the command line arguments
@@ -537,6 +549,8 @@ public class AJMainGUI extends javax.swing.JFrame {
     private javax.swing.JComboBox cbxseeing;
     private javax.swing.JComboBox cbxtransparency;
     private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -544,6 +558,7 @@ public class AJMainGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel labAltitude;
@@ -552,7 +567,6 @@ public class AJMainGUI extends javax.swing.JFrame {
     private javax.swing.JLabel labFilters;
     private javax.swing.JLabel labLocation;
     private javax.swing.JLabel labSeeing;
-    private javax.swing.JLabel labStatus;
     private javax.swing.JLabel labTelescopes;
     private javax.swing.JLabel labTemperature;
     private javax.swing.JLabel labTime;
@@ -574,5 +588,6 @@ public class AJMainGUI extends javax.swing.JFrame {
     private javax.swing.JTextArea txttelescopes;
     private javax.swing.JTextField txttemperature;
     private javax.swing.JTextField txttime;
+    private javax.swing.JTextField txttime1;
     // End of variables declaration//GEN-END:variables
 }
