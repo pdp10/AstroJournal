@@ -18,6 +18,7 @@ package org.astrojournal;
 
 import org.apache.log4j.Logger;
 import org.astrojournal.generator.AJLatexGenerator;
+import org.astrojournal.gui.AJMainGUI;
 
 /**
  * This class automatically generates the Latex code for the AstroJournal.
@@ -32,16 +33,25 @@ public class AJMain {
   private static Logger log = Logger.getLogger(AJMain.class);
   
   /** 
-   * Main function 
-   * @param args a list of 5 arguments representing the input and output folders
+   * Main function. If no arguments are passed, the graphical user interface is started. 
+   * Otherwise, if a list of 3 arguments representing the input and output folders is passed, 
+   * then it runs as command line. 
+   * @param args 
    */
   public static void main(String[] args) {
-    AJLatexGenerator ajLatexGenerator = new AJLatexGenerator();
+    
+    // Depending on args, this class invokes AJMainGUI or runs as a Batch program.
+    // if no args is passed, run AJMainGUI.
+    
     String tsvReportsFolder = null;
     String latexReportsFolderByDate = null;
     String latexReportsFolderByTarget = null;
     try {
-      if(args.length == 3) {
+      if(args.length == 0) {
+        AJMainGUI gui = new AJMainGUI();
+      }
+      else if(args.length == 3) {
+        AJLatexGenerator ajLatexGenerator = new AJLatexGenerator();
         tsvReportsFolder = args[0];
         latexReportsFolderByDate = args[1];
         latexReportsFolderByTarget = args[2];
@@ -55,7 +65,7 @@ public class AJMain {
                     latexReportsFolderByTarget + "/ as arguments.");
       }
     } catch (Exception ex) {
-      log.warn(ex);
+        log.warn(ex);
     }
   }
 

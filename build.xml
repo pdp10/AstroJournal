@@ -117,8 +117,8 @@ Created by Piero Dalle Pezze (pdp10)
            debug="${debug}"
            optimize="${optimize}"
            verbose="${verbose}"
-           source="1.6"
-           target="1.6"
+           source="1.8"
+           target="1.8"
            classpathref="org.astrojournal.classpath">
 		</javac>
 	</target>
@@ -171,7 +171,7 @@ Created by Piero Dalle Pezze (pdp10)
 			  windowtitle="${Name} API" 
 			  doctitle="${Name}" 
 		   breakiterator="yes">
-			<link href="http://docs.oracle.com/javase/7/docs/api"/>
+			<link href="http://docs.oracle.com/javase/8/docs/api"/>
 		</javadoc>
 	</target>
 
