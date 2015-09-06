@@ -45,7 +45,7 @@ public class AJToolbar extends javax.swing.JPanel {
         AJToolbar.setFloatable(false);
         AJToolbar.setRollover(true);
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/astrojournal/gui/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resources/locale/Bundle"); // NOI18N
         btnGenerateJournal.setText(bundle.getString("AJToolbar.btnGenerateJournal.text")); // NOI18N
         btnGenerateJournal.setToolTipText(bundle.getString("AJToolbar.btnGenerateJournal.toolTipText")); // NOI18N
         btnGenerateJournal.setFocusable(false);

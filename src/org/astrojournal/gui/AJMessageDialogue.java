@@ -45,7 +45,7 @@ public class AJMessageDialogue extends javax.swing.JDialog {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         lblMessage.setHorizontalAlignment(SwingConstants.CENTER);
-        ResourceBundle bundle = ResourceBundle.getBundle("org/astrojournal/gui/Bundle"); // NOI18N
+        ResourceBundle bundle = ResourceBundle.getBundle("resources/locale/Bundle"); // NOI18N
         lblMessage.setText(bundle.getString("AJMessageDialogue.lblMessage.text")); // NOI18N
         lblMessage.setAutoscrolls(true);
 

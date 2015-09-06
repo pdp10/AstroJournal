@@ -79,7 +79,7 @@ public class AJNewTargetPanel extends javax.swing.JPanel {
         txttime1 = new JTextField();
         filler2 = new Box.Filler(new Dimension(0, 0), new Dimension(0, 0), new Dimension(32767, 0));
 
-        ResourceBundle bundle = ResourceBundle.getBundle("org/astrojournal/gui/Bundle"); // NOI18N
+        ResourceBundle bundle = ResourceBundle.getBundle("resources/locale/Bundle"); // NOI18N
         tabPaneNewReport.setToolTipText(bundle.getString("AJNewTargetPanel.tabPaneNewReport.toolTipText")); // NOI18N
         tabPaneNewReport.setAutoscrolls(true);
 

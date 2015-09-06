@@ -54,19 +54,18 @@ public class AJMainGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        ResourceBundle bundle = ResourceBundle.getBundle("org/astrojournal/Bundle"); // NOI18N
+        ResourceBundle bundle = ResourceBundle.getBundle("resources/locale/Bundle"); // NOI18N
         AJTabPanel.setToolTipText(bundle.getString("AJMainGUI.AJTabPanel.toolTipText")); // NOI18N
-        ResourceBundle bundle1 = ResourceBundle.getBundle("org/astrojournal/gui/Bundle"); // NOI18N
-        AJTabPanel.addTab(bundle1.getString("AJMainGUI.ajNewTargetPanel.TabConstraints.tabTitle_1"), null, ajNewTargetPanel, bundle1.getString("AJMainGUI.ajNewTargetPanel.TabConstraints.tabToolTip")); // NOI18N
+        AJTabPanel.addTab(bundle.getString("AJMainGUI.ajNewTargetPanel.TabConstraints.tabTitle_1"), null, ajNewTargetPanel, bundle.getString("AJMainGUI.ajNewTargetPanel.TabConstraints.tabToolTip")); // NOI18N
         ajNewTargetPanel.getAccessibleContext().setAccessibleParent(AJTabPanel);
 
-        AJTabPanel.addTab(bundle1.getString("AJMainGUI.ajObservedTargetPanel.TabConstraints.tabTitle_1"), ajObservedTargetPanel); // NOI18N
+        AJTabPanel.addTab(bundle.getString("AJMainGUI.ajObservedTargetPanel.TabConstraints.tabTitle_1"), ajObservedTargetPanel); // NOI18N
         ajObservedTargetPanel.getAccessibleContext().setAccessibleParent(AJTabPanel);
 
-        menuMain.setText(bundle1.getString("AJMainGUI.menuMain.text_1")); // NOI18N
+        menuMain.setText(bundle.getString("AJMainGUI.menuMain.text_1")); // NOI18N
 
         menuItemGenerateJournal.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, InputEvent.CTRL_MASK));
-        menuItemGenerateJournal.setText(bundle1.getString("AJMainGUI.menuItemGenerateJournal.text_1")); // NOI18N
+        menuItemGenerateJournal.setText(bundle.getString("AJMainGUI.menuItemGenerateJournal.text_1")); // NOI18N
         menuItemGenerateJournal.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 menuItemGenerateJournalActionPerformed(evt);
@@ -75,7 +74,7 @@ public class AJMainGUI extends javax.swing.JFrame {
         menuMain.add(menuItemGenerateJournal);
 
         menuItemClose.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK));
-        menuItemClose.setText(bundle1.getString("AJMainGUI.menuItemClose.text_1")); // NOI18N
+        menuItemClose.setText(bundle.getString("AJMainGUI.menuItemClose.text_1")); // NOI18N
         menuItemClose.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 menuItemCloseActionPerformed(evt);
@@ -85,10 +84,10 @@ public class AJMainGUI extends javax.swing.JFrame {
 
         AJMenubar.add(menuMain);
 
-        menuAbout.setText(bundle1.getString("AJMainGUI.menuAbout.text_1")); // NOI18N
+        menuAbout.setText(bundle.getString("AJMainGUI.menuAbout.text_1")); // NOI18N
 
         menuItemAbout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK));
-        menuItemAbout.setText(bundle1.getString("AJMainGUI.menuItemAbout.text_1")); // NOI18N
+        menuItemAbout.setText(bundle.getString("AJMainGUI.menuItemAbout.text_1")); // NOI18N
         menuAbout.add(menuItemAbout);
 
         AJMenubar.add(menuAbout);
