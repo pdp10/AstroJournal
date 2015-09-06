@@ -48,7 +48,12 @@ public class AJMain {
     String latexReportsFolderByTarget = null;
     try {
       if(args.length == 0) {
-        AJMainGUI gui = new AJMainGUI();
+        java.awt.EventQueue.invokeLater(new Runnable() {
+          @Override
+          public void run() {
+              new AJMainGUI().setVisible(true);
+          }
+      });
       }
       else if(args.length == 3) {
         AJLatexGenerator ajLatexGenerator = new AJLatexGenerator();
