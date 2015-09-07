@@ -13,13 +13,31 @@ Git repository: https://pdp10@bitbucket.org/pdp10/astrojournal.git
 This Java application imports files containing astronomy observations 
 and generates an integrated journal document in PDF format using Latex. 
 Observation files can be edited using a common Spreadsheet software 
-(e.g. Google Spreadsheet, LibreOffice Calc, Office Excel) and must be 
-saved as tab-separated value (tsv) files.
+(e.g. Google Spreadsheet, LibreOffice Calc, Office Excel) or any common text editor (e.g. MS Wordpad, Emacs, Kate, or GEdit) and must be saved as tab-separated value (tsv) files. To be recognised, fields MUST be separated by a TAB delimiter. No quote or single quotes should be added for marking the fields.
 
 
 
-## Requirements:
+## Requirements for using AstroJournal:
 To use AstroJournal you need to install:
+
+- Java 1.6+
+- TeX Live (pdflatex or texi2tex must be installed)
+
+Then, you can run AstroJournal on GNU/Linux typing:
+./create_journal.sh
+
+
+
+## Samples of observation records
+Samples of observation record to test AstroJournal are already inserted in the folder tsv_reports. These can be edited with any common text editor (e.g. MS Wordpad, Emacs, Kate, or GEdit) in order to contain your data. 
+To customise the document header and footer, please look at the folder latex_header_footer to find the Latex files for the header and footer. Also these files can be edited with any common text editor.
+
+
+
+# Development:
+
+## Requirements for compiling AstroJournal:
+To compile AstroJournal you need to install:
 
 - Java 1.6+
 - TeX Live (pdflatex or texi2tex must be installed)
@@ -32,22 +50,19 @@ git clone https://pdp10@bitbucket.org/pdp10/astrojournal.git
 To compile AstroJournal on GNU/Linux type:
 ant jar
 
-Then, you can run AstroJournal on GNU/Linux typing:
+To read the source code documentation type:
+ant javadoc
+
+You can run AstroJournal on GNU/Linux typing:
 ./create_journal.sh
 
 
-## Samples of observation records
-Samples of observation record to test AstroJournal are already inserted in the folder tsv_reports and tsv_catalogue. These can be edited with any common text editor (e.g. emacs or kate).
-
-
-
-# Development:
 
 ## ChangeLog:
 
 v0.8
 
-- Design of the main graphic user interface (still incomplete)
+- Design of the main graphic user interface (currently not connected to the program)
 
 v0.7
 
