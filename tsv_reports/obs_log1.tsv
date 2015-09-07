@@ -13,20 +13,19 @@ Temperature	1C (no wind)
 Seeing	2 - Slight undulations			
 Transparency	3 - Somewhat clear			
 Telescopes	Tele Vue 60 F6			
-Eyepieces	TV Panoptic 24mm, Plossl 20mm, Nagler 7mm, Vixen SLV 5mm, Bresser 2x SA			
-Power, EP, FOV	15x, 4mm, 4.30deg; 18x, 3.3mm, 2.73deg; 103x, 0.6mm, 0.77deg; 144x, 0.4mm, 0.35deg			
+Eyepieces	TV Panoptic 24mm, Nagler 7mm, Powermate 2.5x
 Filters	Astronomik OIII, UHC			
 Target	Cons	Type	Power	Notes
-M42	Ori	CL+Neb	15x, 18x	Great Orion Nebula. M42 benefits from both UHC and OIII filters, but in different way. The OIII shows a sublime image where the border between the nebula and sky background really emerges. The same can be said about the North part (that one linked to M43). In the centre of the nebula, some 'waves' were also visible. It is a super target to my eye. The UHC shows a much larger extension for this nebula and this is amazing with a wide field telescope. Small fine details visible within the nebula with the OIII are less obvious with the UHC, but the nebula just appears as massive globally and faint details on the outside borders are accessible as pure diffuse bright areas. 
-NGC2244	Mon	Opn CL	15x, 18x	Satellite cluster. Six stars in two columns 
-NGC2237	Mon	Neb	15x, 18x	Rosette nebula. Detectable with OIII filter. Very soft grey patch. No structure. Invisible with UHC filter.
+M42	Ori	CL+Neb	15x	Great Orion Nebula. M42 benefits from both UHC and OIII filters, but in different way. The OIII shows a sublime image where the border between the nebula and sky background really emerges. The same can be said about the North part (that one linked to M43). In the centre of the nebula, some 'waves' were also visible. It is a super target to my eye. The UHC shows a much larger extension for this nebula and this is amazing with a wide field telescope. Small fine details visible within the nebula with the OIII are less obvious with the UHC, but the nebula just appears as massive globally and faint details on the outside borders are accessible as pure diffuse bright areas. 
+NGC2244	Mon	Opn CL	15x	Satellite cluster. Six stars in two columns 
+NGC2237	Mon	Neb	15x	Rosette nebula. Detectable with OIII filter. Very soft grey patch. No structure. Invisible with UHC filter.
 M35	Gem	Opn CL	15x	Detectable but not much detailed.
 M36	Aur	Opn CL	15x	Very poor detail, but detectable. 
 M37	Aur	Opn CL	15x	Very poor detail, but detectable. 
 M38	Aur	Opn CL	15x	The first of the group to find. Poor detail.
 M44	Cnc	Opn CL	15x	Praesepe. Spectactular at 15x.
 M67	Cnc	Opn CL	15x	King cobra. Not to easy to detect. Looks like a grey patch, more visible using averted vision.
-Jupiter	Cnc	Planet	103x, 144x	A bit of wind, but the image stays crisp at high magnifications. No aberration.
+Jupiter	Cnc	Planet	129x	A bit of wind, but the image stays crisp at high magnifications. No aberration.
 NGC1662	Ori	Opn CL	15x, 51x	Found casually while scanning from Aldebaran to Beltegeuse. Very small little open cluster at 15x. Much better at 51x. Not easily detectable, because of its small size
 NGC1647	Tau	Opn CL	15x 	Beautiful open cluster easily detectable from Aldebaran
 NGC1746	Tau	Opn CL	15x	Not sure I found it. It appeared smaller than NGC1647. Possibly a darker sky reveals more interesting features.
@@ -43,8 +42,7 @@ Temperature	3C (no wind)
 Seeing	2 - Slight undulations			
 Transparency	3 - Somewhat clear			
 Telescopes	Tele Vue 60 F6			
-Eyepieces	TV Panoptic 24mm, Nagler 7mm, Vixen SLV 5mm, Bresser 2x SA			
-Power, EP, FOV	15x, 4mm, 4.30deg; 51x, 1.2mm, 1.54deg; 144x, 0.4mm, 0.35deg			
+Eyepieces	TV Panoptic 24mm, Nagler 7mm, Powermate 2.5x
 Filters	Astronomik OIII			
 Target	Cons	Type	Power	Notes
 M45	Tau	Opn CL	15x, 51x	Very clear and defined. 15x offers the best fov.
@@ -70,4 +68,4 @@ Gamma	UMi	Dbl Star	15x	Pherkad. Blue 3mag. It has a neighbour star 10.30mag. Phe
 Eta	Dra	Dbl Star	15x	2.7mag and 6.05mag
 M51	CVn	Galaxy	15x	Whirlpool Galaxy. From UMA-Alkaid, move south to 24CVn. Continue on that direction until HIP65768. This forms a triangle with HIP66004 and HIP66116. They are all 7mag stars. HIP65768 is the brightest in the area. M51 lies externally of the line between HIP65768 and HIP66004. Averted vision for 10min is required. You will see a grey patch. No structure.
 M101	UMa	Galaxy	15x	Unsuccess
-Jupiter	Cnc	Planet	144x	Order: Europa, Callisto, Jupiter, Io, Ganymede. Two belts very visible. The lower one was visible on the left (refractor). On the right the great red spot was detectable. Very minor belts north and south. 
+Jupiter	Cnc	Planet	129x	Order: Europa, Callisto, Jupiter, Io, Ganymede. Two belts very visible. The lower one was visible on the left (refractor). On the right the great red spot was detectable. Very minor belts north and south. 
