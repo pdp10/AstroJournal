@@ -5,15 +5,17 @@ Author: Piero Dalle Pezze
 
 Licence: GPL v3 (2015)
 
-Git repository: https://pdp10@bitbucket.org/pdp10/astrojournal.git
-
 
 
 ## Description:
 This Java application imports files containing astronomy observations 
 and generates an integrated journal document in PDF format using Latex. 
 Observation files can be edited using a common Spreadsheet software 
-(e.g. Google Spreadsheet, LibreOffice Calc, Office Excel) or any common text editor (e.g. MS Wordpad, Emacs, Kate, or GEdit) and must be saved as tab-separated value (tsv) files. To be recognised, fields MUST be separated by a TAB delimiter. No quote or single quotes should be added for marking the fields.
+(e.g. Google Spreadsheet, LibreOffice Calc, Office Excel) or any common 
+text editor (e.g. MS Wordpad, Emacs, Kate, or GEdit) and must be saved as 
+tab-separated value (tsv) files. To be recognised, fields MUST be separated 
+by a TAB delimiter. No quote or single quotes should be added for marking the 
+fields.
 
 
 
@@ -28,9 +30,47 @@ Then, you can run AstroJournal on GNU/Linux typing:
 
 
 
-## Samples of observation records
-Samples of observation record to test AstroJournal are already inserted in the folder tsv_reports. These can be edited with any common text editor (e.g. MS Wordpad, Emacs, Kate, or GEdit) in order to contain your data. 
-To customise the document header and footer, please look at the folder latex_header_footer to find the Latex files for the header and footer. Also these files can be edited with any common text editor.
+## How to create an observation record:
+As currently implemented, the format of the observation tables is 
+specific. A sample of an observation table is provides below. The 
+titles (Date, Time, Location, Altitude, Temperature, Seeing, 
+Transparency, Telescopes, Eyepieces, Filters, Target, Cons, Type, Power, 
+and Notes) cannot be changed as these are used by AstroJournal to 
+retrieve the data. All fields are separated by a tab character (\t) 
+explicitly shown in this example with a text when this must be included.
+An example of observation is as follows:
+
+Date	03/06/2015
+Time	21:40-23:30
+Location	Cambridge, UK
+Altitude	12m
+Temperature	12C (wind: 0km/h)
+Seeing	1 - Perfect seeing
+Transparency	5 - Clear
+Telescopes	Tele Vue 60 F6
+Eyepieces	TV Panoptic 24mm, Nagler 3.5mm
+Filters	Single Polarising Filter
+Target	Cons	Type	Power	Notes
+Jupiter	Cnc	Planet	103x +/- SPF	Write description here.
+Moon	Sgr	Satellite	103x	Write description here.
+
+Examples of observations can also be found in the folder tsv_folder/ .
+These files can be edited with any spreadsheet (e.g. Google SpreadSheet, 
+MS Excel, LibreOffice SpreadSheet) or a common text editor 
+(e.g. MS Wordpad, Emacs, Kate, or GEdit). 
+To customise the document header and footer, please look at the 
+folder latex_header_footer to find the Latex files for the header 
+and footer. Also these files can be edited with any common text 
+editor.
+
+
+
+## Use case
+Here are some guidelines for using AstroJournal:
+1. Report your observations (with the structure of my tsv file) using a spreadsheet program, such as MS Excel, Libreoffice Spreadsheet, or Google Spreadsheet. Alternatively you can use a common text editor (e.g. Wordpad, GNU Emacs, Kate, etc.) as long as the fields are the same as in the samples provided in the tsv_report and that each field is separated using a TAB character.
+2. Export your file as tsv (if using Google Spreadsheet) or csv. In the latter case, when asked, select tab as field delimiter and no single or double quotation marks for the fields. Then, change the file extension from .csv to .tsv . If you used a text editor, you can save the file using the extension .tsv directly.
+3. Put this file in the folder tsv_reports.
+4. In the main astrojournal folder type the command above ./create_journal.sh or ./create_journal.bat .
 
 
 
