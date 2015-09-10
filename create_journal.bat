@@ -30,66 +30,69 @@ mkdir %output_reports_folder_by_date%
 mkdir %output_reports_folder_by_target%
 
 
-rem Remove previous aj_latex_file file 
-rm -f %aj_latex_file_by_date%
-rm -f %aj_latex_file_by_target%
+rem  rem Remove previous aj_latex_file file 
+rem  rm -f %aj_latex_file_by_date%
+rem  rm -f %aj_latex_file_by_target%
+rem  
+rem  
+rem  rem Run AstroJournal and generate the Latex code
+rem  java -jar astrojournal-*.jar %input_reports_folder% %output_reports_folder_by_date% %output_reports_folder_by_target%
+rem  
+rem  
+rem  rem Check whether astrojournal_by_date.tex is empty (has not been created correctly)
+rem  if not exist %aj_latex_file_by_date% (
+rem      rm -f %aj_latex_file_by_date%
+rem      echo "WARNING: File %aj_latex_file_by_date% was not created."
+rem  ) else (
+rem      rem Generate the PDF file from the Latex code generated previously
+rem      where pdflatex >nul
+rem      if %ERRORLEVEL% EQ 0 (
+rem  	echo "Generating astrojournal by date using pdflatex ... "
+rem  	pdflatex %aj_latex_file_by_date% 
+rem  	pdflatex %aj_latex_file_by_date% 
+rem  	echo "DONE"
+rem      ) else (
+rem          where texi2pdf >nul
+rem          if %ERRORLEVEL% EQ 0 (
+rem              echo "Generating astrojournal by date using texi2tex ... "
+rem              texi2pdf %aj_latex_file_by_date% 
+rem              texi2pdf %aj_latex_file_by_date% 
+rem              echo "DONE"
+rem          ) else (
+rem              echo "You need to install either pdflatex or texi2tex for generating AstroJournal PDF file."
+rem          )
+rem      )
+rem  )
+rem  
+rem  
+rem  
+rem  rem Check whether astrojournal_by_target.tex is empty (has not been created correctly)
+rem  if not exist %aj_latex_file_by_target% (
+rem      rm -f %aj_latex_file_by_target%
+rem      echo "WARNING: File %aj_latex_file_by_target% was not created. "
+rem  ) else (
+rem      rem Generate the PDF file from the Latex code generated previously
+rem      where pdflatex >nul
+rem      if %ERRORLEVEL% EQ 0 (
+rem          echo "Generating astrojournal by target using pdflatex ... "
+rem          pdflatex %aj_latex_file_by_target% 
+rem          pdflatex %aj_latex_file_by_target% 
+rem          echo "DONE"
+rem      ) else (
+rem          where texi2pdf >nul
+rem          if %ERRORLEVEL% EQ 0 (
+rem              echo "Generating astrojournal by target using texi2tex ... "
+rem              texi2pdf %aj_latex_file_by_target% 
+rem              texi2pdf %aj_latex_file_by_target% 
+rem              echo "DONE"
+rem          ) else (
+rem              echo "You need to install either pdflatex or texi2tex for generating AstroJournal PDF file."
+rem          )
+rem      )
+rem  )
 
 
-rem Run AstroJournal and generate the Latex code
-java -jar astrojournal-*.jar %input_reports_folder% %output_reports_folder_by_date% %output_reports_folder_by_target%
-
-
-rem Check whether astrojournal_by_date.tex is empty (has not been created correctly)
-if not exist %aj_latex_file_by_date% (
-    rm -f %aj_latex_file_by_date%
-    echo "WARNING: File %aj_latex_file_by_date% was not created."
-) else (
-    rem Generate the PDF file from the Latex code generated previously
-    where pdflatex >nul
-    if %ERRORLEVEL% EQ 0 (
-	echo "Generating astrojournal by date using pdflatex ... "
-	pdflatex %aj_latex_file_by_date% 
-	pdflatex %aj_latex_file_by_date% 
-	echo "DONE"
-    ) else (
-        where texi2pdf >nul
-        if %ERRORLEVEL% EQ 0 (
-            echo "Generating astrojournal by date using texi2tex ... "
-            texi2pdf %aj_latex_file_by_date% 
-            texi2pdf %aj_latex_file_by_date% 
-            echo "DONE"
-        ) else (
-            echo "You need to install either pdflatex or texi2tex for generating AstroJournal PDF file."
-        )
-    )
-)
-
-
-
-rem Check whether astrojournal_by_target.tex is empty (has not been created correctly)
-if not exist %aj_latex_file_by_target% (
-    rm -f %aj_latex_file_by_target%
-    echo "WARNING: File %aj_latex_file_by_target% was not created. "
-) else (
-    rem Generate the PDF file from the Latex code generated previously
-    where pdflatex >nul
-    if %ERRORLEVEL% EQ 0 (
-        echo "Generating astrojournal by target using pdflatex ... "
-        pdflatex %aj_latex_file_by_target% 
-        pdflatex %aj_latex_file_by_target% 
-        echo "DONE"
-    ) else (
-        where texi2pdf >nul
-        if %ERRORLEVEL% EQ 0 (
-            echo "Generating astrojournal by target using texi2tex ... "
-            texi2pdf %aj_latex_file_by_target% 
-            texi2pdf %aj_latex_file_by_target% 
-            echo "DONE"
-        ) else (
-            echo "You need to install either pdflatex or texi2tex for generating AstroJournal PDF file."
-        )
-    )
-)
+java -jar astrojournal-*.jar
 
 
 rem Concatenate all tsv files into one file

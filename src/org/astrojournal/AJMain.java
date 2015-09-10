@@ -19,6 +19,7 @@ package org.astrojournal;
 import org.apache.log4j.Logger;
 import org.astrojournal.generator.AJLatexGenerator;
 import org.astrojournal.gui.AJMainGUI;
+import org.astrojournal.gui.AJMiniGUI;
 
 /**
  * This class automatically generates the Latex code for the AstroJournal.
@@ -51,7 +52,9 @@ public class AJMain {
         java.awt.EventQueue.invokeLater(new Runnable() {
           @Override
           public void run() {
-              new AJMainGUI().setVisible(true);
+          // TODO: for now we use the mini GUI. 
+//              new AJMainGUI().setVisible(true);
+              new AJMiniGUI().setVisible(true);
           }
       });
       }

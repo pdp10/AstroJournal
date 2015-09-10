@@ -25,9 +25,11 @@ To use AstroJournal you need to install:
 - Java 1.6+
 - TeX Live (pdflatex or texi2tex must be installed)
 
-Then, you can run AstroJournal on GNU/Linux typing:
+Then, if you are using GNU/Linux or MAC OS X, you can run AstroJournal on GNU/Linux typing:
 ./create_journal.sh
 
+or if you are using Windows, click on (this will start a very basic window with 1 button):
+create_journal.bat
 
 
 ## How to create an observation record:
