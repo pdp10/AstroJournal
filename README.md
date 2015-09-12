@@ -12,10 +12,9 @@ This Java application imports files containing astronomy observations
 and generates an integrated journal document in PDF format using Latex. 
 Observation files can be edited using a common Spreadsheet software 
 (e.g. Google Spreadsheet, LibreOffice Calc, Office Excel) or any common 
-text editor (e.g. MS Wordpad, Emacs, Kate, or GEdit) and must be saved as 
-tab-separated value (tsv) files. To be recognised, fields MUST be separated 
-by a TAB delimiter. No quote or single quotes should be added for marking the 
-fields.
+text editor (e.g. MS Wordpad, Emacs, Kate, or GEdit) and must be saved 
+either as .tsv or .csv. To be recognised, fields MUST be separated 
+by a TAB delimiter. Fields can have single or double quotes.
 
 
 
@@ -23,13 +22,18 @@ fields.
 To use AstroJournal you need to install:
 
 - Java 1.6+
-- TeX Live (pdflatex or texi2tex must be installed)
+- TeX Live (for Linux Users) or MkTeX (for Windows Users) (pdflatex must be installed)
 
-Then, if you are using GNU/Linux or MAC OS X, you can run AstroJournal on GNU/Linux typing:
+For windows users who installed MkTeX, the Latex packages url and mptopdf must be installed using the 
+MkTeX Manager.
+
+Then, if you are using GNU/Linux or MAC OS X, you can run AstroJournal on GNU/Linux typing (or clicking the icon):
 ./create_journal.sh
 
-or if you are using Windows, click on (this will start a very basic window with 1 button):
+or if you are using Windows, click on:
 create_journal.bat
+
+This will start a very basic window with 1 button to generate the journals.
 
 
 ## How to create an observation record:
@@ -69,9 +73,9 @@ editor.
 
 ## Use case
 Here are some guidelines for using AstroJournal:
-1. Report your observations (with the structure of my tsv file) using a spreadsheet program, such as MS Excel, Libreoffice Spreadsheet, or Google Spreadsheet. Alternatively you can use a common text editor (e.g. Wordpad, GNU Emacs, Kate, etc.) as long as the fields are the same as in the samples provided in the tsv_report and that each field is separated using a TAB character.
-2. Export your file as tsv (if using Google Spreadsheet) or csv. In the latter case, when asked, select tab as field delimiter and no single or double quotation marks for the fields. Then, change the file extension from .csv to .tsv . If you used a text editor, you can save the file using the extension .tsv directly.
-3. Put this file in the folder tsv_reports.
+1. Report your observations (with the structure of my tsv file) using a spreadsheet program, such as MS Excel, Libreoffice Spreadsheet, or Google Spreadsheet. Alternatively you can use a common text editor (e.g. Wordpad, GNU Emacs, Kate, etc.) as long as the fields are the same as in the samples provided in the raw_report and that each field is separated using a TAB character.
+2. Export your file as tsv (if using Google Spreadsheet) or csv. In the latter case, when asked, select tab as field delimiter.
+3. Put this file in the folder raw_reports.
 4. In the main astrojournal folder type the command above ./create_journal.sh or ./create_journal.bat .
 
 
@@ -82,9 +86,12 @@ Here are some guidelines for using AstroJournal:
 To compile AstroJournal you need to install:
 
 - Java 1.6+
-- TeX Live (pdflatex or texi2tex must be installed)
+- TeX Live (for Linux Users) or MkTeX (for Windows Users) (pdflatex must be installed)
 - Apache Ant
 - Git
+
+For windows users who installed MkTeX, the Latex packages url and mptopdf must be installed using the 
+MkTeX Manager.
 
 You can clone AstroJournal repository with the git command:
 git clone https://pdp10@bitbucket.org/pdp10/astrojournal.git
@@ -104,7 +111,10 @@ You can run AstroJournal on GNU/Linux typing:
 
 v0.8
 
-- Design of the main graphic user interface (currently not connected to the program)
+- Corrected bug in astrojournal.bat
+- Added support for csv input files.
+- Improvement for the package generator.
+- Design of the main graphic user interface (currently not connected to the program).
 
 v0.7
 

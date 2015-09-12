@@ -74,8 +74,10 @@ public class AJMiniGUI extends javax.swing.JFrame {
             // run pdflatex
 	    try {
 	        // The pdflatex command must be called two times in order to generate the list of contents correctly.
-          Process p = Runtime.getRuntime().exec("pdflatex astrojournal_by_date.tex");
-          Process q = Runtime.getRuntime().exec("pdflatex astrojournal_by_target.tex");
+	      
+	        // NOTE: for some reason Runtime.getRuntime().exec() works only if the command output is captured on Windows.
+	        // On Linux, this does not matter, but on Windows this does not work.. So leave it.
+        Process p = Runtime.getRuntime().exec("pdflatex astrojournal_by_date.tex");
           
            // read the output messages from the command
            BufferedReader stdInput = new BufferedReader(new
@@ -95,7 +97,6 @@ public class AJMiniGUI extends javax.swing.JFrame {
            }
           
           p = Runtime.getRuntime().exec("pdflatex astrojournal_by_date.tex");
-
           
           // read the output messages from the command
           stdInput = new BufferedReader(new
@@ -113,13 +114,64 @@ public class AJMiniGUI extends javax.swing.JFrame {
           System.out.println(temp);
           }
 
+          p = Runtime.getRuntime().exec("pdflatex astrojournal_by_target.tex");
           
-          q = Runtime.getRuntime().exec("pdflatex astrojournal_by_target.tex");
+          // read the output messages from the command
+          stdInput = new BufferedReader(new
+          InputStreamReader(p.getInputStream()));
+          System.out.println("Command output:\n");
+          while ((temp = stdInput.readLine()) != null) {
+          System.out.println(temp);
+          }
+         
+          // read the error messages from the command
+          stdError = new BufferedReader(new
+          InputStreamReader(p.getErrorStream()));
+          System.out.println("\nCommand output error:\n");
+          while ((temp = stdError.readLine()) != null) {
+          System.out.println(temp);
+          }          
           
-          q = Runtime.getRuntime().exec("rm *.aux");
-          status.setText("PDF journals created!");
+          p = Runtime.getRuntime().exec("pdflatex astrojournal_by_target.tex");
+
+          
+          // read the output messages from the command
+          stdInput = new BufferedReader(new
+          InputStreamReader(p.getInputStream()));
+          System.out.println("Command output:\n");
+          while ((temp = stdInput.readLine()) != null) {
+          System.out.println(temp);
+          }
+         
+          // read the error messages from the command
+          stdError = new BufferedReader(new
+          InputStreamReader(p.getErrorStream()));
+          System.out.println("\nCommand output error:\n");
+          while ((temp = stdError.readLine()) != null) {
+          System.out.println(temp);
+          }
+          
+          p = Runtime.getRuntime().exec("rm -rf *.aux *.toc *.log *.out");
+          
+          // read the output messages from the command
+          stdInput = new BufferedReader(new
+          InputStreamReader(p.getInputStream()));
+          System.out.println("Command output:\n");
+          while ((temp = stdInput.readLine()) != null) {
+          System.out.println(temp);
+          }
+         
+          // read the error messages from the command
+          stdError = new BufferedReader(new
+          InputStreamReader(p.getErrorStream()));
+          System.out.println("\nCommand output error:\n");
+          while ((temp = stdError.readLine()) != null) {
+          System.out.println(temp);
+          }
+          
+          status.setText("Journals should be created!");
         } catch (IOException ioe) {
-          status.setText("Is pdflatex installed?");
+
         }
       }
     });        
