@@ -64,46 +64,65 @@ public class AJMiniGUI extends javax.swing.JFrame {
         btnCreateJournal.addActionListener(new ActionListener() {
 	  public void actionPerformed(ActionEvent e) {
 	    AJLatexGenerator ajLatexGenerator = new AJLatexGenerator();
-	    String tsvReportsFolder = "tsv_reports/";
+	    String rawReportsFolder = "raw_reports/";
 	    String latexReportsFolderByDate = "latex_reports_by_date/";
 	    String latexReportsFolderByTarget = "latex_reports_by_target/";
-	    boolean isFolderByDateCreated = new File(latexReportsFolderByDate).mkdir();
-	    boolean isFolderByTargetCreated = new File(latexReportsFolderByTarget).mkdir();    
+	    new File(latexReportsFolderByDate).mkdir();
+	    new File(latexReportsFolderByTarget).mkdir();    
 	    // generate Latex code for the observation records
-            ajLatexGenerator.generateLatexCode(tsvReportsFolder, latexReportsFolderByDate, latexReportsFolderByTarget);
+            ajLatexGenerator.generateJournals(rawReportsFolder, latexReportsFolderByDate, latexReportsFolderByTarget);
             // run pdflatex
 	    try {
-		Process 
-		p = Runtime.getRuntime().exec("pdflatex astrojournal_by_date.tex"), 
-		q = Runtime.getRuntime().exec("pdflatex astrojournal_by_target.tex");
-		
-// 		// read the output messages from the command
-// 		BufferedReader stdInput = new BufferedReader(new
-// 		    InputStreamReader(p.getInputStream()));
-// 		System.out.println("Command output:\n");
-// 		String temp;
-// 		while ((temp = stdInput.readLine()) != null) {
-// 			System.out.println(temp + "\n");
-// 		}
-// 
-// 		// read the error messages from the command
-// 		BufferedReader stdError = new BufferedReader(new
-// 			InputStreamReader(p.getErrorStream()));
-// 		System.out.println("\nCommand output error:\n");
-// 		while ((temp = stdError.readLine()) != null) {
-// 			System.out.println(temp + "\n");
-// 		}
-		q = Runtime.getRuntime().exec("rm *.aux");
-		
-	        status.setText("PDF journals created!");
-	    }
-	    catch (IOException ioe) {
-		status.setText("Is pdflatex installed?");
-	    } 
+	        // The pdflatex command must be called two times in order to generate the list of contents correctly.
+          Process p = Runtime.getRuntime().exec("pdflatex astrojournal_by_date.tex");
+          Process q = Runtime.getRuntime().exec("pdflatex astrojournal_by_target.tex");
+          
+           // read the output messages from the command
+           BufferedReader stdInput = new BufferedReader(new
+           InputStreamReader(p.getInputStream()));
+           System.out.println("Command output:\n");
+           String temp;
+           while ((temp = stdInput.readLine()) != null) {
+           System.out.println(temp);
+           }
+          
+           // read the error messages from the command
+           BufferedReader stdError = new BufferedReader(new
+           InputStreamReader(p.getErrorStream()));
+           System.out.println("\nCommand output error:\n");
+           while ((temp = stdError.readLine()) != null) {
+           System.out.println(temp);
+           }
+          
+          p = Runtime.getRuntime().exec("pdflatex astrojournal_by_date.tex");
 
-	  }
-	});
-        
+          
+          // read the output messages from the command
+          stdInput = new BufferedReader(new
+          InputStreamReader(p.getInputStream()));
+          System.out.println("Command output:\n");
+          while ((temp = stdInput.readLine()) != null) {
+          System.out.println(temp);
+          }
+         
+          // read the error messages from the command
+          stdError = new BufferedReader(new
+          InputStreamReader(p.getErrorStream()));
+          System.out.println("\nCommand output error:\n");
+          while ((temp = stdError.readLine()) != null) {
+          System.out.println(temp);
+          }
+
+          
+          q = Runtime.getRuntime().exec("pdflatex astrojournal_by_target.tex");
+          
+          q = Runtime.getRuntime().exec("rm *.aux");
+          status.setText("PDF journals created!");
+        } catch (IOException ioe) {
+          status.setText("Is pdflatex installed?");
+        }
+      }
+    });        
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 

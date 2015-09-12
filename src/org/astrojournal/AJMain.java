@@ -18,7 +18,6 @@ package org.astrojournal;
 
 import org.apache.log4j.Logger;
 import org.astrojournal.generator.AJLatexGenerator;
-import org.astrojournal.gui.AJMainGUI;
 import org.astrojournal.gui.AJMiniGUI;
 
 /**
@@ -63,7 +62,7 @@ public class AJMain {
         tsvReportsFolder = args[0];
         latexReportsFolderByDate = args[1];
         latexReportsFolderByTarget = args[2];
-        ajLatexGenerator.generateLatexCode(tsvReportsFolder, latexReportsFolderByDate, latexReportsFolderByTarget);
+        ajLatexGenerator.generateJournals(tsvReportsFolder, latexReportsFolderByDate, latexReportsFolderByTarget);
         //ajLatexGenerator.generateLatexCodeByDate(tsvReportsFolder, latexReportsFolderByDate);
         //ajLatexGenerator.generateLatexCodeByTarget(tsvReportsFolder, latexReportsFolderByTarget);
       } else {
