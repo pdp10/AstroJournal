@@ -60,7 +60,7 @@ Target	Cons	Type	Power	Notes
 Jupiter	Cnc	Planet	103x +/- SPF	Write description here.
 Moon	Sgr	Satellite	103x	Write description here.
 
-Examples of observations can also be found in the folder tsv_folder/ .
+Examples of observations can also be found in the folder raw_folder/ .
 These files can be edited with any spreadsheet (e.g. Google SpreadSheet, 
 MS Excel, LibreOffice SpreadSheet) or a common text editor 
 (e.g. MS Wordpad, Emacs, Kate, or GEdit). 
@@ -73,7 +73,7 @@ editor.
 
 ## Use case
 Here are some guidelines for using AstroJournal:
-1. Report your observations (with the structure of my tsv file) using a spreadsheet program, such as MS Excel, Libreoffice Spreadsheet, or Google Spreadsheet. Alternatively you can use a common text editor (e.g. Wordpad, GNU Emacs, Kate, etc.) as long as the fields are the same as in the samples provided in the raw_report and that each field is separated using a TAB character.
+1. Report your observations (with the structure of my tsv or csv file) using a spreadsheet program, such as MS Excel, Libreoffice Spreadsheet, or Google Spreadsheet. Alternatively you can use a common text editor (e.g. Wordpad, GNU Emacs, Kate, etc.) as long as the fields are the same as in the samples provided in the raw_report and that each field is separated using a TAB character.
 2. Export your file as tsv (if using Google Spreadsheet) or csv. In the latter case, when asked, select tab as field delimiter.
 3. Put this file in the folder raw_reports.
 4. In the main astrojournal folder type the command above ./create_journal.sh or ./create_journal.bat .
