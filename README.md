@@ -22,10 +22,10 @@ by a TAB delimiter. Fields can have single or double quotes.
 To use AstroJournal you need to install:
 
 - Java 1.6+
-- TeX Live (for Linux Users) or MkTeX (for Windows Users) (pdflatex must be installed)
+- TeX Live (for Linux Users) or MikTeX (for Windows Users) (pdflatex must be installed)
 
-For windows users who installed MkTeX, the Latex packages url and mptopdf must be installed using the 
-MkTeX Manager.
+For windows users who installed MikTeX, the Latex packages url and mptopdf must be installed using the 
+MikTeX Manager.
 
 Then, if you are using GNU/Linux or MAC OS X, you can run AstroJournal on GNU/Linux typing (or clicking the icon):
 ./create_journal.sh
@@ -86,12 +86,12 @@ Here are some guidelines for using AstroJournal:
 To compile AstroJournal you need to install:
 
 - Java 1.6+
-- TeX Live (for Linux Users) or MkTeX (for Windows Users) (pdflatex must be installed)
+- TeX Live (for Linux Users) or MikTeX (for Windows Users) (pdflatex must be installed)
 - Apache Ant
 - Git
 
-For windows users who installed MkTeX, the Latex packages url and mptopdf must be installed using the 
-MkTeX Manager.
+For windows users who installed MikTeX, the Latex packages url and mptopdf must be installed using the 
+MikTeX Manager.
 
 You can clone AstroJournal repository with the git command:
 git clone https://pdp10@bitbucket.org/pdp10/astrojournal.git
