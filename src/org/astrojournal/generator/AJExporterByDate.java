@@ -39,7 +39,7 @@ import org.astrojournal.observation.AJObservationItem;
  * @version 0.2
  * @since 28/05/2015
  */
-public class AJExporterByDate {
+public class AJExporterByDate implements AJExporter {
 
   /** The log associated to this class */
   private static Logger log = Logger.getLogger(AJExporterByDate.class);
@@ -56,7 +56,8 @@ public class AJExporterByDate {
    * @param latexMainByDate the latex main body code (by date)
    * @param latexFooterByDate the latex footer code (by date)
    */
-  public void generateJournalByDate(String latexReportsFolderByDate, String latexHeaderByDate, String latexMainByDate, String latexFooterByDate) {
+  @Override
+  public void generateJournal(String latexReportsFolderByDate, String latexHeaderByDate, String latexMainByDate, String latexFooterByDate) {
     AJLatexHeader ajLatexHeaderByDate = new AJLatexHeader(latexHeaderByDate);
     AJLatexFooter ajLatexFooterByDate = new AJLatexFooter(latexFooterByDate);
     Writer writerByDate = null;
@@ -112,6 +113,7 @@ public class AJExporterByDate {
    * @param latexReportsByDateFolder the folder to write the observation in.
    * @return true if the observations are exported
    */
+  @Override
   public boolean exportObservations(ArrayList<AJObservation> observations, String latexReportsByDateFolder) {
     
     AJObservation obs = null;

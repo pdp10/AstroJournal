@@ -20,23 +20,26 @@
 input_reports_folder="raw_reports"
 output_reports_folder_by_date="latex_reports_by_date"
 output_reports_folder_by_target="latex_reports_by_target"
+output_reports_folder_by_date_sgl="sgl_reports_by_date"
 aj_latex_file_by_date="astrojournal_by_date.tex"
 aj_latex_file_by_target="astrojournal_by_target.tex"
+aj_sgl_file_by_date="astrojournal_by_date_sgl.txt"
 
 
 # Create these folders if they do not exist
 mkdir -p ${input_reports_folder}
 mkdir -p ${output_reports_folder_by_date}
 mkdir -p ${output_reports_folder_by_target}
+mkdir -p ${output_reports_folder_by_date_sgl}
 
 
 # Remove previous aj_latex_file file 
 rm -f ${aj_latex_file_by_date}
 rm -f ${aj_latex_file_by_target}
-
+rm -f ${aj_sgl_file_by_date}
 
 # Run AstroJournal and generate the Latex code
-java -jar astrojournal-*.jar ${input_reports_folder} ${output_reports_folder_by_date} ${output_reports_folder_by_target}
+java -jar astrojournal-*.jar ${input_reports_folder} ${output_reports_folder_by_date} ${output_reports_folder_by_target} ${output_reports_folder_by_date_sgl}
 
 
 # Check whether astrojournal_by_date.tex is empty (has not been created correctly)

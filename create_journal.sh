@@ -17,10 +17,8 @@
 
 output_reports_folder_by_date="latex_reports_by_date"
 output_reports_folder_by_target="latex_reports_by_target"
+output_reports_folder_by_date_sgl="sgl_reports_by_date"
 
-# Remove previous aj_latex_file file 
-rm -rf ${aj_latex_file_by_date}
-rm -rf ${aj_latex_file_by_target}
 
 # Run AstroJournal and generate the Latex code
 java -jar astrojournal-*.jar > astrojournal_output.txt

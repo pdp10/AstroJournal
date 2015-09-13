@@ -42,7 +42,7 @@ import org.astrojournal.observation.AJObservationItem;
  * @version 0.1
  * @since 22/07/2015
  */
-public class AJExporterByTarget {
+public class AJExporterByTarget  implements AJExporter {
 
   /** The log associated to this class */
   private static Logger log = Logger.getLogger(AJExporterByTarget.class);
@@ -80,7 +80,8 @@ public class AJExporterByTarget {
    * @param latexMainByTarget the latex main body code (by target)
    * @param latexFooterByTarget the latex footer code (by target)
    */
-  public void generateJournalByTarget(String latexReportsFolderByTarget,
+  @Override
+  public void generateJournal(String latexReportsFolderByTarget,
     String latexHeaderByTarget, String latexMainByTarget,
     String latexFooterByTarget) {
     AJLatexHeader ajLatexHeaderByTarget = new AJLatexHeader(latexHeaderByTarget);
@@ -185,6 +186,7 @@ public class AJExporterByTarget {
    * @param latexReportsByTargetFolder the folder to write the observation in.
    * @return true if the observations are exported
    */
+  @Override
   public boolean exportObservations(ArrayList<AJObservation> observations, String latexReportsByTargetFolder) {
     processedTargetCache.clear();
     for(int i=0; i<observations.size(); i++) {

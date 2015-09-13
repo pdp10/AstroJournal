@@ -28,7 +28,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 
-import org.astrojournal.generator.AJLatexGenerator;
+import org.astrojournal.generator.AJGenerator;
 
 
 /**
@@ -63,14 +63,16 @@ public class AJMiniGUI extends javax.swing.JFrame {
         
         btnCreateJournal.addActionListener(new ActionListener() {
 	  public void actionPerformed(ActionEvent e) {
-	    AJLatexGenerator ajLatexGenerator = new AJLatexGenerator();
+	    AJGenerator ajLatexGenerator = new AJGenerator();
 	    String rawReportsFolder = "raw_reports/";
 	    String latexReportsFolderByDate = "latex_reports_by_date/";
 	    String latexReportsFolderByTarget = "latex_reports_by_target/";
+      String sglReportsFolderByDate = "sgl_reports_by_date/";	    
 	    new File(latexReportsFolderByDate).mkdir();
 	    new File(latexReportsFolderByTarget).mkdir();    
+      new File(sglReportsFolderByDate).mkdir();	    
 	    // generate Latex code for the observation records
-            ajLatexGenerator.generateJournals(rawReportsFolder, latexReportsFolderByDate, latexReportsFolderByTarget);
+            ajLatexGenerator.generateJournals(rawReportsFolder, latexReportsFolderByDate, latexReportsFolderByTarget, sglReportsFolderByDate);
             // run pdflatex
 	    try {
 	        // The pdflatex command must be called two times in order to generate the list of contents correctly.

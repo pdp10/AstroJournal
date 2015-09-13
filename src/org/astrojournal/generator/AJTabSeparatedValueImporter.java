@@ -18,57 +18,28 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.apache.log4j.Logger;
 import org.astrojournal.observation.AJObservation;
 import org.astrojournal.observation.AJObservationItem;
 
 /**
- * The parser for AstroJournal. It imports tab separated value (tsv) files
+ * The parser for AstroJournal. It imports tab separated value (tsv or csv) files
  * containing the observations.
  * 
  * @author Piero Dalle Pezze
  * @version 0.1
  * @since 28/05/2015
  */
-public class AJDataImporter {
+public class AJTabSeparatedValueImporter extends AJImporter {
 
   /** The log associated to this class */
-  private static Logger   log            = Logger.getLogger(AJDataImporter.class);
-  /** The keyword denoting the first line of the observation record */
-  protected static String initialKeyword = AJObservation.DATE_NAME;
-  /** The values contained in an imported string. */
-  protected String[]      values         = null;
+  private static Logger   log            = Logger.getLogger(AJTabSeparatedValueImporter.class);
 
 
   /** Default constructor */
-  public AJDataImporter() {
-  }
-
-
-  /**
-   * Returns the initial keyword denoting the beginning of the observation
-   * record
-   * 
-   * @return initialKeyword
-   */
-  public static String getInitialKeyword() {
-    return initialKeyword;
-  }
-
-  /**
-   * Imports the observation data stored in multiple files.
-   * @param files An array of files to parse (either CSV or TSV file, separated by TAB delimiter).
-   * @return a list of AJObservation objects
-   */
-  public ArrayList<AJObservation> importObservations(File[] files) {
-    Arrays.sort(files);
-    ArrayList<AJObservation> observations = new ArrayList<AJObservation>();
-    for (File file : files) {
-      observations.addAll(importObservations(file));
-    } // end for
-    return observations;
+  public AJTabSeparatedValueImporter() {
+    super();
   }
   
   
@@ -77,6 +48,7 @@ public class AJDataImporter {
    * @param file The file to parse (either CSV or TSV file, separated by TAB delimiter).
    * @return a list of AJObservation objects
    */
+  @Override
   public ArrayList<AJObservation> importObservations(File file) {
     ArrayList<AJObservation> observations = new ArrayList<AJObservation>();
     if (file.isFile()) {
@@ -107,7 +79,7 @@ public class AJDataImporter {
         // Read all lines
         while ((line = reader.readLine()) != null) {
           log.debug(line);
-          if (line.indexOf(AJDataImporter.getInitialKeyword()) > -1) {
+          if (line.indexOf(AJTabSeparatedValueImporter.getInitialKeyword()) > -1) {
             AJObservation obs = new AJObservation();
             // this should receive (obs, rawReportsFolder) as input instead of
             // (obs, line, reader) and manage the reader thing internally.
@@ -162,7 +134,8 @@ public class AJDataImporter {
    * @throws IOException
    *         if reader cannot read the observation
    */
-  private void importObservation(BufferedReader reader, AJObservation obs, String line, String delimiter) throws IOException {
+  @Override
+  protected void importObservation(BufferedReader reader, AJObservation obs, String line, String delimiter) throws IOException {
     log.debug(line);
     // copy the first line
     values = line.split(delimiter);

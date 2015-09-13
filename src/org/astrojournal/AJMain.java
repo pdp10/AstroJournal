@@ -17,7 +17,7 @@
 package org.astrojournal;
 
 import org.apache.log4j.Logger;
-import org.astrojournal.generator.AJLatexGenerator;
+import org.astrojournal.generator.AJGenerator;
 import org.astrojournal.gui.AJMiniGUI;
 
 /**
@@ -34,7 +34,7 @@ public class AJMain {
   
   /** 
    * Main function. If no arguments are passed, the graphical user interface is started. 
-   * Otherwise, if a list of 3 arguments representing the input and output folders is passed, 
+   * Otherwise, if a list of 4 arguments representing the input and output folders is passed, 
    * then it runs as command line. 
    * @param args 
    */
@@ -43,9 +43,10 @@ public class AJMain {
     // Depending on args, this class invokes AJMainGUI or runs as a Batch program.
     // if no args is passed, run AJMainGUI.
     
-    String tsvReportsFolder = null;
-    String latexReportsFolderByDate = null;
+    String rawReportsFolder = null;
+    String latexReportsFolderByDate = null;    
     String latexReportsFolderByTarget = null;
+    String sglReportsFolderByDate = null;    
     try {
       if(args.length == 0) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -57,19 +58,22 @@ public class AJMain {
           }
       });
       }
-      else if(args.length == 3) {
-        AJLatexGenerator ajLatexGenerator = new AJLatexGenerator();
-        tsvReportsFolder = args[0];
+      else if(args.length == 4) {
+        AJGenerator ajLatexGenerator = new AJGenerator();
+        rawReportsFolder = args[0];
         latexReportsFolderByDate = args[1];
         latexReportsFolderByTarget = args[2];
-        ajLatexGenerator.generateJournals(tsvReportsFolder, latexReportsFolderByDate, latexReportsFolderByTarget);
-        //ajLatexGenerator.generateLatexCodeByDate(tsvReportsFolder, latexReportsFolderByDate);
-        //ajLatexGenerator.generateLatexCodeByTarget(tsvReportsFolder, latexReportsFolderByTarget);
+        sglReportsFolderByDate = args[3];        
+        ajLatexGenerator.generateJournals(rawReportsFolder, latexReportsFolderByDate, latexReportsFolderByTarget, sglReportsFolderByDate);
+        //ajLatexGenerator.generateLatexCodeByDate(rawReportsFolder, latexReportsFolderByDate);
+        //ajLatexGenerator.generateLatexCodeByTarget(rawReportsFolder, latexReportsFolderByTarget);
+        //ajLatexGenerator.generateLatexCodeByDate(rawReportsFolder, latexReportsFolderByDateSGL);        
       } else {
         throw new Exception("Please, specify the folders : " + 
-                    tsvReportsFolder + "/ " + 
-                    latexReportsFolderByDate + "/ and " + 
-                    latexReportsFolderByTarget + "/ as arguments.");
+                    rawReportsFolder + "/ " + 
+                    latexReportsFolderByDate + "/ " + 
+                    latexReportsFolderByTarget + "and " + 
+                    sglReportsFolderByDate + " as arguments.");
       }
     } catch (Exception ex) {
         log.warn(ex);

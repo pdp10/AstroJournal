@@ -20,21 +20,19 @@ import java.io.File;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
-import org.astrojournal.generator.AJExporterByDate;
-import org.astrojournal.generator.AJExporterByTarget;
 import org.astrojournal.observation.AJObservation;
 
 /**
- * This class automatically generates the Latex code for the AstroJournal.
+ * This class automatically generates astro journal documents.
  * 
  * @author Piero Dalle Pezze
  * @version 0.8
  * @since 12/04/2015
  */
-public class AJLatexGenerator {
+public class AJGenerator {
 
   /** The log associated to this class */
-  private static Logger log = Logger.getLogger(AJLatexGenerator.class);
+  private static Logger log = Logger.getLogger(AJGenerator.class);
 
   /** The relative path containing the raw files (observation input folder). */
   private String rawReportsFolder = "raw_reports";
@@ -42,12 +40,16 @@ public class AJLatexGenerator {
   private String latexReportsFolderByDate = "latex_reports_by_date";
   /** The name of the folder containing the latex observation files by target (observation output folder). */
   private String latexReportsFolderByTarget = "latex_reports_by_target";
-
+  /** The name of the folder containing the latex observation files by date (observation output folder). */
+  private String sglReportsFolderByDate = "sgl_reports_by_date";
+  
   /** The name of the main Latex file sorted by date. */
   private String latexMainByDate = "astrojournal_by_date.tex";
   /** The name of the main Latex file sorted by target. */
   private String latexMainByTarget = "astrojournal_by_target.tex";
-
+  /** The name of the SGL main file sorted by date. */
+  private String sglMainByDate = "astrojournal_by_date_sgl.txt";
+  
   /** The Latex header with path for astrojournal by date. */
   private String latexHeaderByDate = "latex_header_footer/header_by_date.tex";
   /** The Latex footer with path for astrojournal by date. */
@@ -65,27 +67,30 @@ public class AJLatexGenerator {
   
 
   /** Default constructor */
-  public AJLatexGenerator() {}
+  public AJGenerator() {}
 
   /** 
    * It generates the latex files for AstroJournal. 
    * @param rawObsDir the directory containing the raw observation files (input)
    * @param latexObsByDateDir the directory containing the single observations by date in latex format (output)
    * @param latexObsByTargetDir the directory containing the single observations by target in latex format (output)
+   * @param sglObsByDateDir the directory containing the single observations by date in txt format (output)
    * @return true if the observations sorted by date and by target have been exported to Latex correctly
    */
-  public boolean generateJournals(String rawObsDir, String latexObsByDateDir, String latexObsByTargetDir) {
+  public boolean generateJournals(String rawObsDir, String latexObsByDateDir, String latexObsByTargetDir, String sglObsByDateDir) {
     rawReportsFolder = rawObsDir;
     latexReportsFolderByDate = latexObsByDateDir;
     latexReportsFolderByTarget = latexObsByTargetDir;
+    sglReportsFolderByDate = sglObsByDateDir;
     if (!importObservations()) {
       log.warn("raw observation file is not valid. Cannot generate Latex code for the observations.");
       return false;
     }
-    boolean exportedByDate=true, exportedByTarget=true;
+    boolean exportedByDate=true, exportedByTarget=true, exportedByDateSGL = true;
     exportedByDate = generateJournalByDate(rawObsDir, latexObsByDateDir);
     exportedByTarget = generateJournalByTarget(rawObsDir, latexObsByTargetDir);
-    return exportedByDate && exportedByTarget;
+    exportedByDateSGL = generateJournalByDateSGL(rawObsDir, sglObsByDateDir);
+    return exportedByDate && exportedByTarget && exportedByDateSGL;
   }
 
   /**
@@ -101,14 +106,36 @@ public class AJLatexGenerator {
       log.warn("raw observation file is not valid. Cannot generate Latex code for the observations.");
       return false;
     }
-    AJExporterByDate ajExporterByDate = new AJExporterByDate();    
+    AJExporter ajExporterByDate = new AJExporterByDate();    
     // export the imported observation by date to Latex
     System.out.println("\nExporting observation by date:");
     boolean resultByDate = ajExporterByDate.exportObservations(observations, latexReportsFolderByDate);
-    ajExporterByDate.generateJournalByDate(latexReportsFolderByDate, latexHeaderByDate, latexMainByDate, latexFooterByDate);
+    ajExporterByDate.generateJournal(latexReportsFolderByDate, latexHeaderByDate, latexMainByDate, latexFooterByDate);
     return resultByDate;
   }
 
+  
+  /**
+   * Generate the txt document for SGL reports sorted by date
+   * @param rawObsDir the directory containing the raw observation files (input)
+   * @param sglObsByDateDir the directory containing the single observations by date in txt format (output)
+   * @return true if the observations sorted by date have been exported to Latex correctly
+   */
+  public boolean generateJournalByDateSGL(String rawObsDir, String sglObsByDateDir) {
+    rawReportsFolder = rawObsDir;
+    sglReportsFolderByDate = sglObsByDateDir;
+    if (!importObservations()) {
+      log.warn("raw observation file is not valid. Cannot generate txt code for the observations.");
+      return false;
+    }
+    AJExporter ajExporterByDateSGL = new AJExporterByDateSGL();    
+    // export the imported observation by date to txt
+    System.out.println("\nExporting observation by date for SGL:");
+    boolean resultByDateSGL = ajExporterByDateSGL.exportObservations(observations, sglReportsFolderByDate);
+    ajExporterByDateSGL.generateJournal(sglReportsFolderByDate, "", sglMainByDate, "");
+    return resultByDateSGL;
+  }
+  
 
   /**
    * Generate the Latex document sorted by target.
@@ -123,11 +150,11 @@ public class AJLatexGenerator {
       log.warn("raw observation file is not valid. Cannot generate Latex code for the observations.");
       return false;
     }
-    AJExporterByTarget ajExporterByTarget = new AJExporterByTarget();    
+    AJExporter ajExporterByTarget = new AJExporterByTarget();    
     // export the imported observation by target to Latex
     System.out.println("\nExporting observation by target:");
     boolean resultByTarget = ajExporterByTarget.exportObservations(observations, latexReportsFolderByTarget);
-    ajExporterByTarget.generateJournalByTarget(latexReportsFolderByTarget, latexHeaderByTarget, latexMainByTarget, latexFooterByTarget);
+    ajExporterByTarget.generateJournal(latexReportsFolderByTarget, latexHeaderByTarget, latexMainByTarget, latexFooterByTarget);
     return resultByTarget;
   }    
     
@@ -144,7 +171,7 @@ public class AJLatexGenerator {
         log.warn("Folder " + rawReportsFolder + " not found");
         return false;
       }
-      AJDataImporter ajImporter = new AJDataImporter();
+      AJImporter ajImporter = new AJTabSeparatedValueImporter();
       observations.addAll(ajImporter.importObservations(files));
       observationsProcessed = true;
     }

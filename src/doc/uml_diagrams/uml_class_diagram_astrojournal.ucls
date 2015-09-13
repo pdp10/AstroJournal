@@ -46,8 +46,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="org.astrojournal.generator.AJDataImporter" project="AstroJournal" 
-    file="/AstroJournal/src/org/astrojournal/generator/AJDataImporter.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="6" language="java" name="org.astrojournal.generator.AJTabSeparatedValueImporter" project="AstroJournal" 
+    file="/AstroJournal/src/org/astrojournal/generator/AJTabSeparatedValueImporter.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="709" y="241"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -55,8 +56,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="org.astrojournal.generator.AJLatexGenerator" project="AstroJournal" 
-    file="/AstroJournal/src/org/astrojournal/generator/AJLatexGenerator.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="7" language="java" name="org.astrojournal.generator.AJGenerator" project="AstroJournal" 
+    file="/AstroJournal/src/org/astrojournal/generator/AJGenerator.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="676" y="633"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -91,30 +92,38 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <generalization id="11">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="3"/>  
-  </generalization>  
-  <association id="12">    
+  <association id="11">    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="13" name="observations"/>      
-      <multiplicity id="14" minimum="0" maximum="2147483647"/>    
+      <attribute id="12" name="observations">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="13" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="15">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="3"/>  
-  </generalization>  
-  <association id="16">    
+  <association id="14">    
     <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="17" name="observationItems"/>      
-      <multiplicity id="18" minimum="0" maximum="2147483647"/>    
+      <attribute id="15" name="observationItems">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="16" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <generalization id="17">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <generalization id="18">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
