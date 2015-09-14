@@ -98,7 +98,7 @@ Here are some guidelines for using AstroJournal:
 ## Requirements for compiling AstroJournal:
 To compile AstroJournal you need to install:
 
-- Java 1.6+
+- Java 1.7+
 - TeX Live (for Linux Users) or MikTeX (for Windows Users) (pdflatex must be installed)
 - Apache Ant
 - Git
