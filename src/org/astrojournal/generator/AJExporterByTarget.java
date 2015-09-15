@@ -48,7 +48,7 @@ public class AJExporterByTarget  implements AJExporter {
   private static Logger log = Logger.getLogger(AJExporterByTarget.class);
 
   /** A cache of the visited targets. */
-  private HashSet<String> processedTargetCache = new HashSet<String>(500);
+  private HashSet<String> processedTargetCache = new HashSet<String>(1000);
   
   
   
@@ -150,6 +150,30 @@ public class AJExporterByTarget  implements AJExporter {
               writerByTarget.write("\\clearpage\n");
               writerByTarget.write("\\section{" + type + "}\n");
             }
+          } else if (target.matches("^(pk|PK)[0-9].*$")) {
+            if (!type.equals("Perek-Kohoutek Catalogue")) {
+              type = "Perek-Kohoutek Catalogue";
+              writerByTarget.write("\\clearpage\n");
+              writerByTarget.write("\\section{" + type + "}\n");
+            }            
+          } else if (target.matches("^(b|B|Barnard|BARNARD)[0-9].*$")) {
+            if (!type.equals("Barnard Catalogue")) {
+              type = "Barnard Catalogue";
+              writerByTarget.write("\\clearpage\n");
+              writerByTarget.write("\\section{" + type + "}\n");
+            }
+          } else if (target.matches("^(hcg|HCG|Hickson Compact Group)[0-9].*$")) {
+            if (!type.equals("Hickson Compact Group Catalogue")) {
+              type = "Hickson Compact Group Catalogue";
+              writerByTarget.write("\\clearpage\n");
+              writerByTarget.write("\\section{" + type + "}\n");
+            }            
+          } else if (target.matches("^(ugc|UGC)[0-9].*$")) {
+            if (!type.equals("Uppsala General Catalogue")) {
+              type = "Uppsala General Catalogue";
+              writerByTarget.write("\\clearpage\n");
+              writerByTarget.write("\\section{" + type + "}\n");
+            }                        
           } else {
             if (!type.equals("Stars, Double Stars, Multiple Stars")) {
               type = "Stars, Double Stars, Multiple Stars";
@@ -317,6 +341,24 @@ public class AJExporterByTarget  implements AJExporter {
   }
   
   
+  /**
+   * Recreate the list of files as sorted by catalogue
+   * @param list the sorted catalogue
+   * @param files the full list of files
+   * @param idx the current index for files
+   * @return idx the new index for files
+   */
+  private int addSortedFiles(List<String> list, File[] files, int idx) {
+    for(int i=0; i<list.size(); i++) {
+      if(idx < files.length) {
+        files[idx] = new File(list.get(i));
+        idx++;
+      }
+    }
+    return idx;
+  }
+
+  
   /** 
    * Sort the files by target.  
    * @param files the files to be sorted by target
@@ -331,9 +373,14 @@ public class AJExporterByTarget  implements AJExporter {
     ArrayList<String> stock = new ArrayList<String>(100);
     ArrayList<String> melotte = new ArrayList<String>(400);
     ArrayList<String> collider = new ArrayList<String>(300);
+    ArrayList<String> pk = new ArrayList<String>(1143);    
+    ArrayList<String> barnard = new ArrayList<String>(366);    
+    ArrayList<String> hickson = new ArrayList<String>(100);    
+    ArrayList<String> abell = new ArrayList<String>(4073);    
+    ArrayList<String> ugc = new ArrayList<String>(12921);   
     ArrayList<String> stars = new ArrayList<String>(500);
 
-    // Add empty data for the solar system. Conjuctions will be added in the end.
+    // Add empty data for the solar system. Conjunctions will be added in the end.
     solarSystem.add(""); solarSystem.add("");
     solarSystem.add(""); solarSystem.add("");
     solarSystem.add(""); solarSystem.add("");
@@ -384,6 +431,21 @@ public class AJExporterByTarget  implements AJExporter {
       } else if(target.matches("^(cr|Cr|CR)[0-9].*$")) {
         collider.add(files[i].toString());
         log.debug(target);
+      } else if(target.matches("^(b|B|Barnard|BARNARD)[0-9].*$")) {
+        barnard.add(files[i].toString());
+        log.debug(target);        
+      } else if(target.matches("^(pk|PK)[0-9].*$")) {
+        pk.add(files[i].toString());
+        log.debug(target);                
+      } else if(target.matches("^(hcg|HCG|Hickson Compact Group)[0-9].*$")) {
+        hickson.add(files[i].toString());
+        log.debug(target);        
+      } else if(target.matches("^(Abell|ABELL)[0-9].*$")) {
+        abell.add(files[i].toString());
+        log.debug(target);
+      } else if(target.matches("^(ugc|UGC)[0-9].*$")) {
+        ugc.add(files[i].toString());
+        log.debug(target);                
       } else {
         stars.add(files[i].toString());
         log.debug(target);
@@ -396,6 +458,11 @@ public class AJExporterByTarget  implements AJExporter {
     Collections.sort(stock, catalogueItemComparator);
     Collections.sort(melotte, catalogueItemComparator);
     Collections.sort(collider, catalogueItemComparator);
+    Collections.sort(pk, catalogueItemComparator);        
+    Collections.sort(barnard, catalogueItemComparator);    
+    Collections.sort(hickson, catalogueItemComparator); 
+    Collections.sort(abell, catalogueItemComparator);
+    Collections.sort(ugc, catalogueItemComparator);    
     // normal lexico-graphical sorting for stars 
     Collections.sort(stars);
 
@@ -407,25 +474,13 @@ public class AJExporterByTarget  implements AJExporter {
     j = addSortedFiles(stock, files, j);
     j = addSortedFiles(melotte, files, j);
     j = addSortedFiles(collider, files, j);
-    j = addSortedFiles(stars, files, j);
-  }
-
-  /**
-   * Recreate the list of files as sorted by catalogue
-   * @param list the sorted catalogue
-   * @param files the full list of files
-   * @param idx the current index for files
-   * @return idx the new index for files
-   */
-  private int addSortedFiles(List<String> list, File[] files, int idx) {
-    for(int i=0; i<list.size(); i++) {
-      if(idx < files.length) {
-        files[idx] = new File(list.get(i));
-        idx++;
-      }
-    }
-    return idx;
-  }
+    j = addSortedFiles(pk, files, j);
+    j = addSortedFiles(barnard, files, j);
+    j = addSortedFiles(hickson, files, j);
+    j = addSortedFiles(abell, files, j);
+    j = addSortedFiles(ugc, files, j);
+    j = addSortedFiles(stars, files, j);    
     
+  } 
 
 }

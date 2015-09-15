@@ -124,6 +124,7 @@ You can run AstroJournal on GNU/Linux typing:
 
 v0.8
 
+- Added report of additional catalogues in astrojournal by target.
 - Added exporter to SGL report files.
 - Corrected bug in astrojournal.bat
 - Added support for csv input files.
