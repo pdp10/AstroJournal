@@ -9,7 +9,7 @@ Licence: GPL v3 (2015)
 
 ## Description:
 This Java application imports files containing astronomy observations 
-and generates an integrated journal document in PDF format using Latex. 
+and generates an integrated journal document in PDF format using LaTeX. 
 Observation files can be edited using a common Spreadsheet software 
 (e.g. Google Spreadsheet, LibreOffice Calc, Office Excel) or any common 
 text editor (e.g. MS Wordpad, Emacs, Kate, or GEdit) and must be saved 
@@ -37,7 +37,7 @@ To use AstroJournal you need to install:
 - Java 1.7+
 - TeX Live (for Linux Users) or MikTeX (for Windows Users) (pdflatex must be installed)
 
-For windows users who installed MikTeX, the Latex packages url and mptopdf must be installed using the 
+For windows users who installed MikTeX, the LaTeX packages url and mptopdf must be installed using the 
 MikTeX Manager.
 
 Then, if you are using GNU/Linux or MAC OS X, you can run AstroJournal on GNU/Linux typing (or clicking the icon):
@@ -78,7 +78,7 @@ These files can be edited with any spreadsheet (e.g. Google SpreadSheet,
 MS Excel, LibreOffice SpreadSheet) or a common text editor 
 (e.g. MS Wordpad, Emacs, Kate, or GEdit). 
 To customise the document header and footer, please look at the 
-folder latex_header_footer to find the Latex files for the header 
+folder latex_header_footer to find the LaTeX files for the header 
 and footer. Also these files can be edited with any common text 
 editor.
 
@@ -103,7 +103,7 @@ To compile AstroJournal you need to install:
 - Apache Ant
 - Git
 
-For windows users who installed MikTeX, the Latex packages url and mptopdf must be installed using the 
+For windows users who installed MikTeX, the LaTeX packages url and mptopdf must be installed using the 
 MikTeX Manager.
 
 You can clone AstroJournal repository with the git command:
@@ -147,7 +147,7 @@ v0.5
 
 - added Messier and Caldwell catalogues as reference in the end
 - improved pdf layout
-- extracted Latex header and footer from Java code
+- extracted LaTeX header and footer from Java code
 - added additional controls
 - bug fixes
 - increased code modularity
@@ -160,7 +160,7 @@ v0.4
 - simplified scripts for creating journal
 - renamed this software 'AstroJournal'
 - added controls before using pdflatex or texi2tex
-- imported Latex code for observations prior to the log
+- imported LaTeX code for observations prior to the log
 - reversed the observations (now most recent first)
 - renamed .tex and .pdf to lowercase names
 - improved legends layout
@@ -187,7 +187,7 @@ v0.2
 
 v0.1
 
-- creation of Latex code for all your observation
+- creation of LaTeX code for all your observation
 - reading of different tsv files sequentially and ordered by date increasing 
 is supported. In this way, you can create an observation log per month or 
 two (keeping the google spreadsheet short), and add the exported tsv file 
@@ -208,6 +208,6 @@ to the folder tsv_files
 
 ## Close bugs:
 
-- Latex long table can generate an empty page if the current table spans 
+- LaTeX long table can generate an empty page if the current table spans 
 until the end of the page. This empty page should be removed. [SOLVED] 
 Replaced \begin{centre} ... \end{centre} with \centering for longtable.
