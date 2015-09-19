@@ -114,7 +114,13 @@ public class AJExporterByTarget  implements AJExporter {
               writerByTarget.write("\\clearpage\n");
               writerByTarget.write("\\section{" + type + "}\n");
             }
-          } else if (target.matches("^[m|M][0-9].*$")) {
+          } else if (target.matches("^(milkyway|MilkyWay|MILKYWAY).*$")) {
+            if (!type.equals("Milky Way")) {
+              type = "Milky Way";
+              writerByTarget.write("\\clearpage\n");
+              writerByTarget.write("\\section{" + type + "}\n");
+            }            
+          } else if (target.matches("^(m|M)[0-9].*$")) {
             if (!type.equals("Messier Catalogue")) {
               type = "Messier Catalogue";
               writerByTarget.write("\\clearpage\n");
@@ -235,6 +241,9 @@ public class AJExporterByTarget  implements AJExporter {
                 obsItem.getType().toLowerCase().equals("mlt star")) {
               targetWriter.write("\\subsection{" + obsItem.getConstellation());
               targetWriter.write(", " + obsItem.getTarget());
+            } else if(obsItem.getType().toLowerCase().equals("galaxy") || 
+                obsItem.getTarget().toLowerCase().equals("milky way")) {
+              targetWriter.write("\\subsection{" + obsItem.getTarget());
             } else {
               targetWriter.write("\\subsection{" + obsItem.getTarget());
               targetWriter.write(", " + obsItem.getConstellation());
@@ -337,6 +346,10 @@ public class AJExporterByTarget  implements AJExporter {
         obsItem.getType().toLowerCase().equals("mlt star")) {
       return obsItem.getConstellation() + "_" + obsItem.getTarget().replaceAll("\\s+","").replaceAll("/","-");
     }
+    if(obsItem.getType().toLowerCase().equals("galaxy") || 
+        obsItem.getTarget().toLowerCase().equals("milky way")) {
+      return obsItem.getTarget().replaceAll("\\s+","").replaceAll("/","-");
+    }
     return obsItem.getTarget().replaceAll("\\s+","").replaceAll("/","-") + "_" + obsItem.getConstellation();
   }
   
@@ -366,7 +379,8 @@ public class AJExporterByTarget  implements AJExporter {
   private void sortFilesByTarget(File[] files) {
     // solar system in ArrayList instead of simple array, because we do not know
     // how many conjunctions there are.
-    LinkedList<String> solarSystem = new LinkedList<String>();  
+    LinkedList<String> solarSystem = new LinkedList<String>();
+    ArrayList<String> milkyWay = new ArrayList<String>(1);
     ArrayList<String> messier = new ArrayList<String>(110);
     ArrayList<String> ngc = new ArrayList<String>(10000);
     ArrayList<String> ic = new ArrayList<String>(1000);
@@ -413,7 +427,10 @@ public class AJExporterByTarget  implements AJExporter {
         // conjunctions
         else { solarSystem.add(files[i].toString()); }
         log.debug(target);
-      } else if(target.matches("^[m|M][0-9].*$")) {
+      } else if(target.matches("^(milkyway|MilkyWay|MILKYWAY).*$")) {
+        milkyWay.add(files[i].toString());
+        log.debug(target);        
+      } else if(target.matches("^(m|M)[0-9].*$")) {
         messier.add(files[i].toString());
         log.debug(target);
       } else if(target.matches("^(ngc|NGC)[0-9].*$")) {
@@ -451,7 +468,7 @@ public class AJExporterByTarget  implements AJExporter {
         log.debug(target);
       }
     }
-    // note planets are manually sorted
+    // note Planets and Milky Way are manually sorted
     Collections.sort(messier, catalogueItemComparator);
     Collections.sort(ngc, catalogueItemComparator);
     Collections.sort(ic, catalogueItemComparator);
@@ -468,6 +485,7 @@ public class AJExporterByTarget  implements AJExporter {
 
     int j=0;
     j = addSortedFiles(solarSystem, files, j);
+    j = addSortedFiles(milkyWay, files, j);    
     j = addSortedFiles(messier, files, j);
     j = addSortedFiles(ngc, files, j);
     j = addSortedFiles(ic, files, j);
