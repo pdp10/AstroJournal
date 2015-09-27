@@ -173,13 +173,19 @@ public class AJExporterByTarget  implements AJExporter {
               type = "Hickson Compact Group Catalogue";
               writerByTarget.write("\\clearpage\n");
               writerByTarget.write("\\section{" + type + "}\n");
-            }            
+            }
           } else if (target.matches("^(ugc|UGC)[0-9].*$")) {
             if (!type.equals("Uppsala General Catalogue")) {
               type = "Uppsala General Catalogue";
               writerByTarget.write("\\clearpage\n");
               writerByTarget.write("\\section{" + type + "}\n");
-            }                        
+            }
+          } else if (target.matches("^(Steph)[0-9].*$")) {
+            if (!type.equals("Other Catalogues")) {
+              type = "Other Catalogues";
+              writerByTarget.write("\\clearpage\n");
+              writerByTarget.write("\\section{" + type + "}\n");
+            }                                    
           } else {
             if (!type.equals("Stars, Double Stars, Multiple Stars")) {
               type = "Stars, Double Stars, Multiple Stars";
@@ -391,7 +397,8 @@ public class AJExporterByTarget  implements AJExporter {
     ArrayList<String> barnard = new ArrayList<String>(366);    
     ArrayList<String> hickson = new ArrayList<String>(100);    
     ArrayList<String> abell = new ArrayList<String>(4073);    
-    ArrayList<String> ugc = new ArrayList<String>(12921);   
+    ArrayList<String> ugc = new ArrayList<String>(12921);
+    ArrayList<String> others = new ArrayList<String>(500);    
     ArrayList<String> stars = new ArrayList<String>(500);
 
     // Add empty data for the solar system. Conjunctions will be added in the end.
@@ -463,6 +470,9 @@ public class AJExporterByTarget  implements AJExporter {
       } else if(target.matches("^(ugc|UGC)[0-9].*$")) {
         ugc.add(files[i].toString());
         log.debug(target);                
+      } else if(target.matches("^(Steph)[0-9].*$")) {
+        others.add(files[i].toString());
+        log.debug(target);                        
       } else {
         stars.add(files[i].toString());
         log.debug(target);
@@ -480,6 +490,7 @@ public class AJExporterByTarget  implements AJExporter {
     Collections.sort(hickson, catalogueItemComparator); 
     Collections.sort(abell, catalogueItemComparator);
     Collections.sort(ugc, catalogueItemComparator);    
+    Collections.sort(others, catalogueItemComparator);        
     // normal lexico-graphical sorting for stars 
     Collections.sort(stars);
 
@@ -497,6 +508,7 @@ public class AJExporterByTarget  implements AJExporter {
     j = addSortedFiles(hickson, files, j);
     j = addSortedFiles(abell, files, j);
     j = addSortedFiles(ugc, files, j);
+    j = addSortedFiles(others, files, j);    
     j = addSortedFiles(stars, files, j);    
     
   } 
