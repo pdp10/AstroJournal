@@ -20,9 +20,11 @@
 input_reports_folder="raw_reports"
 output_reports_folder_by_date="latex_reports_by_date"
 output_reports_folder_by_target="latex_reports_by_target"
+output_reports_folder_by_constellation="latex_reports_by_constellation"
 output_reports_folder_by_date_sgl="sgl_reports_by_date"
 aj_latex_file_by_date="astrojournal_by_date.tex"
 aj_latex_file_by_target="astrojournal_by_target.tex"
+aj_latex_file_by_constellation="astrojournal_by_constellation.tex"
 aj_sgl_file_by_date="astrojournal_by_date_sgl.txt"
 
 
@@ -30,16 +32,18 @@ aj_sgl_file_by_date="astrojournal_by_date_sgl.txt"
 mkdir -p ${input_reports_folder}
 mkdir -p ${output_reports_folder_by_date}
 mkdir -p ${output_reports_folder_by_target}
+mkdir -p ${output_reports_folder_by_constellation}
 mkdir -p ${output_reports_folder_by_date_sgl}
 
 
 # Remove previous aj_latex_file file 
 rm -f ${aj_latex_file_by_date}
 rm -f ${aj_latex_file_by_target}
+rm -f ${aj_latex_file_by_constellation}
 rm -f ${aj_sgl_file_by_date}
 
 # Run AstroJournal and generate the Latex code
-java -jar astrojournal-*.jar ${input_reports_folder} ${output_reports_folder_by_date} ${output_reports_folder_by_target} ${output_reports_folder_by_date_sgl}
+java -jar astrojournal-*.jar ${input_reports_folder} ${output_reports_folder_by_date} ${output_reports_folder_by_target} ${output_reports_folder_by_constellation} ${output_reports_folder_by_date_sgl}
 
 
 # Check whether astrojournal_by_date.tex is empty (has not been created correctly)
@@ -91,6 +95,32 @@ if [ ! -s ${aj_latex_file_by_target} ]; then {
 fi
 
 
+# Check whether astrojournal_by_constellation.tex is empty (has not been created correctly)
+if [ ! -s ${aj_latex_file_by_constellation} ]; then {
+    rm -f ${aj_latex_file_by_constellation}
+    printf "WARNING: File ${aj_latex_file_by_constellation} was not created. \n";
+} else {
+    # Generate the PDF file from the Latex code generated previously
+    if command -v pdflatex 2>/dev/null >&2; then {
+	printf "Generating astrojournal by constellation using pdflatex ... ";
+	pdflatex ${aj_latex_file_by_constellation} >/dev/null;
+	pdflatex ${aj_latex_file_by_constellation} >/dev/null;
+	printf "DONE\n"
+    } elif command -v texi2pdf 2>/dev/null >&2; then {
+        printf "Generating astrojournal by constellation using texi2tex ... ";
+        texi2pdf ${aj_latex_file_by_constellation} >/dev/null;
+	texi2pdf ${aj_latex_file_by_constellation} >/dev/null;
+	printf "DONE\n"
+    } else {
+        printf "You need to install either pdflatex or texi2tex for generating AstroJournal PDF file.\n";
+    }
+    fi 
+}
+fi
+
+
+
+
 # Uncomment if you want a combined tsv or csv file
 # Concatenate all tsv files into one file
 #cat ${input_reports_folder}/*.tsv > astrojournal_by_date.tsv
@@ -99,4 +129,4 @@ fi
 
 
 # Clean the temporary and log files
-rm -rf *.aux *.log *~ *.out *.toc ${output_reports_folder_by_date}/*.aux ${output_reports_folder_by_target}/*.aux
+rm -rf *.aux *.log *~ *.out *.toc ${output_reports_folder_by_date}/*.aux ${output_reports_folder_by_target}/*.aux ${output_reports_folder_by_constellation}/*.aux

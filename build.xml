@@ -32,6 +32,7 @@ Created by Piero Dalle Pezze (pdp10)
 		<property name="src.dir" value="${basedir}/src"/>
 		<property name="src.latex_reports_by_date" value="${basedir}/latex_reports_by_date"/>
 		<property name="src.latex_reports_by_target" value="${basedir}/latex_reports_by_target"/>		
+		<property name="src.latex_reports_by_constellation" value="${basedir}/latex_reports_by_constellation"/>				
 		<property name="src.tsv_reports" value="${basedir}/tsv_reports"/>
 		
 		<property name="build.dir" value="${basedir}/build"/>
@@ -191,6 +192,9 @@ Created by Piero Dalle Pezze (pdp10)
 		<delete includeEmptyDirs="true" quiet="yes">
 			<fileset dir="${src.latex_reports_by_target}" includes="*.tex *.aux"/>
 		</delete>		
+		<delete includeEmptyDirs="true" quiet="yes">
+			<fileset dir="${src.latex_reports_by_constellation}" includes="*.tex *.aux"/>
+		</delete>				
 		<delete includeEmptyDirs="true" quiet="yes">
 			<fileset dir="${basedir}" includes="*pdf *tex *jar *tsv *.aux *~ *.log *.toc latex_reports*"/>
 		</delete>		

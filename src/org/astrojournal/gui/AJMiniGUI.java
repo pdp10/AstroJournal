@@ -70,12 +70,14 @@ public class AJMiniGUI extends javax.swing.JFrame {
 	    String rawReportsFolder = "raw_reports/";
 	    String latexReportsFolderByDate = "latex_reports_by_date/";
 	    String latexReportsFolderByTarget = "latex_reports_by_target/";
+      String latexReportsFolderByConstellation = "latex_reports_by_constellation/";	    
       String sglReportsFolderByDate = "sgl_reports_by_date/";	    
 	    new File(latexReportsFolderByDate).mkdir();
 	    new File(latexReportsFolderByTarget).mkdir();    
+      new File(latexReportsFolderByConstellation).mkdir();    	    
       new File(sglReportsFolderByDate).mkdir();	    
 	    // generate Latex code for the observation records
-            ajLatexGenerator.generateJournals(rawReportsFolder, latexReportsFolderByDate, latexReportsFolderByTarget, sglReportsFolderByDate);
+            ajLatexGenerator.generateJournals(rawReportsFolder, latexReportsFolderByDate, latexReportsFolderByTarget, latexReportsFolderByConstellation, sglReportsFolderByDate);
             // run pdflatex
 	    try {
 	        // The pdflatex command must be called two times in order to generate the list of contents correctly.
@@ -155,6 +157,45 @@ public class AJMiniGUI extends javax.swing.JFrame {
           while ((temp = stdError.readLine()) != null) {
           System.out.println(temp);
           }
+          
+          
+          p = Runtime.getRuntime().exec("pdflatex astrojournal_by_constellation.tex");
+          
+          // read the output messages from the command
+          stdInput = new BufferedReader(new
+          InputStreamReader(p.getInputStream()));
+          System.out.println("Command output:\n");
+          while ((temp = stdInput.readLine()) != null) {
+          System.out.println(temp);
+          }
+         
+          // read the error messages from the command
+          stdError = new BufferedReader(new
+          InputStreamReader(p.getErrorStream()));
+          System.out.println("\nCommand output error:\n");
+          while ((temp = stdError.readLine()) != null) {
+          System.out.println(temp);
+          }          
+          
+          p = Runtime.getRuntime().exec("pdflatex astrojournal_by_constellation.tex");
+
+          
+          // read the output messages from the command
+          stdInput = new BufferedReader(new
+          InputStreamReader(p.getInputStream()));
+          System.out.println("Command output:\n");
+          while ((temp = stdInput.readLine()) != null) {
+          System.out.println(temp);
+          }
+         
+          // read the error messages from the command
+          stdError = new BufferedReader(new
+          InputStreamReader(p.getErrorStream()));
+          System.out.println("\nCommand output error:\n");
+          while ((temp = stdError.readLine()) != null) {
+          System.out.println(temp);
+          }
+          
           
           p = Runtime.getRuntime().exec("rm -rf *.aux *.toc *.log *.out");
           

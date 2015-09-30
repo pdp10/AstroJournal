@@ -22,6 +22,7 @@ by a TAB delimiter. Fields can have single or double quotes.
 
 - Generation of a PDF document containing all user observation records collected by increasing target catalogue number. This is useful for comparing targets observed over time.
 - Generation of a PDF document containing all user observation reports collected by decreasing date. This is useful for visualising one’s observations by session.
+- Generation of a PDF document containing the targets observed by constellation. This is useful for checking observed and unobserved targets by constellation.
 - Generation of a txt document containing all user observation reports collected by decreasing date. This is for creating observation reports to be published in an astronomy forum (e.g. Stargazers Lounge).
 - Execution in batch mode (via command line). 
 - Windows users can use a mini graphical window including a button for running the program. This is only temporary until a proper graphical user interface is completed.
@@ -124,6 +125,7 @@ You can run AstroJournal on GNU/Linux typing:
 
 v0.8
 
+- Added report by constellation.
 - Added report of additional catalogues in astrojournal by target.
 - Added exporter to SGL report files.
 - Corrected bug in astrojournal.bat

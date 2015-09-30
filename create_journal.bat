@@ -35,6 +35,8 @@ rem set output_reports_folder_by_date="latex_reports_by_date"
 
 rem set output_reports_folder_by_target="latex_reports_by_target"
 
+rem set output_reports_folder_by_target="latex_reports_by_constellation"
+
 
 rem  
 
@@ -44,8 +46,10 @@ rem rm -f %aj_latex_file_by_date%
 
 rem rm -f %aj_latex_file_by_target%
 
+rem rm -f %aj_latex_file_by_constellation%
 
-rd astrojournal_by_date.pdf astrojournal_by_target.pdf
+
+rd astrojournal_by_date.pdf astrojournal_by_target.pdf astrojournal_by_constellation.pdf
   
 
 rem Run AstroJournal and generate the Latex code
@@ -58,6 +62,6 @@ rem> astrojournal_output.txt
 
 rem Clean the temporary and log files
 
-rem rd /q /s *.aux *.log *.out *.toc %output_reports_folder_by_date%\*.aux %output_reports_folder_by_target%\*.aux
+rem rd /q /s *.aux *.log *.out *.toc %output_reports_folder_by_date%\*.aux %output_reports_folder_by_target%\*.aux %output_reports_folder_by_constellation%\*.aux
 
 

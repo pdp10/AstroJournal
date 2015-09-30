@@ -17,15 +17,16 @@
 
 output_reports_folder_by_date="latex_reports_by_date"
 output_reports_folder_by_target="latex_reports_by_target"
+output_reports_folder_by_constellation="latex_reports_by_constellation"
 output_reports_folder_by_date_sgl="sgl_reports_by_date"
 
 
 # Clean the previous tex files
-rm -rf *.tex ${output_reports_folder_by_date}/*.tex ${output_reports_folder_by_target}/*.tex ${output_reports_folder_by_date_sgl}/*.txt
+rm -rf *.tex ${output_reports_folder_by_date}/*.tex ${output_reports_folder_by_target}/*.tex ${output_reports_folder_by_constellation}/*.tex ${output_reports_folder_by_date_sgl}/*.txt
 
 # Run AstroJournal and generate the Latex code
 java -jar astrojournal-*.jar > astrojournal_output.txt
 
 # Clean the temporary and log files
-rm -rf *.aux *.log *~ *.out *.toc ${output_reports_folder_by_date}/*.aux ${output_reports_folder_by_target}/*.aux
+rm -rf *.aux *.log *~ *.out *.toc ${output_reports_folder_by_date}/*.aux ${output_reports_folder_by_target}/*.aux ${output_reports_folder_by_target}/*.aux
 

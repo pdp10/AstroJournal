@@ -40,6 +40,8 @@ public class AJGenerator {
   private String latexReportsFolderByDate = "latex_reports_by_date";
   /** The name of the folder containing the latex observation files by target (observation output folder). */
   private String latexReportsFolderByTarget = "latex_reports_by_target";
+  /** The name of the folder containing the latex observation files by constellation (observation output folder). */
+  private String latexReportsFolderByConstellation = "latex_reports_by_constellation";
   /** The name of the folder containing the latex observation files by date (observation output folder). */
   private String sglReportsFolderByDate = "sgl_reports_by_date";
   
@@ -47,6 +49,8 @@ public class AJGenerator {
   private String latexMainByDate = "astrojournal_by_date.tex";
   /** The name of the main Latex file sorted by target. */
   private String latexMainByTarget = "astrojournal_by_target.tex";
+  /** The name of the main Latex file sorted by constellation. */
+  private String latexMainByConstellation = "astrojournal_by_constellation.tex";
   /** The name of the SGL main file sorted by date. */
   private String sglMainByDate = "astrojournal_by_date_sgl.txt";
   
@@ -58,6 +62,10 @@ public class AJGenerator {
   private String latexHeaderByTarget = "latex_header_footer/header_by_target.tex";
   /** The Latex footer with path for astrojournal by target. */
   private String latexFooterByTarget = "latex_header_footer/footer_by_target.tex";
+  /** The Latex header with path for astrojournal by constellation. */
+  private String latexHeaderByConstellation = "latex_header_footer/header_by_constellation.tex";
+  /** The Latex footer with path for astrojournal by constellation. */
+  private String latexFooterByConstellation = "latex_header_footer/footer_by_constellation.tex";
 
   /** The list of observations. */
   private ArrayList<AJObservation> observations = new ArrayList<AJObservation>(1000);
@@ -74,23 +82,26 @@ public class AJGenerator {
    * @param rawObsDir the directory containing the raw observation files (input)
    * @param latexObsByDateDir the directory containing the single observations by date in latex format (output)
    * @param latexObsByTargetDir the directory containing the single observations by target in latex format (output)
+   * @param latexObsByConstellationDir the directory containing the targets by constellation in latex format (output)
    * @param sglObsByDateDir the directory containing the single observations by date in txt format (output)
    * @return true if the observations sorted by date and by target have been exported to Latex correctly
    */
-  public boolean generateJournals(String rawObsDir, String latexObsByDateDir, String latexObsByTargetDir, String sglObsByDateDir) {
+  public boolean generateJournals(String rawObsDir, String latexObsByDateDir, String latexObsByTargetDir, String latexObsByConstellationDir, String sglObsByDateDir) {
     rawReportsFolder = rawObsDir;
     latexReportsFolderByDate = latexObsByDateDir;
     latexReportsFolderByTarget = latexObsByTargetDir;
+    latexReportsFolderByConstellation = latexObsByConstellationDir;    
     sglReportsFolderByDate = sglObsByDateDir;
     if (!importObservations()) {
       log.warn("raw observation file is not valid. Cannot generate Latex code for the observations.");
       return false;
     }
-    boolean exportedByDate=true, exportedByTarget=true, exportedByDateSGL = true;
+    boolean exportedByDate=true, exportedByTarget=true, exportedByConstellation=true, exportedByDateSGL = true;
     exportedByDate = generateJournalByDate(rawObsDir, latexObsByDateDir);
     exportedByTarget = generateJournalByTarget(rawObsDir, latexObsByTargetDir);
+    exportedByConstellation = generateJournalByConstellation(rawObsDir, latexObsByConstellationDir);    
     exportedByDateSGL = generateJournalByDateSGL(rawObsDir, sglObsByDateDir);
-    return exportedByDate && exportedByTarget && exportedByDateSGL;
+    return exportedByDate && exportedByTarget && exportedByConstellation && exportedByDateSGL;
   }
 
   /**
@@ -156,7 +167,29 @@ public class AJGenerator {
     boolean resultByTarget = ajExporterByTarget.exportObservations(observations, latexReportsFolderByTarget);
     ajExporterByTarget.generateJournal(latexReportsFolderByTarget, latexHeaderByTarget, latexMainByTarget, latexFooterByTarget);
     return resultByTarget;
-  }    
+  }   
+  
+  
+  /**
+   * Generate the Latex document sorted by constellation.
+   * @param rawObsDir the directory containing the raw observation files (input)
+   * @param latexObsByConstellationDir the directory containing the targets by constellation in latex format (output)
+   * @return true if the observations sorted by target have been exported to Latex correctly
+   */
+  public boolean generateJournalByConstellation(String rawObsDir, String latexObsByConstellationDir) {
+    rawReportsFolder = rawObsDir;
+    latexReportsFolderByConstellation = latexObsByConstellationDir;
+    if (!importObservations()) {
+      log.warn("raw observation file is not valid. Cannot generate Latex code for the observations.");
+      return false;
+    }
+    AJExporter ajExporterByConstellation= new AJExporterByConstellation();    
+    // export the imported observation by constellation to Latex
+    System.out.println("\nExporting observation by constellation:");
+    boolean resultByConstellation = ajExporterByConstellation.exportObservations(observations, latexReportsFolderByConstellation);
+    ajExporterByConstellation.generateJournal(latexReportsFolderByConstellation, latexHeaderByConstellation, latexMainByConstellation, latexFooterByConstellation);
+    return resultByConstellation;
+  } 
     
 
   /**

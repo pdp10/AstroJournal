@@ -46,6 +46,7 @@ public class AJMain {
     String rawReportsFolder = null;
     String latexReportsFolderByDate = null;    
     String latexReportsFolderByTarget = null;
+    String latexReportsFolderByConstellation = null;    
     String sglReportsFolderByDate = null;    
     try {
       if(args.length == 0) {
@@ -58,21 +59,24 @@ public class AJMain {
           }
       });
       }
-      else if(args.length == 4) {
+      else if(args.length == 5) {
         AJGenerator ajLatexGenerator = new AJGenerator();
         rawReportsFolder = args[0];
         latexReportsFolderByDate = args[1];
         latexReportsFolderByTarget = args[2];
-        sglReportsFolderByDate = args[3];        
-        ajLatexGenerator.generateJournals(rawReportsFolder, latexReportsFolderByDate, latexReportsFolderByTarget, sglReportsFolderByDate);
+        latexReportsFolderByConstellation = args[3];        
+        sglReportsFolderByDate = args[4];        
+        ajLatexGenerator.generateJournals(rawReportsFolder, latexReportsFolderByDate, latexReportsFolderByTarget, latexReportsFolderByConstellation, sglReportsFolderByDate);
         //ajLatexGenerator.generateLatexCodeByDate(rawReportsFolder, latexReportsFolderByDate);
         //ajLatexGenerator.generateLatexCodeByTarget(rawReportsFolder, latexReportsFolderByTarget);
+        //ajLatexGenerator.generateLatexCodeByTarget(rawReportsFolder, latexReportsFolderByConstellation);        
         //ajLatexGenerator.generateLatexCodeByDate(rawReportsFolder, latexReportsFolderByDateSGL);        
       } else {
         throw new Exception("Please, specify the folders : " + 
                     rawReportsFolder + "/ " + 
                     latexReportsFolderByDate + "/ " + 
-                    latexReportsFolderByTarget + "and " + 
+                    latexReportsFolderByTarget + "/ " + 
+                    latexReportsFolderByConstellation + "and " +                     
                     sglReportsFolderByDate + " as arguments.");
       }
     } catch (Exception ex) {
