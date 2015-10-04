@@ -17,6 +17,7 @@
 package org.astrojournal.generator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -84,21 +85,27 @@ public class AJExporterByConstellation implements AJExporter {
       writerByConst.write(ajLatexHeaderByConst.getHeader());
 
       // write the Latex Body
-      writerByConst.write("\\section{Targets by Constellations}\n");
-      writerByConst.write("\\vspace{4 mm}\n");
-      writerByConst.write("\\hspace{4 mm}\n");
       // parse each file in the latex obs folder
       File[] files = new File(latexReportsFolderByConst).listFiles();
       if (files == null) {
         log.warn("Folder " + latexReportsFolderByConst + " not found");
         return;
       }
+      // sort the constellations when we parse the files
+      Arrays.sort(files);
+      
+      String currConst = "", filename = "";
       // If this pathname does not denote a directory, then listFiles() returns null.
       for (File file : files) {
-        if (file.isFile() && file.getName().endsWith(".tex")) {
+        filename = file.getName();
+        if (file.isFile() && filename.endsWith(".tex")) {
+          if(!currConst.equals(filename.substring(filename.indexOf("_")+1, filename.indexOf(".")))) {
+            currConst = filename.substring(filename.indexOf("_")+1, filename.indexOf("."));
+            writerByConst.write("\\section{"+currConst+"}\n");
+          }
           // include the file removing the extension .tex
           writerByConst.write("\\input{" + latexReportsFolderByConst + "/"
-              + file.getName().replaceFirst("[.][^.]+$", "") + "}\n");
+              + filename.replaceFirst("[.][^.]+$", "") + "}\n");
           //writerByConst.write("\\clearpage \n");
         }
       }
@@ -144,15 +151,19 @@ public class AJExporterByConstellation implements AJExporter {
       String filenameOut = keys[i];
       try {
         list = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
-          new File(latexReportsByConstFolder, "const_" + filenameOut.toLowerCase() + ".tex")),
+          new File(latexReportsByConstFolder, "const_" + filenameOut + ".tex")),
           "utf-8"));
-        list.write("{\\textbf " + filenameOut + "}\n");
-        list.write("\\begin{itemize}\n");
         String[] targets = constellations.get(keys[i]).toArray(new String[0]);
+        // sort the targets here, before writing them in the file
+        Arrays.sort(targets);
+        StringBuilder listOfTargets = new StringBuilder();
         for (int j = 0; j<targets.length; j++) {
-          list.write("\\item " + targets[j] + "\n");
+          if(j==targets.length-1) 
+            listOfTargets.append(targets[j]);
+          else
+            listOfTargets.append(targets[j] + ", ");
         }
-        list.write("\\end{itemize}\n");
+        list.write(listOfTargets.toString() + "\n\n");
         System.out.println("\tExported constellation " + filenameOut);
       } catch (IOException ex) {
         System.out.println("Error when opening the file");
@@ -179,8 +190,7 @@ public class AJExporterByConstellation implements AJExporter {
    * @param observations
    *        the list of observations to exportObservation
    */
-  private void organiseTargetsByConstellation(
-    ArrayList<AJObservation> observations) {
+  private void organiseTargetsByConstellation(ArrayList<AJObservation> observations) {
     AJObservation obs = null;
     int nObservations = observations.size();
     for (int i = 0; i < nObservations; i++) {
@@ -194,21 +204,12 @@ public class AJExporterByConstellation implements AJExporter {
            item.getTarget().toLowerCase().equals("moon")) {
           continue;
         }
-        if (!constellations.containsValue(item.getConstellation())) {
+        if (!constellations.containsKey(item.getConstellation())) {
           constellations.put(item.getConstellation(), new HashSet<String>());
         }
-        // TODO 
-        // This does not currently work
-        System.out.println(item.getConstellation() + " " + item.getTarget());
-        constellations.get(item.getConstellation()).add(item.getTarget());
-        String[] s = constellations.get(item.getConstellation()).toArray(new String[0]); 
-        for (int k = 0; k < s.length; k++) {
-          System.out.println(s[k]);
-        }
-        
+        log.debug(item.getConstellation() + " " + item.getTarget() + " (" + item.getType() + ")");
+        constellations.get(item.getConstellation()).add(item.getTarget() + " (" + item.getType() + ")");
       }
     }
-    // TODO
-    // sort the data
   }
 }
