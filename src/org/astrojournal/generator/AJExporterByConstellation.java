@@ -51,13 +51,13 @@ public class AJExporterByConstellation implements AJExporter {
   /** A comparator for sorting items */ 
   private Comparator<String> itemComparator = new Comparator<String>() {
     @Override
-    public int compare(String o1, String o2) {
-      return extractInt(o1) - extractInt(o2);
-    }
-    int extractInt(String s) {
-      String num = s.replaceAll("\\D", "");
-      // return 0 if no digits found
-      return num.isEmpty() ? 0 : Integer.parseInt(num);
+    public int compare(String a, String b){
+      // if both are numbers
+      if( a.matches("\\d+") && b.matches("\\d+")) {
+          return Integer.parseInt(a) - Integer.parseInt(b);
+      }
+      // else, compare normally. 
+      return a.compareTo(b);
     }
   };
   
@@ -155,7 +155,7 @@ public class AJExporterByConstellation implements AJExporter {
           "utf-8"));
         String[] targets = constellations.get(keys[i]).toArray(new String[0]);
         // sort the targets here, before writing them in the file
-        Arrays.sort(targets);
+        Arrays.sort(targets, itemComparator);
         StringBuilder listOfTargets = new StringBuilder();
         for (int j = 0; j<targets.length; j++) {
           if(j==targets.length-1) 
@@ -201,7 +201,8 @@ public class AJExporterByConstellation implements AJExporter {
         // skip solar system targets. We only consider DSOs.
         if(item.getType().toLowerCase().equals("planet") ||
            item.getTarget().toLowerCase().equals("sun") || 
-           item.getTarget().toLowerCase().equals("moon")) {
+           item.getTarget().toLowerCase().equals("moon") || 
+           item.getTarget().toLowerCase().equals("milky way")) {
           continue;
         }
         if (!constellations.containsKey(item.getConstellation())) {
