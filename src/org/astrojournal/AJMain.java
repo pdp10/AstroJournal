@@ -60,6 +60,7 @@ public class AJMain {
       });
       }
       else if(args.length == 5) {
+	System.setProperty("java.awt.headless", "true");
         AJGenerator ajLatexGenerator = new AJGenerator();
         rawReportsFolder = args[0];
         latexReportsFolderByDate = args[1];
