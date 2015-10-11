@@ -108,7 +108,7 @@ public class AJExporterByTarget  implements AJExporter {
       for (File file : files) {
         target = file.getName();
         if (file.isFile() && target.endsWith(".tex")) {
-          if (target.matches("^(sun|moon|mercury|venus|mars|jupiter|saturn|uranus|neptune|pluto|Sun|Moon|Mercury|Venus|Mars|Jupiter|Saturn|Uranus|Neptune|Pluto).*$")) {
+          if (target.matches("^(sun|moon|mercury|venus|mars|ceres|vesta|jupiter|saturn|uranus|neptune|pluto|Sun|Moon|Mercury|Venus|Mars|Ceres|Vesta|Jupiter|Saturn|Uranus|Neptune|Pluto).*$")) {
             if (!type.equals("Solar System")) {
               type = "Solar System";
               writerByTarget.write("\\clearpage\n");
@@ -240,7 +240,9 @@ public class AJExporterByTarget  implements AJExporter {
               new File(latexReportsByTargetFolder, filenameOut + ".tex")), "utf-8"));
             if(obsItem.getType().toLowerCase().equals("planet") ||
                 obsItem.getTarget().toLowerCase().equals("moon") ||
-                obsItem.getTarget().toLowerCase().equals("sun")) {
+                obsItem.getTarget().toLowerCase().equals("sun") ||
+                obsItem.getTarget().toLowerCase().equals("asteroid") ||                
+                obsItem.getTarget().toLowerCase().equals("comet")) {
               targetWriter.write("\\subsection{" + obsItem.getTarget());
             } else if(obsItem.getType().toLowerCase().equals("star") || 
                 obsItem.getType().toLowerCase().equals("dbl star") || 
@@ -344,7 +346,9 @@ public class AJExporterByTarget  implements AJExporter {
   private String computeFileName(AJObservationItem obsItem) {
     if(obsItem.getType().toLowerCase().equals("planet") ||
         obsItem.getTarget().toLowerCase().equals("moon") ||
-        obsItem.getTarget().toLowerCase().equals("sun")) {
+        obsItem.getTarget().toLowerCase().equals("sun") ||
+        obsItem.getTarget().toLowerCase().equals("asteroid") ||        
+        obsItem.getTarget().toLowerCase().equals("comet")) {
       return obsItem.getTarget().replaceAll("\\s+","").replaceAll("/","-");
     }
     if(obsItem.getType().toLowerCase().equals("star") || 
@@ -410,7 +414,7 @@ public class AJExporterByTarget  implements AJExporter {
     String target = null;
     for(int i=0; i<files.length; i++) {
       target = files[i].getName();
-      if(target.matches("^(sun|moon|mercury|venus|mars|jupiter|saturn|uranus|neptune|pluto|Sun|Moon|Mercury|Venus|Mars|Jupiter|Saturn|Uranus|Neptune|Pluto).*$")) {
+      if(target.matches("^(sun|moon|mercury|venus|mars|ceres|vesta|jupiter|saturn|uranus|neptune|pluto|Sun|Moon|Mercury|Venus|Mars|Ceres|Vesta|Jupiter|Saturn|Uranus|Neptune|Pluto).*$")) {
         if(target.matches("^(sun|Sun)\\.tex$")) 
         { solarSystem.remove(0); solarSystem.add(0, files[i].toString()); }
         else if(target.matches("^(moon|Moon)\\.tex$")) 
@@ -421,16 +425,20 @@ public class AJExporterByTarget  implements AJExporter {
         { solarSystem.remove(3); solarSystem.add(3, files[i].toString()); }
         else if(target.matches("^(mars|Mars)\\.tex$"))  
         { solarSystem.remove(4); solarSystem.add(4, files[i].toString()); }
-        else if(target.matches("^(jupiter|Jupiter)\\.tex$")) 
+        else if(target.matches("^(ceres|Ceres)\\.tex$"))  
         { solarSystem.remove(5); solarSystem.add(5, files[i].toString()); }
-        else if(target.matches("^(saturn|Saturn)\\.tex$"))  
-        { solarSystem.remove(6); solarSystem.add(6, files[i].toString()); }
-        else if(target.matches("^(uranus|Uranus)\\.tex$"))   
+        else if(target.matches("^(vesta|Vesta)\\.tex$"))  
+        { solarSystem.remove(6); solarSystem.add(6, files[i].toString()); }        
+        else if(target.matches("^(jupiter|Jupiter)\\.tex$")) 
         { solarSystem.remove(7); solarSystem.add(7, files[i].toString()); }
-        else if(target.matches("^(neptune|Neptune)\\.tex$")) 
+        else if(target.matches("^(saturn|Saturn)\\.tex$"))  
         { solarSystem.remove(8); solarSystem.add(8, files[i].toString()); }
+        else if(target.matches("^(uranus|Uranus)\\.tex$"))   
+        { solarSystem.remove(9); solarSystem.add(9, files[i].toString()); }
+        else if(target.matches("^(neptune|Neptune)\\.tex$")) 
+        { solarSystem.remove(10); solarSystem.add(10, files[i].toString()); }
         else if(target.matches("^(pluto|Pluto)\\.tex$"))     
-        { solarSystem.remove(9); solarSystem.add(9, files[i].toString()); } 
+        { solarSystem.remove(11); solarSystem.add(11, files[i].toString()); } 
         // conjunctions
         else { solarSystem.add(files[i].toString()); }
         log.debug(target);
