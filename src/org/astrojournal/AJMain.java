@@ -16,6 +16,8 @@
  */
 package org.astrojournal;
 
+import java.io.File;
+
 import org.apache.log4j.Logger;
 import org.astrojournal.generator.AJGenerator;
 import org.astrojournal.gui.AJMiniGUI;
@@ -60,13 +62,17 @@ public class AJMain {
       });
       }
       else if(args.length == 5) {
-	System.setProperty("java.awt.headless", "true");
+        System.setProperty("java.awt.headless", "true");
         AJGenerator ajLatexGenerator = new AJGenerator();
         rawReportsFolder = args[0];
         latexReportsFolderByDate = args[1];
         latexReportsFolderByTarget = args[2];
         latexReportsFolderByConstellation = args[3];        
-        sglReportsFolderByDate = args[4];        
+        sglReportsFolderByDate = args[4];
+        new File(latexReportsFolderByDate).mkdir();
+        new File(latexReportsFolderByTarget).mkdir();    
+        new File(latexReportsFolderByConstellation).mkdir();          
+        new File(sglReportsFolderByDate).mkdir();
         ajLatexGenerator.generateJournals(rawReportsFolder, latexReportsFolderByDate, latexReportsFolderByTarget, latexReportsFolderByConstellation, sglReportsFolderByDate);
         //ajLatexGenerator.generateLatexCodeByDate(rawReportsFolder, latexReportsFolderByDate);
         //ajLatexGenerator.generateLatexCodeByTarget(rawReportsFolder, latexReportsFolderByTarget);
