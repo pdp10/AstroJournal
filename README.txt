@@ -1,5 +1,9 @@
 https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
 
+RUN: 
+java -cp lib/log4j-1.2.16.jar:target/astrojournal-1.0-SNAPSHOT.jar org.astrojournal.AJMain
+
+
 # AstroJournal
 
 Author: Piero Dalle Pezze
