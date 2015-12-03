@@ -195,21 +195,3 @@ is supported. In this way, you can create an observation log per month or
 two (keeping the google spreadsheet short), and add the exported tsv file 
 to the folder tsv_files
 
-
-
-## Iced features:
-
-- Insert a new observation session using a GUI. All observations are stored in a csv (or tsv) file.
-- Have a GUI view where the previous observations can be visualised and edited.
-
-
-
-## Open bugs:
-
-
-
-## Close bugs:
-
-- LaTeX long table can generate an empty page if the current table spans 
-until the end of the page. This empty page should be removed. [SOLVED] 
-Replaced \begin{centre} ... \end{centre} with \centering for longtable.
