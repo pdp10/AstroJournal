@@ -108,7 +108,7 @@ For windows users who installed MikTeX, the LaTeX packages url and mptopdf must 
 MikTeX Manager.
 
 You can clone AstroJournal repository with the git command:
-git clone https://pdp10@bitbucket.org/pdp10/astrojournal.git
+git clone https://github.com/pdp10/AstroJournal.git
 
 To compile AstroJournal on GNU/Linux type:
 ant jar
