@@ -6,7 +6,6 @@ Author: Piero Dalle Pezze
 Licence: GPL v3 (2015)
 
 
-
 ## Description:
 This Java application imports files containing astronomy observations 
 and generates an integrated journal document in PDF format using LaTeX. 
