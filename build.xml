@@ -200,7 +200,7 @@ Created by Piero Dalle Pezze (pdp10)
 			<fileset dir="${src.latex_reports_by_constellation}" includes="*.tex *.aux"/>
 		</delete>				
 		<delete includeEmptyDirs="true" quiet="yes">
-			<fileset dir="${basedir}" includes="*pdf *tex *tsv *.aux *~ *.log *.toc *sgl.txt *output.txt latex_reports* sgl_reports*"/>
+			<fileset dir="${basedir}" includes="*pdf *tex *tsv *.aux *.out *~ *.log *.toc *sgl.txt *output.txt latex_reports* sgl_reports*"/>
 		</delete>		
 	</target>
 </project>
