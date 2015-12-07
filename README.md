@@ -2,10 +2,11 @@
 # AstroJournal
 
 Author: Piero Dalle Pezze
+
 Licence: GPL v3 (2015)
 
 
-## Description:
+### Description
 This Java application imports files containing astronomy observations 
 and generates an integrated journal document in PDF format using LaTeX. 
 Observation files can be edited using a common Spreadsheet software 
@@ -16,7 +17,7 @@ by a TAB delimiter. Fields can have single or double quotes.
 
 
 
-## Features
+### Features
 
 - Generation of a PDF document containing all user observation records collected by increasing target catalogue number. This is useful for comparing targets observed over time.
 - Generation of a PDF document containing all user observation reports collected by decreasing date. This is useful for visualising one’s observations by session.
@@ -30,7 +31,7 @@ by a TAB delimiter. Fields can have single or double quotes.
  
 
 
-## Requirements for using AstroJournal:
+### Requirements
 To use AstroJournal you need to install:
 
 - [Java 1.7+](https://java.com/en/download/)
@@ -43,30 +44,34 @@ MikTeX Manager.
 You can download the latest version of this software application [here](https://github.com/pdp10/AstroJournal/archive/master.zip). After downloading and uncompressing the file, you can run AstroJournal by typing:
 
 ```
-# Then, if you are using GNU/Linux or MAC OS X, you can run AstroJournal on GNU/Linux typing (or clicking the icon):
+# On GNU/Linux or MAC OS X, run AstroJournal typing (or clicking the icon):
 ./create_journal.sh
 ```
 or 
 ```
-# or if you are using Windows, click on:
+# On Windows, click on the icon:
 create_journal.bat
 ```
 
-This will start a very basic window with 1 button to generate the journals.
+This will start a very basic window to generate the journals.
 
 
-## How to create an observation record:
+### Create an observation record
 As currently implemented, the format of the observation tables is 
-specific. A sample of an observation table is provides below. The 
-titles (Date, Time, Location, Altitude, Temperature, Seeing, 
+specific. 
+
+The titles (Date, Time, Location, Altitude, Temperature, Seeing, 
 Transparency, Telescopes, Eyepieces, Filters, Target, Cons, Type, Power, 
 and Notes) cannot be changed as these are used by AstroJournal to 
-retrieve the data. All fields are separated by a tab character (\t) 
+retrieve the data. All fields are separated by a tab character (TAB) 
 explicitly shown in this example with a text when this must be included.
+
 You can find samples of these files in the folder [raw_reports](https://github.com/pdp10/AstroJournal/tree/master/raw_reports/?at=master), which is AstroJournal input folder.
+
 These files can be edited with any spreadsheet (e.g. Google SpreadSheet, 
 MS Excel, LibreOffice SpreadSheet) or a common text editor 
 (e.g. MS Wordpad, Emacs, Kate, or GEdit). 
+
 To customise the document header and footer, please look at the 
 folder latex_header_footer to find the LaTeX files for the header 
 and footer. Also these files can be edited with any common text 
@@ -74,18 +79,22 @@ editor.
 
 
 
-## Use case
+### Use case
 Here are some guidelines for using AstroJournal:
+
 1. Report your observations (with the structure of my tsv or csv file) using a spreadsheet program, such as MS Excel, Libreoffice Spreadsheet, or Google Spreadsheet. Alternatively you can use a common text editor (e.g. Wordpad, GNU Emacs, Kate, etc.) as long as the fields are the same as in the samples provided in the raw_report and that each field is separated using a TAB character.
+
 2. Export your file as tsv (if using Google Spreadsheet) or csv. In the latter case, when asked, select tab as field delimiter.
+
 3. Put this file in the folder raw_reports.
+
 4. In the main astrojournal folder type the command above ./create_journal.sh or ./create_journal.bat .
 
 
 
-# Development:
+# Development
 
-## Requirements for compiling AstroJournal:
+### Requirements for compiling AstroJournal
 To compile AstroJournal you need to install:
 
 - [Git](https://git-scm.com/downloads)
@@ -120,7 +129,7 @@ You can run AstroJournal on GNU/Linux typing:
 ```
 
 
-## ChangeLog:
+### ChangeLog:
 
 v0.8
 
