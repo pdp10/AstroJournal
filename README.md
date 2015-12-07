@@ -2,7 +2,6 @@
 # AstroJournal
 
 Author: Piero Dalle Pezze
-
 Licence: GPL v3 (2015)
 
 
@@ -34,17 +33,24 @@ by a TAB delimiter. Fields can have single or double quotes.
 ## Requirements for using AstroJournal:
 To use AstroJournal you need to install:
 
-- Java 1.7+
-- TeX Live (for Linux Users) or MikTeX (for Windows Users) (pdflatex must be installed)
+- [Java 1.7+](https://java.com/en/download/)
+
+- [TeX Live](http://www.tug.org/texlive/) (for Linux Users) or [MikTeX](http://miktex.org/download) (for Windows Users) (pdflatex must be installed)
 
 For windows users who installed MikTeX, the LaTeX packages url and mptopdf must be installed using the 
 MikTeX Manager.
 
-Then, if you are using GNU/Linux or MAC OS X, you can run AstroJournal on GNU/Linux typing (or clicking the icon):
-./create_journal.sh
+You can download the latest version of this software application [here](https://github.com/pdp10/AstroJournal/archive/master.zip). After downloading and uncompressing the file, you can run AstroJournal by typing:
 
-or if you are using Windows, click on:
+```
+# Then, if you are using GNU/Linux or MAC OS X, you can run AstroJournal on GNU/Linux typing (or clicking the icon):
+./create_journal.sh
+```
+or 
+```
+# or if you are using Windows, click on:
 create_journal.bat
+```
 
 This will start a very basic window with 1 button to generate the journals.
 
@@ -57,23 +63,7 @@ Transparency, Telescopes, Eyepieces, Filters, Target, Cons, Type, Power,
 and Notes) cannot be changed as these are used by AstroJournal to 
 retrieve the data. All fields are separated by a tab character (\t) 
 explicitly shown in this example with a text when this must be included.
-An example of observation is as follows:
-
-Date	03/06/2015
-Time	21:40-23:30
-Location	Cambridge, UK
-Altitude	12m
-Temperature	12C (wind: 0km/h)
-Seeing	1 - Perfect seeing
-Transparency	5 - Clear
-Telescopes	Tele Vue 60 F6
-Eyepieces	TV Panoptic 24mm, Nagler 3.5mm
-Filters	Single Polarising Filter
-Target	Cons	Type	Power	Notes
-Jupiter	Cnc	Planet	103x +/- SPF	Write description here.
-Moon	Sgr	Satellite	103x	Write description here.
-
-Examples of observations can also be found in the folder raw_folder/ .
+You can find samples of these files in the folder [raw_reports](https://github.com/pdp10/AstroJournal/tree/master/raw_reports/?at=master), which is AstroJournal input folder.
 These files can be edited with any spreadsheet (e.g. Google SpreadSheet, 
 MS Excel, LibreOffice SpreadSheet) or a common text editor 
 (e.g. MS Wordpad, Emacs, Kate, or GEdit). 
@@ -98,26 +88,36 @@ Here are some guidelines for using AstroJournal:
 ## Requirements for compiling AstroJournal:
 To compile AstroJournal you need to install:
 
-- Java 1.7+
-- TeX Live (for Linux Users) or MikTeX (for Windows Users) (pdflatex must be installed)
-- Apache Ant
-- Git
+- [Git](https://git-scm.com/downloads)
+
+- [Java 1.7+](https://java.com/en/download/)
+
+- [Ant](http://ant.apache.org/)
+
+- [TeX Live](http://www.tug.org/texlive/) (for Linux Users) or [MikTeX](http://miktex.org/download) (for Windows Users) (pdflatex must be installed)
 
 For windows users who installed MikTeX, the LaTeX packages url and mptopdf must be installed using the 
 MikTeX Manager.
 
-You can clone AstroJournal repository with the git command:
+To clone AstroJournal repository:
+```
 git clone https://github.com/pdp10/AstroJournal.git
+```
 
 To compile AstroJournal on GNU/Linux type:
+```
 ant jar
+```
 
 To read the source code documentation type:
+```
 ant javadoc
+```
 
 You can run AstroJournal on GNU/Linux typing:
+```
 ./create_journal.sh
-
+```
 
 
 ## ChangeLog:
