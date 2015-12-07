@@ -92,9 +92,9 @@ Here are some guidelines for using AstroJournal:
 
 
 
-# Development
+# Develop AstroJournal
 
-### Requirements for compiling AstroJournal
+### Requirements
 To compile AstroJournal you need to install:
 
 - [Git](https://git-scm.com/downloads)
@@ -107,6 +107,8 @@ To compile AstroJournal you need to install:
 
 For windows users who installed MikTeX, the LaTeX packages url and mptopdf must be installed using the 
 MikTeX Manager.
+
+### Clone & Compile
 
 To clone AstroJournal repository:
 ```
@@ -129,7 +131,7 @@ You can run AstroJournal on GNU/Linux typing:
 ```
 
 
-### ChangeLog:
+### Changelog
 
 v0.8
 
