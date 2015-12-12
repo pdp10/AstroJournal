@@ -90,6 +90,7 @@ public class AJMiniGUI extends JFrame {
     setResizable(true);
     getContentPane().setLayout(new BorderLayout());
 
+
     // Create the status bar
     statusPanel = new StatusPanel();
     
@@ -100,7 +101,7 @@ public class AJMiniGUI extends JFrame {
     txtArea.setWrapStyleWord(true);
     JScrollPane scrollPane = new JScrollPane(txtArea);
     scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-    
+
     
     // Create the checkbox for printing the Latex output
     cbxLatexOutput = new JCheckBox();
@@ -128,6 +129,10 @@ public class AJMiniGUI extends JFrame {
           commandRunner.createJournal(latexOutput);
       }
     });
+    // Set this button as default. So if one presses <ENTER> 
+    // automatically presses this button! :)
+    getRootPane().setDefaultButton(btnCreateJournal);    
+    
     
     // Create the button for closing the application
     btnClose = new JButton();
