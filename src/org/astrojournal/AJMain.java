@@ -18,7 +18,6 @@ package org.astrojournal;
 
 
 import org.apache.log4j.Logger;
-import org.astrojournal.generator.AJGenerator;
 import org.astrojournal.gui.AJMiniGUI;
 
 /**
@@ -32,18 +31,31 @@ public class AJMain {
 
   /** The log associated to this class */
   private static Logger log = Logger.getLogger(AJMain.class);
+
+
+  /**
+   * Start AJMiniGUI.
+   */
+  private static void startAJMiniGUI() {
+    // enable anti-aliased text:
+    System.setProperty("awt.useSystemAAFontSettings","gasp");
+    System.setProperty("swing.aatext", "true");
+    java.awt.EventQueue.invokeLater(new Runnable() {
+      @Override
+      public void run() {
+          new AJMiniGUI().setVisible(true);
+      }
+    });
+  }
   
   /** 
-   * Main function. If no arguments are passed, the graphical user interface is started. 
-   * Otherwise, if a list of 4 arguments representing the input and output folders is passed, 
-   * then it runs as command line. 
+   * Main function. By default AstroJournal mini GUI is started. 
+   * A list of 5 arguments representing the input (1) and output (4) folders can also be passed 
+   * as input parameters.
    * @param args 
    */
   public static void main(String[] args) {
     
-    // Depending on args, this class invokes AJMainGUI or runs as a Batch program.
-    // if no args is passed, run AJMainGUI.
-     
     String rawReportsFolder = "raw_reports_folder";
     String latexReportsFolderByDate = "latex_report_folder_by_date";    
     String latexReportsFolderByTarget = "latex_report_folder_by_target";
@@ -51,27 +63,16 @@ public class AJMain {
     String sglReportsFolderByDate = "sgl_report_folder_by_date";    
     try {
       if(args.length == 0) {
-        // enable anti-aliased text:
-        System.setProperty("awt.useSystemAAFontSettings","gasp");
-        System.setProperty("swing.aatext", "true");
-        java.awt.EventQueue.invokeLater(new Runnable() {
-          @Override
-          public void run() {
-              new AJMiniGUI().setVisible(true);
-          }
-      });
+        startAJMiniGUI();
       }
       else if(args.length == 5) {
-        // Use the command line
-        System.setProperty("java.awt.headless", "true");
-        
-        AJConfig.getInstance().rawReportsFolder = args[0];
-        AJConfig.getInstance().latexReportsFolderByDate = args[1];
-        AJConfig.getInstance().latexReportsFolderByTarget = args[2];
-        AJConfig.getInstance().latexReportsFolderByConstellation = args[3];
-        AJConfig.getInstance().sglReportsFolderByDate = args[4];
-        AJGenerator ajLatexGenerator = new AJGenerator();
-        ajLatexGenerator.generateJournals();
+        // set AJ properties
+        System.setProperty("aj.raw_reports_folder", args[0]);
+        System.setProperty("aj.latex_reports_folder_by_date", args[1]);
+        System.setProperty("aj.latex_reports_folder_by_target", args[2]);
+        System.setProperty("aj.latex_reports_folder_by_constellation", args[3]);
+        System.setProperty("aj.sgl_reports_folder_by_date", args[4]);
+        startAJMiniGUI();
       } else {
         throw new Exception("Please, specify the folders : " + 
                     rawReportsFolder + "/ " + 
