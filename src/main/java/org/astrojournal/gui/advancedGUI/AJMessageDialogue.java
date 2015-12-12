@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package org.astrojournal.gui;
+package org.astrojournal.gui.advancedGUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

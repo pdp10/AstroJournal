@@ -1,8 +1,3 @@
-https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
-
-RUN: 
-java -cp lib/log4j-1.2.16.jar:target/astrojournal-1.0-SNAPSHOT.jar org.astrojournal.AJMain
-
 
 # AstroJournal
 
@@ -11,8 +6,7 @@ Author: Piero Dalle Pezze
 Licence: GPL v3 (2015)
 
 
-
-## Description:
+### Description
 This Java application imports files containing astronomy observations 
 and generates an integrated journal document in PDF format using LaTeX. 
 Observation files can be edited using a common Spreadsheet software 
@@ -23,66 +17,60 @@ by a TAB delimiter. Fields can have single or double quotes.
 
 
 
-## Features
+### Features
 
+- A simple graphical interface for running the program is provided. 
 - Generation of a PDF document containing all user observation records collected by increasing target catalogue number. This is useful for comparing targets observed over time.
 - Generation of a PDF document containing all user observation reports collected by decreasing date. This is useful for visualising one’s observations by session.
 - Generation of a PDF document containing the targets observed by constellation. This is useful for checking observed and unobserved targets by constellation.
 - Generation of a txt document containing all user observation reports collected by decreasing date. This is for creating observation reports to be published in an astronomy forum (e.g. Stargazers Lounge).
-- Execution in batch mode (via command line). 
-- Windows users can use a mini graphical window including a button for running the program. This is only temporary until a proper graphical user interface is completed.
 - Complete lists of Messier objects and Caldwell selection of NGC targets are included at the end of the generated PDF documents.
 - Although the program requires some form of structured input file, this is intentionally minimal in order to not distract the user who wants to insert his / her data rather than thinking of how to format this data. All input data is treated as a string and therefore is not parsed for controls. This leaves the freedom to the user to introduce the data content as s/he wish. For instance, although in each document header I use the Antoniadi Scale for Seeing, this can be trivially overridden with a customised one. The inserted value for the seeing is not controlled according to a specific scale. 
 - Possibility to edit the document header and the footer according to one’s need. This must be done in LaTex for preserving the format controls in the final output file.
  
 
 
-## Requirements for using AstroJournal:
+### Requirements
 To use AstroJournal you need to install:
 
-- Java 1.7+
-- TeX Live (for Linux Users) or MikTeX (for Windows Users) (pdflatex must be installed)
+- [Java 1.7+](https://java.com/en/download/)
+
+- [TeX Live](http://www.tug.org/texlive/) (for Linux Users) or [MikTeX](http://miktex.org/download) (for Windows Users) (pdflatex must be installed)
 
 For windows users who installed MikTeX, the LaTeX packages url and mptopdf must be installed using the 
 MikTeX Manager.
 
-Then, if you are using GNU/Linux or MAC OS X, you can run AstroJournal on GNU/Linux typing (or clicking the icon):
+You can download the latest version of this software application [here](https://github.com/pdp10/AstroJournal/archive/master.zip). After downloading and uncompressing the file, you can run AstroJournal by typing:
+
+```
+# On GNU/Linux or MAC OS X, run AstroJournal typing (or clicking the icon):
 ./create_journal.sh
-
-or if you are using Windows, click on:
+```
+or 
+```
+# On Windows, click on the icon:
 create_journal.bat
+```
 
-This will start a very basic window with 1 button to generate the journals.
+This will start a very basic window to generate the journals.
 
 
-## How to create an observation record:
+### Create an observation record
 As currently implemented, the format of the observation tables is 
-specific. A sample of an observation table is provides below. The 
-titles (Date, Time, Location, Altitude, Temperature, Seeing, 
+specific. 
+
+The titles (Date, Time, Location, Altitude, Temperature, Seeing, 
 Transparency, Telescopes, Eyepieces, Filters, Target, Cons, Type, Power, 
 and Notes) cannot be changed as these are used by AstroJournal to 
-retrieve the data. All fields are separated by a tab character (\t) 
+retrieve the data. All fields are separated by a tab character (TAB) 
 explicitly shown in this example with a text when this must be included.
-An example of observation is as follows:
 
-Date	03/06/2015
-Time	21:40-23:30
-Location	Cambridge, UK
-Altitude	12m
-Temperature	12C (wind: 0km/h)
-Seeing	1 - Perfect seeing
-Transparency	5 - Clear
-Telescopes	Tele Vue 60 F6
-Eyepieces	TV Panoptic 24mm, Nagler 3.5mm
-Filters	Single Polarising Filter
-Target	Cons	Type	Power	Notes
-Jupiter	Cnc	Planet	103x +/- SPF	Write description here.
-Moon	Sgr	Satellite	103x	Write description here.
+You can find samples of these files in the folder [raw_reports](https://github.com/pdp10/AstroJournal/tree/master/raw_reports/?at=master), which is AstroJournal input folder.
 
-Examples of observations can also be found in the folder raw_folder/ .
 These files can be edited with any spreadsheet (e.g. Google SpreadSheet, 
 MS Excel, LibreOffice SpreadSheet) or a common text editor 
 (e.g. MS Wordpad, Emacs, Kate, or GEdit). 
+
 To customise the document header and footer, please look at the 
 folder latex_header_footer to find the LaTeX files for the header 
 and footer. Also these files can be edited with any common text 
@@ -90,46 +78,70 @@ editor.
 
 
 
-## Use case
+### Use case
 Here are some guidelines for using AstroJournal:
+
 1. Report your observations (with the structure of my tsv or csv file) using a spreadsheet program, such as MS Excel, Libreoffice Spreadsheet, or Google Spreadsheet. Alternatively you can use a common text editor (e.g. Wordpad, GNU Emacs, Kate, etc.) as long as the fields are the same as in the samples provided in the raw_report and that each field is separated using a TAB character.
+
 2. Export your file as tsv (if using Google Spreadsheet) or csv. In the latter case, when asked, select tab as field delimiter.
+
 3. Put this file in the folder raw_reports.
+
 4. In the main astrojournal folder type the command above ./create_journal.sh or ./create_journal.bat .
 
 
 
-# Development:
+# Develop AstroJournal
 
-## Requirements for compiling AstroJournal:
+### Requirements
 To compile AstroJournal you need to install:
 
-- Java 1.7+
-- TeX Live (for Linux Users) or MikTeX (for Windows Users) (pdflatex must be installed)
-- Apache Ant
-- Git
+- [Git](https://git-scm.com/downloads)
+
+- [Java 1.7+](https://java.com/en/download/)
+
+- [Ant](http://ant.apache.org/)
+
+- [TeX Live](http://www.tug.org/texlive/) (for Linux Users) or [MikTeX](http://miktex.org/download) (for Windows Users) (pdflatex must be installed)
 
 For windows users who installed MikTeX, the LaTeX packages url and mptopdf must be installed using the 
 MikTeX Manager.
 
-You can clone AstroJournal repository with the git command:
-git clone https://pdp10@bitbucket.org/pdp10/astrojournal.git
+### Clone & Compile
+
+To clone AstroJournal repository:
+```
+git clone https://github.com/pdp10/AstroJournal.git
+```
 
 To compile AstroJournal on GNU/Linux type:
+```
 ant jar
+```
 
 To read the source code documentation type:
+```
 ant javadoc
+```
 
 You can run AstroJournal on GNU/Linux typing:
+```
 ./create_journal.sh
+```
 
 
+### Changelog
 
-## ChangeLog:
+v0.9
+
+- Improved the AJ mini GUI to also report the program output graphically. 
+- Added a configuration class for managing the program parameters.
+- Fixed a bug related to file names of galaxies. 
+- AJ now supports input parameters but also Java options. 
 
 v0.8
 
+- Input/output folders can also be passed as Java options.
 - Added report by constellation.
 - Added report of additional catalogues in astrojournal by target.
 - Added exporter to SGL report files.
@@ -200,21 +212,3 @@ is supported. In this way, you can create an observation log per month or
 two (keeping the google spreadsheet short), and add the exported tsv file 
 to the folder tsv_files
 
-
-
-## Iced features:
-
-- Insert a new observation session using a GUI. All observations are stored in a csv (or tsv) file.
-- Have a GUI view where the previous observations can be visualised and edited.
-
-
-
-## Open bugs:
-
-
-
-## Close bugs:
-
-- LaTeX long table can generate an empty page if the current table spans 
-until the end of the page. This empty page should be removed. [SOLVED] 
-Replaced \begin{centre} ... \end{centre} with \centering for longtable.

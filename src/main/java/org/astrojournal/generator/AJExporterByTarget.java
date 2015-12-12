@@ -249,8 +249,9 @@ public class AJExporterByTarget  implements AJExporter {
                 obsItem.getType().toLowerCase().equals("mlt star")) {
               targetWriter.write("\\subsection{" + obsItem.getConstellation());
               targetWriter.write(", " + obsItem.getTarget());
-            } else if(obsItem.getType().toLowerCase().equals("galaxy") || 
+            } else if(obsItem.getType().toLowerCase().equals("galaxy") && 
                 obsItem.getTarget().toLowerCase().equals("milky way")) {
+              // Don't print the constellation if we are processing the milky way! 
               targetWriter.write("\\subsection{" + obsItem.getTarget());
             } else {
               targetWriter.write("\\subsection{" + obsItem.getTarget());
@@ -358,8 +359,9 @@ public class AJExporterByTarget  implements AJExporter {
         obsItem.getType().toLowerCase().equals("mlt star")) {
       return obsItem.getConstellation() + "_" + obsItem.getTarget().replaceAll("\\s+","").replaceAll("/","-");
     }
-    if(obsItem.getType().toLowerCase().equals("galaxy") || 
+    if(obsItem.getType().toLowerCase().equals("galaxy") &&  
         obsItem.getTarget().toLowerCase().equals("milky way")) {
+      // Don't print the constellation if we are processing the milky way! 
       return obsItem.getTarget().replaceAll("\\s+","").replaceAll("/","-");
     }
     return obsItem.getTarget().replaceAll("\\s+","").replaceAll("/","-") + "_" + obsItem.getConstellation();
