@@ -18,6 +18,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import org.apache.commons.io.FilenameUtils;
+import org.astrojournal.AJConfig;
 import org.astrojournal.generator.AJGenerator;
 import org.astrojournal.utilities.ConsoleOutputCapturer;
 
@@ -61,25 +63,31 @@ public class AJMiniGUIControls {
         // The pdflatex command must be called two times in order to
         // generate the list of contents correctly.
         String commandOutput;
-        commandOutput = runCommand("pdflatex astrojournal_by_date.tex");
+        commandOutput = runCommand("pdflatex " + AJConfig.getInstance().latexMainByDate);
         if(latexOutput) ajMiniGUI.appendText(commandOutput + "\n");
-        commandOutput = runCommand("pdflatex astrojournal_by_date.tex");
+        commandOutput = runCommand("pdflatex " + AJConfig.getInstance().latexMainByDate);
         //if(latexOutput) ajMiniGUI.appendText(commandOutput + "\n");
         
-        commandOutput = runCommand("pdflatex astrojournal_by_target.tex");
+        commandOutput = runCommand("pdflatex " + AJConfig.getInstance().latexMainByTarget);
         if(latexOutput) ajMiniGUI.appendText(commandOutput + "\n");
-        commandOutput = runCommand("pdflatex astrojournal_by_target.tex");
+        commandOutput = runCommand("pdflatex " + AJConfig.getInstance().latexMainByTarget);
         //if(latexOutput) ajMiniGUI.appendText(commandOutput + "\n");
         
-        commandOutput = runCommand("pdflatex astrojournal_by_constellation.tex");
+        commandOutput = runCommand("pdflatex " + AJConfig.getInstance().latexMainByConstellation);
         if(latexOutput) ajMiniGUI.appendText(commandOutput + "\n");
-        commandOutput = runCommand("pdflatex astrojournal_by_constellation.tex");
+        commandOutput = runCommand("pdflatex " + AJConfig.getInstance().latexMainByConstellation);
         //if(latexOutput) ajMiniGUI.appendText(commandOutput + "\n");
+        
+        // Add this at the end to avoid mixing with the latex command output.
+        ajMiniGUI.appendText("Created reports: \n");
+        ajMiniGUI.appendText("\t" + FilenameUtils.removeExtension(AJConfig.getInstance().latexMainByDate) + ".pdf\n");
+        ajMiniGUI.appendText("\t" + FilenameUtils.removeExtension(AJConfig.getInstance().latexMainByTarget) + ".pdf\n");
+        ajMiniGUI.appendText("\t" + FilenameUtils.removeExtension(AJConfig.getInstance().latexMainByConstellation) + ".pdf\n");
         
         commandOutput = runCommand("rm -rf *.aux *.toc *.log *.out");
         //if(latexOutput) ajMiniGUI.appendText(commandOutput + "\n");
         
-        ajMiniGUI.setStatusPanelText("Journals should be created!");
+        ajMiniGUI.setStatusPanelText("Journals should be created! Check pdf documents.");
     } catch (IOException ioe) { }
   }
   
