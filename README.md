@@ -19,12 +19,11 @@ by a TAB delimiter. Fields can have single or double quotes.
 
 ### Features
 
+- A simple graphical interface for running the program is provided. 
 - Generation of a PDF document containing all user observation records collected by increasing target catalogue number. This is useful for comparing targets observed over time.
 - Generation of a PDF document containing all user observation reports collected by decreasing date. This is useful for visualising one’s observations by session.
 - Generation of a PDF document containing the targets observed by constellation. This is useful for checking observed and unobserved targets by constellation.
 - Generation of a txt document containing all user observation reports collected by decreasing date. This is for creating observation reports to be published in an astronomy forum (e.g. Stargazers Lounge).
-- Execution in batch mode (via command line). 
-- A mini graphical window for running the program is provided.
 - Complete lists of Messier objects and Caldwell selection of NGC targets are included at the end of the generated PDF documents.
 - Although the program requires some form of structured input file, this is intentionally minimal in order to not distract the user who wants to insert his / her data rather than thinking of how to format this data. All input data is treated as a string and therefore is not parsed for controls. This leaves the freedom to the user to introduce the data content as s/he wish. For instance, although in each document header I use the Antoniadi Scale for Seeing, this can be trivially overridden with a customised one. The inserted value for the seeing is not controlled according to a specific scale. 
 - Possibility to edit the document header and the footer according to one’s need. This must be done in LaTex for preserving the format controls in the final output file.
@@ -133,9 +132,15 @@ You can run AstroJournal on GNU/Linux typing:
 
 ### Changelog
 
-v0.8
+v0.9
 
 - Improved the AJ mini GUI to also report the program output graphically. 
+- Added a configuration class for managing the program parameters.
+- Fixed a bug related to file names of galaxies. 
+- AJ now supports input parameters but also Java options. 
+
+v0.8
+
 - Input/output folders can also be passed as Java options.
 - Added report by constellation.
 - Added report of additional catalogues in astrojournal by target.
