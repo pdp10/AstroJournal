@@ -15,6 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with AstroJournal.  If not, see <http://www.gnu.org/licenses/>.
 
+
+LIB="lib";
+
+
 input_report_folder="./raw_reports"
 output_reports_folder_by_date="./latex_reports_by_date"
 output_reports_folder_by_target="./latex_reports_by_target"
@@ -22,11 +26,13 @@ output_reports_folder_by_constellation="./latex_reports_by_constellation"
 output_reports_folder_by_date_sgl="./sgl_reports_by_date"
 
 
-# Clean the previous tex files
-rm -rf *.tex ${output_reports_folder_by_date}/*.tex ${output_reports_folder_by_target}/*.tex ${output_reports_folder_by_constellation}/*.tex ${output_reports_folder_by_date_sgl}/*.txt
+#params="${input_report_folder} ${output_reports_folder_by_date} ${output_reports_folder_by_target} ${output_reports_folder_by_constellation} ${output_reports_folder_by_date_sgl}"
+# Note: it is also possible to set up the folders as -D java options (e.g. aj.raw_reports)
 
-
-params="${input_report_folder} ${output_reports_folder_by_date} ${output_reports_folder_by_target} ${output_reports_folder_by_constellation} ${output_reports_folder_by_date_sgl}"
+for i in $LIB/*.jar; do
+    CLASSPATH=$CLASSPATH:$i
+done
+CLASSPATH=`echo $CLASSPATH | cut -c2-`
 
 
 # Run AstroJournal and generate the Latex code
