@@ -85,7 +85,7 @@ public class AJMiniGUI extends JFrame {
     
     // Configure AJMiniGUI with basic parameters
     setTitle(AJConfig.getInstance().applicationName + " " + AJConfig.getInstance().applicationVersion);
-    setIconImage(new ImageIcon(ClassLoader.getSystemResource("src/resources/aj_icon.png")).getImage());
+    setIconImage(new ImageIcon(ClassLoader.getSystemResource("aj_icon.png")).getImage());
     setSize(600,600);
     setMinimumSize(new Dimension(480, 300));
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
