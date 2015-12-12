@@ -34,12 +34,13 @@ import org.astrojournal.observation.AJObservationItem;
 public class AJTabSeparatedValueImporter extends AJImporter {
 
   /** The log associated to this class */
-  private static Logger   log            = Logger.getLogger(AJTabSeparatedValueImporter.class);
+  private static Logger log = Logger.getLogger(AJTabSeparatedValueImporter.class);
 
 
   /** Default constructor */
   public AJTabSeparatedValueImporter() {
     super();
+    System.out.println("Importing observation files:"); 
   }
   
   
@@ -68,7 +69,7 @@ public class AJTabSeparatedValueImporter extends AJImporter {
      
       // Get the current file name.
       String rawFilename = file.getName();
-      System.out.println("Processing file " + rawFilename);
+      System.out.println("\t" + rawFilename);
       // Create a buffered reader to read the file
       BufferedReader reader = null;
       try {

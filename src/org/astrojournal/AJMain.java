@@ -16,7 +16,6 @@
  */
 package org.astrojournal;
 
-import java.io.File;
 
 import org.apache.log4j.Logger;
 import org.astrojournal.generator.AJGenerator;
@@ -44,40 +43,35 @@ public class AJMain {
     
     // Depending on args, this class invokes AJMainGUI or runs as a Batch program.
     // if no args is passed, run AJMainGUI.
-    
-    String rawReportsFolder = null;
-    String latexReportsFolderByDate = null;    
-    String latexReportsFolderByTarget = null;
-    String latexReportsFolderByConstellation = null;    
-    String sglReportsFolderByDate = null;    
+     
+    String rawReportsFolder = "raw_reports_folder";
+    String latexReportsFolderByDate = "latex_report_folder_by_date";    
+    String latexReportsFolderByTarget = "latex_report_folder_by_target";
+    String latexReportsFolderByConstellation = "latex_report_folder_by_constellation";    
+    String sglReportsFolderByDate = "sgl_report_folder_by_date";    
     try {
       if(args.length == 0) {
+        // enable anti-aliased text:
+        System.setProperty("awt.useSystemAAFontSettings","gasp");
+        System.setProperty("swing.aatext", "true");
         java.awt.EventQueue.invokeLater(new Runnable() {
           @Override
           public void run() {
-          // TODO: for now we use the mini GUI. 
-//              new AJMainGUI().setVisible(true);
               new AJMiniGUI().setVisible(true);
           }
       });
       }
       else if(args.length == 5) {
+        // Use the command line
         System.setProperty("java.awt.headless", "true");
+        
+        AJConfig.getInstance().rawReportsFolder = args[0];
+        AJConfig.getInstance().latexReportsFolderByDate = args[1];
+        AJConfig.getInstance().latexReportsFolderByTarget = args[2];
+        AJConfig.getInstance().latexReportsFolderByConstellation = args[3];
+        AJConfig.getInstance().sglReportsFolderByDate = args[4];
         AJGenerator ajLatexGenerator = new AJGenerator();
-        rawReportsFolder = args[0];
-        latexReportsFolderByDate = args[1];
-        latexReportsFolderByTarget = args[2];
-        latexReportsFolderByConstellation = args[3];        
-        sglReportsFolderByDate = args[4];
-        new File(latexReportsFolderByDate).mkdir();
-        new File(latexReportsFolderByTarget).mkdir();    
-        new File(latexReportsFolderByConstellation).mkdir();          
-        new File(sglReportsFolderByDate).mkdir();
-        ajLatexGenerator.generateJournals(rawReportsFolder, latexReportsFolderByDate, latexReportsFolderByTarget, latexReportsFolderByConstellation, sglReportsFolderByDate);
-        //ajLatexGenerator.generateLatexCodeByDate(rawReportsFolder, latexReportsFolderByDate);
-        //ajLatexGenerator.generateLatexCodeByTarget(rawReportsFolder, latexReportsFolderByTarget);
-        //ajLatexGenerator.generateLatexCodeByTarget(rawReportsFolder, latexReportsFolderByConstellation);        
-        //ajLatexGenerator.generateLatexCodeByDate(rawReportsFolder, latexReportsFolderByDateSGL);        
+        ajLatexGenerator.generateJournals();
       } else {
         throw new Exception("Please, specify the folders : " + 
                     rawReportsFolder + "/ " + 
