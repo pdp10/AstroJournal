@@ -33,40 +33,7 @@ import org.astrojournal.observation.AJObservation;
 public class AJGenerator {
 
   /** The log associated to this class */
-  private static Logger log = Logger.getLogger(AJGenerator.class);
-
-  /** The relative path containing the raw files (observation input folder). */
-  private String rawReportsFolder = AJConfig.getInstance().rawReportsFolder;
-  /** The name of the folder containing the latex observation files by date (observation output folder). */
-  private String latexReportsFolderByDate = AJConfig.getInstance().latexReportsFolderByDate;
-  /** The name of the folder containing the latex observation files by target (observation output folder). */
-  private String latexReportsFolderByTarget = AJConfig.getInstance().latexReportsFolderByTarget;
-  /** The name of the folder containing the latex observation files by constellation (observation output folder). */
-  private String latexReportsFolderByConstellation = AJConfig.getInstance().latexReportsFolderByConstellation;
-  /** The name of the folder containing the latex observation files by date (observation output folder). */
-  private String sglReportsFolderByDate = AJConfig.getInstance().sglReportsFolderByDate;
-  
-  /** The name of the main Latex file sorted by date. */
-  private String latexMainByDate = "astrojournal_by_date.tex";
-  /** The name of the main Latex file sorted by target. */
-  private String latexMainByTarget = "astrojournal_by_target.tex";
-  /** The name of the main Latex file sorted by constellation. */
-  private String latexMainByConstellation = "astrojournal_by_constellation.tex";
-  /** The name of the SGL main file sorted by date. */
-  private String sglMainByDate = "astrojournal_by_date_sgl.txt";
-  
-  /** The Latex header with path for astrojournal by date. */
-  private String latexHeaderByDate = "latex_header_footer/header_by_date.tex";
-  /** The Latex footer with path for astrojournal by date. */
-  private String latexFooterByDate = "latex_header_footer/footer_by_date.tex";
-  /** The Latex header with path for astrojournal by target. */
-  private String latexHeaderByTarget = "latex_header_footer/header_by_target.tex";
-  /** The Latex footer with path for astrojournal by target. */
-  private String latexFooterByTarget = "latex_header_footer/footer_by_target.tex";
-  /** The Latex header with path for astrojournal by constellation. */
-  private String latexHeaderByConstellation = "latex_header_footer/header_by_constellation.tex";
-  /** The Latex footer with path for astrojournal by constellation. */
-  private String latexFooterByConstellation = "latex_header_footer/footer_by_constellation.tex";
+  private static Logger log = Logger.getLogger(AJGenerator.class);  
 
   /** The list of observations. */
   private ArrayList<AJObservation> observations = new ArrayList<AJObservation>(1000);
@@ -119,8 +86,14 @@ public class AJGenerator {
     AJExporter ajExporterByDate = new AJExporterByDate();    
     // export the imported observation by date to Latex
     System.out.println("\nExporting observation by date:");
-    boolean resultByDate = ajExporterByDate.exportObservations(observations, latexReportsFolderByDate);
-    ajExporterByDate.generateJournal(latexReportsFolderByDate, latexHeaderByDate, latexMainByDate, latexFooterByDate);
+    boolean resultByDate = ajExporterByDate.exportObservations(
+      observations, 
+      AJConfig.getInstance().latexReportsFolderByDate);
+    ajExporterByDate.generateJournal(
+      AJConfig.getInstance().latexReportsFolderByDate, 
+      AJConfig.getInstance().latexHeaderByDate, 
+      AJConfig.getInstance().latexMainByDate, 
+      AJConfig.getInstance().latexFooterByDate);
     return resultByDate;
   }
 
@@ -137,8 +110,14 @@ public class AJGenerator {
     AJExporter ajExporterByDateSGL = new AJExporterByDateSGL();    
     // export the imported observation by date to txt
     System.out.println("\nExporting observation by date for SGL:");
-    boolean resultByDateSGL = ajExporterByDateSGL.exportObservations(observations, sglReportsFolderByDate);
-    ajExporterByDateSGL.generateJournal(sglReportsFolderByDate, "", sglMainByDate, "");
+    boolean resultByDateSGL = ajExporterByDateSGL.exportObservations(
+      observations, 
+      AJConfig.getInstance().sglReportsFolderByDate);
+    ajExporterByDateSGL.generateJournal(
+      AJConfig.getInstance().sglReportsFolderByDate, 
+      "", 
+      AJConfig.getInstance().sglMainByDate, 
+      "");
     return resultByDateSGL;
   }
   
@@ -155,8 +134,14 @@ public class AJGenerator {
     AJExporter ajExporterByTarget = new AJExporterByTarget();    
     // export the imported observation by target to Latex
     System.out.println("\nExporting observation by target:");
-    boolean resultByTarget = ajExporterByTarget.exportObservations(observations, latexReportsFolderByTarget);
-    ajExporterByTarget.generateJournal(latexReportsFolderByTarget, latexHeaderByTarget, latexMainByTarget, latexFooterByTarget);
+    boolean resultByTarget = ajExporterByTarget.exportObservations(
+      observations, 
+      AJConfig.getInstance().latexReportsFolderByTarget);
+    ajExporterByTarget.generateJournal(
+      AJConfig.getInstance().latexReportsFolderByTarget, 
+      AJConfig.getInstance().latexHeaderByTarget, 
+      AJConfig.getInstance().latexMainByTarget, 
+      AJConfig.getInstance().latexFooterByTarget);
     return resultByTarget;
   }   
   
@@ -173,8 +158,14 @@ public class AJGenerator {
     AJExporter ajExporterByConstellation= new AJExporterByConstellation();    
     // export the imported observation by constellation to Latex
     System.out.println("\nExporting observation by constellation:");
-    boolean resultByConstellation = ajExporterByConstellation.exportObservations(observations, latexReportsFolderByConstellation);
-    ajExporterByConstellation.generateJournal(latexReportsFolderByConstellation, latexHeaderByConstellation, latexMainByConstellation, latexFooterByConstellation);
+    boolean resultByConstellation = ajExporterByConstellation.exportObservations(
+      observations, 
+      AJConfig.getInstance().latexReportsFolderByConstellation);
+    ajExporterByConstellation.generateJournal(
+      AJConfig.getInstance().latexReportsFolderByConstellation, 
+      AJConfig.getInstance().latexHeaderByConstellation, 
+      AJConfig.getInstance().latexMainByConstellation, 
+      AJConfig.getInstance().latexFooterByConstellation);
     return resultByConstellation;
   } 
     
@@ -186,9 +177,9 @@ public class AJGenerator {
    */
   private boolean importObservations() {
     if(!observationsProcessed) {
-      File[] files = new File(rawReportsFolder).listFiles();
+      File[] files = new File(AJConfig.getInstance().rawReportsFolder).listFiles();
       if (files == null) {
-        log.warn("Folder " + rawReportsFolder + " not found");
+        log.warn("Folder " + AJConfig.getInstance().rawReportsFolder + " not found");
         return false;
       }
       AJImporter ajImporter = new AJTabSeparatedValueImporter();

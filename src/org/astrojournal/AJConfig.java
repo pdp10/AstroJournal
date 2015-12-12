@@ -29,11 +29,37 @@ public class AJConfig {
   /** The AJConfig instance to be used. */
   private static AJConfig instance = new AJConfig();
 
+  // THESE PARAMETERS ARE NOT CONFIGURABLE
   /** The AJ application name. */
   public final String applicationName = "AstroJournal";
   /** The AJ application version. */
   public final String applicationVersion = "v8";
 
+  /** The name of the main Latex file sorted by date. */
+  public final String latexMainByDate = "astrojournal_by_date.tex";
+  /** The name of the main Latex file sorted by target. */
+  public final String latexMainByTarget = "astrojournal_by_target.tex";
+  /** The name of the main Latex file sorted by constellation. */
+  public final String latexMainByConstellation = "astrojournal_by_constellation.tex";
+  /** The name of the SGL main file sorted by date. */
+  public final String sglMainByDate = "astrojournal_by_date_sgl.txt";
+  
+  private final String latexHeaderFooterFolder = "latex_header_footer";
+  /** The Latex header with path for astrojournal by date. */
+  public final String latexHeaderByDate = latexHeaderFooterFolder+"/header_by_date.tex";
+  /** The Latex footer with path for astrojournal by date. */
+  public final String latexFooterByDate = latexHeaderFooterFolder+"/footer_by_date.tex";
+  /** The Latex header with path for astrojournal by target. */
+  public final String latexHeaderByTarget = latexHeaderFooterFolder+"/header_by_target.tex";
+  /** The Latex footer with path for astrojournal by target. */
+  public final String latexFooterByTarget = latexHeaderFooterFolder+"/footer_by_target.tex";
+  /** The Latex header with path for astrojournal by constellation. */
+  public final String latexHeaderByConstellation = latexHeaderFooterFolder+"/header_by_constellation.tex";
+  /** The Latex footer with path for astrojournal by constellation. */
+  public final String latexFooterByConstellation = latexHeaderFooterFolder+"/footer_by_constellation.tex";
+  
+  
+  // THESE PARAMETERS ARE CONFIGURABLE 
   /** True if latex output should be printed. */  
   public boolean latexOutput = false;  
   /** True if the application should run quietly */
