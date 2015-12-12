@@ -14,6 +14,9 @@
 package org.astrojournal;
 
 import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
 
 
 
@@ -124,18 +127,28 @@ public class AJConfig {
       sglReportsFolderByDate = new String(System.getProperty("aj.sgl_reports_folder_by_date"));
     }
     
+    File inp = new File(rawReportsFolder);
+    File out1 = new File(latexReportsFolderByDate);
+    File out2 = new File(latexReportsFolderByTarget);
+    File out3 = new File(latexReportsFolderByConstellation);
+    File out4 = new File(sglReportsFolderByDate);
     // Create the folders if these do not exist.
-    new File(rawReportsFolder).mkdir();
-    new File(latexReportsFolderByDate).mkdir();
-    new File(latexReportsFolderByTarget).mkdir();
-    new File(latexReportsFolderByConstellation).mkdir();
-    new File(sglReportsFolderByDate).mkdir();
+    inp.mkdir();
+    out1.mkdir();
+    out2.mkdir();
+    out3.mkdir();
+    out4.mkdir();
     
     // Delete previous content if this was present.
-    purgeDirectory(new File(latexReportsFolderByDate));
-    purgeDirectory(new File(latexReportsFolderByTarget));
-    purgeDirectory(new File(latexReportsFolderByConstellation));
-    purgeDirectory(new File(sglReportsFolderByDate));
+    try {
+      FileUtils.cleanDirectory(out1);
+      FileUtils.cleanDirectory(out2);
+      FileUtils.cleanDirectory(out3);
+      FileUtils.cleanDirectory(out4);
+    } catch (IOException e) {
+      System.out.println("Impossible to clean the output directories. Does the program have right permission?");
+      e.printStackTrace();
+    }
     
   }
 
@@ -145,17 +158,6 @@ public class AJConfig {
    */
   public static AJConfig getInstance() {
     return instance;
-  }
-
-  /**
-   * Purge a dir content.
-   * @param dir the dir to purge
-   */
-  private void purgeDirectory(File dir) {
-    for (File file: dir.listFiles()) {
-        if (file.isDirectory()) purgeDirectory(file);
-        file.delete();
-    }
   }
 
   /**
