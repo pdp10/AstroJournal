@@ -105,8 +105,6 @@ To compile AstroJournal you need to install:
 
 - [Maven](http://maven.apache.org/)
 
-- [Ant](http://ant.apache.org/) (ONLY for the Ant branch)
-
 - [TeX Live](http://www.tug.org/texlive/) (for Linux Users) or [MikTeX](http://miktex.org/download) (for Windows Users) (pdflatex must be installed)
 
 For windows users who installed MikTeX, the LaTeX packages url and mptopdf must be installed using the 
@@ -121,22 +119,22 @@ git clone https://github.com/pdp10/AstroJournal.git
 
 To test maven type:
 ```
-mvn --version      (for testing ant in the ant branch: ant)
+mvn --version
 ```
 
 To compile AstroJournal on GNU/Linux type:
 ```
-mvn package      (for ant branch: ant jar)
+mvn package
 ```
 
 To read the source code documentation type:
 ```
-mvn javadoc:javadoc       (for ant branch: ant javadoc)
+mvn javadoc:javadoc
 ```
 
 To clean:
 ```
-mvn clean       (for ant branch: ant clean)
+mvn clean
 ```
 
 You can run AstroJournal on GNU/Linux typing:
@@ -149,7 +147,8 @@ You can run AstroJournal on GNU/Linux typing:
 
 v0.9
 
-- Improved the AJ mini GUI to also report the program output graphically. 
+- Added menu bar, preferences and help to the GUI.
+- Improved the AJ GUI to also report the program output graphically.
 - Added a configuration class for managing the program parameters.
 - Maven is now the default software project management for AJ. AJ with 
 Ant has been moved to the branch 'ant'.
