@@ -100,7 +100,7 @@ To compile AstroJournal you need to install:
 
 - [Java 1.7+](https://java.com/en/download/)
 
-- [Maven](http://maven.apache.org/) (ONLY for the Ant branch)
+- [Maven](http://maven.apache.org/)
 
 - [Ant](http://ant.apache.org/) (ONLY for the Ant branch)
 
