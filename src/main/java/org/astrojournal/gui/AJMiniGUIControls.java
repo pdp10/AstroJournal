@@ -58,31 +58,31 @@ public class AJMiniGUIControls {
     ConsoleOutputCapturer outputCapturer = new ConsoleOutputCapturer();
     outputCapturer.start();
     ajLatexGenerator.generateJournals();
-    ajMiniGUI.appendText(outputCapturer.stop() + "\n");
+    ajMiniGUI.appendTextToTextArea(outputCapturer.stop() + "\n");
     try {
         // The pdflatex command must be called two times in order to
         // generate the list of contents correctly.
         String commandOutput;
         commandOutput = runCommand("pdflatex " + AJConfig.getInstance().latexMainByDate);
-        if(latexOutput) ajMiniGUI.appendText(commandOutput + "\n");
+        if(latexOutput) ajMiniGUI.appendTextToTextArea(commandOutput + "\n");
         commandOutput = runCommand("pdflatex " + AJConfig.getInstance().latexMainByDate);
         //if(latexOutput) ajMiniGUI.appendText(commandOutput + "\n");
         
         commandOutput = runCommand("pdflatex " + AJConfig.getInstance().latexMainByTarget);
-        if(latexOutput) ajMiniGUI.appendText(commandOutput + "\n");
+        if(latexOutput) ajMiniGUI.appendTextToTextArea(commandOutput + "\n");
         commandOutput = runCommand("pdflatex " + AJConfig.getInstance().latexMainByTarget);
         //if(latexOutput) ajMiniGUI.appendText(commandOutput + "\n");
         
         commandOutput = runCommand("pdflatex " + AJConfig.getInstance().latexMainByConstellation);
-        if(latexOutput) ajMiniGUI.appendText(commandOutput + "\n");
+        if(latexOutput) ajMiniGUI.appendTextToTextArea(commandOutput + "\n");
         commandOutput = runCommand("pdflatex " + AJConfig.getInstance().latexMainByConstellation);
         //if(latexOutput) ajMiniGUI.appendText(commandOutput + "\n");
         
         // Add this at the end to avoid mixing with the latex command output.
-        ajMiniGUI.appendText("Created reports: \n");
-        ajMiniGUI.appendText("\t" + FilenameUtils.removeExtension(AJConfig.getInstance().latexMainByDate) + ".pdf\n");
-        ajMiniGUI.appendText("\t" + FilenameUtils.removeExtension(AJConfig.getInstance().latexMainByTarget) + ".pdf\n");
-        ajMiniGUI.appendText("\t" + FilenameUtils.removeExtension(AJConfig.getInstance().latexMainByConstellation) + ".pdf\n");
+        ajMiniGUI.appendTextToTextArea("Created reports: \n");
+        ajMiniGUI.appendTextToTextArea("\t" + FilenameUtils.removeExtension(AJConfig.getInstance().latexMainByDate) + ".pdf\n");
+        ajMiniGUI.appendTextToTextArea("\t" + FilenameUtils.removeExtension(AJConfig.getInstance().latexMainByTarget) + ".pdf\n");
+        ajMiniGUI.appendTextToTextArea("\t" + FilenameUtils.removeExtension(AJConfig.getInstance().latexMainByConstellation) + ".pdf\n");
         
         commandOutput = runCommand("rm -rf *.aux *.toc *.log *.out");
         //if(latexOutput) ajMiniGUI.appendText(commandOutput + "\n");

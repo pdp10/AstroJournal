@@ -25,6 +25,8 @@ import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
 import org.astrojournal.AJConfig;
+import org.astrojournal.gui.dialogs.StatusPanel;
+import org.astrojournal.gui.menu.AJMenuBar;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -33,7 +35,7 @@ import java.awt.event.ActionListener;
 
 
 /**
- * A very minimal graphical user interface for running astrojournal without
+ * A very minimal graphical user interface for running AstroJournal without
  * scripts.
  * 
  * @author Piero Dalle Pezze
@@ -47,10 +49,11 @@ public class AJMiniGUI extends JFrame {
   private JCheckBox cbxLatexOutput;
   private JButton btnCreateJournal;
   private JButton btnClose;
-  private JTextArea txtArea;
+  private JTextArea textArea;
   private StatusPanel statusPanel;
   private boolean latexOutput = AJConfig.getInstance().latexOutput;
   private AJMiniGUIControls commandRunner;
+  private AJMenuBar menu = null;
   
   /**
    * Creates new form NewJFrame
@@ -60,11 +63,18 @@ public class AJMiniGUI extends JFrame {
   }
 
   /**
-   * Append text to the text area
+   * Clean the text area.
+   */
+  public void cleanTextArea() {
+    textArea.setText(" ");
+  }
+  
+  /**
+   * Append text to the text area.
    * @param str the text to append
    */
-  public void appendText(String str) {
-    txtArea.append(str);
+  public void appendTextToTextArea(String str) {
+    textArea.append(str);
   }
 
   /**
@@ -75,6 +85,21 @@ public class AJMiniGUI extends JFrame {
     statusPanel.setText(str);
   }
 
+  /**
+   * Create the astro journals.
+   */
+  public void createJournals() {
+    cleanTextArea();
+    commandRunner.createJournal(latexOutput);
+  }
+
+  /**
+   * Dispose this application.
+   */
+  public void closeApplication() {
+    dispose();
+    System.exit(0);    
+  }
   
   /**
    * This method is called from within the constructor to initialise the form.
@@ -92,16 +117,19 @@ public class AJMiniGUI extends JFrame {
     setResizable(true);
     getContentPane().setLayout(new BorderLayout());
 
+    // set the menu bar
+    menu = new AJMenuBar(this);
+    setJMenuBar(menu);
 
     // Create the status bar
     statusPanel = new StatusPanel();
     
     // Create the text area containing the program text output
-    txtArea = new JTextArea();
-    txtArea.setEditable(false);
-    txtArea.setLineWrap(true);
-    txtArea.setWrapStyleWord(true);
-    JScrollPane scrollPane = new JScrollPane(txtArea);
+    textArea = new JTextArea();
+    textArea.setEditable(false);
+    textArea.setLineWrap(true);
+    textArea.setWrapStyleWord(true);
+    JScrollPane scrollPane = new JScrollPane(textArea);
     scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
     
@@ -127,8 +155,7 @@ public class AJMiniGUI extends JFrame {
     btnCreateJournal.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-          txtArea.setText("");
-          commandRunner.createJournal(latexOutput);
+          createJournals();
       }
     });
     // Set this button as default. So if one presses <ENTER> 
@@ -142,8 +169,7 @@ public class AJMiniGUI extends JFrame {
     btnClose.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {      
-          dispose();
-          System.exit(0);
+        closeApplication();
       }
     });
 
