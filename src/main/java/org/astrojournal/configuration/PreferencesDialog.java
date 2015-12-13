@@ -150,7 +150,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.weightx = 0.5;
 	sglReportsFolderByDate = new JTextField();
 	sglReportsFolderByDate.setText(AJConfig.getInstance()
-		.getLatexReportsFolderByDate());
+		.getSglReportsFolderByDate());
 	filePanel.add(sglReportsFolderByDate, c);
 	c.gridx = 2;
 	c.weightx = 0.1;
