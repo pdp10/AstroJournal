@@ -17,7 +17,10 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -28,6 +31,7 @@ import javax.swing.KeyStroke;
 import org.astrojournal.gui.AJMiniGUI;
 import org.astrojournal.gui.dialogs.AboutDialog;
 import org.astrojournal.gui.dialogs.LicenseDialog;
+import org.astrojournal.gui.help.HelpDialog;
 
 
 /**
@@ -85,12 +89,12 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
     helpMenu = new JMenu("Help");
     helpMenu.setMnemonic(KeyEvent.VK_H);
 
-    //		helpContents = new JMenuItem("Contents...");
-    //		helpContents.setMnemonic(KeyEvent.VK_T);
-    //		helpContents.setAccelerator(KeyStroke.getKeyStroke('T', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-    //		helpContents.setActionCommand("help_contents");
-    //		helpContents.addActionListener(this);
-    //		helpMenu.add(helpContents);
+		helpContents = new JMenuItem("Contents...");
+		helpContents.setMnemonic(KeyEvent.VK_T);
+		helpContents.setAccelerator(KeyStroke.getKeyStroke('T', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+		helpContents.setActionCommand("help_contents");
+		helpContents.addActionListener(this);
+		helpMenu.add(helpContents);
 
     helpLicense = new JMenuItem("License");
     helpLicense.setActionCommand("help_license");
@@ -121,14 +125,18 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
     else if (action.equals("create_journals")) {
       application.createJournals();
     }
-    //	else if (action.equals("help_contents")) {
-    //			try {
-    //				new HelpDialog(application,new File(URLDecoder.decode(ClassLoader.getSystemResource("Help").getFile(),"UTF-8")));
-    //			} 
-    //			catch (UnsupportedEncodingException e1) {
-    //				e1.printStackTrace();
-    //			}
-    //	}
+  	else if (action.equals("help_contents")) {
+  			try {
+  				HelpDialog helpDialog = new HelpDialog(
+  				  application, 
+  				  new File(URLDecoder.decode(
+  				    ClassLoader.getSystemResource("help").getFile(),
+  				    "UTF-8")));
+  			} 
+  			catch (UnsupportedEncodingException e1) {
+  				e1.printStackTrace();
+  			}
+  	}
     else if (action.equals("help_license")) {
       try {
         LicenseDialog licenseDialog = new LicenseDialog(application);

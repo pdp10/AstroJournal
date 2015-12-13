@@ -68,7 +68,7 @@ public class AJTitlePanel extends JPanel {
       AJConfig.getInstance().applicationName + " " + AJConfig.getInstance().applicationVersion,
       JLabel.CENTER);
     program.setFont(new Font("Dialog",Font.BOLD,18));
-    program.setForeground(new Color(200,0,0));
+    program.setForeground(new Color(0,0,200));
     c.add(program,constraints);
 
     constraints.gridy++;
