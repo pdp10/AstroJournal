@@ -260,17 +260,25 @@ public class AJConfig {
      */
     private void adjustFileSeparator() {
 	if (File.separator.equals("/")) {
-	    rawReportsFolder.replaceAll("\\", File.separator);
-	    latexReportsFolderByDate.replaceAll("\\", File.separator);
-	    latexReportsFolderByTarget.replaceAll("\\", File.separator);
-	    latexReportsFolderByConstellation.replaceAll("\\", File.separator);
-	    sglReportsFolderByDate.replaceAll("\\", File.separator);
+	    rawReportsFolder = rawReportsFolder.replace("\\", File.separator);
+	    latexReportsFolderByDate = latexReportsFolderByDate.replace("\\",
+		    File.separator);
+	    latexReportsFolderByTarget = latexReportsFolderByTarget.replace(
+		    "\\", File.separator);
+	    latexReportsFolderByConstellation = latexReportsFolderByConstellation
+		    .replace("\\", File.separator);
+	    sglReportsFolderByDate = sglReportsFolderByDate.replace("\\",
+		    File.separator);
 	} else if (File.separator.equals("\\")) {
-	    rawReportsFolder.replaceAll("/", File.separator);
-	    latexReportsFolderByDate.replaceAll("/", File.separator);
-	    latexReportsFolderByTarget.replaceAll("/", File.separator);
-	    latexReportsFolderByConstellation.replaceAll("/", File.separator);
-	    sglReportsFolderByDate.replaceAll("/", File.separator);
+	    rawReportsFolder = rawReportsFolder.replace("/", File.separator);
+	    latexReportsFolderByDate = latexReportsFolderByDate.replace("/",
+		    File.separator);
+	    latexReportsFolderByTarget = latexReportsFolderByTarget.replace(
+		    "/", File.separator);
+	    latexReportsFolderByConstellation = latexReportsFolderByConstellation
+		    .replace("/", File.separator);
+	    sglReportsFolderByDate = sglReportsFolderByDate.replace("/",
+		    File.separator);
 	}
     }
 
