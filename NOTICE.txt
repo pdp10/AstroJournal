@@ -1,8 +1,5 @@
 
 to add libraries: mvn eclipse:eclipse
-
 to create a package: mvn package
-
 to compile: mvn compile
-
 to clean: mvn clean

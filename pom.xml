@@ -5,6 +5,9 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.astrojournal</groupId>
   <artifactId>astrojournal</artifactId>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
   
   <!-- Output to jar format -->
   <packaging>jar</packaging>
@@ -44,8 +47,7 @@
           <goal>single</goal>
         </goals>
       </execution>
-    </executions>
-    
+    </executions>    
     <configuration>
       <archive>
       <manifest>
@@ -53,13 +55,21 @@
         <mainClass>org.astrojournal.AJMain</mainClass>
       </manifest>
       </archive>
-
       <descriptorRefs>
         <descriptorRef>jar-with-dependencies</descriptorRef>
       </descriptorRefs>
     </configuration>
-    
   </plugin> 
+  
+  <plugin>
+     <groupId>org.apache.maven.plugins</groupId>
+     <artifactId>maven-compiler-plugin</artifactId>
+     <version>3.3</version>
+     <configuration>
+       <source>1.6</source>
+       <target>1.6</target>
+     </configuration>
+  </plugin>
   
   </plugins> 
 
