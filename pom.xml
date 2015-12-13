@@ -11,7 +11,7 @@
   
   <version>0.9</version>
   <name>AstroJournal</name>
-  <url>http://maven.apache.org</url>
+  <url>https://github.com/pdp10/AstroJournal</url>
  
   <dependencies>
     <dependency>
@@ -47,7 +47,6 @@
     </executions>
     
     <configuration>
-
       <archive>
       <manifest>
         <addClasspath>true</addClasspath>
@@ -58,10 +57,12 @@
       <descriptorRefs>
         <descriptorRef>jar-with-dependencies</descriptorRef>
       </descriptorRefs>
-
     </configuration>
+    
   </plugin> 
+  
   </plugins> 
+
   </build>
   
 </project>
