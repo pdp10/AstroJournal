@@ -28,14 +28,15 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
+import org.astrojournal.configuration.PreferencesDialog;
 import org.astrojournal.gui.AJMainGUI;
 import org.astrojournal.gui.dialogs.AboutDialog;
 import org.astrojournal.gui.dialogs.LicenseDialog;
 import org.astrojournal.gui.dialogs.help.HelpDialog;
 
-
 /**
  * Astro Journal Menu bar.
+ * 
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
@@ -43,113 +44,128 @@ import org.astrojournal.gui.dialogs.help.HelpDialog;
  */
 public class AJMenuBar extends JMenuBar implements ActionListener {
 
-  private static final long serialVersionUID = 7811240084595362788L;
+    private static final long serialVersionUID = 7811240084595362788L;
 
-  /** The main application */
-  private AJMainGUI application;
+    /** The main application */
+    private AJMainGUI application;
 
-  private JMenu fileMenu;
-  private JMenuItem fileCreateJournal;
-  private JMenuItem fileExit;
+    private JMenu fileMenu;
+    private JMenuItem fileCreateJournal;
+    private JMenuItem fileExit;
 
-  private JMenu helpMenu;
-  private JMenuItem helpContents;
-  private JMenuItem helpLicense;
-  private JMenuItem helpAbout;
+    private JMenu editMenu;
+    private JMenuItem editPreferences;
 
+    private JMenu helpMenu;
+    private JMenuItem helpContents;
+    private JMenuItem helpLicense;
+    private JMenuItem helpAbout;
 
-  /**
-   * Constructor for this menu bar.
-   * @param application
-   */
-  public AJMenuBar (AJMainGUI application) {
-    this.application = application;
+    /**
+     * Constructor for this menu bar.
+     * 
+     * @param application
+     */
+    public AJMenuBar(AJMainGUI application) {
+	this.application = application;
 
-    fileMenu = new JMenu("File");
-    fileMenu.setMnemonic(KeyEvent.VK_F);
-    
-    fileCreateJournal = new JMenuItem("Create Journals");
-    fileCreateJournal.setMnemonic(KeyEvent.VK_J);
-    fileCreateJournal.setAccelerator(KeyStroke.getKeyStroke('J', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-    fileCreateJournal.setActionCommand("create_journals");
-    fileCreateJournal.addActionListener(this);
-    fileMenu.add(fileCreateJournal);
+	fileMenu = new JMenu("File");
+	fileMenu.setMnemonic(KeyEvent.VK_F);
 
-    //fileMenu.addSeparator();
+	fileCreateJournal = new JMenuItem("Create Journals");
+	fileCreateJournal.setMnemonic(KeyEvent.VK_J);
+	fileCreateJournal.setAccelerator(KeyStroke.getKeyStroke('J', Toolkit
+		.getDefaultToolkit().getMenuShortcutKeyMask()));
+	fileCreateJournal.setActionCommand("create_journals");
+	fileCreateJournal.addActionListener(this);
+	fileMenu.add(fileCreateJournal);
 
-    fileExit = new JMenuItem("Exit");
-    fileExit.setMnemonic(KeyEvent.VK_Q);
-    fileExit.setAccelerator(KeyStroke.getKeyStroke('X', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-    fileExit.setActionCommand("exit");
-    fileExit.addActionListener(this);
-    fileMenu.add(fileExit);
+	// fileMenu.addSeparator();
 
-    add(fileMenu);
+	fileExit = new JMenuItem("Exit");
+	fileExit.setMnemonic(KeyEvent.VK_Q);
+	fileExit.setAccelerator(KeyStroke.getKeyStroke('X', Toolkit
+		.getDefaultToolkit().getMenuShortcutKeyMask()));
+	fileExit.setActionCommand("exit");
+	fileExit.addActionListener(this);
+	fileMenu.add(fileExit);
 
-    helpMenu = new JMenu("Help");
-    helpMenu.setMnemonic(KeyEvent.VK_H);
+	add(fileMenu);
 
-		helpContents = new JMenuItem("Contents...");
-		helpContents.setMnemonic(KeyEvent.VK_T);
-		helpContents.setAccelerator(KeyStroke.getKeyStroke('T', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-		helpContents.setActionCommand("help_contents");
-		helpContents.addActionListener(this);
-		helpMenu.add(helpContents);
+	editMenu = new JMenu("Edit");
+	editMenu.setMnemonic(KeyEvent.VK_E);
+	editPreferences = new JMenuItem("Preferences...");
+	editPreferences.setActionCommand("edit_preferences");
+	editPreferences.setMnemonic(KeyEvent.VK_P);
+	editPreferences.setAccelerator(KeyStroke.getKeyStroke('P', Toolkit
+		.getDefaultToolkit().getMenuShortcutKeyMask()));
+	editPreferences.addActionListener(this);
+	editMenu.add(editPreferences);
+	add(editMenu);
 
-    helpLicense = new JMenuItem("License");
-    helpLicense.setActionCommand("help_license");
-    helpLicense.setMnemonic(KeyEvent.VK_L);
-    helpLicense.setAccelerator(KeyStroke.getKeyStroke('L', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-    helpLicense.addActionListener(this);
-    helpMenu.add(helpLicense);
+	helpMenu = new JMenu("Help");
+	helpMenu.setMnemonic(KeyEvent.VK_H);
 
-    helpAbout = new JMenuItem("About AstroJournal");
-    helpAbout.setMnemonic(KeyEvent.VK_A);
-    helpAbout.setAccelerator(KeyStroke.getKeyStroke('A', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-    helpAbout.setActionCommand("help_about");
-    helpAbout.addActionListener(this);
-    helpMenu.add(helpAbout);
+	helpContents = new JMenuItem("Contents...");
+	helpContents.setMnemonic(KeyEvent.VK_T);
+	helpContents.setAccelerator(KeyStroke.getKeyStroke('T', Toolkit
+		.getDefaultToolkit().getMenuShortcutKeyMask()));
+	helpContents.setActionCommand("help_contents");
+	helpContents.addActionListener(this);
+	helpMenu.add(helpContents);
 
-    add(helpMenu);
+	helpLicense = new JMenuItem("License");
+	helpLicense.setActionCommand("help_license");
+	helpLicense.setMnemonic(KeyEvent.VK_L);
+	helpLicense.setAccelerator(KeyStroke.getKeyStroke('L', Toolkit
+		.getDefaultToolkit().getMenuShortcutKeyMask()));
+	helpLicense.addActionListener(this);
+	helpMenu.add(helpLicense);
 
-  }
+	helpAbout = new JMenuItem("About AstroJournal");
+	helpAbout.setMnemonic(KeyEvent.VK_A);
+	helpAbout.setAccelerator(KeyStroke.getKeyStroke('A', Toolkit
+		.getDefaultToolkit().getMenuShortcutKeyMask()));
+	helpAbout.setActionCommand("help_about");
+	helpAbout.addActionListener(this);
+	helpMenu.add(helpAbout);
 
-  @Override
-  public void actionPerformed(ActionEvent ae) {
+	add(helpMenu);
 
-    String action = ae.getActionCommand();
-
-    if (action.equals("exit")) {
-      application.closeApplication();
     }
-    else if (action.equals("create_journals")) {
-      application.createJournals();
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+
+	String action = ae.getActionCommand();
+
+	if (action.equals("create_journals")) {
+	    application.createJournals();
+	} else if (action.equals("exit")) {
+	    application.closeApplication();
+	} else if (action.equals("edit_preferences")) {
+	    PreferencesDialog preferencesDialog = new PreferencesDialog(
+		    application);
+	} else if (action.equals("help_contents")) {
+	    try {
+		HelpDialog helpDialog = new HelpDialog(application, new File(
+			URLDecoder.decode(ClassLoader.getSystemResource("help")
+				.getFile(), "UTF-8")));
+	    } catch (UnsupportedEncodingException e1) {
+		e1.printStackTrace();
+	    }
+	} else if (action.equals("help_license")) {
+	    try {
+		LicenseDialog licenseDialog = new LicenseDialog(application);
+	    } catch (IOException e) {
+		e.printStackTrace();
+	    }
+	} else if (action.equals("help_about")) {
+	    AboutDialog aboutDialog = new AboutDialog(application);
+	} else {
+	    JOptionPane.showMessageDialog(application, "Unknown menu command "
+		    + action, "Unknown command", JOptionPane.ERROR_MESSAGE);
+	}
     }
-  	else if (action.equals("help_contents")) {
-  			try {
-  				HelpDialog helpDialog = new HelpDialog(
-  				  application, 
-  				  new File(URLDecoder.decode(
-  				    ClassLoader.getSystemResource("help").getFile(),
-  				    "UTF-8")));
-  			} 
-  			catch (UnsupportedEncodingException e1) {
-  				e1.printStackTrace();
-  			}
-  	}
-    else if (action.equals("help_license")) {
-      try {
-        LicenseDialog licenseDialog = new LicenseDialog(application);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-    else if (action.equals("help_about")) {
-      AboutDialog aboutDialog = new AboutDialog(application);
-    }
-    else {
-      JOptionPane.showMessageDialog(application, "Unknown menu command "+action, "Unknown command", JOptionPane.ERROR_MESSAGE);
-    }
-  }
 
 }

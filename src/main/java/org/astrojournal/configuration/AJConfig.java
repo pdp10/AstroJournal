@@ -13,10 +13,16 @@
  */
 package org.astrojournal.configuration;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.SystemUtils;
 
 /**
  * A simple class for configuring AstroJournal.
@@ -32,39 +38,52 @@ public class AJConfig {
     private static AJConfig instance = new AJConfig();
 
     // THESE PARAMETERS ARE NOT CONFIGURABLE
+    /** The configuration file name. */
+    private static final String AJ_CONFIG_FILENAME = "astrojournal_conf.txt";
+
     /** The AJ application name. */
     public static final String APPLICATION_NAME = "AstroJournal";
+
     /** The AJ application version. */
     public static final String APPLICATION_VERSION = "v0.9";
 
     /** The name of the main Latex file sorted by date. */
     public static final String REPORT_BY_DATE_FILENAME = "astrojournal_by_date.tex";
+
     /** The name of the main Latex file sorted by target. */
     public static final String REPORT_BY_TARGET_FILENAME = "astrojournal_by_target.tex";
+
     /** The name of the main Latex file sorted by constellation. */
     public static final String REPORT_BY_CONSTELLATION_FILENAME = "astrojournal_by_constellation.tex";
+
     /** The name of the SGL main file sorted by date. */
     public static final String SGL_REPORT_BY_DATE_FILENAME = "astrojournal_by_date_sgl.txt";
 
     private static final String LATEX_HEADER_FOOTER_FOLDER = "latex_header_footer";
+
     /** The Latex header with path for astrojournal by date. */
     public static final String HEADER_BY_DATE_FILENAME = LATEX_HEADER_FOOTER_FOLDER
-	    + "/header_by_date.tex";
+	    + File.separator + "header_by_date.tex";
+
     /** The Latex footer with path for astrojournal by date. */
     public static final String FOOTER_BY_DATE_FILENAME = LATEX_HEADER_FOOTER_FOLDER
-	    + "/footer_by_date.tex";
+	    + File.separator + "footer_by_date.tex";
+
     /** The Latex header with path for astrojournal by target. */
     public static final String HEADER_BY_TARGET_FILENAME = LATEX_HEADER_FOOTER_FOLDER
-	    + "/header_by_target.tex";
+	    + File.separator + "header_by_target.tex";
+
     /** The Latex footer with path for astrojournal by target. */
     public static final String FOOTER_BY_TARGET_FILENAME = LATEX_HEADER_FOOTER_FOLDER
-	    + "/footer_by_target.tex";
+	    + File.separator + "footer_by_target.tex";
+
     /** The Latex header with path for astrojournal by constellation. */
     public static final String HEADER_BY_CONSTELLATION_FILENAME = LATEX_HEADER_FOOTER_FOLDER
-	    + "/header_by_constellation.tex";
+	    + File.separator + "header_by_constellation.tex";
+
     /** The Latex footer with path for astrojournal by constellation. */
     public static final String FOOTER_BY_CONSTELLATION_FILENAME = LATEX_HEADER_FOOTER_FOLDER
-	    + "/footer_by_constellation.tex";
+	    + File.separator + "footer_by_constellation.tex";
 
     // THESE PARAMETERS ARE CONFIGURABLE
     // All AstroJournal classes can only read these values. The only classes
@@ -72,39 +91,193 @@ public class AJConfig {
     // package. The setters have therefore "package visibility".
     /** True if latex output should be printed. */
     private boolean latexOutput = false;
+
     /** True if the application should run quietly */
     private boolean quiet = false;
+
     /** True if the version should be shown. */
     private boolean showVersion = true;
 
     /** The relative path containing the raw files (observation input folder). */
-    private String rawReportsFolder = "raw_reports/";
+    private String rawReportsFolder = "raw_reports" + File.separator;
+
     /**
      * The name of the folder containing the latex observation files by date
      * (observation output folder).
      */
-    private String latexReportsFolderByDate = "latex_reports_by_date/";
+    private String latexReportsFolderByDate = "latex_reports_by_date"
+	    + File.separator;
+
     /**
      * The name of the folder containing the latex observation files by target
      * (observation output folder).
      */
-    private String latexReportsFolderByTarget = "latex_reports_by_target/";
+    private String latexReportsFolderByTarget = "latex_reports_by_target"
+	    + File.separator;
     /**
      * The name of the folder containing the latex observation files by
      * constellation (observation output folder).
      */
-    private String latexReportsFolderByConstellation = "latex_reports_by_constellation/";
+    private String latexReportsFolderByConstellation = "latex_reports_by_constellation"
+	    + File.separator;
     /**
      * The name of the folder containing the latex observation files by date
      * (observation output folder).
      */
-    private String sglReportsFolderByDate = "sgl_reports_by_date/";
+    private String sglReportsFolderByDate = "sgl_reports_by_date"
+	    + File.separator;
+
+    /** The configuration file. */
+    private File configFile = null;
 
     /**
      * Private constructor for creating only one instance of AJConfig.
      */
     private AJConfig() {
+	// Read the configuration file
+	configurationInit();
+	// Read the system properties (this might override the configuration
+	// file)
+	readSystemProperties();
+	// prepare the folders for AJ.
+	prepareAJFolders();
+    }
 
+    /**
+     * Setup the configuration file and load the preference for AstroJournal.
+     */
+    private void configurationInit() {
+
+	if (SystemUtils.IS_OS_MAC_OSX) {
+	    configFile = new File(System.getProperty("user.home")
+		    + File.separator + "." + AJ_CONFIG_FILENAME);
+	} else if (SystemUtils.IS_OS_WINDOWS) {
+	    configFile = new File(System.getProperty("user.home")
+		    + File.separator + AJ_CONFIG_FILENAME);
+	} else if (SystemUtils.IS_OS_UNIX) {
+	    configFile = new File(System.getProperty("user.home")
+		    + File.separator + "." + AJ_CONFIG_FILENAME);
+	} else {
+	    configFile = new File(System.getProperty("user.home")
+		    + File.separator + AJ_CONFIG_FILENAME);
+	}
+
+	if (configFile != null && configFile.exists()) {
+	    loadPreferences();
+	} else {
+	    try {
+		savePreferences();
+	    } catch (IOException e) {
+		e.printStackTrace();
+	    }
+	}
+    }
+
+    /**
+     * Load preferences from a saved file
+     */
+    private void loadPreferences() {
+
+	BufferedReader br = null;
+	try {
+	    br = new BufferedReader(new FileReader(configFile));
+
+	    String line;
+	    String[] sections;
+	    while ((line = br.readLine()) != null) {
+		if (line.startsWith("#"))
+		    continue; // It's a comment
+		sections = line.split("\\t", -1);
+		if (sections[0].equals("latex_output")) {
+		    latexOutput = Boolean.getBoolean(sections[1]);
+		} else if (sections[0].equals("quiet")) {
+		    quiet = Boolean.getBoolean(sections[1]);
+		} else if (sections[0].equals("show_version")) {
+		    showVersion = Boolean.getBoolean(sections[1]);
+		} else if (sections[0].equals("raw_reports_folder")) {
+		    rawReportsFolder = sections[1];
+		} else if (sections[0].equals("latex_reports_folder_by_date")) {
+		    latexReportsFolderByDate = sections[1];
+		} else if (sections[0].equals("latex_reports_folder_by_target")) {
+		    latexReportsFolderByTarget = sections[1];
+		} else if (sections[0]
+			.equals("latex_reports_folder_by_constellation")) {
+		    latexReportsFolderByConstellation = sections[1];
+		} else if (sections[0].equals("sgl_reports_folder_by_date")) {
+		    sglReportsFolderByDate = sections[1];
+		} else {
+		    System.err.println("Found unknown parameter '"
+			    + sections[0]
+			    + "' in AstroJournal configuration file.");
+		}
+	    }
+	} catch (FileNotFoundException e) {
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (br != null)
+		    br.close();
+	    } catch (IOException e) {
+		e.printStackTrace();
+	    }
+	}
+
+    }
+
+    /**
+     * Save preferences.
+     * 
+     * @throws IOException
+     */
+    public void savePreferences() throws IOException {
+	adjustFileSeparator();
+
+	PrintWriter pw = new PrintWriter(new FileWriter(configFile));
+
+	pw.println("# AstroJournal configuration file. Do not edit by hand.");
+
+	// Let's now right down the configuration
+	pw.println("latex_output\t" + latexOutput);
+	pw.println("quiet\t" + quiet);
+	pw.println("show_version\t" + showVersion);
+	pw.println("raw_reports_folder\t" + rawReportsFolder);
+	pw.println("latex_reports_folder_by_date\t" + latexReportsFolderByDate);
+	pw.println("latex_reports_folder_by_target\t"
+		+ latexReportsFolderByTarget);
+	pw.println("latex_reports_folder_by_constellation\t"
+		+ latexReportsFolderByConstellation);
+	pw.println("sgl_reports_folder_by_date\t" + sglReportsFolderByDate);
+
+	pw.close();
+	// In case these do not exist.
+	prepareAJFolders();
+    }
+
+    /**
+     * Adjust the file separator if needed.
+     */
+    private void adjustFileSeparator() {
+	if (File.separator.equals("/")) {
+	    rawReportsFolder.replaceAll("\\", File.separator);
+	    latexReportsFolderByDate.replaceAll("\\", File.separator);
+	    latexReportsFolderByTarget.replaceAll("\\", File.separator);
+	    latexReportsFolderByConstellation.replaceAll("\\", File.separator);
+	    sglReportsFolderByDate.replaceAll("\\", File.separator);
+	} else if (File.separator.equals("\\")) {
+	    rawReportsFolder.replaceAll("/", File.separator);
+	    latexReportsFolderByDate.replaceAll("/", File.separator);
+	    latexReportsFolderByTarget.replaceAll("/", File.separator);
+	    latexReportsFolderByConstellation.replaceAll("/", File.separator);
+	    sglReportsFolderByDate.replaceAll("/", File.separator);
+	}
+    }
+
+    /**
+     * Read the Java System Properties.
+     */
+    private void readSystemProperties() {
 	// Show version
 	if (System.getProperty("aj.show_version") != null
 		&& System.getProperty("aj.show_version").equals("true")) {
@@ -153,6 +326,10 @@ public class AJConfig {
 		    System.getProperty("aj.sgl_reports_folder_by_date"));
 	}
 
+    }
+
+    private void prepareAJFolders() {
+	adjustFileSeparator();
 	File headerFooter = new File(LATEX_HEADER_FOOTER_FOLDER);
 	File inp = new File(rawReportsFolder);
 	File out1 = new File(latexReportsFolderByDate);
