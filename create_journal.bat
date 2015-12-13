@@ -33,7 +33,7 @@ rd astrojournal_by_date.pdf astrojournal_by_target.pdf astrojournal_by_constella
   
 
 rem Run AstroJournal and generate the Latex code
-java -jar astrojournal-0.8.jar 
+java -jar target\astrojournal-0.9-jar-with-dependencies.jar 
 
 rem> astrojournal_output.txt
 

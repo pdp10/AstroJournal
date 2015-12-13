@@ -36,7 +36,7 @@ CLASSPATH=`echo $CLASSPATH | cut -c2-`
 
 
 # Run AstroJournal and generate the Latex code
-java -jar astrojournal-*.jar > astrojournal_output.txt
+java -jar target/astrojournal-*-jar-with-dependencies.jar > astrojournal_output.txt
 
 # Clean the temporary and log files
 rm -rf *.aux *.log *~ *.out *.toc ${output_reports_folder_by_date}/*.aux ${output_reports_folder_by_target}/*.aux ${output_reports_folder_by_target}/*.aux
