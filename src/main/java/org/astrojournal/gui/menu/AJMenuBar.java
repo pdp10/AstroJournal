@@ -31,7 +31,7 @@ import javax.swing.KeyStroke;
 import org.astrojournal.gui.AJMiniGUI;
 import org.astrojournal.gui.dialogs.AboutDialog;
 import org.astrojournal.gui.dialogs.LicenseDialog;
-import org.astrojournal.gui.help.HelpDialog;
+import org.astrojournal.gui.dialogs.help.HelpDialog;
 
 
 /**

@@ -205,8 +205,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="22" language="java" name="org.astrojournal.gui.help.HelpPageDisplay" project="AstroJournal" 
-    file="/AstroJournal/src/main/java/org/astrojournal/gui/help/HelpPageDisplay.java" binary="false" 
+  <class id="22" language="java" name="org.astrojournal.gui.dialogs.help.HelpPageDisplay" project="AstroJournal" 
+    file="/AstroJournal/src/main/java/org/astrojournal/gui/dialogs/help/HelpPageDisplay.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="133" width="205" x="3670" y="1244"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -215,8 +215,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="23" language="java" name="org.astrojournal.gui.help.HelpPage" project="AstroJournal" 
-    file="/AstroJournal/src/main/java/org/astrojournal/gui/help/HelpPage.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="23" language="java" name="org.astrojournal.gui.dialogs.help.HelpPage" project="AstroJournal" 
+    file="/AstroJournal/src/main/java/org/astrojournal/gui/dialogs/help/HelpPage.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="205" width="246" x="3365" y="736"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -224,8 +225,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="24" language="java" name="org.astrojournal.gui.help.HelpIndexRoot" project="AstroJournal" 
-    file="/AstroJournal/src/main/java/org/astrojournal/gui/help/HelpIndexRoot.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="24" language="java" name="org.astrojournal.gui.dialogs.help.HelpIndexRoot" project="AstroJournal" 
+    file="/AstroJournal/src/main/java/org/astrojournal/gui/dialogs/help/HelpIndexRoot.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="133" width="251" x="3379" y="1017"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -233,8 +235,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="25" language="java" name="org.astrojournal.gui.help.HelpDialog" project="AstroJournal" 
-    file="/AstroJournal/src/main/java/org/astrojournal/gui/help/HelpDialog.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="25" language="java" name="org.astrojournal.gui.dialogs.help.HelpDialog" project="AstroJournal" 
+    file="/AstroJournal/src/main/java/org/astrojournal/gui/dialogs/help/HelpDialog.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="187" width="219" x="3670" y="1017"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -242,9 +245,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="26" language="java" name="org.astrojournal.gui.help.HelpPageDisplay.HelpEditor" project="AstroJournal" 
-    file="/AstroJournal/src/main/java/org/astrojournal/gui/help/HelpPageDisplay.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <class id="26" language="java" name="org.astrojournal.gui.dialogs.help.HelpPageDisplay.HelpEditor" 
+    project="AstroJournal" file="/AstroJournal/src/main/java/org/astrojournal/gui/dialogs/help/HelpPageDisplay.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3784" y="1526"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -252,8 +255,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="27" language="java" name="org.astrojournal.gui.help.HelpSearchPanel" project="AstroJournal" 
-    file="/AstroJournal/src/main/java/org/astrojournal/gui/help/HelpSearchPanel.java" binary="false" 
+  <class id="27" language="java" name="org.astrojournal.gui.dialogs.help.HelpSearchPanel" project="AstroJournal" 
+    file="/AstroJournal/src/main/java/org/astrojournal/gui/dialogs/help/HelpSearchPanel.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="241" width="238" x="3651" y="736"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -262,8 +265,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="28" language="java" name="org.astrojournal.gui.help.HelpIndexRoot.FileSorter" project="AstroJournal" 
-    file="/AstroJournal/src/main/java/org/astrojournal/gui/help/HelpIndexRoot.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="28" language="java" name="org.astrojournal.gui.dialogs.help.HelpIndexRoot.FileSorter" 
+    project="AstroJournal" file="/AstroJournal/src/main/java/org/astrojournal/gui/dialogs/help/HelpIndexRoot.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3493" y="1297"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      

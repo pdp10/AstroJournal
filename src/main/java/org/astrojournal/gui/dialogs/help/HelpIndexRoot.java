@@ -11,7 +11,7 @@
  * You should have received a copy of the GNU General Public License
  * along with AstroJournal. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.astrojournal.gui.help;
+package org.astrojournal.gui.dialogs.help;
 
 import java.io.File;
 import java.io.IOException;
