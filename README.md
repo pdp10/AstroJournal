@@ -150,8 +150,8 @@ v0.9
 - Added menu bar, preferences and help to the GUI.
 - Improved the AJ GUI to also report the program output graphically.
 - Added a configuration class for managing the program parameters.
-- Maven is now the default software project management for AJ. AJ with 
-Ant has been moved to the branch 'ant'.
+- Maven is now the default software project management for AJ, replacing 
+Ant.
 - Fixed a bug related to file names of galaxies. 
 - AJ now supports input parameters but also Java options. 
 
