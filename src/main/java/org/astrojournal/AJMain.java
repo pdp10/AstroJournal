@@ -19,7 +19,7 @@ package org.astrojournal;
 import javax.swing.UIManager;
 
 import org.apache.log4j.Logger;
-import org.astrojournal.gui.AJMainGUI;
+import org.astrojournal.gui.advancedGUI.AJMainGUI;
 
 /**
  * This class automatically generates the Latex code for the AstroJournal.
