@@ -1,0 +1,311 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Astrojournal by pdp10</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/pdp10/AstroJournal">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/pdp10/AstroJournal/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/pdp10/AstroJournal/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Astrojournal</h1>
+          <p>A LaTeX report generator of astronomy observations</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/pdp10">pdp10</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>
+<a id="astrojournal" class="anchor" href="#astrojournal" aria-hidden="true"><span class="octicon octicon-link"></span></a>AstroJournal</h1>
+
+<p>Author: Piero Dalle Pezze</p>
+
+<p>Licence: GPL v3 (2015)</p>
+
+<h3>
+<a id="description" class="anchor" href="#description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Description</h3>
+
+<p>This Java application imports files containing astronomy observations 
+and generates an integrated journal document in PDF format using LaTeX. 
+Observation files can be edited using a common Spreadsheet software 
+(e.g. Google Spreadsheet, LibreOffice Calc, Office Excel) or any common 
+text editor (e.g. MS Wordpad, Emacs, Kate, or GEdit) and must be saved 
+either as .tsv or .csv. To be recognised, fields MUST be separated 
+by a TAB delimiter. Fields can have single or double quotes.</p>
+
+<h3>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h3>
+
+<ul>
+<li>A simple graphical interface for running the program is provided. </li>
+<li>Generation of a PDF document containing all user observation records collected by increasing target catalogue number. This is useful for comparing targets observed over time.</li>
+<li>Generation of a PDF document containing all user observation reports collected by decreasing date. This is useful for visualising one’s observations by session.</li>
+<li>Generation of a PDF document containing the targets observed by constellation. This is useful for checking observed and unobserved targets by constellation.</li>
+<li>Generation of a txt document containing all user observation reports collected by decreasing date. This is for creating observation reports to be published in an astronomy forum (e.g. Stargazers Lounge).</li>
+<li>Complete lists of Messier objects and Caldwell selection of NGC targets are included at the end of the generated PDF documents.</li>
+<li>Although the program requires some form of structured input file, this is intentionally minimal in order to not distract the user who wants to insert his / her data rather than thinking of how to format this data. All input data is treated as a string and therefore is not parsed for controls. This leaves the freedom to the user to introduce the data content as s/he wish. For instance, although in each document header I use the Antoniadi Scale for Seeing, this can be trivially overridden with a customised one. The inserted value for the seeing is not controlled according to a specific scale. </li>
+<li>Possibility to edit the document header and the footer according to one’s need. This must be done in LaTex for preserving the format controls in the final output file.</li>
+</ul>
+
+<h3>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h3>
+
+<p>To use AstroJournal you need to install:</p>
+
+<ul>
+<li><p><a href="https://java.com/en/download/">Java 1.7+</a></p></li>
+<li><p><a href="http://www.tug.org/texlive/">TeX Live</a> (for Linux Users) or <a href="http://miktex.org/download">MikTeX</a> (for Windows Users) (pdflatex must be installed)</p></li>
+</ul>
+
+<p>For windows users who installed MikTeX, the LaTeX packages url and mptopdf must be installed using the MikTeX Manager.</p>
+
+<h3>
+<a id="download" class="anchor" href="#download" aria-hidden="true"><span class="octicon octicon-link"></span></a>Download</h3>
+
+<p>You can download the latest version of this software application here:</p>
+
+<p><a href="https://github.com/pdp10/AstroJournal/archive/master.zip">https://github.com/pdp10/AstroJournal/archive/master.zip</a></p>
+
+<p>After downloading and uncompressing the file, you can run AstroJournal by typing:</p>
+
+<pre><code># On GNU/Linux or MAC OS X, run AstroJournal typing (or clicking the icon):
+./create_journal.sh
+</code></pre>
+
+<p>or </p>
+
+<pre><code># On Windows, click on the icon:
+create_journal.bat
+</code></pre>
+
+<p>This will start a minimal graphical user interface to generate the journals.</p>
+
+<h3>
+<a id="create-an-observation-record" class="anchor" href="#create-an-observation-record" aria-hidden="true"><span class="octicon octicon-link"></span></a>Create an observation record</h3>
+
+<p>As currently implemented, the format of the observation tables is 
+specific. </p>
+
+<p>The titles (Date, Time, Location, Altitude, Temperature, Seeing, 
+Transparency, Telescopes, Eyepieces, Filters, Target, Cons, Type, Power, 
+and Notes) cannot be changed as these are used by AstroJournal to 
+retrieve the data. All fields are separated by a tab character (TAB) 
+explicitly shown in this example with a text when this must be included.</p>
+
+<p>You can find samples of these files in the folder <a href="https://github.com/pdp10/AstroJournal/tree/master/raw_reports/?at=master">raw_reports</a>, which is AstroJournal input folder.</p>
+
+<p>These files can be edited with any spreadsheet (e.g. Google SpreadSheet, 
+MS Excel, LibreOffice SpreadSheet) or a common text editor 
+(e.g. MS Wordpad, Emacs, Kate, or GEdit). </p>
+
+<p>To customise the document header and footer, please look at the 
+folder latex_header_footer to find the LaTeX files for the header 
+and footer. Also these files can be edited with any common text 
+editor.</p>
+
+<h3>
+<a id="use-case" class="anchor" href="#use-case" aria-hidden="true"><span class="octicon octicon-link"></span></a>Use case</h3>
+
+<p>Here are some guidelines for using AstroJournal:</p>
+
+<ol>
+<li><p>Report your observations (with the structure of my tsv or csv file) using a spreadsheet program, such as MS Excel, Libreoffice Spreadsheet, or Google Spreadsheet. Alternatively you can use a common text editor (e.g. Wordpad, GNU Emacs, Kate, etc.) as long as the fields are the same as in the samples provided in the raw_report and that each field is separated using a TAB character.</p></li>
+<li><p>Export your file as tsv (if using Google Spreadsheet) or csv. In the latter case, when asked, select tab as field delimiter.</p></li>
+<li><p>Put this file in the folder raw_reports.</p></li>
+<li><p>In the main astrojournal folder type the command above ./create_journal.sh or ./create_journal.bat .</p></li>
+</ol>
+
+<h1>
+<a id="develop-astrojournal" class="anchor" href="#develop-astrojournal" aria-hidden="true"><span class="octicon octicon-link"></span></a>Develop AstroJournal</h1>
+
+<h3>
+<a id="requirements-1" class="anchor" href="#requirements-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h3>
+
+<p>To compile AstroJournal you need to install:</p>
+
+<ul>
+<li><p><a href="https://git-scm.com/downloads">Git</a></p></li>
+<li><p><a href="https://java.com/en/download/">Java 1.7+</a></p></li>
+<li><p><a href="http://maven.apache.org/">Maven</a></p></li>
+<li><p><a href="http://ant.apache.org/">Ant</a> (ONLY for the Ant branch)</p></li>
+<li><p><a href="http://www.tug.org/texlive/">TeX Live</a> (for Linux Users) or <a href="http://miktex.org/download">MikTeX</a> (for Windows Users) (pdflatex must be installed)</p></li>
+</ul>
+
+<p>For windows users who installed MikTeX, the LaTeX packages url and mptopdf must be installed using the 
+MikTeX Manager.</p>
+
+<h3>
+<a id="clone--compile" class="anchor" href="#clone--compile" aria-hidden="true"><span class="octicon octicon-link"></span></a>Clone &amp; Compile</h3>
+
+<p>To clone AstroJournal repository:</p>
+
+<pre><code>git clone https://github.com/pdp10/AstroJournal.git
+</code></pre>
+
+<p>To test maven type:</p>
+
+<pre><code>mvn --version      (for testing ant in the ant branch: ant)
+</code></pre>
+
+<p>To compile AstroJournal on GNU/Linux type:</p>
+
+<pre><code>mvn package      (for ant branch: ant jar)
+</code></pre>
+
+<p>To read the source code documentation type:</p>
+
+<pre><code>mvn javadoc:javadoc       (for ant branch: ant javadoc)
+</code></pre>
+
+<p>To clean:</p>
+
+<pre><code>mvn clean       (for ant branch: ant clean)
+</code></pre>
+
+<p>You can run AstroJournal on GNU/Linux typing:</p>
+
+<pre><code>./create_journal.sh
+</code></pre>
+
+<h3>
+<a id="changelog" class="anchor" href="#changelog" aria-hidden="true"><span class="octicon octicon-link"></span></a>Changelog</h3>
+
+<p>v0.9</p>
+
+<ul>
+<li>Improved the AJ mini GUI to also report the program output graphically. </li>
+<li>Added a configuration class for managing the program parameters.</li>
+<li>Maven is now the default software project management for AJ. AJ with 
+Ant has been moved to the branch 'ant'.</li>
+<li>Fixed a bug related to file names of galaxies. </li>
+<li>AJ now supports input parameters but also Java options. </li>
+</ul>
+
+<p>v0.8</p>
+
+<ul>
+<li>Input/output folders can also be passed as Java options.</li>
+<li>Added report by constellation.</li>
+<li>Added report of additional catalogues in astrojournal by target.</li>
+<li>Added exporter to SGL report files.</li>
+<li>Corrected bug in astrojournal.bat</li>
+<li>Added support for csv input files.</li>
+<li>Reorganisation of the package generator.</li>
+<li>Design of the main graphic user interface (currently not connected to the program).</li>
+</ul>
+
+<p>v0.7</p>
+
+<ul>
+<li>Create file create_journal.bat (for Windows Users) (not tested yet).</li>
+<li>Removed the field PowerExitPupilFOV from the session reports. The eyepiece information is now inserted in the file legends.tex included at header level.</li>
+<li>Removed catalogue tsv and latex folder. List of observed targets is the list of contents for the second generated pdf (by_target)</li>
+<li>Export observations by target</li>
+</ul>
+
+<p>v0.6</p>
+
+<ul>
+<li>Imported list of objects observed by Catalogue.</li>
+<li>Added list of contents, sections, moved to Article class</li>
+</ul>
+
+<p>v0.5</p>
+
+<ul>
+<li>added Messier and Caldwell catalogues as reference in the end</li>
+<li>improved pdf layout</li>
+<li>extracted LaTeX header and footer from Java code</li>
+<li>added additional controls</li>
+<li>bug fixes</li>
+<li>increased code modularity</li>
+<li>renamed observations/ and tsv_files/ into latex_reports/ and tsv_reports/</li>
+<li>source code cleaning</li>
+</ul>
+
+<p>v0.4</p>
+
+<ul>
+<li>wiki links point to the last version directly. No need to update each time </li>
+<li>simplified scripts for creating journal</li>
+<li>renamed this software 'AstroJournal'</li>
+<li>added controls before using pdflatex or texi2tex</li>
+<li>imported LaTeX code for observations prior to the log</li>
+<li>reversed the observations (now most recent first)</li>
+<li>renamed .tex and .pdf to lowercase names</li>
+<li>improved legends layout</li>
+<li>bug correction</li>
+<li>improved table layout</li>
+<li>simplified build.xml</li>
+</ul>
+
+<p>v0.3</p>
+
+<ul>
+<li>add latex command for showing tables on multiple pages 
+( <a href="http://users.sdsc.edu/%7Essmallen/latex/longtable.html">http://users.sdsc.edu/~ssmallen/latex/longtable.html</a> )</li>
+<li>Draw of your own images to replace the existing ones. However, I 
+decided to omit images so the pdf is lighter and faster to load on the browser</li>
+<li>use tsv_files and observations outside of dist/ . Not necessary to copy 
+these two folders into dist/ . Therefore, you only keep your data in one 
+place. Simplified build.xml to have jar file in the current directory</li>
+</ul>
+
+<p>v0.2</p>
+
+<ul>
+<li>improved code in Observation.java and ObservationItem.java</li>
+<li>input/output folders tsv_files/ and observations/ passed as parameters</li>
+<li>simplified tsv file structure</li>
+<li>corrected importation of multiple observations per day</li>
+</ul>
+
+<p>v0.1</p>
+
+<ul>
+<li>creation of LaTeX code for all your observation</li>
+<li>reading of different tsv files sequentially and ordered by date increasing 
+is supported. In this way, you can create an observation log per month or 
+two (keeping the google spreadsheet short), and add the exported tsv file 
+to the folder tsv_files</li>
+</ul>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-71325748-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
