@@ -187,8 +187,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="20" language="java" name="org.astrojournal.gui.AJMiniGUI" project="AstroJournal" 
-    file="/AstroJournal/src/main/java/org/astrojournal/gui/AJMiniGUI.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="20" language="java" name="org.astrojournal.gui.AJMainGUI" project="AstroJournal" 
+    file="/AstroJournal/src/main/java/org/astrojournal/gui/AJMainGUI.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1989" y="1631"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -196,8 +196,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="21" language="java" name="org.astrojournal.gui.AJMiniGUIControls" project="AstroJournal" 
-    file="/AstroJournal/src/main/java/org/astrojournal/gui/AJMiniGUIControls.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="21" language="java" name="org.astrojournal.gui.AJMainGUIControls" project="AstroJournal" 
+    file="/AstroJournal/src/main/java/org/astrojournal/gui/AJMainGUIControls.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1980" y="1296"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -304,8 +304,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="32" language="java" name="org.astrojournal.AJConfig" project="AstroJournal" 
-    file="/AstroJournal/src/main/java/org/astrojournal/AJConfig.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="32" language="java" name="org.astrojournal.configuration.AJConfig" project="AstroJournal" 
+    file="/AstroJournal/src/main/java/org/astrojournal/configuration/AJConfig.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3039" y="1103"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      

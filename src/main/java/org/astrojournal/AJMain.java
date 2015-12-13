@@ -16,9 +16,10 @@
  */
 package org.astrojournal;
 
+import javax.swing.UIManager;
 
 import org.apache.log4j.Logger;
-import org.astrojournal.gui.AJMiniGUI;
+import org.astrojournal.gui.AJMainGUI;
 
 /**
  * This class automatically generates the Latex code for the AstroJournal.
@@ -29,61 +30,66 @@ import org.astrojournal.gui.AJMiniGUI;
  */
 public class AJMain {
 
-  /** The log associated to this class */
-  private static Logger log = Logger.getLogger(AJMain.class);
+    /** The log associated to this class */
+    private static Logger log = Logger.getLogger(AJMain.class);
 
-
-  /**
-   * Start AJMiniGUI.
-   */
-  private static void startAJMiniGUI() {
-    // enable anti-aliased text:
-    System.setProperty("awt.useSystemAAFontSettings","gasp");
-    System.setProperty("swing.aatext", "true");
-    java.awt.EventQueue.invokeLater(new Runnable() {
-      @Override
-      public void run() {
-          new AJMiniGUI().setVisible(true);
-      }
-    });
-  }
-  
-  /** 
-   * Main function. By default AstroJournal mini GUI is started. 
-   * A list of 5 arguments representing the input (1) and output (4) folders can also be passed 
-   * as input parameters.
-   * @param args 
-   */
-  public static void main(String[] args) {
-    
-    String rawReportsFolder = "raw_reports_folder";
-    String latexReportsFolderByDate = "latex_report_folder_by_date";    
-    String latexReportsFolderByTarget = "latex_report_folder_by_target";
-    String latexReportsFolderByConstellation = "latex_report_folder_by_constellation";    
-    String sglReportsFolderByDate = "sgl_report_folder_by_date";    
-    try {
-      if(args.length == 0) {
-        startAJMiniGUI();
-      }
-      else if(args.length == 5) {
-        // set AJ properties
-        System.setProperty("aj.raw_reports_folder", args[0]);
-        System.setProperty("aj.latex_reports_folder_by_date", args[1]);
-        System.setProperty("aj.latex_reports_folder_by_target", args[2]);
-        System.setProperty("aj.latex_reports_folder_by_constellation", args[3]);
-        System.setProperty("aj.sgl_reports_folder_by_date", args[4]);
-        startAJMiniGUI();
-      } else {
-        throw new Exception("Please, specify the folders : " + 
-                    rawReportsFolder + "/ " + 
-                    latexReportsFolderByDate + "/ " + 
-                    latexReportsFolderByTarget + "/ " + 
-                    latexReportsFolderByConstellation + "and " +                     
-                    sglReportsFolderByDate + " as arguments.");
-      }
-    } catch (Exception ex) {
-        log.warn(ex);
+    /**
+     * Start AJMiniGUI.
+     */
+    private static void startAJMiniGUI() {
+	// Note Nimbus does not seem to show the vertical scroll bar if there is
+	// too much text..
+	try {
+	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+	} catch (Exception e) {
+	}
+	// enable anti-aliased text:
+	System.setProperty("awt.useSystemAAFontSettings", "gasp");
+	System.setProperty("swing.aatext", "true");
+	java.awt.EventQueue.invokeLater(new Runnable() {
+	    @Override
+	    public void run() {
+		new AJMainGUI().setVisible(true);
+	    }
+	});
     }
-  }
+
+    /**
+     * Main function. By default AstroJournal mini GUI is started. A list of 5
+     * arguments representing the input (1) and output (4) folders can also be
+     * passed as input parameters.
+     * 
+     * @param args
+     */
+    public static void main(String[] args) {
+
+	String rawReportsFolder = "raw_reports_folder";
+	String latexReportsFolderByDate = "latex_report_folder_by_date";
+	String latexReportsFolderByTarget = "latex_report_folder_by_target";
+	String latexReportsFolderByConstellation = "latex_report_folder_by_constellation";
+	String sglReportsFolderByDate = "sgl_report_folder_by_date";
+	try {
+	    if (args.length == 0) {
+		startAJMiniGUI();
+	    } else if (args.length == 5) {
+		// set AJ properties
+		System.setProperty("aj.raw_reports_folder", args[0]);
+		System.setProperty("aj.latex_reports_folder_by_date", args[1]);
+		System.setProperty("aj.latex_reports_folder_by_target", args[2]);
+		System.setProperty("aj.latex_reports_folder_by_constellation",
+			args[3]);
+		System.setProperty("aj.sgl_reports_folder_by_date", args[4]);
+		startAJMiniGUI();
+	    } else {
+		throw new Exception("Please, specify the folders : "
+			+ rawReportsFolder + "/ " + latexReportsFolderByDate
+			+ "/ " + latexReportsFolderByTarget + "/ "
+			+ latexReportsFolderByConstellation + "and "
+			+ sglReportsFolderByDate + " as arguments.");
+	    }
+	} catch (Exception ex) {
+	    log.warn(ex);
+	}
+    }
 
 }

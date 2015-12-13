@@ -22,7 +22,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import org.astrojournal.gui.AJMiniGUI;
+import org.astrojournal.gui.AJMainGUI;
 
 /**
  * Shows the generic about dialog giving details of the current version and
@@ -44,7 +44,7 @@ public class AboutDialog extends JDialog {
      * 
      * @param application
      */
-    public AboutDialog(AJMiniGUI application) {
+    public AboutDialog(AJMainGUI application) {
 	super(application);
 	initComponents(application);
     }
@@ -52,7 +52,7 @@ public class AboutDialog extends JDialog {
     /**
      * This method is called from within the constructor to initialise the form.
      */
-    private void initComponents(AJMiniGUI application) {
+    private void initComponents(AJMainGUI application) {
 	setTitle("About AstroJournal");
 	Container cont = getContentPane();
 	cont.setLayout(new BorderLayout());

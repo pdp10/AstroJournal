@@ -21,7 +21,7 @@ import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
 
-import org.astrojournal.gui.AJMiniGUI;
+import org.astrojournal.gui.AJMainGUI;
 
 /**
  * The Class LicenseDialog shows a text representation of the License used for
@@ -47,7 +47,7 @@ public class LicenseDialog extends JDialog {
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    public LicenseDialog(AJMiniGUI application) throws IOException {
+    public LicenseDialog(AJMainGUI application) throws IOException {
 	super(application);
 	initComponents(application);
     }
@@ -57,7 +57,7 @@ public class LicenseDialog extends JDialog {
      * 
      * @throws IOException
      */
-    private void initComponents(AJMiniGUI application) throws IOException {
+    private void initComponents(AJMainGUI application) throws IOException {
 	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	setTitle("AstroJournal License...");
 	htmlPane = new JEditorPane(new File("LICENSE.txt").toURI().toURL());

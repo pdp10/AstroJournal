@@ -29,7 +29,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import org.astrojournal.AJConfig;
+import org.astrojournal.configuration.AJConfig;
 
 /**
  * A simple title panel to return minimal information about AstroJournal.
@@ -78,8 +78,8 @@ public class AJTitlePanel extends JPanel {
 	constraints.fill = GridBagConstraints.NONE;
 
 	JLabel program = new SmoothJLabel(
-		AJConfig.getInstance().applicationName + " "
-			+ AJConfig.getInstance().applicationVersion,
+		AJConfig.getInstance().APPLICATION_NAME + " "
+			+ AJConfig.getInstance().APPLICATION_VERSION,
 		JLabel.CENTER);
 	program.setFont(new Font("Dialog", Font.BOLD, 18));
 	program.setForeground(new Color(0, 0, 200));

@@ -28,7 +28,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
-import org.astrojournal.gui.AJMiniGUI;
+import org.astrojournal.gui.AJMainGUI;
 import org.astrojournal.gui.dialogs.AboutDialog;
 import org.astrojournal.gui.dialogs.LicenseDialog;
 import org.astrojournal.gui.dialogs.help.HelpDialog;
@@ -46,7 +46,7 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
   private static final long serialVersionUID = 7811240084595362788L;
 
   /** The main application */
-  private AJMiniGUI application;
+  private AJMainGUI application;
 
   private JMenu fileMenu;
   private JMenuItem fileCreateJournal;
@@ -62,7 +62,7 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
    * Constructor for this menu bar.
    * @param application
    */
-  public AJMenuBar (AJMiniGUI application) {
+  public AJMenuBar (AJMainGUI application) {
     this.application = application;
 
     fileMenu = new JMenu("File");
