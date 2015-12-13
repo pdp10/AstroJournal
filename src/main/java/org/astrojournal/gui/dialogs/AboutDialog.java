@@ -13,18 +13,23 @@
  */
 package org.astrojournal.gui.dialogs;
 
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
 
 import org.astrojournal.gui.AJMiniGUI;
 
-import java.awt.*;
-import java.awt.event.*;
-
 /**
- * Shows the generic about dialog giving details of the current version
- * and copyright assignments.  This is just a thin shell around the 
- * AJTitlePanel which actually holds the relevant information and
- * which is also used on the welcome screen.
+ * Shows the generic about dialog giving details of the current version and
+ * copyright assignments. This is just a thin shell around the AJTitlePanel
+ * which actually holds the relevant information and which is also used on the
+ * welcome screen.
+ * 
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
@@ -32,40 +37,46 @@ import java.awt.event.*;
  */
 public class AboutDialog extends JDialog {
 
-  private static final long serialVersionUID = -3893572577575366797L;
+    private static final long serialVersionUID = -3893572577575366797L;
 
-  /**
-   * Instantiates a new about dialog.
-   * 
-   * @param application
-   */
-  public AboutDialog(AJMiniGUI application) {
-    super(application);
-    setTitle("About AstroJournal");  
-    Container cont = getContentPane();
-    cont.setLayout(new BorderLayout());
+    /**
+     * Instantiates a new about dialog.
+     * 
+     * @param application
+     */
+    public AboutDialog(AJMiniGUI application) {
+	super(application);
+	initComponents(application);
+    }
 
-    add(new AJTitlePanel(),BorderLayout.CENTER);
+    /**
+     * This method is called from within the constructor to initialise the form.
+     */
+    private void initComponents(AJMiniGUI application) {
+	setTitle("About AstroJournal");
+	Container cont = getContentPane();
+	cont.setLayout(new BorderLayout());
 
-    JPanel buttonPanel = new JPanel();
+	add(new AJTitlePanel(), BorderLayout.CENTER);
 
-    JButton closeButton = new JButton("Close");
-    getRootPane().setDefaultButton(closeButton);
-    closeButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent arg0) {
-        setVisible(false);
-        dispose();
-      }
-    });
-    buttonPanel.add(closeButton);
+	JPanel buttonPanel = new JPanel();
 
-    cont.add(buttonPanel,BorderLayout.SOUTH);
+	JButton closeButton = new JButton("Close");
+	getRootPane().setDefaultButton(closeButton);
+	closeButton.addActionListener(new ActionListener() {
+	    @Override
+	    public void actionPerformed(ActionEvent arg0) {
+		setVisible(false);
+		dispose();
+	    }
+	});
+	buttonPanel.add(closeButton);
 
-    setSize(450,200);
-    setLocationRelativeTo(application);
-    setResizable(false);
-    setVisible(true);
-  }
+	cont.add(buttonPanel, BorderLayout.SOUTH);
 
+	setSize(450, 200);
+	setLocationRelativeTo(application);
+	setResizable(false);
+	setVisible(true);
+    }
 }

@@ -24,8 +24,9 @@ import javax.swing.JScrollPane;
 import org.astrojournal.gui.AJMiniGUI;
 
 /**
- * The Class LicenseDialog shows a text representation of the License
- * used for AstroJournal.
+ * The Class LicenseDialog shows a text representation of the License used for
+ * AstroJournal.
+ * 
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
@@ -33,28 +34,38 @@ import org.astrojournal.gui.AJMiniGUI;
  */
 public class LicenseDialog extends JDialog {
 
-  private static final long serialVersionUID = -8023870968821351252L;
+    private static final long serialVersionUID = -8023870968821351252L;
 
-  /** The html pane. */
-  private JEditorPane htmlPane;
+    /** The html pane. */
+    private JEditorPane htmlPane;
 
-  /**
-   * Instantiates a new license dialog.
-   * 
-   * @param application the a
-   * @throws IOException Signals that an I/O exception has occurred.
-   */
-  public LicenseDialog (AJMiniGUI application) throws IOException {
-    super(application);
-    setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-    setTitle("AstroJournal License...");
-    htmlPane = new JEditorPane(new File("LICENSE.txt").toURI().toURL());
-    htmlPane.setEditable(false);
-    htmlPane.setFont(new Font("Monospaced",Font.PLAIN,12));
-    setContentPane(new JScrollPane(htmlPane));
-    setSize(580,500);
-    setLocationRelativeTo(application);
-    setVisible(true);
-  }
+    /**
+     * Instantiates a new license dialog.
+     * 
+     * @param application
+     *            the a
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
+    public LicenseDialog(AJMiniGUI application) throws IOException {
+	super(application);
+	initComponents(application);
+    }
+
+    /**
+     * This method is called from within the constructor to initialise the form.
+     * 
+     * @throws IOException
+     */
+    private void initComponents(AJMiniGUI application) throws IOException {
+	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	setTitle("AstroJournal License...");
+	htmlPane = new JEditorPane(new File("LICENSE.txt").toURI().toURL());
+	htmlPane.setEditable(false);
+	htmlPane.setFont(new Font("Monospaced", Font.PLAIN, 12));
+	setContentPane(new JScrollPane(htmlPane));
+	setSize(580, 500);
+	setLocationRelativeTo(application);
+	setVisible(true);
+    }
 }
-

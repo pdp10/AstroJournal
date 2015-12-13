@@ -14,8 +14,6 @@
 package org.astrojournal.gui.dialogs;
 
 import java.awt.BorderLayout;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -23,31 +21,39 @@ import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 
 /**
- * The Class StatusPanel shows the interactive bar at the bottom
- * of the main application screen.
+ * The Class StatusPanel shows the interactive bar at the bottom of the main
+ * application screen.
  */
 public class StatusPanel extends JPanel {
 
-	private static final long serialVersionUID = -7979299860162515406L;
-	/** The textLabel. */
-	private JLabel textLabel = new JLabel(" ",JLabel.LEFT);
-	
-	/**
-	 * Instantiates a new status panel.
-	 */
-	public StatusPanel() {
-		setLayout(new BorderLayout());
-		add(textLabel,BorderLayout.WEST);
-		setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
-	}
-	
-	/**
-	 * Sets the file name.
-	 * 
-	 * @param text the new file name
-	 */
-	public void setText(String text) {
-		textLabel.setText(text);
-	}
-	
+    private static final long serialVersionUID = -7979299860162515406L;
+    /** The textLabel. */
+    private JLabel textLabel = new JLabel(" ", JLabel.LEFT);
+
+    /**
+     * Instantiates a new status panel.
+     */
+    public StatusPanel() {
+	initComponents();
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     */
+    private void initComponents() {
+	setLayout(new BorderLayout());
+	add(textLabel, BorderLayout.WEST);
+	setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+    }
+
+    /**
+     * Sets the file name.
+     * 
+     * @param text
+     *            the new file name
+     */
+    public void setText(String text) {
+	textLabel.setText(text);
+    }
+
 }
