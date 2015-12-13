@@ -17,6 +17,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JMenu;
@@ -29,6 +30,7 @@ import org.astrojournal.configuration.PreferencesDialog;
 import org.astrojournal.gui.AJMainGUI;
 import org.astrojournal.gui.dialogs.AboutDialog;
 import org.astrojournal.gui.dialogs.LicenseDialog;
+import org.astrojournal.gui.dialogs.help.HelpDialog;
 
 /**
  * Astro Journal Menu bar.
@@ -144,20 +146,22 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 		    application);
 	} else if (action.equals("help_contents")) {
 	    // FIXME
-	    JOptionPane
-		    .showMessageDialog(
-			    application,
-			    "This currently does not work..\n"
-				    + "THE PROBLEM IS that you need to scan a jar file and not a \n"
-				    + "normal file system structure. \n"
-				    + "Therefore, you need to work with URI and then in HelpIndexRoot, \n"
-				    + "scan the folder inside the jar file \n"
-				    + "using Uri instead of FILE. Therefore, extract the .html files and \n"
-				    + "show the help.", "WARNING",
-			    JOptionPane.ERROR_MESSAGE);
+	    // JOptionPane
+	    // .showMessageDialog(
+	    // application,
+	    // "This currently does not work..\n"
+	    // + "THE PROBLEM IS that you need to scan a jar file and not a \n"
+	    // + "normal file system structure. \n"
+	    // +
+	    // "Therefore, you need to work with URI and then in HelpIndexRoot, \n"
+	    // + "scan the folder inside the jar file \n"
+	    // +
+	    // "using Uri instead of FILE. Therefore, extract the .html files and \n"
+	    // + "show the help.", "WARNING",
+	    // JOptionPane.ERROR_MESSAGE);
 	    // end FIXME
 
-	    // TODO old code
+	    // THIS ONLY WORKS IN ECLIPSE. ORIGINAL CODE
 	    // try {
 	    // HelpDialog helpDialog = new HelpDialog(application, new File(
 	    // URLDecoder.decode(ClassLoader.getSystemResource("help")
@@ -165,6 +169,9 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	    // } catch (UnsupportedEncodingException e1) {
 	    // e1.printStackTrace();
 	    // }
+
+	    HelpDialog helpDialog = new HelpDialog(application,
+		    new File("help"));
 
 	    // FIXME THE PROBLEM IS that you need to scan a jar file and not a
 	    // normal file system structure.
