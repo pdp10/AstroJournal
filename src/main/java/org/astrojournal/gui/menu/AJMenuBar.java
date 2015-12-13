@@ -50,7 +50,7 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 
     private JMenu fileMenu;
     private JMenuItem fileCreateJournal;
-    private JMenuItem fileExit;
+    private JMenuItem fileQuit;
 
     private JMenu editMenu;
     private JMenuItem editPreferences;
@@ -81,13 +81,13 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 
 	// fileMenu.addSeparator();
 
-	fileExit = new JMenuItem("Exit");
-	fileExit.setMnemonic(KeyEvent.VK_Q);
-	fileExit.setAccelerator(KeyStroke.getKeyStroke('X', Toolkit
+	fileQuit = new JMenuItem("Quit");
+	fileQuit.setMnemonic(KeyEvent.VK_Q);
+	fileQuit.setAccelerator(KeyStroke.getKeyStroke('Q', Toolkit
 		.getDefaultToolkit().getMenuShortcutKeyMask()));
-	fileExit.setActionCommand("exit");
-	fileExit.addActionListener(this);
-	fileMenu.add(fileExit);
+	fileQuit.setActionCommand("quit");
+	fileQuit.addActionListener(this);
+	fileMenu.add(fileQuit);
 
 	add(fileMenu);
 
@@ -105,11 +105,11 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	helpMenu = new JMenu("Help");
 	helpMenu.setMnemonic(KeyEvent.VK_H);
 
-	helpContents = new JMenuItem("Contents...");
+	helpContents = new JMenuItem("Help Contents");
+	helpContents.setActionCommand("help_contents");
 	helpContents.setMnemonic(KeyEvent.VK_T);
 	helpContents.setAccelerator(KeyStroke.getKeyStroke('T', Toolkit
 		.getDefaultToolkit().getMenuShortcutKeyMask()));
-	helpContents.setActionCommand("help_contents");
 	helpContents.addActionListener(this);
 	helpMenu.add(helpContents);
 
@@ -122,10 +122,10 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	helpMenu.add(helpLicense);
 
 	helpAbout = new JMenuItem("About AstroJournal");
+	helpAbout.setActionCommand("help_about");
 	helpAbout.setMnemonic(KeyEvent.VK_A);
 	helpAbout.setAccelerator(KeyStroke.getKeyStroke('A', Toolkit
 		.getDefaultToolkit().getMenuShortcutKeyMask()));
-	helpAbout.setActionCommand("help_about");
 	helpAbout.addActionListener(this);
 	helpMenu.add(helpAbout);
 
@@ -140,7 +140,7 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 
 	if (action.equals("create_journals")) {
 	    application.createJournals();
-	} else if (action.equals("exit")) {
+	} else if (action.equals("quit")) {
 	    application.closeApplication();
 	} else if (action.equals("edit_preferences")) {
 	    PreferencesDialog preferencesDialog = new PreferencesDialog(
