@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.swing.JMenu;
@@ -170,9 +171,14 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	    // e1.printStackTrace();
 	    // }
 
-	    HelpDialog helpDialog = new HelpDialog(application,
-		    new File("help"));
-
+	    try {
+		HelpDialog helpDialog = new HelpDialog(application, new File(
+			"help"));
+	    } catch (FileNotFoundException e) {
+		JOptionPane.showMessageDialog(application,
+			"The Help Content was not found.", "File not found",
+			JOptionPane.ERROR_MESSAGE);
+	    }
 	    // FIXME THE PROBLEM IS that you need to scan a jar file and not a
 	    // normal file system structure.
 	    // Therefore, you need to work with URI and then in HelpIndexRoot,
@@ -186,7 +192,12 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 
 	} else if (action.equals("help_license")) {
 	    try {
-		LicenseDialog licenseDialog = new LicenseDialog(application);
+		LicenseDialog licenseDialog = new LicenseDialog(application,
+			new File("LICENSE.txt"));
+	    } catch (FileNotFoundException e) {
+		JOptionPane.showMessageDialog(application,
+			"The file LICENSE.txt was not found.",
+			"File not found", JOptionPane.ERROR_MESSAGE);
 	    } catch (IOException e) {
 		e.printStackTrace();
 	    }

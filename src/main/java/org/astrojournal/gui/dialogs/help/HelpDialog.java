@@ -14,6 +14,7 @@
 package org.astrojournal.gui.dialogs.help;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -48,9 +49,22 @@ public class HelpDialog extends JDialog implements TreeSelectionListener {
      *            the parent
      * @param startingLocation
      *            the starting location
+     * @throws FileNotFoundException
+     *             if startingLocation does not exist.
      */
-    public HelpDialog(JFrame parent, File startingLocation) {
+    public HelpDialog(JFrame parent, File startingLocation)
+	    throws FileNotFoundException {
 	super(parent, "Help Contents");
+	if (!startingLocation.exists()) {
+	    throw new FileNotFoundException();
+	}
+	initComponents(parent, startingLocation);
+    }
+
+    /**
+     * This method is called from within the constructor to initialise the form.
+     */
+    private void initComponents(JFrame parent, File startingLocation) {
 
 	HelpIndexRoot root = new HelpIndexRoot(startingLocation);
 

@@ -15,6 +15,7 @@ package org.astrojournal.gui.dialogs;
 
 import java.awt.Font;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.swing.JDialog;
@@ -43,13 +44,21 @@ public class LicenseDialog extends JDialog {
      * Instantiates a new license dialog.
      * 
      * @param application
-     *            the a
+     *            the application
+     * @param license
+     *            the license file
+     * @throws FileNotFoundException
+     *             if the license file does not exist.
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    public LicenseDialog(AJMainGUI application) throws IOException {
+    public LicenseDialog(AJMainGUI application, File license)
+	    throws FileNotFoundException, IOException {
 	super(application);
-	initComponents(application);
+	if (!license.exists()) {
+	    throw new FileNotFoundException();
+	}
+	initComponents(application, license);
     }
 
     /**
@@ -57,10 +66,11 @@ public class LicenseDialog extends JDialog {
      * 
      * @throws IOException
      */
-    private void initComponents(AJMainGUI application) throws IOException {
+    private void initComponents(AJMainGUI application, File license)
+	    throws IOException {
 	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	setTitle("AstroJournal License...");
-	htmlPane = new JEditorPane(new File("LICENSE.txt").toURI().toURL());
+	htmlPane = new JEditorPane(license.toURI().toURL());
 	htmlPane.setEditable(false);
 	htmlPane.setFont(new Font("Monospaced", Font.PLAIN, 12));
 	setContentPane(new JScrollPane(htmlPane));
