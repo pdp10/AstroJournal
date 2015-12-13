@@ -57,7 +57,7 @@ by a TAB delimiter. Fields can have single or double quotes.</p>
 <li>Generation of a PDF document containing all user observation records collected by increasing target catalogue number. This is useful for comparing targets observed over time.</li>
 <li>Generation of a PDF document containing all user observation reports collected by decreasing date. This is useful for visualising one’s observations by session.</li>
 <li>Generation of a PDF document containing the targets observed by constellation. This is useful for checking observed and unobserved targets by constellation.</li>
-<li>Generation of a txt document containing all user observation reports collected by decreasing date. This is for creating observation reports to be published in an astronomy forum (e.g. Stargazers Lounge).</li>
+<li>Generation of a TXT document containing all user observation reports collected by decreasing date. This is for creating observation reports to be published in an astronomy forum (e.g. Stargazers Lounge).</li>
 <li>Complete lists of Messier objects and Caldwell selection of NGC targets are included at the end of the generated PDF documents.</li>
 <li>Although the program requires some form of structured input file, this is intentionally minimal in order to not distract the user who wants to insert his / her data rather than thinking of how to format this data. All input data is treated as a string and therefore is not parsed for controls. This leaves the freedom to the user to introduce the data content as s/he wish. For instance, although in each document header I use the Antoniadi Scale for Seeing, this can be trivially overridden with a customised one. The inserted value for the seeing is not controlled according to a specific scale. </li>
 <li>Possibility to edit the document header and the footer according to one’s need. This must be done in LaTex for preserving the format controls in the final output file.</li>
@@ -143,7 +143,6 @@ editor.</p>
 <li><p><a href="https://git-scm.com/downloads">Git</a></p></li>
 <li><p><a href="https://java.com/en/download/">Java 1.7+</a></p></li>
 <li><p><a href="http://maven.apache.org/">Maven</a></p></li>
-<li><p><a href="http://ant.apache.org/">Ant</a> (ONLY for the Ant branch)</p></li>
 <li><p><a href="http://www.tug.org/texlive/">TeX Live</a> (for Linux Users) or <a href="http://miktex.org/download">MikTeX</a> (for Windows Users) (pdflatex must be installed)</p></li>
 </ul>
 
@@ -160,22 +159,22 @@ MikTeX Manager.</p>
 
 <p>To test maven type:</p>
 
-<pre><code>mvn --version      (for testing ant in the ant branch: ant)
+<pre><code>mvn --version
 </code></pre>
 
 <p>To compile AstroJournal on GNU/Linux type:</p>
 
-<pre><code>mvn package      (for ant branch: ant jar)
+<pre><code>mvn package
 </code></pre>
 
 <p>To read the source code documentation type:</p>
 
-<pre><code>mvn javadoc:javadoc       (for ant branch: ant javadoc)
+<pre><code>mvn javadoc:javadoc
 </code></pre>
 
 <p>To clean:</p>
 
-<pre><code>mvn clean       (for ant branch: ant clean)
+<pre><code>mvn clean
 </code></pre>
 
 <p>You can run AstroJournal on GNU/Linux typing:</p>
@@ -189,7 +188,8 @@ MikTeX Manager.</p>
 <p>v0.9</p>
 
 <ul>
-<li>Improved the AJ mini GUI to also report the program output graphically. </li>
+<li>Added menu bar, preferences and help to the GUI.</li>
+<li>Improved the AJ GUI to also report the program output graphically.</li>
 <li>Added a configuration class for managing the program parameters.</li>
 <li>Maven is now the default software project management for AJ. AJ with 
 Ant has been moved to the branch 'ant'.</li>
