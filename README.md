@@ -100,7 +100,9 @@ To compile AstroJournal you need to install:
 
 - [Java 1.7+](https://java.com/en/download/)
 
-- [Ant](http://ant.apache.org/)
+- [Maven](http://maven.apache.org/) (ONLY for the Ant branch)
+
+- [Ant](http://ant.apache.org/) (ONLY for the Ant branch)
 
 - [TeX Live](http://www.tug.org/texlive/) (for Linux Users) or [MikTeX](http://miktex.org/download) (for Windows Users) (pdflatex must be installed)
 
@@ -113,15 +115,24 @@ To clone AstroJournal repository:
 ```
 git clone https://github.com/pdp10/AstroJournal.git
 ```
+To test maven type:
+```
+mvn --version      (for testing ant in the ant branch: ant)
+```
 
 To compile AstroJournal on GNU/Linux type:
 ```
-ant jar
+mvn package      (for ant branch: ant jar)
 ```
 
 To read the source code documentation type:
 ```
-ant javadoc
+mvn javadoc:javadoc       (for ant branch: ant javadoc)
+```
+
+To clean:
+```
+mvn clean       (for ant branch: ant clean)
 ```
 
 You can run AstroJournal on GNU/Linux typing:
@@ -136,6 +147,8 @@ v0.9
 
 - Improved the AJ mini GUI to also report the program output graphically. 
 - Added a configuration class for managing the program parameters.
+- Maven is now the default software project management for AJ. AJ with 
+  Ant has been moved to the branch 'ant'.
 - Fixed a bug related to file names of galaxies. 
 - AJ now supports input parameters but also Java options. 
 
