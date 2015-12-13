@@ -338,32 +338,32 @@ public class AJConfig {
 
     private void prepareAJFolders() {
 	adjustFileSeparator();
-	File headerFooter = new File(LATEX_HEADER_FOOTER_FOLDER);
-	File inp = new File(rawReportsFolder);
-	File out1 = new File(latexReportsFolderByDate);
-	File out2 = new File(latexReportsFolderByTarget);
-	File out3 = new File(latexReportsFolderByConstellation);
-	File out4 = new File(sglReportsFolderByDate);
 	// Create the folders if these do not exist.
-	headerFooter.mkdir();
-	inp.mkdir();
-	out1.mkdir();
-	out2.mkdir();
-	out3.mkdir();
-	out4.mkdir();
+	new File(LATEX_HEADER_FOOTER_FOLDER).mkdir();
+	new File(rawReportsFolder).mkdir();
+	new File(latexReportsFolderByDate).mkdir();
+	new File(latexReportsFolderByTarget).mkdir();
+	new File(latexReportsFolderByConstellation).mkdir();
+	new File(sglReportsFolderByDate).mkdir();
+    }
 
-	// Delete previous content if this was present.
+    /**
+     * Delete the previous output folder content if this is present.
+     */
+    public void cleanAJFolder() {
 	try {
-	    FileUtils.cleanDirectory(out1);
-	    FileUtils.cleanDirectory(out2);
-	    FileUtils.cleanDirectory(out3);
-	    FileUtils.cleanDirectory(out4);
+	    FileUtils.cleanDirectory(new File(latexReportsFolderByDate));
+	    FileUtils.cleanDirectory(new File(latexReportsFolderByTarget));
+	    FileUtils
+		    .cleanDirectory(new File(latexReportsFolderByConstellation));
+	    FileUtils.cleanDirectory(new File(sglReportsFolderByDate));
 	} catch (IOException e) {
 	    System.out
-		    .println("Impossible to clean the output directories. Does the program have right permission?");
+		    .println("Impossible to clean the output directories. \n"
+			    + "Folder does not exist or not sufficient permissions for \n"
+			    + "writing in it.");
 	    e.printStackTrace();
 	}
-
     }
 
     /**
