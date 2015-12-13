@@ -23,129 +23,137 @@ import java.util.Vector;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
- * The Class HelpPage represents a single page of information in 
- * the help system
+ * The Class HelpPage represents a single page of information in the help system
  */
 public class HelpPage extends DefaultMutableTreeNode {
-	
-  private static final long serialVersionUID = -4481638776277616900L;
 
-  /** The file. */
-	private File file;
-	
-	/** The name. */
-	private String name;
-	
-	/**
-	 * Instantiates a new help page.
-	 * 
-	 * @param file the file
-	 */
-	public HelpPage (File file) {
-		this.file = file;
-		name = file.getName();
-		name = this.name.replaceFirst("\\.[hH][tT][mM][lL]?$", "");
-		
-		String [] nameSections = name.split(" ");
-		if (nameSections.length > 1) {
-			// We have two sections so check if the first is just integers
-			// separated by dots.  If it is then we can lose it.
-			String [] numbers = nameSections[0].split("\\.");
-			for (int n=0;n<numbers.length;n++) {
-				try {
-					Integer.parseInt(numbers[n]);
-				}
-				catch(NumberFormatException nfe) {
-					return; // We don't want to chop this off.
-				}
-			}
-			
-			// If we get here then we want to chop the first part
-			// of the name off
-			StringBuilder sb = new StringBuilder(nameSections[1]);
-			for (int s=2;s<nameSections.length;s++) {
-				sb.append(" ");
-				sb.append(nameSections[s]);
-			}
-			name = sb.toString();
-			
-		}
-		
-	}
-	
-	/**
-	 * Contains string.
-	 * 
-	 * @param searchTerm the search term
-	 * @param hits the hits
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 */
-	public void containsString (String searchTerm, Vector<HelpPage>hits) throws IOException {
-				
-		// Since this will be part of a search thread then take a quick
-		// break in case we're trying to do anything else.
+    private static final long serialVersionUID = -4481638776277616900L;
+
+    /** The file. */
+    private File file;
+
+    /** The name. */
+    private String name;
+
+    /**
+     * Instantiates a new help page.
+     * 
+     * @param file
+     *            the file
+     */
+    public HelpPage(File file) {
+	this.file = file;
+	name = file.getName();
+	name = this.name.replaceFirst("\\.[hH][tT][mM][lL]?$", "");
+
+	String[] nameSections = name.split(" ");
+	if (nameSections.length > 1) {
+	    // We have two sections so check if the first is just integers
+	    // separated by dots. If it is then we can lose it.
+	    String[] numbers = nameSections[0].split("\\.");
+	    for (int n = 0; n < numbers.length; n++) {
 		try {
-			Thread.sleep(10);
-		} 
-		catch (InterruptedException e) {}
-		
-		// We don't want to be trying to open directories
-		if (isLeaf()) {
-			BufferedReader br = null;
-			try { 
-				br = new BufferedReader(new FileReader(file));
-				searchTerm = searchTerm.toLowerCase();
-				String line;
-				while ((line = br.readLine()) != null) {
-	//				System.out.println("Read line "+line);
-					if (line.toLowerCase().indexOf(searchTerm)!=-1) {
-						hits.add(this);
-						break;
-					}
-				}
-			} catch(IOException e) {
-				throw e;
-			} finally {
-				if(br != null) {
-					br.close();
-				}
-			}
+		    Integer.parseInt(numbers[n]);
+		} catch (NumberFormatException nfe) {
+		    return; // We don't want to chop this off.
 		}
+	    }
 
-		// Extend the search to our children
-		Enumeration<?> kids = children();
-		while (kids.hasMoreElements()) {
-			Object node = kids.nextElement();
-			if (node instanceof HelpPage) {
-				((HelpPage)node).containsString(searchTerm, hits);
-			}
+	    // If we get here then we want to chop the first part
+	    // of the name off
+	    StringBuilder sb = new StringBuilder(nameSections[1]);
+	    for (int s = 2; s < nameSections.length; s++) {
+		sb.append(" ");
+		sb.append(nameSections[s]);
+	    }
+	    name = sb.toString();
+
+	}
+
+    }
+
+    /**
+     * Contains string.
+     * 
+     * @param searchTerm
+     *            the search term
+     * @param hits
+     *            the hits
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
+    public void containsString(String searchTerm, Vector<HelpPage> hits)
+	    throws IOException {
+
+	// Since this will be part of a search thread then take a quick
+	// break in case we're trying to do anything else.
+	try {
+	    Thread.sleep(10);
+	} catch (InterruptedException e) {
+	}
+
+	// We don't want to be trying to open directories
+	if (isLeaf()) {
+	    BufferedReader br = null;
+	    try {
+		br = new BufferedReader(new FileReader(file));
+		searchTerm = searchTerm.toLowerCase();
+		String line;
+		while ((line = br.readLine()) != null) {
+		    // System.out.println("Read line "+line);
+		    if (line.toLowerCase().indexOf(searchTerm) != -1) {
+			hits.add(this);
+			break;
+		    }
 		}
+	    } catch (IOException e) {
+		throw e;
+	    } finally {
+		if (br != null) {
+		    br.close();
+		}
+	    }
 	}
-	
-	/* (non-Javadoc)
-	 * @see javax.swing.tree.DefaultMutableTreeNode#toString()
-	 */
-	@Override
-	public String toString () {
-		return name;
+
+	// Extend the search to our children
+	Enumeration<?> kids = children();
+	while (kids.hasMoreElements()) {
+	    Object node = kids.nextElement();
+	    if (node instanceof HelpPage) {
+		((HelpPage) node).containsString(searchTerm, hits);
+	    }
 	}
-	
-	/* (non-Javadoc)
-	 * @see javax.swing.tree.DefaultMutableTreeNode#isLeaf()
-	 */
-	@Override
-	public boolean isLeaf() {
-		if (file.isDirectory()) return false;
-		return true;
-	}
-	
-	/**
-	 * Gets the file.
-	 * 
-	 * @return the file
-	 */
-	public File getFile () {
-		return file;
-	}
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.swing.tree.DefaultMutableTreeNode#toString()
+     */
+    @Override
+    public String toString() {
+	return name;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.swing.tree.DefaultMutableTreeNode#isLeaf()
+     */
+    @Override
+    public boolean isLeaf() {
+	if (file.isDirectory())
+	    return false;
+	return true;
+    }
+
+    /**
+     * Gets the file.
+     * 
+     * @return the file
+     */
+    public File getFile() {
+	return file;
+    }
 
 }

@@ -17,10 +17,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -32,7 +29,6 @@ import org.astrojournal.configuration.PreferencesDialog;
 import org.astrojournal.gui.AJMainGUI;
 import org.astrojournal.gui.dialogs.AboutDialog;
 import org.astrojournal.gui.dialogs.LicenseDialog;
-import org.astrojournal.gui.dialogs.help.HelpDialog;
 
 /**
  * Astro Journal Menu bar.
@@ -147,13 +143,40 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	    PreferencesDialog preferencesDialog = new PreferencesDialog(
 		    application);
 	} else if (action.equals("help_contents")) {
-	    try {
-		HelpDialog helpDialog = new HelpDialog(application, new File(
-			URLDecoder.decode(ClassLoader.getSystemResource("help")
-				.getFile(), "UTF-8")));
-	    } catch (UnsupportedEncodingException e1) {
-		e1.printStackTrace();
-	    }
+	    // FIXME
+	    JOptionPane
+		    .showMessageDialog(
+			    application,
+			    "This currently does not work..\n"
+				    + "THE PROBLEM IS that you need to scan a jar file and not a \n"
+				    + "normal file system structure. \n"
+				    + "Therefore, you need to work with URI and then in HelpIndexRoot, \n"
+				    + "scan the folder inside the jar file \n"
+				    + "using Uri instead of FILE. Therefore, extract the .html files and \n"
+				    + "show the help.", "WARNING",
+			    JOptionPane.ERROR_MESSAGE);
+	    // end FIXME
+
+	    // TODO old code
+	    // try {
+	    // HelpDialog helpDialog = new HelpDialog(application, new File(
+	    // URLDecoder.decode(ClassLoader.getSystemResource("help")
+	    // .getFile(), "UTF-8")));
+	    // } catch (UnsupportedEncodingException e1) {
+	    // e1.printStackTrace();
+	    // }
+
+	    // FIXME THE PROBLEM IS that you need to scan a jar file and not a
+	    // normal file system structure.
+	    // Therefore, you need to work with URI and then in HelpIndexRoot,
+	    // scan the folder inside the jar file
+	    // using Uri instead of FILE. Therefore, extract the .html files and
+	    // show the help.
+
+	    // THIS IS CORRECT
+	    // HelpDialog helpDialog = new HelpDialog(application,
+	    // ClassLoader.getSystemResource("help"));
+
 	} else if (action.equals("help_license")) {
 	    try {
 		LicenseDialog licenseDialog = new LicenseDialog(application);
@@ -167,5 +190,4 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 		    + action, "Unknown command", JOptionPane.ERROR_MESSAGE);
 	}
     }
-
 }
