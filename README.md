@@ -29,7 +29,6 @@ by a TAB delimiter. Fields can have single or double quotes.
 - Possibility to edit the document header and the footer according to one’s need. This must be done in LaTex for preserving the format controls in the final output file.
  
 
-
 ### Requirements
 To use AstroJournal you need to install:
 
@@ -37,11 +36,15 @@ To use AstroJournal you need to install:
 
 - [TeX Live](http://www.tug.org/texlive/) (for Linux Users) or [MikTeX](http://miktex.org/download) (for Windows Users) (pdflatex must be installed)
 
-For windows users who installed MikTeX, the LaTeX packages url and mptopdf must be installed using the 
-MikTeX Manager.
+For windows users who installed MikTeX, the LaTeX packages url and mptopdf must be installed using the MikTeX Manager.
+ 
 
-You can download the latest version of this software application [here](https://github.com/pdp10/AstroJournal/archive/master.zip). After downloading and uncompressing the file, you can run AstroJournal by typing:
+### Download
+You can download the latest version of this software application here:
 
+[https://github.com/pdp10/AstroJournal/archive/master.zip](https://github.com/pdp10/AstroJournal/archive/master.zip). 
+
+After downloading and uncompressing the file, you can run AstroJournal by typing:
 ```
 # On GNU/Linux or MAC OS X, run AstroJournal typing (or clicking the icon):
 ./create_journal.sh
@@ -52,7 +55,7 @@ or
 create_journal.bat
 ```
 
-This will start a very basic window to generate the journals.
+This will start a minimal graphical user interface to generate the journals.
 
 
 ### Create an observation record
