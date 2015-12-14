@@ -152,6 +152,7 @@ You can run AstroJournal on GNU/Linux typing:
 
 v0.9
 
+- Added internationalisation for GUI strings.
 - Added menu bar, preferences and help to the GUI.
 - Improved the AJ GUI to also report the program output graphically.
 - Added a configuration class for managing the program parameters.
