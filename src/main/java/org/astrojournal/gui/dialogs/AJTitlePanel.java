@@ -83,10 +83,8 @@ public class AJTitlePanel extends JPanel {
 	constraints.insets = new Insets(3, 3, 0, 0);
 	constraints.fill = GridBagConstraints.NONE;
 
-	JLabel program = new SmoothJLabel(
-		AJConfig.getInstance().APPLICATION_NAME + " "
-			+ AJConfig.getInstance().APPLICATION_VERSION,
-		JLabel.CENTER);
+	JLabel program = new SmoothJLabel(AJConfig.APPLICATION_NAME + " "
+		+ AJConfig.APPLICATION_VERSION, JLabel.CENTER);
 	program.setFont(new Font("Dialog", Font.BOLD, 18));
 	program.setForeground(new Color(0, 0, 200));
 	c.add(program, constraints);

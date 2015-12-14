@@ -27,6 +27,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * A class for capturing the console output (e.g.
+ * System.out.println("some text") ).
  * http://stackoverflow.com/questions/8708342/redirect-console-output-to-string-
  * in-java
  * 
@@ -40,6 +42,9 @@ public class ConsoleOutputCapturer {
     private PrintStream previous;
     private boolean capturing;
 
+    /**
+     * Start capturing the console output.
+     */
     public void start() {
 	if (capturing) {
 	    return;
@@ -56,6 +61,11 @@ public class ConsoleOutputCapturer {
 	System.setOut(custom);
     }
 
+    /**
+     * Stop capturing the console output.
+     * 
+     * @return the string containing the console output
+     */
     public String stop() {
 	if (!capturing) {
 	    return "";

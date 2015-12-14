@@ -72,7 +72,8 @@ public class PreferencesDialog extends JDialog implements ActionListener {
      *            the application
      */
     public PreferencesDialog(AJMainGUI application) {
-	super(application, "Edit Preferences...");
+	super(application, AJConfig.BUNDLE.getString("AJ.mnuEdit.text") + " "
+		+ AJConfig.BUNDLE.getString("AJ.mnuPreferences.text"));
 	initComponents(application);
     }
 
@@ -96,7 +97,11 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.weightx = 0.1;
 	c.weighty = 0.5;
 	c.fill = GridBagConstraints.HORIZONTAL;
-	filePanel.add(new JLabel("Input Folder: "), c);
+	JLabel inputDir = new JLabel(
+		AJConfig.BUNDLE.getString("AJ.lblInpDir.text"));
+	inputDir.setToolTipText(AJConfig.BUNDLE
+		.getString("AJ.lblInpDir.toolTipText"));
+	filePanel.add(inputDir, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
 	rawReportsFolder = new JTextField();
@@ -108,7 +113,11 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.gridx = 0;
 	c.gridy++;
 	c.weightx = 0.1;
-	filePanel.add(new JLabel("Folder for Latex Reports by Date:"), c);
+	JLabel outputDirByDate = new JLabel(
+		AJConfig.BUNDLE.getString("AJ.lblOutByDateDir.text"));
+	outputDirByDate.setToolTipText(AJConfig.BUNDLE
+		.getString("AJ.lblOutByDateDir.toolTipText"));
+	filePanel.add(outputDirByDate, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
 	latexReportsFolderByDate = new JTextField();
@@ -121,7 +130,11 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.gridx = 0;
 	c.gridy++;
 	c.weightx = 0.1;
-	filePanel.add(new JLabel("Folder for Latex Reports by Target:"), c);
+	JLabel outputDirByTarget = new JLabel(
+		AJConfig.BUNDLE.getString("AJ.lblOutByTargetDir.text"));
+	outputDirByTarget.setToolTipText(AJConfig.BUNDLE
+		.getString("AJ.lblOutByTargetDir.toolTipText"));
+	filePanel.add(outputDirByTarget, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
 	latexReportsFolderByTarget = new JTextField();
@@ -134,8 +147,11 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.gridx = 0;
 	c.gridy++;
 	c.weightx = 0.1;
-	filePanel.add(new JLabel("Folder for Latex Reports by Constellation:"),
-		c);
+	JLabel outputDirByConstellation = new JLabel(
+		AJConfig.BUNDLE.getString("AJ.lblOutByConstellationDir.text"));
+	outputDirByConstellation.setToolTipText(AJConfig.BUNDLE
+		.getString("AJ.lblOutByConstellationDir.toolTipText"));
+	filePanel.add(outputDirByConstellation, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
 	latexReportsFolderByConstellation = new JTextField();
@@ -148,7 +164,11 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.gridx = 0;
 	c.gridy++;
 	c.weightx = 0.1;
-	filePanel.add(new JLabel("Folder for SGL Reports by Date:"), c);
+	JLabel outputSGLDirByDate = new JLabel(
+		AJConfig.BUNDLE.getString("AJ.lblSGLOutByDateDir.text"));
+	outputSGLDirByDate.setToolTipText(AJConfig.BUNDLE
+		.getString("AJ.lblSGLOutByDateDir.toolTipText"));
+	filePanel.add(outputSGLDirByDate, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
 	sglReportsFolderByDate = new JTextField();
@@ -162,15 +182,17 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	getContentPane().add(filePanel, BorderLayout.CENTER);
 
 	JPanel buttonPanel = new JPanel();
-	JButton cancelButton = new JButton("Cancel");
+	JButton cancelButton = new JButton(
+		AJConfig.BUNDLE.getString("AJ.cmdCancel.text"));
 	cancelButton.setActionCommand("cancel");
 	cancelButton.addActionListener(this);
 	buttonPanel.add(cancelButton);
 
-	JButton okButton = new JButton("Save");
-	okButton.setActionCommand("ok");
-	okButton.addActionListener(this);
-	buttonPanel.add(okButton);
+	JButton saveButton = new JButton(
+		AJConfig.BUNDLE.getString("AJ.cmdSave.text"));
+	saveButton.setActionCommand("save");
+	saveButton.addActionListener(this);
+	buttonPanel.add(saveButton);
 
 	getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 
@@ -190,7 +212,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	if (action.equals("cancel")) {
 	    setVisible(false);
 	    dispose();
-	} else if (action.equals("ok")) {
+	} else if (action.equals("save")) {
 	    AJConfig config = AJConfig.getInstance();
 	    config.setRawReportsFolder(rawReportsFolder.getText());
 	    config.setLatexReportsFolderByDate(latexReportsFolderByDate

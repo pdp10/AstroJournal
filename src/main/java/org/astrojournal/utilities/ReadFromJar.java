@@ -42,12 +42,15 @@ public class ReadFromJar {
      * Read a filename resource from the application jar file.
      * 
      * @param fileNameInJar
-     * @return
+     * @return The string content of the file in the Jar
      * @throws FileNotFoundException
      * @throws IOException
      */
     public String getStringFileFromJARFile(String fileNameInJar)
 	    throws FileNotFoundException, IOException {
+	// We cannot load the file with File, because this file is inside a Jar
+	// file and is not part of the usual file system. We need to use
+	// a method like getClass().getResource()
 	InputStream is = getClass().getResourceAsStream(fileNameInJar);
 	if (is == null) {
 	    throw new FileNotFoundException();
@@ -74,7 +77,8 @@ public class ReadFromJar {
      *            The temporary filename
      * @param fileNameInJar
      *            The filename in the jar file.
-     * @return
+     * @return a temporary file containing the content of the extracted file in
+     *         the Jar.
      * @throws FileNotFoundException
      * @throws IOException
      */

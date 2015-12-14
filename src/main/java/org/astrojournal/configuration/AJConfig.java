@@ -26,6 +26,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ResourceBundle;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -44,6 +45,10 @@ public class AJConfig {
     private static AJConfig instance = new AJConfig();
 
     // THESE PARAMETERS ARE NOT CONFIGURABLE
+    /** The bundle for internationalisation */
+    public static final ResourceBundle BUNDLE = ResourceBundle
+	    .getBundle("locale/Bundle");
+
     /** The configuration file name. */
     private static final String AJ_CONFIG_FILENAME = "astrojournal_conf.txt";
 

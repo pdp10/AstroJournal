@@ -28,6 +28,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
+import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.gui.AJMainGUI;
 
 /**
@@ -59,7 +60,8 @@ public class AboutDialog extends JDialog {
      * This method is called from within the constructor to initialise the form.
      */
     private void initComponents(AJMainGUI application) {
-	setTitle("About AstroJournal");
+
+	setTitle(AJConfig.BUNDLE.getString("AJ.mnuAbout.text"));
 	Container cont = getContentPane();
 	cont.setLayout(new BorderLayout());
 
@@ -67,7 +69,8 @@ public class AboutDialog extends JDialog {
 
 	JPanel buttonPanel = new JPanel();
 
-	JButton closeButton = new JButton("Close");
+	JButton closeButton = new JButton(
+		AJConfig.BUNDLE.getString("AJ.cmdClose.text"));
 	getRootPane().setDefaultButton(closeButton);
 	closeButton.addActionListener(new ActionListener() {
 	    @Override

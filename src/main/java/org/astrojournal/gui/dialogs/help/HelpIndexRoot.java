@@ -28,6 +28,8 @@ import java.util.Vector;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import org.astrojournal.configuration.AJConfig;
+
 /**
  * The Class HelpIndexRoot is the root node of the tree of help files.
  */
@@ -45,12 +47,12 @@ public class HelpIndexRoot extends DefaultMutableTreeNode {
      *            the starting location
      */
     public HelpIndexRoot(File startingLocation) {
-	super("Help Contents");
+	super(AJConfig.BUNDLE.getString("AJ.mnuHelpContents.text"));
 
 	if (!startingLocation.exists() || !startingLocation.isDirectory()) {
 	    throw new IllegalArgumentException(
-		    "Could not find help file directory at '"
-			    + startingLocation.getAbsolutePath() + "'");
+		    AJConfig.BUNDLE.getString("AJ.errHelpDirNotFound.text")
+			    + " '" + startingLocation.getAbsolutePath() + "'");
 	}
 
 	addSubfiles(startingLocation, this);
@@ -151,7 +153,7 @@ public class HelpIndexRoot extends DefaultMutableTreeNode {
 	 * Gets the number array.
 	 * 
 	 * @param f
-	 *            the f
+	 *            the file
 	 * @return the number array
 	 * @throws NumberFormatException
 	 *             the number format exception

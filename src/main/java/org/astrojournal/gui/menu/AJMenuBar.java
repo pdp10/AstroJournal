@@ -33,6 +33,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
+import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.configuration.PreferencesDialog;
 import org.astrojournal.gui.AJMainGUI;
 import org.astrojournal.gui.dialogs.AboutDialog;
@@ -73,11 +74,19 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
      */
     public AJMenuBar(AJMainGUI application) {
 	this.application = application;
+	initComponents();
+    }
 
-	fileMenu = new JMenu("File");
+    /**
+     * This method is called from within the constructor to initialise the form.
+     */
+    private void initComponents() {
+
+	fileMenu = new JMenu(AJConfig.BUNDLE.getString("AJ.mnuFile.text"));
 	fileMenu.setMnemonic(KeyEvent.VK_F);
 
-	fileCreateJournal = new JMenuItem("Create Journals");
+	fileCreateJournal = new JMenuItem(
+		AJConfig.BUNDLE.getString("AJ.cmdCreateJournal.text"));
 	fileCreateJournal.setMnemonic(KeyEvent.VK_J);
 	fileCreateJournal.setAccelerator(KeyStroke.getKeyStroke('J', Toolkit
 		.getDefaultToolkit().getMenuShortcutKeyMask()));
@@ -87,7 +96,7 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 
 	// fileMenu.addSeparator();
 
-	fileQuit = new JMenuItem("Quit");
+	fileQuit = new JMenuItem(AJConfig.BUNDLE.getString("AJ.mnuQuit.text"));
 	fileQuit.setMnemonic(KeyEvent.VK_Q);
 	fileQuit.setAccelerator(KeyStroke.getKeyStroke('Q', Toolkit
 		.getDefaultToolkit().getMenuShortcutKeyMask()));
@@ -97,9 +106,10 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 
 	add(fileMenu);
 
-	editMenu = new JMenu("Edit");
+	editMenu = new JMenu(AJConfig.BUNDLE.getString("AJ.mnuEdit.text"));
 	editMenu.setMnemonic(KeyEvent.VK_E);
-	editPreferences = new JMenuItem("Preferences...");
+	editPreferences = new JMenuItem(
+		AJConfig.BUNDLE.getString("AJ.mnuPreferences.text"));
 	editPreferences.setActionCommand("edit_preferences");
 	editPreferences.setMnemonic(KeyEvent.VK_P);
 	editPreferences.setAccelerator(KeyStroke.getKeyStroke('P', Toolkit
@@ -108,10 +118,11 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	editMenu.add(editPreferences);
 	add(editMenu);
 
-	helpMenu = new JMenu("Help");
+	helpMenu = new JMenu(AJConfig.BUNDLE.getString("AJ.mnuHelp.text"));
 	helpMenu.setMnemonic(KeyEvent.VK_H);
 
-	helpContents = new JMenuItem("Help Contents");
+	helpContents = new JMenuItem(
+		AJConfig.BUNDLE.getString("AJ.mnuHelpContents.text"));
 	helpContents.setActionCommand("help_contents");
 	helpContents.setMnemonic(KeyEvent.VK_T);
 	helpContents.setAccelerator(KeyStroke.getKeyStroke('T', Toolkit
@@ -119,7 +130,8 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	helpContents.addActionListener(this);
 	helpMenu.add(helpContents);
 
-	helpLicense = new JMenuItem("License");
+	helpLicense = new JMenuItem(
+		AJConfig.BUNDLE.getString("AJ.mnuLicense.text"));
 	helpLicense.setActionCommand("help_license");
 	helpLicense.setMnemonic(KeyEvent.VK_L);
 	helpLicense.setAccelerator(KeyStroke.getKeyStroke('L', Toolkit
@@ -127,7 +139,7 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	helpLicense.addActionListener(this);
 	helpMenu.add(helpLicense);
 
-	helpAbout = new JMenuItem("About AstroJournal");
+	helpAbout = new JMenuItem(AJConfig.BUNDLE.getString("AJ.mnuAbout.text"));
 	helpAbout.setActionCommand("help_about");
 	helpAbout.setMnemonic(KeyEvent.VK_A);
 	helpAbout.setAccelerator(KeyStroke.getKeyStroke('A', Toolkit
@@ -181,8 +193,9 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 		HelpDialog helpDialog = new HelpDialog(application, new File(
 			"help"));
 	    } catch (FileNotFoundException e) {
-		JOptionPane.showMessageDialog(application,
-			"The Help Content was not found.", "File not found",
+		JOptionPane.showMessageDialog(application, AJConfig.BUNDLE
+			.getString("AJ.errHelpIndexNotFound.text"),
+			AJConfig.BUNDLE.getString("AJ.errFileNotFound.text"),
 			JOptionPane.ERROR_MESSAGE);
 	    }
 	    // FIXME THE PROBLEM IS that you need to scan a jar file and not a
@@ -202,17 +215,23 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 		LicenseDialog licenseDialog = new LicenseDialog(application,
 			license);
 	    } catch (FileNotFoundException e) {
-		JOptionPane.showMessageDialog(application, "The file "
-			+ license + " was not found.", "File not found",
-			JOptionPane.ERROR_MESSAGE);
+		JOptionPane
+			.showMessageDialog(application, AJConfig.BUNDLE
+				.getString("AJ.errLicenseNotFound.text"),
+				AJConfig.BUNDLE
+					.getString("AJ.errFileNotFound.text"),
+				JOptionPane.ERROR_MESSAGE);
 	    } catch (IOException e) {
 		e.printStackTrace();
 	    }
 	} else if (action.equals("help_about")) {
 	    AboutDialog aboutDialog = new AboutDialog(application);
 	} else {
-	    JOptionPane.showMessageDialog(application, "Unknown menu command "
-		    + action, "Unknown command", JOptionPane.ERROR_MESSAGE);
+	    JOptionPane.showMessageDialog(application,
+		    AJConfig.BUNDLE.getString("AJ.errCommandNotFound.text")
+			    + action,
+		    AJConfig.BUNDLE.getString("AJ.errCommandNotFound.text"),
+		    JOptionPane.ERROR_MESSAGE);
 	}
     }
 }

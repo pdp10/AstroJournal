@@ -32,6 +32,8 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import org.astrojournal.configuration.AJConfig;
+
 /**
  * The Class HelpDialog is the root window of the help system.
  */
@@ -60,7 +62,7 @@ public class HelpDialog extends JDialog implements TreeSelectionListener {
      */
     public HelpDialog(JFrame parent, File startingLocation)
 	    throws FileNotFoundException {
-	super(parent, "Help Contents");
+	super(parent, AJConfig.BUNDLE.getString("AJ.mnuHelpContents.text"));
 	if (!startingLocation.exists()) {
 	    throw new FileNotFoundException();
 	}

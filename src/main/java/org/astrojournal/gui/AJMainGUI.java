@@ -160,7 +160,8 @@ public class AJMainGUI extends JFrame {
 
 	// Create the button for creating the journals
 	btnCreateJournal = new JButton();
-	btnCreateJournal.setText("Create Journals");
+	btnCreateJournal.setText(AJConfig.BUNDLE
+		.getString("AJ.cmdCreateJournal.text"));
 	btnCreateJournal.addActionListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
@@ -173,7 +174,7 @@ public class AJMainGUI extends JFrame {
 
 	// Create the button for closing the application
 	btnClose = new JButton();
-	btnClose.setText("Close");
+	btnClose.setText(AJConfig.BUNDLE.getString("AJ.cmdClose.text"));
 	btnClose.addActionListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
@@ -183,7 +184,8 @@ public class AJMainGUI extends JFrame {
 
 	// Create the control panel containing the button and the checkbox
 	JPanel controlPanel = new JPanel();
-	controlPanel.add(new JLabel("Show Latex Output"));
+	controlPanel.add(new JLabel(AJConfig.BUNDLE
+		.getString("AJ.lblShowLatexOutput.text")));
 	controlPanel.add(cbxLatexOutput);
 	controlPanel.add(btnCreateJournal);
 	controlPanel.add(btnClose);
@@ -191,7 +193,9 @@ public class AJMainGUI extends JFrame {
 	// Create the main panel containing the text area and the control panel
 	JPanel mainPanel = new JPanel(new BorderLayout());
 	mainPanel.setPreferredSize(getContentPane().getPreferredSize());
-	mainPanel.add(new JLabel("Output:"), BorderLayout.NORTH);
+	mainPanel.add(
+		new JLabel(AJConfig.BUNDLE.getString("AJ.lblOutput.text")),
+		BorderLayout.NORTH);
 	mainPanel.add(scrollPane, BorderLayout.CENTER);
 	mainPanel.add(controlPanel, BorderLayout.SOUTH);
 

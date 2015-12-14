@@ -35,6 +35,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.astrojournal.configuration.AJConfig;
+
 /**
  * The Class HelpSearchPanel.
  */
@@ -75,6 +77,13 @@ public class HelpSearchPanel extends JPanel implements ActionListener,
     public HelpSearchPanel(HelpIndexRoot root, HelpDialog dialog) {
 	this.root = root;
 	this.dialog = dialog;
+	initComponents();
+    }
+
+    /**
+     * This method is called from within the constructor to initialise the form.
+     */
+    private void initComponents() {
 
 	setLayout(new BorderLayout());
 
@@ -85,14 +94,16 @@ public class HelpSearchPanel extends JPanel implements ActionListener,
 	queryField.setActionCommand("search");
 	queryField.addActionListener(this);
 	queryPanel.add(queryField, BorderLayout.CENTER);
-	searchButton = new JButton("Search");
+	searchButton = new JButton(
+		AJConfig.BUNDLE.getString("AJ.lblSearch.text"));
 	searchButton.setActionCommand("search");
 	searchButton.addActionListener(this);
 	queryPanel.add(searchButton, BorderLayout.EAST);
 	add(queryPanel, BorderLayout.NORTH);
 
 	listModel = new DefaultListModel();
-	listModel.addElement("[No search results]");
+	listModel.addElement(AJConfig.BUNDLE
+		.getString("AJ.lblNoSearchResults.text"));
 	resultList = new JList(listModel);
 	resultList.addListSelectionListener(this);
 	resultList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -151,16 +162,11 @@ public class HelpSearchPanel extends JPanel implements ActionListener,
 		    listModel.addElement(results[r]);
 		}
 	    } else {
-		listModel.addElement("[No search results]");
+		listModel.addElement(AJConfig.BUNDLE
+			.getString("AJ.lblNoSearchResults.text"));
 	    }
 	}
 
-	// This stupid rigmarole is because on OSX the updated list
-	// just won't show up for some reason. Removing the list and
-	// re-adding it forces it to always show up.
-	//
-	// It's not even enough to remake the scroll pane. You have
-	// to replace the entire JList. Aaargh!
 	remove(resultsScrollPane);
 	revalidate();
 	resultList = new JList(listModel);

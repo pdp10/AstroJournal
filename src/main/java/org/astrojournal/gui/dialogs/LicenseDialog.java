@@ -28,6 +28,7 @@ import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
 
+import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.gui.AJMainGUI;
 import org.astrojournal.utilities.ReadFromJar;
 
@@ -79,8 +80,10 @@ public class LicenseDialog extends JDialog {
      */
     private void initComponents(AJMainGUI application, String license)
 	    throws FileNotFoundException, IOException {
+
 	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-	setTitle("AstroJournal License");
+	setTitle(AJConfig.APPLICATION_NAME + " "
+		+ AJConfig.BUNDLE.getString("AJ.lblLicense.text"));
 	if (tempLicense == null) {
 	    ReadFromJar rfj = new ReadFromJar();
 	    tempLicense = rfj.getFileFromJARFile(license, "/" + license);
