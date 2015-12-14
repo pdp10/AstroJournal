@@ -1,5 +1,4 @@
+AstroJournal
+Copyright 2015-2016 Piero Dalle Pezze
 
-to add libraries: mvn eclipse:eclipse
-to create a package: mvn package
-to compile: mvn compile
-to clean: mvn clean
+Website: http://pdp10.github.io/AstroJournal/

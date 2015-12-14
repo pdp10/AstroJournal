@@ -122,7 +122,12 @@ To test maven type:
 mvn --version
 ```
 
-To compile AstroJournal on GNU/Linux type:
+To add dependencies using Eclipse type:
+```
+mvn eclipse:eclipse
+```
+
+To create a jar file for AstroJournal type:
 ```
 mvn package
 ```
