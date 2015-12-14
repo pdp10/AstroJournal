@@ -168,8 +168,7 @@ public class AJMainGUI extends JFrame {
 		createJournals();
 	    }
 	});
-	// Set this button as default. So if one presses <ENTER>
-	// automatically presses this button! :)
+	// Set this button as default. :)
 	getRootPane().setDefaultButton(btnCreateJournal);
 
 	// Create the button for closing the application

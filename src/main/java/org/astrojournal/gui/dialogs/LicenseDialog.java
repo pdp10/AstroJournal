@@ -19,13 +19,18 @@
  */
 package org.astrojournal.gui.dialogs;
 
+import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import org.astrojournal.configuration.AJConfig;
@@ -81,9 +86,10 @@ public class LicenseDialog extends JDialog {
     private void initComponents(AJMainGUI application, String license)
 	    throws FileNotFoundException, IOException {
 
-	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	setTitle(AJConfig.APPLICATION_NAME + " "
 		+ AJConfig.BUNDLE.getString("AJ.lblLicense.text"));
+	setLayout(new BorderLayout());
+
 	if (tempLicense == null) {
 	    ReadFromJar rfj = new ReadFromJar();
 	    tempLicense = rfj.getFileFromJARFile(license, "/" + license);
@@ -92,9 +98,33 @@ public class LicenseDialog extends JDialog {
 	    throw new FileNotFoundException();
 	}
 	htmlPane = new JEditorPane(tempLicense.toURI().toURL());
+	// The following two settings are required for setting the default
+	// button
 	htmlPane.setEditable(false);
+	htmlPane.setFocusable(false);
 	htmlPane.setFont(new Font("Monospaced", Font.PLAIN, 12));
-	setContentPane(new JScrollPane(htmlPane));
+
+	JScrollPane scrollPane = new JScrollPane(htmlPane);
+	// The following setting is required for setting the default
+	// button
+	scrollPane.setFocusable(true);
+	add(scrollPane, BorderLayout.CENTER);
+
+	JPanel buttonPanel = new JPanel();
+	JButton btnClose = new JButton(
+		AJConfig.BUNDLE.getString("AJ.cmdClose.text"));
+	getRootPane().setDefaultButton(btnClose);
+	btnClose.addActionListener(new ActionListener() {
+	    @Override
+	    public void actionPerformed(ActionEvent ae) {
+		setVisible(false);
+		dispose();
+	    }
+	});
+	buttonPanel.add(btnClose);
+
+	add(buttonPanel, BorderLayout.SOUTH);
+
 	setSize(580, 500);
 	setLocationRelativeTo(application);
 	setVisible(true);

@@ -182,17 +182,19 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	getContentPane().add(filePanel, BorderLayout.CENTER);
 
 	JPanel buttonPanel = new JPanel();
-	JButton cancelButton = new JButton(
+	JButton btnCancel = new JButton(
 		AJConfig.BUNDLE.getString("AJ.cmdCancel.text"));
-	cancelButton.setActionCommand("cancel");
-	cancelButton.addActionListener(this);
-	buttonPanel.add(cancelButton);
+	btnCancel.setActionCommand("cancel");
+	// Set this button as default. :)
+	getRootPane().setDefaultButton(btnCancel);
+	btnCancel.addActionListener(this);
+	buttonPanel.add(btnCancel);
 
-	JButton saveButton = new JButton(
+	JButton btnSave = new JButton(
 		AJConfig.BUNDLE.getString("AJ.cmdSave.text"));
-	saveButton.setActionCommand("save");
-	saveButton.addActionListener(this);
-	buttonPanel.add(saveButton);
+	btnSave.setActionCommand("save");
+	btnSave.addActionListener(this);
+	buttonPanel.add(btnSave);
 
 	getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 

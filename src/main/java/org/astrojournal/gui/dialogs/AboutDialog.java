@@ -20,7 +20,6 @@
 package org.astrojournal.gui.dialogs;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -62,26 +61,24 @@ public class AboutDialog extends JDialog {
     private void initComponents(AJMainGUI application) {
 
 	setTitle(AJConfig.BUNDLE.getString("AJ.mnuAbout.text"));
-	Container cont = getContentPane();
-	cont.setLayout(new BorderLayout());
+	setLayout(new BorderLayout());
 
 	add(new AJTitlePanel(), BorderLayout.CENTER);
 
 	JPanel buttonPanel = new JPanel();
-
-	JButton closeButton = new JButton(
+	JButton btnClose = new JButton(
 		AJConfig.BUNDLE.getString("AJ.cmdClose.text"));
-	getRootPane().setDefaultButton(closeButton);
-	closeButton.addActionListener(new ActionListener() {
+	getRootPane().setDefaultButton(btnClose);
+	btnClose.addActionListener(new ActionListener() {
 	    @Override
-	    public void actionPerformed(ActionEvent arg0) {
+	    public void actionPerformed(ActionEvent ae) {
 		setVisible(false);
 		dispose();
 	    }
 	});
-	buttonPanel.add(closeButton);
+	buttonPanel.add(btnClose);
 
-	cont.add(buttonPanel, BorderLayout.SOUTH);
+	add(buttonPanel, BorderLayout.SOUTH);
 
 	setSize(450, 200);
 	setLocationRelativeTo(application);
