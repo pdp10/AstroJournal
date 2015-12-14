@@ -23,6 +23,7 @@ import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
 
 import org.astrojournal.gui.AJMainGUI;
+import org.astrojournal.utilities.ReadFromJar;
 
 /**
  * The Class LicenseDialog shows a text representation of the License used for
@@ -34,6 +35,11 @@ import org.astrojournal.gui.AJMainGUI;
  * @date 13 Dec 2015
  */
 public class LicenseDialog extends JDialog {
+
+    /**
+     * A temporary file containing the license file.
+     */
+    private File tempLicense = null;
 
     private static final long serialVersionUID = -8023870968821351252L;
 
@@ -52,25 +58,31 @@ public class LicenseDialog extends JDialog {
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    public LicenseDialog(AJMainGUI application, File license)
+    public LicenseDialog(AJMainGUI application, String license)
 	    throws FileNotFoundException, IOException {
 	super(application);
-	if (!license.exists()) {
-	    throw new FileNotFoundException();
-	}
 	initComponents(application, license);
     }
 
     /**
      * This method is called from within the constructor to initialise the form.
      * 
+     * @throws FileNotFoundException
+     *             if the license file does not exist.
      * @throws IOException
      */
-    private void initComponents(AJMainGUI application, File license)
-	    throws IOException {
+    private void initComponents(AJMainGUI application, String license)
+	    throws FileNotFoundException, IOException {
 	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-	setTitle("AstroJournal License...");
-	htmlPane = new JEditorPane(license.toURI().toURL());
+	setTitle("AstroJournal License");
+	if (tempLicense == null) {
+	    ReadFromJar rfj = new ReadFromJar();
+	    tempLicense = rfj.getFileFromJARFile(license, "/" + license);
+	}
+	if (!tempLicense.exists()) {
+	    throw new FileNotFoundException();
+	}
+	htmlPane = new JEditorPane(tempLicense.toURI().toURL());
 	htmlPane.setEditable(false);
 	htmlPane.setFont(new Font("Monospaced", Font.PLAIN, 12));
 	setContentPane(new JScrollPane(htmlPane));

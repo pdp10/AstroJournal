@@ -191,13 +191,14 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	    // ClassLoader.getSystemResource("help"));
 
 	} else if (action.equals("help_license")) {
+	    String license = "LICENSE.txt";
 	    try {
 		LicenseDialog licenseDialog = new LicenseDialog(application,
-			new File("LICENSE.txt"));
+			license);
 	    } catch (FileNotFoundException e) {
-		JOptionPane.showMessageDialog(application,
-			"The file LICENSE.txt was not found.",
-			"File not found", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(application, "The file "
+			+ license + " was not found.", "File not found",
+			JOptionPane.ERROR_MESSAGE);
 	    } catch (IOException e) {
 		e.printStackTrace();
 	    }
