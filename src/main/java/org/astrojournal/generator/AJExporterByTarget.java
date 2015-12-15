@@ -205,7 +205,7 @@ public class AJExporterByTarget implements AJExporter {
 		    }
 		    // include the file removing the extension .tex
 		    writerByTarget.write("\\input{"
-			    + latexReportsFolderByTarget + "/"
+			    + latexReportsFolderByTarget
 			    + target.replaceFirst("[.][^.]+$", "") + "}\n");
 		    writerByTarget.write("\\vspace{4 mm}\n");
 		}
