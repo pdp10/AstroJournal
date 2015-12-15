@@ -96,6 +96,7 @@ public class AJExporterByDate implements AJExporter {
 		if (file.isFile() && file.getName().endsWith(".tex")) {
 		    // include the file removing the extension .tex
 		    writerByDate.write("\\input{" + latexReportsFolderByDate
+			    + "/"
 			    + file.getName().replaceFirst("[.][^.]+$", "")
 			    + "}\n");
 		    writerByDate.write("\\clearpage \n");

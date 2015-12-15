@@ -72,6 +72,8 @@ public class AJConfig {
 
     private static final String LATEX_HEADER_FOOTER_FOLDER = "latex_header_footer";
 
+    // NOTE: These fields require File.separator in order to be found by Java in
+    // the file system.
     /** The Latex header with path for astrojournal by date. */
     public static final String HEADER_BY_DATE_FILENAME = LATEX_HEADER_FOOTER_FOLDER
 	    + File.separator + "header_by_date.tex";
@@ -109,34 +111,32 @@ public class AJConfig {
     /** True if the version should be shown. */
     private boolean showVersion = true;
 
+    // NOTE: These field MUST NOT have a file separator because Latex uses '/'
+    // by default.
     /** The relative path containing the raw files (observation input folder). */
-    private String rawReportsFolder = "raw_reports" + File.separator;
+    private String rawReportsFolder = "raw_reports";
 
     /**
      * The name of the folder containing the latex observation files by date
      * (observation output folder).
      */
-    private String latexReportsFolderByDate = "latex_reports_by_date"
-	    + File.separator;
+    private String latexReportsFolderByDate = "latex_reports_by_date";
 
     /**
      * The name of the folder containing the latex observation files by target
      * (observation output folder).
      */
-    private String latexReportsFolderByTarget = "latex_reports_by_target"
-	    + File.separator;
+    private String latexReportsFolderByTarget = "latex_reports_by_target";
     /**
      * The name of the folder containing the latex observation files by
      * constellation (observation output folder).
      */
-    private String latexReportsFolderByConstellation = "latex_reports_by_constellation"
-	    + File.separator;
+    private String latexReportsFolderByConstellation = "latex_reports_by_constellation";
     /**
      * The name of the folder containing the latex observation files by date
      * (observation output folder).
      */
-    private String sglReportsFolderByDate = "sgl_reports_by_date"
-	    + File.separator;
+    private String sglReportsFolderByDate = "sgl_reports_by_date";
 
     /** The configuration file. */
     private File configFile = null;
@@ -270,27 +270,15 @@ public class AJConfig {
      * Adjust the file separator if needed.
      */
     private void adjustFileSeparator() {
-	if (File.separator.equals("/")) {
-	    rawReportsFolder = rawReportsFolder.replace("\\", File.separator);
-	    latexReportsFolderByDate = latexReportsFolderByDate.replace("\\",
-		    File.separator);
-	    latexReportsFolderByTarget = latexReportsFolderByTarget.replace(
-		    "\\", File.separator);
-	    latexReportsFolderByConstellation = latexReportsFolderByConstellation
-		    .replace("\\", File.separator);
-	    sglReportsFolderByDate = sglReportsFolderByDate.replace("\\",
-		    File.separator);
-	} else if (File.separator.equals("\\")) {
-	    rawReportsFolder = rawReportsFolder.replace("/", File.separator);
-	    latexReportsFolderByDate = latexReportsFolderByDate.replace("/",
-		    File.separator);
-	    latexReportsFolderByTarget = latexReportsFolderByTarget.replace(
-		    "/", File.separator);
-	    latexReportsFolderByConstellation = latexReportsFolderByConstellation
-		    .replace("/", File.separator);
-	    sglReportsFolderByDate = sglReportsFolderByDate.replace("/",
-		    File.separator);
-	}
+	// File separator must be '/' as this is the default file separator in
+	// LaTeX. Therefore, let's replace eventual '\' with '/'.
+	rawReportsFolder = rawReportsFolder.replace("\\", "/");
+	latexReportsFolderByDate = latexReportsFolderByDate.replace("\\", "/");
+	latexReportsFolderByTarget = latexReportsFolderByTarget.replace("\\",
+		"/");
+	latexReportsFolderByConstellation = latexReportsFolderByConstellation
+		.replace("\\", "/");
+	sglReportsFolderByDate = sglReportsFolderByDate.replace("\\", "/");
     }
 
     /**

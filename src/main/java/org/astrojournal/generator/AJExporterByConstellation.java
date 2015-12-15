@@ -122,7 +122,8 @@ public class AJExporterByConstellation implements AJExporter {
 		    }
 		    // include the file removing the extension .tex
 		    writerByConst.write("\\input{" + latexReportsFolderByConst
-			    + filename.replaceFirst("[.][^.]+$", "") + "}\n");
+			    + "/" + filename.replaceFirst("[.][^.]+$", "")
+			    + "}\n");
 		    // writerByConst.write("\\clearpage \n");
 		}
 	    }
