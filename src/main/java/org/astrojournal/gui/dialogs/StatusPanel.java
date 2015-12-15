@@ -60,7 +60,6 @@ public class StatusPanel extends JPanel {
      */
     public void setText(String text) {
 	textLabel.setText(text);
-	textLabel.paintImmediately(textLabel.getVisibleRect());
     }
 
 }
