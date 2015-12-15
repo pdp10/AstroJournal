@@ -34,7 +34,7 @@ public class StatusPanel extends JPanel {
 
     private static final long serialVersionUID = -7979299860162515406L;
     /** The textLabel. */
-    private JLabel textLabel = new JLabel(" ", JLabel.LEFT);
+    private JLabel textLabel = new JLabel("Temporary Text", JLabel.LEFT);
 
     /**
      * Instantiates a new status panel.
