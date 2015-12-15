@@ -92,6 +92,7 @@ public class AJMainGUI extends JFrame {
      */
     public void setStatusPanelText(String str) {
 	statusPanel.setText(str);
+	repaint();
     }
 
     /**
