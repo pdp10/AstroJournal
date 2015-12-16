@@ -19,18 +19,30 @@
  */
 package org.astrojournal.generator;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import org.astrojournal.observation.AJObservation;
 
 /**
- * The interface of AstroJournal observation exporter.
+ * Abstract class of AstroJournal observation exporter.
  * 
  * @author Piero Dalle Pezze
  * @version 0.1
  * @since 13/09/2015
  */
-public interface AJExporter {
+public abstract class AJExporter {
+
+    protected File ajFilesLocation;
+
+    /**
+     * The path location where to export the files.
+     * 
+     * @param ajFilesLocation
+     */
+    public AJExporter(File ajFilesLocation) {
+	this.ajFilesLocation = ajFilesLocation;
+    }
 
     /**
      * Generate the journal document
@@ -45,7 +57,7 @@ public interface AJExporter {
      * @param footerFilename
      *            the footer filename
      */
-    public void generateJournal(String outputReportsFolder,
+    public abstract void generateJournal(String outputReportsFolder,
 	    String headerFilename, String mainFilename, String footerFilename);
 
     /**
@@ -57,7 +69,7 @@ public interface AJExporter {
      *            the folder to write the observation in.
      * @return true if the observations are exported
      */
-    public boolean exportObservations(ArrayList<AJObservation> observations,
-	    String outputReportsFolder);
+    public abstract boolean exportObservations(
+	    ArrayList<AJObservation> observations, String outputReportsFolder);
 
 }

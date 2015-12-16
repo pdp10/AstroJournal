@@ -66,7 +66,7 @@ public class AJTitlePanel extends JPanel {
 	setLayout(new BorderLayout(5, 1));
 
 	ImageIcon logo = new ImageIcon(
-		ClassLoader.getSystemResource("graphics/aj_icon.png"));
+		ClassLoader.getSystemResource("graphics/aj_icon_128.png"));
 	JPanel logoPanel = new JPanel();
 	logoPanel.add(new JLabel("", logo, JLabel.CENTER));
 	logoPanel.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));

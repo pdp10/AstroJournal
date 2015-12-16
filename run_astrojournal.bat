@@ -31,17 +31,5 @@ rem Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 rem echo on
 
-rd astrojournal_by_date.pdf astrojournal_by_target.pdf astrojournal_by_constellation.pdf
-  
-
 rem Run AstroJournal and generate the Latex code
 java -jar target\astrojournal-0.9-jar-with-dependencies.jar 
-
-rem> astrojournal_output.txt
-
-
-rem Clean the temporary and log files
-
-rem rd /q /s *.aux *.log *.out *.toc %output_reports_folder_by_date%\*.aux %output_reports_folder_by_target%\*.aux %output_reports_folder_by_constellation%\*.aux
-
-

@@ -45,7 +45,7 @@ import org.astrojournal.observation.AJObservationItem;
  * @version 0.1
  * @since 22/07/2015
  */
-public class AJExporterByTarget implements AJExporter {
+public class AJExporterByTarget extends AJExporter {
 
     /** The log associated to this class */
     private static Logger log = Logger.getLogger(AJExporterByTarget.class);
@@ -54,7 +54,7 @@ public class AJExporterByTarget implements AJExporter {
     private HashSet<String> processedTargetCache = new HashSet<String>(1000);
 
     /** A comparator for sorting catalogues */
-    Comparator<String> catalogueItemComparator = new Comparator<String>() {
+    private Comparator<String> catalogueItemComparator = new Comparator<String>() {
 	@Override
 	public int compare(String o1, String o2) {
 	    return extractInt(o1) - extractInt(o2);
@@ -67,8 +67,13 @@ public class AJExporterByTarget implements AJExporter {
 	}
     };
 
-    /** Default constructor */
-    public AJExporterByTarget() {
+    /**
+     * Default constructor
+     * 
+     * @param ajFilesLocation
+     */
+    public AJExporterByTarget(File ajFilesLocation) {
+	super(ajFilesLocation);
     }
 
     /**
@@ -89,22 +94,26 @@ public class AJExporterByTarget implements AJExporter {
 	    String latexHeaderByTarget, String latexMainByTarget,
 	    String latexFooterByTarget) {
 	AJLatexHeader ajLatexHeaderByTarget = new AJLatexHeader(
-		latexHeaderByTarget);
+		ajFilesLocation.getAbsolutePath(), latexHeaderByTarget);
 	AJLatexFooter ajLatexFooterByTarget = new AJLatexFooter(
-		latexFooterByTarget);
+		ajFilesLocation.getAbsolutePath(), latexFooterByTarget);
 	Writer writerByTarget = null;
 	try {
 	    writerByTarget = new BufferedWriter(new OutputStreamWriter(
-		    new FileOutputStream(latexMainByTarget), "utf-8"));
+		    new FileOutputStream(ajFilesLocation.getAbsolutePath()
+			    + File.separator + latexMainByTarget), "utf-8"));
 	    // write the Latex Header
 	    writerByTarget.write(ajLatexHeaderByTarget.getHeader());
 	    // write the Latex Body
 	    // Write the observation reports
 	    // parse each file in the latex obs folder (sorted by observation
 	    // increasing)
-	    File[] files = new File(latexReportsFolderByTarget).listFiles();
+	    File[] files = new File(ajFilesLocation.getAbsolutePath()
+		    + File.separator + latexReportsFolderByTarget).listFiles();
 	    if (files == null) {
-		log.warn("Folder " + latexReportsFolderByTarget + " not found");
+		log.warn("Folder " + ajFilesLocation.getAbsolutePath()
+			+ File.separator + latexReportsFolderByTarget
+			+ " not found");
 		return;
 	    }
 	    sortFilesByTarget(files);
@@ -213,7 +222,9 @@ public class AJExporterByTarget implements AJExporter {
 	    // write the Latex Footer
 	    writerByTarget.write(ajLatexFooterByTarget.getFooter());
 	} catch (IOException ex) {
-	    log.warn("Error when opening the file " + latexMainByTarget);
+	    log.warn("Error when opening the file "
+		    + ajFilesLocation.getAbsolutePath() + File.separator
+		    + latexMainByTarget);
 	} catch (Exception ex) {
 	    log.warn(ex);
 	} finally {
@@ -252,7 +263,10 @@ public class AJExporterByTarget implements AJExporter {
 			processedTargetCache.add(filenameOut);
 			targetWriter = new BufferedWriter(
 				new OutputStreamWriter(new FileOutputStream(
-					new File(latexReportsByTargetFolder,
+					new File(ajFilesLocation
+						.getAbsolutePath()
+						+ File.separator
+						+ latexReportsByTargetFolder,
 						filenameOut + ".tex")), "utf-8"));
 			if (obsItem.getType().toLowerCase().equals("planet")
 				|| obsItem.getTarget().toLowerCase()
@@ -295,7 +309,10 @@ public class AJExporterByTarget implements AJExporter {
 			// lines
 			targetWriter = new BufferedWriter(
 				new OutputStreamWriter(new FileOutputStream(
-					new File(latexReportsByTargetFolder,
+					new File(ajFilesLocation
+						.getAbsolutePath()
+						+ File.separator
+						+ latexReportsByTargetFolder,
 						filenameOut + ".tex"), true),
 					"utf-8"));
 		    }
@@ -354,7 +371,10 @@ public class AJExporterByTarget implements AJExporter {
 			processedTargetCache.add(filenameOut);
 			targetWriter = new BufferedWriter(
 				new OutputStreamWriter(new FileOutputStream(
-					new File(latexReportsByTargetFolder,
+					new File(ajFilesLocation
+						.getAbsolutePath()
+						+ File.separator
+						+ latexReportsByTargetFolder,
 						filenameOut + ".tex"), true),
 					"utf-8"));
 			targetWriter.write("\\end{itemize}\n");

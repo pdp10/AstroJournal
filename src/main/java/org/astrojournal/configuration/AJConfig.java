@@ -21,6 +21,7 @@ package org.astrojournal.configuration;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -113,6 +114,9 @@ public class AJConfig {
 
     // NOTE: These field MUST NOT have a file separator because Latex uses '/'
     // by default.
+    /** The absolute path containing AstroJournal input and output folders. */
+    private File ajFilesLocation;
+
     /** The relative path containing the raw files (observation input folder). */
     private String rawReportsFolder = "raw_reports";
 
@@ -173,6 +177,9 @@ public class AJConfig {
 		    + File.separator + AJ_CONFIG_FILENAME);
 	}
 
+	ajFilesLocation = new File(System.getProperty("user.home")
+		+ File.separator + "AstroJournal_files");
+
 	if (configFile != null && configFile.exists()) {
 	    loadPreferences();
 	} else {
@@ -195,16 +202,32 @@ public class AJConfig {
 
 	    String line;
 	    String[] sections;
+	    boolean correctLocation = true;
 	    while ((line = br.readLine()) != null) {
 		if (line.startsWith("#"))
 		    continue; // It's a comment
-		sections = line.split("\\t", -1);
+		sections = line.split("=", -1);
 		if (sections[0].equals("latex_output")) {
 		    latexOutput = Boolean.getBoolean(sections[1]);
 		} else if (sections[0].equals("quiet")) {
 		    quiet = Boolean.getBoolean(sections[1]);
 		} else if (sections[0].equals("show_version")) {
 		    showVersion = Boolean.getBoolean(sections[1]);
+		} else if (sections[0].equals("aj_files_location")) {
+		    File oldAJFilesLocation = ajFilesLocation;
+		    ajFilesLocation = new File(sections[1]);
+		    if (ajFilesLocation == null || !ajFilesLocation.exists()
+			    || !ajFilesLocation.canWrite()) {
+			ajFilesLocation = oldAJFilesLocation;
+			System.err
+				.println("Error: The location for storing AJ Files is not set correctly.\n"
+					+ "Check "
+					+ configFile.getAbsolutePath()
+					+ " or Edit > Preference.\n"
+					+ "Using default path: "
+					+ ajFilesLocation.getAbsolutePath());
+			correctLocation = false;
+		    }
 		} else if (sections[0].equals("raw_reports_folder")) {
 		    rawReportsFolder = sections[1];
 		} else if (sections[0].equals("latex_reports_folder_by_date")) {
@@ -221,9 +244,10 @@ public class AJConfig {
 			    + sections[0]
 			    + "' in AstroJournal configuration file.");
 		}
+		if (!correctLocation) {
+		    savePreferences();
+		}
 	    }
-	} catch (FileNotFoundException e) {
-	    e.printStackTrace();
 	} catch (IOException e) {
 	    e.printStackTrace();
 	} finally {
@@ -250,16 +274,17 @@ public class AJConfig {
 	pw.println("# AstroJournal configuration file. Do not edit by hand.");
 
 	// Let's now right down the configuration
-	pw.println("latex_output\t" + latexOutput);
-	pw.println("quiet\t" + quiet);
-	pw.println("show_version\t" + showVersion);
-	pw.println("raw_reports_folder\t" + rawReportsFolder);
-	pw.println("latex_reports_folder_by_date\t" + latexReportsFolderByDate);
-	pw.println("latex_reports_folder_by_target\t"
+	pw.println("latex_output=" + latexOutput);
+	pw.println("quiet=" + quiet);
+	pw.println("show_version=" + showVersion);
+	pw.println("aj_files_location=" + ajFilesLocation.getAbsolutePath());
+	pw.println("raw_reports_folder=" + rawReportsFolder);
+	pw.println("latex_reports_folder_by_date=" + latexReportsFolderByDate);
+	pw.println("latex_reports_folder_by_target="
 		+ latexReportsFolderByTarget);
-	pw.println("latex_reports_folder_by_constellation\t"
+	pw.println("latex_reports_folder_by_constellation="
 		+ latexReportsFolderByConstellation);
-	pw.println("sgl_reports_folder_by_date\t" + sglReportsFolderByDate);
+	pw.println("sgl_reports_folder_by_date=" + sglReportsFolderByDate);
 
 	pw.close();
 	// In case these do not exist.
@@ -303,6 +328,17 @@ public class AJConfig {
 	    latexOutput = true;
 	}
 
+	// AJ files location
+	if (System.getProperty("aj.aj_files_location") != null) {
+	    ajFilesLocation = new File(
+		    System.getProperty("aj.aj_files_location"));
+	    if (!(ajFilesLocation.exists() && ajFilesLocation.canWrite())) {
+		throw new IllegalArgumentException("AJ File Location "
+			+ ajFilesLocation
+			+ " does not exist or is not writeable");
+	    }
+	}
+
 	// Raw reports folder
 	if (System.getProperty("aj.raw_reports_folder") != null) {
 	    rawReportsFolder = new String(
@@ -338,30 +374,68 @@ public class AJConfig {
     private void prepareAJFolders() {
 	adjustFileSeparator();
 	// Create the folders if these do not exist.
-	new File(LATEX_HEADER_FOOTER_FOLDER).mkdir();
-	new File(rawReportsFolder).mkdir();
-	new File(latexReportsFolderByDate).mkdir();
-	new File(latexReportsFolderByTarget).mkdir();
-	new File(latexReportsFolderByConstellation).mkdir();
-	new File(sglReportsFolderByDate).mkdir();
+
+	ajFilesLocation.mkdir();
+
+	// AJ folder
+	File ajHeaderFooterDir = new File(LATEX_HEADER_FOOTER_FOLDER);
+	ajHeaderFooterDir.mkdir();
+	// Create a local folder for header_footer and copy the content from
+	// the AJ folder to here
+	File userHeaderFooterDir = new File(ajFilesLocation.getAbsolutePath()
+		+ File.separator + LATEX_HEADER_FOOTER_FOLDER);
+
+	FileFilter latexFilter = new FileFilter() {
+	    @Override
+	    public boolean accept(File pathname) {
+		return pathname.getName().endsWith(".tex");
+	    }
+	};
+	if (!userHeaderFooterDir.exists()
+		|| userHeaderFooterDir.listFiles(latexFilter).length < 1) {
+	    try {
+		FileUtils.copyDirectory(ajHeaderFooterDir, userHeaderFooterDir,
+			true);
+	    } catch (IOException e) {
+		System.err.println(AJConfig.BUNDLE
+			.getString("AJ.errCannotCopyHeaderFooterFolder.text"));
+		e.getStackTrace();
+	    }
+	}
+
+	new File(ajFilesLocation.getAbsolutePath() + File.separator
+		+ rawReportsFolder).mkdir();
+	new File(ajFilesLocation.getAbsolutePath() + File.separator
+		+ latexReportsFolderByDate).mkdir();
+	new File(ajFilesLocation.getAbsolutePath() + File.separator
+		+ latexReportsFolderByTarget).mkdir();
+	new File(ajFilesLocation.getAbsolutePath() + File.separator
+		+ latexReportsFolderByConstellation).mkdir();
+	new File(ajFilesLocation.getAbsolutePath() + File.separator
+		+ sglReportsFolderByDate).mkdir();
     }
 
     /**
      * Delete the previous output folder content if this is present.
+     * 
+     * @throws IOException
+     *             if the folder could not be cleaned.
      */
-    public void cleanAJFolder() {
+    public void cleanAJFolder() throws IOException {
 	try {
-	    FileUtils.cleanDirectory(new File(latexReportsFolderByDate));
-	    FileUtils.cleanDirectory(new File(latexReportsFolderByTarget));
-	    FileUtils
-		    .cleanDirectory(new File(latexReportsFolderByConstellation));
-	    FileUtils.cleanDirectory(new File(sglReportsFolderByDate));
+	    if (!(ajFilesLocation.exists() && ajFilesLocation.canWrite())) {
+		throw new FileNotFoundException();
+	    }
+	    FileUtils.cleanDirectory(new File(ajFilesLocation.getAbsolutePath()
+		    + File.separator + latexReportsFolderByDate));
+	    FileUtils.cleanDirectory(new File(ajFilesLocation.getAbsolutePath()
+		    + File.separator + latexReportsFolderByTarget));
+	    FileUtils.cleanDirectory(new File(ajFilesLocation.getAbsolutePath()
+		    + File.separator + latexReportsFolderByConstellation));
+	    FileUtils.cleanDirectory(new File(ajFilesLocation.getAbsolutePath()
+		    + File.separator + sglReportsFolderByDate));
 	} catch (IOException e) {
-	    System.out
-		    .println("Impossible to clean the output directories. \n"
-			    + "Folder does not exist or not sufficient permissions for \n"
-			    + "writing in it.");
-	    e.printStackTrace();
+	    throw e;
 	}
     }
 
@@ -406,6 +480,9 @@ public class AJConfig {
      */
     public String printConfiguration() {
 	String configuration = "AstroJournal is running with the following configuration:\n"
+		+ "aj_files_location: "
+		+ ajFilesLocation.getAbsolutePath()
+		+ "\n"
 		+ "raw_reports_folder: "
 		+ rawReportsFolder
 		+ "\n"
@@ -465,6 +542,23 @@ public class AJConfig {
      */
     void setShowVersion(boolean showVersion) {
 	this.showVersion = showVersion;
+    }
+
+    /**
+     * Return the file containing all input and output files.
+     * 
+     * @return the AstroJournal Files Location.
+     */
+    public File getAJFilesLocation() {
+	return ajFilesLocation;
+    }
+
+    /**
+     * @param ajFilesLocation
+     *            the ajFilesLocation to set
+     */
+    void setAJFilesLocation(File ajFilesLocation) {
+	this.ajFilesLocation = ajFilesLocation;
     }
 
     /**

@@ -73,6 +73,10 @@ public class AJMain {
 	String sglReportsFolderByDate = "sgl_report_folder_by_date";
 	try {
 	    if (args.length == 0) {
+		// Run AstroJournal Command Line
+		// TODO
+		// AJGenerator ajLatexGenerator = new AJGenerator();
+		// ajLatexGenerator.generateJournals();
 		startAJMiniGUI();
 	    } else if (args.length == 5) {
 		// set AJ properties

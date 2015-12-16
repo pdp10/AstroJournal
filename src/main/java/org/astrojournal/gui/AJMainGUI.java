@@ -120,7 +120,7 @@ public class AJMainGUI extends JFrame {
 	// Configure AJMiniGUI with basic parameters
 	setTitle(AJConfig.APPLICATION_NAME + " " + AJConfig.APPLICATION_VERSION);
 	setIconImage(new ImageIcon(
-		ClassLoader.getSystemResource("graphics/aj_icon.png"))
+		ClassLoader.getSystemResource("graphics/aj_icon_32.png"))
 		.getImage());
 	setSize(600, 600);
 	setMinimumSize(new Dimension(480, 300));

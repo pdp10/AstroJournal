@@ -19,24 +19,8 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
-LIB="lib";
-
-
-input_report_folder="./raw_reports"
-output_reports_folder_by_date="./latex_reports_by_date"
-output_reports_folder_by_target="./latex_reports_by_target"
-output_reports_folder_by_constellation="./latex_reports_by_constellation"
-output_reports_folder_by_date_sgl="./sgl_reports_by_date"
-
-
-#params="${input_report_folder} ${output_reports_folder_by_date} ${output_reports_folder_by_target} ${output_reports_folder_by_constellation} ${output_reports_folder_by_date_sgl}"
-# Note: it is also possible to set up the folders as -D java options (e.g. aj.raw_reports)
-
-for i in $LIB/*.jar; do
-    CLASSPATH=$CLASSPATH:$i
-done
-CLASSPATH=`echo $CLASSPATH | cut -c2-`
-
+# Note: AstroJournal also accepts -D java options (e.g. aj.raw_reports) 
+# as input parameters.
 
 # Run AstroJournal and generate the Latex code
 java -jar target/astrojournal-*-jar-with-dependencies.jar > astrojournal_output.txt

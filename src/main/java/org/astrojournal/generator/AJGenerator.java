@@ -92,7 +92,8 @@ public class AJGenerator {
 	    log.warn("raw observation file is not valid. Cannot generate Latex code for the observations.");
 	    return false;
 	}
-	AJExporter ajExporterByDate = new AJExporterByDate();
+	AJExporter ajExporterByDate = new AJExporterByDate(AJConfig
+		.getInstance().getAJFilesLocation());
 	// export the imported observation by date to Latex
 	System.out.println("\nExporting observation by date:");
 	boolean resultByDate = ajExporterByDate.exportObservations(
@@ -117,7 +118,8 @@ public class AJGenerator {
 	    log.warn("raw observation file is not valid. Cannot generate txt code for the observations.");
 	    return false;
 	}
-	AJExporter ajExporterByDateSGL = new AJExporterByDateSGL();
+	AJExporter ajExporterByDateSGL = new AJExporterByDateSGL(AJConfig
+		.getInstance().getAJFilesLocation());
 	// export the imported observation by date to txt
 	System.out.println("\nExporting observation by date for SGL:");
 	boolean resultByDateSGL = ajExporterByDateSGL.exportObservations(
@@ -140,7 +142,8 @@ public class AJGenerator {
 	    log.warn("raw observation file is not valid. Cannot generate Latex code for the observations.");
 	    return false;
 	}
-	AJExporter ajExporterByTarget = new AJExporterByTarget();
+	AJExporter ajExporterByTarget = new AJExporterByTarget(AJConfig
+		.getInstance().getAJFilesLocation());
 	// export the imported observation by target to Latex
 	System.out.println("\nExporting observation by target:");
 	boolean resultByTarget = ajExporterByTarget.exportObservations(
@@ -165,7 +168,8 @@ public class AJGenerator {
 	    log.warn("raw observation file is not valid. Cannot generate Latex code for the observations.");
 	    return false;
 	}
-	AJExporter ajExporterByConstellation = new AJExporterByConstellation();
+	AJExporter ajExporterByConstellation = new AJExporterByConstellation(
+		AJConfig.getInstance().getAJFilesLocation());
 	// export the imported observation by constellation to Latex
 	System.out.println("\nExporting observation by constellation:");
 	boolean resultByConstellation = ajExporterByConstellation
@@ -186,12 +190,13 @@ public class AJGenerator {
      */
     private boolean importObservations() {
 	if (!observationsProcessed) {
-	    File[] files = new File(AJConfig.getInstance()
-		    .getRawReportsFolder()).listFiles();
+	    String rawReportPath = AJConfig.getInstance().getAJFilesLocation()
+		    .getAbsolutePath()
+		    + File.separator
+		    + AJConfig.getInstance().getRawReportsFolder();
+	    File[] files = new File(rawReportPath).listFiles();
 	    if (files == null) {
-		log.warn("Folder "
-			+ AJConfig.getInstance().getRawReportsFolder()
-			+ " not found");
+		log.warn("Folder " + rawReportPath + " not found");
 		return false;
 	    }
 	    AJImporter ajImporter = new AJTabSeparatedValueImporter();
@@ -200,5 +205,4 @@ public class AJGenerator {
 	}
 	return observationsProcessed;
     }
-
 }

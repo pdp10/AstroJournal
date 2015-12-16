@@ -44,7 +44,7 @@ import org.astrojournal.observation.AJObservationItem;
  * @version 0.2
  * @since 28/05/2015
  */
-public class AJExporterByConstellation implements AJExporter {
+public class AJExporterByConstellation extends AJExporter {
 
     /** The log associated to this class */
     private static Logger log = Logger
@@ -65,8 +65,13 @@ public class AJExporterByConstellation implements AJExporter {
 	}
     };
 
-    /** Default constructor */
-    public AJExporterByConstellation() {
+    /**
+     * Default constructor
+     * 
+     * @param ajFilesLocation
+     */
+    public AJExporterByConstellation(File ajFilesLocation) {
+	super(ajFilesLocation);
     }
 
     /**
@@ -87,21 +92,25 @@ public class AJExporterByConstellation implements AJExporter {
 	    String latexHeaderByConst, String latexMainByConst,
 	    String latexFooterByConst) {
 	AJLatexHeader ajLatexHeaderByConst = new AJLatexHeader(
-		latexHeaderByConst);
+		ajFilesLocation.getAbsolutePath(), latexHeaderByConst);
 	AJLatexFooter ajLatexFooterByConst = new AJLatexFooter(
-		latexFooterByConst);
+		ajFilesLocation.getAbsolutePath(), latexFooterByConst);
 	Writer writerByConst = null;
 	try {
 	    writerByConst = new BufferedWriter(new OutputStreamWriter(
-		    new FileOutputStream(latexMainByConst), "utf-8"));
+		    new FileOutputStream(ajFilesLocation.getAbsolutePath()
+			    + File.separator + latexMainByConst), "utf-8"));
 	    // write the Latex Header
 	    writerByConst.write(ajLatexHeaderByConst.getHeader());
 
 	    // write the Latex Body
 	    // parse each file in the latex obs folder
-	    File[] files = new File(latexReportsFolderByConst).listFiles();
+	    File[] files = new File(ajFilesLocation.getAbsolutePath()
+		    + File.separator + latexReportsFolderByConst).listFiles();
 	    if (files == null) {
-		log.warn("Folder " + latexReportsFolderByConst + " not found");
+		log.warn("Folder " + ajFilesLocation.getAbsolutePath()
+			+ File.separator + latexReportsFolderByConst
+			+ " not found");
 		return;
 	    }
 	    // sort the constellations when we parse the files
@@ -132,7 +141,9 @@ public class AJExporterByConstellation implements AJExporter {
 	    writerByConst.write(ajLatexFooterByConst.getFooter());
 
 	} catch (IOException ex) {
-	    log.warn("Error when opening the file " + latexMainByConst);
+	    log.warn("Error when opening the file "
+		    + ajFilesLocation.getAbsolutePath() + File.separator
+		    + latexMainByConst);
 	} catch (Exception ex) {
 	    log.warn(ex);
 	} finally {
@@ -167,7 +178,9 @@ public class AJExporterByConstellation implements AJExporter {
 	    try {
 		list = new BufferedWriter(new OutputStreamWriter(
 			new FileOutputStream(new File(
-				latexReportsByConstFolder, "const_"
+				ajFilesLocation.getAbsolutePath()
+					+ File.separator
+					+ latexReportsByConstFolder, "const_"
 					+ filenameOut + ".tex")), "utf-8"));
 		String[] targets = constellations.get(keys[i]).toArray(
 			new String[0]);

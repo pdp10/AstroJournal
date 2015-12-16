@@ -39,12 +39,14 @@ public class AJLatexFooter extends AJLatexHeaderFooter {
     /**
      * Constructor. It reads the header and footer from files.
      * 
+     * @param path
+     *            The path to the file
      * @param latexFooter
      *            The Latex footer file
      */
-    public AJLatexFooter(String latexFooter) {
+    public AJLatexFooter(String path, String latexFooter) {
 	super();
-	footer = importLatex(latexFooter);
+	footer = importLatex(path, latexFooter);
     }
 
     /**

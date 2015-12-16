@@ -42,13 +42,18 @@ import org.astrojournal.observation.AJObservationItem;
  * @version 0.2
  * @since 28/05/2015
  */
-public class AJExporterByDate implements AJExporter {
+public class AJExporterByDate extends AJExporter {
 
     /** The log associated to this class */
     private static Logger log = Logger.getLogger(AJExporterByDate.class);
 
-    /** Default constructor */
-    public AJExporterByDate() {
+    /**
+     * Default constructor
+     * 
+     * @param ajFilesLocation
+     */
+    public AJExporterByDate(File ajFilesLocation) {
+	super(ajFilesLocation);
     }
 
     /**
@@ -68,12 +73,15 @@ public class AJExporterByDate implements AJExporter {
     public void generateJournal(String latexReportsFolderByDate,
 	    String latexHeaderByDate, String latexMainByDate,
 	    String latexFooterByDate) {
-	AJLatexHeader ajLatexHeaderByDate = new AJLatexHeader(latexHeaderByDate);
-	AJLatexFooter ajLatexFooterByDate = new AJLatexFooter(latexFooterByDate);
+	AJLatexHeader ajLatexHeaderByDate = new AJLatexHeader(
+		ajFilesLocation.getAbsolutePath(), latexHeaderByDate);
+	AJLatexFooter ajLatexFooterByDate = new AJLatexFooter(
+		ajFilesLocation.getAbsolutePath(), latexFooterByDate);
 	Writer writerByDate = null;
 	try {
 	    writerByDate = new BufferedWriter(new OutputStreamWriter(
-		    new FileOutputStream(latexMainByDate), "utf-8"));
+		    new FileOutputStream(ajFilesLocation.getAbsolutePath()
+			    + File.separator + latexMainByDate), "utf-8"));
 	    // write the Latex Header
 	    writerByDate.write(ajLatexHeaderByDate.getHeader());
 
@@ -84,9 +92,12 @@ public class AJExporterByDate implements AJExporter {
 	    writerByDate.write("\\hspace{4 mm}\n");
 	    // parse each file in the latex obs folder (sorted by observation
 	    // increasing)
-	    File[] files = new File(latexReportsFolderByDate).listFiles();
+	    File[] files = new File(ajFilesLocation.getAbsolutePath()
+		    + File.separator + latexReportsFolderByDate).listFiles();
 	    if (files == null) {
-		log.warn("Folder " + latexReportsFolderByDate + " not found");
+		log.warn("Folder " + ajFilesLocation.getAbsolutePath()
+			+ File.separator + latexReportsFolderByDate
+			+ " not found");
 		return;
 	    }
 	    Arrays.sort(files, Collections.reverseOrder());
@@ -107,7 +118,9 @@ public class AJExporterByDate implements AJExporter {
 	    writerByDate.write(ajLatexFooterByDate.getFooter());
 
 	} catch (IOException ex) {
-	    log.warn("Error when opening the file " + latexMainByDate);
+	    log.warn("Error when opening the file "
+		    + ajFilesLocation.getAbsolutePath() + File.separator
+		    + latexMainByDate);
 	} catch (Exception ex) {
 	    log.warn(ex);
 	} finally {
@@ -155,8 +168,11 @@ public class AJExporterByDate implements AJExporter {
 		    .getObservationItems();
 	    try {
 		table = new BufferedWriter(new OutputStreamWriter(
-			new FileOutputStream(new File(latexReportsByDateFolder,
-				"obs" + filenameOut + ".tex")), "utf-8"));
+			new FileOutputStream(new File(
+				ajFilesLocation.getAbsolutePath()
+					+ File.separator
+					+ latexReportsByDateFolder, "obs"
+					+ filenameOut + ".tex")), "utf-8"));
 
 		// debugging
 		log.debug("writing observation " + obs.getDate());

@@ -24,12 +24,15 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -44,6 +47,10 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 
     /** The relative path containing the raw files (observation input folder). */
     private JTextField rawReportsFolder;
+    /**
+     * The AstroJournal files location (the path).
+     */
+    private JTextField ajFilesLocation;
     /**
      * The name of the folder containing the latex observation files by date
      * (observation output folder).
@@ -92,11 +99,35 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	filePanel.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
 	filePanel.setLayout(new GridBagLayout());
 	GridBagConstraints c = new GridBagConstraints();
+
 	c.gridx = 0;
 	c.gridy = 0;
 	c.weightx = 0.1;
 	c.weighty = 0.5;
 	c.fill = GridBagConstraints.HORIZONTAL;
+	JLabel ajFilesLocationLBL = new JLabel(
+		AJConfig.BUNDLE.getString("AJ.lblAJFilesLocation.text"));
+	ajFilesLocationLBL.setToolTipText(AJConfig.BUNDLE
+		.getString("AJ.lblAJFilesLocation.toolTipText"));
+	filePanel.add(ajFilesLocationLBL, c);
+	c.gridx = 1;
+	c.weightx = 0.5;
+	ajFilesLocation = new JTextField();
+	ajFilesLocation.setText(AJConfig.getInstance().getAJFilesLocation()
+		.getAbsolutePath());
+	ajFilesLocation.setEditable(false);
+	filePanel.add(ajFilesLocation, c);
+	c.gridx = 2;
+	c.weightx = 0.1;
+	JButton btnBrowerFilesLocation = new JButton(
+		AJConfig.BUNDLE.getString("AJ.cmdBrowse.text"));
+	btnBrowerFilesLocation.setActionCommand("aj_files_location");
+	btnBrowerFilesLocation.addActionListener(this);
+	filePanel.add(btnBrowerFilesLocation, c);
+
+	c.gridx = 0;
+	c.gridy++;
+	c.weightx = 0.1;
 	JLabel inputDir = new JLabel(
 		AJConfig.BUNDLE.getString("AJ.lblInpDir.text"));
 	inputDir.setToolTipText(AJConfig.BUNDLE
@@ -201,6 +232,23 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	setVisible(true);
     }
 
+    /**
+     * Launches a file browser to select a directory
+     * 
+     * @param textField
+     *            the TextFild from which to take the starting directory
+     */
+    private void getDir(JTextField textField) {
+	JFileChooser chooser = new JFileChooser();
+	chooser.setCurrentDirectory(new File(textField.getText()));
+	chooser.setDialogTitle(AJConfig.BUNDLE
+		.getString("AJ.cmdSelectDirectory.text"));
+	chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+	if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+	    textField.setText(chooser.getSelectedFile().getAbsolutePath());
+	}
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -211,11 +259,26 @@ public class PreferencesDialog extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
 	String action = ae.getActionCommand();
 
-	if (action.equals("cancel")) {
+	if (action.equals("aj_files_location")) {
+	    getDir(ajFilesLocation);
+	} else if (action.equals("cancel")) {
 	    setVisible(false);
 	    dispose();
 	} else if (action.equals("save")) {
 	    AJConfig config = AJConfig.getInstance();
+
+	    // TODO SEE THIS FROM BAMQC.
+	    // ADD locations to generator package too
+	    File ajFilesLocationFile = new File(ajFilesLocation.getText());
+	    if (!ajFilesLocationFile.exists()) {
+		JOptionPane.showMessageDialog(this, AJConfig.BUNDLE
+			.getString("AJ.errFilesLocationNotFound.text"),
+			AJConfig.BUNDLE.getString("AJ.lblError.text"),
+			JOptionPane.ERROR_MESSAGE);
+		return;
+	    }
+	    config.setAJFilesLocation(ajFilesLocationFile);
+
 	    config.setRawReportsFolder(rawReportsFolder.getText());
 	    config.setLatexReportsFolderByDate(latexReportsFolderByDate
 		    .getText());

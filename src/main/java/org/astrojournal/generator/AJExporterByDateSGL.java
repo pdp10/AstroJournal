@@ -42,13 +42,18 @@ import org.astrojournal.observation.AJObservationItem;
  * @version 0.1
  * @since 11/09/2015
  */
-public class AJExporterByDateSGL implements AJExporter {
+public class AJExporterByDateSGL extends AJExporter {
 
     /** The log associated to this class */
     private static Logger log = Logger.getLogger(AJExporterByDateSGL.class);
 
-    /** Default constructor */
-    public AJExporterByDateSGL() {
+    /**
+     * Default constructor
+     * 
+     * @param ajFilesLocation
+     */
+    public AJExporterByDateSGL(File ajFilesLocation) {
+	super(ajFilesLocation);
     }
 
     /**
@@ -70,16 +75,19 @@ public class AJExporterByDateSGL implements AJExporter {
 	Writer writerByDate = null;
 	try {
 	    writerByDate = new BufferedWriter(new OutputStreamWriter(
-		    new FileOutputStream(mainByDate), "utf-8"));
+		    new FileOutputStream(ajFilesLocation.getAbsolutePath()
+			    + File.separator + mainByDate), "utf-8"));
 	    // write the Header
 
 	    // write the Body
 	    // Write the observation reports
 	    // parse each file in the obs folder (sorted by observation
 	    // increasing)
-	    File[] files = new File(reportsFolderByDate).listFiles();
+	    File[] files = new File(ajFilesLocation.getAbsolutePath()
+		    + File.separator + reportsFolderByDate).listFiles();
 	    if (files == null) {
-		log.warn("Folder " + reportsFolderByDate + " not found");
+		log.warn("Folder " + ajFilesLocation.getAbsolutePath()
+			+ File.separator + reportsFolderByDate + " not found");
 		return;
 	    }
 	    Arrays.sort(files, Collections.reverseOrder());
@@ -103,7 +111,9 @@ public class AJExporterByDateSGL implements AJExporter {
 	    // write the Footer
 
 	} catch (IOException ex) {
-	    log.warn("Error when opening the file " + mainByDate);
+	    log.warn("Error when opening the file "
+		    + ajFilesLocation.getAbsolutePath() + File.separator
+		    + mainByDate);
 	} catch (Exception ex) {
 	    log.warn(ex);
 	} finally {
@@ -151,7 +161,9 @@ public class AJExporterByDateSGL implements AJExporter {
 		    .getObservationItems();
 	    try {
 		text = new BufferedWriter(new OutputStreamWriter(
-			new FileOutputStream(new File(reportsByDateFolder,
+			new FileOutputStream(new File(
+				ajFilesLocation.getAbsolutePath()
+					+ File.separator + reportsByDateFolder,
 				"obs" + filenameOut + ".txt")), "utf-8"));
 
 		// debugging

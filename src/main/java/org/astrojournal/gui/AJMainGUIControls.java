@@ -20,6 +20,7 @@
 package org.astrojournal.gui;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -61,7 +62,13 @@ public class AJMainGUIControls {
     public void createJournal(boolean latexOutput) {
 
 	// Delete previous content if present
-	AJConfig.getInstance().cleanAJFolder();
+	try {
+	    AJConfig.getInstance().cleanAJFolder();
+	} catch (IOException e) {
+	    ajMiniGUI.setStatusPanelText(AJConfig.BUNDLE
+		    .getString("AJ.errUnconfiguredPreferences.text"));
+	    return;
+	}
 
 	AJGenerator ajLatexGenerator = new AJGenerator();
 
@@ -70,6 +77,8 @@ public class AJMainGUIControls {
 	outputCapturer.start();
 	ajLatexGenerator.generateJournals();
 	ajMiniGUI.appendTextToTextArea(outputCapturer.stop() + "\n");
+	String path = AJConfig.getInstance().getAJFilesLocation()
+		.getAbsolutePath();
 	try {
 	    // The pdflatex command must be called two times in order to
 	    // generate the list of contents correctly.
@@ -103,16 +112,22 @@ public class AJMainGUIControls {
 	    ajMiniGUI.appendTextToTextArea(AJConfig.BUNDLE
 		    .getString("AJ.lblCreatedReports.text") + " \n");
 	    ajMiniGUI.appendTextToTextArea("\t"
+		    + path
+		    + File.separator
 		    + FilenameUtils
 			    .removeExtension(AJConfig.REPORT_BY_DATE_FILENAME)
 		    + ".pdf\n");
 	    ajMiniGUI
 		    .appendTextToTextArea("\t"
+			    + path
+			    + File.separator
 			    + FilenameUtils
 				    .removeExtension(AJConfig.REPORT_BY_TARGET_FILENAME)
 			    + ".pdf\n");
 	    ajMiniGUI
 		    .appendTextToTextArea("\t"
+			    + path
+			    + File.separator
 			    + FilenameUtils
 				    .removeExtension(AJConfig.REPORT_BY_CONSTELLATION_FILENAME)
 			    + ".pdf\n");
@@ -123,6 +138,11 @@ public class AJMainGUIControls {
 	    ajMiniGUI.setStatusPanelText(AJConfig.BUNDLE
 		    .getString("AJ.lblCreatedReportsLong.text"));
 	} catch (IOException ioe) {
+	    System.err
+		    .println(AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"));
+	    ajMiniGUI.setStatusPanelText(AJConfig.BUNDLE
+		    .getString("AJ.errPDFLatex.text"));
+	    ioe.printStackTrace();
 	}
     }
 
@@ -141,7 +161,8 @@ public class AJMainGUIControls {
 	// On Linux, this does not matter, but on Windows this does not work..
 	// So
 	// leave it.
-	Process p = Runtime.getRuntime().exec(command);
+	Process p = Runtime.getRuntime().exec(command, null,
+		AJConfig.getInstance().getAJFilesLocation());
 	// read the output messages from the command
 	BufferedReader stdInput = new BufferedReader(new InputStreamReader(
 		p.getInputStream()));
@@ -164,5 +185,4 @@ public class AJMainGUIControls {
 	}
 	return sb.toString();
     }
-
 }

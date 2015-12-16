@@ -27,7 +27,7 @@ import java.io.IOException;
 import org.apache.log4j.Logger;
 
 /**
- * The Header Footer of the Latex main file.
+ * The Header Footer of the LaTeX main file.
  * 
  * @author Piero Dalle Pezze
  * @version 0.2
@@ -39,17 +39,19 @@ public abstract class AJLatexHeaderFooter {
     private static Logger log = Logger.getLogger(AJLatexHeaderFooter.class);
 
     /**
-     * Imports the latex file
+     * Imports a LaTeX file
      * 
+     * @param path
+     *            The path to the file
      * @param file
-     *            The Latex file
-     * @return the imported Latex file as a string
+     *            The LaTeX file
+     * @return the imported LaTeX file as a string
      */
-    protected String importLatex(String file) {
-	File f = new File(file);
+    protected String importLatex(String path, String file) {
+	File f = new File(path + File.separator + file);
 	StringBuilder sb = new StringBuilder();
 	if (f.isFile() && f.getName().endsWith(".tex")) {
-	    log.debug("Importing latex file " + file);
+	    log.debug("Importing latex file " + path + File.separator + file);
 	    // Create a buffered reader to read the file
 	    BufferedReader reader = null;
 	    try {
@@ -67,7 +69,8 @@ public abstract class AJLatexHeaderFooter {
 		    if (reader != null)
 			reader.close();
 		} catch (IOException ex) {
-		    log.warn("File " + file + " was not closed successfully");
+		    log.warn("File " + path + File.separator + file
+			    + " was not closed successfully");
 		}
 	    }
 	}

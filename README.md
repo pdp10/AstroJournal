@@ -47,12 +47,12 @@ You can download the latest version of this software application here:
 After downloading and uncompressing the file, you can run AstroJournal by typing:
 ```
 # On GNU/Linux or MAC OS X, run AstroJournal typing (or clicking the icon):
-./create_journal.sh
+./run_astrojournal.sh
 ```
 or 
 ```
 # On Windows, click on the icon:
-create_journal.bat
+run_astrojournal.bat
 ```
 
 This will start a minimal graphical user interface to generate the journals.
@@ -90,7 +90,7 @@ Here are some guidelines for using AstroJournal:
 
 3. Put this file in the folder raw_reports.
 
-4. In the main astrojournal folder type the command above ./create_journal.sh or ./create_journal.bat .
+4. In the main astrojournal folder type the command above ./run_astrojournal.sh or ./run_astrojournal.bat .
 
 
 
@@ -144,7 +144,7 @@ mvn clean
 
 You can run AstroJournal on GNU/Linux typing:
 ```
-./create_journal.sh
+./run_astrojournal.sh
 ```
 
 
@@ -152,6 +152,11 @@ You can run AstroJournal on GNU/Linux typing:
 
 v0.9
 
+- Started support for Windows in order to avoid calling the BAT script.
+- Input and output files are now placed in a configurable folder outside 
+the folder containing the software AstroJournal. This folder can be edited 
+using the Edit > Preferences menu.
+- Added new icons
 - Added internationalisation for GUI strings.
 - Added menu bar, preferences and help to the GUI.
 - Improved the AJ GUI to also report the program output graphically.
@@ -174,7 +179,7 @@ v0.8
 
 v0.7
 
-- Create file create_journal.bat (for Windows Users) (not tested yet).
+- Create file run_astrojournal.bat (for Windows Users) (not tested yet).
 - Removed the field PowerExitPupilFOV from the session reports. The eyepiece information is now inserted in the file legends.tex included at header level.
 - Removed catalogue tsv and latex folder. List of observed targets is the list of contents for the second generated pdf (by_target)
 - Export observations by target

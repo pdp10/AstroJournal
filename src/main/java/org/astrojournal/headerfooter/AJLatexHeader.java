@@ -20,7 +20,7 @@
 package org.astrojournal.headerfooter;
 
 /**
- * The header of the Latex main file.
+ * The header of the LaTeX main file.
  * 
  * @author Piero Dalle Pezze
  * @version 0.2
@@ -39,7 +39,7 @@ public class AJLatexHeader extends AJLatexHeaderFooter {
 	    + "\\date{\\today}\n"
 	    + "\\begin{document}\n"
 	    + "\\let\\thefootnote\\relax\\footnotetext{This document was generated using Java software tool {\\it AstroJournal} "
-	    + "(\\href{https://pdp10@bitbucket.org/pdp10/astrojournal.git}{https://pdp10@bitbucket.org/pdp10/astrojournal.git}) "
+	    + "(\\href{http://pdp10.github.io/AstroJournal/}{http://pdp10.github.io/AstroJournal/}) "
 	    + "and {\\it pdflatex} (\\href{http://www.tug.org/texlive/}{http://www.tug.org/texlive/}).} \n"
 	    + "\\maketitle\n" + "\\footnotesize\n\n" + "\\noindent \n"
 	    + "\\newpage\n\n";
@@ -52,12 +52,14 @@ public class AJLatexHeader extends AJLatexHeaderFooter {
     /**
      * Constructor. It reads the header and footer from files.
      * 
+     * @param path
+     *            The path to the file
      * @param latexHeader
-     *            The Latex header file
+     *            The LaTeX header file
      */
-    public AJLatexHeader(String latexHeader) {
+    public AJLatexHeader(String path, String latexHeader) {
 	super();
-	header = importLatex(latexHeader);
+	header = importLatex(path, latexHeader);
     }
 
     /**
