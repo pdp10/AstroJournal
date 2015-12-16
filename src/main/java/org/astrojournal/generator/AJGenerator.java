@@ -57,7 +57,7 @@ public class AJGenerator {
      */
     public boolean generateJournals() {
 
-	if (AJConfig.getInstance().isShowVersion()) {
+	if (AJConfig.getInstance().isShowLicenseAtStart()) {
 	    showVersion();
 	}
 
@@ -78,7 +78,7 @@ public class AJGenerator {
      * Print some detail about AstroJournal.
      */
     public void showVersion() {
-	System.out.println(AJConfig.getInstance().printVersion());
+	System.out.println(AJConfig.getInstance().printLicenseAtStart());
     }
 
     /**

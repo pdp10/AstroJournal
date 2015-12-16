@@ -51,7 +51,7 @@ public class AJConfig {
 	    .getBundle("locale/Bundle");
 
     /** The configuration file name. */
-    private static final String AJ_CONFIG_FILENAME = "astrojournal_conf.txt";
+    private static final String AJ_CONFIG_FILENAME = "astrojournal.conf";
 
     /** The AJ application name. */
     public static final String APPLICATION_NAME = "AstroJournal";
@@ -109,8 +109,8 @@ public class AJConfig {
     /** True if the application should run quietly */
     private boolean quiet = false;
 
-    /** True if the version should be shown. */
-    private boolean showVersion = true;
+    /** True if the license should be shown at start. */
+    private boolean showLicenseAtStart = true;
 
     // NOTE: These field MUST NOT have a file separator because Latex uses '/'
     // by default.
@@ -204,15 +204,19 @@ public class AJConfig {
 	    String[] sections;
 	    boolean correctLocation = true;
 	    while ((line = br.readLine()) != null) {
-		if (line.startsWith("#"))
-		    continue; // It's a comment
+		// Let's skip comments, empty lines or lines starting with
+		// blanks
+		if (line.startsWith("#") || line.isEmpty()
+			|| line.startsWith(" ")) {
+		    continue;
+		}
 		sections = line.split("=", -1);
 		if (sections[0].equals("latex_output")) {
-		    latexOutput = Boolean.getBoolean(sections[1]);
+		    latexOutput = Boolean.parseBoolean(sections[1]);
 		} else if (sections[0].equals("quiet")) {
-		    quiet = Boolean.getBoolean(sections[1]);
-		} else if (sections[0].equals("show_version")) {
-		    showVersion = Boolean.getBoolean(sections[1]);
+		    quiet = Boolean.parseBoolean(sections[1]);
+		} else if (sections[0].equals("show_license_at_start")) {
+		    showLicenseAtStart = Boolean.parseBoolean(sections[1]);
 		} else if (sections[0].equals("aj_files_location")) {
 		    File oldAJFilesLocation = ajFilesLocation;
 		    ajFilesLocation = new File(sections[1]);
@@ -240,7 +244,7 @@ public class AJConfig {
 		} else if (sections[0].equals("sgl_reports_folder_by_date")) {
 		    sglReportsFolderByDate = sections[1];
 		} else {
-		    System.err.println("Found unknown parameter '"
+		    System.err.println("Warning: Found unknown parameter '"
 			    + sections[0]
 			    + "' in AstroJournal configuration file.");
 		}
@@ -271,12 +275,12 @@ public class AJConfig {
 
 	PrintWriter pw = new PrintWriter(new FileWriter(configFile));
 
-	pw.println("# AstroJournal configuration file. Do not edit by hand.");
+	pw.println("# AstroJournal configuration file. Do not edit by hand.\n");
 
 	// Let's now right down the configuration
 	pw.println("latex_output=" + latexOutput);
 	pw.println("quiet=" + quiet);
-	pw.println("show_version=" + showVersion);
+	pw.println("show_license_at_start=" + showLicenseAtStart);
 	pw.println("aj_files_location=" + ajFilesLocation.getAbsolutePath());
 	pw.println("raw_reports_folder=" + rawReportsFolder);
 	pw.println("latex_reports_folder_by_date=" + latexReportsFolderByDate);
@@ -313,7 +317,7 @@ public class AJConfig {
 	// Show version
 	if (System.getProperty("aj.show_version") != null
 		&& System.getProperty("aj.show_version").equals("true")) {
-	    showVersion = true;
+	    showLicenseAtStart = true;
 	}
 
 	// Quiet
@@ -449,24 +453,24 @@ public class AJConfig {
     }
 
     /**
-     * Create a string containing details for AstroJournal.
+     * Create a string containing the license for AstroJournal.
      * 
      * @return a string
      */
-    public String printVersion() {
+    public String printLicenseAtStart() {
 	String version = APPLICATION_NAME
 		+ " "
 		+ APPLICATION_VERSION
 		+ " is free software: you can redistribute it and/or modify \n"
 		+ "it under the terms of the GNU General Public License as published by \n"
 		+ "the Free Software Foundation, either version 3 of the License, or \n"
-		+ "(at your option) any later version. \n"
-		+ "AstroJournal is distributed in the hope that it will be useful, \n"
+		+ "(at your option) any later version. \n\n"
+		+ "This program is distributed in the hope that it will be useful, \n"
 		+ "but WITHOUT ANY WARRANTY; without even the implied warranty of \n"
 		+ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the \n"
-		+ "GNU General Public License for more details. \n"
+		+ "GNU General Public License for more details. \n\n"
 		+ "You should have received a copy of the GNU General Public License \n"
-		+ "along with AstroJournal. If not, see <http://www.gnu.org/licenses/>. \n"
+		+ "along with this program; if not, see <http://www.gnu.org/licenses/>. \n"
 		+ "\n"
 		+ "AstroJournal Web Site: <https://github.com/pdp10/AstroJournal>\n\n"
 		+ "\n" + printConfiguration();
@@ -479,23 +483,14 @@ public class AJConfig {
      * @return the current configuration
      */
     public String printConfiguration() {
-	String configuration = "AstroJournal is running with the following configuration:\n"
-		+ "aj_files_location: "
-		+ ajFilesLocation.getAbsolutePath()
-		+ "\n"
-		+ "raw_reports_folder: "
-		+ rawReportsFolder
-		+ "\n"
-		+ "latex_reports_by_date: "
-		+ latexReportsFolderByDate
-		+ "\n"
-		+ "latex_reports_by_target: "
-		+ latexReportsFolderByTarget
-		+ "\n"
-		+ "latex_reports_by_constellation: "
-		+ latexReportsFolderByConstellation
-		+ "\n"
-		+ "sgl_reports_by_date: " + sglReportsFolderByDate + "\n\n";
+	String configuration = "AstroJournal current configuration:\n"
+		+ "\taj_files_location: " + ajFilesLocation.getAbsolutePath()
+		+ "\n" + "\traw_reports_folder: " + rawReportsFolder + "\n"
+		+ "\tlatex_reports_by_date: " + latexReportsFolderByDate + "\n"
+		+ "\tlatex_reports_by_target: " + latexReportsFolderByTarget
+		+ "\n" + "\tlatex_reports_by_constellation: "
+		+ latexReportsFolderByConstellation + "\n"
+		+ "\tsgl_reports_by_date: " + sglReportsFolderByDate + "\n\n";
 	return configuration;
     }
 
@@ -530,18 +525,18 @@ public class AJConfig {
     }
 
     /**
-     * @return the showVersion
+     * @return the showLicenseAtStart
      */
-    public boolean isShowVersion() {
-	return showVersion;
+    public boolean isShowLicenseAtStart() {
+	return showLicenseAtStart;
     }
 
     /**
-     * @param showVersion
-     *            the showVersion to set
+     * @param showLicenseAtStart
+     *            the showLicenseAtStart to set
      */
-    void setShowVersion(boolean showVersion) {
-	this.showVersion = showVersion;
+    void setShowLicenseAtStart(boolean showLicenseAtStart) {
+	this.showLicenseAtStart = showLicenseAtStart;
     }
 
     /**
