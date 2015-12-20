@@ -44,8 +44,9 @@ public class AJMain {
 	// too much text..
 	try {
 	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-	} catch (Exception e) {
+	} catch (Exception ex) {
 	}
+
 	// enable anti-aliased text:
 	System.setProperty("awt.useSystemAAFontSettings", "gasp");
 	System.setProperty("swing.aatext", "true");
@@ -82,7 +83,8 @@ public class AJMain {
 		// set AJ properties
 		System.setProperty("aj.raw_reports_folder", args[0]);
 		System.setProperty("aj.latex_reports_folder_by_date", args[1]);
-		System.setProperty("aj.latex_reports_folder_by_target", args[2]);
+		System.setProperty("aj.latex_reports_folder_by_target",
+			args[2]);
 		System.setProperty("aj.latex_reports_folder_by_constellation",
 			args[3]);
 		System.setProperty("aj.sgl_reports_folder_by_date", args[4]);

@@ -32,7 +32,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
 import org.astrojournal.configuration.AJConfig;
@@ -118,10 +117,11 @@ public class AJMainGUI extends JFrame {
 	commandRunner = new AJMainGUIControls(this);
 
 	// Configure AJMiniGUI with basic parameters
-	setTitle(AJConfig.APPLICATION_NAME + " " + AJConfig.APPLICATION_VERSION);
+	setTitle(
+		AJConfig.APPLICATION_NAME + " " + AJConfig.APPLICATION_VERSION);
 	setIconImage(new ImageIcon(
 		ClassLoader.getSystemResource("graphics/aj_icon_32.png"))
-		.getImage());
+			.getImage());
 	setSize(600, 600);
 	setMinimumSize(new Dimension(480, 300));
 	setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -160,8 +160,8 @@ public class AJMainGUI extends JFrame {
 
 	// Create the button for creating the journals
 	btnCreateJournal = new JButton();
-	btnCreateJournal.setText(AJConfig.BUNDLE
-		.getString("AJ.cmdCreateJournal.text"));
+	btnCreateJournal
+		.setText(AJConfig.BUNDLE.getString("AJ.cmdCreateJournal.text"));
 	btnCreateJournal.addActionListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
@@ -183,8 +183,8 @@ public class AJMainGUI extends JFrame {
 
 	// Create the control panel containing the button and the checkbox
 	JPanel controlPanel = new JPanel();
-	controlPanel.add(new JLabel(AJConfig.BUNDLE
-		.getString("AJ.lblShowLatexOutput.text")));
+	controlPanel.add(new JLabel(
+		AJConfig.BUNDLE.getString("AJ.lblShowLatexOutput.text")));
 	controlPanel.add(cbxLatexOutput);
 	controlPanel.add(btnCreateJournal);
 	controlPanel.add(btnClose);
@@ -214,10 +214,10 @@ public class AJMainGUI extends JFrame {
 
 	// Note Nimbus does not seem to show the vertical scroll bar if there is
 	// too much text..
-	try {
-	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-	} catch (Exception e) {
-	}
+	// try {
+	// UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+	// } catch (Exception e) {
+	// }
 
 	// enable anti-aliased text:
 	System.setProperty("awt.useSystemAAFontSettings", "gasp");
