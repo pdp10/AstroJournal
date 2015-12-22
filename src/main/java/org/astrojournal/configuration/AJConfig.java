@@ -112,12 +112,17 @@ public class AJConfig {
     /** True if the license should be shown at start. */
     private boolean showLicenseAtStart = true;
 
+    /** True if the configuration should be shown at start. */
+    private boolean showConfigurationAtStart = true;
+
     // NOTE: These field MUST NOT have a file separator because Latex uses '/'
     // by default.
     /** The absolute path containing AstroJournal input and output folders. */
     private File ajFilesLocation;
 
-    /** The relative path containing the raw files (observation input folder). */
+    /**
+     * The relative path containing the raw files (observation input folder).
+     */
     private String rawReportsFolder = "raw_reports";
 
     /**
@@ -215,6 +220,9 @@ public class AJConfig {
 		    latexOutput = Boolean.parseBoolean(sections[1]);
 		} else if (sections[0].equals("quiet")) {
 		    quiet = Boolean.parseBoolean(sections[1]);
+		} else if (sections[0].equals("show_configuration_at_start")) {
+		    showConfigurationAtStart = Boolean
+			    .parseBoolean(sections[1]);
 		} else if (sections[0].equals("show_license_at_start")) {
 		    showLicenseAtStart = Boolean.parseBoolean(sections[1]);
 		} else if (sections[0].equals("aj_files_location")) {
@@ -223,8 +231,8 @@ public class AJConfig {
 		    if (ajFilesLocation == null || !ajFilesLocation.exists()
 			    || !ajFilesLocation.canWrite()) {
 			ajFilesLocation = oldAJFilesLocation;
-			System.err
-				.println("Error: The location for storing AJ Files is not set correctly.\n"
+			System.err.println(
+				"Error: The location for storing AJ Files is not set correctly.\n"
 					+ "Check "
 					+ configFile.getAbsolutePath()
 					+ " or Edit > Preference.\n"
@@ -236,7 +244,8 @@ public class AJConfig {
 		    rawReportsFolder = sections[1];
 		} else if (sections[0].equals("latex_reports_folder_by_date")) {
 		    latexReportsFolderByDate = sections[1];
-		} else if (sections[0].equals("latex_reports_folder_by_target")) {
+		} else if (sections[0]
+			.equals("latex_reports_folder_by_target")) {
 		    latexReportsFolderByTarget = sections[1];
 		} else if (sections[0]
 			.equals("latex_reports_folder_by_constellation")) {
@@ -244,9 +253,9 @@ public class AJConfig {
 		} else if (sections[0].equals("sgl_reports_folder_by_date")) {
 		    sglReportsFolderByDate = sections[1];
 		} else {
-		    System.err.println("Warning: Found unknown parameter '"
-			    + sections[0]
-			    + "' in AstroJournal configuration file.");
+		    System.err.println(
+			    "Warning: Found unknown parameter '" + sections[0]
+				    + "' in AstroJournal configuration file.");
 		}
 		if (!correctLocation) {
 		    savePreferences();
@@ -280,12 +289,13 @@ public class AJConfig {
 	// Let's now right down the configuration
 	pw.println("latex_output=" + latexOutput);
 	pw.println("quiet=" + quiet);
+	pw.println("show_configuration_at_start=" + showConfigurationAtStart);
 	pw.println("show_license_at_start=" + showLicenseAtStart);
 	pw.println("aj_files_location=" + ajFilesLocation.getAbsolutePath());
 	pw.println("raw_reports_folder=" + rawReportsFolder);
 	pw.println("latex_reports_folder_by_date=" + latexReportsFolderByDate);
-	pw.println("latex_reports_folder_by_target="
-		+ latexReportsFolderByTarget);
+	pw.println(
+		"latex_reports_folder_by_target=" + latexReportsFolderByTarget);
 	pw.println("latex_reports_folder_by_constellation="
 		+ latexReportsFolderByConstellation);
 	pw.println("sgl_reports_folder_by_date=" + sglReportsFolderByDate);
@@ -337,9 +347,9 @@ public class AJConfig {
 	    ajFilesLocation = new File(
 		    System.getProperty("aj.aj_files_location"));
 	    if (!(ajFilesLocation.exists() && ajFilesLocation.canWrite())) {
-		throw new IllegalArgumentException("AJ File Location "
-			+ ajFilesLocation
-			+ " does not exist or is not writeable");
+		throw new IllegalArgumentException(
+			"AJ File Location " + ajFilesLocation
+				+ " does not exist or is not writeable");
 	    }
 	}
 
@@ -362,9 +372,10 @@ public class AJConfig {
 	}
 
 	// Latex reports folder by constellation
-	if (System.getProperty("aj.latex_reports_folder_by_constellation") != null) {
-	    latexReportsFolderByConstellation = new String(
-		    System.getProperty("aj.latex_reports_folder_by_constellation"));
+	if (System.getProperty(
+		"aj.latex_reports_folder_by_constellation") != null) {
+	    latexReportsFolderByConstellation = new String(System
+		    .getProperty("aj.latex_reports_folder_by_constellation"));
 	}
 
 	// SGL reports folder by date
@@ -457,10 +468,8 @@ public class AJConfig {
      * 
      * @return a string
      */
-    public String printLicenseAtStart() {
-	String version = APPLICATION_NAME
-		+ " "
-		+ APPLICATION_VERSION
+    public String printLicense() {
+	String license = APPLICATION_NAME + " " + APPLICATION_VERSION
 		+ " is free software: you can redistribute it and/or modify \n"
 		+ "it under the terms of the GNU General Public License as published by \n"
 		+ "the Free Software Foundation, either version 3 of the License, or \n"
@@ -472,9 +481,8 @@ public class AJConfig {
 		+ "You should have received a copy of the GNU General Public License \n"
 		+ "along with this program; if not, see <http://www.gnu.org/licenses/>. \n"
 		+ "\n"
-		+ "AstroJournal Web Site: <https://github.com/pdp10/AstroJournal>\n\n"
-		+ "\n" + printConfiguration();
-	return version;
+		+ "AstroJournal Web Site: <https://github.com/pdp10/AstroJournal>\n\n";
+	return license;
     }
 
     /**
@@ -522,6 +530,21 @@ public class AJConfig {
      */
     void setQuiet(boolean quiet) {
 	this.quiet = quiet;
+    }
+
+    /**
+     * @return the showConfigurationAtStart
+     */
+    public boolean isShowConfigurationAtStart() {
+	return showConfigurationAtStart;
+    }
+
+    /**
+     * @param showConfigurationAtStart
+     *            the showConfigurationAtStart to set
+     */
+    void setShowConfigurationAtStart(boolean showConfigurationAtStart) {
+	this.showConfigurationAtStart = showConfigurationAtStart;
     }
 
     /**

@@ -87,7 +87,7 @@ public class AJMain {
 		System.out.println(AJMainConsole.printHelp());
 	    } else if (args[0].equals("--license")) {
 		System.out
-			.println(AJConfig.getInstance().printLicenseAtStart());
+			.println(AJConfig.getInstance().printLicense());
 	    } else {
 		System.out.println(
 			"Please, run AstroJournal with the option -h (or --help) for help.");
