@@ -17,12 +17,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+/*
+ * Changelog:
+ * - Piero Dalle Pezze: class creation.
+ */
 package org.astrojournal.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -37,6 +42,7 @@ import javax.swing.WindowConstants;
 import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.gui.dialogs.StatusPanel;
 import org.astrojournal.gui.menu.AJMenuBar;
+import org.astrojournal.utilities.RedirectStreamsToAJTextArea;
 
 /**
  * A very minimal graphical user interface for running AstroJournal without
@@ -58,6 +64,8 @@ public class AJMainGUI extends JFrame {
     private boolean latexOutput = AJConfig.getInstance().isLatexOutput();
     private AJMainGUIControls commandRunner;
     private AJMenuBar menu = null;
+    // redirect the console streams to AJTextArea
+    private RedirectStreamsToAJTextArea redirect2TextArea;
 
     /**
      * Creates new form NewJFrame
@@ -105,6 +113,10 @@ public class AJMainGUI extends JFrame {
      * Dispose this application.
      */
     public void closeApplication() {
+	try {
+	    redirect2TextArea.close();
+	} catch (IOException e) {
+	}
 	dispose();
 	System.exit(0);
     }
@@ -113,6 +125,8 @@ public class AJMainGUI extends JFrame {
      * This method is called from within the constructor to initialise the form.
      */
     private void initComponents() {
+
+	redirect2TextArea = new RedirectStreamsToAJTextArea(this);
 
 	commandRunner = new AJMainGUIControls(this);
 

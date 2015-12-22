@@ -27,7 +27,6 @@ import java.io.InputStreamReader;
 import org.apache.commons.io.FilenameUtils;
 import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.generator.AJGenerator;
-import org.astrojournal.utilities.ConsoleOutputCapturer;
 
 /**
  * A simple class containing the commands for AJMiniGUI.
@@ -40,17 +39,17 @@ import org.astrojournal.utilities.ConsoleOutputCapturer;
 public class AJMainGUIControls {
 
     /**
-     * A reference to AJ mini GUI.
+     * A reference to AJ Main GUI.
      */
-    private AJMainGUI ajMiniGUI = null;
+    private AJMainGUI ajMainGUI = null;
 
     /**
      * Constructor
      * 
-     * @param ajMiniGUI
+     * @param ajMainGUI
      */
-    public AJMainGUIControls(AJMainGUI ajMiniGUI) {
-	this.ajMiniGUI = ajMiniGUI;
+    public AJMainGUIControls(AJMainGUI ajMainGUI) {
+	this.ajMainGUI = ajMainGUI;
     }
 
     /**
@@ -65,83 +64,75 @@ public class AJMainGUIControls {
 	try {
 	    AJConfig.getInstance().cleanAJFolder();
 	} catch (IOException e) {
-	    ajMiniGUI.setStatusPanelText(AJConfig.BUNDLE
+	    ajMainGUI.setStatusPanelText(AJConfig.BUNDLE
 		    .getString("AJ.errUnconfiguredPreferences.text"));
 	    return;
 	}
 
 	AJGenerator ajLatexGenerator = new AJGenerator();
-
-	// generate Latex code for the observation records
-	ConsoleOutputCapturer outputCapturer = new ConsoleOutputCapturer();
-	outputCapturer.start();
 	ajLatexGenerator.generateJournals();
-	ajMiniGUI.appendTextToTextArea(outputCapturer.stop() + "\n");
+
 	String path = AJConfig.getInstance().getAJFilesLocation()
 		.getAbsolutePath();
 	try {
 	    // The pdflatex command must be called two times in order to
 	    // generate the list of contents correctly.
 	    String commandOutput;
-	    commandOutput = runCommand("pdflatex "
-		    + AJConfig.REPORT_BY_DATE_FILENAME);
+	    commandOutput = runCommand(
+		    "pdflatex " + AJConfig.REPORT_BY_DATE_FILENAME);
 	    if (latexOutput)
-		ajMiniGUI.appendTextToTextArea(commandOutput + "\n");
-	    commandOutput = runCommand("pdflatex "
-		    + AJConfig.REPORT_BY_DATE_FILENAME);
+		ajMainGUI.appendTextToTextArea(commandOutput + "\n");
+	    commandOutput = runCommand(
+		    "pdflatex " + AJConfig.REPORT_BY_DATE_FILENAME);
 	    // if(latexOutput) ajMiniGUI.appendText(commandOutput + "\n");
 
-	    commandOutput = runCommand("pdflatex "
-		    + AJConfig.REPORT_BY_TARGET_FILENAME);
+	    commandOutput = runCommand(
+		    "pdflatex " + AJConfig.REPORT_BY_TARGET_FILENAME);
 	    if (latexOutput)
-		ajMiniGUI.appendTextToTextArea(commandOutput + "\n");
-	    commandOutput = runCommand("pdflatex "
-		    + AJConfig.REPORT_BY_TARGET_FILENAME);
+		ajMainGUI.appendTextToTextArea(commandOutput + "\n");
+	    commandOutput = runCommand(
+		    "pdflatex " + AJConfig.REPORT_BY_TARGET_FILENAME);
 	    // if(latexOutput) ajMiniGUI.appendText(commandOutput + "\n");
 
-	    commandOutput = runCommand("pdflatex "
-		    + AJConfig.REPORT_BY_CONSTELLATION_FILENAME);
+	    commandOutput = runCommand(
+		    "pdflatex " + AJConfig.REPORT_BY_CONSTELLATION_FILENAME);
 	    if (latexOutput)
-		ajMiniGUI.appendTextToTextArea(commandOutput + "\n");
-	    commandOutput = runCommand("pdflatex "
-		    + AJConfig.REPORT_BY_CONSTELLATION_FILENAME);
-	    // if(latexOutput) ajMiniGUI.appendText(commandOutput + "\n");
+		ajMainGUI.appendTextToTextArea(commandOutput + "\n");
+	    commandOutput = runCommand(
+		    "pdflatex " + AJConfig.REPORT_BY_CONSTELLATION_FILENAME);
+		    // if(latexOutput) ajMiniGUI.appendText(commandOutput +
+		    // "\n");
 
 	    // Add this at the end to avoid mixing with the latex command
 	    // output.
-	    ajMiniGUI.appendTextToTextArea(AJConfig.BUNDLE
-		    .getString("AJ.lblCreatedReports.text") + " \n");
-	    ajMiniGUI.appendTextToTextArea("\t"
-		    + path
-		    + File.separator
-		    + FilenameUtils
-			    .removeExtension(AJConfig.REPORT_BY_DATE_FILENAME)
+	    ajMainGUI.appendTextToTextArea(
+		    AJConfig.BUNDLE.getString("AJ.lblCreatedReports.text")
+			    + " \n");
+	    ajMainGUI
+		    .appendTextToTextArea("\t" + path + File.separator
+			    + FilenameUtils.removeExtension(
+				    AJConfig.REPORT_BY_DATE_FILENAME)
 		    + ".pdf\n");
-	    ajMiniGUI
-		    .appendTextToTextArea("\t"
-			    + path
-			    + File.separator
-			    + FilenameUtils
-				    .removeExtension(AJConfig.REPORT_BY_TARGET_FILENAME)
-			    + ".pdf\n");
-	    ajMiniGUI
-		    .appendTextToTextArea("\t"
-			    + path
-			    + File.separator
-			    + FilenameUtils
-				    .removeExtension(AJConfig.REPORT_BY_CONSTELLATION_FILENAME)
-			    + ".pdf\n");
+	    ajMainGUI
+		    .appendTextToTextArea("\t" + path + File.separator
+			    + FilenameUtils.removeExtension(
+				    AJConfig.REPORT_BY_TARGET_FILENAME)
+		    + ".pdf\n");
+	    ajMainGUI.appendTextToTextArea("\t" + path + File.separator
+		    + FilenameUtils.removeExtension(
+			    AJConfig.REPORT_BY_CONSTELLATION_FILENAME)
+		    + ".pdf\n");
 
 	    commandOutput = runCommand("rm -rf *.aux *.toc *.log *.out");
 	    // if(latexOutput) ajMiniGUI.appendText(commandOutput + "\n");
 
-	    ajMiniGUI.setStatusPanelText(AJConfig.BUNDLE
-		    .getString("AJ.lblCreatedReportsLong.text"));
+	    ajMainGUI.setStatusPanelText(
+		    AJConfig.BUNDLE.getString("AJ.lblCreatedReportsLong.text"));
 	} catch (IOException ioe) {
 	    System.err
 		    .println(AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"));
-	    ajMiniGUI.setStatusPanelText(AJConfig.BUNDLE
-		    .getString("AJ.errPDFLatex.text"));
+	    ajMainGUI.setStatusPanelText(
+		    AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"));
 	    ioe.printStackTrace();
 	}
     }
@@ -164,8 +155,8 @@ public class AJMainGUIControls {
 	Process p = Runtime.getRuntime().exec(command, null,
 		AJConfig.getInstance().getAJFilesLocation());
 	// read the output messages from the command
-	BufferedReader stdInput = new BufferedReader(new InputStreamReader(
-		p.getInputStream()));
+	BufferedReader stdInput = new BufferedReader(
+		new InputStreamReader(p.getInputStream()));
 	sb.append("#######################\n\n");
 	sb.append("\n"
 		+ AJConfig.BUNDLE.getString("AJ.lblOutputForTheCommand.text")
@@ -175,8 +166,8 @@ public class AJMainGUIControls {
 	    sb.append(temp).append("\n");
 	}
 	// read the error messages from the command
-	BufferedReader stdError = new BufferedReader(new InputStreamReader(
-		p.getErrorStream()));
+	BufferedReader stdError = new BufferedReader(
+		new InputStreamReader(p.getErrorStream()));
 	sb.append("\n"
 		+ AJConfig.BUNDLE.getString("AJ.lblErrorsForTheCommand.text")
 		+ " `" + command + "`:\n\n");
