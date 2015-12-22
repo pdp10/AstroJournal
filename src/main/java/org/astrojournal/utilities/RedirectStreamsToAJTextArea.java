@@ -77,4 +77,12 @@ public class RedirectStreamsToAJTextArea extends OutputStream {
     public void write(byte[] b) throws IOException {
 	write(b, 0, b.length);
     }
+
+    @Override
+    public void close() throws IOException {
+	super.close();
+	// reset the previous streams.
+	System.setOut(System.out);
+	System.setErr(System.err);
+    }
 }
