@@ -284,7 +284,8 @@ public class AJConfig {
 
 	PrintWriter pw = new PrintWriter(new FileWriter(configFile));
 
-	pw.println("# AstroJournal configuration file. Do not edit by hand.\n");
+	pw.println(
+		"# AstroJournal configuration file. You do not need to edit this file.\n");
 
 	// Let's now right down the configuration
 	pw.println("latex_output=" + latexOutput);
