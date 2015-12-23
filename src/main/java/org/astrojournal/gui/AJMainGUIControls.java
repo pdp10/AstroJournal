@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.generator.AJGenerator;
 import org.astrojournal.utilities.RunExternalCommand;
@@ -122,8 +123,17 @@ public class AJMainGUIControls {
 			    AJConfig.REPORT_BY_CONSTELLATION_FILENAME)
 		    + ".pdf\n");
 
-	    commandOutput = RunExternalCommand
-		    .runCommand("rm -rf *.aux *.toc *.log *.out");
+	    // clean folders from LaTeX temporary, log, and output files
+	    if (SystemUtils.IS_OS_MAC_OSX) {
+		commandOutput = RunExternalCommand
+			.runCommand("rm -rf *.aux *.toc *.log *.out");
+	    } else if (SystemUtils.IS_OS_WINDOWS) {
+		commandOutput = RunExternalCommand
+			.runCommand("del /s *.aux *.toc *.log *.out");
+	    } else if (SystemUtils.IS_OS_UNIX) {
+		commandOutput = RunExternalCommand
+			.runCommand("rm -rf *.aux *.toc *.log *.out");
+	    }
 	    // if(latexOutput) ajMiniGUI.appendText(commandOutput + "\n");
 
 	    ajMainGUI.setStatusPanelText(
