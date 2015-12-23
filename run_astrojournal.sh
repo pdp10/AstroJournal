@@ -23,10 +23,7 @@
 # as input parameters.
 
 # Run AstroJournal and generate the Latex code
-java -jar target/astrojournal-*-jar-with-dependencies.jar > astrojournal_output.txt
-
-# Run AstroJournal via command line for testing AJ arguments
-#java -jar target/astrojournal-*-jar-with-dependencies.jar --config
+java -jar target/astrojournal-*-jar-with-dependencies.jar
 
 
 # Clean the temporary and log files
