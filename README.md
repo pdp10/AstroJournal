@@ -145,7 +145,7 @@ mvn clean
 
 You can run AstroJournal on GNU/Linux typing:
 ```
-./run_astrojournal.sh
+./astrojournal.sh
 ```
 
 
