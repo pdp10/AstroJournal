@@ -50,8 +50,15 @@ public class AJMainConsole {
      * @return the help for AstroJournal Console.
      */
     public static String printHelp() {
-	return "Apologise, this help is not yet written! Please report this "
-		+ "issue at the website https://github.com/pdp10/AstroJournal/issues";
+	String help = new String(AJConfig.APPLICATION_NAME + " "
+		+ AJConfig.APPLICATION_VERSION + "\n"
+		+ "USAGE: run_astrojournal.sh [options]\n" + "Options are:"
+		+ "\t--config :\tPrint the current configuration on a shell."
+		+ "\t-c [--console] :\tRun AstroJournal via command line instead of via GUI."
+		+ "\t--latex-output :\tWhen follows the option -c, it prints the LaTeX output."
+		+ "\t--help :\tShow this help on a shell."
+		+ "\t--license :\tShow the license for AstroJournal on a shell.");
+	return help;
     }
 
     /**
@@ -87,7 +94,7 @@ public class AJMainConsole {
      */
     public static void main(String args[]) {
 	AJMainConsole ajMainConsole = new AJMainConsole();
-	if (args.length > 1 && args[1].equals("-l"))
+	if (args.length > 1 && args[1].equals("--latex-output"))
 	    ajMainConsole.printLaTeXOutput(true);
 	ajMainConsole.createJournals();
     }

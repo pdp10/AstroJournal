@@ -74,23 +74,18 @@ public class AJMain {
 
 	try {
 	    if (args.length == 0) {
-		// Run AstroJournal Command Line
-		// TODO
-		// AJGenerator ajLatexGenerator = new AJGenerator();
-		// ajLatexGenerator.generateJournals();
 		startAJMiniGUI();
 	    } else if (args[0].equals("--config")) {
 		System.out.println(AJConfig.getInstance().printConfiguration());
 	    } else if (args[0].equals("-c") || args[0].equals("--console")) {
 		AJMainConsole.main(args);
-	    } else if (args[0].equals("-h") || args[0].equals("--help")) {
+	    } else if (args[0].equals("--help")) {
 		System.out.println(AJMainConsole.printHelp());
 	    } else if (args[0].equals("--license")) {
-		System.out
-			.println(AJConfig.getInstance().printLicense());
+		System.out.println(AJConfig.getInstance().printLicense());
 	    } else {
 		System.out.println(
-			"Please, run AstroJournal with the option -h (or --help) for help.");
+			"Please, run AstroJournal with the option --help for suggestions.");
 	    }
 	} catch (Exception ex) {
 	    log.warn(ex);
