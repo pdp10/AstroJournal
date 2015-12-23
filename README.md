@@ -19,6 +19,7 @@ by a TAB delimiter. Fields can have single or double quotes.
 
 ### Features
 
+- Support for GNU/Linux, Mac OS X, and Windows users.
 - A simple graphical interface for running the program is provided. 
 - Generation of a PDF document containing all user observation records collected by increasing target catalogue number. This is useful for comparing targets observed over time.
 - Generation of a PDF document containing all user observation reports collected by decreasing date. This is useful for visualising one’s observations by session.
@@ -152,6 +153,8 @@ You can run AstroJournal on GNU/Linux typing:
 
 v0.9
 
+- Use of the application launch4j for generating a Windows executable file 
+for astrojournal. In the future this could be integrated in Maven pom.xml.
 - Added AJMainConsole to run AstroJournal via command line.
 - Started support for Windows in order to avoid calling the BAT script.
 - Input and output files are now placed in a configurable folder outside 
