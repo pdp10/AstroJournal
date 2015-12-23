@@ -129,7 +129,7 @@ public class AJMainGUIControls {
 			.runCommand("rm -rf *.aux *.toc *.log *.out");
 	    } else if (SystemUtils.IS_OS_WINDOWS) {
 		commandOutput = RunExternalCommand
-			.runCommand("del /s *.aux *.toc *.log *.out");
+			.runCommand("cmd /c del /s *.aux *.toc *.log *.out");
 	    } else if (SystemUtils.IS_OS_UNIX) {
 		commandOutput = RunExternalCommand
 			.runCommand("rm -rf *.aux *.toc *.log *.out");
