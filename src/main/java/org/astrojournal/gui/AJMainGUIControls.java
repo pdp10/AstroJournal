@@ -132,7 +132,7 @@ public class AJMainGUIControls {
 	    System.err
 		    .println(AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"));
 	    ajMainGUI.setStatusPanelText(
-		    AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"));
+		    AJConfig.BUNDLE.getString("AJ.errPDFLatexShort.text"));
 	}
     }
 
