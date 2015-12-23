@@ -152,6 +152,7 @@ You can run AstroJournal on GNU/Linux typing:
 
 v0.9
 
+- Added AJMainConsole to run AstroJournal via command line.
 - Started support for Windows in order to avoid calling the BAT script.
 - Input and output files are now placed in a configurable folder outside 
 the folder containing the software AstroJournal. This folder can be edited 
