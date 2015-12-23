@@ -116,17 +116,15 @@ public class AJMainConsoleControls {
 		    + ".pdf\n");
 
 	    // clean folders from LaTeX temporary, log, and output files
-	    if (SystemUtils.IS_OS_MAC_OSX) {
-		commandOutput = RunExternalCommand
-			.runCommand("rm -rf *.aux *.toc *.log *.out");
-	    } else if (SystemUtils.IS_OS_WINDOWS) {
+	    if (SystemUtils.IS_OS_WINDOWS) {
 		commandOutput = RunExternalCommand
 			.runCommand("cmd /c del /s *.aux *.toc *.log *.out");
-	    } else if (SystemUtils.IS_OS_UNIX) {
-		commandOutput = RunExternalCommand
-			.runCommand("rm -rf *.aux *.toc *.log *.out");
+	    } else {
+		Runtime.getRuntime().exec(new String[] { "/bin/sh", "-c",
+			"cd " + AJConfig.getInstance().getAJFilesLocation()
+				.getAbsolutePath()
+			+ " && rm -rf *.aux *.toc *.log *.out" + " && cd -" });
 	    }
-	    // if(latexOutput) ajMiniGUI.appendText(commandOutput + "\n");
 
 	    System.out.println(
 		    AJConfig.BUNDLE.getString("AJ.lblCreatedReportsLong.text"));
