@@ -48,12 +48,12 @@ You can download the latest version of this software application here:
 After downloading and uncompressing the file, you can run AstroJournal by typing:
 ```
 # On GNU/Linux or MAC OS X, run AstroJournal typing (or clicking the icon):
-./run_astrojournal.sh
+./astrojournal.sh
 ```
 or 
 ```
 # On Windows, click on the icon:
-run_astrojournal.bat
+astrojournal.exe
 ```
 
 This will start a minimal graphical user interface to generate the journals.
@@ -91,7 +91,7 @@ Here are some guidelines for using AstroJournal:
 
 3. Put this file in the folder raw_reports.
 
-4. In the main astrojournal folder type the command above ./run_astrojournal.sh or ./run_astrojournal.bat .
+4. In the main astrojournal folder type the command above ./astrojournal.sh or astrojournal.exe .
 
 
 
