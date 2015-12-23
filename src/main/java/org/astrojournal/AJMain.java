@@ -17,18 +17,24 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+/*
+ * Changelog:
+ * - Piero Dalle Pezze: class creation.
+ */
 package org.astrojournal;
 
 import javax.swing.UIManager;
 
 import org.apache.log4j.Logger;
+import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.console.AJMainConsole;
 import org.astrojournal.gui.AJMainGUI;
 
 /**
  * This class automatically generates the Latex code for the AstroJournal.
  * 
  * @author Piero Dalle Pezze
- * @version 0.8
+ * @version 0.9
  * @since 12/04/2015
  */
 public class AJMain {
@@ -44,8 +50,9 @@ public class AJMain {
 	// too much text..
 	try {
 	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-	} catch (Exception e) {
+	} catch (Exception ex) {
 	}
+
 	// enable anti-aliased text:
 	System.setProperty("awt.useSystemAAFontSettings", "gasp");
 	System.setProperty("swing.aatext", "true");
@@ -58,41 +65,27 @@ public class AJMain {
     }
 
     /**
-     * Main function. By default AstroJournal mini GUI is started. A list of 5
-     * arguments representing the input (1) and output (4) folders can also be
-     * passed as input parameters.
+     * Main function. By default AstroJournal Main GUI is started. Arguments can
+     * be passed. Please see AJMainConsole.printHelp() for options.
      * 
      * @param args
      */
     public static void main(String[] args) {
 
-	String rawReportsFolder = "raw_reports_folder";
-	String latexReportsFolderByDate = "latex_report_folder_by_date";
-	String latexReportsFolderByTarget = "latex_report_folder_by_target";
-	String latexReportsFolderByConstellation = "latex_report_folder_by_constellation";
-	String sglReportsFolderByDate = "sgl_report_folder_by_date";
 	try {
 	    if (args.length == 0) {
-		// Run AstroJournal Command Line
-		// TODO
-		// AJGenerator ajLatexGenerator = new AJGenerator();
-		// ajLatexGenerator.generateJournals();
 		startAJMiniGUI();
-	    } else if (args.length == 5) {
-		// set AJ properties
-		System.setProperty("aj.raw_reports_folder", args[0]);
-		System.setProperty("aj.latex_reports_folder_by_date", args[1]);
-		System.setProperty("aj.latex_reports_folder_by_target", args[2]);
-		System.setProperty("aj.latex_reports_folder_by_constellation",
-			args[3]);
-		System.setProperty("aj.sgl_reports_folder_by_date", args[4]);
-		startAJMiniGUI();
+	    } else if (args[0].equals("--config")) {
+		System.out.println(AJConfig.getInstance().printConfiguration());
+	    } else if (args[0].equals("-c") || args[0].equals("--console")) {
+		AJMainConsole.main(args);
+	    } else if (args[0].equals("--help")) {
+		System.out.println(AJMainConsole.printHelp());
+	    } else if (args[0].equals("--license")) {
+		System.out.println(AJConfig.getInstance().printLicense());
 	    } else {
-		throw new Exception("Please, specify the folders : "
-			+ rawReportsFolder + "/ " + latexReportsFolderByDate
-			+ "/ " + latexReportsFolderByTarget + "/ "
-			+ latexReportsFolderByConstellation + "and "
-			+ sglReportsFolderByDate + " as arguments.");
+		System.out.println(
+			"Please, run AstroJournal with the option --help for suggestions.");
 	    }
 	} catch (Exception ex) {
 	    log.warn(ex);

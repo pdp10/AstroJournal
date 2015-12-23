@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>/home/npdp/eclipse_workspace/astrojournal/target/astrojournal-0.9-jar-with-dependencies.jar</jar>
+  <outfile>/home/npdp/eclipse_workspace/astrojournal/astrojournal.exe</outfile>
+  <errTitle>AstroJournal</errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl>http://java.com/download</downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>false</restartOnCrash>
+  <manifest></manifest>
+  <icon>/home/npdp/eclipse_workspace/astrojournal/Windows/astrojournal.ico</icon>
+  <jre>
+    <path></path>
+    <bundledJre64Bit>false</bundledJre64Bit>
+    <bundledJreAsFallback>false</bundledJreAsFallback>
+    <minVersion>1.6.0</minVersion>
+    <maxVersion></maxVersion>
+    <jdkPreference>preferJre</jdkPreference>
+    <runtimeBits>64/32</runtimeBits>
+  </jre>
+  <versionInfo>
+    <fileVersion>0.9.0.0</fileVersion>
+    <txtFileVersion>0.0.0.0</txtFileVersion>
+    <fileDescription>A tool for generating astronomy observation reports in LaTeX / PDF</fileDescription>
+    <copyright>Copyright (C) 2015 Piero Dalle Pezze (GPL v3 License)</copyright>
+    <productVersion>0.9.0.0</productVersion>
+    <txtProductVersion>0.0.0.0</txtProductVersion>
+    <productName>astrojournal</productName>
+    <companyName></companyName>
+    <internalName>GUI AstroJournal</internalName>
+    <originalFilename>astrojournal.exe</originalFilename>
+  </versionInfo>
+</launch4jConfig>

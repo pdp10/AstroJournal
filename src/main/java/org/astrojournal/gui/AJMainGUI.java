@@ -17,12 +17,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+/*
+ * Changelog:
+ * - Piero Dalle Pezze: class creation.
+ */
 package org.astrojournal.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -32,12 +37,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
 import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.gui.dialogs.StatusPanel;
 import org.astrojournal.gui.menu.AJMenuBar;
+import org.astrojournal.utilities.RedirectStreamsToAJTextArea;
 
 /**
  * A very minimal graphical user interface for running AstroJournal without
@@ -59,6 +64,8 @@ public class AJMainGUI extends JFrame {
     private boolean latexOutput = AJConfig.getInstance().isLatexOutput();
     private AJMainGUIControls commandRunner;
     private AJMenuBar menu = null;
+    // redirect the console streams to AJTextArea
+    private RedirectStreamsToAJTextArea redirect2TextArea;
 
     /**
      * Creates new form NewJFrame
@@ -106,6 +113,10 @@ public class AJMainGUI extends JFrame {
      * Dispose this application.
      */
     public void closeApplication() {
+	try {
+	    redirect2TextArea.close();
+	} catch (IOException e) {
+	}
 	dispose();
 	System.exit(0);
     }
@@ -115,13 +126,16 @@ public class AJMainGUI extends JFrame {
      */
     private void initComponents() {
 
+	redirect2TextArea = new RedirectStreamsToAJTextArea(this);
+
 	commandRunner = new AJMainGUIControls(this);
 
 	// Configure AJMiniGUI with basic parameters
-	setTitle(AJConfig.APPLICATION_NAME + " " + AJConfig.APPLICATION_VERSION);
+	setTitle(
+		AJConfig.APPLICATION_NAME + " " + AJConfig.APPLICATION_VERSION);
 	setIconImage(new ImageIcon(
 		ClassLoader.getSystemResource("graphics/aj_icon_32.png"))
-		.getImage());
+			.getImage());
 	setSize(600, 600);
 	setMinimumSize(new Dimension(480, 300));
 	setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -160,8 +174,8 @@ public class AJMainGUI extends JFrame {
 
 	// Create the button for creating the journals
 	btnCreateJournal = new JButton();
-	btnCreateJournal.setText(AJConfig.BUNDLE
-		.getString("AJ.cmdCreateJournal.text"));
+	btnCreateJournal
+		.setText(AJConfig.BUNDLE.getString("AJ.cmdCreateJournal.text"));
 	btnCreateJournal.addActionListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
@@ -183,8 +197,8 @@ public class AJMainGUI extends JFrame {
 
 	// Create the control panel containing the button and the checkbox
 	JPanel controlPanel = new JPanel();
-	controlPanel.add(new JLabel(AJConfig.BUNDLE
-		.getString("AJ.lblShowLatexOutput.text")));
+	controlPanel.add(new JLabel(
+		AJConfig.BUNDLE.getString("AJ.lblShowLatexOutput.text")));
 	controlPanel.add(cbxLatexOutput);
 	controlPanel.add(btnCreateJournal);
 	controlPanel.add(btnClose);
@@ -214,10 +228,10 @@ public class AJMainGUI extends JFrame {
 
 	// Note Nimbus does not seem to show the vertical scroll bar if there is
 	// too much text..
-	try {
-	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-	} catch (Exception e) {
-	}
+	// try {
+	// UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+	// } catch (Exception e) {
+	// }
 
 	// enable anti-aliased text:
 	System.setProperty("awt.useSystemAAFontSettings", "gasp");

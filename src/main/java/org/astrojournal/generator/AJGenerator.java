@@ -58,14 +58,20 @@ public class AJGenerator {
     public boolean generateJournals() {
 
 	if (AJConfig.getInstance().isShowLicenseAtStart()) {
-	    showVersion();
+	    showLicense();
+	}
+
+	if (AJConfig.getInstance().isShowConfigurationAtStart()) {
+	    showConfiguration();
 	}
 
 	if (!importObservations()) {
-	    log.warn("raw observation file is not valid. Cannot generate Latex code for the observations.");
+	    log.warn(
+		    "raw observation file is not valid. Cannot generate Latex code for the observations.");
 	    return false;
 	}
-	boolean exportedByDate = true, exportedByTarget = true, exportedByConstellation = true, exportedByDateSGL = true;
+	boolean exportedByDate = true, exportedByTarget = true,
+		exportedByConstellation = true, exportedByDateSGL = true;
 	exportedByDate = generateJournalByDate();
 	exportedByTarget = generateJournalByTarget();
 	exportedByConstellation = generateJournalByConstellation();
@@ -75,10 +81,17 @@ public class AJGenerator {
     }
 
     /**
-     * Print some detail about AstroJournal.
+     * Print the license for AstroJournal.
      */
-    public void showVersion() {
-	System.out.println(AJConfig.getInstance().printLicenseAtStart());
+    public void showLicense() {
+	System.out.println(AJConfig.getInstance().printLicense());
+    }
+
+    /**
+     * Print the configuration for AstroJournal.
+     */
+    public void showConfiguration() {
+	System.out.println(AJConfig.getInstance().printConfiguration());
     }
 
     /**
@@ -89,18 +102,18 @@ public class AJGenerator {
      */
     public boolean generateJournalByDate() {
 	if (!importObservations()) {
-	    log.warn("raw observation file is not valid. Cannot generate Latex code for the observations.");
+	    log.warn(
+		    "raw observation file is not valid. Cannot generate Latex code for the observations.");
 	    return false;
 	}
-	AJExporter ajExporterByDate = new AJExporterByDate(AJConfig
-		.getInstance().getAJFilesLocation());
+	AJExporter ajExporterByDate = new AJExporterByDate(
+		AJConfig.getInstance().getAJFilesLocation());
 	// export the imported observation by date to Latex
 	System.out.println("\nExporting observation by date:");
-	boolean resultByDate = ajExporterByDate.exportObservations(
-		observations, AJConfig.getInstance()
-			.getLatexReportsFolderByDate());
-	ajExporterByDate.generateJournal(AJConfig.getInstance()
-		.getLatexReportsFolderByDate(),
+	boolean resultByDate = ajExporterByDate.exportObservations(observations,
+		AJConfig.getInstance().getLatexReportsFolderByDate());
+	ajExporterByDate.generateJournal(
+		AJConfig.getInstance().getLatexReportsFolderByDate(),
 		AJConfig.HEADER_BY_DATE_FILENAME,
 		AJConfig.REPORT_BY_DATE_FILENAME,
 		AJConfig.FOOTER_BY_DATE_FILENAME);
@@ -115,18 +128,19 @@ public class AJGenerator {
      */
     public boolean generateJournalByDateSGL() {
 	if (!importObservations()) {
-	    log.warn("raw observation file is not valid. Cannot generate txt code for the observations.");
+	    log.warn(
+		    "raw observation file is not valid. Cannot generate txt code for the observations.");
 	    return false;
 	}
-	AJExporter ajExporterByDateSGL = new AJExporterByDateSGL(AJConfig
-		.getInstance().getAJFilesLocation());
+	AJExporter ajExporterByDateSGL = new AJExporterByDateSGL(
+		AJConfig.getInstance().getAJFilesLocation());
 	// export the imported observation by date to txt
 	System.out.println("\nExporting observation by date for SGL:");
 	boolean resultByDateSGL = ajExporterByDateSGL.exportObservations(
-		observations, AJConfig.getInstance()
-			.getSglReportsFolderByDate());
-	ajExporterByDateSGL.generateJournal(AJConfig.getInstance()
-		.getSglReportsFolderByDate(), "",
+		observations,
+		AJConfig.getInstance().getSglReportsFolderByDate());
+	ajExporterByDateSGL.generateJournal(
+		AJConfig.getInstance().getSglReportsFolderByDate(), "",
 		AJConfig.SGL_REPORT_BY_DATE_FILENAME, "");
 	return resultByDateSGL;
     }
@@ -139,18 +153,19 @@ public class AJGenerator {
      */
     public boolean generateJournalByTarget() {
 	if (!importObservations()) {
-	    log.warn("raw observation file is not valid. Cannot generate Latex code for the observations.");
+	    log.warn(
+		    "raw observation file is not valid. Cannot generate Latex code for the observations.");
 	    return false;
 	}
-	AJExporter ajExporterByTarget = new AJExporterByTarget(AJConfig
-		.getInstance().getAJFilesLocation());
+	AJExporter ajExporterByTarget = new AJExporterByTarget(
+		AJConfig.getInstance().getAJFilesLocation());
 	// export the imported observation by target to Latex
 	System.out.println("\nExporting observation by target:");
 	boolean resultByTarget = ajExporterByTarget.exportObservations(
-		observations, AJConfig.getInstance()
-			.getLatexReportsFolderByTarget());
-	ajExporterByTarget.generateJournal(AJConfig.getInstance()
-		.getLatexReportsFolderByTarget(),
+		observations,
+		AJConfig.getInstance().getLatexReportsFolderByTarget());
+	ajExporterByTarget.generateJournal(
+		AJConfig.getInstance().getLatexReportsFolderByTarget(),
 		AJConfig.HEADER_BY_TARGET_FILENAME,
 		AJConfig.REPORT_BY_TARGET_FILENAME,
 		AJConfig.FOOTER_BY_TARGET_FILENAME);
@@ -165,7 +180,8 @@ public class AJGenerator {
      */
     public boolean generateJournalByConstellation() {
 	if (!importObservations()) {
-	    log.warn("raw observation file is not valid. Cannot generate Latex code for the observations.");
+	    log.warn(
+		    "raw observation file is not valid. Cannot generate Latex code for the observations.");
 	    return false;
 	}
 	AJExporter ajExporterByConstellation = new AJExporterByConstellation(
@@ -175,8 +191,8 @@ public class AJGenerator {
 	boolean resultByConstellation = ajExporterByConstellation
 		.exportObservations(observations, AJConfig.getInstance()
 			.getLatexReportsFolderByConstellation());
-	ajExporterByConstellation.generateJournal(AJConfig.getInstance()
-		.getLatexReportsFolderByConstellation(),
+	ajExporterByConstellation.generateJournal(
+		AJConfig.getInstance().getLatexReportsFolderByConstellation(),
 		AJConfig.HEADER_BY_CONSTELLATION_FILENAME,
 		AJConfig.REPORT_BY_CONSTELLATION_FILENAME,
 		AJConfig.FOOTER_BY_CONSTELLATION_FILENAME);
@@ -191,8 +207,7 @@ public class AJGenerator {
     private boolean importObservations() {
 	if (!observationsProcessed) {
 	    String rawReportPath = AJConfig.getInstance().getAJFilesLocation()
-		    .getAbsolutePath()
-		    + File.separator
+		    .getAbsolutePath() + File.separator
 		    + AJConfig.getInstance().getRawReportsFolder();
 	    File[] files = new File(rawReportPath).listFiles();
 	    if (files == null) {
