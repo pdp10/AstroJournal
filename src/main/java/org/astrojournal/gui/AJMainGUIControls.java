@@ -133,7 +133,6 @@ public class AJMainGUIControls {
 		    .println(AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"));
 	    ajMainGUI.setStatusPanelText(
 		    AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"));
-	    ioe.printStackTrace();
 	}
     }
 
