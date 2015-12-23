@@ -53,6 +53,7 @@ by a TAB delimiter. Fields can have single or double quotes.</p>
 <a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h3>
 
 <ul>
+<li>Support for GNU/Linux, Mac OS X, and Windows users.</li>
 <li>A simple graphical interface for running the program is provided. </li>
 <li>Generation of a PDF document containing all user observation records collected by increasing target catalogue number. This is useful for comparing targets observed over time.</li>
 <li>Generation of a PDF document containing all user observation reports collected by decreasing date. This is useful for visualising one’s observations by session.</li>
@@ -85,13 +86,13 @@ by a TAB delimiter. Fields can have single or double quotes.</p>
 <p>After downloading and uncompressing the file, you can run AstroJournal by typing:</p>
 
 <pre><code># On GNU/Linux or MAC OS X, run AstroJournal typing (or clicking the icon):
-./create_journal.sh
+./run_astrojournal.sh
 </code></pre>
 
 <p>or </p>
 
 <pre><code># On Windows, click on the icon:
-create_journal.bat
+run_astrojournal.bat
 </code></pre>
 
 <p>This will start a minimal graphical user interface to generate the journals.</p>
@@ -128,7 +129,7 @@ editor.</p>
 <li><p>Report your observations (with the structure of my tsv or csv file) using a spreadsheet program, such as MS Excel, Libreoffice Spreadsheet, or Google Spreadsheet. Alternatively you can use a common text editor (e.g. Wordpad, GNU Emacs, Kate, etc.) as long as the fields are the same as in the samples provided in the raw_report and that each field is separated using a TAB character.</p></li>
 <li><p>Export your file as tsv (if using Google Spreadsheet) or csv. In the latter case, when asked, select tab as field delimiter.</p></li>
 <li><p>Put this file in the folder raw_reports.</p></li>
-<li><p>In the main astrojournal folder type the command above ./create_journal.sh or ./create_journal.bat .</p></li>
+<li><p>In the main astrojournal folder type the command above ./run_astrojournal.sh or ./run_astrojournal.bat .</p></li>
 </ol>
 
 <h1>
@@ -184,7 +185,7 @@ MikTeX Manager.</p>
 
 <p>You can run AstroJournal on GNU/Linux typing:</p>
 
-<pre><code>./create_journal.sh
+<pre><code>./run_astrojournal.sh
 </code></pre>
 
 <h3>
@@ -193,6 +194,14 @@ MikTeX Manager.</p>
 <p>v0.9</p>
 
 <ul>
+<li>Use of the application launch4j for generating a Windows executable file 
+for astrojournal. In the future this could be integrated in Maven pom.xml.</li>
+<li>Added AJMainConsole to run AstroJournal via command line.</li>
+<li>Started support for Windows in order to avoid calling the BAT script.</li>
+<li>Input and output files are now placed in a configurable folder outside 
+the folder containing the software AstroJournal. This folder can be edited 
+using the Edit &gt; Preferences menu.</li>
+<li>Added new icons</li>
 <li>Added internationalisation for GUI strings.</li>
 <li>Added menu bar, preferences and help to the GUI.</li>
 <li>Improved the AJ GUI to also report the program output graphically.</li>
@@ -219,7 +228,7 @@ Ant.</li>
 <p>v0.7</p>
 
 <ul>
-<li>Create file create_journal.bat (for Windows Users) (not tested yet).</li>
+<li>Create file run_astrojournal.bat (for Windows Users) (not tested yet).</li>
 <li>Removed the field PowerExitPupilFOV from the session reports. The eyepiece information is now inserted in the file legends.tex included at header level.</li>
 <li>Removed catalogue tsv and latex folder. List of observed targets is the list of contents for the second generated pdf (by_target)</li>
 <li>Export observations by target</li>
