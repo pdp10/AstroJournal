@@ -108,11 +108,13 @@ public class AJMainGUI extends JFrame {
      */
     public void createJournals() {
 	// define a SwingWorker to run in background
+	// In this way the output is printed gradually as it is
+	// generated.
 	SwingWorker<String, Void> worker = new SwingWorker<String, Void>() {
 	    @Override
 	    public String doInBackground() {
-		// In this way the output is printed gradually as it is
-		// generated.
+		setStatusPanelText(AJConfig.BUNDLE
+			.getString("AJ.lblFileGenerationinProgressLong.text"));
 		cleanTextArea();
 		commandRunner.createJournal(latexOutput);
 		return "";
