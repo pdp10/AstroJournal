@@ -37,7 +37,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingWorker;
 import javax.swing.WindowConstants;
+import javax.swing.text.DefaultCaret;
 
 import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.gui.dialogs.StatusPanel;
@@ -87,7 +89,7 @@ public class AJMainGUI extends JFrame {
      * @param str
      *            the text to append
      */
-    public void appendTextToTextArea(String str) {
+    public void appendTextToTextArea(final String str) {
 	textArea.append(str);
     }
 
@@ -105,8 +107,19 @@ public class AJMainGUI extends JFrame {
      * Create the astro journals.
      */
     public void createJournals() {
-	cleanTextArea();
-	commandRunner.createJournal(latexOutput);
+	// define a SwingWorker to run in background
+	SwingWorker<String, Void> worker = new SwingWorker<String, Void>() {
+	    @Override
+	    public String doInBackground() {
+		// In this way the output is printed gradually as it is
+		// generated.
+		cleanTextArea();
+		commandRunner.createJournal(latexOutput);
+		return "";
+	    }
+	};
+	// execute the background thread
+	worker.execute();
     }
 
     /**
@@ -151,6 +164,9 @@ public class AJMainGUI extends JFrame {
 
 	// Create the text area containing the program text output
 	textArea = new JTextArea();
+	// Move the JScrollPane to the bottom automatically.
+	DefaultCaret caret = (DefaultCaret) textArea.getCaret();
+	caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 	textArea.setEditable(false);
 	textArea.setLineWrap(true);
 	textArea.setWrapStyleWord(true);
