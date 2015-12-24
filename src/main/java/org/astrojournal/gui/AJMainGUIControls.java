@@ -60,6 +60,9 @@ public class AJMainGUIControls {
      */
     public void createJournal(boolean latexOutput) {
 
+	// prepare the folders for AJ.
+	AJConfig.getInstance().prepareAJFolders();
+
 	// Delete previous content if present
 	try {
 	    AJConfig.getInstance().cleanAJFolder();
@@ -84,7 +87,7 @@ public class AJMainGUIControls {
 		ajMainGUI.appendTextToTextArea(commandOutput + "\n");
 	    commandOutput = RunExternalCommand
 		    .runCommand("pdflatex " + AJConfig.REPORT_BY_DATE_FILENAME);
-	    // if(latexOutput) ajMiniGUI.appendText(commandOutput + "\n");
+	    // if(latexOutput) ajMainGUI.appendText(commandOutput + "\n");
 
 	    commandOutput = RunExternalCommand.runCommand(
 		    "pdflatex " + AJConfig.REPORT_BY_TARGET_FILENAME);
@@ -92,7 +95,7 @@ public class AJMainGUIControls {
 		ajMainGUI.appendTextToTextArea(commandOutput + "\n");
 	    commandOutput = RunExternalCommand.runCommand(
 		    "pdflatex " + AJConfig.REPORT_BY_TARGET_FILENAME);
-	    // if(latexOutput) ajMiniGUI.appendText(commandOutput + "\n");
+	    // if(latexOutput) ajMainGUI.appendText(commandOutput + "\n");
 
 	    commandOutput = RunExternalCommand.runCommand(
 		    "pdflatex " + AJConfig.REPORT_BY_CONSTELLATION_FILENAME);
@@ -100,14 +103,14 @@ public class AJMainGUIControls {
 		ajMainGUI.appendTextToTextArea(commandOutput + "\n");
 	    commandOutput = RunExternalCommand.runCommand(
 		    "pdflatex " + AJConfig.REPORT_BY_CONSTELLATION_FILENAME);
-		    // if(latexOutput) ajMiniGUI.appendText(commandOutput +
+		    // if(latexOutput) ajMainGUI.appendText(commandOutput +
 		    // "\n");
 
 	    // Add this at the end to avoid mixing with the latex command
 	    // output.
-	    ajMainGUI.appendTextToTextArea(
-		    AJConfig.BUNDLE.getString("AJ.lblCreatedReports.text")
-			    + " \n");
+	    ajMainGUI.appendTextToTextArea("\n"
+		    + AJConfig.BUNDLE.getString("AJ.lblCreatedReports.text")
+		    + " \n");
 	    ajMainGUI
 		    .appendTextToTextArea("\t" + path + File.separator
 			    + FilenameUtils.removeExtension(

@@ -52,6 +52,9 @@ public class AJMainConsoleControls {
      */
     public void createJournal(boolean latexOutput) {
 
+	// prepare the folders for AJ.
+	AJConfig.getInstance().prepareAJFolders();
+
 	// Delete previous content if present
 	try {
 	    AJConfig.getInstance().cleanAJFolder();

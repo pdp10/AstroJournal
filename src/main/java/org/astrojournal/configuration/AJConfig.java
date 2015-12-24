@@ -159,8 +159,6 @@ public class AJConfig {
 	// Read the system properties (this might override the configuration
 	// file)
 	readSystemProperties();
-	// prepare the folders for AJ.
-	prepareAJFolders();
     }
 
     /**
@@ -215,7 +213,7 @@ public class AJConfig {
 			|| line.startsWith(" ")) {
 		    continue;
 		}
-		sections = line.split("=", -1);
+		sections = line.split("=");
 		if (sections[0].equals("latex_output")) {
 		    latexOutput = Boolean.parseBoolean(sections[1]);
 		} else if (sections[0].equals("quiet")) {
@@ -231,12 +229,11 @@ public class AJConfig {
 		    if (ajFilesLocation == null || !ajFilesLocation.exists()
 			    || !ajFilesLocation.canWrite()) {
 			ajFilesLocation = oldAJFilesLocation;
-			System.err.println(
-				"Error: The location for storing AJ Files is not set correctly.\n"
-					+ "Check "
+			System.out.println(
+				"Warning: The location for storing AJ Files does not exist.\n"
+					+ "Check Edit > Preference or "
 					+ configFile.getAbsolutePath()
-					+ " or Edit > Preference.\n"
-					+ "Using default path: "
+					+ ".\nUsing default path: "
 					+ ajFilesLocation.getAbsolutePath());
 			correctLocation = false;
 		    }
@@ -285,7 +282,7 @@ public class AJConfig {
 	PrintWriter pw = new PrintWriter(new FileWriter(configFile));
 
 	pw.println(
-		"# AstroJournal configuration file. You do not need to edit this file.\n");
+		"# AstroJournal configuration file. You should not edit this file.\n");
 
 	// Let's now right down the configuration
 	pw.println("latex_output=" + latexOutput);
@@ -302,8 +299,6 @@ public class AJConfig {
 	pw.println("sgl_reports_folder_by_date=" + sglReportsFolderByDate);
 
 	pw.close();
-	// In case these do not exist.
-	prepareAJFolders();
     }
 
     /**
@@ -387,7 +382,10 @@ public class AJConfig {
 
     }
 
-    private void prepareAJFolders() {
+    /**
+     * Prepare input and output folders for AstroJournal if these do not exist.
+     */
+    public void prepareAJFolders() {
 	adjustFileSeparator();
 	// Create the folders if these do not exist.
 
