@@ -17,6 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+/*
+ * Changelog:
+ * - Piero Dalle Pezze: class creation.
+ */
 package org.astrojournal.generator;
 
 import java.io.BufferedWriter;
@@ -70,14 +74,17 @@ public class AJExporterByDateSGL extends AJExporter {
      *            the footer code (by date)
      */
     @Override
-    public void generateJournal(String reportsFolderByDate,
-	    String headerByDate, String mainByDate, String footerByDate) {
+    public void generateJournal(String reportsFolderByDate, String headerByDate,
+	    String mainByDate, String footerByDate) {
 	Writer writerByDate = null;
 	try {
-	    writerByDate = new BufferedWriter(new OutputStreamWriter(
-		    new FileOutputStream(ajFilesLocation.getAbsolutePath()
-			    + File.separator + mainByDate), "utf-8"));
-	    // write the Header
+	    writerByDate = new BufferedWriter(
+		    new OutputStreamWriter(
+			    new FileOutputStream(
+				    ajFilesLocation.getAbsolutePath()
+					    + File.separator + mainByDate),
+			    "utf-8"));
+			    // write the Header
 
 	    // write the Body
 	    // Write the observation reports
@@ -160,20 +167,25 @@ public class AJExporterByDateSGL extends AJExporter {
 	    ArrayList<AJObservationItem> observationItems = obs
 		    .getObservationItems();
 	    try {
-		text = new BufferedWriter(new OutputStreamWriter(
-			new FileOutputStream(new File(
-				ajFilesLocation.getAbsolutePath()
-					+ File.separator + reportsByDateFolder,
-				"obs" + filenameOut + ".txt")), "utf-8"));
+		text = new BufferedWriter(
+			new OutputStreamWriter(
+				new FileOutputStream(new File(
+					ajFilesLocation.getAbsolutePath()
+						+ File.separator
+						+ reportsByDateFolder,
+					"obs" + filenameOut + ".txt")),
+			"utf-8"));
 
 		// debugging
 		log.debug("writing observation " + obs.getDate());
-		text.write(AJObservation.DATE_NAME + " " + obs.getDate() + "\n");
-		text.write(AJObservation.TIME_NAME + " " + obs.getTime() + "\n");
-		text.write(AJObservation.LOCATION_NAME + " "
-			+ obs.getLocation() + "\n");
-		text.write(AJObservation.ALTITUDE_NAME + " "
-			+ obs.getAltitude() + "\n");
+		text.write(
+			AJObservation.DATE_NAME + " " + obs.getDate() + "\n");
+		text.write(
+			AJObservation.TIME_NAME + " " + obs.getTime() + "\n");
+		text.write(AJObservation.LOCATION_NAME + " " + obs.getLocation()
+			+ "\n");
+		text.write(AJObservation.ALTITUDE_NAME + " " + obs.getAltitude()
+			+ "\n");
 		text.write(AJObservation.TEMPERATURE_NAME + " "
 			+ obs.getTemperature() + "\n");
 		text.write(AJObservation.SEEING_NAME + " " + obs.getSeeing()

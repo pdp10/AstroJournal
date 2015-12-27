@@ -17,6 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+/*
+ * Changelog:
+ * - Piero Dalle Pezze: class creation.
+ */
 package org.astrojournal.generator;
 
 import java.io.BufferedWriter;
@@ -101,7 +105,8 @@ public class AJExporterByTarget extends AJExporter {
 	try {
 	    writerByTarget = new BufferedWriter(new OutputStreamWriter(
 		    new FileOutputStream(ajFilesLocation.getAbsolutePath()
-			    + File.separator + latexMainByTarget), "utf-8"));
+			    + File.separator + latexMainByTarget),
+		    "utf-8"));
 	    // write the Latex Header
 	    writerByTarget.write(ajLatexHeaderByTarget.getHeader());
 	    // write the Latex Body
@@ -124,8 +129,8 @@ public class AJExporterByTarget extends AJExporter {
 	    for (File file : files) {
 		target = file.getName();
 		if (file.isFile() && target.endsWith(".tex")) {
-		    if (target
-			    .matches("^(sun|moon|mercury|venus|mars|asteroid|jupiter|saturn|uranus|neptune|pluto|comet|Sun|Moon|Mercury|Venus|Mars|Asteroid|Jupiter|Saturn|Uranus|Neptune|Pluto|Comet).*$")) {
+		    if (target.matches(
+			    "^(sun|moon|mercury|venus|mars|asteroid|jupiter|saturn|uranus|neptune|pluto|comet|Sun|Moon|Mercury|Venus|Mars|Asteroid|Jupiter|Saturn|Uranus|Neptune|Pluto|Comet).*$")) {
 			if (!type.equals("Solar System")) {
 			    type = "Solar System";
 			    writerByTarget.write("\\clearpage\n");
@@ -180,14 +185,15 @@ public class AJExporterByTarget extends AJExporter {
 			    writerByTarget.write("\\clearpage\n");
 			    writerByTarget.write("\\section{" + type + "}\n");
 			}
-		    } else if (target.matches("^(b|B|Barnard|BARNARD)[0-9].*$")) {
+		    } else if (target
+			    .matches("^(b|B|Barnard|BARNARD)[0-9].*$")) {
 			if (!type.equals("Barnard Catalogue")) {
 			    type = "Barnard Catalogue";
 			    writerByTarget.write("\\clearpage\n");
 			    writerByTarget.write("\\section{" + type + "}\n");
 			}
-		    } else if (target
-			    .matches("^(hcg|HCG|Hickson Compact Group)[0-9].*$")) {
+		    } else if (target.matches(
+			    "^(hcg|HCG|Hickson Compact Group)[0-9].*$")) {
 			if (!type.equals("Hickson Compact Group Catalogue")) {
 			    type = "Hickson Compact Group Catalogue";
 			    writerByTarget.write("\\clearpage\n");
@@ -206,16 +212,17 @@ public class AJExporterByTarget extends AJExporter {
 			    writerByTarget.write("\\section{" + type + "}\n");
 			}
 		    } else {
-			if (!type.equals("Stars, Double Stars, Multiple Stars")) {
+			if (!type.equals(
+				"Stars, Double Stars, Multiple Stars")) {
 			    type = "Stars, Double Stars, Multiple Stars";
 			    writerByTarget.write("\\clearpage\n");
 			    writerByTarget.write("\\section{" + type + "}\n");
 			}
 		    }
 		    // include the file removing the extension .tex
-		    writerByTarget.write("\\input{"
-			    + latexReportsFolderByTarget + "/"
-			    + target.replaceFirst("[.][^.]+$", "") + "}\n");
+		    writerByTarget.write("\\input{" + latexReportsFolderByTarget
+			    + "/" + target.replaceFirst("[.][^.]+$", "")
+			    + "}\n");
 		    writerByTarget.write("\\vspace{4 mm}\n");
 		}
 	    }
@@ -262,12 +269,14 @@ public class AJExporterByTarget extends AJExporter {
 		    if (!processedTargetCache.contains(filenameOut)) {
 			processedTargetCache.add(filenameOut);
 			targetWriter = new BufferedWriter(
-				new OutputStreamWriter(new FileOutputStream(
-					new File(ajFilesLocation
-						.getAbsolutePath()
-						+ File.separator
-						+ latexReportsByTargetFolder,
-						filenameOut + ".tex")), "utf-8"));
+				new OutputStreamWriter(
+					new FileOutputStream(new File(
+						ajFilesLocation
+							.getAbsolutePath()
+							+ File.separator
+							+ latexReportsByTargetFolder,
+						filenameOut + ".tex")),
+					"utf-8"));
 			if (obsItem.getType().toLowerCase().equals("planet")
 				|| obsItem.getTarget().toLowerCase()
 					.equals("moon")
@@ -277,8 +286,8 @@ public class AJExporterByTarget extends AJExporter {
 					.equals("asteroid")
 				|| obsItem.getType().toLowerCase()
 					.equals("comet")) {
-			    targetWriter.write("\\subsection{"
-				    + obsItem.getTarget());
+			    targetWriter.write(
+				    "\\subsection{" + obsItem.getTarget());
 			} else if (obsItem.getType().toLowerCase()
 				.equals("star")
 				|| obsItem.getType().toLowerCase()
@@ -294,13 +303,13 @@ public class AJExporterByTarget extends AJExporter {
 					.equals("milky way")) {
 			    // Don't print the constellation if we are
 			    // processing the milky way!
-			    targetWriter.write("\\subsection{"
-				    + obsItem.getTarget());
+			    targetWriter.write(
+				    "\\subsection{" + obsItem.getTarget());
 			} else {
-			    targetWriter.write("\\subsection{"
-				    + obsItem.getTarget());
-			    targetWriter.write(", "
-				    + obsItem.getConstellation());
+			    targetWriter.write(
+				    "\\subsection{" + obsItem.getTarget());
+			    targetWriter
+				    .write(", " + obsItem.getConstellation());
 			}
 			targetWriter.write(", " + obsItem.getType() + "}\n");
 			targetWriter.write("\\begin{itemize}\n");
@@ -308,12 +317,15 @@ public class AJExporterByTarget extends AJExporter {
 			// if file was already created skip the previous two
 			// lines
 			targetWriter = new BufferedWriter(
-				new OutputStreamWriter(new FileOutputStream(
-					new File(ajFilesLocation
-						.getAbsolutePath()
-						+ File.separator
-						+ latexReportsByTargetFolder,
-						filenameOut + ".tex"), true),
+				new OutputStreamWriter(
+					new FileOutputStream(
+						new File(
+							ajFilesLocation
+								.getAbsolutePath()
+								+ File.separator
+								+ latexReportsByTargetFolder,
+							filenameOut + ".tex"),
+						true),
 					"utf-8"));
 		    }
 		    targetWriter.write("\\item " + obs.getDate() + " "
@@ -370,12 +382,15 @@ public class AJExporterByTarget extends AJExporter {
 		    if (!processedTargetCache.contains(filenameOut)) {
 			processedTargetCache.add(filenameOut);
 			targetWriter = new BufferedWriter(
-				new OutputStreamWriter(new FileOutputStream(
-					new File(ajFilesLocation
-						.getAbsolutePath()
-						+ File.separator
-						+ latexReportsByTargetFolder,
-						filenameOut + ".tex"), true),
+				new OutputStreamWriter(
+					new FileOutputStream(
+						new File(
+							ajFilesLocation
+								.getAbsolutePath()
+								+ File.separator
+								+ latexReportsByTargetFolder,
+							filenameOut + ".tex"),
+						true),
 					"utf-8"));
 			targetWriter.write("\\end{itemize}\n");
 			System.out.println("\tExported target " + filenameOut);
@@ -410,27 +425,25 @@ public class AJExporterByTarget extends AJExporter {
 	if (obsItem.getType().toLowerCase().equals("planet")
 		|| obsItem.getTarget().toLowerCase().equals("moon")
 		|| obsItem.getTarget().toLowerCase().equals("sun")) {
-	    return obsItem.getTarget().replaceAll("\\s+", "")
-		    .replaceAll("/", "-");
+	    return obsItem.getTarget().replaceAll("\\s+", "").replaceAll("/",
+		    "-");
 	}
 	if (obsItem.getType().toLowerCase().equals("asteroid")
 		|| obsItem.getType().toLowerCase().equals("comet")) {
-	    return obsItem.getType().replaceAll("\\s+", "")
-		    .replaceAll("/", "-");
+	    return obsItem.getType().replaceAll("\\s+", "").replaceAll("/",
+		    "-");
 	}
 	if (obsItem.getType().toLowerCase().equals("star")
 		|| obsItem.getType().toLowerCase().equals("dbl star")
 		|| obsItem.getType().toLowerCase().equals("mlt star")) {
-	    return obsItem.getConstellation()
-		    + "_"
-		    + obsItem.getTarget().replaceAll("\\s+", "")
-			    .replaceAll("/", "-");
+	    return obsItem.getConstellation() + "_" + obsItem.getTarget()
+		    .replaceAll("\\s+", "").replaceAll("/", "-");
 	}
 	if (obsItem.getType().toLowerCase().equals("galaxy")
 		&& obsItem.getTarget().toLowerCase().equals("milky way")) {
 	    // Don't print the constellation if we are processing the milky way!
-	    return obsItem.getTarget().replaceAll("\\s+", "")
-		    .replaceAll("/", "-");
+	    return obsItem.getTarget().replaceAll("\\s+", "").replaceAll("/",
+		    "-");
 	}
 	return obsItem.getTarget().replaceAll("\\s+", "").replaceAll("/", "-")
 		+ "_" + obsItem.getConstellation();
@@ -498,8 +511,8 @@ public class AJExporterByTarget extends AJExporter {
 	String target = null;
 	for (int i = 0; i < files.length; i++) {
 	    target = files[i].getName();
-	    if (target
-		    .matches("^(sun|moon|mercury|venus|mars|asteroid|jupiter|saturn|uranus|neptune|pluto|comet|Sun|Moon|Mercury|Venus|Mars|Asteroid|Jupiter|Saturn|Uranus|Neptune|Pluto|Comet).*$")) {
+	    if (target.matches(
+		    "^(sun|moon|mercury|venus|mars|asteroid|jupiter|saturn|uranus|neptune|pluto|comet|Sun|Moon|Mercury|Venus|Mars|Asteroid|Jupiter|Saturn|Uranus|Neptune|Pluto|Comet).*$")) {
 		if (target.matches("^(sun|Sun)\\.tex$")) {
 		    solarSystem.remove(0);
 		    solarSystem.add(0, files[i].toString());

@@ -17,6 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+/*
+ * Changelog:
+ * - Piero Dalle Pezze: Code taken from the class HelpSearchPanel.java in 
+ * the software BamQC (GPL v3).
+ */
 package org.astrojournal.gui.dialogs.help;
 
 import java.awt.BorderLayout;
@@ -40,8 +45,8 @@ import org.astrojournal.configuration.AJConfig;
 /**
  * The Class HelpSearchPanel.
  */
-public class HelpSearchPanel extends JPanel implements ActionListener,
-	ListSelectionListener, Runnable {
+public class HelpSearchPanel extends JPanel
+	implements ActionListener, ListSelectionListener, Runnable {
 
     private static final long serialVersionUID = 2861281767675063019L;
 
@@ -102,8 +107,8 @@ public class HelpSearchPanel extends JPanel implements ActionListener,
 	add(queryPanel, BorderLayout.NORTH);
 
 	listModel = new DefaultListModel();
-	listModel.addElement(AJConfig.BUNDLE
-		.getString("AJ.lblNoSearchResults.text"));
+	listModel.addElement(
+		AJConfig.BUNDLE.getString("AJ.lblNoSearchResults.text"));
 	resultList = new JList(listModel);
 	resultList.addListSelectionListener(this);
 	resultList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

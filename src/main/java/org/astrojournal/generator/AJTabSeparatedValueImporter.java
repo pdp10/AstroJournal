@@ -17,6 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+/*
+ * Changelog:
+ * - Piero Dalle Pezze: class creation.
+ */
 package org.astrojournal.generator;
 
 import java.io.BufferedReader;
@@ -71,8 +75,8 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 	    } else if (file.getName().endsWith(".csv")) {
 		delimiter = "\t";
 	    } else {
-		System.err
-			.println("input files must be either .tsv or .csv . Field delimiter must be a TAB");
+		System.err.println(
+			"input files must be either .tsv or .csv . Field delimiter must be a TAB");
 		return observations;
 	    }
 

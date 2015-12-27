@@ -17,6 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+/*
+ * Changelog:
+ * - Piero Dalle Pezze: class creation.
+ */
 package org.astrojournal.generator;
 
 import java.io.BufferedWriter;
@@ -79,9 +83,12 @@ public class AJExporterByDate extends AJExporter {
 		ajFilesLocation.getAbsolutePath(), latexFooterByDate);
 	Writer writerByDate = null;
 	try {
-	    writerByDate = new BufferedWriter(new OutputStreamWriter(
-		    new FileOutputStream(ajFilesLocation.getAbsolutePath()
-			    + File.separator + latexMainByDate), "utf-8"));
+	    writerByDate = new BufferedWriter(
+		    new OutputStreamWriter(
+			    new FileOutputStream(
+				    ajFilesLocation.getAbsolutePath()
+					    + File.separator + latexMainByDate),
+			    "utf-8"));
 	    // write the Latex Header
 	    writerByDate.write(ajLatexHeaderByDate.getHeader());
 
@@ -107,8 +114,7 @@ public class AJExporterByDate extends AJExporter {
 		if (file.isFile() && file.getName().endsWith(".tex")) {
 		    // include the file removing the extension .tex
 		    writerByDate.write("\\input{" + latexReportsFolderByDate
-			    + "/"
-			    + file.getName().replaceFirst("[.][^.]+$", "")
+			    + "/" + file.getName().replaceFirst("[.][^.]+$", "")
 			    + "}\n");
 		    writerByDate.write("\\clearpage \n");
 		}
@@ -167,17 +173,20 @@ public class AJExporterByDate extends AJExporter {
 	    ArrayList<AJObservationItem> observationItems = obs
 		    .getObservationItems();
 	    try {
-		table = new BufferedWriter(new OutputStreamWriter(
-			new FileOutputStream(new File(
-				ajFilesLocation.getAbsolutePath()
-					+ File.separator
-					+ latexReportsByDateFolder, "obs"
-					+ filenameOut + ".tex")), "utf-8"));
+		table = new BufferedWriter(
+			new OutputStreamWriter(
+				new FileOutputStream(new File(
+					ajFilesLocation.getAbsolutePath()
+						+ File.separator
+						+ latexReportsByDateFolder,
+					"obs" + filenameOut + ".tex")),
+			"utf-8"));
 
 		// debugging
 		log.debug("writing observation " + obs.getDate());
 		table.write("% General observation data\n");
-		table.write("\\begin{tabular}{ p{0.9in} p{1.3in} p{1.2in} p{5.2in}}\n");
+		table.write(
+			"\\begin{tabular}{ p{0.9in} p{1.3in} p{1.2in} p{5.2in}}\n");
 		table.write("{\\bf " + AJObservation.DATE_NAME + ":} & "
 			+ obs.getDate() + " & {\\bf "
 			+ AJObservation.TELESCOPES_NAME + ":} & "
@@ -196,12 +205,13 @@ public class AJExporterByDate extends AJExporter {
 			+ obs.getTemperature() + " & & \\\\ \n");
 		table.write("{\\bf " + AJObservation.SEEING_NAME + ":} & "
 			+ obs.getSeeing() + " & & \\\\ \n");
-		table.write("{\\bf " + AJObservation.TRANSPARENCY_NAME
-			+ ":} & " + obs.getTransparency() + " & & \\\\ \n");
+		table.write("{\\bf " + AJObservation.TRANSPARENCY_NAME + ":} & "
+			+ obs.getTransparency() + " & & \\\\ \n");
 		table.write("\\end{tabular}\n");
 
 		table.write("% Detailed observation data\n");
-		table.write("\\begin{longtable}{ p{0.7in}  p{0.3in}  p{0.6in}  p{0.9in}  p{5.8in} }\n");
+		table.write(
+			"\\begin{longtable}{ p{0.7in}  p{0.3in}  p{0.6in}  p{0.9in}  p{5.8in} }\n");
 		table.write("\\hline \n");
 		table.write("{\\bf " + AJObservationItem.TARGET_NAME
 			+ "} & {\\bf " + AJObservationItem.CONSTELLATION_NAME

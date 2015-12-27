@@ -17,6 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+/*
+ * Changelog:
+ * - Piero Dalle Pezze: Code taken from the class HelpDialog.java in 
+ * the software BamQC (GPL v3).
+ */
 package org.astrojournal.gui.dialogs.help;
 
 import java.io.File;

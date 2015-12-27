@@ -17,6 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+/*
+ * Changelog:
+ * - Piero Dalle Pezze: class creation.
+ */
 package org.astrojournal.generator;
 
 import java.io.BufferedWriter;
@@ -99,7 +103,8 @@ public class AJExporterByConstellation extends AJExporter {
 	try {
 	    writerByConst = new BufferedWriter(new OutputStreamWriter(
 		    new FileOutputStream(ajFilesLocation.getAbsolutePath()
-			    + File.separator + latexMainByConst), "utf-8"));
+			    + File.separator + latexMainByConst),
+		    "utf-8"));
 	    // write the Latex Header
 	    writerByConst.write(ajLatexHeaderByConst.getHeader());
 
@@ -122,8 +127,9 @@ public class AJExporterByConstellation extends AJExporter {
 	    for (File file : files) {
 		filename = file.getName();
 		if (file.isFile() && filename.endsWith(".tex")) {
-		    if (!currConst.equals(filename.substring(
-			    filename.indexOf("_") + 1, filename.indexOf(".")))) {
+		    if (!currConst.equals(
+			    filename.substring(filename.indexOf("_") + 1,
+				    filename.indexOf(".")))) {
 			currConst = filename.substring(
 				filename.indexOf("_") + 1,
 				filename.indexOf("."));
@@ -176,14 +182,16 @@ public class AJExporterByConstellation extends AJExporter {
 	    Writer list = null;
 	    String filenameOut = keys[i];
 	    try {
-		list = new BufferedWriter(new OutputStreamWriter(
-			new FileOutputStream(new File(
-				ajFilesLocation.getAbsolutePath()
-					+ File.separator
-					+ latexReportsByConstFolder, "const_"
-					+ filenameOut + ".tex")), "utf-8"));
-		String[] targets = constellations.get(keys[i]).toArray(
-			new String[0]);
+		list = new BufferedWriter(
+			new OutputStreamWriter(
+				new FileOutputStream(new File(
+					ajFilesLocation.getAbsolutePath()
+						+ File.separator
+						+ latexReportsByConstFolder,
+					"const_" + filenameOut + ".tex")),
+			"utf-8"));
+		String[] targets = constellations.get(keys[i])
+			.toArray(new String[0]);
 		// sort the targets here, before writing them in the file
 		Arrays.sort(targets, itemComparator);
 		StringBuilder listOfTargets = new StringBuilder();
@@ -240,8 +248,8 @@ public class AJExporterByConstellation extends AJExporter {
 		}
 		log.debug(item.getConstellation() + " " + item.getTarget()
 			+ " (" + item.getType() + ")");
-		constellations.get(item.getConstellation()).add(
-			item.getTarget() + " (" + item.getType() + ")");
+		constellations.get(item.getConstellation())
+			.add(item.getTarget() + " (" + item.getType() + ")");
 	    }
 	}
     }

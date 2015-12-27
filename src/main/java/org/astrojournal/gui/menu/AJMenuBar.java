@@ -17,6 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+/*
+ * Changelog:
+ * - Piero Dalle Pezze: class creation.
+ */
 package org.astrojournal.gui.menu;
 
 import java.awt.Toolkit;
@@ -88,8 +92,8 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	fileCreateJournal = new JMenuItem(
 		AJConfig.BUNDLE.getString("AJ.cmdCreateJournal.text"));
 	fileCreateJournal.setMnemonic(KeyEvent.VK_J);
-	fileCreateJournal.setAccelerator(KeyStroke.getKeyStroke('J', Toolkit
-		.getDefaultToolkit().getMenuShortcutKeyMask()));
+	fileCreateJournal.setAccelerator(KeyStroke.getKeyStroke('J',
+		Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 	fileCreateJournal.setActionCommand("create_journals");
 	fileCreateJournal.addActionListener(this);
 	fileMenu.add(fileCreateJournal);
@@ -98,8 +102,8 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 
 	fileQuit = new JMenuItem(AJConfig.BUNDLE.getString("AJ.mnuQuit.text"));
 	fileQuit.setMnemonic(KeyEvent.VK_Q);
-	fileQuit.setAccelerator(KeyStroke.getKeyStroke('Q', Toolkit
-		.getDefaultToolkit().getMenuShortcutKeyMask()));
+	fileQuit.setAccelerator(KeyStroke.getKeyStroke('Q',
+		Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 	fileQuit.setActionCommand("quit");
 	fileQuit.addActionListener(this);
 	fileMenu.add(fileQuit);
@@ -112,8 +116,8 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 		AJConfig.BUNDLE.getString("AJ.mnuPreferences.text"));
 	editPreferences.setActionCommand("edit_preferences");
 	editPreferences.setMnemonic(KeyEvent.VK_P);
-	editPreferences.setAccelerator(KeyStroke.getKeyStroke('P', Toolkit
-		.getDefaultToolkit().getMenuShortcutKeyMask()));
+	editPreferences.setAccelerator(KeyStroke.getKeyStroke('P',
+		Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 	editPreferences.addActionListener(this);
 	editMenu.add(editPreferences);
 	add(editMenu);
@@ -125,8 +129,8 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 		AJConfig.BUNDLE.getString("AJ.mnuHelpContents.text"));
 	helpContents.setActionCommand("help_contents");
 	helpContents.setMnemonic(KeyEvent.VK_T);
-	helpContents.setAccelerator(KeyStroke.getKeyStroke('T', Toolkit
-		.getDefaultToolkit().getMenuShortcutKeyMask()));
+	helpContents.setAccelerator(KeyStroke.getKeyStroke('T',
+		Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 	helpContents.addActionListener(this);
 	helpMenu.add(helpContents);
 
@@ -134,16 +138,17 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 		AJConfig.BUNDLE.getString("AJ.mnuLicense.text"));
 	helpLicense.setActionCommand("help_license");
 	helpLicense.setMnemonic(KeyEvent.VK_L);
-	helpLicense.setAccelerator(KeyStroke.getKeyStroke('L', Toolkit
-		.getDefaultToolkit().getMenuShortcutKeyMask()));
+	helpLicense.setAccelerator(KeyStroke.getKeyStroke('L',
+		Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 	helpLicense.addActionListener(this);
 	helpMenu.add(helpLicense);
 
-	helpAbout = new JMenuItem(AJConfig.BUNDLE.getString("AJ.mnuAbout.text"));
+	helpAbout = new JMenuItem(
+		AJConfig.BUNDLE.getString("AJ.mnuAbout.text"));
 	helpAbout.setActionCommand("help_about");
 	helpAbout.setMnemonic(KeyEvent.VK_A);
-	helpAbout.setAccelerator(KeyStroke.getKeyStroke('A', Toolkit
-		.getDefaultToolkit().getMenuShortcutKeyMask()));
+	helpAbout.setAccelerator(KeyStroke.getKeyStroke('A',
+		Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 	helpAbout.addActionListener(this);
 	helpMenu.add(helpAbout);
 
@@ -172,10 +177,12 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	    // + "THE PROBLEM IS that you need to scan a jar file and not a \n"
 	    // + "normal file system structure. \n"
 	    // +
-	    // "Therefore, you need to work with URI and then in HelpIndexRoot, \n"
+	    // "Therefore, you need to work with URI and then in HelpIndexRoot,
+	    // \n"
 	    // + "scan the folder inside the jar file \n"
 	    // +
-	    // "using Uri instead of FILE. Therefore, extract the .html files and \n"
+	    // "using Uri instead of FILE. Therefore, extract the .html files
+	    // and \n"
 	    // + "show the help.", "WARNING",
 	    // JOptionPane.ERROR_MESSAGE);
 	    // end FIXME
@@ -190,11 +197,12 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	    // }
 
 	    try {
-		HelpDialog helpDialog = new HelpDialog(application, new File(
-			"help"));
+		HelpDialog helpDialog = new HelpDialog(application,
+			new File("help"));
 	    } catch (FileNotFoundException e) {
-		JOptionPane.showMessageDialog(application, AJConfig.BUNDLE
-			.getString("AJ.errHelpIndexNotFound.text"),
+		JOptionPane.showMessageDialog(application,
+			AJConfig.BUNDLE
+				.getString("AJ.errHelpIndexNotFound.text"),
 			AJConfig.BUNDLE.getString("AJ.errFileNotFound.text"),
 			JOptionPane.ERROR_MESSAGE);
 	    }
@@ -215,12 +223,10 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 		LicenseDialog licenseDialog = new LicenseDialog(application,
 			license);
 	    } catch (FileNotFoundException e) {
-		JOptionPane
-			.showMessageDialog(application, AJConfig.BUNDLE
-				.getString("AJ.errLicenseNotFound.text"),
-				AJConfig.BUNDLE
-					.getString("AJ.errFileNotFound.text"),
-				JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(application,
+			AJConfig.BUNDLE.getString("AJ.errLicenseNotFound.text"),
+			AJConfig.BUNDLE.getString("AJ.errFileNotFound.text"),
+			JOptionPane.ERROR_MESSAGE);
 	    } catch (IOException e) {
 		e.printStackTrace();
 	    }

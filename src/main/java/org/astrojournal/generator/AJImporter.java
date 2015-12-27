@@ -17,6 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+/*
+ * Changelog:
+ * - Piero Dalle Pezze: class creation.
+ */
 package org.astrojournal.generator;
 
 import java.io.BufferedReader;
@@ -98,6 +102,6 @@ public abstract class AJImporter {
      */
     protected abstract void importObservation(BufferedReader reader,
 	    AJObservation obs, String line, String delimiter)
-	    throws IOException;
+		    throws IOException;
 
 }

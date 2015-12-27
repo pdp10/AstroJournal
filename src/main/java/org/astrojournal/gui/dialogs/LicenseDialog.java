@@ -17,6 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+/*
+ * Changelog:
+ * - Piero Dalle Pezze: Code taken from the class LicenseDialog.java in 
+ * the software BamQC (GPL v3). Code merged and adapted for AstroJournal. Added internationalisation and close button.
+ */
 package org.astrojournal.gui.dialogs;
 
 import java.awt.BorderLayout;

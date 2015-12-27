@@ -17,6 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+/*
+ * Changelog:
+ * - Piero Dalle Pezze: class creation.
+ */
 package org.astrojournal.headerfooter;
 
 /**
@@ -32,11 +36,9 @@ public class AJLatexHeader extends AJLatexHeaderFooter {
     private String header = "\\documentclass[10pt,twoside,a4paper]{report}\n"
 	    + "\\usepackage[a4paper,margin=1in,landscape]{geometry}\n"
 	    + "\\usepackage[colorlinks=true,linkcolor={black},urlcolor={black}]{hyperref}\n"
-	    + "\\usepackage{longtable}\n"
-	    + "\\usepackage{pdflscape}\n"
+	    + "\\usepackage{longtable}\n" + "\\usepackage{pdflscape}\n"
 	    + "\\title{Astronomy Observation Journal}\n"
-	    + "\\author{Piero Dalle Pezze}\n"
-	    + "\\date{\\today}\n"
+	    + "\\author{Piero Dalle Pezze}\n" + "\\date{\\today}\n"
 	    + "\\begin{document}\n"
 	    + "\\let\\thefootnote\\relax\\footnotetext{This document was generated using Java software tool {\\it AstroJournal} "
 	    + "(\\href{http://pdp10.github.io/AstroJournal/}{http://pdp10.github.io/AstroJournal/}) "

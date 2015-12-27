@@ -17,6 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+/*
+ * Changelog:
+ * - Piero Dalle Pezze: Code taken from the class EditPreferenceDialogue.java in 
+ * the software BamQC (GPL v3). Code adapted for AstroJournal. This class is no longer a Singleton 
+ * and does not contain any configuration data for AstroJournal. It is only a 
+ * class to change values in AJConfig using a GUI.
+ */
 package org.astrojournal.configuration;
 
 import java.awt.BorderLayout;
@@ -38,7 +45,7 @@ import javax.swing.JTextField;
 import org.astrojournal.gui.AJMainGUI;
 
 /**
- * A Dialog to allow the viewing and editing of all BamQC preferences.
+ * A Dialog to allow the viewing and editing of all AstroJournal preferences.
  */
 public class PreferencesDialog extends JDialog implements ActionListener {
 
