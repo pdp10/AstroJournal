@@ -61,7 +61,7 @@ public class AJConfig {
     public static final String APPLICATION_NAME = "AstroJournal";
 
     /** The AJ application version. */
-    public static final String APPLICATION_VERSION = "v0.9";
+    public static final String APPLICATION_VERSION = "v0.10";
 
     /** The name of the main Latex file sorted by date. */
     public static final String REPORT_BY_DATE_FILENAME = "astrojournal_by_date.tex";

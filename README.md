@@ -151,6 +151,10 @@ You can run AstroJournal on GNU/Linux typing:
 
 ### Changelog
 
+v0.10
+
+- This version is only for testing and prepares AJ for v1.0
+
 v0.9
 
 - Use of the application launch4j for generating a Windows executable file 
