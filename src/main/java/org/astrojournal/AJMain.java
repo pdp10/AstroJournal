@@ -45,7 +45,7 @@ public class AJMain {
     /**
      * Start AJMiniGUI.
      */
-    private static void startAJMiniGUI() {
+    private static void startAJMainGUI() {
 	// Note Nimbus does not seem to show the vertical scroll bar if there is
 	// too much text..
 	try {
@@ -74,7 +74,7 @@ public class AJMain {
 
 	try {
 	    if (args.length == 0) {
-		startAJMiniGUI();
+		startAJMainGUI();
 	    } else if (args[0].equals("--config")) {
 		System.out.println(AJConfig.getInstance().printConfiguration());
 	    } else if (args[0].equals("-c") || args[0].equals("--console")) {

@@ -208,7 +208,7 @@ public class AJGenerator {
      * 
      * @return true if the procedure succeeds, false otherwise.
      */
-    private boolean importObservations() {
+    public boolean importObservations() {
 	if (!observationsProcessed) {
 	    String rawReportPath = AJConfig.getInstance().getAJFilesLocation()
 		    .getAbsolutePath() + File.separator
@@ -223,5 +223,14 @@ public class AJGenerator {
 	    observationsProcessed = true;
 	}
 	return observationsProcessed;
+    }
+
+    /**
+     * Returns the imported observations.
+     * 
+     * @return the observations
+     */
+    public final ArrayList<AJObservation> getObservations() {
+	return observations;
     }
 }
