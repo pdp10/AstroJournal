@@ -24,8 +24,10 @@
 package main;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.astrojournal.AJMain;
+import org.astrojournal.configuration.AJConfig;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -76,6 +78,19 @@ public class RunSamplesTest {
 			+ File.separator + "test" + File.separator
 			+ "resources");
 	AJMain.main(args);
+	try {
+	    AJConfig.getInstance().cleanAJFolder();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+
+	for (File f : AJConfig.getInstance().getAJFilesLocation().listFiles()) {
+	    if (f.getName().endsWith(".tex") || f.getName().endsWith(".pdf")
+		    || f.getName().endsWith(".txt")) {
+		f.delete();
+	    }
+	}
     }
 
 }
