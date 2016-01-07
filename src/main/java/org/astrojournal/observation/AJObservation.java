@@ -48,13 +48,13 @@ public class AJObservation {
     public static final String SEEING_NAME = "Seeing";
     /** A string containing the transparency name. */
     public static final String TRANSPARENCY_NAME = "Transparency";
+    /** A string containing the darkness name. */
+    public static final String DARKNESS_NAME = "Darkness";
 
     /** A string containing the list of telescopes name. */
     public static final String TELESCOPES_NAME = "Telescopes";
     /** A string containing the list of eyepieces name. */
     public static final String EYEPIECES_NAME = "Eyepieces";
-    /** A string containing the list of power/exit pupil/fov name. */
-    public static final String POWER_EXIT_PUPIL_FOV_NAME = "Power, EP, FOV";
     /** A string containing the filters name. */
     public static final String FILTERS_NAME = "Filters";
 
@@ -72,13 +72,16 @@ public class AJObservation {
     private String seeing = "";
     /** A string containing the transparency. */
     private String transparency = "";
+    /**
+     * A string containing the sky darkness as measured via SQM-L sky meter
+     * quality.
+     */
+    private String darkness = "";
 
     /** A string containing the list of telescopes. */
     private String telescopes = "";
     /** A string containing the list of eyepieces. */
     private String eyepieces = "";
-    /** A string containing the list of power/exit pupil/fov. */
-    private String powerExitPupilFOV = "";
     /** A string containing the filters. */
     private String filters = "";
 
@@ -216,6 +219,25 @@ public class AJObservation {
     }
 
     /**
+     * Sets the observation sky darkness as measured via SQM-L sky meter quality
+     * 
+     * @param darkness
+     */
+    public void setSkyDarkness(String darkness) {
+	this.darkness = darkness;
+    }
+
+    /**
+     * Returns the observation sky darkness as measured via SQM-L sky meter
+     * quality
+     * 
+     * @return sky darkness
+     */
+    public String getDarkness() {
+	return darkness;
+    }
+
+    /**
      * Sets the telescopes for this observation
      * 
      * @param telescopes
@@ -249,26 +271,6 @@ public class AJObservation {
      */
     public String getEyepieces() {
 	return eyepieces;
-    }
-
-    /**
-     * Sets the power, exit pupil and fov of the eyepieces used in this
-     * observation
-     * 
-     * @param powerExitPupilFOV
-     */
-    public void setPowerExitPupilFOV(String powerExitPupilFOV) {
-	this.powerExitPupilFOV = powerExitPupilFOV;
-    }
-
-    /**
-     * Returns the power, exit pupil and fov of the eyepieces used in this
-     * observation
-     * 
-     * @return powerExitPupilFOV
-     */
-    public String getPowerExitPupilFOV() {
-	return powerExitPupilFOV;
     }
 
     /**

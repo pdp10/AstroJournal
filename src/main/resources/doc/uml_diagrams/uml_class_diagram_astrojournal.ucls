@@ -157,27 +157,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="17" language="java" name="org.astrojournal.gui.dialogs.AJTitlePanel.SmoothJLabel" project="AstroJournal" 
-    file="/AstroJournal/src/main/java/org/astrojournal/gui/dialogs/AJTitlePanel.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2747" y="1355"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="18" language="java" name="org.astrojournal.gui.dialogs.AJTitlePanel" project="AstroJournal" 
-    file="/AstroJournal/src/main/java/org/astrojournal/gui/dialogs/AJTitlePanel.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2740" y="1072"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="19" language="java" name="org.astrojournal.gui.dialogs.StatusPanel" project="AstroJournal" 
+  <class id="17" language="java" name="org.astrojournal.gui.dialogs.StatusPanel" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/gui/dialogs/StatusPanel.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2323" y="1613"/>    
@@ -187,7 +167,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="20" language="java" name="org.astrojournal.gui.AJMainGUI" project="AstroJournal" 
+  <class id="18" language="java" name="org.astrojournal.gui.AJMainGUI" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/gui/AJMainGUI.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1989" y="1631"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -196,7 +176,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="21" language="java" name="org.astrojournal.gui.AJMainGUIControls" project="AstroJournal" 
+  <class id="19" language="java" name="org.astrojournal.gui.AJMainGUIControls" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/gui/AJMainGUIControls.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1980" y="1296"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -205,7 +185,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="22" language="java" name="org.astrojournal.gui.dialogs.help.HelpPageDisplay" project="AstroJournal" 
+  <class id="20" language="java" name="org.astrojournal.gui.dialogs.help.HelpPageDisplay" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/gui/dialogs/help/HelpPageDisplay.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="133" width="205" x="3670" y="1244"/>    
@@ -215,7 +195,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="23" language="java" name="org.astrojournal.gui.dialogs.help.HelpPage" project="AstroJournal" 
+  <class id="21" language="java" name="org.astrojournal.gui.dialogs.help.HelpPage" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/gui/dialogs/help/HelpPage.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="205" width="246" x="3365" y="736"/>    
@@ -225,7 +205,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="24" language="java" name="org.astrojournal.gui.dialogs.help.HelpIndexRoot" project="AstroJournal" 
+  <class id="22" language="java" name="org.astrojournal.gui.dialogs.help.HelpIndexRoot" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/gui/dialogs/help/HelpIndexRoot.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="133" width="251" x="3379" y="1017"/>    
@@ -235,7 +215,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="25" language="java" name="org.astrojournal.gui.dialogs.help.HelpDialog" project="AstroJournal" 
+  <class id="23" language="java" name="org.astrojournal.gui.dialogs.help.HelpDialog" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/gui/dialogs/help/HelpDialog.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="187" width="219" x="3670" y="1017"/>    
@@ -245,7 +225,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="26" language="java" name="org.astrojournal.gui.dialogs.help.HelpPageDisplay.HelpEditor" 
+  <class id="24" language="java" name="org.astrojournal.gui.dialogs.help.HelpPageDisplay.HelpEditor" 
     project="AstroJournal" file="/AstroJournal/src/main/java/org/astrojournal/gui/dialogs/help/HelpPageDisplay.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3784" y="1526"/>    
@@ -255,7 +235,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="27" language="java" name="org.astrojournal.gui.dialogs.help.HelpSearchPanel" project="AstroJournal" 
+  <class id="25" language="java" name="org.astrojournal.gui.dialogs.help.HelpSearchPanel" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/gui/dialogs/help/HelpSearchPanel.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="241" width="238" x="3651" y="736"/>    
@@ -265,7 +245,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="28" language="java" name="org.astrojournal.gui.dialogs.help.HelpIndexRoot.FileSorter" 
+  <class id="26" language="java" name="org.astrojournal.gui.dialogs.help.HelpIndexRoot.FileSorter" 
     project="AstroJournal" file="/AstroJournal/src/main/java/org/astrojournal/gui/dialogs/help/HelpIndexRoot.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3493" y="1297"/>    
@@ -275,7 +255,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="29" language="java" name="org.astrojournal.gui.menu.AJMenuBar" project="AstroJournal" 
+  <class id="27" language="java" name="org.astrojournal.gui.menu.AJMenuBar" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/gui/menu/AJMenuBar.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1500" y="1609"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -284,27 +264,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="30" language="java" name="org.astrojournal.utilities.ConsoleOutputCapturer" project="AstroJournal" 
-    file="/AstroJournal/src/main/java/org/astrojournal/utilities/ConsoleOutputCapturer.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="3085" y="155"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="31" language="java" name="org.astrojournal.utilities.ConsoleOutputCapturer.OutputStreamCombiner" 
-    project="AstroJournal" file="/AstroJournal/src/main/java/org/astrojournal/utilities/ConsoleOutputCapturer.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="3395" y="148"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="32" language="java" name="org.astrojournal.configuration.AJConfig" project="AstroJournal" 
+  <class id="28" language="java" name="org.astrojournal.configuration.AJConfig" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/configuration/AJConfig.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3039" y="1103"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -313,180 +273,160 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <generalization id="33">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="3"/>  
-  </generalization>  
-  <generalization id="34">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="3"/>  
-  </generalization>  
-  <generalization id="35">    
+  <nesting id="29">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="24"/>  
+  </nesting>  
+  <generalization id="30">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="11"/>  
   </generalization>  
-  <nesting id="36">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="26"/>  
-  </nesting>  
-  <association id="37">    
-    <end type="SOURCE" refId="27" navigable="false">      
-      <attribute id="38" name="dialog">        
+  <association id="31">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="32" name="statusPanel">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="39" minimum="0" maximum="1">        
+      <multiplicity id="33" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="25" navigable="true"/>    
+    <end type="TARGET" refId="17" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="40">    
+  <generalization id="34">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <association id="35">    
     <end type="SOURCE" refId="25" navigable="false">      
-      <attribute id="41" name="currentPage">        
+      <attribute id="36" name="root">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="42" minimum="0" maximum="1">        
+      <multiplicity id="37" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="22" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="43">    
-    <end type="SOURCE" refId="24" navigable="false">      
-      <attribute id="44" name="fs">        
+  <association id="38">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="39" name="commandRunner">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="45" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="28" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="46">    
-    <end type="SOURCE" refId="24"/>    
-    <end type="TARGET" refId="28"/>  
-  </nesting>  
-  <association id="47">    
-    <end type="SOURCE" refId="27" navigable="false">      
-      <attribute id="48" name="root">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="49" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="50">    
-    <end type="SOURCE" refId="18"/>    
-    <end type="TARGET" refId="17"/>  
-  </nesting>  
-  <association id="51">    
-    <bendpoint x="3211" y="1187"/>    
-    <bendpoint x="3205" y="1131"/>    
-    <end type="SOURCE" refId="32" navigable="false">      
-      <attribute id="52" name="instance">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="53" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="32" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="54">    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="55" name="menu">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="56" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="29" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="57">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="58" name="ajMiniGUI">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="59" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="20" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="60">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="61" name="observationItems">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="62" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="63">    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="64" name="commandRunner">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="65" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="21" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="66">    
-    <end type="SOURCE" refId="29" navigable="false">      
-      <attribute id="67" name="application">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="68" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="20" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="69">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="70" name="observations">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="71" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="72">    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="73" name="statusPanel">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="74" minimum="0" maximum="1">        
+      <multiplicity id="40" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="19" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <nesting id="75">    
-    <end type="SOURCE" refId="30"/>    
-    <end type="TARGET" refId="31"/>  
+  <association id="41">    
+    <end type="SOURCE" refId="27" navigable="false">      
+      <attribute id="42" name="application">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="43" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="44">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="26"/>  
   </nesting>  
+  <association id="45">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="46" name="fs">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="47" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="48">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <association id="49">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="50" name="observations">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="51" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="52">    
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="53" name="dialog">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="54" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="55">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="56" name="currentPage">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="57" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="58">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="59" name="menu">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="60" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="27" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="61">    
+    <bendpoint x="3211" y="1187"/>    
+    <bendpoint x="3205" y="1131"/>    
+    <end type="SOURCE" refId="28" navigable="false">      
+      <attribute id="62" name="instance">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="63" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="64">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="65" name="observationItems">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="66" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

@@ -1,9 +1,4 @@
-				
-Astronomy observation log - 20150527				
-by Piero Dalle Pezze				
-				
-completed:	TRUE			
-spelling:	CHECKED			
+	
 				
 Date	23/02/2015			
 Time	19:00-21:00			
@@ -11,7 +6,7 @@ Location	Cambridge, UK
 Altitude	12m			
 Temperature	1C (no wind)			
 Seeing	2 - Slight undulations			
-Transparency	3 - Somewhat clear			
+Transparency	3 - Somewhat clear		
 Telescopes	Tele Vue 60 F6			
 Eyepieces	TV Panoptic 24mm, Nagler 7mm, Powermate 2.5x			
 Filters	Astronomik OIII, UHC			
@@ -20,7 +15,7 @@ M42	Ori	CL+Neb	15x	Great Orion Nebula. M42 benefits from both UHC and OIII filte
 NGC2244	Mon	Opn CL	15x	Satellite cluster. Six stars in two columns 
 NGC2237	Mon	Neb	15x	Rosette nebula. Detectable with OIII filter. Very soft grey patch. No structure. Invisible with UHC filter.
 Jupiter	Cnc	Planet	129x	A bit of wind, but the image stays crisp at high magnifications. No aberration.
-				
+
 								
 Date	22/03/2015			
 Time	19:00-22:00			
@@ -28,7 +23,8 @@ Location	Cambridge, UK
 Altitude	12m			
 Temperature	3C (no wind)			
 Seeing	2 - Slight undulations			
-Transparency	3 - Somewhat clear			
+Transparency	3 - Somewhat clear	
+Darkness	20.4 mag		
 Telescopes	Tele Vue 60 F6			
 Eyepieces	TV Panoptic 24mm, Nagler 7mm, Powermate 2.5x			
 Filters	Astronomik OIII			
@@ -45,3 +41,4 @@ Eta	Dra	Dbl Star	15x	2.7mag and 6.05mag
 M51	CVn	Galaxy	15x	Whirlpool Galaxy. From UMA-Alkaid, move south to 24CVn. Continue on that direction until HIP65768. This forms a triangle with HIP66004 and HIP66116. They are all 7mag stars. HIP65768 is the brightest in the area. M51 lies externally of the line between HIP65768 and HIP66004. Averted vision for 10min is required. You will see a grey patch. No structure.
 Jupiter	Cnc	Planet	129x	Order: Europa, Callisto, Jupiter, Io, Ganymede. Two belts very visible. The lower one was visible on the left (refractor). On the right the great red spot was detectable. Very minor belts north and south. 
 Ceres	Sgr	Asteroid	51x	Test to see whether this work.
+3C273	Vir	Quasar	51x	Clearly invisible.				

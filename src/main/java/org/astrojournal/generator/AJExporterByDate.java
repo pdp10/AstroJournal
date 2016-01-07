@@ -83,12 +83,9 @@ public class AJExporterByDate extends AJExporter {
 		ajFilesLocation.getAbsolutePath(), latexFooterByDate);
 	Writer writerByDate = null;
 	try {
-	    writerByDate = new BufferedWriter(
-		    new OutputStreamWriter(
-			    new FileOutputStream(
-				    ajFilesLocation.getAbsolutePath()
-					    + File.separator + latexMainByDate),
-			    "utf-8"));
+	    writerByDate = new BufferedWriter(new OutputStreamWriter(
+		    new FileOutputStream(ajFilesLocation.getAbsolutePath()
+			    + File.separator + latexMainByDate), "utf-8"));
 	    // write the Latex Header
 	    writerByDate.write(ajLatexHeaderByDate.getHeader());
 
@@ -114,7 +111,8 @@ public class AJExporterByDate extends AJExporter {
 		if (file.isFile() && file.getName().endsWith(".tex")) {
 		    // include the file removing the extension .tex
 		    writerByDate.write("\\input{" + latexReportsFolderByDate
-			    + "/" + file.getName().replaceFirst("[.][^.]+$", "")
+			    + "/"
+			    + file.getName().replaceFirst("[.][^.]+$", "")
 			    + "}\n");
 		    writerByDate.write("\\clearpage \n");
 		}
@@ -173,45 +171,56 @@ public class AJExporterByDate extends AJExporter {
 	    ArrayList<AJObservationItem> observationItems = obs
 		    .getObservationItems();
 	    try {
-		table = new BufferedWriter(
-			new OutputStreamWriter(
-				new FileOutputStream(new File(
-					ajFilesLocation.getAbsolutePath()
-						+ File.separator
-						+ latexReportsByDateFolder,
-					"obs" + filenameOut + ".tex")),
-			"utf-8"));
+		table = new BufferedWriter(new OutputStreamWriter(
+			new FileOutputStream(new File(
+				ajFilesLocation.getAbsolutePath()
+					+ File.separator
+					+ latexReportsByDateFolder, "obs"
+					+ filenameOut + ".tex")), "utf-8"));
 
 		// debugging
 		log.debug("writing observation " + obs.getDate());
 		table.write("% General observation data\n");
-		table.write(
-			"\\begin{tabular}{ p{0.9in} p{1.3in} p{1.2in} p{5.2in}}\n");
+		table.write("\\begin{tabular}{ p{0.7in} p{1.2in} p{1.1in} p{5.7in}}\n");
 		table.write("{\\bf " + AJObservation.DATE_NAME + ":} & "
 			+ obs.getDate() + " & {\\bf "
-			+ AJObservation.TELESCOPES_NAME + ":} & "
-			+ obs.getTelescopes() + " \\\\ \n");
+			+ AJObservation.TEMPERATURE_NAME + ":} & "
+			+ obs.getTemperature() + " \\\\ \n");
 		table.write("{\\bf " + AJObservation.TIME_NAME + ":} & "
 			+ obs.getTime() + " & {\\bf "
-			+ AJObservation.EYEPIECES_NAME + ":} & "
-			+ obs.getEyepieces() + " \\\\ \n");
+			+ AJObservation.SEEING_NAME + ":} & " + obs.getSeeing()
+			+ " \\\\ \n");
 		table.write("{\\bf " + AJObservation.LOCATION_NAME + ":} & "
 			+ obs.getLocation() + " & {\\bf "
-			+ AJObservation.FILTERS_NAME + ":} & "
+			+ AJObservation.TRANSPARENCY_NAME + ":} & "
+			+ obs.getTransparency() + " \\\\ \n");
+
+		// Darkness requires a SQM-L sky quality meter reading. Not
+		// everyone has it
+		// or use it. At this stage, let's leave it as optional.
+		if (!obs.getDarkness().equals("")) {
+		    table.write("{\\bf " + AJObservation.ALTITUDE_NAME
+			    + ":} & " + obs.getAltitude() + " & {\\bf "
+			    + AJObservation.DARKNESS_NAME + ":} & "
+			    + obs.getDarkness() + " \\\\ \n");
+		    table.write("& & {\\bf " + AJObservation.TELESCOPES_NAME
+			    + ":} & " + obs.getTelescopes() + " \\\\ \n");
+		} else {
+		    table.write("{\\bf " + AJObservation.ALTITUDE_NAME
+			    + ":} & " + obs.getAltitude() + " & {\\bf "
+			    + AJObservation.TELESCOPES_NAME + ":} & "
+			    + obs.getTelescopes() + " \\\\ \n");
+		}
+
+		table.write("& & {\\bf " + AJObservation.EYEPIECES_NAME
+			+ ":} & " + obs.getEyepieces() + " \\\\ \n");
+		table.write("& & {\\bf " + AJObservation.FILTERS_NAME + ":} & "
 			+ obs.getFilters() + " \\\\ \n");
-		table.write("{\\bf " + AJObservation.ALTITUDE_NAME + ":} & "
-			+ obs.getAltitude() + " & & \\\\ \n");
-		table.write("{\\bf " + AJObservation.TEMPERATURE_NAME + ":} & "
-			+ obs.getTemperature() + " & & \\\\ \n");
-		table.write("{\\bf " + AJObservation.SEEING_NAME + ":} & "
-			+ obs.getSeeing() + " & & \\\\ \n");
-		table.write("{\\bf " + AJObservation.TRANSPARENCY_NAME + ":} & "
-			+ obs.getTransparency() + " & & \\\\ \n");
+
 		table.write("\\end{tabular}\n");
 
 		table.write("% Detailed observation data\n");
-		table.write(
-			"\\begin{longtable}{ p{0.7in}  p{0.3in}  p{0.6in}  p{0.9in}  p{5.8in} }\n");
+		table.write("\\begin{longtable}{ p{0.7in}  p{0.3in}  p{0.6in}  p{0.9in}  p{5.8in} }\n");
 		table.write("\\hline \n");
 		table.write("{\\bf " + AJObservationItem.TARGET_NAME
 			+ "} & {\\bf " + AJObservationItem.CONSTELLATION_NAME

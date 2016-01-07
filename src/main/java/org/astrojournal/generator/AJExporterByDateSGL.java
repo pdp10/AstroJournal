@@ -74,17 +74,14 @@ public class AJExporterByDateSGL extends AJExporter {
      *            the footer code (by date)
      */
     @Override
-    public void generateJournal(String reportsFolderByDate, String headerByDate,
-	    String mainByDate, String footerByDate) {
+    public void generateJournal(String reportsFolderByDate,
+	    String headerByDate, String mainByDate, String footerByDate) {
 	Writer writerByDate = null;
 	try {
-	    writerByDate = new BufferedWriter(
-		    new OutputStreamWriter(
-			    new FileOutputStream(
-				    ajFilesLocation.getAbsolutePath()
-					    + File.separator + mainByDate),
-			    "utf-8"));
-			    // write the Header
+	    writerByDate = new BufferedWriter(new OutputStreamWriter(
+		    new FileOutputStream(ajFilesLocation.getAbsolutePath()
+			    + File.separator + mainByDate), "utf-8"));
+	    // write the Header
 
 	    // write the Body
 	    // Write the observation reports
@@ -167,31 +164,31 @@ public class AJExporterByDateSGL extends AJExporter {
 	    ArrayList<AJObservationItem> observationItems = obs
 		    .getObservationItems();
 	    try {
-		text = new BufferedWriter(
-			new OutputStreamWriter(
-				new FileOutputStream(new File(
-					ajFilesLocation.getAbsolutePath()
-						+ File.separator
-						+ reportsByDateFolder,
-					"obs" + filenameOut + ".txt")),
-			"utf-8"));
+		text = new BufferedWriter(new OutputStreamWriter(
+			new FileOutputStream(new File(
+				ajFilesLocation.getAbsolutePath()
+					+ File.separator + reportsByDateFolder,
+				"obs" + filenameOut + ".txt")), "utf-8"));
 
 		// debugging
 		log.debug("writing observation " + obs.getDate());
-		text.write(
-			AJObservation.DATE_NAME + " " + obs.getDate() + "\n");
-		text.write(
-			AJObservation.TIME_NAME + " " + obs.getTime() + "\n");
-		text.write(AJObservation.LOCATION_NAME + " " + obs.getLocation()
-			+ "\n");
-		text.write(AJObservation.ALTITUDE_NAME + " " + obs.getAltitude()
-			+ "\n");
+		text.write(AJObservation.DATE_NAME + " " + obs.getDate() + "\n");
+		text.write(AJObservation.TIME_NAME + " " + obs.getTime() + "\n");
+		text.write(AJObservation.LOCATION_NAME + " "
+			+ obs.getLocation() + "\n");
+		text.write(AJObservation.ALTITUDE_NAME + " "
+			+ obs.getAltitude() + "\n");
 		text.write(AJObservation.TEMPERATURE_NAME + " "
 			+ obs.getTemperature() + "\n");
 		text.write(AJObservation.SEEING_NAME + " " + obs.getSeeing()
 			+ "\n");
 		text.write(AJObservation.TRANSPARENCY_NAME + " "
 			+ obs.getTransparency() + "\n");
+		// This requires a SQM-L meter.
+		if (!obs.getDarkness().equals("")) {
+		    text.write(AJObservation.DARKNESS_NAME + " "
+			    + obs.getDarkness() + "\n");
+		}
 		text.write(AJObservation.TELESCOPES_NAME + " "
 			+ obs.getTelescopes() + "\n");
 		text.write(AJObservation.EYEPIECES_NAME + " "

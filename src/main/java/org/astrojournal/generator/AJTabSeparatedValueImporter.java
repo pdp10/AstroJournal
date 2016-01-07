@@ -75,8 +75,8 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 	    } else if (file.getName().endsWith(".csv")) {
 		delimiter = "\t";
 	    } else {
-		System.err.println(
-			"input files must be either .tsv or .csv . Field delimiter must be a TAB");
+		System.err
+			.println("input files must be either .tsv or .csv . Field delimiter must be a TAB");
 		return observations;
 	    }
 
@@ -196,6 +196,10 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 			    + values[1]);
 		} else if (values[0].equals(AJObservation.TRANSPARENCY_NAME)) {
 		    obs.setTransparency(values[1]);
+		    log.debug("values[0]==" + values[0] + " values[1]="
+			    + values[1]);
+		} else if (values[0].equals(AJObservation.DARKNESS_NAME)) {
+		    obs.setSkyDarkness(values[1]);
 		    log.debug("values[0]==" + values[0] + " values[1]="
 			    + values[1]);
 		} else if (values[0].equals(AJObservation.TELESCOPES_NAME)) {
