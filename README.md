@@ -153,7 +153,10 @@ You can run AstroJournal on GNU/Linux typing:
 
 v0.10
 
-- This version is only for testing and prepares AJ for v1.0
+- This version is mainly for testing and prepares AJ for v1.0.
+- Added Tango icon set to AJ menu items.
+- Added Darkness as new Observation parameter. This can be used for recording 
+sky quality reading using meters such as SQM-L.
 
 v0.9
 
