@@ -104,9 +104,8 @@ public class AboutDialog extends JDialog {
 	constraints.insets = new Insets(3, 3, 0, 0);
 	constraints.fill = GridBagConstraints.NONE;
 
-	JLabel program = new SmoothJLabel(
-		AJConfig.APPLICATION_NAME + " " + AJConfig.APPLICATION_VERSION,
-		JLabel.CENTER);
+	JLabel program = new SmoothJLabel(AJConfig.APPLICATION_NAME + " "
+		+ AJConfig.APPLICATION_VERSION, JLabel.CENTER);
 	program.setFont(new Font("Dialog", Font.BOLD, 18));
 	program.setForeground(new Color(0, 0, 200));
 	copyrights.add(program, constraints);
@@ -132,6 +131,12 @@ public class AboutDialog extends JDialog {
 		JLabel.CENTER);
 	copyright2.setFont(new Font("Dialog", Font.PLAIN, 10));
 	copyrights.add(copyright2, constraints);
+	constraints.gridy++;
+
+	JLabel copyright3 = new JLabel(
+		"Tango base icon theme \u00a9Public Domain", JLabel.CENTER);
+	copyright3.setFont(new Font("Dialog", Font.PLAIN, 10));
+	copyrights.add(copyright3, constraints);
 
 	panelAbout.add(copyrights, BorderLayout.CENTER);
 	add(panelAbout, BorderLayout.CENTER);
