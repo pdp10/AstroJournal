@@ -84,10 +84,10 @@ public class AboutDialog extends JDialog {
 	setLayout(new BorderLayout());
 
 	JPanel panelAbout = new JPanel();
-	panelAbout.setLayout(new BorderLayout(5, 1));
+	panelAbout.setLayout(new BorderLayout(7, 1));
 
 	ImageIcon logo = new ImageIcon(
-		ClassLoader.getSystemResource("graphics/aj_icon_128.png"));
+		ClassLoader.getSystemResource("graphics/logo/aj_icon_128.png"));
 	JPanel logoPanel = new JPanel();
 	logoPanel.add(new JLabel("", logo, JLabel.CENTER));
 	logoPanel.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
@@ -125,30 +125,32 @@ public class AboutDialog extends JDialog {
 	copyright.setFont(new Font("Dialog", Font.PLAIN, 14));
 	copyrights.add(copyright, constraints);
 	constraints.gridy++;
-	
+
 	JLabel copyright2 = new JLabel(
 		"Tango base icon theme \u00a9Public Domain", JLabel.CENTER);
 	copyright2.setFont(new Font("Dialog", Font.PLAIN, 10));
 	copyrights.add(copyright2, constraints);
 	constraints.gridy++;
-	
+
 	JLabel copyright3 = new JLabel(
 		"Apache Commons (io, lang3) \u00a9Apache Software Foundation, 2015",
 		JLabel.CENTER);
 	copyright3.setFont(new Font("Dialog", Font.PLAIN, 10));
 	copyrights.add(copyright3, constraints);
 	constraints.gridy++;
-		
-	JLabel copyright4 = new JLabel("Apache log4j \u00a9Apache Software Foundation, 2012", JLabel.CENTER);
-	copyright4.setFont(new Font("Dialog",Font.PLAIN,10));
-	copyrights.add(copyright4,constraints);
-	constraints.gridy++;
-	
-	JLabel copyright5 = new JLabel("JUnit \u00a9 JUnit Team, 2015", JLabel.CENTER);
-	copyright5.setFont(new Font("Dialog",Font.PLAIN,10));
-	copyrights.add(copyright5,constraints);
 
-	
+	JLabel copyright4 = new JLabel(
+		"Apache log4j \u00a9Apache Software Foundation, 2012",
+		JLabel.CENTER);
+	copyright4.setFont(new Font("Dialog", Font.PLAIN, 10));
+	copyrights.add(copyright4, constraints);
+	constraints.gridy++;
+
+	JLabel copyright5 = new JLabel("JUnit \u00a9 JUnit Team, 2015",
+		JLabel.CENTER);
+	copyright5.setFont(new Font("Dialog", Font.PLAIN, 10));
+	copyrights.add(copyright5, constraints);
+
 	panelAbout.add(copyrights, BorderLayout.CENTER);
 	add(panelAbout, BorderLayout.CENTER);
 
@@ -167,7 +169,7 @@ public class AboutDialog extends JDialog {
 
 	add(buttonPanel, BorderLayout.SOUTH);
 
-	setSize(500, 200);
+	setSize(500, 230);
 	setLocationRelativeTo(application);
 	setResizable(false);
 	setVisible(true);

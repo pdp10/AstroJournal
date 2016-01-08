@@ -27,10 +27,12 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 
+import javax.help.HelpBroker;
+import javax.help.HelpSet;
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -43,7 +45,6 @@ import org.astrojournal.configuration.PreferencesDialog;
 import org.astrojournal.gui.AJMainGUI;
 import org.astrojournal.gui.dialogs.AboutDialog;
 import org.astrojournal.gui.dialogs.LicenseDialog;
-import org.astrojournal.gui.dialogs.help.HelpDialog;
 
 /**
  * Astro Journal Menu bar.
@@ -181,52 +182,23 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	    PreferencesDialog preferencesDialog = new PreferencesDialog(
 		    application);
 	} else if (action.equals("help_contents")) {
-	    // FIXME
-	    // JOptionPane
-	    // .showMessageDialog(
-	    // application,
-	    // "This currently does not work..\n"
-	    // + "THE PROBLEM IS that you need to scan a jar file and not a \n"
-	    // + "normal file system structure. \n"
-	    // +
-	    // "Therefore, you need to work with URI and then in HelpIndexRoot,
-	    // \n"
-	    // + "scan the folder inside the jar file \n"
-	    // +
-	    // "using Uri instead of FILE. Therefore, extract the .html files
-	    // and \n"
-	    // + "show the help.", "WARNING",
-	    // JOptionPane.ERROR_MESSAGE);
-	    // end FIXME
-
-	    // THIS ONLY WORKS IN ECLIPSE. ORIGINAL CODE
-	    // try {
-	    // HelpDialog helpDialog = new HelpDialog(application, new File(
-	    // URLDecoder.decode(ClassLoader.getSystemResource("help")
-	    // .getFile(), "UTF-8")));
-	    // } catch (UnsupportedEncodingException e1) {
-	    // e1.printStackTrace();
-	    // }
-
+	    // Initialisation of JavaHelp
+	    final String helpHS = "help/helpset.hs";
 	    try {
-		HelpDialog helpDialog = new HelpDialog(application, new File(
-			"help"));
-	    } catch (FileNotFoundException e) {
+		final ClassLoader classLoader = this.getClass()
+			.getClassLoader();
+		final URL hsURL = HelpSet.findHelpSet(classLoader, helpHS);
+		final HelpSet hs = new HelpSet(classLoader, hsURL);
+		final HelpBroker hb = hs.createHelpBroker();
+		hb.initPresentation();
+		hb.setDisplayed(true);
+		hb.setViewDisplayed(true);
+	    } catch (Exception ee) {
 		JOptionPane.showMessageDialog(application, AJConfig.BUNDLE
 			.getString("AJ.errHelpIndexNotFound.text"),
 			AJConfig.BUNDLE.getString("AJ.errFileNotFound.text"),
 			JOptionPane.ERROR_MESSAGE);
 	    }
-	    // FIXME THE PROBLEM IS that you need to scan a jar file and not a
-	    // normal file system structure.
-	    // Therefore, you need to work with URI and then in HelpIndexRoot,
-	    // scan the folder inside the jar file
-	    // using Uri instead of FILE. Therefore, extract the .html files and
-	    // show the help.
-
-	    // THIS IS CORRECT
-	    // HelpDialog helpDialog = new HelpDialog(application,
-	    // ClassLoader.getSystemResource("help"));
 
 	} else if (action.equals("help_license")) {
 	    String license = "LICENSE.txt";

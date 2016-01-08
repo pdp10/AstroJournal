@@ -153,13 +153,13 @@ You can run AstroJournal on GNU/Linux typing:
 
 v0.10
 
-- This version is mainly for testing and prepares AJ for v1.0.
 - Added Tango icon set to AJ menu items.
 - Added Darkness as new Observation parameter. This can be used for recording 
 sky quality reading using meters such as SQM-L.
 - Migrated from junit 4.11 to 4.12
 - Migrated from apache log4j 1.2 to 2.5
-
+- Integrated launch4j with maven pom.xml
+- Improved log4j levels and junit tests.
 
 v0.9
 

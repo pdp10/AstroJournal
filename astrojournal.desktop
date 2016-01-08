@@ -1,12 +1,12 @@
 #!/usr/bin/env xdg-open
 [Desktop Entry]
 Type=Application
-Version=0.10
+Version=0.10.0
 Encoding=UTF-8
 Name=AstroJournal
 Comment=Astronomical Journal Organiser
 # It would be nice to have be able to read in the local dir
 Exec=java -jar $HOME/AstroJournal/target/astrojournal-*-jar-with-dependencies.jar
-Icon=$HOME/AstroJournal/src/main/resources/graphics/aj_icon_256.png
+Icon=$HOME/AstroJournal/src/main/resources/graphics/logo/aj_icon_256.png
 Terminal=false
 Categories=Education;Java;
