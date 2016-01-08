@@ -19,7 +19,7 @@ by a TAB delimiter. Fields can have single or double quotes.
 
 ### Features
 
-- Support for GNU/Linux, Mac OS X, and Windows users.
+- Support for GNU/Linux and Windows users.
 - A simple graphical interface for running the program is provided. 
 - Generation of a PDF document containing all user observation records collected by increasing target catalogue number. This is useful for comparing targets observed over time.
 - Generation of a PDF document containing all user observation reports collected by decreasing date. This is useful for visualising one’s observations by session.
@@ -47,7 +47,7 @@ You can download the latest version of this software application here:
 
 After downloading and uncompressing the file, you can run AstroJournal by typing:
 ```
-# On GNU/Linux or MAC OS X, run AstroJournal typing (or clicking the icon):
+# On GNU/Linux run AstroJournal typing (or clicking the icon):
 ./astrojournal.sh
 ```
 or 
