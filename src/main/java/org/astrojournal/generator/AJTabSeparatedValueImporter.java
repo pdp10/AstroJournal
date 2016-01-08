@@ -162,7 +162,7 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 	cleanFields();
 	if (values.length == 2 && values[0].equals(AJObservation.DATE_NAME)) {
 	    obs.setDate(values[1]);
-	    log.info(AJObservation.DATE_NAME + "=" + values[1]);
+	    log.debug(AJObservation.DATE_NAME + "=" + values[1]);
 	}
 	// Read the other lines for this observation
 	while ((line = reader.readLine()) != null) {

@@ -23,9 +23,13 @@
  */
 package main;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.util.ArrayList;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.astrojournal.generator.AJGenerator;
 import org.astrojournal.observation.AJObservation;
 import org.junit.After;
@@ -39,6 +43,10 @@ import org.junit.Test;
  * @author Piero Dalle Pezze
  */
 public class ImportObservationTest {
+
+    /** The log associated to this class */
+    private static Logger log = LogManager
+	    .getLogger(ImportObservationTest.class);
 
     /**
      * @throws java.lang.Exception
@@ -70,6 +78,9 @@ public class ImportObservationTest {
 
     @Test
     public void test() {
+
+	log.info("Running junit test: " + getClass().getName());
+
 	System.setProperty("aj.aj_files_location",
 		System.getProperty("user.dir") + File.separator + "src"
 			+ File.separator + "test" + File.separator
@@ -78,10 +89,19 @@ public class ImportObservationTest {
 	ajLatexGenerator.importObservations();
 	ArrayList<AJObservation> observations = ajLatexGenerator
 		.getObservations();
-	for (AJObservation obs : observations) {
-	    // use assert() instead.
-	    System.out.println(obs.getDate());
-	}
-    }
 
+	assertEquals("23/02/2015", observations.get(0).getDate());
+	assertEquals("M42", observations.get(0).getObservationItems().get(0)
+		.getTarget());
+	assertEquals("NGC2244", observations.get(0).getObservationItems()
+		.get(1).getTarget());
+	assertEquals("NGC2237", observations.get(0).getObservationItems()
+		.get(2).getTarget());
+	assertEquals("Jupiter", observations.get(0).getObservationItems()
+		.get(3).getTarget());
+
+	assertEquals("22/03/2015", observations.get(1).getDate());
+	assertEquals("03/06/2015", observations.get(2).getDate());
+	assertEquals("06/06/2015", observations.get(3).getDate());
+    }
 }

@@ -77,64 +77,75 @@ public class AJMainConsoleControls {
 	    // The pdflatex command must be called two times in order to
 	    // generate the list of contents correctly.
 	    String commandOutput;
-	    commandOutput = RunExternalCommand
-		    .runCommand("pdflatex " + AJConfig.REPORT_BY_DATE_FILENAME);
+	    commandOutput = RunExternalCommand.runCommand("pdflatex "
+		    + AJConfig.REPORT_BY_DATE_FILENAME);
 	    if (latexOutput)
 		System.out.println(commandOutput + "\n");
-	    commandOutput = RunExternalCommand
-		    .runCommand("pdflatex " + AJConfig.REPORT_BY_DATE_FILENAME);
+	    commandOutput = RunExternalCommand.runCommand("pdflatex "
+		    + AJConfig.REPORT_BY_DATE_FILENAME);
 	    // if(latexOutput) System.out.println(commandOutput + "\n");
 
-	    commandOutput = RunExternalCommand.runCommand(
-		    "pdflatex " + AJConfig.REPORT_BY_TARGET_FILENAME);
+	    commandOutput = RunExternalCommand.runCommand("pdflatex "
+		    + AJConfig.REPORT_BY_TARGET_FILENAME);
 	    if (latexOutput)
 		System.out.println(commandOutput + "\n");
-	    commandOutput = RunExternalCommand.runCommand(
-		    "pdflatex " + AJConfig.REPORT_BY_TARGET_FILENAME);
+	    commandOutput = RunExternalCommand.runCommand("pdflatex "
+		    + AJConfig.REPORT_BY_TARGET_FILENAME);
 	    // if(latexOutput) System.out.println(commandOutput + "\n");
 
-	    commandOutput = RunExternalCommand.runCommand(
-		    "pdflatex " + AJConfig.REPORT_BY_CONSTELLATION_FILENAME);
+	    commandOutput = RunExternalCommand.runCommand("pdflatex "
+		    + AJConfig.REPORT_BY_CONSTELLATION_FILENAME);
 	    if (latexOutput)
 		System.out.println(commandOutput + "\n");
-	    commandOutput = RunExternalCommand.runCommand(
-		    "pdflatex " + AJConfig.REPORT_BY_CONSTELLATION_FILENAME);
-		    // if(latexOutput) System.out.println(commandOutput +
-		    // "\n");
+	    commandOutput = RunExternalCommand.runCommand("pdflatex "
+		    + AJConfig.REPORT_BY_CONSTELLATION_FILENAME);
+	    // if(latexOutput) System.out.println(commandOutput +
+	    // "\n");
 
 	    // Add this at the end to avoid mixing with the latex command
 	    // output.
-	    System.out.println(
-		    AJConfig.BUNDLE.getString("AJ.lblCreatedReports.text")
-			    + " \n");
+	    System.out.println("\n"
+		    + AJConfig.BUNDLE.getString("AJ.lblCreatedReports.text"));
+	    System.out.println("\t"
+		    + path
+		    + File.separator
+		    + FilenameUtils
+			    .removeExtension(AJConfig.REPORT_BY_DATE_FILENAME)
+		    + ".pdf");
 	    System.out
-		    .println("\t" + path + File.separator
-			    + FilenameUtils.removeExtension(
-				    AJConfig.REPORT_BY_DATE_FILENAME)
-		    + ".pdf\n");
+		    .println("\t"
+			    + path
+			    + File.separator
+			    + FilenameUtils
+				    .removeExtension(AJConfig.REPORT_BY_TARGET_FILENAME)
+			    + ".pdf");
 	    System.out
-		    .println("\t" + path + File.separator
-			    + FilenameUtils.removeExtension(
-				    AJConfig.REPORT_BY_TARGET_FILENAME)
-		    + ".pdf\n");
-	    System.out.println("\t" + path + File.separator
-		    + FilenameUtils.removeExtension(
-			    AJConfig.REPORT_BY_CONSTELLATION_FILENAME)
-		    + ".pdf\n");
+		    .println("\t"
+			    + path
+			    + File.separator
+			    + FilenameUtils
+				    .removeExtension(AJConfig.REPORT_BY_CONSTELLATION_FILENAME)
+			    + ".pdf\n");
 
 	    // clean folders from LaTeX temporary, log, and output files
 	    if (SystemUtils.IS_OS_WINDOWS) {
 		commandOutput = RunExternalCommand
 			.runCommand("cmd /c del /s *.aux *.toc *.log *.out");
 	    } else {
-		Runtime.getRuntime().exec(new String[] { "/bin/sh", "-c",
-			"cd " + AJConfig.getInstance().getAJFilesLocation()
-				.getAbsolutePath()
-			+ " && rm -rf *.aux *.toc *.log *.out" + " && cd -" });
+		Runtime.getRuntime().exec(
+			new String[] {
+				"/bin/sh",
+				"-c",
+				"cd "
+					+ AJConfig.getInstance()
+						.getAJFilesLocation()
+						.getAbsolutePath()
+					+ " && rm -rf *.aux *.toc *.log *.out"
+					+ " && cd -" });
 	    }
 
-	    System.out.println(
-		    AJConfig.BUNDLE.getString("AJ.lblCreatedReportsLong.text"));
+	    System.out.println(AJConfig.BUNDLE
+		    .getString("AJ.lblCreatedReportsLong.text"));
 	} catch (IOException ioe) {
 	    System.err
 		    .println(AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"));

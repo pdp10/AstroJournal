@@ -26,6 +26,8 @@ package main;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.astrojournal.AJMain;
 import org.astrojournal.configuration.AJConfig;
 import org.junit.After;
@@ -41,6 +43,9 @@ import org.junit.Test;
  * @author Piero Dalle Pezze
  */
 public class RunSamplesTest {
+
+    /** The log associated to this class */
+    private static Logger log = LogManager.getLogger(RunSamplesTest.class);
 
     /**
      * @throws java.lang.Exception
@@ -72,6 +77,9 @@ public class RunSamplesTest {
 
     @Test
     public void test() {
+
+	log.info("Running junit test: " + getClass().getName());
+
 	String[] args = new String[] { "--console" };
 	System.setProperty("aj.aj_files_location",
 		System.getProperty("user.dir") + File.separator + "src"
@@ -85,12 +93,13 @@ public class RunSamplesTest {
 	    e.printStackTrace();
 	}
 
+	System.out.print("\nFile cleaning:");
 	for (File f : AJConfig.getInstance().getAJFilesLocation().listFiles()) {
 	    if (f.getName().endsWith(".tex") || f.getName().endsWith(".pdf")
 		    || f.getName().endsWith(".txt")) {
+		System.out.println("\tDeleting file " + f.getAbsolutePath());
 		f.delete();
 	    }
 	}
     }
-
 }
