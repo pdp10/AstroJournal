@@ -121,6 +121,61 @@
   </plugin>  
   
   
+
+<plugin>
+    <groupId>org.bluestemsoftware.open.maven.plugin</groupId>
+    <artifactId>launch4j-plugin</artifactId>
+    <version>1.5.0.0</version>
+    <executions>
+
+        <!-- GUI exe -->
+        <execution>
+            <id>l4j-gui</id>
+            <phase>package</phase>
+            <goals>
+                <goal>launch4j</goal>
+            </goals>
+            <configuration>
+                <headerType>gui</headerType>
+                <outfile>astrojournal.exe</outfile>
+                <jar>target/${project.artifactId}-${project.version}-jar-with-dependencies.jar</jar> <!-- 'shaded' is the value set on shadedClassifierName above -->
+                <errTitle>AstroJournal</errTitle>
+                <classPath>
+                    <mainClass>org.astrojournal.AJMain</mainClass>
+                </classPath>
+                <icon>src/main/resources/graphics/aj_icon_win.ico</icon>
+                <jre>
+                    <minVersion>1.7.0</minVersion>
+                    <maxVersion></maxVersion>
+                    <initialHeapSize>256</initialHeapSize>
+                    <maxHeapSize>512</maxHeapSize>
+                </jre>
+                <versionInfo>
+                    <fileVersion>0.10.0.0</fileVersion>
+                    <txtFileVersion>0.10.0.0</txtFileVersion>
+                    <fileDescription>A tool for generating astronomy observation reports in LaTeX / PDF</fileDescription>
+                    <copyright>Copyright (C) 2015 Piero Dalle Pezze (GPL v3 License)</copyright>
+                    <productVersion>0.10.0.0</productVersion>
+                    <txtProductVersion>0.10.0.0</txtProductVersion>
+                    <productName>AstroJournal</productName>
+                    <internalName>AstroJournal</internalName>
+                    <originalFilename>astrojournal.exe</originalFilename>
+                </versionInfo>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   </plugins> 
   
   </build>
