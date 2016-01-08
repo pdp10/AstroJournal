@@ -179,8 +179,6 @@ public class AJExporterByDate extends AJExporter {
 					+ latexReportsByDateFolder, "obs"
 					+ filenameOut + ".tex")), "utf-8"));
 
-		// debugging
-		log.debug("writing observation " + obs.getDate());
 		table.write("% General observation data\n");
 		table.write("\\begin{tabular}{ p{0.7in} p{1.2in} p{1.1in} p{5.7in}}\n");
 		table.write("{\\bf " + AJObservation.DATE_NAME + ":} & "
@@ -232,6 +230,7 @@ public class AJExporterByDate extends AJExporter {
 
 		table.write("\\hline \n");
 		for (AJObservationItem item : observationItems) {
+		    log.debug("Target " + item.getTarget());
 		    table.write(item.getTarget() + " & "
 			    + item.getConstellation() + " & " + item.getType()
 			    + " & " + item.getPower() + " & " + item.getNotes()
@@ -239,18 +238,20 @@ public class AJExporterByDate extends AJExporter {
 		}
 		table.write("\\hline \n");
 		table.write("\\end{longtable} \n");
-		System.out.println("\tExported observation " + filenameOut);
+		System.out.println("\tExported report " + obs.getDate() + " ("
+			+ observationItems.size() + " targets)");
 	    } catch (IOException ex) {
-		System.out.println("Error when opening the file");
+		log.warn("Error when opening the file");
 		result = false;
 	    } catch (Exception ex) {
-		System.out.println(ex);
+		log.warn(ex);
 		result = false;
 	    } finally {
 		try {
 		    if (table != null)
 			table.close();
 		} catch (Exception ex) {
+		    log.warn(ex);
 		}
 	    }
 	}

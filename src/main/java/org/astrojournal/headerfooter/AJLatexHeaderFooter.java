@@ -56,7 +56,7 @@ public abstract class AJLatexHeaderFooter {
 	File f = new File(path + File.separator + file);
 	StringBuilder sb = new StringBuilder();
 	if (f.isFile() && f.getName().endsWith(".tex")) {
-	    log.debug("Importing latex file " + path + File.separator + file);
+	    log.debug("Processing latex file " + path + File.separator + file);
 	    // Create a buffered reader to read the file
 	    BufferedReader reader = null;
 	    try {
@@ -64,18 +64,17 @@ public abstract class AJLatexHeaderFooter {
 		String line;
 		// Read all lines
 		while ((line = reader.readLine()) != null) {
-		    log.debug(line);
+		    // log.debug(line);
 		    sb.append(line).append(" \n");
 		} // end while
 	    } catch (IOException ex) {
-		System.out.println(ex);
+		ex.printStackTrace();
 	    } finally {
 		try {
 		    if (reader != null)
 			reader.close();
 		} catch (IOException ex) {
-		    log.warn("File " + path + File.separator + file
-			    + " was not closed successfully");
+		    ex.printStackTrace();
 		}
 	    }
 	}

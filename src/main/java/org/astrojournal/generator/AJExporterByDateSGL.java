@@ -171,8 +171,6 @@ public class AJExporterByDateSGL extends AJExporter {
 					+ File.separator + reportsByDateFolder,
 				"obs" + filenameOut + ".txt")), "utf-8"));
 
-		// debugging
-		log.debug("writing observation " + obs.getDate());
 		text.write(AJObservation.DATE_NAME + " " + obs.getDate() + "\n");
 		text.write(AJObservation.TIME_NAME + " " + obs.getTime() + "\n");
 		text.write(AJObservation.LOCATION_NAME + " "
@@ -198,22 +196,25 @@ public class AJExporterByDateSGL extends AJExporter {
 			+ "\n\n");
 
 		for (AJObservationItem item : observationItems) {
+		    log.debug("Target " + item.getTarget());
 		    text.write(item.getTarget() + " " + item.getConstellation()
 			    + " " + item.getType() + " " + item.getPower()
 			    + "\n" + item.getNotes() + "\n\n");
 		}
-		System.out.println("\tExported observation " + filenameOut);
+		System.out.println("\tExported report " + obs.getDate() + " ("
+			+ observationItems.size() + " targets)");
 	    } catch (IOException ex) {
-		System.out.println("Error when opening the file");
+		log.warn("Error when opening the file");
 		result = false;
 	    } catch (Exception ex) {
-		System.out.println(ex);
+		log.warn(ex);
 		result = false;
 	    } finally {
 		try {
 		    if (text != null)
 			text.close();
 		} catch (Exception ex) {
+		    log.warn(ex);
 		}
 	    }
 	}

@@ -237,6 +237,7 @@ public class AJExporterByTarget extends AJExporter {
 		if (writerByTarget != null)
 		    writerByTarget.close();
 	    } catch (Exception ex) {
+		log.warn(ex);
 	    }
 	}
     }
@@ -261,7 +262,6 @@ public class AJExporterByTarget extends AJExporter {
 	    for (int j = 0; j < observationItems.size(); j++) {
 		AJObservationItem obsItem = observationItems.get(j);
 		String filenameOut = computeFileName(obsItem);
-		log.debug("filename: " + filenameOut);
 		Writer targetWriter = null;
 		try {
 		    if (!processedTargetCache.contains(filenameOut)) {
@@ -397,6 +397,7 @@ public class AJExporterByTarget extends AJExporter {
 			if (targetWriter != null)
 			    targetWriter.close();
 		    } catch (Exception ex) {
+			log.warn(ex);
 			return false;
 		    }
 		}
@@ -607,6 +608,7 @@ public class AJExporterByTarget extends AJExporter {
 	Collections.sort(steph, catalogueItemComparator);
 	// normal lexico-graphical sorting for stars
 	Collections.sort(unclassified);
+	log.debug("Catalogues are now sorted by target.");
 
 	int j = 0;
 	j = addSortedFiles(solarSystem, files, j);

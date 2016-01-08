@@ -94,7 +94,7 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 		String line;
 		// Read all lines
 		while ((line = reader.readLine()) != null) {
-		    log.debug(line);
+		    // log.debug(line);
 		    if (line.indexOf(AJTabSeparatedValueImporter
 			    .getInitialKeyword()) > -1) {
 			AJObservation obs = new AJObservation();
@@ -109,12 +109,13 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 		    }
 		} // end while
 	    } catch (IOException ex) {
-		System.err.println(ex);
+		ex.printStackTrace();
 	    } finally {
 		try {
 		    if (reader != null)
 			reader.close();
 		} catch (IOException ex) {
+		    ex.printStackTrace();
 		}
 	    }
 	} // end if
@@ -154,15 +155,14 @@ public class AJTabSeparatedValueImporter extends AJImporter {
     @Override
     protected void importObservation(BufferedReader reader, AJObservation obs,
 	    String line, String delimiter) throws IOException {
-	log.debug(line);
+	// log.debug(line);
 	// copy the first line
 	values = line.split(delimiter);
 	// clean the field values if containing quotes at the beginning or end
 	cleanFields();
-	log.debug("Line length (A): " + values.length);
 	if (values.length == 2 && values[0].equals(AJObservation.DATE_NAME)) {
 	    obs.setDate(values[1]);
-	    log.debug("values[0]" + values[0] + " values[1]=" + values[1]);
+	    log.info(AJObservation.DATE_NAME + "=" + values[1]);
 	}
 	// Read the other lines for this observation
 	while ((line = reader.readLine()) != null) {
@@ -170,51 +170,40 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 	    // clean the field values if containing quotes at the beginning or
 	    // end
 	    cleanFields();
-	    log.debug("Line length (B): " + values.length);
 	    if (values.length == 0 || values[0].equals("")) {
 		break;
 	    }
 	    if (values.length == 2) {
 		if (values[0].equals(AJObservation.TIME_NAME)) {
 		    obs.setTime(values[1]);
-		    log.debug("values[0]==" + values[0] + " values[1]="
-			    + values[1]);
+		    log.debug(AJObservation.TIME_NAME + "=" + values[1]);
 		} else if (values[0].equals(AJObservation.LOCATION_NAME)) {
 		    obs.setLocation(values[1]);
-		    log.debug("values[0]==" + values[0] + " values[1]="
-			    + values[1]);
+		    log.debug(AJObservation.LOCATION_NAME + "=" + values[1]);
 		} else if (values[0].equals(AJObservation.ALTITUDE_NAME)) {
 		    obs.setAltitude(values[1]);
-		    log.debug("values[0]==" + values[0] + " values[1]="
-			    + values[1]);
+		    log.debug(AJObservation.ALTITUDE_NAME + "=" + values[1]);
 		} else if (values[0].equals(AJObservation.TEMPERATURE_NAME)) {
 		    obs.setTemperature(values[1]);
-		    log.debug("values[0]==" + values[0] + " values[1]="
-			    + values[1]);
+		    log.debug(AJObservation.TEMPERATURE_NAME + "=" + values[1]);
 		} else if (values[0].equals(AJObservation.SEEING_NAME)) {
 		    obs.setSeeing(values[1]);
-		    log.debug("values[0]==" + values[0] + " values[1]="
-			    + values[1]);
+		    log.debug(AJObservation.SEEING_NAME + "=" + values[1]);
 		} else if (values[0].equals(AJObservation.TRANSPARENCY_NAME)) {
 		    obs.setTransparency(values[1]);
-		    log.debug("values[0]==" + values[0] + " values[1]="
-			    + values[1]);
+		    log.debug(AJObservation.TRANSPARENCY_NAME + "=" + values[1]);
 		} else if (values[0].equals(AJObservation.DARKNESS_NAME)) {
 		    obs.setSkyDarkness(values[1]);
-		    log.debug("values[0]==" + values[0] + " values[1]="
-			    + values[1]);
+		    log.debug(AJObservation.DARKNESS_NAME + "=" + values[1]);
 		} else if (values[0].equals(AJObservation.TELESCOPES_NAME)) {
 		    obs.setTelescopes(values[1]);
-		    log.debug("values[0]==" + values[0] + " values[1]="
-			    + values[1]);
+		    log.debug(AJObservation.TELESCOPES_NAME + "=" + values[1]);
 		} else if (values[0].equals(AJObservation.EYEPIECES_NAME)) {
 		    obs.setEyepieces(values[1]);
-		    log.debug("values[0]==" + values[0] + " values[1]="
-			    + values[1]);
+		    log.debug(AJObservation.EYEPIECES_NAME + "=" + values[1]);
 		} else if (values[0].equals(AJObservation.FILTERS_NAME)) {
 		    obs.setFilters(values[1]);
-		    log.debug("values[0]==" + values[0] + " values[1]="
-			    + values[1]);
+		    log.debug(AJObservation.FILTERS_NAME + "=" + values[1]);
 		}
 	    } else if (values.length == 5
 		    && values[0].equals(AJObservationItem.TARGET_NAME)
@@ -230,9 +219,8 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 		    if (values.length != 5 || values[0].equals("")) {
 			break;
 		    }
-		    log.debug(line);
-		    log.debug("Line length (C): " + values.length);
-		    log.debug(values[4]);
+		    // log.debug(line);
+		    log.debug(AJObservationItem.TARGET_NAME + "=" + values[0]);
 		    AJObservationItem item = new AJObservationItem();
 		    item.setTarget(values[0]);
 		    item.setConstellation(values[1]);
