@@ -1,0 +1,45 @@
+            Third-party software incorporated into
+                   the AstroJournal distribution
+
+AstroJournal uses the following third-party software libraries; these
+are distributed along with AstroJournal and placed in the source code
+repository.  The license statements for these third-party
+software libraries can be found at the web addresses noted
+below.
+
+1. Tango base icon theme 0.8.90 -- http://tango.freedesktop.org/Tango_Icon_Library
+  [checked 2016-01-08]
+  Copyright (C) FreeDesktop.org
+  Distributed under Public Domain.
+
+2. Commons Lang 3.4 -- http://commons.apache.org/proper/commons-lang/
+  [checked 2016-01-08]
+  Copyright (C) Apache Software Foundation
+  Distributed under the Apache License 2.0.
+
+3. Commons IO 2.4 -- https://commons.apache.org/proper/commons-io/
+  [checked 2016-01-08]
+  Copyright (C) Apache Software Foundation
+  Distributed under the Apache License 2.0.
+
+4. log4j 2.5 -- http://logging.apache.org/log4j/2.x/
+  [checked 2016-01-08]
+  Copyright (C) Apache Software Foundation
+  Distributed under the Apache License 2.0.
+
+5. JUnit 4.12 -- http://junit.org/
+  [checked 2016-01-08]
+  Copyright (C) JUnit Team
+  Distributed under the Eclipse Public License 1.0.
+  
+ 
+
+
+
+Part of the code used for AstroJournal GUI was taken 
+from the following open source software:
+
+1. BamQC 0.1 -- https://github.com/s-andrews/BamQC
+  [checked 2016-01-08]
+  Copyright (C) Simon Andrews
+  Distributed under the GPL 3.0.
