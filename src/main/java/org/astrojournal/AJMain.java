@@ -25,7 +25,8 @@ package org.astrojournal;
 
 import javax.swing.UIManager;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.console.AJMainConsole;
 import org.astrojournal.gui.AJMainGUI;
@@ -40,7 +41,7 @@ import org.astrojournal.gui.AJMainGUI;
 public class AJMain {
 
     /** The log associated to this class */
-    private static Logger log = Logger.getLogger(AJMain.class);
+    private static Logger log = LogManager.getLogger(AJMain.class);
 
     /**
      * Start AJMiniGUI.

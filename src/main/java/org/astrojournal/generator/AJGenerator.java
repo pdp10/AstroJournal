@@ -26,7 +26,8 @@ package org.astrojournal.generator;
 import java.io.File;
 import java.util.ArrayList;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.observation.AJObservation;
 
@@ -40,7 +41,7 @@ import org.astrojournal.observation.AJObservation;
 public class AJGenerator {
 
     /** The log associated to this class */
-    private static Logger log = Logger.getLogger(AJGenerator.class);
+    private static Logger log = LogManager.getLogger(AJGenerator.class);
 
     /** The list of observations. */
     private ArrayList<AJObservation> observations = new ArrayList<AJObservation>(

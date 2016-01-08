@@ -29,7 +29,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.astrojournal.observation.AJObservation;
 import org.astrojournal.observation.AJObservationItem;
 
@@ -44,7 +45,7 @@ import org.astrojournal.observation.AJObservationItem;
 public class AJTabSeparatedValueImporter extends AJImporter {
 
     /** The log associated to this class */
-    private static Logger log = Logger
+    private static Logger log = LogManager
 	    .getLogger(AJTabSeparatedValueImporter.class);
 
     /** Default constructor */

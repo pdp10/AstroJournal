@@ -157,6 +157,9 @@ v0.10
 - Added Tango icon set to AJ menu items.
 - Added Darkness as new Observation parameter. This can be used for recording 
 sky quality reading using meters such as SQM-L.
+- Migrated from junit 4.11 to 4.12
+- Migrated from apache log4j 1.2 to 2.5
+
 
 v0.9
 

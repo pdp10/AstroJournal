@@ -33,7 +33,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.astrojournal.headerfooter.AJLatexFooter;
 import org.astrojournal.headerfooter.AJLatexHeader;
 import org.astrojournal.observation.AJObservation;
@@ -49,7 +50,7 @@ import org.astrojournal.observation.AJObservationItem;
 public class AJExporterByDate extends AJExporter {
 
     /** The log associated to this class */
-    private static Logger log = Logger.getLogger(AJExporterByDate.class);
+    private static Logger log = LogManager.getLogger(AJExporterByDate.class);
 
     /**
      * Default constructor

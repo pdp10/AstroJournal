@@ -28,7 +28,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * The Header Footer of the LaTeX main file.
@@ -40,7 +41,7 @@ import org.apache.log4j.Logger;
 public abstract class AJLatexHeaderFooter {
 
     /** The log associated to this class */
-    private static Logger log = Logger.getLogger(AJLatexHeaderFooter.class);
+    private static Logger log = LogManager.getLogger(AJLatexHeaderFooter.class);
 
     /**
      * Imports a LaTeX file

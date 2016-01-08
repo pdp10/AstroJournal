@@ -2,15 +2,3 @@ AstroJournal (General Public License v3)
 Copyright 2015-2016 Piero Dalle Pezze
 
 Website: http://pdp10.github.io/AstroJournal/
-
-
-Libraries used by AstroJournal:
-- junit 4.11 (Eclipse Public License v1)
-- log4j 1.2.16 (Apache License v2)
-- apache commons-io 2.4 (Apache License v2)
-- apache commons-lang3 3.4 (Apache License v2)
-
-
-Part of the code used for AstroJournal GUI was taken 
-from the following open source software:
-- BamQC (https://github.com/s-andrews/BamQC) (General Public License v3)

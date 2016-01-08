@@ -36,7 +36,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.astrojournal.headerfooter.AJLatexFooter;
 import org.astrojournal.headerfooter.AJLatexHeader;
 import org.astrojournal.observation.AJObservation;
@@ -52,7 +53,7 @@ import org.astrojournal.observation.AJObservationItem;
 public class AJExporterByTarget extends AJExporter {
 
     /** The log associated to this class */
-    private static Logger log = Logger.getLogger(AJExporterByTarget.class);
+    private static Logger log = LogManager.getLogger(AJExporterByTarget.class);
 
     /** A cache of the visited targets. */
     private HashSet<String> processedTargetCache = new HashSet<String>(1000);

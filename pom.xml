@@ -12,22 +12,49 @@
   <!-- Output to jar format -->
   <packaging>jar</packaging>
   
-  <version>0.10</version>
+  <version>0.10.0</version>
   <name>AstroJournal</name>
+  <description>AstroJournal is a tool for generating astronomy observation reports in LaTeX.</description>
   <url>https://github.com/pdp10/AstroJournal</url>
- 
+  <inceptionYear>2015</inceptionYear>
+  <organization>
+        <name>AstroJournal</name>
+        <url>https://github.com/pdp10/AstroJournal</url>
+  </organization>
+  <licenses>
+        <license>
+            <name>General Public License 3.0</name>
+            <url>http://www.gnu.org/licenses/gpl-3.0.en.html</url>
+            <distribution>repo</distribution>
+        </license>
+  </licenses>
+    <developers>
+        <developer>
+            <id>pdp</id>
+            <name>Piero Dalle Pezze</name>
+            <email>piero.dallepezze@gmail.com</email>
+        </developer>
+    </developers>    
+  
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/pdp10/astrojournal/issues</url>
+    </issueManagement>    
+
+    
   <dependencies>
+    <!--
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
+	<groupId>org.apache.logging.log4j</groupId>
+	<artifactId>log4j-api</artifactId>
+	<version>2.5</version>
+    </dependency>    
+    -->
+    <dependency>
+	<groupId>org.apache.logging.log4j</groupId>
+	<artifactId>log4j-core</artifactId>
+	<version>2.5</version>
     </dependency>
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.16</version>
-	</dependency>
 	<dependency>
 		<groupId>commons-io</groupId>
 		<artifactId>commons-io</artifactId>
@@ -38,10 +65,17 @@
 		<artifactId>commons-lang3</artifactId>
 		<version>3.4</version>
 	</dependency>
-
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   
+  
   <build>
+    
   <plugins>
   <plugin>
     <artifactId>maven-assembly-plugin</artifactId>
@@ -71,13 +105,24 @@
      <artifactId>maven-compiler-plugin</artifactId>
      <version>3.3</version>
      <configuration>
-       <source>1.6</source>
-       <target>1.6</target>
+       <source>1.7</source>
+       <target>1.7</target>
      </configuration>
   </plugin>
   
+  <plugin>
+      <artifactId>maven-surefire-plugin</artifactId>
+      <version>2.19.1</version>
+      <configuration>
+	  <test>main/AllTests.java</test>
+	  <useSystemClassLoader>true</useSystemClassLoader>
+	  <enableAssertions>false</enableAssertions>
+      </configuration>
+  </plugin>  
+  
+  
   </plugins> 
-
+  
   </build>
   
 </project>

@@ -35,7 +35,8 @@ import java.util.Collections;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.astrojournal.observation.AJObservation;
 import org.astrojournal.observation.AJObservationItem;
 
@@ -49,7 +50,7 @@ import org.astrojournal.observation.AJObservationItem;
 public class AJExporterByDateSGL extends AJExporter {
 
     /** The log associated to this class */
-    private static Logger log = Logger.getLogger(AJExporterByDateSGL.class);
+    private static Logger log = LogManager.getLogger(AJExporterByDateSGL.class);
 
     /**
      * Default constructor
