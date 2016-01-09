@@ -43,6 +43,7 @@ import javax.swing.text.DefaultCaret;
 
 import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.gui.dialogs.StatusPanel;
+import org.astrojournal.gui.dialogs.WelcomePanel;
 import org.astrojournal.gui.menu.AJMenuBar;
 import org.astrojournal.utilities.RedirectStreamsToAJTextArea;
 
@@ -60,8 +61,12 @@ public class AJMainGUI extends JFrame {
 
     private JCheckBox cbxLatexOutput;
     private JButton btnCreateJournal;
-    private JButton btnClose;
+    private JButton btnQuit;
     private JTextArea textArea;
+    private JPanel mainPanel;
+    private WelcomePanel welcomePanel;
+    private JPanel outputPanel;
+    private JPanel controlPanel;
     private StatusPanel statusPanel;
     private boolean latexOutput = AJConfig.getInstance().isLatexOutput();
     private AJMainGUIControls commandRunner;
@@ -107,6 +112,15 @@ public class AJMainGUI extends JFrame {
      * Create the astro journals.
      */
     public void createJournals() {
+
+	if (mainPanel.getComponent(0) instanceof WelcomePanel) {
+	    // Replace the welcome panel with the output panel
+	    remove(mainPanel);
+	    mainPanel.remove(welcomePanel);
+	    mainPanel.add(outputPanel, BorderLayout.CENTER);
+	    add(mainPanel);
+	}
+
 	// define a SwingWorker to run in background
 	// In this way the output is printed gradually as it is
 	// generated.
@@ -116,7 +130,13 @@ public class AJMainGUI extends JFrame {
 		setStatusPanelText(AJConfig.BUNDLE
 			.getString("AJ.lblFileGenerationinProgressLong.text"));
 		cleanTextArea();
+		btnCreateJournal.setEnabled(false);
+		menu.setEnabled("create_journal", false);
+		menu.setEnabled("preferences", false);
 		commandRunner.createJournal(latexOutput);
+		btnCreateJournal.setEnabled(true);
+		menu.setEnabled("create_journal", true);
+		menu.setEnabled("preferences", true);
 		return "";
 	    }
 	};
@@ -145,13 +165,13 @@ public class AJMainGUI extends JFrame {
 
 	commandRunner = new AJMainGUIControls(this);
 
-	// Configure AJMiniGUI with basic parameters
+	// Configure AJMainGUI with basic parameters
 	setTitle(AJConfig.APPLICATION_NAME + " " + AJConfig.APPLICATION_VERSION);
 	setIconImage(new ImageIcon(
 		ClassLoader.getSystemResource("graphics/logo/aj_icon_32.png"))
 		.getImage());
 	setSize(600, 600);
-	setMinimumSize(new Dimension(480, 300));
+	setMinimumSize(new Dimension(520, 350));
 	setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	setResizable(true);
 	getContentPane().setLayout(new BorderLayout());
@@ -194,6 +214,8 @@ public class AJMainGUI extends JFrame {
 	btnCreateJournal = new JButton();
 	btnCreateJournal.setText(AJConfig.BUNDLE
 		.getString("AJ.cmdCreateJournal.text"));
+	btnCreateJournal.setIcon(new ImageIcon(ClassLoader
+		.getSystemResource("graphics/icons/create_journals_16.png")));
 	btnCreateJournal.addActionListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
@@ -204,36 +226,45 @@ public class AJMainGUI extends JFrame {
 	getRootPane().setDefaultButton(btnCreateJournal);
 
 	// Create the button for closing the application
-	btnClose = new JButton();
-	btnClose.setText(AJConfig.BUNDLE.getString("AJ.cmdClose.text"));
-	btnClose.addActionListener(new ActionListener() {
+	btnQuit = new JButton();
+	btnQuit.setIcon(new ImageIcon(ClassLoader
+		.getSystemResource("graphics/icons/quit_16.png")));
+	btnQuit.setText(AJConfig.BUNDLE.getString("AJ.cmdQuit.text"));
+	btnQuit.addActionListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
 		closeApplication();
 	    }
 	});
 
+	// Setup for the welcome panel
+	welcomePanel = new WelcomePanel();
+
+	// Setup for the output panel
+	outputPanel = new JPanel(new BorderLayout());
+	outputPanel.add(
+		new JLabel(AJConfig.BUNDLE.getString("AJ.lblOutput.text")),
+		BorderLayout.NORTH);
+	outputPanel.add(scrollPane, BorderLayout.CENTER);
+
+	// Setup for the control panel
 	// Create the control panel containing the button and the checkbox
-	JPanel controlPanel = new JPanel();
+	controlPanel = new JPanel();
 	controlPanel.add(new JLabel(AJConfig.BUNDLE
 		.getString("AJ.lblShowLatexOutput.text")));
 	controlPanel.add(cbxLatexOutput);
 	controlPanel.add(btnCreateJournal);
-	controlPanel.add(btnClose);
+	controlPanel.add(btnQuit);
 
-	// Create the main panel containing the text area and the control panel
-	JPanel mainPanel = new JPanel(new BorderLayout());
+	// Add welcome panel and control panel inside the main panel
+	mainPanel = new JPanel(new BorderLayout());
 	mainPanel.setPreferredSize(getContentPane().getPreferredSize());
-	mainPanel.add(
-		new JLabel(AJConfig.BUNDLE.getString("AJ.lblOutput.text")),
-		BorderLayout.NORTH);
-	mainPanel.add(scrollPane, BorderLayout.CENTER);
+	mainPanel.add(welcomePanel, BorderLayout.CENTER);
 	mainPanel.add(controlPanel, BorderLayout.SOUTH);
 
 	// Add the main panel and the status panel to the frame.
 	add(mainPanel, BorderLayout.CENTER);
 	add(statusPanel, BorderLayout.SOUTH);
-
     }
 
     /**

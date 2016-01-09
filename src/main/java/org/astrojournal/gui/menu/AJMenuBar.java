@@ -37,6 +37,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.configuration.PreferencesDialog;
 import org.astrojournal.gui.AJMainGUI;
@@ -53,6 +55,9 @@ import org.astrojournal.gui.dialogs.LicenseDialog;
  * @date 13 Dec 2015
  */
 public class AJMenuBar extends JMenuBar implements ActionListener {
+
+    /** The log associated to this class */
+    private static Logger log = LogManager.getLogger(AJMenuBar.class);
 
     private static final long serialVersionUID = 7811240084595362788L;
 
@@ -212,4 +217,21 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 		    JOptionPane.ERROR_MESSAGE);
 	}
     }
+
+    /**
+     * Enable or disable the menu items.
+     * 
+     * @param action
+     * @param enabled
+     */
+    public void setEnabled(String action, boolean enabled) {
+	if (action.equals("create_journal")) {
+	    fileCreateJournal.setEnabled(enabled);
+	} else if (action.equals("preferences")) {
+	    editPreferences.setEnabled(enabled);
+	} else {
+	    log.error("Unknown action : " + action);
+	}
+    }
+
 }
