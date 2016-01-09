@@ -165,6 +165,7 @@ public class AJMainGUI extends JFrame {
 
 	// Create the text area containing the program text output
 	textArea = new JTextArea();
+	textArea.setFont(textArea.getFont().deriveFont(12f));
 	// Move the JScrollPane to the bottom automatically.
 	DefaultCaret caret = (DefaultCaret) textArea.getCaret();
 	caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
