@@ -95,8 +95,9 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 		// Read all lines
 		boolean foundWrongDate = false;
 		while ((line = reader.readLine()) != null) {
+		    line = line.trim();
 		    // log.debug(line);
-		    if (line.trim().equals("") || line.trim().startsWith("#")) {
+		    if (line.equals("") || line.startsWith("#")) {
 			// comments or empty line. Skip
 
 		    } else if (line.indexOf(AJTabSeparatedValueImporter
@@ -116,7 +117,7 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 			if (!foundWrongDate) {
 			    foundWrongDate = true;
 			    log.warn("Expected 'Date' but found unknown property ["
-				    + line.trim() + "]. Report discarded.");
+				    + line + "]. Report discarded.");
 			}
 		    }
 
@@ -183,12 +184,19 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 	}
 	// Read the other lines for this observation
 	while ((line = reader.readLine()) != null) {
+	    line = line.trim();
 	    values = line.split(delimiter);
 	    // clean the field values if containing quotes at the beginning or
 	    // end
 	    cleanFields();
-	    if (values.length == 0 || line.trim().equals("")) {
+	    if (values.length == 0 || line.equals("")) {
 		return;
+	    }
+	    if (values.length == 1) {
+		// We also accept naked eye observations. Therefore, the only
+		// required value
+		// is the date.
+		values = (line + '\t' + " ").split(delimiter);
 	    }
 	    if (values.length == 2) {
 		if (values[0].toLowerCase().equals(
@@ -250,16 +258,17 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 			&& values[4].toLowerCase().equals(
 				AJObservationItem.NOTES_NAME.toLowerCase())) {
 		    while ((line = reader.readLine()) != null) {
+			line = line.trim();
 			values = line.split(delimiter);
 			// clean the field values if containing quotes at the
 			// beginning or end
 			cleanFields();
-			if (line.trim().equals("")) {
+			if (line.equals("")) {
 			    return;
 			}
 			if (values.length != 5) {
 			    log.warn("Report:" + obs.getDate()
-				    + ". Malformed target [" + line.trim()
+				    + ". Malformed target [" + line
 				    + "]. Target discarded.");
 			    break;
 			}
@@ -281,7 +290,7 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 		}
 	    } else {
 		log.warn("Report:" + obs.getDate() + ". Malformed property ["
-			+ line.trim() + "]. Property discarded.");
+			+ line + "]. Property discarded.");
 	    }
 	}
     }
