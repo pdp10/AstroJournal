@@ -30,6 +30,7 @@ import javax.help.JHelp;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.gui.AJMainGUI;
@@ -70,6 +71,7 @@ public class HelpDialog {
 
 	frame = new JFrame();
 	frame.setSize(550, 450);
+	frame.setTitle(AJConfig.BUNDLE.getString("AJ.mnuHelpContents.text"));
 	frame.setIconImage(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/logo/aj_icon_32.png")).getImage());
 	frame.getContentPane().add(helpViewer);
@@ -78,7 +80,17 @@ public class HelpDialog {
 
     }
 
+    /**
+     * A simple menu for testing this help.
+     * 
+     * @param args
+     */
     public static void main(String args[]) {
+	try {
+	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+	} catch (Exception ex) {
+	}
+
 	java.awt.EventQueue.invokeLater(new Runnable() {
 	    @Override
 	    public void run() {
