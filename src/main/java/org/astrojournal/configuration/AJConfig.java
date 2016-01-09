@@ -61,7 +61,7 @@ public class AJConfig {
     public static final String APPLICATION_NAME = "AstroJournal";
 
     /** The AJ application version. */
-    public static final String APPLICATION_VERSION = "v0.10";
+    public static final String APPLICATION_VERSION = "v0.10.0";
 
     /** The name of the main Latex file sorted by date. */
     public static final String REPORT_BY_DATE_FILENAME = "astrojournal_by_date.tex";
@@ -233,8 +233,8 @@ public class AJConfig {
 		    if (ajFilesLocation == null || !ajFilesLocation.exists()
 			    || !ajFilesLocation.canWrite()) {
 			ajFilesLocation = oldAJFilesLocation;
-			System.out.println(
-				"Warning: The location for storing AJ Files does not exist.\n"
+			System.out
+				.println("Warning: The location for storing AJ Files does not exist.\n"
 					+ "Check Edit > Preference or "
 					+ configFile.getAbsolutePath()
 					+ ".\nUsing default path: "
@@ -245,8 +245,7 @@ public class AJConfig {
 		    rawReportsFolder = sections[1];
 		} else if (sections[0].equals("latex_reports_folder_by_date")) {
 		    latexReportsFolderByDate = sections[1];
-		} else if (sections[0]
-			.equals("latex_reports_folder_by_target")) {
+		} else if (sections[0].equals("latex_reports_folder_by_target")) {
 		    latexReportsFolderByTarget = sections[1];
 		} else if (sections[0]
 			.equals("latex_reports_folder_by_constellation")) {
@@ -254,9 +253,9 @@ public class AJConfig {
 		} else if (sections[0].equals("sgl_reports_folder_by_date")) {
 		    sglReportsFolderByDate = sections[1];
 		} else {
-		    System.err.println(
-			    "Warning: Found unknown parameter '" + sections[0]
-				    + "' in AstroJournal configuration file.");
+		    System.err.println("Warning: Found unknown parameter '"
+			    + sections[0]
+			    + "' in AstroJournal configuration file.");
 		}
 		if (!correctLocation) {
 		    savePreferences();
@@ -285,8 +284,7 @@ public class AJConfig {
 
 	PrintWriter pw = new PrintWriter(new FileWriter(configFile));
 
-	pw.println(
-		"# AstroJournal configuration file. You should not edit this file.\n");
+	pw.println("# AstroJournal configuration file. You should not edit this file.\n");
 
 	// Let's now right down the configuration
 	pw.println("latex_output=" + latexOutput);
@@ -296,8 +294,8 @@ public class AJConfig {
 	pw.println("aj_files_location=" + ajFilesLocation.getAbsolutePath());
 	pw.println("raw_reports_folder=" + rawReportsFolder);
 	pw.println("latex_reports_folder_by_date=" + latexReportsFolderByDate);
-	pw.println(
-		"latex_reports_folder_by_target=" + latexReportsFolderByTarget);
+	pw.println("latex_reports_folder_by_target="
+		+ latexReportsFolderByTarget);
 	pw.println("latex_reports_folder_by_constellation="
 		+ latexReportsFolderByConstellation);
 	pw.println("sgl_reports_folder_by_date=" + sglReportsFolderByDate);
@@ -347,9 +345,9 @@ public class AJConfig {
 	    ajFilesLocation = new File(
 		    System.getProperty("aj.aj_files_location"));
 	    if (!(ajFilesLocation.exists() && ajFilesLocation.canWrite())) {
-		throw new IllegalArgumentException(
-			"AJ File Location " + ajFilesLocation
-				+ " does not exist or is not writeable");
+		throw new IllegalArgumentException("AJ File Location "
+			+ ajFilesLocation
+			+ " does not exist or is not writeable");
 	    }
 	}
 
@@ -372,10 +370,9 @@ public class AJConfig {
 	}
 
 	// Latex reports folder by constellation
-	if (System.getProperty(
-		"aj.latex_reports_folder_by_constellation") != null) {
-	    latexReportsFolderByConstellation = new String(System
-		    .getProperty("aj.latex_reports_folder_by_constellation"));
+	if (System.getProperty("aj.latex_reports_folder_by_constellation") != null) {
+	    latexReportsFolderByConstellation = new String(
+		    System.getProperty("aj.latex_reports_folder_by_constellation"));
 	}
 
 	// SGL reports folder by date
@@ -472,7 +469,9 @@ public class AJConfig {
      * @return a string
      */
     public String printLicense() {
-	String license = APPLICATION_NAME + " " + APPLICATION_VERSION
+	String license = APPLICATION_NAME
+		+ " "
+		+ APPLICATION_VERSION
 		+ " is free software: you can redistribute it and/or modify \n"
 		+ "it under the terms of the GNU General Public License as published by \n"
 		+ "the Free Software Foundation, either version 3 of the License, or \n"

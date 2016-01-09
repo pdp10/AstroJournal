@@ -151,7 +151,7 @@ You can run AstroJournal on GNU/Linux typing:
 
 ### Changelog
 
-v0.10
+v0.10.0
 
 - Several bug fixes
 - Added Tango icon set to AJ menu items.

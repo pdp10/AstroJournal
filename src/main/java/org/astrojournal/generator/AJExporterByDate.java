@@ -100,6 +100,9 @@ public class AJExporterByDate extends AJExporter {
 	    File[] files = new File(ajFilesLocation.getAbsolutePath()
 		    + File.separator + latexReportsFolderByDate).listFiles();
 	    if (files == null) {
+		System.out.println("Folder "
+			+ ajFilesLocation.getAbsolutePath() + File.separator
+			+ latexReportsFolderByDate + " not found");
 		log.warn("Folder " + ajFilesLocation.getAbsolutePath()
 			+ File.separator + latexReportsFolderByDate
 			+ " not found");
@@ -123,6 +126,9 @@ public class AJExporterByDate extends AJExporter {
 	    writerByDate.write(ajLatexFooterByDate.getFooter());
 
 	} catch (IOException ex) {
+	    System.out.println("Error when opening the file "
+		    + ajFilesLocation.getAbsolutePath() + File.separator
+		    + latexMainByDate);
 	    log.warn("Error when opening the file "
 		    + ajFilesLocation.getAbsolutePath() + File.separator
 		    + latexMainByDate);
@@ -241,7 +247,12 @@ public class AJExporterByDate extends AJExporter {
 		System.out.println("\tExported report " + obs.getDate() + " ("
 			+ observationItems.size() + " targets)");
 	    } catch (IOException ex) {
-		log.warn("Error when opening the file");
+		System.out.println("Error when opening the file "
+			+ ajFilesLocation.getAbsolutePath() + File.separator
+			+ filenameOut);
+		log.warn("Error when opening the file "
+			+ ajFilesLocation.getAbsolutePath() + File.separator
+			+ filenameOut);
 		result = false;
 	    } catch (Exception ex) {
 		log.warn(ex);

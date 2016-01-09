@@ -116,6 +116,9 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 		    } else {
 			if (!foundWrongDate) {
 			    foundWrongDate = true;
+			    System.out
+				    .println("Expected 'Date' but found unknown property ["
+					    + line + "]. Report discarded.");
 			    log.warn("Expected 'Date' but found unknown property ["
 				    + line + "]. Report discarded.");
 			}
@@ -240,6 +243,9 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 		    obs.setFilters(values[1]);
 		    log.debug(AJObservation.FILTERS_NAME + "=" + values[1]);
 		} else {
+		    System.out.println("Report:" + obs.getDate()
+			    + ". Unknown property [" + values[0] + ":"
+			    + values[1] + "]. Property discarded.");
 		    log.warn("Report:" + obs.getDate() + ". Unknown property ["
 			    + values[0] + ":" + values[1]
 			    + "]. Property discarded.");
@@ -267,6 +273,9 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 			    return;
 			}
 			if (values.length != 5) {
+			    System.out.println("Report:" + obs.getDate()
+				    + ". Malformed target [" + line
+				    + "]. Target discarded.");
 			    log.warn("Report:" + obs.getDate()
 				    + ". Malformed target [" + line
 				    + "]. Target discarded.");
@@ -277,18 +286,35 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 				+ values[0]);
 			AJObservationItem item = new AJObservationItem();
 			item.setTarget(values[0]);
+			log.debug(AJObservationItem.TARGET_NAME + "="
+				+ values[0]);
 			item.setConstellation(values[1]);
+			log.debug(AJObservationItem.CONSTELLATION_NAME + "="
+				+ values[1]);
 			item.setType(values[2]);
+			log.debug(AJObservationItem.TYPE_NAME + "=" + values[2]);
 			item.setPower(values[3]);
-			item.setNotes(values[4].replace("%", "\\%"));
+			log.debug(AJObservationItem.POWER_NAME + "="
+				+ values[3]);
+			item.setNotes(values[4].replace("%", "\\%").replace(
+				"&", " and "));
+			log.debug(AJObservationItem.NOTES_NAME + "="
+				+ values[4]);
 			obs.addObservationItem(item);
 		    }
 		} else {
+		    System.out.println("Report:" + obs.getDate()
+			    + ". Unknown property [" + values[0] + " "
+			    + values[1] + " " + values[2] + " " + values[3]
+			    + " " + values[4] + "]");
 		    log.warn("Report:" + obs.getDate() + ". Unknown property ["
 			    + values[0] + " " + values[1] + " " + values[2]
 			    + " " + values[3] + " " + values[4] + "]");
 		}
 	    } else {
+		System.out.println("Report:" + obs.getDate()
+			+ ". Malformed property [" + line
+			+ "]. Property discarded.");
 		log.warn("Report:" + obs.getDate() + ". Malformed property ["
 			+ line + "]. Property discarded.");
 	    }

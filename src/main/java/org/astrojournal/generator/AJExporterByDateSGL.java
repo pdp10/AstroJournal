@@ -91,6 +91,9 @@ public class AJExporterByDateSGL extends AJExporter {
 	    File[] files = new File(ajFilesLocation.getAbsolutePath()
 		    + File.separator + reportsFolderByDate).listFiles();
 	    if (files == null) {
+		System.out.println("Folder "
+			+ ajFilesLocation.getAbsolutePath() + File.separator
+			+ reportsFolderByDate + " not found");
 		log.warn("Folder " + ajFilesLocation.getAbsolutePath()
 			+ File.separator + reportsFolderByDate + " not found");
 		return;
@@ -116,6 +119,9 @@ public class AJExporterByDateSGL extends AJExporter {
 	    // write the Footer
 
 	} catch (IOException ex) {
+	    System.out.println("Error when opening the file "
+		    + ajFilesLocation.getAbsolutePath() + File.separator
+		    + mainByDate);
 	    log.warn("Error when opening the file "
 		    + ajFilesLocation.getAbsolutePath() + File.separator
 		    + mainByDate);
@@ -204,7 +210,12 @@ public class AJExporterByDateSGL extends AJExporter {
 		System.out.println("\tExported report " + obs.getDate() + " ("
 			+ observationItems.size() + " targets)");
 	    } catch (IOException ex) {
-		log.warn("Error when opening the file");
+		System.out.println("Error when opening the file "
+			+ ajFilesLocation.getAbsolutePath() + File.separator
+			+ filenameOut);
+		log.warn("Error when opening the file "
+			+ ajFilesLocation.getAbsolutePath() + File.separator
+			+ filenameOut);
 		result = false;
 	    } catch (Exception ex) {
 		log.warn(ex);
