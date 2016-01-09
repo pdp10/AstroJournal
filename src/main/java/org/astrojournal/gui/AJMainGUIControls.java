@@ -85,69 +85,87 @@ public class AJMainGUIControls {
 	    // The pdflatex command must be called two times in order to
 	    // generate the list of contents correctly.
 	    String commandOutput;
-	    commandOutput = RunExternalCommand
-		    .runCommand("pdflatex " + AJConfig.REPORT_BY_DATE_FILENAME);
+	    commandOutput = RunExternalCommand.runCommand("pdflatex "
+		    + AJConfig.REPORT_BY_DATE_FILENAME);
 	    if (latexOutput)
-		ajMainGUI.appendTextToTextArea(commandOutput + "\n");
-	    commandOutput = RunExternalCommand
-		    .runCommand("pdflatex " + AJConfig.REPORT_BY_DATE_FILENAME);
+		ajMainGUI.appendTextToTextPane(commandOutput + "\n", false);
+	    commandOutput = RunExternalCommand.runCommand("pdflatex "
+		    + AJConfig.REPORT_BY_DATE_FILENAME);
 	    // if(latexOutput) ajMainGUI.appendText(commandOutput + "\n");
 
-	    commandOutput = RunExternalCommand.runCommand(
-		    "pdflatex " + AJConfig.REPORT_BY_TARGET_FILENAME);
+	    commandOutput = RunExternalCommand.runCommand("pdflatex "
+		    + AJConfig.REPORT_BY_TARGET_FILENAME);
 	    if (latexOutput)
-		ajMainGUI.appendTextToTextArea(commandOutput + "\n");
-	    commandOutput = RunExternalCommand.runCommand(
-		    "pdflatex " + AJConfig.REPORT_BY_TARGET_FILENAME);
+		ajMainGUI.appendTextToTextPane(commandOutput + "\n", false);
+	    commandOutput = RunExternalCommand.runCommand("pdflatex "
+		    + AJConfig.REPORT_BY_TARGET_FILENAME);
 	    // if(latexOutput) ajMainGUI.appendText(commandOutput + "\n");
 
-	    commandOutput = RunExternalCommand.runCommand(
-		    "pdflatex " + AJConfig.REPORT_BY_CONSTELLATION_FILENAME);
+	    commandOutput = RunExternalCommand.runCommand("pdflatex "
+		    + AJConfig.REPORT_BY_CONSTELLATION_FILENAME);
 	    if (latexOutput)
-		ajMainGUI.appendTextToTextArea(commandOutput + "\n");
-	    commandOutput = RunExternalCommand.runCommand(
-		    "pdflatex " + AJConfig.REPORT_BY_CONSTELLATION_FILENAME);
-		    // if(latexOutput) ajMainGUI.appendText(commandOutput +
-		    // "\n");
+		ajMainGUI.appendTextToTextPane(commandOutput + "\n", false);
+	    commandOutput = RunExternalCommand.runCommand("pdflatex "
+		    + AJConfig.REPORT_BY_CONSTELLATION_FILENAME);
+	    // if(latexOutput) ajMainGUI.appendText(commandOutput +
+	    // "\n");
 
 	    // Add this at the end to avoid mixing with the latex command
 	    // output.
-	    ajMainGUI.appendTextToTextArea("\n"
-		    + AJConfig.BUNDLE.getString("AJ.lblCreatedReports.text")
-		    + " \n");
+	    ajMainGUI.appendTextToTextPane(
+		    "\n"
+			    + AJConfig.BUNDLE
+				    .getString("AJ.lblCreatedReports.text")
+			    + " \n", false);
 	    ajMainGUI
-		    .appendTextToTextArea("\t" + path + File.separator
-			    + FilenameUtils.removeExtension(
-				    AJConfig.REPORT_BY_DATE_FILENAME)
-		    + ".pdf\n");
+		    .appendTextToTextPane(
+			    "\t"
+				    + path
+				    + File.separator
+				    + FilenameUtils
+					    .removeExtension(AJConfig.REPORT_BY_DATE_FILENAME)
+				    + ".pdf\n", false);
 	    ajMainGUI
-		    .appendTextToTextArea("\t" + path + File.separator
-			    + FilenameUtils.removeExtension(
-				    AJConfig.REPORT_BY_TARGET_FILENAME)
-		    + ".pdf\n");
-	    ajMainGUI.appendTextToTextArea("\t" + path + File.separator
-		    + FilenameUtils.removeExtension(
-			    AJConfig.REPORT_BY_CONSTELLATION_FILENAME)
-		    + ".pdf\n");
+		    .appendTextToTextPane(
+			    "\t"
+				    + path
+				    + File.separator
+				    + FilenameUtils
+					    .removeExtension(AJConfig.REPORT_BY_TARGET_FILENAME)
+				    + ".pdf\n", false);
+	    ajMainGUI
+		    .appendTextToTextPane(
+			    "\t"
+				    + path
+				    + File.separator
+				    + FilenameUtils
+					    .removeExtension(AJConfig.REPORT_BY_CONSTELLATION_FILENAME)
+				    + ".pdf\n", false);
 
 	    // clean folders from LaTeX temporary, log, and output files
 	    if (SystemUtils.IS_OS_WINDOWS) {
 		commandOutput = RunExternalCommand
 			.runCommand("cmd /c del /s *.aux *.toc *.log *.out");
 	    } else {
-		Runtime.getRuntime().exec(new String[] { "/bin/sh", "-c",
-			"cd " + AJConfig.getInstance().getAJFilesLocation()
-				.getAbsolutePath()
-			+ " && rm -rf *.aux *.toc *.log *.out " + " && cd -" });
+		Runtime.getRuntime().exec(
+			new String[] {
+				"/bin/sh",
+				"-c",
+				"cd "
+					+ AJConfig.getInstance()
+						.getAJFilesLocation()
+						.getAbsolutePath()
+					+ " && rm -rf *.aux *.toc *.log *.out "
+					+ " && cd -" });
 	    }
 
-	    ajMainGUI.setStatusPanelText(
-		    AJConfig.BUNDLE.getString("AJ.lblCreatedReportsLong.text"));
+	    ajMainGUI.setStatusPanelText(AJConfig.BUNDLE
+		    .getString("AJ.lblCreatedReportsLong.text"));
 	} catch (IOException ioe) {
 	    System.err
 		    .println(AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"));
-	    ajMainGUI.setStatusPanelText(
-		    AJConfig.BUNDLE.getString("AJ.errPDFLatexShort.text"));
+	    ajMainGUI.setStatusPanelText(AJConfig.BUNDLE
+		    .getString("AJ.errPDFLatexShort.text"));
 	}
     }
 

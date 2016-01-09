@@ -96,7 +96,11 @@ public class AJGenerator {
      * Print the configuration for AstroJournal.
      */
     public void showConfiguration() {
-	System.out.println(AJConfig.getInstance().printConfiguration());
+	String[] conf = AJConfig.getInstance().printConfiguration().split("\n");
+	for (String str : conf) {
+	    System.out.println(str);
+	}
+	System.out.println();
     }
 
     /**

@@ -56,8 +56,8 @@ public class RunExternalCommand {
 	Process p = Runtime.getRuntime().exec(command, null,
 		AJConfig.getInstance().getAJFilesLocation());
 	// read the output messages from the command
-	BufferedReader stdInput = new BufferedReader(
-		new InputStreamReader(p.getInputStream()));
+	BufferedReader stdInput = new BufferedReader(new InputStreamReader(
+		p.getInputStream()));
 	sb.append("#######################\n\n");
 	sb.append("\n"
 		+ AJConfig.BUNDLE.getString("AJ.lblOutputForTheCommand.text")
@@ -67,8 +67,8 @@ public class RunExternalCommand {
 	    sb.append(temp).append("\n");
 	}
 	// read the error messages from the command
-	BufferedReader stdError = new BufferedReader(
-		new InputStreamReader(p.getErrorStream()));
+	BufferedReader stdError = new BufferedReader(new InputStreamReader(
+		p.getErrorStream()));
 	sb.append("\n"
 		+ AJConfig.BUNDLE.getString("AJ.lblErrorsForTheCommand.text")
 		+ " `" + command + "`:\n\n");

@@ -30,13 +30,13 @@ import java.io.PrintStream;
 import org.astrojournal.gui.AJMainGUI;
 
 /**
- * A simple class to redirect the console out and err streams to AJTextArea.
+ * A simple class to redirect the console out streams to AJTextArea.
  * 
  * @author Piero Dalle Pezze
  * @version 0.1
  * @since 22/12/2015
  */
-public class RedirectStreamsToAJTextArea extends OutputStream {
+public class RedirectOutputStreamToAJTextPane extends OutputStream {
     /**
      * The AJ Main GUI.
      */
@@ -48,10 +48,9 @@ public class RedirectStreamsToAJTextArea extends OutputStream {
      * @param ajMainGUI
      *            The AJ Main GUI
      */
-    public RedirectStreamsToAJTextArea(AJMainGUI ajMainGUI) {
+    public RedirectOutputStreamToAJTextPane(AJMainGUI ajMainGUI) {
 	this.ajMainGUI = ajMainGUI;
 	System.setOut(new PrintStream(this, true));
-	System.setErr(new PrintStream(this, true));
     }
 
     /**
@@ -59,7 +58,7 @@ public class RedirectStreamsToAJTextArea extends OutputStream {
      */
     @Override
     public void write(int b) throws IOException {
-	ajMainGUI.appendTextToTextArea(String.valueOf((char) b));
+	ajMainGUI.appendTextToTextPane(String.valueOf((char) b), false);
     }
 
     /**
@@ -67,7 +66,7 @@ public class RedirectStreamsToAJTextArea extends OutputStream {
      */
     @Override
     public void write(byte[] b, int off, int len) throws IOException {
-	ajMainGUI.appendTextToTextArea(new String(b, off, len));
+	ajMainGUI.appendTextToTextPane(new String(b, off, len), false);
     }
 
     /**
@@ -81,8 +80,7 @@ public class RedirectStreamsToAJTextArea extends OutputStream {
     @Override
     public void close() throws IOException {
 	super.close();
-	// reset the previous streams.
+	// reset the previous stream.
 	System.setOut(System.out);
-	System.setErr(System.err);
     }
 }

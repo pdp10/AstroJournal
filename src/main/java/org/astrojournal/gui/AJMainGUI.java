@@ -24,7 +24,9 @@
 package org.astrojournal.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -36,16 +38,23 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.SwingWorker;
 import javax.swing.WindowConstants;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
+import javax.swing.text.Document;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.gui.dialogs.StatusPanel;
 import org.astrojournal.gui.dialogs.WelcomePanel;
 import org.astrojournal.gui.menu.AJMenuBar;
-import org.astrojournal.utilities.RedirectStreamsToAJTextArea;
+import org.astrojournal.utilities.RedirectErrorStreamToAJTextPane;
+import org.astrojournal.utilities.RedirectOutputStreamToAJTextPane;
 
 /**
  * A very minimal graphical user interface for running AstroJournal without
@@ -57,12 +66,16 @@ import org.astrojournal.utilities.RedirectStreamsToAJTextArea;
  */
 public class AJMainGUI extends JFrame {
 
+    /** The log associated to this class */
+    private static Logger log = LogManager.getLogger(AJMainGUI.class);
+
     private static final long serialVersionUID = -7217707367091677434L;
 
     private JCheckBox cbxLatexOutput;
     private JButton btnCreateJournal;
     private JButton btnQuit;
-    private JTextArea textArea;
+    private JTextPane textPane;
+    private boolean isAppendingLatex = false;
     private JPanel mainPanel;
     private WelcomePanel welcomePanel;
     private JPanel outputPanel;
@@ -71,8 +84,9 @@ public class AJMainGUI extends JFrame {
     private boolean latexOutput = AJConfig.getInstance().isLatexOutput();
     private AJMainGUIControls commandRunner;
     private AJMenuBar menu = null;
-    // redirect the console streams to AJTextArea
-    private RedirectStreamsToAJTextArea redirect2TextArea;
+    // redirect the console streams to AJTextPane
+    private RedirectOutputStreamToAJTextPane redirectOutputStream2TextPane;
+    private RedirectErrorStreamToAJTextPane redirectErrorStream2TextPane;
 
     /**
      * Creates new form NewJFrame
@@ -85,7 +99,8 @@ public class AJMainGUI extends JFrame {
      * Clean the text area.
      */
     public void cleanTextArea() {
-	textArea.setText(" ");
+	textPane.setText(" ");
+	isAppendingLatex = false;
     }
 
     /**
@@ -93,9 +108,45 @@ public class AJMainGUI extends JFrame {
      * 
      * @param str
      *            the text to append
+     * @param errorStream
+     *            True if the error stream is appended
      */
-    public void appendTextToTextArea(final String str) {
-	textArea.append(str);
+    public void appendTextToTextPane(final String str, boolean errorStream) {
+	Style style = null;
+	if (str.startsWith("###")) {
+	    isAppendingLatex = true;
+	}
+
+	if (!isAppendingLatex) {
+	    if (str.startsWith(AJConfig.APPLICATION_NAME + " "
+		    + AJConfig.APPLICATION_VERSION)) {
+		style = textPane.addStyle("License", null);
+		StyleConstants.setItalic(style, true);
+		StyleConstants.setFontSize(style, 11);
+	    } else if (!str.startsWith("\t")) {
+		style = textPane.addStyle("BoldText", null);
+		StyleConstants.setBold(style, true);
+	    }
+	} else {
+	    if (str.indexOf("Created reports:") != -1) {
+		isAppendingLatex = false;
+		appendTextToTextPane(str, errorStream);
+		return;
+	    }
+	    style = textPane.addStyle("Latex", null);
+	    StyleConstants.setFontSize(style, 11);
+	}
+
+	if (errorStream) {
+	    style = textPane.addStyle("ErrorText", null);
+	    StyleConstants.setForeground(style, Color.RED);
+	}
+	try {
+	    Document doc = textPane.getDocument();
+	    doc.insertString(doc.getLength(), str, style);
+	} catch (BadLocationException e) {
+	    log.warn(e);
+	}
     }
 
     /**
@@ -149,7 +200,8 @@ public class AJMainGUI extends JFrame {
      */
     public void closeApplication() {
 	try {
-	    redirect2TextArea.close();
+	    redirectOutputStream2TextPane.close();
+	    redirectErrorStream2TextPane.close();
 	} catch (IOException e) {
 	}
 	dispose();
@@ -161,7 +213,9 @@ public class AJMainGUI extends JFrame {
      */
     private void initComponents() {
 
-	redirect2TextArea = new RedirectStreamsToAJTextArea(this);
+	redirectOutputStream2TextPane = new RedirectOutputStreamToAJTextPane(
+		this);
+	redirectErrorStream2TextPane = new RedirectErrorStreamToAJTextPane(this);
 
 	commandRunner = new AJMainGUIControls(this);
 
@@ -184,15 +238,14 @@ public class AJMainGUI extends JFrame {
 	statusPanel = new StatusPanel();
 
 	// Create the text area containing the program text output
-	textArea = new JTextArea();
-	textArea.setFont(textArea.getFont().deriveFont(12f));
+	textPane = new JTextPane();
+	Font font = new Font("Sans-serif", Font.PLAIN, 12);
+	textPane.setFont(font);
 	// Move the JScrollPane to the bottom automatically.
-	DefaultCaret caret = (DefaultCaret) textArea.getCaret();
+	DefaultCaret caret = (DefaultCaret) textPane.getCaret();
 	caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-	textArea.setEditable(false);
-	textArea.setLineWrap(true);
-	textArea.setWrapStyleWord(true);
-	JScrollPane scrollPane = new JScrollPane(textArea);
+	textPane.setEditable(false);
+	JScrollPane scrollPane = new JScrollPane(textPane);
 
 	// Create the checkbox for printing the Latex output
 	cbxLatexOutput = new JCheckBox();
