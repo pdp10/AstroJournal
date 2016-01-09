@@ -77,7 +77,7 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 		delimiter = "\t";
 	    } else {
 		System.err
-			.println("input files must be either .tsv or .csv . Field delimiter must be a TAB");
+			.println("Input files must be either .tsv or .csv . Field delimiter must be a TAB");
 		return observations;
 	    }
 
@@ -93,9 +93,13 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 		// rawFilename)));
 		String line;
 		// Read all lines
+		boolean foundWrongDate = false;
 		while ((line = reader.readLine()) != null) {
 		    // log.debug(line);
-		    if (line.indexOf(AJTabSeparatedValueImporter
+		    if (line.trim().equals("") || line.trim().startsWith("#")) {
+			// comments or empty line. Skip
+
+		    } else if (line.indexOf(AJTabSeparatedValueImporter
 			    .getInitialKeyword()) > -1) {
 			AJObservation obs = new AJObservation();
 			// this should receive (obs, rawReportsFolder) as input
@@ -106,7 +110,16 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 			importObservation(reader, obs, line, delimiter);
 			// Add the new observation to the list of observations
 			observations.add(obs);
+			foundWrongDate = false;
+
+		    } else {
+			if (!foundWrongDate) {
+			    foundWrongDate = true;
+			    log.warn("Expected 'Date' but found unknown property ["
+				    + line.trim() + "]. Report discarded.");
+			}
 		    }
+
 		} // end while
 	    } catch (IOException ex) {
 		ex.printStackTrace();
@@ -134,6 +147,7 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 	    if (values[i].endsWith("\"") || values[i].endsWith("\'")) {
 		values[i] = values[i].substring(0, values[i].length() - 1);
 	    }
+	    values[i] = values[i].trim();
 	}
     }
 
@@ -160,9 +174,12 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 	values = line.split(delimiter);
 	// clean the field values if containing quotes at the beginning or end
 	cleanFields();
-	if (values.length == 2 && values[0].equals(AJObservation.DATE_NAME)) {
-	    obs.setDate(values[1]);
-	    log.debug(AJObservation.DATE_NAME + "=" + values[1]);
+	if (values.length == 2) {
+	    if (values[0].toLowerCase().equals(
+		    AJObservation.DATE_NAME.toLowerCase())) {
+		obs.setDate(values[1]);
+		log.debug(AJObservation.DATE_NAME + "=" + values[1]);
+	    }
 	}
 	// Read the other lines for this observation
 	while ((line = reader.readLine()) != null) {
@@ -170,65 +187,101 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 	    // clean the field values if containing quotes at the beginning or
 	    // end
 	    cleanFields();
-	    if (values.length == 0 || values[0].equals("")) {
-		break;
+	    if (values.length == 0 || line.trim().equals("")) {
+		return;
 	    }
 	    if (values.length == 2) {
-		if (values[0].equals(AJObservation.TIME_NAME)) {
+		if (values[0].toLowerCase().equals(
+			AJObservation.TIME_NAME.toLowerCase())) {
 		    obs.setTime(values[1]);
 		    log.debug(AJObservation.TIME_NAME + "=" + values[1]);
-		} else if (values[0].equals(AJObservation.LOCATION_NAME)) {
+		} else if (values[0].toLowerCase().equals(
+			AJObservation.LOCATION_NAME.toLowerCase())) {
 		    obs.setLocation(values[1]);
 		    log.debug(AJObservation.LOCATION_NAME + "=" + values[1]);
-		} else if (values[0].equals(AJObservation.ALTITUDE_NAME)) {
+		} else if (values[0].toLowerCase().equals(
+			AJObservation.ALTITUDE_NAME.toLowerCase())) {
 		    obs.setAltitude(values[1]);
 		    log.debug(AJObservation.ALTITUDE_NAME + "=" + values[1]);
-		} else if (values[0].equals(AJObservation.TEMPERATURE_NAME)) {
+		} else if (values[0].toLowerCase().equals(
+			AJObservation.TEMPERATURE_NAME.toLowerCase())) {
 		    obs.setTemperature(values[1]);
 		    log.debug(AJObservation.TEMPERATURE_NAME + "=" + values[1]);
-		} else if (values[0].equals(AJObservation.SEEING_NAME)) {
+		} else if (values[0].toLowerCase().equals(
+			AJObservation.SEEING_NAME.toLowerCase())) {
 		    obs.setSeeing(values[1]);
 		    log.debug(AJObservation.SEEING_NAME + "=" + values[1]);
-		} else if (values[0].equals(AJObservation.TRANSPARENCY_NAME)) {
+		} else if (values[0].toLowerCase().equals(
+			AJObservation.TRANSPARENCY_NAME.toLowerCase())) {
 		    obs.setTransparency(values[1]);
 		    log.debug(AJObservation.TRANSPARENCY_NAME + "=" + values[1]);
-		} else if (values[0].equals(AJObservation.DARKNESS_NAME)) {
+		} else if (values[0].toLowerCase().equals(
+			AJObservation.DARKNESS_NAME.toLowerCase())) {
 		    obs.setSkyDarkness(values[1]);
 		    log.debug(AJObservation.DARKNESS_NAME + "=" + values[1]);
-		} else if (values[0].equals(AJObservation.TELESCOPES_NAME)) {
+		} else if (values[0].toLowerCase().equals(
+			AJObservation.TELESCOPES_NAME.toLowerCase())) {
 		    obs.setTelescopes(values[1]);
 		    log.debug(AJObservation.TELESCOPES_NAME + "=" + values[1]);
-		} else if (values[0].equals(AJObservation.EYEPIECES_NAME)) {
+		} else if (values[0].toLowerCase().equals(
+			AJObservation.EYEPIECES_NAME.toLowerCase())) {
 		    obs.setEyepieces(values[1]);
 		    log.debug(AJObservation.EYEPIECES_NAME + "=" + values[1]);
-		} else if (values[0].equals(AJObservation.FILTERS_NAME)) {
+		} else if (values[0].toLowerCase().equals(
+			AJObservation.FILTERS_NAME.toLowerCase())) {
 		    obs.setFilters(values[1]);
 		    log.debug(AJObservation.FILTERS_NAME + "=" + values[1]);
+		} else {
+		    log.warn("Report:" + obs.getDate() + ". Unknown property ["
+			    + values[0] + ":" + values[1]
+			    + "]. Property discarded.");
 		}
-	    } else if (values.length == 5
-		    && values[0].equals(AJObservationItem.TARGET_NAME)
-		    && values[1].equals(AJObservationItem.CONSTELLATION_NAME)
-		    && values[2].equals(AJObservationItem.TYPE_NAME)
-		    && values[3].equals(AJObservationItem.POWER_NAME)
-		    && values[4].equals(AJObservationItem.NOTES_NAME)) {
-		while ((line = reader.readLine()) != null) {
-		    values = line.split(delimiter);
-		    // clean the field values if containing quotes at the
-		    // beginning or end
-		    cleanFields();
-		    if (values.length != 5 || values[0].equals("")) {
-			break;
+	    } else if (values.length == 5) {
+
+		if (values[0].toLowerCase().equals(
+			AJObservationItem.TARGET_NAME.toLowerCase())
+			&& values[1].toLowerCase().equals(
+				AJObservationItem.CONSTELLATION_NAME
+					.toLowerCase())
+			&& values[2].toLowerCase().equals(
+				AJObservationItem.TYPE_NAME.toLowerCase())
+			&& values[3].toLowerCase().equals(
+				AJObservationItem.POWER_NAME.toLowerCase())
+			&& values[4].toLowerCase().equals(
+				AJObservationItem.NOTES_NAME.toLowerCase())) {
+		    while ((line = reader.readLine()) != null) {
+			values = line.split(delimiter);
+			// clean the field values if containing quotes at the
+			// beginning or end
+			cleanFields();
+			if (line.trim().equals("")) {
+			    return;
+			}
+			if (values.length != 5) {
+			    log.warn("Report:" + obs.getDate()
+				    + ". Malformed target [" + line.trim()
+				    + "]. Target discarded.");
+			    break;
+			}
+			// log.debug(line);
+			log.debug(AJObservationItem.TARGET_NAME + "="
+				+ values[0]);
+			AJObservationItem item = new AJObservationItem();
+			item.setTarget(values[0]);
+			item.setConstellation(values[1]);
+			item.setType(values[2]);
+			item.setPower(values[3]);
+			item.setNotes(values[4].replace("%", "\\%"));
+			obs.addObservationItem(item);
 		    }
-		    // log.debug(line);
-		    log.debug(AJObservationItem.TARGET_NAME + "=" + values[0]);
-		    AJObservationItem item = new AJObservationItem();
-		    item.setTarget(values[0]);
-		    item.setConstellation(values[1]);
-		    item.setType(values[2]);
-		    item.setPower(values[3]);
-		    item.setNotes(values[4].replace("%", "\\%"));
-		    obs.addObservationItem(item);
+		} else {
+		    log.warn("Report:" + obs.getDate() + ". Unknown property ["
+			    + values[0] + " " + values[1] + " " + values[2]
+			    + " " + values[3] + " " + values[4] + "]");
 		}
+	    } else {
+		log.warn("Report:" + obs.getDate() + ". Malformed property ["
+			+ line.trim() + "]. Property discarded.");
 	    }
 	}
     }
