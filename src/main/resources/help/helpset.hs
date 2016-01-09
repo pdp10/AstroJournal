@@ -14,6 +14,12 @@
 		<type>javax.help.TOCView</type>
 		<data>toc.xml</data>
 	</view>
+	
+        <!--
+        The command jhindexer is required for generating the folder JavaHelpSearch containing 
+	the index to be used for JHelp Search. Unfortunately, this program is no longer available.
+	I currently disable the Search menu.
+	
 	<view mergetype="javax.help.AppendMerge">
 		<name>Index</name>
 		<label>Index</label>
@@ -26,4 +32,6 @@
 		<type>javax.help.SearchView</type>
 		<data engine="com.sun.java.help.search.DefaultSearchEngine">JavaHelpSearch</data>
 	</view>
+	-->
+	
 </helpset>
