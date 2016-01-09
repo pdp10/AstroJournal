@@ -162,6 +162,7 @@ sky quality reading using meters such as SQM-L.
 - Integrated launch4j with maven pom.xml
 - Improved log4j levels and junit tests.
 - GUI refinements 
+- Text output is now structured. Error messages shown in red.
 
 v0.9
 
