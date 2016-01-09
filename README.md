@@ -161,6 +161,7 @@ sky quality reading using meters such as SQM-L.
 - Migrated from apache log4j 1.2 to 2.5
 - Integrated launch4j with maven pom.xml
 - Improved log4j levels and junit tests.
+- GUI refinements 
 
 v0.9
 
