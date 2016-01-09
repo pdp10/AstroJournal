@@ -29,10 +29,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
 
-import javax.help.HelpBroker;
-import javax.help.HelpSet;
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -44,6 +41,7 @@ import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.configuration.PreferencesDialog;
 import org.astrojournal.gui.AJMainGUI;
 import org.astrojournal.gui.dialogs.AboutDialog;
+import org.astrojournal.gui.dialogs.HelpDialog;
 import org.astrojournal.gui.dialogs.LicenseDialog;
 
 /**
@@ -176,29 +174,16 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 
 	if (action.equals("create_journals")) {
 	    application.createJournals();
+
 	} else if (action.equals("quit")) {
 	    application.closeApplication();
+
 	} else if (action.equals("edit_preferences")) {
 	    PreferencesDialog preferencesDialog = new PreferencesDialog(
 		    application);
+
 	} else if (action.equals("help_contents")) {
-	    // Initialisation of JavaHelp
-	    final String helpHS = "help/helpset.hs";
-	    try {
-		final ClassLoader classLoader = this.getClass()
-			.getClassLoader();
-		final URL hsURL = HelpSet.findHelpSet(classLoader, helpHS);
-		final HelpSet hs = new HelpSet(classLoader, hsURL);
-		final HelpBroker hb = hs.createHelpBroker();
-		hb.initPresentation();
-		hb.setDisplayed(true);
-		hb.setViewDisplayed(true);
-	    } catch (Exception ee) {
-		JOptionPane.showMessageDialog(application, AJConfig.BUNDLE
-			.getString("AJ.errHelpIndexNotFound.text"),
-			AJConfig.BUNDLE.getString("AJ.errFileNotFound.text"),
-			JOptionPane.ERROR_MESSAGE);
-	    }
+	    HelpDialog helpDialog = new HelpDialog(application);
 
 	} else if (action.equals("help_license")) {
 	    String license = "LICENSE.txt";
@@ -215,8 +200,10 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	    } catch (IOException e) {
 		e.printStackTrace();
 	    }
+
 	} else if (action.equals("help_about")) {
 	    AboutDialog aboutDialog = new AboutDialog(application);
+
 	} else {
 	    JOptionPane.showMessageDialog(application,
 		    AJConfig.BUNDLE.getString("AJ.errCommandNotFound.text")
