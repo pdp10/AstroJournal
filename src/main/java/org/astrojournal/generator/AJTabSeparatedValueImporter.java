@@ -116,7 +116,7 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 		    } else {
 			if (!foundWrongDate) {
 			    foundWrongDate = true;
-			    System.out
+			    System.err
 				    .println("Expected 'Date' but found unknown property ["
 					    + line + "]. Report discarded.");
 			    log.warn("Expected 'Date' but found unknown property ["
@@ -243,7 +243,7 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 		    obs.setFilters(values[1]);
 		    log.debug(AJObservation.FILTERS_NAME + "=" + values[1]);
 		} else {
-		    System.out.println("Report:" + obs.getDate()
+		    System.err.println("Report:" + obs.getDate()
 			    + ". Unknown property [" + values[0] + ":"
 			    + values[1] + "]. Property discarded.");
 		    log.warn("Report:" + obs.getDate() + ". Unknown property ["
@@ -273,7 +273,7 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 			    return;
 			}
 			if (values.length != 5) {
-			    System.out.println("Report:" + obs.getDate()
+			    System.err.println("Report:" + obs.getDate()
 				    + ". Malformed target [" + line
 				    + "]. Target discarded.");
 			    log.warn("Report:" + obs.getDate()
@@ -303,7 +303,7 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 			obs.addObservationItem(item);
 		    }
 		} else {
-		    System.out.println("Report:" + obs.getDate()
+		    System.err.println("Report:" + obs.getDate()
 			    + ". Unknown property [" + values[0] + " "
 			    + values[1] + " " + values[2] + " " + values[3]
 			    + " " + values[4] + "]");
@@ -312,7 +312,7 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 			    + " " + values[3] + " " + values[4] + "]");
 		}
 	    } else {
-		System.out.println("Report:" + obs.getDate()
+		System.err.println("Report:" + obs.getDate()
 			+ ". Malformed property [" + line
 			+ "]. Property discarded.");
 		log.warn("Report:" + obs.getDate() + ". Malformed property ["

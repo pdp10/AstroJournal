@@ -71,7 +71,7 @@ public class AJGenerator {
 	}
 
 	if (!importObservations()) {
-	    System.out
+	    System.err
 		    .println("Raw observation file is not valid. Cannot generate Latex code for the observations.");
 	    log.error("Raw observation file is not valid. Cannot generate Latex code for the observations.");
 	    return false;
@@ -107,6 +107,8 @@ public class AJGenerator {
      */
     public boolean generateJournalByDate() {
 	if (!importObservations()) {
+	    System.err
+		    .println("Raw observation file is not valid. Cannot generate Latex code for the observations.");
 	    log.error("Raw observation file is not valid. Cannot generate Latex code for the observations.");
 	    return false;
 	}
@@ -133,7 +135,7 @@ public class AJGenerator {
      */
     public boolean generateJournalByDateSGL() {
 	if (!importObservations()) {
-	    System.out
+	    System.err
 		    .println("Raw observation file is not valid. Cannot generate Latex code for the observations.");
 	    log.error("Raw observation file is not valid. Cannot generate txt code for the observations.");
 	    return false;
@@ -159,7 +161,7 @@ public class AJGenerator {
      */
     public boolean generateJournalByTarget() {
 	if (!importObservations()) {
-	    System.out
+	    System.err
 		    .println("Raw observation file is not valid. Cannot generate Latex code for the observations.");
 	    log.error("Raw observation file is not valid. Cannot generate Latex code for the observations.");
 	    return false;
@@ -187,7 +189,7 @@ public class AJGenerator {
      */
     public boolean generateJournalByConstellation() {
 	if (!importObservations()) {
-	    System.out
+	    System.err
 		    .println("Raw observation file is not valid. Cannot generate Latex code for the observations.");
 	    log.error("Raw observation file is not valid. Cannot generate Latex code for the observations.");
 	    return false;
@@ -220,7 +222,7 @@ public class AJGenerator {
 		    + AJConfig.getInstance().getRawReportsFolder();
 	    File[] files = new File(rawReportPath).listFiles();
 	    if (files == null) {
-		System.out.println("Folder " + rawReportPath + " not found");
+		System.err.println("Folder " + rawReportPath + " not found");
 		log.warn("Folder " + rawReportPath + " not found");
 		return false;
 	    }

@@ -116,7 +116,7 @@ public class AJExporterByTarget extends AJExporter {
 	    File[] files = new File(ajFilesLocation.getAbsolutePath()
 		    + File.separator + latexReportsFolderByTarget).listFiles();
 	    if (files == null) {
-		System.out.println("Folder "
+		System.err.println("Folder "
 			+ ajFilesLocation.getAbsolutePath() + File.separator
 			+ latexReportsFolderByTarget + " not found");
 		log.warn("Folder " + ajFilesLocation.getAbsolutePath()
@@ -230,7 +230,7 @@ public class AJExporterByTarget extends AJExporter {
 	    // write the Latex Footer
 	    writerByTarget.write(ajLatexFooterByTarget.getFooter());
 	} catch (IOException ex) {
-	    System.out.println("Error when opening the file "
+	    System.err.println("Error when opening the file "
 		    + ajFilesLocation.getAbsolutePath() + File.separator
 		    + latexMainByTarget);
 	    log.warn("Error when opening the file "
@@ -339,7 +339,7 @@ public class AJExporterByTarget extends AJExporter {
 		    // for this target.
 
 		} catch (IOException ex) {
-		    System.out.println("Error when opening the file "
+		    System.err.println("Error when opening the file "
 			    + ajFilesLocation.getAbsolutePath()
 			    + File.separator + filenameOut);
 		    log.warn("Error when opening the file "
@@ -398,7 +398,7 @@ public class AJExporterByTarget extends AJExporter {
 		    }
 
 		} catch (IOException ex) {
-		    System.out.println("Error when opening the file "
+		    System.err.println("Error when opening the file "
 			    + ajFilesLocation.getAbsolutePath()
 			    + File.separator + filenameOut);
 		    log.warn("Error when opening the file "
