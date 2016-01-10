@@ -90,13 +90,13 @@ public class AJTitlePanel extends JPanel {
 
 	JLabel program = new SmoothJLabel(AJConfig.APPLICATION_NAME + " "
 		+ AJConfig.APPLICATION_VERSION, JLabel.CENTER);
-	program.setFont(new Font("Dialog", Font.BOLD, 18));
+	program.setFont(new Font("Arial", Font.BOLD, 18));
 	program.setForeground(new Color(0, 0, 200));
 	copyrights.add(program, constraints);
 
 	constraints.gridy++;
 	website = new JTextField("http://pdp10.github.io/AstroJournal/");
-	website.setFont(new Font("Dialog", Font.PLAIN, 14));
+	website.setFont(new Font("Arial", Font.PLAIN, 14));
 	website.setEditable(false);
 	website.setBorder(null);
 	website.setOpaque(false);
@@ -106,33 +106,33 @@ public class AJTitlePanel extends JPanel {
 
 	JLabel copyright = new JLabel(
 		"<html>\u00a9 Piero Dalle Pezze 2015-16</html>", JLabel.CENTER);
-	copyright.setFont(new Font("Dialog", Font.PLAIN, 10));
+	copyright.setFont(new Font("Arial", Font.PLAIN, 10));
 	copyrights.add(copyright, constraints);
 	constraints.gridy++;
 
 	JLabel copyright2 = new JLabel(
 		"Tango base icon theme \u00a9Public Domain", JLabel.CENTER);
-	copyright2.setFont(new Font("Dialog", Font.PLAIN, 10));
+	copyright2.setFont(new Font("Arial", Font.PLAIN, 10));
 	copyrights.add(copyright2, constraints);
 	constraints.gridy++;
 
 	JLabel copyright3 = new JLabel(
 		"Apache Commons (io, lang3) \u00a9Apache Software Foundation, 2015",
 		JLabel.CENTER);
-	copyright3.setFont(new Font("Dialog", Font.PLAIN, 10));
+	copyright3.setFont(new Font("Arial", Font.PLAIN, 10));
 	copyrights.add(copyright3, constraints);
 	constraints.gridy++;
 
 	JLabel copyright4 = new JLabel(
 		"Apache log4j \u00a9Apache Software Foundation, 2012",
 		JLabel.CENTER);
-	copyright4.setFont(new Font("Dialog", Font.PLAIN, 10));
+	copyright4.setFont(new Font("Arial", Font.PLAIN, 10));
 	copyrights.add(copyright4, constraints);
 	constraints.gridy++;
 
 	JLabel copyright5 = new JLabel("JUnit \u00a9 JUnit Team, 2015",
 		JLabel.CENTER);
-	copyright5.setFont(new Font("Dialog", Font.PLAIN, 10));
+	copyright5.setFont(new Font("Arial", Font.PLAIN, 10));
 	copyrights.add(copyright5, constraints);
 
 	add(copyrights, BorderLayout.CENTER);

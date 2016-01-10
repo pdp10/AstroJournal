@@ -224,7 +224,7 @@ public class AJMainGUI extends JFrame {
 	setIconImage(new ImageIcon(
 		ClassLoader.getSystemResource("graphics/logo/aj_icon_32.png"))
 		.getImage());
-	setSize(600, 600);
+	setSize(550, 600);
 	setMinimumSize(new Dimension(520, 350));
 	setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	setResizable(true);
@@ -239,7 +239,7 @@ public class AJMainGUI extends JFrame {
 
 	// Create the text area containing the program text output
 	textPane = new JTextPane();
-	Font font = new Font("Sans-serif", Font.PLAIN, 12);
+	Font font = new Font("Arial", Font.PLAIN, 12);
 	textPane.setFont(font);
 	// Move the JScrollPane to the bottom automatically.
 	DefaultCaret caret = (DefaultCaret) textPane.getCaret();
