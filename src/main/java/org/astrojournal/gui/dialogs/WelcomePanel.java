@@ -24,6 +24,7 @@
  */
 package org.astrojournal.gui.dialogs;
 
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -63,7 +64,7 @@ public class WelcomePanel extends JPanel {
 	gbc.gridx = 1;
 	gbc.gridy = 1;
 	gbc.weightx = 0.5;
-	gbc.weighty = 0.99;
+	gbc.weighty = 0.5;
 
 	add(new JPanel(), gbc);
 	gbc.gridy++;
@@ -77,8 +78,10 @@ public class WelcomePanel extends JPanel {
 	gbc.gridy++;
 	gbc.weighty = 0.5;
 
-	add(new JLabel(AJConfig.BUNDLE.getString("AJ.lblWelcomeLabel.text")),
-		gbc);
+	JLabel welcomeLabel = new JLabel(
+		AJConfig.BUNDLE.getString("AJ.lblWelcomeLabel.text"));
+	welcomeLabel.setFont(new Font("Arial", Font.BOLD, 12));
+	add(welcomeLabel, gbc);
 
 	gbc.gridy++;
 	gbc.weighty = 0.99;

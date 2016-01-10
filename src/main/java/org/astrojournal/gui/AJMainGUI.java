@@ -224,8 +224,8 @@ public class AJMainGUI extends JFrame {
 	setIconImage(new ImageIcon(
 		ClassLoader.getSystemResource("graphics/logo/aj_icon_32.png"))
 		.getImage());
-	setSize(550, 600);
-	setMinimumSize(new Dimension(520, 350));
+	setSize(520, 550);
+	setMinimumSize(new Dimension(520, 450));
 	setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	setResizable(true);
 	getContentPane().setLayout(new BorderLayout());
@@ -245,6 +245,7 @@ public class AJMainGUI extends JFrame {
 	DefaultCaret caret = (DefaultCaret) textPane.getCaret();
 	caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 	textPane.setEditable(false);
+
 	JScrollPane scrollPane = new JScrollPane(textPane);
 
 	// Create the checkbox for printing the Latex output
