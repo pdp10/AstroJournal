@@ -160,7 +160,7 @@ public class AJConfig {
     private AJConfig() {
 	// Read the configuration file
 	configurationInit();
-	// Read the system properties (this might override the configuration
+	// Read the system properties (this may override the configuration
 	// file)
 	readSystemProperties();
     }
@@ -319,9 +319,9 @@ public class AJConfig {
     }
 
     /**
-     * Read the Java System Properties.
+     * Read the Java System Properties for AstroJournal dynamically.
      */
-    private void readSystemProperties() {
+    public void readSystemProperties() {
 	// Show version
 	if (System.getProperty("aj.show_version") != null
 		&& System.getProperty("aj.show_version").equals("true")) {

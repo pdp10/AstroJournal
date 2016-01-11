@@ -42,6 +42,11 @@ public class RedirectOutputStreamToAJTextPane extends OutputStream {
      */
     private AJMainGUI ajMainGUI;
 
+    /** 
+     * The previous System.out
+     */ 
+    private PrintStream previousStdout;    
+    
     /**
      * Constructor.
      * 
@@ -50,6 +55,7 @@ public class RedirectOutputStreamToAJTextPane extends OutputStream {
      */
     public RedirectOutputStreamToAJTextPane(AJMainGUI ajMainGUI) {
 	this.ajMainGUI = ajMainGUI;
+	previousStdout = System.out;
 	System.setOut(new PrintStream(this, true));
     }
 
@@ -81,6 +87,6 @@ public class RedirectOutputStreamToAJTextPane extends OutputStream {
     public void close() throws IOException {
 	super.close();
 	// reset the previous stream.
-	System.setOut(System.out);
+	System.setOut(previousStdout);
     }
 }

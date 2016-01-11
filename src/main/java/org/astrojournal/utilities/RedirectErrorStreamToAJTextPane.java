@@ -42,6 +42,11 @@ public class RedirectErrorStreamToAJTextPane extends OutputStream {
      */
     private AJMainGUI ajMainGUI;
 
+    /** 
+     * The previous System.err
+     */ 
+    private PrintStream previousStderr;
+    
     /**
      * Constructor.
      * 
@@ -50,6 +55,7 @@ public class RedirectErrorStreamToAJTextPane extends OutputStream {
      */
     public RedirectErrorStreamToAJTextPane(AJMainGUI ajMainGUI) {
 	this.ajMainGUI = ajMainGUI;
+	previousStderr = System.err;
 	System.setErr(new PrintStream(this, true));
     }
 
@@ -81,6 +87,6 @@ public class RedirectErrorStreamToAJTextPane extends OutputStream {
     public void close() throws IOException {
 	super.close();
 	// reset the previous stream.
-	System.setErr(System.err);
+	System.setErr(previousStderr);
     }
 }

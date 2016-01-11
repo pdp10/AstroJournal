@@ -29,8 +29,9 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-	ImportObservationTest.class,
-	RunSamplesTest.class,
-	})
+	ImportCorrectObservationsTest.class,
+	ImportWrongObservationsTest.class,
+	IntegrationTest.class,
+})
 
 public class AllTests { }
