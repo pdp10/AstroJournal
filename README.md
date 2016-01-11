@@ -43,7 +43,7 @@ For windows users who installed MikTeX, the LaTeX packages url and mptopdf must 
 ### Download
 You can download the latest version of this software application here:
 
-[https://github.com/pdp10/AstroJournal/archive/master.zip](https://github.com/pdp10/AstroJournal/archive/master.zip)
+[https://github.com/pdp10/AstroJournal/zipball/master](https://github.com/pdp10/AstroJournal/zipball/master)
 
 After downloading and uncompressing the file, you can run AstroJournal by typing:
 ```
