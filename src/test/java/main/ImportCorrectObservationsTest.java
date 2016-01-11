@@ -26,19 +26,16 @@ package main;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
-import java.util.ArrayList;
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.generator.AJGenerator;
 import org.astrojournal.observation.AJObservation;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -55,48 +52,50 @@ public class ImportCorrectObservationsTest {
     private static Logger log = LogManager
 	    .getLogger(ImportCorrectObservationsTest.class);
 
-    /** 
+    /**
      * The previous System.out / err
-     */ 
+     */
     private static PrintStream previousOut, previousErr;
-    
-    /** 
+
+    /**
      * The imported observations.
      */
     private static ArrayList<AJObservation> observations;
-	    
+
     /**
      * @throws java.lang.Exception
      */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-    
-	log.info("Running unit test: " + ImportCorrectObservationsTest.class.getName());
-	System.out.println("Running unit test: " + ImportCorrectObservationsTest.class.getName());
-	
+
+	log.info("Running unit test: "
+		+ ImportCorrectObservationsTest.class.getName());
+	System.out.println("Running unit test: "
+		+ ImportCorrectObservationsTest.class.getName());
+
 	// disable System.out / err
 	previousOut = System.out;
 	previousErr = System.err;
 	System.setOut(new PrintStream(new OutputStream() {
-	  @Override
-	  public void write(int arg0) throws IOException { }
+	    @Override
+	    public void write(int arg0) throws IOException {
+	    }
 	}));
 	System.setErr(new PrintStream(new OutputStream() {
-	  @Override
-	  public void write(int arg0) throws IOException { }
+	    @Override
+	    public void write(int arg0) throws IOException {
+	    }
 	}));
-	
+
 	System.setProperty("aj.aj_files_location",
 		System.getProperty("user.dir") + File.separator + "src"
 			+ File.separator + "test" + File.separator
-			+ "resources"  + File.separator
-			+ "correct_observations");
+			+ "resources" + File.separator + "correct_observations");
 	AJConfig.getInstance().readSystemProperties();
-	
+
 	AJGenerator ajLatexGenerator = new AJGenerator();
 	ajLatexGenerator.importObservations();
-	observations = ajLatexGenerator
-		.getObservations();
+	observations = ajLatexGenerator.getObservations();
     }
 
     /**
@@ -106,7 +105,7 @@ public class ImportCorrectObservationsTest {
     public static void tearDownAfterClass() throws Exception {
 	// reset the previous stream.
 	System.setOut(previousOut);
-	System.setErr(previousErr); 
+	System.setErr(previousErr);
     }
 
     /**
@@ -123,20 +122,30 @@ public class ImportCorrectObservationsTest {
     public void tearDown() throws Exception {
     }
 
+    /**
+     * Test the number of reports.
+     */
     @Test
     public void testNumberReports() {
 	assertEquals(4, observations.size());
     }
-    
+
+    /**
+     * Test the number of total targets for all reports.
+     */
     @Test
     public void testNumberTargets() {
 	int targets = 0;
-	for(int i=0; i < observations.size(); i++) { 
-	  targets = targets + observations.get(i).getObservationItems().size();
+	for (int i = 0; i < observations.size(); i++) {
+	    targets = targets
+		    + observations.get(i).getObservationItems().size();
 	}
 	assertEquals(23, targets);
-    }    
-    
+    }
+
+    /**
+     * Test a report meta information.
+     */
     @Test
     public void testReport1() {
 	assertEquals("22/03/2015", observations.get(1).getDate());
@@ -145,27 +154,35 @@ public class ImportCorrectObservationsTest {
 	assertEquals("12m", observations.get(1).getAltitude());
 	assertEquals("3C (no wind)", observations.get(1).getTemperature());
 	assertEquals("2 - Slight undulations", observations.get(1).getSeeing());
-	assertEquals("3 - Somewhat clear", observations.get(1).getTransparency());
+	assertEquals("3 - Somewhat clear", observations.get(1)
+		.getTransparency());
 	assertEquals("20.4 mag", observations.get(1).getDarkness());
 	assertEquals("Tele Vue 60 F6", observations.get(1).getTelescopes());
-	assertEquals("TV Panoptic 24mm, Nagler 7mm, Powermate 2.5x", observations.get(1).getEyepieces());
+	assertEquals("TV Panoptic 24mm, Nagler 7mm, Powermate 2.5x",
+		observations.get(1).getEyepieces());
 	assertEquals("Astronomik OIII", observations.get(1).getFilters());
     }
-    
+
+    /**
+     * Test the targets for a report.
+     */
     @Test
     public void testReport1Target3() {
 	assertEquals("Sigma", observations.get(1).getObservationItems().get(2)
 		.getTarget());
 	assertEquals("Ori", observations.get(1).getObservationItems().get(2)
 		.getConstellation());
-	assertEquals("Mlt star", observations.get(1).getObservationItems().get(2)
-		.getType());
+	assertEquals("Mlt star",
+		observations.get(1).getObservationItems().get(2).getType());
 	assertEquals("51x", observations.get(1).getObservationItems().get(2)
 		.getPower());
-	assertEquals("Sufficient for seeing 5 stars", observations.get(1).getObservationItems().get(2)
-		.getNotes());
-    }    
-    
+	assertEquals("Sufficient for seeing 5 stars", observations.get(1)
+		.getObservationItems().get(2).getNotes());
+    }
+
+    /**
+     * Test the targets for a report.
+     */
     @Test
     public void testReport0Targets() {
 	assertEquals("23/02/2015", observations.get(0).getDate());
@@ -178,27 +195,34 @@ public class ImportCorrectObservationsTest {
 	assertEquals("Jupiter", observations.get(0).getObservationItems()
 		.get(3).getTarget());
     }
-    
+
+    /**
+     * Test the last target of a report.
+     */
     @Test
-    public void testReport0LastTarget() {    
+    public void testReport0LastTarget() {
 	assertEquals("Jupiter", observations.get(0).getObservationItems()
-		.get(3).getTarget());    
-    	assertEquals("Cnc", observations.get(0).getObservationItems().get(3)
+		.get(3).getTarget());
+	assertEquals("Cnc", observations.get(0).getObservationItems().get(3)
 		.getConstellation());
 	assertEquals("Planet", observations.get(0).getObservationItems().get(3)
 		.getType());
 	assertEquals("129x", observations.get(0).getObservationItems().get(3)
 		.getPower());
-	assertEquals("A bit of wind, but the image stays crisp at high magnifications. No aberration.", observations.get(0).getObservationItems().get(3)
-		.getNotes());
+	assertEquals(
+		"A bit of wind, but the image stays crisp at high magnifications. No aberration.",
+		observations.get(0).getObservationItems().get(3).getNotes());
     }
-    
+
+    /**
+     * Test that all reports are read.
+     */
     @Test
-    public void testReports() {    
+    public void testReports() {
 	assertEquals("23/02/2015", observations.get(0).getDate());
 	assertEquals("22/03/2015", observations.get(1).getDate());
 	assertEquals("03/06/2015", observations.get(2).getDate());
 	assertEquals("06/06/2015", observations.get(3).getDate());
     }
-     
+
 }

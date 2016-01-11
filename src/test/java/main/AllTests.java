@@ -27,11 +27,14 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+/**
+ * @author Piero Dalle Pezze
+ * @version $Rev$
+ * @since 1.0
+ * @date 11 Jan 2016
+ */
 @RunWith(Suite.class)
-@SuiteClasses({
-	ImportCorrectObservationsTest.class,
-	ImportWrongObservationsTest.class,
-	IntegrationTest.class,
-})
-
-public class AllTests { }
+@SuiteClasses({ ImportCorrectObservationsTest.class,
+	ImportWrongObservationsTest.class, IntegrationTest.class, })
+public class AllTests {
+}
