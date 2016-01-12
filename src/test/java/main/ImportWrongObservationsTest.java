@@ -26,13 +26,8 @@ package main;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.generator.AJGenerator;
 import org.astrojournal.observation.AJObservation;
@@ -48,15 +43,6 @@ import org.junit.Test;
  */
 public class ImportWrongObservationsTest {
 
-    /** The log associated to this class */
-    private static Logger log = LogManager
-	    .getLogger(ImportWrongObservationsTest.class);
-
-    /**
-     * The previous System.out / err
-     */
-    private static PrintStream previousOut, previousErr;
-
     /**
      * The imported observations.
      */
@@ -68,24 +54,8 @@ public class ImportWrongObservationsTest {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
 
-	log.info("Running unit test: "
-		+ ImportWrongObservationsTest.class.getName());
 	System.out.println("Running unit test: "
 		+ ImportWrongObservationsTest.class.getName());
-
-	// disable System.out / err
-	previousOut = System.out;
-	previousErr = System.err;
-	System.setOut(new PrintStream(new OutputStream() {
-	    @Override
-	    public void write(int arg0) throws IOException {
-	    }
-	}));
-	System.setErr(new PrintStream(new OutputStream() {
-	    @Override
-	    public void write(int arg0) throws IOException {
-	    }
-	}));
 
 	System.setProperty("aj.aj_files_location",
 		System.getProperty("user.dir") + File.separator + "src"
@@ -103,9 +73,6 @@ public class ImportWrongObservationsTest {
      */
     @AfterClass
     public static void tearDownAfterClass() throws Exception {
-	// reset the previous stream.
-	System.setOut(previousOut);
-	System.setErr(previousErr);
     }
 
     /**

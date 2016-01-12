@@ -27,8 +27,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
@@ -53,11 +51,6 @@ public class IntegrationTest {
     private static Logger log = LogManager.getLogger(IntegrationTest.class);
 
     /**
-     * The previous System.out / err
-     */
-    private static PrintStream previousOut, previousErr;
-
-    /**
      * @throws java.lang.Exception
      */
     @BeforeClass
@@ -66,20 +59,6 @@ public class IntegrationTest {
 	log.info("Running integration test: " + IntegrationTest.class.getName());
 	System.out.println("Running integration test: "
 		+ IntegrationTest.class.getName());
-
-	// disable System.out / err
-	previousOut = System.out;
-	previousErr = System.err;
-	System.setOut(new PrintStream(new OutputStream() {
-	    @Override
-	    public void write(int arg0) throws IOException {
-	    }
-	}));
-	System.setErr(new PrintStream(new OutputStream() {
-	    @Override
-	    public void write(int arg0) throws IOException {
-	    }
-	}));
 
 	System.setProperty("aj.aj_files_location",
 		System.getProperty("user.dir") + File.separator + "src"
@@ -97,7 +76,7 @@ public class IntegrationTest {
     @AfterClass
     public static void tearDownAfterClass() throws Exception {
 
-	System.out.print("\nFile cleaning:");
+	log.info("File cleaning:");
 	try {
 	    AJConfig.getInstance().cleanAJFolder();
 	} catch (IOException e) {
@@ -134,14 +113,11 @@ public class IntegrationTest {
 	for (File f : AJConfig.getInstance().getAJFilesLocation().listFiles()) {
 	    if (f.getName().endsWith(".tex") || f.getName().endsWith(".pdf")
 		    || f.getName().endsWith(".txt")) {
-		System.out.println("\tDeleting file " + f.getAbsolutePath());
+		log.info("\tDeleting file " + f.getAbsolutePath());
 		f.delete();
 	    }
 	}
 
-	// reset the previous stream.
-	System.setOut(previousOut);
-	System.setErr(previousErr);
     }
 
     /**
