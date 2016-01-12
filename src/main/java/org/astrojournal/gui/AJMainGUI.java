@@ -37,6 +37,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.SwingWorker;
+import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.text.DefaultCaret;
 
@@ -299,10 +300,11 @@ public class AJMainGUI extends JFrame {
 
 	// Note Nimbus does not seem to show the vertical scroll bar if there is
 	// too much text..
-	// try {
-	// UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-	// } catch (Exception e) {
-	// }
+	try {
+	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+	} catch (Exception e) {
+	    log.error(e);
+	}
 
 	// enable anti-aliased text:
 	System.setProperty("awt.useSystemAAFontSettings", "gasp");
