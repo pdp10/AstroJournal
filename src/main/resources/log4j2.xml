@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="INFO">
+<Configuration status="INFO" packages="org.astrojournal.logging">
+    <Properties>
+        <Property name="log-path">log</Property>
+    </Properties>
     <Appenders>
-	<!--
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} (%F:%L) - %msg%n" />
+            <PatternLayout>
+                <pattern>[%-1level] %msg%n</pattern>
+            </PatternLayout>
         </Console>
-        -->
+        <JTextPaneAppender name="JTextPane">
+            <PatternLayout>
+                <pattern>%msg%n</pattern>
+            </PatternLayout>
+        </JTextPaneAppender>        
         <File name="MyFile" fileName="logs/main.log" immediateFlush="false" append="false">
             <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} (%F:%L) - %msg%n"/>
         </File>
     </Appenders>
-    <Loggers>
-    	<!--
-        <Root level="WARN">
-            <AppenderRef ref="Console" />
+   <Loggers> 
+        <Root level="debug" additivity="false">
+            <AppenderRef ref="Console" level="INFO" />
+            <AppenderRef ref="JTextPane" level="INFO" />        
+            <AppenderRef ref="MyFile" level="DEBUG" />
         </Root>
-        -->
-        <Root level="DEBUG">
-            <AppenderRef ref="MyFile"/>
-        </Root>          
-    </Loggers>
+    </Loggers>    
 </Configuration>

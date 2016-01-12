@@ -77,16 +77,15 @@ public class AJMain {
 	    if (args.length == 0) {
 		startAJMainGUI();
 	    } else if (args[0].equals("--config")) {
-		System.out.println(AJConfig.getInstance().printConfiguration());
+		log.info(AJConfig.getInstance().printConfiguration());
 	    } else if (args[0].equals("-c") || args[0].equals("--console")) {
 		AJMainConsole.main(args);
 	    } else if (args[0].equals("--help")) {
-		System.out.println(AJMainConsole.printHelp());
+		log.info(AJMainConsole.printHelp());
 	    } else if (args[0].equals("--license")) {
-		System.out.println(AJConfig.getInstance().printLicense());
+		log.info(AJConfig.getInstance().printLicense());
 	    } else {
-		System.out.println(
-			"Please, run AstroJournal with the option --help for suggestions.");
+		log.warn("Please, run AstroJournal with the option --help for suggestions.");
 	    }
 	} catch (Exception ex) {
 	    log.warn(ex);

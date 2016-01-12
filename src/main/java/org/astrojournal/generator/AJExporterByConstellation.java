@@ -113,9 +113,6 @@ public class AJExporterByConstellation extends AJExporter {
 	    File[] files = new File(ajFilesLocation.getAbsolutePath()
 		    + File.separator + latexReportsFolderByConst).listFiles();
 	    if (files == null) {
-		System.err.println("Folder "
-			+ ajFilesLocation.getAbsolutePath() + File.separator
-			+ latexReportsFolderByConst + " not found");
 		log.warn("Folder " + ajFilesLocation.getAbsolutePath()
 			+ File.separator + latexReportsFolderByConst
 			+ " not found");
@@ -149,20 +146,17 @@ public class AJExporterByConstellation extends AJExporter {
 	    writerByConst.write(ajLatexFooterByConst.getFooter());
 
 	} catch (IOException ex) {
-	    System.err.println("Error when opening the file "
-		    + ajFilesLocation.getAbsolutePath() + File.separator
-		    + latexMainByConst);
 	    log.warn("Error when opening the file "
 		    + ajFilesLocation.getAbsolutePath() + File.separator
 		    + latexMainByConst);
 	} catch (Exception ex) {
-	    log.warn(ex);
+	    log.error(ex);
 	} finally {
 	    try {
 		if (writerByConst != null)
 		    writerByConst.close();
 	    } catch (Exception ex) {
-		log.warn(ex);
+		log.error(ex);
 	    }
 	}
     }
@@ -206,24 +200,21 @@ public class AJExporterByConstellation extends AJExporter {
 			listOfTargets.append(targets[j] + ", ");
 		}
 		list.write(listOfTargets.toString() + "\n\n");
-		System.out.println("\tExported constellation " + filenameOut);
+		log.info("\tExported constellation " + filenameOut);
 	    } catch (IOException ex) {
-		System.err.println("Error when opening the file "
-			+ ajFilesLocation.getAbsolutePath() + File.separator
-			+ filenameOut);
 		log.warn("Error when opening the file "
 			+ ajFilesLocation.getAbsolutePath() + File.separator
 			+ filenameOut);
 		result = false;
 	    } catch (Exception ex) {
-		log.warn(ex);
+		log.error(ex);
 		result = false;
 	    } finally {
 		try {
 		    if (list != null)
 			list.close();
 		} catch (Exception ex) {
-		    log.warn(ex);
+		    log.error(ex);
 		}
 	    }
 	}

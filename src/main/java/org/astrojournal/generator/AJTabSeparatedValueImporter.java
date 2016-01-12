@@ -51,7 +51,7 @@ public class AJTabSeparatedValueImporter extends AJImporter {
     /** Default constructor */
     public AJTabSeparatedValueImporter() {
 	super();
-	System.out.println("Importing observation files:");
+	log.info("Importing observation files:");
     }
 
     /**
@@ -76,14 +76,13 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 	    } else if (file.getName().endsWith(".csv")) {
 		delimiter = "\t";
 	    } else {
-		System.err
-			.println("Input files must be either .tsv or .csv . Field delimiter must be a TAB");
+		log.error("Input files must be either .tsv or .csv . Field delimiter must be a TAB");
 		return observations;
 	    }
 
 	    // Get the current file name.
 	    String rawFilename = file.getName();
-	    System.out.println("\t" + rawFilename);
+	    log.info("\t" + rawFilename);
 	    // Create a buffered reader to read the file
 	    BufferedReader reader = null;
 	    try {
@@ -116,9 +115,6 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 		    } else {
 			if (!foundWrongDate) {
 			    foundWrongDate = true;
-			    System.err
-				    .println("Expected 'Date' but found unknown property ["
-					    + line + "]. Report discarded.");
 			    log.warn("Expected 'Date' but found unknown property ["
 				    + line + "]. Report discarded.");
 			}
@@ -126,13 +122,13 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 
 		} // end while
 	    } catch (IOException ex) {
-		ex.printStackTrace();
+		log.error(ex);
 	    } finally {
 		try {
 		    if (reader != null)
 			reader.close();
 		} catch (IOException ex) {
-		    ex.printStackTrace();
+		    log.error(ex);
 		}
 	    }
 	} // end if
@@ -243,9 +239,6 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 		    obs.setFilters(values[1]);
 		    log.debug(AJObservation.FILTERS_NAME + "=" + values[1]);
 		} else {
-		    System.err.println("Report:" + obs.getDate()
-			    + ". Unknown property [" + values[0] + ":"
-			    + values[1] + "]. Property discarded.");
 		    log.warn("Report:" + obs.getDate() + ". Unknown property ["
 			    + values[0] + ":" + values[1]
 			    + "]. Property discarded.");
@@ -273,9 +266,6 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 			    return;
 			}
 			if (values.length != 5) {
-			    System.err.println("Report:" + obs.getDate()
-				    + ". Malformed target [" + line
-				    + "]. Target discarded.");
 			    log.warn("Report:" + obs.getDate()
 				    + ". Malformed target [" + line
 				    + "]. Target discarded.");
@@ -303,18 +293,11 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 			obs.addObservationItem(item);
 		    }
 		} else {
-		    System.err.println("Report:" + obs.getDate()
-			    + ". Unknown property [" + values[0] + " "
-			    + values[1] + " " + values[2] + " " + values[3]
-			    + " " + values[4] + "]");
 		    log.warn("Report:" + obs.getDate() + ". Unknown property ["
 			    + values[0] + " " + values[1] + " " + values[2]
 			    + " " + values[3] + " " + values[4] + "]");
 		}
 	    } else {
-		System.err.println("Report:" + obs.getDate()
-			+ ". Malformed property [" + line
-			+ "]. Property discarded.");
 		log.warn("Report:" + obs.getDate() + ". Malformed property ["
 			+ line + "]. Property discarded.");
 	    }

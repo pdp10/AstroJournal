@@ -23,6 +23,8 @@
  */
 package org.astrojournal.console;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConfig;
 
 /**
@@ -33,6 +35,8 @@ import org.astrojournal.configuration.AJConfig;
  * @since 22/12/2015
  */
 public class AJMainConsole {
+
+    private static Logger log = LogManager.getLogger(AJMainConsole.class);
 
     private boolean latexOutput = AJConfig.getInstance().isLatexOutput();
     private AJMainConsoleControls commandRunner;
@@ -50,14 +54,18 @@ public class AJMainConsole {
      * @return the help for AstroJournal Console.
      */
     public static String printHelp() {
-	String help = new String(AJConfig.APPLICATION_NAME + " "
-		+ AJConfig.APPLICATION_VERSION + "\n"
-		+ "USAGE: run_astrojournal.sh [options]\n" + "Options are:"
-		+ "\t--config :\tPrint the current configuration on a shell."
-		+ "\t-c [--console] :\tRun AstroJournal via command line instead of via GUI."
-		+ "\t--latex-output :\tWhen follows the option -c, it prints the LaTeX output."
-		+ "\t--help :\tShow this help on a shell."
-		+ "\t--license :\tShow the license for AstroJournal on a shell.");
+	String help = new String(
+		AJConfig.APPLICATION_NAME
+			+ " "
+			+ AJConfig.APPLICATION_VERSION
+			+ "\n"
+			+ "USAGE: run_astrojournal.sh [options]\n"
+			+ "Options are:"
+			+ "\t--config :\tPrint the current configuration on a shell."
+			+ "\t-c [--console] :\tRun AstroJournal via command line instead of via GUI."
+			+ "\t--latex-output :\tWhen follows the option -c, it prints the LaTeX output."
+			+ "\t--help :\tShow this help on a shell."
+			+ "\t--license :\tShow the license for AstroJournal on a shell.");
 	return help;
     }
 
@@ -82,8 +90,6 @@ public class AJMainConsole {
      */
     private void initComponents() {
 	commandRunner = new AJMainConsoleControls();
-	System.out.println(
-		AJConfig.APPLICATION_NAME + " " + AJConfig.APPLICATION_VERSION);
     }
 
     /**

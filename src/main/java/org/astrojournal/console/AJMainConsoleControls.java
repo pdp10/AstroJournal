@@ -28,6 +28,8 @@ import java.io.IOException;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.SystemUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.generator.AJGenerator;
 import org.astrojournal.utilities.RunExternalCommand;
@@ -41,6 +43,9 @@ import org.astrojournal.utilities.RunExternalCommand;
  * @date 22 Dec 2015
  */
 public class AJMainConsoleControls {
+
+    private static Logger log = LogManager
+	    .getLogger(AJMainConsoleControls.class);
 
     /**
      * Constructor
@@ -63,7 +68,7 @@ public class AJMainConsoleControls {
 	try {
 	    AJConfig.getInstance().cleanAJFolder();
 	} catch (IOException e) {
-	    System.err.println(AJConfig.BUNDLE
+	    log.error(AJConfig.BUNDLE
 		    .getString("AJ.errUnconfiguredPreferences.text"));
 	    return;
 	}
@@ -80,52 +85,50 @@ public class AJMainConsoleControls {
 	    commandOutput = RunExternalCommand.runCommand("pdflatex "
 		    + AJConfig.REPORT_BY_DATE_FILENAME);
 	    if (latexOutput)
-		System.out.println(commandOutput + "\n");
+		log.info(commandOutput + "\n");
 	    commandOutput = RunExternalCommand.runCommand("pdflatex "
 		    + AJConfig.REPORT_BY_DATE_FILENAME);
-	    // if(latexOutput) System.out.println(commandOutput + "\n");
+	    // if(latexOutput) log.info(commandOutput + "\n");
 
 	    commandOutput = RunExternalCommand.runCommand("pdflatex "
 		    + AJConfig.REPORT_BY_TARGET_FILENAME);
 	    if (latexOutput)
-		System.out.println(commandOutput + "\n");
+		log.info(commandOutput + "\n");
 	    commandOutput = RunExternalCommand.runCommand("pdflatex "
 		    + AJConfig.REPORT_BY_TARGET_FILENAME);
-	    // if(latexOutput) System.out.println(commandOutput + "\n");
+	    // if(latexOutput) log.info(commandOutput + "\n");
 
 	    commandOutput = RunExternalCommand.runCommand("pdflatex "
 		    + AJConfig.REPORT_BY_CONSTELLATION_FILENAME);
 	    if (latexOutput)
-		System.out.println(commandOutput + "\n");
+		log.info(commandOutput + "\n");
 	    commandOutput = RunExternalCommand.runCommand("pdflatex "
 		    + AJConfig.REPORT_BY_CONSTELLATION_FILENAME);
-	    // if(latexOutput) System.out.println(commandOutput +
+	    // if(latexOutput) log.info(commandOutput +
 	    // "\n");
 
 	    // Add this at the end to avoid mixing with the latex command
 	    // output.
-	    System.out.println("\n"
-		    + AJConfig.BUNDLE.getString("AJ.lblCreatedReports.text"));
-	    System.out.println("\t"
+	    log.info("");
+	    log.info(AJConfig.BUNDLE.getString("AJ.lblCreatedReports.text"));
+	    log.info("\t"
 		    + path
 		    + File.separator
 		    + FilenameUtils
 			    .removeExtension(AJConfig.REPORT_BY_DATE_FILENAME)
 		    + ".pdf");
-	    System.out
-		    .println("\t"
-			    + path
-			    + File.separator
-			    + FilenameUtils
-				    .removeExtension(AJConfig.REPORT_BY_TARGET_FILENAME)
-			    + ".pdf");
-	    System.out
-		    .println("\t"
-			    + path
-			    + File.separator
-			    + FilenameUtils
-				    .removeExtension(AJConfig.REPORT_BY_CONSTELLATION_FILENAME)
-			    + ".pdf\n");
+	    log.info("\t"
+		    + path
+		    + File.separator
+		    + FilenameUtils
+			    .removeExtension(AJConfig.REPORT_BY_TARGET_FILENAME)
+		    + ".pdf");
+	    log.info("\t"
+		    + path
+		    + File.separator
+		    + FilenameUtils
+			    .removeExtension(AJConfig.REPORT_BY_CONSTELLATION_FILENAME)
+		    + ".pdf\n");
 
 	    // clean folders from LaTeX temporary, log, and output files
 	    if (SystemUtils.IS_OS_WINDOWS) {
@@ -144,14 +147,10 @@ public class AJMainConsoleControls {
 					+ " && cd -" });
 	    }
 
-	    System.out.println(AJConfig.BUNDLE
-		    .getString("AJ.lblCreatedReportsLong.text"));
+	    log.info(AJConfig.BUNDLE.getString("AJ.lblCreatedReportsLong.text"));
 	} catch (IOException ioe) {
-	    System.err
-		    .println(AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"));
-	    System.err
-		    .println(AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"));
-	    ioe.printStackTrace();
+	    log.error(AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"));
+	    log.error(ioe);
 	}
     }
 }

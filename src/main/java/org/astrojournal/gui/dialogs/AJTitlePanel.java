@@ -39,6 +39,9 @@ import javax.swing.text.Document;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * A panel containing a title for AstroJournal.
  * 
@@ -50,6 +53,9 @@ import javax.swing.text.StyleConstants;
 public class AJTitlePanel extends JPanel {
 
     private static final long serialVersionUID = -6666510405157515963L;
+
+    /** The log associated to this class */
+    private static Logger log = LogManager.getLogger(AJTitlePanel.class);
 
     /**
      * Constructor.
@@ -89,7 +95,7 @@ public class AJTitlePanel extends JPanel {
 		    try {
 			desktop.browse(hle.getURL().toURI());
 		    } catch (Exception ex) {
-			ex.printStackTrace();
+			log.error(ex);
 		    }
 		}
 	    }
@@ -112,7 +118,7 @@ public class AJTitlePanel extends JPanel {
 			    + "JUnit \u00a9 JUnit Team, 2015.", style);
 
 	} catch (BadLocationException e) {
-	    e.printStackTrace();
+	    log.error(e);
 	}
 
     }

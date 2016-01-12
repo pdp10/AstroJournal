@@ -116,9 +116,6 @@ public class AJExporterByTarget extends AJExporter {
 	    File[] files = new File(ajFilesLocation.getAbsolutePath()
 		    + File.separator + latexReportsFolderByTarget).listFiles();
 	    if (files == null) {
-		System.err.println("Folder "
-			+ ajFilesLocation.getAbsolutePath() + File.separator
-			+ latexReportsFolderByTarget + " not found");
 		log.warn("Folder " + ajFilesLocation.getAbsolutePath()
 			+ File.separator + latexReportsFolderByTarget
 			+ " not found");
@@ -230,20 +227,17 @@ public class AJExporterByTarget extends AJExporter {
 	    // write the Latex Footer
 	    writerByTarget.write(ajLatexFooterByTarget.getFooter());
 	} catch (IOException ex) {
-	    System.err.println("Error when opening the file "
-		    + ajFilesLocation.getAbsolutePath() + File.separator
-		    + latexMainByTarget);
 	    log.warn("Error when opening the file "
 		    + ajFilesLocation.getAbsolutePath() + File.separator
 		    + latexMainByTarget);
 	} catch (Exception ex) {
-	    log.warn(ex);
+	    log.error(ex);
 	} finally {
 	    try {
 		if (writerByTarget != null)
 		    writerByTarget.close();
 	    } catch (Exception ex) {
-		log.warn(ex);
+		log.error(ex);
 	    }
 	}
     }
@@ -339,21 +333,19 @@ public class AJExporterByTarget extends AJExporter {
 		    // for this target.
 
 		} catch (IOException ex) {
-		    System.err.println("Error when opening the file "
-			    + ajFilesLocation.getAbsolutePath()
-			    + File.separator + filenameOut);
 		    log.warn("Error when opening the file "
 			    + ajFilesLocation.getAbsolutePath()
 			    + File.separator + filenameOut);
 		    return false;
 		} catch (Exception ex) {
-		    log.warn(ex);
+		    log.error(ex);
 		    return false;
 		} finally {
 		    try {
 			if (targetWriter != null)
 			    targetWriter.close();
 		    } catch (Exception ex) {
+			log.error(ex);
 			return false;
 		    }
 		}
@@ -394,26 +386,23 @@ public class AJExporterByTarget extends AJExporter {
 						filenameOut + ".tex"), true),
 					"utf-8"));
 			targetWriter.write("\\end{itemize}\n");
-			System.out.println("\tExported target " + filenameOut);
+			log.info("\tExported target " + filenameOut);
 		    }
 
 		} catch (IOException ex) {
-		    System.err.println("Error when opening the file "
-			    + ajFilesLocation.getAbsolutePath()
-			    + File.separator + filenameOut);
 		    log.warn("Error when opening the file "
 			    + ajFilesLocation.getAbsolutePath()
 			    + File.separator + filenameOut);
 		    return false;
 		} catch (Exception ex) {
-		    log.warn(ex);
+		    log.error(ex);
 		    return false;
 		} finally {
 		    try {
 			if (targetWriter != null)
 			    targetWriter.close();
 		    } catch (Exception ex) {
-			log.warn(ex);
+			log.error(ex);
 			return false;
 		    }
 		}

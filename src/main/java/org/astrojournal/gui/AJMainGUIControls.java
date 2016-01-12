@@ -28,6 +28,8 @@ import java.io.IOException;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.SystemUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.generator.AJGenerator;
 import org.astrojournal.utilities.RunExternalCommand;
@@ -41,6 +43,8 @@ import org.astrojournal.utilities.RunExternalCommand;
  * @date 12 Dec 2015
  */
 public class AJMainGUIControls {
+
+    private static Logger log = LogManager.getLogger(AJMainGUIControls.class);
 
     /**
      * A reference to AJ Main GUI.
@@ -88,59 +92,49 @@ public class AJMainGUIControls {
 	    commandOutput = RunExternalCommand.runCommand("pdflatex "
 		    + AJConfig.REPORT_BY_DATE_FILENAME);
 	    if (latexOutput)
-		ajMainGUI.appendTextToTextPane(commandOutput + "\n", false);
+		log.info(commandOutput);
 	    commandOutput = RunExternalCommand.runCommand("pdflatex "
 		    + AJConfig.REPORT_BY_DATE_FILENAME);
-	    // if(latexOutput) ajMainGUI.appendText(commandOutput + "\n");
+	    // if(latexOutput) log.info(commandOutput);
 
 	    commandOutput = RunExternalCommand.runCommand("pdflatex "
 		    + AJConfig.REPORT_BY_TARGET_FILENAME);
 	    if (latexOutput)
-		ajMainGUI.appendTextToTextPane(commandOutput + "\n", false);
+		log.info(commandOutput);
 	    commandOutput = RunExternalCommand.runCommand("pdflatex "
 		    + AJConfig.REPORT_BY_TARGET_FILENAME);
-	    // if(latexOutput) ajMainGUI.appendText(commandOutput + "\n");
+	    // if(latexOutput) log.info(commandOutput);
 
 	    commandOutput = RunExternalCommand.runCommand("pdflatex "
 		    + AJConfig.REPORT_BY_CONSTELLATION_FILENAME);
 	    if (latexOutput)
-		ajMainGUI.appendTextToTextPane(commandOutput + "\n", false);
+		log.info(commandOutput);
 	    commandOutput = RunExternalCommand.runCommand("pdflatex "
 		    + AJConfig.REPORT_BY_CONSTELLATION_FILENAME);
-	    // if(latexOutput) ajMainGUI.appendText(commandOutput +
-	    // "\n");
+	    // if(latexOutput) log.info(commandOutput);
 
 	    // Add this at the end to avoid mixing with the latex command
 	    // output.
-	    ajMainGUI.appendTextToTextPane(
-		    "\n"
-			    + AJConfig.BUNDLE
-				    .getString("AJ.lblCreatedReports.text")
-			    + " \n", false);
-	    ajMainGUI
-		    .appendTextToTextPane(
-			    "\t"
-				    + path
-				    + File.separator
-				    + FilenameUtils
-					    .removeExtension(AJConfig.REPORT_BY_DATE_FILENAME)
-				    + ".pdf\n", false);
-	    ajMainGUI
-		    .appendTextToTextPane(
-			    "\t"
-				    + path
-				    + File.separator
-				    + FilenameUtils
-					    .removeExtension(AJConfig.REPORT_BY_TARGET_FILENAME)
-				    + ".pdf\n", false);
-	    ajMainGUI
-		    .appendTextToTextPane(
-			    "\t"
-				    + path
-				    + File.separator
-				    + FilenameUtils
-					    .removeExtension(AJConfig.REPORT_BY_CONSTELLATION_FILENAME)
-				    + ".pdf\n", false);
+	    log.info("");
+	    log.info(AJConfig.BUNDLE.getString("AJ.lblCreatedReports.text"));
+	    log.info("\t"
+		    + path
+		    + File.separator
+		    + FilenameUtils
+			    .removeExtension(AJConfig.REPORT_BY_DATE_FILENAME)
+		    + ".pdf");
+	    log.info("\t"
+		    + path
+		    + File.separator
+		    + FilenameUtils
+			    .removeExtension(AJConfig.REPORT_BY_TARGET_FILENAME)
+		    + ".pdf");
+	    log.info("\t"
+		    + path
+		    + File.separator
+		    + FilenameUtils
+			    .removeExtension(AJConfig.REPORT_BY_CONSTELLATION_FILENAME)
+		    + ".pdf");
 
 	    // clean folders from LaTeX temporary, log, and output files
 	    if (SystemUtils.IS_OS_WINDOWS) {
@@ -162,11 +156,9 @@ public class AJMainGUIControls {
 	    ajMainGUI.setStatusPanelText(AJConfig.BUNDLE
 		    .getString("AJ.lblCreatedReportsLong.text"));
 	} catch (IOException ioe) {
-	    System.err
-		    .println(AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"));
+	    log.error(AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"));
 	    ajMainGUI.setStatusPanelText(AJConfig.BUNDLE
 		    .getString("AJ.errPDFLatexShort.text"));
 	}
     }
-
 }

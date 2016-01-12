@@ -42,6 +42,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.astrojournal.gui.AJMainGUI;
 
 /**
@@ -50,6 +52,9 @@ import org.astrojournal.gui.AJMainGUI;
 public class PreferencesDialog extends JDialog implements ActionListener {
 
     private static final long serialVersionUID = 5832696837018920916L;
+
+    /** The log associated to this class */
+    private static Logger log = LogManager.getLogger(PreferencesDialog.class);
 
     /**
      * The relative path containing the raw files (observation input folder).
@@ -115,14 +120,14 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.fill = GridBagConstraints.HORIZONTAL;
 	JLabel ajFilesLocationLBL = new JLabel(
 		AJConfig.BUNDLE.getString("AJ.lblAJFilesLocation.text"));
-	ajFilesLocationLBL.setToolTipText(
-		AJConfig.BUNDLE.getString("AJ.lblAJFilesLocation.toolTipText"));
+	ajFilesLocationLBL.setToolTipText(AJConfig.BUNDLE
+		.getString("AJ.lblAJFilesLocation.toolTipText"));
 	filePanel.add(ajFilesLocationLBL, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
 	ajFilesLocation = new JTextField();
-	ajFilesLocation.setText(
-		AJConfig.getInstance().getAJFilesLocation().getAbsolutePath());
+	ajFilesLocation.setText(AJConfig.getInstance().getAJFilesLocation()
+		.getAbsolutePath());
 	ajFilesLocation.setEditable(false);
 	filePanel.add(ajFilesLocation, c);
 	c.gridx = 2;
@@ -138,8 +143,8 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.weightx = 0.1;
 	JLabel inputDir = new JLabel(
 		AJConfig.BUNDLE.getString("AJ.lblInpDir.text"));
-	inputDir.setToolTipText(
-		AJConfig.BUNDLE.getString("AJ.lblInpDir.toolTipText"));
+	inputDir.setToolTipText(AJConfig.BUNDLE
+		.getString("AJ.lblInpDir.toolTipText"));
 	filePanel.add(inputDir, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
@@ -154,14 +159,14 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.weightx = 0.1;
 	JLabel outputDirByDate = new JLabel(
 		AJConfig.BUNDLE.getString("AJ.lblOutByDateDir.text"));
-	outputDirByDate.setToolTipText(
-		AJConfig.BUNDLE.getString("AJ.lblOutByDateDir.toolTipText"));
+	outputDirByDate.setToolTipText(AJConfig.BUNDLE
+		.getString("AJ.lblOutByDateDir.toolTipText"));
 	filePanel.add(outputDirByDate, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
 	latexReportsFolderByDate = new JTextField();
-	latexReportsFolderByDate
-		.setText(AJConfig.getInstance().getLatexReportsFolderByDate());
+	latexReportsFolderByDate.setText(AJConfig.getInstance()
+		.getLatexReportsFolderByDate());
 	filePanel.add(latexReportsFolderByDate, c);
 	c.gridx = 2;
 	c.weightx = 0.1;
@@ -171,14 +176,14 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.weightx = 0.1;
 	JLabel outputDirByTarget = new JLabel(
 		AJConfig.BUNDLE.getString("AJ.lblOutByTargetDir.text"));
-	outputDirByTarget.setToolTipText(
-		AJConfig.BUNDLE.getString("AJ.lblOutByTargetDir.toolTipText"));
+	outputDirByTarget.setToolTipText(AJConfig.BUNDLE
+		.getString("AJ.lblOutByTargetDir.toolTipText"));
 	filePanel.add(outputDirByTarget, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
 	latexReportsFolderByTarget = new JTextField();
-	latexReportsFolderByTarget.setText(
-		AJConfig.getInstance().getLatexReportsFolderByTarget());
+	latexReportsFolderByTarget.setText(AJConfig.getInstance()
+		.getLatexReportsFolderByTarget());
 	filePanel.add(latexReportsFolderByTarget, c);
 	c.gridx = 2;
 	c.weightx = 0.1;
@@ -194,8 +199,8 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.gridx = 1;
 	c.weightx = 0.5;
 	latexReportsFolderByConstellation = new JTextField();
-	latexReportsFolderByConstellation.setText(
-		AJConfig.getInstance().getLatexReportsFolderByConstellation());
+	latexReportsFolderByConstellation.setText(AJConfig.getInstance()
+		.getLatexReportsFolderByConstellation());
 	filePanel.add(latexReportsFolderByConstellation, c);
 	c.gridx = 2;
 	c.weightx = 0.1;
@@ -205,14 +210,14 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.weightx = 0.1;
 	JLabel outputSGLDirByDate = new JLabel(
 		AJConfig.BUNDLE.getString("AJ.lblSGLOutByDateDir.text"));
-	outputSGLDirByDate.setToolTipText(
-		AJConfig.BUNDLE.getString("AJ.lblSGLOutByDateDir.toolTipText"));
+	outputSGLDirByDate.setToolTipText(AJConfig.BUNDLE
+		.getString("AJ.lblSGLOutByDateDir.toolTipText"));
 	filePanel.add(outputSGLDirByDate, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
 	sglReportsFolderByDate = new JTextField();
-	sglReportsFolderByDate
-		.setText(AJConfig.getInstance().getSglReportsFolderByDate());
+	sglReportsFolderByDate.setText(AJConfig.getInstance()
+		.getSglReportsFolderByDate());
 	filePanel.add(sglReportsFolderByDate, c);
 	c.gridx = 2;
 	c.weightx = 0.1;
@@ -249,8 +254,8 @@ public class PreferencesDialog extends JDialog implements ActionListener {
     private void getDir(JTextField textField) {
 	JFileChooser chooser = new JFileChooser();
 	chooser.setCurrentDirectory(new File(textField.getText()));
-	chooser.setDialogTitle(
-		AJConfig.BUNDLE.getString("AJ.cmdSelectDirectory.text"));
+	chooser.setDialogTitle(AJConfig.BUNDLE
+		.getString("AJ.cmdSelectDirectory.text"));
 	chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 	if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 	    textField.setText(chooser.getSelectedFile().getAbsolutePath());
@@ -287,17 +292,17 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	    config.setAJFilesLocation(ajFilesLocationFile);
 
 	    config.setRawReportsFolder(rawReportsFolder.getText());
-	    config.setLatexReportsFolderByDate(
-		    latexReportsFolderByDate.getText());
-	    config.setLatexReportsFolderByTarget(
-		    latexReportsFolderByTarget.getText());
-	    config.setLatexReportsFolderByConstellation(
-		    latexReportsFolderByConstellation.getText());
+	    config.setLatexReportsFolderByDate(latexReportsFolderByDate
+		    .getText());
+	    config.setLatexReportsFolderByTarget(latexReportsFolderByTarget
+		    .getText());
+	    config.setLatexReportsFolderByConstellation(latexReportsFolderByConstellation
+		    .getText());
 	    config.setSglReportsFolderByDate(sglReportsFolderByDate.getText());
 	    try {
 		config.savePreferences();
 	    } catch (IOException e) {
-		e.printStackTrace();
+		log.error(e);
 	    }
 	    // prepare the folders for AJ.
 	    config.prepareAJFolders();

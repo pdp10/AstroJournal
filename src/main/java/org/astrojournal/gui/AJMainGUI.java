@@ -24,12 +24,9 @@
 package org.astrojournal.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -41,11 +38,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.SwingWorker;
 import javax.swing.WindowConstants;
-import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
-import javax.swing.text.Document;
-import javax.swing.text.Style;
-import javax.swing.text.StyleConstants;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -53,8 +46,7 @@ import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.gui.dialogs.StatusPanel;
 import org.astrojournal.gui.dialogs.WelcomePanel;
 import org.astrojournal.gui.menu.AJMenuBar;
-import org.astrojournal.utilities.RedirectErrorStreamToAJTextPane;
-import org.astrojournal.utilities.RedirectOutputStreamToAJTextPane;
+import org.astrojournal.logging.JTextPaneAppender;
 
 /**
  * A very minimal graphical user interface for running AstroJournal without
@@ -66,7 +58,10 @@ import org.astrojournal.utilities.RedirectOutputStreamToAJTextPane;
  */
 public class AJMainGUI extends JFrame {
 
-    /** The log associated to this class */
+    /**
+     * The log associated to this class. Note: This should be put in a class
+     * AJLogger.
+     */
     private static Logger log = LogManager.getLogger(AJMainGUI.class);
 
     private static final long serialVersionUID = -7217707367091677434L;
@@ -75,7 +70,6 @@ public class AJMainGUI extends JFrame {
     private JButton btnCreateJournal;
     private JButton btnQuit;
     private JTextPane textPane;
-    private boolean isAppendingLatex = false;
     private JPanel mainPanel;
     private WelcomePanel welcomePanel;
     private JPanel outputPanel;
@@ -84,9 +78,6 @@ public class AJMainGUI extends JFrame {
     private boolean latexOutput = AJConfig.getInstance().isLatexOutput();
     private AJMainGUIControls commandRunner;
     private AJMenuBar menu = null;
-    // redirect the console streams to AJTextPane
-    private RedirectOutputStreamToAJTextPane redirectOutputStream2TextPane;
-    private RedirectErrorStreamToAJTextPane redirectErrorStream2TextPane;
 
     /**
      * Creates new form NewJFrame
@@ -98,55 +89,8 @@ public class AJMainGUI extends JFrame {
     /**
      * Clean the text area.
      */
-    public void cleanTextArea() {
+    public void cleanJTextPane() {
 	textPane.setText(" ");
-	isAppendingLatex = false;
-    }
-
-    /**
-     * Append text to the text area.
-     * 
-     * @param str
-     *            the text to append
-     * @param errorStream
-     *            True if the error stream is appended
-     */
-    public void appendTextToTextPane(final String str, boolean errorStream) {
-	Style style = null;
-	if (str.startsWith("###")) {
-	    isAppendingLatex = true;
-	}
-
-	if (!isAppendingLatex) {
-	    if (str.startsWith(AJConfig.APPLICATION_NAME + " "
-		    + AJConfig.APPLICATION_VERSION)) {
-		style = textPane.addStyle("License", null);
-		StyleConstants.setItalic(style, true);
-		StyleConstants.setFontSize(style, 11);
-	    } else if (!str.startsWith("\t")) {
-		style = textPane.addStyle("BoldText", null);
-		StyleConstants.setBold(style, true);
-	    }
-	} else {
-	    if (str.indexOf("Created reports:") != -1) {
-		isAppendingLatex = false;
-		appendTextToTextPane(str, errorStream);
-		return;
-	    }
-	    style = textPane.addStyle("Latex", null);
-	    StyleConstants.setFontSize(style, 11);
-	}
-
-	if (errorStream) {
-	    style = textPane.addStyle("ErrorText", null);
-	    StyleConstants.setForeground(style, Color.RED);
-	}
-	try {
-	    Document doc = textPane.getDocument();
-	    doc.insertString(doc.getLength(), str, style);
-	} catch (BadLocationException e) {
-	    log.warn(e);
-	}
     }
 
     /**
@@ -180,7 +124,7 @@ public class AJMainGUI extends JFrame {
 	    public String doInBackground() {
 		setStatusPanelText(AJConfig.BUNDLE
 			.getString("AJ.lblFileGenerationinProgressLong.text"));
-		cleanTextArea();
+		cleanJTextPane();
 		btnCreateJournal.setEnabled(false);
 		menu.setEnabled("create_journal", false);
 		menu.setEnabled("preferences", false);
@@ -199,26 +143,15 @@ public class AJMainGUI extends JFrame {
      * Dispose this application.
      */
     public void closeApplication() {
-	try {
-	    redirectOutputStream2TextPane.close();
-	    redirectErrorStream2TextPane.close();
-	} catch (IOException e) {
-	}
 	dispose();
 	System.exit(0);
     }
 
     /**
-     * This method is called from within the constructor to initialise the form.
+     * Set AstroJournal window.
      */
-    private void initComponents() {
-
-	redirectOutputStream2TextPane = new RedirectOutputStreamToAJTextPane(
-		this);
-	redirectErrorStream2TextPane = new RedirectErrorStreamToAJTextPane(this);
-
+    private void setAJWindow() {
 	commandRunner = new AJMainGUIControls(this);
-
 	// Configure AJMainGUI with basic parameters
 	setTitle(AJConfig.APPLICATION_NAME + " " + AJConfig.APPLICATION_VERSION);
 	setIconImage(new ImageIcon(
@@ -229,25 +162,33 @@ public class AJMainGUI extends JFrame {
 	setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	setResizable(true);
 	getContentPane().setLayout(new BorderLayout());
+    }
 
-	// set the menu bar
-	menu = new AJMenuBar(this);
-	setJMenuBar(menu);
-
-	// Create the status bar
-	statusPanel = new StatusPanel();
-
+    /**
+     * Set AstroJournal jTextPane. This is the output panel.
+     * 
+     * @return the jScrolPane containing jTextPane.
+     */
+    private JScrollPane setJTextPane() {
 	// Create the text area containing the program text output
 	textPane = new JTextPane();
-	Font font = new Font("Arial", Font.PLAIN, 12);
-	textPane.setFont(font);
 	// Move the JScrollPane to the bottom automatically.
 	DefaultCaret caret = (DefaultCaret) textPane.getCaret();
 	caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 	textPane.setEditable(false);
 
-	JScrollPane scrollPane = new JScrollPane(textPane);
+	// Now attach the log appender necessary for redirecting the log
+	// messages into the JTextPane
+	JTextPaneAppender.addJTextPane(textPane);
 
+	// Let's add a scroll pane
+	return new JScrollPane(textPane);
+    }
+
+    /**
+     * Set AstroJournal control buttons. A small keyboard.
+     */
+    private void setControlButtons() {
 	// Create the checkbox for printing the Latex output
 	cbxLatexOutput = new JCheckBox();
 	if (latexOutput) {
@@ -291,15 +232,18 @@ public class AJMainGUI extends JFrame {
 	    }
 	});
 
-	// Setup for the welcome panel
-	welcomePanel = new WelcomePanel();
+    }
 
-	// Setup for the output panel
-	outputPanel = new JPanel(new BorderLayout());
-	outputPanel.add(
-		new JLabel(AJConfig.BUNDLE.getString("AJ.lblOutput.text")),
-		BorderLayout.NORTH);
-	outputPanel.add(scrollPane, BorderLayout.CENTER);
+    /**
+     * Set AstroJournal's panels.
+     */
+    private void setAJPanels() {
+	setControlButtons();
+
+	// Create the status bar
+	statusPanel = new StatusPanel();
+
+	JScrollPane scrollPane = setJTextPane();
 
 	// Setup for the control panel
 	// Create the control panel containing the button and the checkbox
@@ -310,11 +254,35 @@ public class AJMainGUI extends JFrame {
 	controlPanel.add(btnCreateJournal);
 	controlPanel.add(btnQuit);
 
+	// Setup for the welcome panel
+	welcomePanel = new WelcomePanel();
+
+	// Setup for the output panel
+	outputPanel = new JPanel(new BorderLayout());
+	outputPanel.add(
+		new JLabel(AJConfig.BUNDLE.getString("AJ.lblOutput.text")),
+		BorderLayout.NORTH);
+	outputPanel.add(scrollPane, BorderLayout.CENTER);
+
 	// Add welcome panel and control panel inside the main panel
 	mainPanel = new JPanel(new BorderLayout());
 	mainPanel.setPreferredSize(getContentPane().getPreferredSize());
 	mainPanel.add(welcomePanel, BorderLayout.CENTER);
 	mainPanel.add(controlPanel, BorderLayout.SOUTH);
+    }
+
+    /**
+     * This method is called from within the constructor to initialise the form.
+     */
+    private void initComponents() {
+
+	setAJWindow();
+
+	// set the menu bar
+	menu = new AJMenuBar(this);
+	setJMenuBar(menu);
+
+	setAJPanels();
 
 	// Add the main panel and the status panel to the frame.
 	add(mainPanel, BorderLayout.CENTER);

@@ -203,7 +203,7 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 					.getString("AJ.errFileNotFound.text"),
 				JOptionPane.ERROR_MESSAGE);
 	    } catch (IOException e) {
-		e.printStackTrace();
+		log.error(e);
 	    }
 
 	} else if (action.equals("help_about")) {

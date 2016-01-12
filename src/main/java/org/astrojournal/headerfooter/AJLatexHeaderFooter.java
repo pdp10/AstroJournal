@@ -68,13 +68,13 @@ public abstract class AJLatexHeaderFooter {
 		    sb.append(line).append(" \n");
 		} // end while
 	    } catch (IOException ex) {
-		ex.printStackTrace();
+		log.error(ex);
 	    } finally {
 		try {
 		    if (reader != null)
 			reader.close();
 		} catch (IOException ex) {
-		    ex.printStackTrace();
+		    log.error(ex);
 		}
 	    }
 	}

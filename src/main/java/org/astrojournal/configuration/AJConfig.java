@@ -35,6 +35,8 @@ import java.util.ResourceBundle;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SystemUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * A simple class for configuring AstroJournal.
@@ -45,6 +47,9 @@ import org.apache.commons.lang3.SystemUtils;
  * @date 12 Dec 2015
  */
 public class AJConfig {
+
+    /** The logger */
+    private static Logger log = LogManager.getLogger(AJConfig.class);
 
     /** The AJConfig instance to be used. */
     private static AJConfig instance = new AJConfig();
@@ -193,7 +198,7 @@ public class AJConfig {
 	    try {
 		savePreferences();
 	    } catch (IOException e) {
-		e.printStackTrace();
+		log.error(e);
 	    }
 	}
     }
@@ -233,12 +238,11 @@ public class AJConfig {
 		    if (ajFilesLocation == null || !ajFilesLocation.exists()
 			    || !ajFilesLocation.canWrite()) {
 			ajFilesLocation = oldAJFilesLocation;
-			System.out
-				.println("Warning: The location for storing AJ Files does not exist.\n"
-					+ "Check Edit > Preference or "
-					+ configFile.getAbsolutePath()
-					+ ".\nUsing default path: "
-					+ ajFilesLocation.getAbsolutePath());
+			log.warn("Warning: The location for storing AJ Files does not exist.\n"
+				+ "Check Edit > Preference or "
+				+ configFile.getAbsolutePath()
+				+ ".\nUsing default path: "
+				+ ajFilesLocation.getAbsolutePath());
 			correctLocation = false;
 		    }
 		} else if (sections[0].equals("raw_reports_folder")) {
@@ -253,8 +257,7 @@ public class AJConfig {
 		} else if (sections[0].equals("sgl_reports_folder_by_date")) {
 		    sglReportsFolderByDate = sections[1];
 		} else {
-		    System.err.println("Warning: Found unknown parameter '"
-			    + sections[0]
+		    log.error("Found unknown parameter '" + sections[0]
 			    + "' in AstroJournal configuration file.");
 		}
 		if (!correctLocation) {
@@ -262,13 +265,13 @@ public class AJConfig {
 		}
 	    }
 	} catch (IOException e) {
-	    e.printStackTrace();
+	    log.error(e);
 	} finally {
 	    try {
 		if (br != null)
 		    br.close();
 	    } catch (IOException e) {
-		e.printStackTrace();
+		log.error(e);
 	    }
 	}
 
@@ -412,7 +415,7 @@ public class AJConfig {
 		FileUtils.copyDirectory(ajHeaderFooterDir, userHeaderFooterDir,
 			true);
 	    } catch (IOException e) {
-		System.err.println(AJConfig.BUNDLE
+		log.error(AJConfig.BUNDLE
 			.getString("AJ.errCannotCopyHeaderFooterFolder.text"));
 		e.getStackTrace();
 	    }
