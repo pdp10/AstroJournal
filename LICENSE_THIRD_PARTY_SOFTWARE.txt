@@ -22,7 +22,7 @@ below.
   Copyright (C) Apache Software Foundation
   Distributed under the Apache License 2.0.
 
-4. log4j 2.5 -- http://logging.apache.org/log4j/2.x/
+4. log4j 2.0.2 -- http://logging.apache.org/log4j/2.x/
   [checked 2016-01-08]
   Copyright (C) Apache Software Foundation
   Distributed under the Apache License 2.0.
