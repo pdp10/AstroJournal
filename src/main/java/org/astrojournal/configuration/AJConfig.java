@@ -238,7 +238,7 @@ public class AJConfig {
 		    if (ajFilesLocation == null || !ajFilesLocation.exists()
 			    || !ajFilesLocation.canWrite()) {
 			ajFilesLocation = oldAJFilesLocation;
-			log.warn("Warning: The location for storing AJ Files does not exist.\n"
+			log.warn("The location for storing AJ Files does not exist.\n"
 				+ "Check Edit > Preference or "
 				+ configFile.getAbsolutePath()
 				+ ".\nUsing default path: "

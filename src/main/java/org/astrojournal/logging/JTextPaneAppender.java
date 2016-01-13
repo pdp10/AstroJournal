@@ -35,9 +35,12 @@ import javax.swing.text.StyledDocument;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.Filter;
 import org.apache.logging.log4j.core.Layout;
 import org.apache.logging.log4j.core.LogEvent;
+import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.appender.AbstractAppender;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.apache.logging.log4j.core.config.plugins.PluginAttribute;
@@ -123,6 +126,7 @@ public class JTextPaneAppender extends AbstractAppender {
      * @param textPane
      */
     public static void addJTextPane(final JTextPane textPane) {
+	// The application graphical output
 	jTextPane = textPane;
 
 	// Define JTextPane styles
@@ -150,6 +154,13 @@ public class JTextPaneAppender extends AbstractAppender {
 	styleSmallItalic = doc.addStyle("smallItalic", styleSmall);
 	StyleConstants.setItalic(styleSmallItalic, true);
 
+	// Remove the Appender Console as the GUI is being initialised and
+	// therefore having this information twice is not desirable.
+	Logger logger = LogManager.getLogger("Console");
+	org.apache.logging.log4j.core.Logger coreLogger = (org.apache.logging.log4j.core.Logger) logger;
+	LoggerContext context = coreLogger.getContext();
+	coreLogger.removeAppender(context.getConfiguration().getAppender(
+		"Console"));
     }
 
     @Override
