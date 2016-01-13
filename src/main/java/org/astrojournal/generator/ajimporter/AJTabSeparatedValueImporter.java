@@ -21,18 +21,20 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator;
+package org.astrojournal.generator.ajimporter;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.observation.AJObservation;
-import org.astrojournal.observation.AJObservationItem;
+import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.generator.observation.AJObservation;
+import org.astrojournal.generator.observation.AJObservationItem;
 
 /**
  * The parser for AstroJournal. It imports tab separated value (tsv or csv)
@@ -51,7 +53,30 @@ public class AJTabSeparatedValueImporter extends AJImporter {
     /** Default constructor */
     public AJTabSeparatedValueImporter() {
 	super();
+    }
+
+    /**
+     * Import the observations.
+     * 
+     * @return the imported observations
+     */
+    @Override
+    public ArrayList<AJObservation> importObservations() {
 	log.info("Importing observation files:");
+	ArrayList<AJObservation> observations = new ArrayList<AJObservation>();
+	String rawReportPath = AJConfig.getInstance().getAJFilesLocation()
+		.getAbsolutePath()
+		+ File.separator + AJConfig.getInstance().getRawReportsFolder();
+	File[] files = new File(rawReportPath).listFiles();
+	if (files == null) {
+	    log.error("Folder " + rawReportPath + " not found");
+	    return observations;
+	}
+	Arrays.sort(files);
+	for (File file : files) {
+	    observations.addAll(importObservations(file));
+	}
+	return observations;
     }
 
     /**
@@ -271,9 +296,6 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 				    + "]. Target discarded.");
 			    break;
 			}
-			// log.debug(line);
-			log.debug(AJObservationItem.TARGET_NAME + "="
-				+ values[0]);
 			AJObservationItem item = new AJObservationItem();
 			item.setTarget(values[0]);
 			log.debug(AJObservationItem.TARGET_NAME + "="

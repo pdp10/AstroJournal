@@ -28,9 +28,12 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.util.ArrayList;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConfig;
-import org.astrojournal.generator.AJGenerator;
-import org.astrojournal.observation.AJObservation;
+import org.astrojournal.generator.ajimporter.AJImporter;
+import org.astrojournal.generator.ajimporter.AJTabSeparatedValueImporter;
+import org.astrojournal.generator.observation.AJObservation;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -44,6 +47,12 @@ import org.junit.Test;
 public class ImportWrongObservationsTest {
 
     /**
+     * The log associated to this class.
+     */
+    private static Logger log = LogManager
+	    .getLogger(ImportWrongObservationsTest.class);
+
+    /**
      * The imported observations.
      */
     private static ArrayList<AJObservation> observations;
@@ -54,6 +63,8 @@ public class ImportWrongObservationsTest {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
 
+	log.info("Running unit test: "
+		+ ImportWrongObservationsTest.class.getName());
 	System.out.println("Running unit test: "
 		+ ImportWrongObservationsTest.class.getName());
 
@@ -63,9 +74,8 @@ public class ImportWrongObservationsTest {
 			+ "resources" + File.separator + "wrong_observations");
 	AJConfig.getInstance().readSystemProperties();
 
-	AJGenerator ajLatexGenerator = new AJGenerator();
-	ajLatexGenerator.importObservations();
-	observations = ajLatexGenerator.getObservations();
+	AJImporter ajTabSeparatedValueImporter = new AJTabSeparatedValueImporter();
+	observations = ajTabSeparatedValueImporter.importObservations();
     }
 
     /**

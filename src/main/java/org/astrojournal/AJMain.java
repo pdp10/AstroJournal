@@ -88,7 +88,8 @@ public class AJMain {
 		log.warn("Please, run AstroJournal with the option --help for suggestions.");
 	    }
 	} catch (Exception ex) {
-	    log.warn(ex);
+	    // ex.printStackTrace();
+	    log.error(ex);
 	}
     }
 

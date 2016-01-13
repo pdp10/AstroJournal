@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator;
+package org.astrojournal.generator.ajexporter;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -37,10 +37,11 @@ import java.util.HashSet;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.headerfooter.AJLatexFooter;
-import org.astrojournal.headerfooter.AJLatexHeader;
-import org.astrojournal.observation.AJObservation;
-import org.astrojournal.observation.AJObservationItem;
+import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.generator.headerfooter.AJLatexFooter;
+import org.astrojournal.generator.headerfooter.AJLatexHeader;
+import org.astrojournal.generator.observation.AJObservation;
+import org.astrojournal.generator.observation.AJObservationItem;
 
 /**
  * Exports the observed targets by constellation to Latex code.
@@ -71,12 +72,42 @@ public class AJExporterByConstellation extends AJExporter {
     };
 
     /**
-     * Default constructor
+     * Default Constructor
+     */
+    public AJExporterByConstellation() {
+	super();
+    }
+
+    /**
+     * Constructor
      * 
      * @param ajFilesLocation
      */
     public AJExporterByConstellation(File ajFilesLocation) {
 	super(ajFilesLocation);
+    }
+
+    /**
+     * Generate the Latex document sorted by constellation
+     * 
+     * @param observations
+     *            the list of observations to exportObservation
+     * @return true if the observations sorted by constellation have been
+     *         exported to Latex correctly
+     */
+    @Override
+    public boolean generateJournal(ArrayList<AJObservation> observations) {
+	// export the imported observation by constellation to Latex
+	log.info("");
+	log.info("Exporting observations by constellation:");
+	boolean resultByConstellation = exportObservations(observations,
+		AJConfig.getInstance().getLatexReportsFolderByConstellation());
+	generateJournal(AJConfig.getInstance()
+		.getLatexReportsFolderByConstellation(),
+		AJConfig.HEADER_BY_CONSTELLATION_FILENAME,
+		AJConfig.REPORT_BY_CONSTELLATION_FILENAME,
+		AJConfig.FOOTER_BY_CONSTELLATION_FILENAME);
+	return resultByConstellation;
     }
 
     /**

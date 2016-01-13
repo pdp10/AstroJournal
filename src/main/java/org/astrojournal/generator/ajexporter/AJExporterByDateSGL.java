@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator;
+package org.astrojournal.generator.ajexporter;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -37,8 +37,9 @@ import java.util.Scanner;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.observation.AJObservation;
-import org.astrojournal.observation.AJObservationItem;
+import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.generator.observation.AJObservation;
+import org.astrojournal.generator.observation.AJObservationItem;
 
 /**
  * Exports an AstroJournal observation to txt for Stargazers Lounge reports.
@@ -54,11 +55,38 @@ public class AJExporterByDateSGL extends AJExporter {
 
     /**
      * Default constructor
+     */
+    public AJExporterByDateSGL() {
+	super();
+    }
+
+    /**
+     * Constructor
      * 
      * @param ajFilesLocation
      */
     public AJExporterByDateSGL(File ajFilesLocation) {
 	super(ajFilesLocation);
+    }
+
+    /**
+     * Generate the Latex document sorted by date for the forum StargazersLounge
+     * 
+     * @param observations
+     *            the list of observations to exportObservation
+     * @return true if the observations sorted by date have been exported to txt
+     *         correctly
+     */
+    @Override
+    public boolean generateJournal(ArrayList<AJObservation> observations) {
+	// export the imported observation by date to txt
+	log.info("");
+	log.info("Exporting observations by date for SGL:");
+	boolean resultByDateSGL = exportObservations(observations, AJConfig
+		.getInstance().getSglReportsFolderByDate());
+	generateJournal(AJConfig.getInstance().getSglReportsFolderByDate(), "",
+		AJConfig.SGL_REPORT_BY_DATE_FILENAME, "");
+	return resultByDateSGL;
     }
 
     /**

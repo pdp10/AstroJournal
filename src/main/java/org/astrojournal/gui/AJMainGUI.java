@@ -60,8 +60,7 @@ import org.astrojournal.logging.JTextPaneAppender;
 public class AJMainGUI extends JFrame {
 
     /**
-     * The log associated to this class. Note: This should be put in a class
-     * AJLogger.
+     * The log associated to this class.
      */
     private static Logger log = LogManager.getLogger(AJMainGUI.class);
 

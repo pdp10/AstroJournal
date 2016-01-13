@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator;
+package org.astrojournal.generator.ajexporter;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -38,10 +38,11 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.headerfooter.AJLatexFooter;
-import org.astrojournal.headerfooter.AJLatexHeader;
-import org.astrojournal.observation.AJObservation;
-import org.astrojournal.observation.AJObservationItem;
+import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.generator.headerfooter.AJLatexFooter;
+import org.astrojournal.generator.headerfooter.AJLatexHeader;
+import org.astrojournal.generator.observation.AJObservation;
+import org.astrojournal.generator.observation.AJObservationItem;
 
 /**
  * Exports an AstroJournal set of observations by target to Latex code.
@@ -74,11 +75,40 @@ public class AJExporterByTarget extends AJExporter {
 
     /**
      * Default constructor
+     */
+    public AJExporterByTarget() {
+	super();
+    }
+
+    /**
+     * Constructor
      * 
      * @param ajFilesLocation
      */
     public AJExporterByTarget(File ajFilesLocation) {
 	super(ajFilesLocation);
+    }
+
+    /**
+     * Generate the Latex document sorted by target
+     * 
+     * @param observations
+     *            the list of observations to exportObservation
+     * @return true if the observations sorted by target have been exported to
+     *         Latex correctly
+     */
+    @Override
+    public boolean generateJournal(ArrayList<AJObservation> observations) {
+	// export the imported observation by target to Latex
+	log.info("");
+	log.info("Exporting observations by target:");
+	boolean resultByTarget = exportObservations(observations, AJConfig
+		.getInstance().getLatexReportsFolderByTarget());
+	generateJournal(AJConfig.getInstance().getLatexReportsFolderByTarget(),
+		AJConfig.HEADER_BY_TARGET_FILENAME,
+		AJConfig.REPORT_BY_TARGET_FILENAME,
+		AJConfig.FOOTER_BY_TARGET_FILENAME);
+	return resultByTarget;
     }
 
     /**

@@ -203,20 +203,18 @@ public class JTextPaneAppender extends AbstractAppender {
 					    styleBlue);
 				}
 			    } catch (BadLocationException e) {
-				LOGGER.fatal(e);
+				LOGGER.error(e);
 			    }
 			}
 		    } catch (final Throwable t) {
-			System.err
-				.println("Unable to append log to text pane: "
-					+ t.getMessage()
-					+ ". Please see help menu for reporting this issue.");
+			LOGGER.error("Unable to append log to text pane: "
+				+ t.getMessage()
+				+ ". Please see help menu for reporting this issue.");
 		    }
 		}
 	    });
 	} catch (final IllegalStateException e) {
-	    System.err.println("Unable to append log to text pane: "
-		    + e.getMessage()
+	    LOGGER.error("Unable to append log to text pane: " + e.getMessage()
 		    + ". Please see help menu for reporting this issue.");
 	}
     }

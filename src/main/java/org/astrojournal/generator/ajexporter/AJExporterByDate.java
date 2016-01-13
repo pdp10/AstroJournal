@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator;
+package org.astrojournal.generator.ajexporter;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -35,10 +35,11 @@ import java.util.Collections;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.headerfooter.AJLatexFooter;
-import org.astrojournal.headerfooter.AJLatexHeader;
-import org.astrojournal.observation.AJObservation;
-import org.astrojournal.observation.AJObservationItem;
+import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.generator.headerfooter.AJLatexFooter;
+import org.astrojournal.generator.headerfooter.AJLatexHeader;
+import org.astrojournal.generator.observation.AJObservation;
+import org.astrojournal.generator.observation.AJObservationItem;
 
 /**
  * Exports an AstroJournal observation to Latex code.
@@ -54,11 +55,40 @@ public class AJExporterByDate extends AJExporter {
 
     /**
      * Default constructor
+     */
+    public AJExporterByDate() {
+	super();
+    }
+
+    /**
+     * Constructor
      * 
      * @param ajFilesLocation
      */
     public AJExporterByDate(File ajFilesLocation) {
 	super(ajFilesLocation);
+    }
+
+    /**
+     * Generate the Latex document sorted by date
+     * 
+     * @param observations
+     *            the list of observations to exportObservation
+     * @return true if the observations sorted by date have been exported to
+     *         Latex correctly
+     */
+    @Override
+    public boolean generateJournal(ArrayList<AJObservation> observations) {
+	// export the imported observation by date to Latex
+	log.info("");
+	log.info("Exporting observations by date:");
+	boolean resultByDate = exportObservations(observations, AJConfig
+		.getInstance().getLatexReportsFolderByDate());
+	generateJournal(AJConfig.getInstance().getLatexReportsFolderByDate(),
+		AJConfig.HEADER_BY_DATE_FILENAME,
+		AJConfig.REPORT_BY_DATE_FILENAME,
+		AJConfig.FOOTER_BY_DATE_FILENAME);
+	return resultByDate;
     }
 
     /**

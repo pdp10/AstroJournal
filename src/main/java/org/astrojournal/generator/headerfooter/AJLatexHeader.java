@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.headerfooter;
+package org.astrojournal.generator.headerfooter;
 
 /**
  * The header of the LaTeX main file.

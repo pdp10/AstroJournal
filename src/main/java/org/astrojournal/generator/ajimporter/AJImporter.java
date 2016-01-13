@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator;
+package org.astrojournal.generator.ajimporter;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -29,7 +29,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.astrojournal.observation.AJObservation;
+import org.astrojournal.generator.observation.AJObservation;
 
 /**
  * The parser for AstroJournal. It imports files containing the observations.
@@ -58,6 +58,13 @@ public abstract class AJImporter {
     public static String getInitialKeyword() {
 	return initialKeyword;
     }
+
+    /**
+     * Import the observations.
+     * 
+     * @return the imported observations
+     */
+    public abstract ArrayList<AJObservation> importObservations();
 
     /**
      * Imports the observation data stored in multiple files.
@@ -102,6 +109,6 @@ public abstract class AJImporter {
      */
     protected abstract void importObservation(BufferedReader reader,
 	    AJObservation obs, String line, String delimiter)
-		    throws IOException;
+	    throws IOException;
 
 }

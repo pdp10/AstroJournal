@@ -21,12 +21,12 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator;
+package org.astrojournal.generator.ajexporter;
 
 import java.io.File;
 import java.util.ArrayList;
 
-import org.astrojournal.observation.AJObservation;
+import org.astrojournal.generator.observation.AJObservation;
 
 /**
  * Abstract class of AstroJournal observation exporter.
@@ -40,6 +40,12 @@ public abstract class AJExporter {
     protected File ajFilesLocation;
 
     /**
+     * Default constructor
+     */
+    public AJExporter() {
+    }
+
+    /**
      * The path location where to export the files.
      * 
      * @param ajFilesLocation
@@ -47,6 +53,28 @@ public abstract class AJExporter {
     public AJExporter(File ajFilesLocation) {
 	this.ajFilesLocation = ajFilesLocation;
     }
+
+    /**
+     * Exports an observation record to Latex
+     * 
+     * @param observations
+     *            the list of observations to exportObservation
+     * @param outputReportsFolder
+     *            the folder to write the observation in.
+     * @return true if the observations are exported
+     */
+    public abstract boolean exportObservations(
+	    ArrayList<AJObservation> observations, String outputReportsFolder);
+
+    /**
+     * Generate the journal document
+     * 
+     * @param observations
+     *            the list of observations to exportObservation
+     * @return true if the observations have been exported correctly
+     */
+    public abstract boolean generateJournal(
+	    ArrayList<AJObservation> observations);
 
     /**
      * Generate the journal document
@@ -65,15 +93,22 @@ public abstract class AJExporter {
 	    String headerFilename, String mainFilename, String footerFilename);
 
     /**
-     * Exports an observation record to Latex
+     * Return AstroJournal files location
      * 
-     * @param observations
-     *            the list of observations to exportObservation
-     * @param outputReportsFolder
-     *            the folder to write the observation in.
-     * @return true if the observations are exported
+     * @return the ajFilesLocation
      */
-    public abstract boolean exportObservations(
-	    ArrayList<AJObservation> observations, String outputReportsFolder);
+    public File getAjFilesLocation() {
+	return ajFilesLocation;
+    }
+
+    /**
+     * Set AstroJournal Files location
+     * 
+     * @param ajFilesLocation
+     *            the ajFilesLocation to set
+     */
+    public void setAjFilesLocation(File ajFilesLocation) {
+	this.ajFilesLocation = ajFilesLocation;
+    }
 
 }

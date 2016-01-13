@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.observation;
+package org.astrojournal.generator.observation;
 
 import java.util.ArrayList;
 
