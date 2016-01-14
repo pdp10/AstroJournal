@@ -12,7 +12,7 @@
   <!-- Output to jar format -->
   <packaging>jar</packaging>
   
-  <version>0.10.0</version>
+  <version>0.10.12</version>
   <name>AstroJournal</name>
   <description>AstroJournal is a tool for generating astronomy observation reports in LaTeX.</description>
   <url>https://github.com/pdp10/AstroJournal</url>
@@ -152,12 +152,12 @@
                     <maxHeapSize>512</maxHeapSize>
                 </jre>
                 <versionInfo>
-                    <fileVersion>0.10.0.0</fileVersion>
-                    <txtFileVersion>0.10.0.0</txtFileVersion>
+                    <fileVersion>${project.version}.0</fileVersion>
+                    <txtFileVersion>${project.version}.0</txtFileVersion>
                     <fileDescription>A tool for generating astronomy observation reports in LaTeX / PDF</fileDescription>
-                    <copyright>Copyright (C) 2015 Piero Dalle Pezze (GPL v3 License)</copyright>
-                    <productVersion>0.10.0.0</productVersion>
-                    <txtProductVersion>0.10.0.0</txtProductVersion>
+                    <copyright>Copyright (C) 2015-2016 Piero Dalle Pezze (GPL v3 License)</copyright>
+                    <productVersion>${project.version}0.0</productVersion>
+                    <txtProductVersion>${project.version}.0</txtProductVersion>
                     <productName>AstroJournal</productName>
                     <internalName>AstroJournal</internalName>
                     <originalFilename>astrojournal.exe</originalFilename>
