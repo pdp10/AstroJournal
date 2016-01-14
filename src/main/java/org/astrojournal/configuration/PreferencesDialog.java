@@ -281,16 +281,8 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	    AJConfig config = AJConfig.getInstance();
 
 	    File ajFilesLocationFile = new File(ajFilesLocation.getText());
-	    // if (!ajFilesLocationFile.exists()) {
-	    // JOptionPane.showMessageDialog(this,
-	    // AJConfig.BUNDLE
-	    // .getString("AJ.errFilesLocationNotFound.text"),
-	    // AJConfig.BUNDLE.getString("AJ.lblError.text"),
-	    // JOptionPane.ERROR_MESSAGE);
-	    // return;
-	    // }
-	    config.setAJFilesLocation(ajFilesLocationFile);
 
+	    config.setAJFilesLocation(ajFilesLocationFile);
 	    config.setRawReportsFolder(rawReportsFolder.getText());
 	    config.setLatexReportsFolderByDate(latexReportsFolderByDate
 		    .getText());
