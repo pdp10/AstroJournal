@@ -23,20 +23,29 @@
  */
 package org.astrojournal.configuration;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ResourceBundle;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
+import org.xml.sax.SAXException;
+
+import com.sun.org.apache.xml.internal.serialize.OutputFormat;
+import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
 /**
  * A simple class for configuring AstroJournal.
@@ -60,13 +69,13 @@ public class AJConfig {
 	    .getBundle("locale/Bundle");
 
     /** The configuration file name. */
-    private static final String AJ_CONFIG_FILENAME = "astrojournal.conf";
+    private static final String AJ_CONFIG_FILENAME = "astrojournal.xml";
 
     /** The AJ application name. */
     public static final String APPLICATION_NAME = "AstroJournal";
 
     /** The AJ application version. */
-    public static final String APPLICATION_VERSION = "v0.10.0";
+    public static final String APPLICATION_VERSION = "v0.10.12";
 
     /** The name of the main Latex file sorted by date. */
     public static final String REPORT_BY_DATE_FILENAME = "astrojournal_by_date.tex";
@@ -167,7 +176,7 @@ public class AJConfig {
 	configurationInit();
 	// Read the system properties (this may override the configuration
 	// file)
-	readSystemProperties();
+	loadSystemProperties();
     }
 
     /**
@@ -193,10 +202,10 @@ public class AJConfig {
 		+ File.separator + "AstroJournal_files");
 
 	if (configFile != null && configFile.exists()) {
-	    loadPreferences();
+	    loadConfiguration();
 	} else {
 	    try {
-		savePreferences();
+		saveConfiguration();
 	    } catch (IOException e) {
 		log.error(e);
 	    }
@@ -204,106 +213,201 @@ public class AJConfig {
     }
 
     /**
-     * Load preferences from a saved file
+     * Load the configuration file.
      */
-    private void loadPreferences() {
-
-	BufferedReader br = null;
+    private void loadConfiguration() {
+	boolean correctLocation = true;
+	log.debug("Loading the configuration file "
+		+ configFile.getAbsolutePath());
+	log.debug("Get the factory");
+	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 	try {
-	    br = new BufferedReader(new FileReader(configFile));
+	    log.debug("Get an instance of document builder");
+	    DocumentBuilder db = dbf.newDocumentBuilder();
+	    log.debug("Parse using builder to get DOM representation of the XML file");
+	    Document dom = db.parse(configFile);
 
-	    String line;
-	    String[] sections;
-	    boolean correctLocation = true;
-	    while ((line = br.readLine()) != null) {
-		// Let's skip comments, empty lines or lines starting with
-		// blanks
-		if (line.startsWith("#") || line.isEmpty()
-			|| line.startsWith(" ")) {
-		    continue;
-		}
-		sections = line.split("=");
-		if (sections[0].equals("latex_output")) {
-		    latexOutput = Boolean.parseBoolean(sections[1]);
-		} else if (sections[0].equals("quiet")) {
-		    quiet = Boolean.parseBoolean(sections[1]);
-		} else if (sections[0].equals("show_configuration_at_start")) {
-		    showConfigurationAtStart = Boolean
-			    .parseBoolean(sections[1]);
-		} else if (sections[0].equals("show_license_at_start")) {
-		    showLicenseAtStart = Boolean.parseBoolean(sections[1]);
-		} else if (sections[0].equals("aj_files_location")) {
-		    File oldAJFilesLocation = ajFilesLocation;
-		    ajFilesLocation = new File(sections[1]);
-		    if (ajFilesLocation == null || !ajFilesLocation.exists()
-			    || !ajFilesLocation.canWrite()) {
-			ajFilesLocation = oldAJFilesLocation;
-			log.warn("The location for storing AJ Files does not exist.\n"
-				+ "Check Edit > Preference or "
-				+ configFile.getAbsolutePath()
-				+ ".\nUsing default path: "
-				+ ajFilesLocation.getAbsolutePath());
-			correctLocation = false;
-		    }
-		} else if (sections[0].equals("raw_reports_folder")) {
-		    rawReportsFolder = sections[1];
-		} else if (sections[0].equals("latex_reports_folder_by_date")) {
-		    latexReportsFolderByDate = sections[1];
-		} else if (sections[0].equals("latex_reports_folder_by_target")) {
-		    latexReportsFolderByTarget = sections[1];
-		} else if (sections[0]
-			.equals("latex_reports_folder_by_constellation")) {
-		    latexReportsFolderByConstellation = sections[1];
-		} else if (sections[0].equals("sgl_reports_folder_by_date")) {
-		    sglReportsFolderByDate = sections[1];
-		} else {
-		    log.error("Found unknown parameter '" + sections[0]
-			    + "' in AstroJournal configuration file.");
-		}
-		if (!correctLocation) {
-		    savePreferences();
-		}
+	    log.debug("Get the root element");
+	    Element rootEle = dom.getDocumentElement();
+	    log.debug("Retrieve elements by node list");
+	    NodeList nodeList;
+	    Element elem;
+
+	    nodeList = rootEle.getElementsByTagName("latex_output");
+	    elem = (Element) nodeList.item(0);
+	    latexOutput = Boolean.parseBoolean(elem.getFirstChild()
+		    .getNodeValue());
+	    log.debug("latex_output:" + latexOutput);
+
+	    nodeList = rootEle.getElementsByTagName("quiet");
+	    elem = (Element) nodeList.item(0);
+	    quiet = Boolean.parseBoolean(elem.getFirstChild().getNodeValue());
+	    log.debug("quiet:" + quiet);
+
+	    nodeList = rootEle
+		    .getElementsByTagName("show_configuration_at_start");
+	    elem = (Element) nodeList.item(0);
+	    showConfigurationAtStart = Boolean.parseBoolean(elem
+		    .getFirstChild().getNodeValue());
+	    log.debug("show_configuration_at_start:" + showConfigurationAtStart);
+
+	    nodeList = rootEle.getElementsByTagName("show_license_at_start");
+	    elem = (Element) nodeList.item(0);
+	    showLicenseAtStart = Boolean.parseBoolean(elem.getFirstChild()
+		    .getNodeValue());
+	    log.debug("show_license_at_start:" + showLicenseAtStart);
+
+	    nodeList = rootEle.getElementsByTagName("aj_files_location");
+	    elem = (Element) nodeList.item(0);
+	    File oldAJFilesLocation = ajFilesLocation;
+	    ajFilesLocation = new File(elem.getFirstChild().getNodeValue());
+	    log.debug("aj_files_location:" + ajFilesLocation.getAbsolutePath());
+	    if (ajFilesLocation == null || !ajFilesLocation.exists()
+		    || !ajFilesLocation.canWrite()) {
+		ajFilesLocation = oldAJFilesLocation;
+		log.warn("The location for storing AJ Files does not exist.\n"
+			+ "Check Edit > Preference or "
+			+ configFile.getAbsolutePath()
+			+ ".\nUsing default path: "
+			+ ajFilesLocation.getAbsolutePath());
+		correctLocation = false;
 	    }
+
+	    nodeList = rootEle.getElementsByTagName("raw_reports_folder");
+	    elem = (Element) nodeList.item(0);
+	    rawReportsFolder = elem.getFirstChild().getNodeValue();
+	    log.debug("raw_reports_folder:" + rawReportsFolder);
+
+	    nodeList = rootEle
+		    .getElementsByTagName("latex_reports_folder_by_date");
+	    elem = (Element) nodeList.item(0);
+	    latexReportsFolderByDate = elem.getFirstChild().getNodeValue();
+	    log.debug("latex_reports_folder_by_date:"
+		    + latexReportsFolderByDate);
+
+	    nodeList = rootEle
+		    .getElementsByTagName("latex_reports_folder_by_target");
+	    elem = (Element) nodeList.item(0);
+	    latexReportsFolderByTarget = elem.getFirstChild().getNodeValue();
+	    log.debug("latex_reports_folder_by_target:"
+		    + latexReportsFolderByTarget);
+
+	    nodeList = rootEle
+		    .getElementsByTagName("latex_reports_folder_by_constellation");
+	    elem = (Element) nodeList.item(0);
+	    latexReportsFolderByConstellation = elem.getFirstChild()
+		    .getNodeValue();
+	    log.debug("latex_reports_folder_by_constellation:"
+		    + latexReportsFolderByConstellation);
+
+	    nodeList = rootEle
+		    .getElementsByTagName("sgl_reports_folder_by_date");
+	    elem = (Element) nodeList.item(0);
+	    sglReportsFolderByDate = elem.getFirstChild().getNodeValue();
+	    log.debug("sgl_reports_folder_by_date:" + sglReportsFolderByDate);
+
+	    log.debug("Configuration file " + configFile.getAbsolutePath()
+		    + " loaded");
+	    if (!correctLocation) {
+		saveConfiguration();
+	    }
+	} catch (ParserConfigurationException e) {
+	    log.error(e, e);
+	} catch (SAXException e) {
+	    log.error(e, e);
 	} catch (IOException e) {
-	    log.error(e);
-	} finally {
-	    try {
-		if (br != null)
-		    br.close();
-	    } catch (IOException e) {
-		log.error(e);
-	    }
+	    log.error(e, e);
 	}
-
     }
 
     /**
-     * Save preferences.
+     * Save the configuration file.
      * 
      * @throws IOException
      */
-    public void savePreferences() throws IOException {
-	adjustFileSeparator();
+    public void saveConfiguration() throws IOException {
+	// get an instance of factory
+	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+	try {
+	    log.debug("Saving configuration file "
+		    + configFile.getAbsolutePath());
+	    log.debug("Initialise DocumentBuilder and DOM");
+	    DocumentBuilder db = dbf.newDocumentBuilder();
+	    Document dom = db.newDocument();
 
-	PrintWriter pw = new PrintWriter(new FileWriter(configFile));
+	    log.debug("Create the root element");
+	    Element rootElem = dom.createElement("astrojournal");
+	    dom.appendChild(rootElem);
 
-	pw.println("# AstroJournal configuration file. You should not edit this file.\n");
+	    log.debug("Create elements and node and attach it to root astrojournal");
+	    Element elem;
+	    Text value;
+	    elem = dom.createElement("latex_output");
+	    value = dom.createTextNode(String.valueOf(latexOutput));
+	    elem.appendChild(value);
+	    rootElem.appendChild(elem);
 
-	// Let's now right down the configuration
-	pw.println("latex_output=" + latexOutput);
-	pw.println("quiet=" + quiet);
-	pw.println("show_configuration_at_start=" + showConfigurationAtStart);
-	pw.println("show_license_at_start=" + showLicenseAtStart);
-	pw.println("aj_files_location=" + ajFilesLocation.getAbsolutePath());
-	pw.println("raw_reports_folder=" + rawReportsFolder);
-	pw.println("latex_reports_folder_by_date=" + latexReportsFolderByDate);
-	pw.println("latex_reports_folder_by_target="
-		+ latexReportsFolderByTarget);
-	pw.println("latex_reports_folder_by_constellation="
-		+ latexReportsFolderByConstellation);
-	pw.println("sgl_reports_folder_by_date=" + sglReportsFolderByDate);
+	    elem = dom.createElement("quiet");
+	    value = dom.createTextNode(String.valueOf(quiet));
+	    elem.appendChild(value);
+	    rootElem.appendChild(elem);
 
-	pw.close();
+	    elem = dom.createElement("show_configuration_at_start");
+	    value = dom
+		    .createTextNode(String.valueOf(showConfigurationAtStart));
+	    elem.appendChild(value);
+	    rootElem.appendChild(elem);
+
+	    elem = dom.createElement("show_license_at_start");
+	    value = dom
+		    .createTextNode(String.valueOf(showConfigurationAtStart));
+	    elem.appendChild(value);
+	    rootElem.appendChild(elem);
+
+	    elem = dom.createElement("aj_files_location");
+	    value = dom.createTextNode(ajFilesLocation.getAbsolutePath());
+	    elem.appendChild(value);
+	    rootElem.appendChild(elem);
+
+	    elem = dom.createElement("raw_reports_folder");
+	    value = dom.createTextNode(rawReportsFolder);
+	    elem.appendChild(value);
+	    rootElem.appendChild(elem);
+
+	    elem = dom.createElement("latex_reports_folder_by_date");
+	    value = dom.createTextNode(latexReportsFolderByDate);
+	    elem.appendChild(value);
+	    rootElem.appendChild(elem);
+
+	    elem = dom.createElement("latex_reports_folder_by_target");
+	    value = dom.createTextNode(latexReportsFolderByTarget);
+	    elem.appendChild(value);
+	    rootElem.appendChild(elem);
+
+	    elem = dom.createElement("latex_reports_folder_by_constellation");
+	    value = dom.createTextNode(latexReportsFolderByConstellation);
+	    elem.appendChild(value);
+	    rootElem.appendChild(elem);
+
+	    elem = dom.createElement("sgl_reports_folder_by_date");
+	    value = dom.createTextNode(sglReportsFolderByDate);
+	    elem.appendChild(value);
+	    rootElem.appendChild(elem);
+
+	    log.debug("Serialize DOM to FileOutputStream to generate the xml file");
+	    OutputFormat format = new OutputFormat(dom);
+	    format.setIndenting(true);
+	    XMLSerializer serializer = new XMLSerializer(new FileOutputStream(
+		    configFile), format);
+	    serializer.serialize(dom);
+	    log.debug("Configuration file " + configFile.getAbsolutePath()
+		    + " saved");
+	} catch (ParserConfigurationException pce) {
+	    log.error("Error while trying to instantiate DocumentBuilder "
+		    + pce, pce);
+	} catch (IOException ie) {
+	    throw ie;
+	}
     }
 
     /**
@@ -322,9 +426,9 @@ public class AJConfig {
     }
 
     /**
-     * Read the Java System Properties for AstroJournal dynamically.
+     * Load the Java System Properties for AstroJournal dynamically.
      */
-    public void readSystemProperties() {
+    public void loadSystemProperties() {
 	// Show version
 	if (System.getProperty("aj.show_version") != null
 		&& System.getProperty("aj.show_version").equals("true")) {

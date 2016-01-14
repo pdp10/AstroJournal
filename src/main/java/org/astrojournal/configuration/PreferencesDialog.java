@@ -292,7 +292,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 		    .getText());
 	    config.setSglReportsFolderByDate(sglReportsFolderByDate.getText());
 	    try {
-		config.savePreferences();
+		config.saveConfiguration();
 	    } catch (IOException e) {
 		log.error(e);
 	    }

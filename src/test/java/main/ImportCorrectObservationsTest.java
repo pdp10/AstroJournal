@@ -61,7 +61,7 @@ public class ImportCorrectObservationsTest {
 		System.getProperty("user.dir") + File.separator + "src"
 			+ File.separator + "test" + File.separator
 			+ "resources" + File.separator + "correct_observations");
-	AJConfig.getInstance().readSystemProperties();
+	AJConfig.getInstance().loadSystemProperties();
 
 	AJGenerator ajLatexGenerator = new AJGenerator();
 	ajLatexGenerator.importObservations();
