@@ -302,7 +302,7 @@ public class AJMainGUI extends JFrame {
 	try {
 	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 	} catch (Exception e) {
-	    log.error(e);
+	    log.warn(e, e);
 	}
 
 	// enable anti-aliased text:

@@ -52,6 +52,7 @@ public class AJMain {
 	try {
 	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 	} catch (Exception ex) {
+	    log.warn(ex, ex);
 	}
 
 	// enable anti-aliased text:
@@ -88,8 +89,7 @@ public class AJMain {
 		log.warn("Please, run AstroJournal with the option --help for suggestions.");
 	    }
 	} catch (Exception ex) {
-	    // ex.printStackTrace();
-	    log.error(ex);
+	    log.error(ex, ex);
 	}
     }
 

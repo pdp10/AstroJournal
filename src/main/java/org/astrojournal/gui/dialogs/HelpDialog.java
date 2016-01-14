@@ -32,6 +32,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.gui.AJMainGUI;
 
@@ -44,6 +46,9 @@ import org.astrojournal.gui.AJMainGUI;
  * @date 9 Jan 2016
  */
 public class HelpDialog {
+
+    /** The log associated to this class */
+    private static Logger log = LogManager.getLogger(HelpDialog.class);
 
     private JHelp helpViewer = null;
     private JFrame frame;
@@ -62,6 +67,9 @@ public class HelpDialog {
 	    helpViewer = new JHelp(new HelpSet(classLoader, hsURL));
 	    helpViewer.setCurrentID("Index");
 	} catch (Exception e) {
+	    log.error(
+		    AJConfig.BUNDLE.getString("AJ.errHelpIndexNotFound.text"),
+		    e);
 	    JOptionPane.showMessageDialog(application,
 		    AJConfig.BUNDLE.getString("AJ.errHelpIndexNotFound.text"),
 		    AJConfig.BUNDLE.getString("AJ.errFileNotFound.text"),
@@ -89,6 +97,7 @@ public class HelpDialog {
 	try {
 	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 	} catch (Exception ex) {
+	    log.warn(ex, ex);
 	}
 
 	java.awt.EventQueue.invokeLater(new Runnable() {

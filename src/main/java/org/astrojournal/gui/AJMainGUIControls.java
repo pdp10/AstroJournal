@@ -77,6 +77,8 @@ public class AJMainGUIControls {
 	} catch (IOException e) {
 	    ajMainGUI.setStatusPanelText(AJConfig.BUNDLE
 		    .getString("AJ.errUnconfiguredPreferences.text"));
+	    log.error(AJConfig.BUNDLE
+		    .getString("AJ.errUnconfiguredPreferences.text"), e);
 	    return;
 	}
 
@@ -156,7 +158,7 @@ public class AJMainGUIControls {
 	    ajMainGUI.setStatusPanelText(AJConfig.BUNDLE
 		    .getString("AJ.lblCreatedReportsLong.text"));
 	} catch (IOException ioe) {
-	    log.error(AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"));
+	    log.error(AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"), ioe);
 	    ajMainGUI.setStatusPanelText(AJConfig.BUNDLE
 		    .getString("AJ.errPDFLatexShort.text"));
 	}

@@ -196,6 +196,9 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 		LicenseDialog licenseDialog = new LicenseDialog(application,
 			license);
 	    } catch (FileNotFoundException e) {
+		log.error(
+			AJConfig.BUNDLE.getString("AJ.errLicenseNotFound.text"),
+			AJConfig.BUNDLE.getString("AJ.errFileNotFound.text"), e);
 		JOptionPane
 			.showMessageDialog(application, AJConfig.BUNDLE
 				.getString("AJ.errLicenseNotFound.text"),
@@ -203,13 +206,15 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 					.getString("AJ.errFileNotFound.text"),
 				JOptionPane.ERROR_MESSAGE);
 	    } catch (IOException e) {
-		log.error(e);
+		log.error(e, e);
 	    }
 
 	} else if (action.equals("help_about")) {
 	    AboutDialog aboutDialog = new AboutDialog(application);
 
 	} else {
+	    log.error(AJConfig.BUNDLE.getString("AJ.errCommandNotFound.text")
+		    + action);
 	    JOptionPane.showMessageDialog(application,
 		    AJConfig.BUNDLE.getString("AJ.errCommandNotFound.text")
 			    + action,

@@ -95,7 +95,7 @@ public class AJTitlePanel extends JPanel {
 		    try {
 			desktop.browse(hle.getURL().toURI());
 		    } catch (Exception ex) {
-			log.error(ex);
+			log.error(ex, ex);
 		    }
 		}
 	    }
@@ -118,7 +118,7 @@ public class AJTitlePanel extends JPanel {
 			    + "JUnit \u00a9 JUnit Team, 2015.", style);
 
 	} catch (BadLocationException e) {
-	    log.error(e);
+	    log.error(e, e);
 	}
 
     }

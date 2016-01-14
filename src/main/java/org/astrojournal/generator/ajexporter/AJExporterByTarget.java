@@ -48,7 +48,7 @@ import org.astrojournal.generator.observation.AJObservationItem;
  * Exports an AstroJournal set of observations by target to Latex code.
  * 
  * @author Piero Dalle Pezze
- * @version 0.1
+ * @version 0.2
  * @since 22/07/2015
  */
 public class AJExporterByTarget extends AJExporter {
@@ -257,17 +257,18 @@ public class AJExporterByTarget extends AJExporter {
 	    // write the Latex Footer
 	    writerByTarget.write(ajLatexFooterByTarget.getFooter());
 	} catch (IOException ex) {
-	    log.warn("Error when opening the file "
-		    + ajFilesLocation.getAbsolutePath() + File.separator
-		    + latexMainByTarget);
+	    log.warn(
+		    "Error when opening the file "
+			    + ajFilesLocation.getAbsolutePath()
+			    + File.separator + latexMainByTarget, ex);
 	} catch (Exception ex) {
-	    log.error(ex);
+	    log.error(ex, ex);
 	} finally {
 	    try {
 		if (writerByTarget != null)
 		    writerByTarget.close();
 	    } catch (Exception ex) {
-		log.error(ex);
+		log.error(ex, ex);
 	    }
 	}
     }
@@ -363,19 +364,20 @@ public class AJExporterByTarget extends AJExporter {
 		    // for this target.
 
 		} catch (IOException ex) {
-		    log.warn("Error when opening the file "
-			    + ajFilesLocation.getAbsolutePath()
-			    + File.separator + filenameOut);
+		    log.warn(
+			    "Error when opening the file "
+				    + ajFilesLocation.getAbsolutePath()
+				    + File.separator + filenameOut, ex);
 		    return false;
 		} catch (Exception ex) {
-		    log.error(ex);
+		    log.error(ex, ex);
 		    return false;
 		} finally {
 		    try {
 			if (targetWriter != null)
 			    targetWriter.close();
 		    } catch (Exception ex) {
-			log.error(ex);
+			log.error(ex, ex);
 			return false;
 		    }
 		}
@@ -420,19 +422,20 @@ public class AJExporterByTarget extends AJExporter {
 		    }
 
 		} catch (IOException ex) {
-		    log.warn("Error when opening the file "
-			    + ajFilesLocation.getAbsolutePath()
-			    + File.separator + filenameOut);
+		    log.warn(
+			    "Error when opening the file "
+				    + ajFilesLocation.getAbsolutePath()
+				    + File.separator + filenameOut, ex);
 		    return false;
 		} catch (Exception ex) {
-		    log.error(ex);
+		    log.error(ex, ex);
 		    return false;
 		} finally {
 		    try {
 			if (targetWriter != null)
 			    targetWriter.close();
 		    } catch (Exception ex) {
-			log.error(ex);
+			log.error(ex, ex);
 			return false;
 		    }
 		}

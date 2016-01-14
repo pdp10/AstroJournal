@@ -302,7 +302,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	    try {
 		config.savePreferences();
 	    } catch (IOException e) {
-		log.error(e);
+		log.error(e, e);
 	    }
 	    // prepare the folders for AJ.
 	    config.prepareAJFolders();

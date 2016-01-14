@@ -23,8 +23,6 @@
  */
 package org.astrojournal.console;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConfig;
 
 /**
@@ -35,8 +33,6 @@ import org.astrojournal.configuration.AJConfig;
  * @since 22/12/2015
  */
 public class AJMainConsole {
-
-    private static Logger log = LogManager.getLogger(AJMainConsole.class);
 
     private boolean latexOutput = AJConfig.getInstance().isLatexOutput();
     private AJMainConsoleControls commandRunner;

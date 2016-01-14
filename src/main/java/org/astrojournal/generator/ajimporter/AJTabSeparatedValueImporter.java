@@ -28,7 +28,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -41,7 +40,7 @@ import org.astrojournal.generator.observation.AJObservationItem;
  * files containing the observations.
  * 
  * @author Piero Dalle Pezze
- * @version 0.1
+ * @version 0.4
  * @since 28/05/2015
  */
 public class AJTabSeparatedValueImporter extends AJImporter {
@@ -63,20 +62,15 @@ public class AJTabSeparatedValueImporter extends AJImporter {
     @Override
     public ArrayList<AJObservation> importObservations() {
 	log.info("Importing observation files:");
-	ArrayList<AJObservation> observations = new ArrayList<AJObservation>();
 	String rawReportPath = AJConfig.getInstance().getAJFilesLocation()
 		.getAbsolutePath()
 		+ File.separator + AJConfig.getInstance().getRawReportsFolder();
 	File[] files = new File(rawReportPath).listFiles();
 	if (files == null) {
 	    log.error("Folder " + rawReportPath + " not found");
-	    return observations;
+	    return new ArrayList<AJObservation>();
 	}
-	Arrays.sort(files);
-	for (File file : files) {
-	    observations.addAll(importObservations(file));
-	}
-	return observations;
+	return importObservations(files);
     }
 
     /**
@@ -147,13 +141,13 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 
 		} // end while
 	    } catch (IOException ex) {
-		log.error(ex);
+		log.error(ex, ex);
 	    } finally {
 		try {
 		    if (reader != null)
 			reader.close();
 		} catch (IOException ex) {
-		    log.error(ex);
+		    log.error(ex, ex);
 		}
 	    }
 	} // end if

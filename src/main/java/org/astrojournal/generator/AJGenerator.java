@@ -41,7 +41,7 @@ import org.astrojournal.utilities.ImporterSearcher;
  * This class automatically generates astro journal documents.
  * 
  * @author Piero Dalle Pezze
- * @version 0.8
+ * @version 0.10
  * @since 12/04/2015
  */
 public class AJGenerator {
@@ -81,11 +81,11 @@ public class AJGenerator {
 			+ " empty?");
 		return false;
 	    }
-	    log.error("Some importer failed, but there are still observations which can be processed.");
+	    log.warn("Some importer failed, but there are still observations which can be processed.");
 	}
 
 	if (!ajExport()) {
-	    log.error("Some exporter failed!");
+	    log.warn("Some exporter failed!");
 	    return false;
 	}
 

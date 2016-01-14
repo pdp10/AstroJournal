@@ -198,7 +198,7 @@ public class AJConfig {
 	    try {
 		savePreferences();
 	    } catch (IOException e) {
-		log.error(e);
+		log.error(e, e);
 	    }
 	}
     }
@@ -265,13 +265,13 @@ public class AJConfig {
 		}
 	    }
 	} catch (IOException e) {
-	    log.error(e);
+	    log.error(e, e);
 	} finally {
 	    try {
 		if (br != null)
 		    br.close();
 	    } catch (IOException e) {
-		log.error(e);
+		log.error(e, e);
 	    }
 	}
 
@@ -416,8 +416,8 @@ public class AJConfig {
 			true);
 	    } catch (IOException e) {
 		log.error(AJConfig.BUNDLE
-			.getString("AJ.errCannotCopyHeaderFooterFolder.text"));
-		e.getStackTrace();
+			.getString("AJ.errCannotCopyHeaderFooterFolder.text"),
+			e);
 	    }
 	}
 

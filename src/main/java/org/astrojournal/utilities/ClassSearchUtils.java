@@ -184,7 +184,7 @@ public class ClassSearchUtils {
 	    jarFile = new JarFile(archive);
 	    entries = jarFile.entries();
 	} catch (IOException e) {
-	    log.warn("Unable to read jar item.");
+	    log.warn("Unable to read jar item.", e);
 	    return;
 	}
 	// Enumeration entries = jarFile.entries();
@@ -216,7 +216,7 @@ public class ClassSearchUtils {
 		jarFile.close();
 	    }
 	} catch (IOException e) {
-	    log.warn(e);
+	    log.error(e, e);
 	}
     }
 

@@ -135,7 +135,7 @@ public class AJExporterByDateSGL extends AJExporter {
 			scanner.close();
 			writerByDate.write(text);
 		    } catch (NoSuchElementException e) {
-			log.warn(e);
+			log.warn(e, e);
 		    }
 		    writerByDate.write("\n\n\n\n");
 		}
@@ -144,17 +144,18 @@ public class AJExporterByDateSGL extends AJExporter {
 	    // write the Footer
 
 	} catch (IOException ex) {
-	    log.warn("Error when opening the file "
-		    + ajFilesLocation.getAbsolutePath() + File.separator
-		    + mainByDate);
+	    log.warn(
+		    "Error when opening the file "
+			    + ajFilesLocation.getAbsolutePath()
+			    + File.separator + mainByDate, ex);
 	} catch (Exception ex) {
-	    log.error(ex);
+	    log.error(ex, ex);
 	} finally {
 	    try {
 		if (writerByDate != null)
 		    writerByDate.close();
 	    } catch (Exception ex) {
-		log.error(ex);
+		log.error(ex, ex);
 	    }
 	}
     }
@@ -233,19 +234,20 @@ public class AJExporterByDateSGL extends AJExporter {
 		log.info("\tExported report " + obs.getDate() + " ("
 			+ observationItems.size() + " targets)");
 	    } catch (IOException ex) {
-		log.warn("Error when opening the file "
-			+ ajFilesLocation.getAbsolutePath() + File.separator
-			+ filenameOut);
+		log.error(
+			"Error when opening the file "
+				+ ajFilesLocation.getAbsolutePath()
+				+ File.separator + filenameOut, ex);
 		result = false;
 	    } catch (Exception ex) {
-		log.error(ex);
+		log.error(ex, ex);
 		result = false;
 	    } finally {
 		try {
 		    if (text != null)
 			text.close();
 		} catch (Exception ex) {
-		    log.error(ex);
+		    log.error(ex, ex);
 		}
 	    }
 	}

@@ -164,6 +164,7 @@ sky quality reading using meters such as SQM-L.
 - GUI refinements 
 - Text output is now structured. Error messages shown in red.
 - All output text is now managed with log4j for both GUI and Console.
+- Dynamic loading of Importers and Exporters. 
 
 v0.9
 

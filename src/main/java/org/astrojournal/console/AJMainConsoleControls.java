@@ -69,7 +69,7 @@ public class AJMainConsoleControls {
 	    AJConfig.getInstance().cleanAJFolder();
 	} catch (IOException e) {
 	    log.error(AJConfig.BUNDLE
-		    .getString("AJ.errUnconfiguredPreferences.text"));
+		    .getString("AJ.errUnconfiguredPreferences.text"), e);
 	    return;
 	}
 
@@ -149,8 +149,7 @@ public class AJMainConsoleControls {
 
 	    log.info(AJConfig.BUNDLE.getString("AJ.lblCreatedReportsLong.text"));
 	} catch (IOException ioe) {
-	    log.error(AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"));
-	    log.error(ioe);
+	    log.error(AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"), ioe);
 	}
     }
 }

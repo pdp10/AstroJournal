@@ -153,17 +153,18 @@ public class AJExporterByDate extends AJExporter {
 	    writerByDate.write(ajLatexFooterByDate.getFooter());
 
 	} catch (IOException ex) {
-	    log.warn("Error when opening the file "
-		    + ajFilesLocation.getAbsolutePath() + File.separator
-		    + latexMainByDate);
+	    log.warn(
+		    "Error when opening the file "
+			    + ajFilesLocation.getAbsolutePath()
+			    + File.separator + latexMainByDate, ex);
 	} catch (Exception ex) {
-	    log.error(ex);
+	    log.error(ex, ex);
 	} finally {
 	    try {
 		if (writerByDate != null)
 		    writerByDate.close();
 	    } catch (Exception ex) {
-		log.error(ex);
+		log.error(ex, ex);
 	    }
 	}
     }
@@ -272,19 +273,20 @@ public class AJExporterByDate extends AJExporter {
 		log.info("\tExported report " + obs.getDate() + " ("
 			+ observationItems.size() + " targets)");
 	    } catch (IOException ex) {
-		log.warn("Error when opening the file "
-			+ ajFilesLocation.getAbsolutePath() + File.separator
-			+ filenameOut);
+		log.error(
+			"Error when opening the file "
+				+ ajFilesLocation.getAbsolutePath()
+				+ File.separator + filenameOut, ex);
 		result = false;
 	    } catch (Exception ex) {
-		log.error(ex);
+		log.error(ex, ex);
 		result = false;
 	    } finally {
 		try {
 		    if (table != null)
 			table.close();
 		} catch (Exception ex) {
-		    log.error(ex);
+		    log.error(ex, ex);
 		}
 	    }
 	}

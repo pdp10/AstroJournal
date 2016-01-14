@@ -177,17 +177,18 @@ public class AJExporterByConstellation extends AJExporter {
 	    writerByConst.write(ajLatexFooterByConst.getFooter());
 
 	} catch (IOException ex) {
-	    log.warn("Error when opening the file "
-		    + ajFilesLocation.getAbsolutePath() + File.separator
-		    + latexMainByConst);
+	    log.error(
+		    "Error when opening the file "
+			    + ajFilesLocation.getAbsolutePath()
+			    + File.separator + latexMainByConst, ex);
 	} catch (Exception ex) {
-	    log.error(ex);
+	    log.error(ex, ex);
 	} finally {
 	    try {
 		if (writerByConst != null)
 		    writerByConst.close();
 	    } catch (Exception ex) {
-		log.error(ex);
+		log.error(ex, ex);
 	    }
 	}
     }
@@ -233,19 +234,20 @@ public class AJExporterByConstellation extends AJExporter {
 		list.write(listOfTargets.toString() + "\n\n");
 		log.info("\tExported constellation " + filenameOut);
 	    } catch (IOException ex) {
-		log.warn("Error when opening the file "
-			+ ajFilesLocation.getAbsolutePath() + File.separator
-			+ filenameOut);
+		log.error(
+			"Error when opening the file "
+				+ ajFilesLocation.getAbsolutePath()
+				+ File.separator + filenameOut, ex);
 		result = false;
 	    } catch (Exception ex) {
-		log.error(ex);
+		log.error(ex, ex);
 		result = false;
 	    } finally {
 		try {
 		    if (list != null)
 			list.close();
 		} catch (Exception ex) {
-		    log.error(ex);
+		    log.error(ex, ex);
 		}
 	    }
 	}

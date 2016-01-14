@@ -80,7 +80,7 @@ public class IntegrationTest {
 	try {
 	    AJConfig.getInstance().cleanAJFolder();
 	} catch (IOException e) {
-	    log.error(e);
+	    log.error(e, e);
 	}
 	File reportByDate = new File(AJConfig.getInstance()
 		.getAJFilesLocation().getAbsolutePath()
