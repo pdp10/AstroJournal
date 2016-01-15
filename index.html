@@ -95,7 +95,7 @@ by a TAB delimiter. Fields can have single or double quotes.</p>
 astrojournal.exe
 </code></pre>
 
-<p>This will start a minimal graphical user interface to generate the journals.</p>
+<p>This will start a simple graphical user interface to generate the journals.</p>
 
 <h3>
 <a id="create-an-observation-record" class="anchor" href="#create-an-observation-record" aria-hidden="true"><span class="octicon octicon-link"></span></a>Create an observation record</h3>
@@ -104,7 +104,7 @@ astrojournal.exe
 specific. </p>
 
 <p>The titles (Date, Time, Location, Altitude, Temperature, Seeing, 
-Transparency, Telescopes, Eyepieces, Filters, Target, Cons, Type, Power, 
+Transparency, Darkness, Telescopes, Eyepieces, Filters, Target, Cons, Type, Power, 
 and Notes) cannot be changed as these are used by AstroJournal to 
 retrieve the data. All fields are separated by a tab character (TAB) 
 explicitly shown in this example with a text when this must be included.</p>
@@ -168,154 +168,34 @@ MikTeX Manager.</p>
 <pre><code>mvn eclipse:eclipse
 </code></pre>
 
-<p>To create a jar file for AstroJournal type:</p>
+<p>To simply test AstroJournal type:</p>
 
-<pre><code>mvn package
+<pre><code>mvn test
+
+To create a jar file for AstroJournal type:
 </code></pre>
 
-<p>To read the source code documentation type:</p>
+<p>mvn package</p>
 
-<pre><code>mvn javadoc:javadoc
+<pre><code>
+To read the source code documentation type:
 </code></pre>
 
-<p>To clean:</p>
+<p>mvn javadoc:javadoc</p>
 
-<pre><code>mvn clean
+<pre><code>
+To clean:
 </code></pre>
 
-<p>You can run AstroJournal on GNU/Linux typing:</p>
+<p>mvn clean</p>
 
-<pre><code>./astrojournal.sh
+<pre><code>
+You can run AstroJournal on GNU/Linux typing:
 </code></pre>
 
-<h3>
-<a id="changelog" class="anchor" href="#changelog" aria-hidden="true"><span class="octicon octicon-link"></span></a>Changelog</h3>
+<p>./astrojournal.sh</p>
 
-<p>v0.10.0</p>
-
-<ul>
-<li>Several bug fixes</li>
-<li>Added Tango icon set to AJ menu items.</li>
-<li>Added Darkness as new Observation parameter. This can be used for recording 
-sky quality reading using meters such as SQM-L.</li>
-<li>Migrated from junit 4.11 to 4.12</li>
-<li>Migrated from apache log4j 1.2 to 2</li>
-<li>Integrated launch4j with maven pom.xml</li>
-<li>Improved log4j levels and junit tests.</li>
-<li>GUI refinements </li>
-<li>Text output is now structured. Error messages shown in red.</li>
-<li>All output text is now managed with log4j for both GUI and Console.</li>
-</ul>
-
-<p>v0.9</p>
-
-<ul>
-<li>Use of the application launch4j for generating a Windows executable file 
-for astrojournal. In the future this could be integrated in Maven pom.xml.</li>
-<li>Added AJMainConsole to run AstroJournal via command line.</li>
-<li>Started support for Windows in order to avoid calling the BAT script.</li>
-<li>Input and output files are now placed in a configurable folder outside 
-the folder containing the software AstroJournal. This folder can be edited 
-using the Edit &gt; Preferences menu.</li>
-<li>Added new icons</li>
-<li>Added internationalisation for GUI strings.</li>
-<li>Added menu bar, preferences and help to the GUI.</li>
-<li>Improved the AJ GUI to also report the program output graphically.</li>
-<li>Added a configuration class for managing the program parameters.</li>
-<li>Maven is now the default software project management for AJ, replacing 
-Ant.</li>
-<li>Fixed a bug related to file names of galaxies. </li>
-<li>AJ now supports input parameters but also Java options. </li>
-</ul>
-
-<p>v0.8</p>
-
-<ul>
-<li>Input/output folders can also be passed as Java options.</li>
-<li>Added report by constellation.</li>
-<li>Added report of additional catalogues in astrojournal by target.</li>
-<li>Added exporter to SGL report files.</li>
-<li>Corrected bug in astrojournal.bat</li>
-<li>Added support for csv input files.</li>
-<li>Reorganisation of the package generator.</li>
-<li>Design of the main graphic user interface (currently not connected to the program).</li>
-</ul>
-
-<p>v0.7</p>
-
-<ul>
-<li>Create file run_astrojournal.bat (for Windows Users) (not tested yet).</li>
-<li>Removed the field PowerExitPupilFOV from the session reports. The eyepiece information is now inserted in the file legends.tex included at header level.</li>
-<li>Removed catalogue tsv and latex folder. List of observed targets is the list of contents for the second generated pdf (by_target)</li>
-<li>Export observations by target</li>
-</ul>
-
-<p>v0.6</p>
-
-<ul>
-<li>Imported list of objects observed by Catalogue.</li>
-<li>Added list of contents, sections, moved to Article class</li>
-</ul>
-
-<p>v0.5</p>
-
-<ul>
-<li>added Messier and Caldwell catalogues as reference in the end</li>
-<li>improved pdf layout</li>
-<li>extracted LaTeX header and footer from Java code</li>
-<li>added additional controls</li>
-<li>bug fixes</li>
-<li>increased code modularity</li>
-<li>renamed observations/ and tsv_files/ into latex_reports/ and tsv_reports/</li>
-<li>source code cleaning</li>
-</ul>
-
-<p>v0.4</p>
-
-<ul>
-<li>wiki links point to the last version directly. No need to update each time </li>
-<li>simplified scripts for creating journal</li>
-<li>renamed this software 'AstroJournal'</li>
-<li>added controls before using pdflatex or texi2tex</li>
-<li>imported LaTeX code for observations prior to the log</li>
-<li>reversed the observations (now most recent first)</li>
-<li>renamed .tex and .pdf to lowercase names</li>
-<li>improved legends layout</li>
-<li>bug correction</li>
-<li>improved table layout</li>
-<li>simplified build.xml</li>
-</ul>
-
-<p>v0.3</p>
-
-<ul>
-<li>add latex command for showing tables on multiple pages 
-( <a href="http://users.sdsc.edu/%7Essmallen/latex/longtable.html">http://users.sdsc.edu/~ssmallen/latex/longtable.html</a> )</li>
-<li>Draw of your own images to replace the existing ones. However, I 
-decided to omit images so the pdf is lighter and faster to load on the browser</li>
-<li>use tsv_files and observations outside of dist/ . Not necessary to copy 
-these two folders into dist/ . Therefore, you only keep your data in one 
-place. Simplified build.xml to have jar file in the current directory</li>
-</ul>
-
-<p>v0.2</p>
-
-<ul>
-<li>improved code in Observation.java and ObservationItem.java</li>
-<li>input/output folders tsv_files/ and observations/ passed as parameters</li>
-<li>simplified tsv file structure</li>
-<li>corrected importation of multiple observations per day</li>
-</ul>
-
-<p>v0.1</p>
-
-<ul>
-<li>creation of LaTeX code for all your observation</li>
-<li>reading of different tsv files sequentially and ordered by date increasing 
-is supported. In this way, you can create an observation log per month or 
-two (keeping the google spreadsheet short), and add the exported tsv file 
-to the folder tsv_files</li>
-</ul>
+<pre><code></code></pre>
         </section>
 
         <footer>
