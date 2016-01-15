@@ -147,8 +147,12 @@ editor.</p>
 <li><p><a href="http://www.tug.org/texlive/">TeX Live</a> (for Linux Users) or <a href="http://miktex.org/download">MikTeX</a> (for Windows Users) (pdflatex must be installed)</p></li>
 </ul>
 
-<p>For windows users who installed MikTeX, the LaTeX packages url and mptopdf must be installed using the 
-MikTeX Manager.</p>
+<p>On GNU/Linux Debian/Ubuntu 14.04+, users can install the LaTeX dependencies required by AstroJournal with the following command:</p>
+
+<pre><code>sudo apt-get --no-install-recommends install texlive-latex-base texlive-latex-recommended
+</code></pre>
+
+<p>On Windows, users should install MikTeX and then the LaTeX packages <em>url</em> and <em>mptopdf</em> using MikTeX Manager.</p>
 
 <h3>
 <a id="clone--compile" class="anchor" href="#clone--compile" aria-hidden="true"><span class="octicon octicon-link"></span></a>Clone &amp; Compile</h3>
@@ -188,10 +192,17 @@ MikTeX Manager.</p>
 <pre><code>mvn clean
 </code></pre>
 
-<p>You can run AstroJournal on GNU/Linux typing:</p>
+<p>To test AstroJournal on GNU/Linux type:</p>
 
 <pre><code>./astrojournal.sh
 </code></pre>
+
+<h3>
+<a id="integration-tests" class="anchor" href="#integration-tests" aria-hidden="true"><span class="octicon octicon-link"></span></a>Integration Tests</h3>
+
+<p>A .travis.yml script is included with this project in order to perform continuous integration tests at each push.
+To use travis-ci, an account on github.com is required as now and <a href="https://docs.travis-ci.com/user/getting-started/">this guide</a> 
+is suggested. Information on how to fork AstroJournal can be found <a href="https://help.github.com/articles/fork-a-repo/">here</a>.</p>
         </section>
 
         <footer>
