@@ -9,7 +9,7 @@ Website: http://pdp10.github.io/AstroJournal/
 
 v0.10.12
 
-- XML Configuration file instead of .conf.
+- XML Configuration file replaces astrojournal.conf.
 - Exporters and importers are now loaded dynamically.
 - All output text is now managed with log4j for both GUI and Console.
 - Text output is now structured. Error messages shown in red.

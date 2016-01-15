@@ -32,7 +32,6 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -42,8 +41,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.astrojournal.gui.AJMainGUI;
 
 /**
@@ -52,9 +49,6 @@ import org.astrojournal.gui.AJMainGUI;
 public class PreferencesDialog extends JDialog implements ActionListener {
 
     private static final long serialVersionUID = 5832696837018920916L;
-
-    /** The log associated to this class */
-    private static Logger log = LogManager.getLogger(PreferencesDialog.class);
 
     /**
      * The relative path containing the raw files (observation input folder).
@@ -291,11 +285,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	    config.setLatexReportsFolderByConstellation(latexReportsFolderByConstellation
 		    .getText());
 	    config.setSglReportsFolderByDate(sglReportsFolderByDate.getText());
-	    try {
-		config.saveConfiguration();
-	    } catch (IOException e) {
-		log.error(e, e);
-	    }
+	    config.saveConfiguration();
 	    // prepare the folders for AJ.
 	    config.prepareAJFolders();
 	    setVisible(false);

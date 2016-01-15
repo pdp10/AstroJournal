@@ -114,8 +114,10 @@ public class AJTitlePanel extends JPanel {
 			    + "AstroJournal uses the following third-party software libraries:\n"
 			    + "Tango base icon theme \u00a9 Public Domain; "
 			    + "Apache Commons (io, lang3) \u00a9 Apache Software Foundation, 2015; "
-			    + "Apache Logging Services (log4j 2) \u00a9 Apache Software Foundation, 2014; "
-			    + "JUnit \u00a9 JUnit Team, 2015.", style);
+			    + "Apache Logging Services (log4j2) \u00a9 Apache Software Foundation, 2014; "
+			    + "JUnit \u00a9 JUnit Team, 2015; "
+			    + "Hamcrest (hamcrest-junit) \u00a9 BSD 3-Clause License, 2015.",
+		    style);
 
 	} catch (BadLocationException e) {
 	    log.error(e, e);

@@ -33,6 +33,15 @@ import java.util.ResourceBundle;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -43,9 +52,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 import org.xml.sax.SAXException;
-
-import com.sun.org.apache.xml.internal.serialize.OutputFormat;
-import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
 /**
  * A simple class for configuring AstroJournal.
@@ -218,11 +224,7 @@ public class AJConfig {
 	if (configFile != null && configFile.exists()) {
 	    loadConfiguration();
 	} else {
-	    try {
-		saveConfiguration();
-	    } catch (IOException e) {
-		log.error(e, e);
-	    }
+	    saveConfiguration();
 	}
     }
 
@@ -236,10 +238,10 @@ public class AJConfig {
 	log.debug("Get the factory");
 	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 	try {
-	    log.debug("Get an instance of document builder");
-	    DocumentBuilder db = dbf.newDocumentBuilder();
-	    log.debug("Parse using builder to get DOM representation of the XML file");
-	    Document dom = db.parse(configFile);
+	    log.debug("Get an instance of DocumentBuilder to parse the XML file");
+	    DocumentBuilder parser = dbf.newDocumentBuilder();
+	    log.debug("Parse using builder to get a DOM representation for the XML file");
+	    Document dom = parser.parse(configFile);
 
 	    log.debug("Get the root element");
 	    Element rootEle = dom.getDocumentElement();
@@ -339,17 +341,17 @@ public class AJConfig {
 
     /**
      * Save the configuration file.
-     * 
-     * @throws IOException
      */
-    public void saveConfiguration() throws IOException {
-	// get an instance of factory
+    public void saveConfiguration() {
+
+	log.debug("Saving the configuration file "
+		+ configFile.getAbsolutePath());
+	log.debug("Get the factory");
 	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 	try {
-	    log.debug("Saving configuration file "
-		    + configFile.getAbsolutePath());
-	    log.debug("Initialise DocumentBuilder and DOM");
+	    log.debug("Get an instance of DocumentBuilder");
 	    DocumentBuilder db = dbf.newDocumentBuilder();
+	    log.debug("Parse using builder to get a new DOM representation for the XML file");
 	    Document dom = db.newDocument();
 
 	    log.debug("Create the root element");
@@ -411,19 +413,32 @@ public class AJConfig {
 	    elem.appendChild(value);
 	    rootElem.appendChild(elem);
 
-	    log.debug("Serialize DOM to FileOutputStream to generate the xml file");
-	    OutputFormat format = new OutputFormat(dom);
-	    format.setIndenting(true);
-	    XMLSerializer serializer = new XMLSerializer(new FileOutputStream(
-		    configFile), format);
-	    serializer.serialize(dom);
+	    log.debug("Saving XML document using JAXP");
+	    TransformerFactory transFactory = TransformerFactory.newInstance();
+	    log.debug("TransformerFactory: "
+		    + transFactory.getClass().getName());
+	    // transFactory.setAttribute("indent-number", 2);
+	    Transformer idTransform = transFactory.newTransformer();
+	    idTransform.setOutputProperty(OutputKeys.METHOD, "xml");
+	    idTransform.setOutputProperty(OutputKeys.INDENT, "yes");
+	    idTransform.setOutputProperty(
+		    "{http://xml.apache.org/xslt}indent-amount", "2");
+	    Source input = new DOMSource(dom);
+	    Result output = new StreamResult(new FileOutputStream(configFile));
+	    idTransform.transform(input, output);
+
 	    log.debug("Configuration file " + configFile.getAbsolutePath()
 		    + " saved");
-	} catch (ParserConfigurationException pce) {
-	    log.error("Error while trying to instantiate DocumentBuilder "
-		    + pce, pce);
-	} catch (IOException ie) {
-	    throw ie;
+
+	} catch (ParserConfigurationException e) {
+	    log.error("Error while trying to instantiate DocumentBuilder " + e,
+		    e);
+	} catch (TransformerConfigurationException e) {
+	    log.error(e, e);
+	} catch (TransformerException e) {
+	    log.error(e, e);
+	} catch (FileNotFoundException e) {
+	    log.error(e, e);
 	}
     }
 

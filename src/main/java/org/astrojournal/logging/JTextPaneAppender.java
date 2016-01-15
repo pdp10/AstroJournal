@@ -60,8 +60,6 @@ import org.astrojournal.configuration.AJConfig;
 @Plugin(name = "JTextPaneAppender", category = "Core", elementType = "appender", printObject = true)
 public class JTextPaneAppender extends AbstractAppender {
 
-    private static final long serialVersionUID = -1616989641502748537L;
-
     private static JTextPane jTextPane = new JTextPane();
 
     private static Style styleRegular;

@@ -44,34 +44,38 @@
     
   <dependencies>
 	<!-- Above 2.0.2 there are weird messages and log4j crashes.. -->
-    <dependency>
-	<groupId>org.apache.logging.log4j</groupId>
-	<artifactId>log4j-core</artifactId>
-	<version>2.0.2</version>
-    </dependency>
-
-    
 	<dependency>
-		<groupId>commons-io</groupId>
-		<artifactId>commons-io</artifactId>
-		<version>2.4</version>
+	  <groupId>org.apache.logging.log4j</groupId>
+	  <artifactId>log4j-core</artifactId>
+	  <version>2.0.2</version>
 	</dependency>
 	<dependency>
-		<groupId>org.apache.commons</groupId>
-		<artifactId>commons-lang3</artifactId>
-		<version>3.4</version>
+	  <groupId>commons-io</groupId>
+	  <artifactId>commons-io</artifactId>
+	  <version>2.4</version>
 	</dependency>
-    <dependency>
-		<groupId>javax.help</groupId>
-		<artifactId>javahelp</artifactId>
-		<version>2.0.05</version>
+	<dependency>
+	  <groupId>org.apache.commons</groupId>
+	  <artifactId>commons-lang3</artifactId>
+	  <version>3.4</version>
+	</dependency>
+	<dependency>
+	  <groupId>javax.help</groupId>
+	  <artifactId>javahelp</artifactId>
+	  <version>2.0.05</version>
 	</dependency>	
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
+	<dependency>
+	  <groupId>junit</groupId>
+	  <artifactId>junit</artifactId>
+	  <version>4.12</version>
+	  <scope>test</scope>
+	</dependency>
+	<dependency>
+	  <groupId>org.hamcrest</groupId>
+	  <artifactId>hamcrest-junit</artifactId>
+	  <version>2.0.0.0</version>
+	  <scope>test</scope>
+	</dependency>
   </dependencies>
   
   
