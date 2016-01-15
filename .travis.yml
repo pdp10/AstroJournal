@@ -2,9 +2,8 @@ language: java
 jdk:
   - oraclejdk8
   - oraclejdk7
-  - openjdk6
 before_install:
-  - sudo apt-get install texlive
+  - sudo apt-get install texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-fonts-recommended
 install: 
   - mvn package
 before_script: chmod 755 ./test_astrojournal.sh
