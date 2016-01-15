@@ -3,6 +3,6 @@ jdk:
   - oraclejdk8
   - oraclejdk7
   - openjdk6
-install: ant
-before_script: chmod 755 ./create_journal.sh
-script: ./create_journal.sh
+install: mvn package
+before_script: chmod 755 ./astrojournal.sh
+script: ./astrojournal.sh

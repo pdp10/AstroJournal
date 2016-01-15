@@ -130,6 +130,7 @@ mvn eclipse:eclipse
 To simply test AstroJournal type:
 ```
 mvn test
+```
 
 To create a jar file for AstroJournal type:
 ```
