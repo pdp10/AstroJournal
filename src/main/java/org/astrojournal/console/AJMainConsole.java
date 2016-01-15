@@ -56,12 +56,12 @@ public class AJMainConsole {
 			+ AJConfig.APPLICATION_VERSION
 			+ "\n"
 			+ "USAGE: run_astrojournal.sh [options]\n"
-			+ "Options are:"
-			+ "\t--config :\tPrint the current configuration on a shell."
-			+ "\t-c [--console] :\tRun AstroJournal via command line instead of via GUI."
-			+ "\t--latex-output :\tWhen follows the option -c, it prints the LaTeX output."
-			+ "\t--help :\tShow this help on a shell."
-			+ "\t--license :\tShow the license for AstroJournal on a shell.");
+			+ "Options are:\n"
+			+ "\t-f [--config] :\t\tPrint the current configuration on a shell.\n"
+			+ "\t-c [--console] :\tRun AstroJournal via command line instead of via GUI.\n"
+			+ "\t-o [--latex-output] :\tIn combination with the option -c, it prints the LaTeX output.\n"
+			+ "\t-h [--help] :\t\tShow this help on a shell.\n"
+			+ "\t-l [--license] :\tShow the license for AstroJournal on a shell.\n");
 	return help;
     }
 
@@ -96,7 +96,8 @@ public class AJMainConsole {
      */
     public static void main(String args[]) {
 	AJMainConsole ajMainConsole = new AJMainConsole();
-	if (args.length > 1 && args[1].equals("--latex-output"))
+	if (args.length > 1
+		&& (args[0].equals("-o") || args[1].equals("--latex-output")))
 	    ajMainConsole.printLaTeXOutput(true);
 	ajMainConsole.createJournals();
     }

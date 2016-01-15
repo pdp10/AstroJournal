@@ -23,7 +23,7 @@
 # as input parameters.
 
 # Run AstroJournal and generate the Latex code
-java -jar target/astrojournal-*-jar-with-dependencies.jar
+java -jar target/astrojournal-*-jar-with-dependencies.jar $1
 
 
 # Clean the temporary and log files

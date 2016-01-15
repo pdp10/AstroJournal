@@ -77,16 +77,16 @@ public class AJMain {
 	try {
 	    if (args.length == 0) {
 		startAJMainGUI();
-	    } else if (args[0].equals("--config")) {
+	    } else if (args[0].equals("-f") || args[0].equals("--config")) {
 		log.info(AJConfig.getInstance().printConfiguration());
 	    } else if (args[0].equals("-c") || args[0].equals("--console")) {
 		AJMainConsole.main(args);
-	    } else if (args[0].equals("--help")) {
+	    } else if (args[0].equals("-h") || args[0].equals("--help")) {
 		log.info(AJMainConsole.printHelp());
-	    } else if (args[0].equals("--license")) {
+	    } else if (args[0].equals("-l") || args[0].equals("--license")) {
 		log.info(AJConfig.getInstance().printLicense());
 	    } else {
-		log.warn("Please, run AstroJournal with the option --help for suggestions.");
+		log.error("Unrecognised option. Please, run AstroJournal with the option -h [--help] for suggestions.");
 	    }
 	} catch (Exception ex) {
 	    log.error(ex, ex);
