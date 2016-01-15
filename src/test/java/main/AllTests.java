@@ -34,7 +34,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * @date 11 Jan 2016
  */
 @RunWith(Suite.class)
-@SuiteClasses({ ImportCorrectObservationsTest.class,
-	ImportWrongObservationsTest.class, IntegrationTest.class, })
+@SuiteClasses({ AJPropertiesTest.class, ImportCorrectObservationsTest.class,
+	ImportWrongObservationsTest.class, SystemTest.class })
 public class AllTests {
 }

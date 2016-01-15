@@ -153,11 +153,12 @@ public class AJConfig {
     /** True if the configuration should be shown at start. */
     private boolean showConfigurationAtStart = true;
 
+    /** The absolute path containing AstroJournal input and output folders. */
+    private File ajFilesLocation = new File(System.getProperty("user.home")
+	    + File.separator + "AstroJournal_files");
+
     // NOTE: These field MUST NOT have a file separator because Latex uses '/'
     // by default.
-    /** The absolute path containing AstroJournal input and output folders. */
-    private File ajFilesLocation;
-
     /**
      * The relative path containing the raw files (observation input folder).
      */
@@ -189,6 +190,26 @@ public class AJConfig {
     private File configFile = null;
 
     /**
+     * Reset AJConfig as at its initialisation. AstroJournal Java properties are
+     * not scanned by this method.
+     */
+    public void reset() {
+	latexOutput = false;
+	quiet = false;
+	showLicenseAtStart = true;
+	showConfigurationAtStart = true;
+	ajFilesLocation = new File(System.getProperty("user.home")
+		+ File.separator + "AstroJournal_files");
+	rawReportsFolder = "raw_reports";
+	latexReportsFolderByDate = "latex_reports_by_date";
+	latexReportsFolderByTarget = "latex_reports_by_target";
+	latexReportsFolderByConstellation = "latex_reports_by_constellation";
+	sglReportsFolderByDate = "sgl_reports_by_date";
+	// Read the configuration file
+	configurationInit();
+    }
+
+    /**
      * Private constructor for creating only one instance of AJConfig.
      */
     private AJConfig() {
@@ -217,9 +238,6 @@ public class AJConfig {
 	    configFile = new File(System.getProperty("user.home")
 		    + File.separator + AJ_CONFIG_FILENAME);
 	}
-
-	ajFilesLocation = new File(System.getProperty("user.home")
-		+ File.separator + "AstroJournal_files");
 
 	if (configFile != null && configFile.exists()) {
 	    loadConfiguration();
@@ -463,29 +481,41 @@ public class AJConfig {
     public void loadSystemProperties() {
 
 	// Latex output
-	if (System.getProperty("aj." + LATEX_OUTPUT_NAME) != null
-		&& System.getProperty("aj." + LATEX_OUTPUT_NAME).equals("true")) {
-	    latexOutput = true;
+	if (System.getProperty("aj." + LATEX_OUTPUT_NAME) != null) {
+	    if (System.getProperty("aj." + LATEX_OUTPUT_NAME).equals("true")) {
+		latexOutput = true;
+	    } else {
+		latexOutput = false;
+	    }
 	}
 
 	// Quiet
-	if (System.getProperty("aj." + QUIET_NAME) != null
-		&& System.getProperty("aj." + QUIET_NAME).equals("true")) {
-	    quiet = true;
+	if (System.getProperty("aj." + QUIET_NAME) != null) {
+	    if (System.getProperty("aj." + QUIET_NAME).equals("true")) {
+		quiet = true;
+	    } else {
+		quiet = false;
+	    }
 	}
 
 	// Show configuration at start
-	if (System.getProperty("aj." + SHOW_CONFIGURATION_AT_START_NAME) != null
-		&& System.getProperty("aj." + SHOW_CONFIGURATION_AT_START_NAME)
-			.equals("true")) {
-	    showConfigurationAtStart = true;
+	if (System.getProperty("aj." + SHOW_CONFIGURATION_AT_START_NAME) != null) {
+	    if (System.getProperty("aj." + SHOW_CONFIGURATION_AT_START_NAME)
+		    .equals("true")) {
+		showConfigurationAtStart = true;
+	    } else {
+		showConfigurationAtStart = false;
+	    }
 	}
 
 	// Show license at start
-	if (System.getProperty("aj." + SHOW_LICENSE_AT_START_NAME) != null
-		&& System.getProperty("aj." + SHOW_LICENSE_AT_START_NAME)
-			.equals("true")) {
-	    showLicenseAtStart = true;
+	if (System.getProperty("aj." + SHOW_LICENSE_AT_START_NAME) != null) {
+	    if (System.getProperty("aj." + SHOW_LICENSE_AT_START_NAME).equals(
+		    "true")) {
+		showLicenseAtStart = true;
+	    } else {
+		showLicenseAtStart = false;
+	    }
 	}
 
 	// AJ files location
