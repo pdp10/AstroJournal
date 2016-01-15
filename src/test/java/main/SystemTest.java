@@ -41,29 +41,27 @@ import org.junit.Test;
 
 /**
  * This test executes astrojournal via command line on a simple sample set of
- * two observations.
+ * three files. The third file contains errors.
  * 
  * @author Piero Dalle Pezze
+ * @version $Rev$
+ * @since 1.0
+ * @date 15 Jan 2016
  */
-public class IntegrationTest {
+public class SystemTest {
 
     /** The log associated to this class */
-    private static Logger log = LogManager.getLogger(IntegrationTest.class);
+    private static Logger log = LogManager.getLogger(SystemTest.class);
 
     /**
      * @throws java.lang.Exception
      */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-
-	log.info("Running integration test: " + IntegrationTest.class.getName());
-	System.out.println("Running integration test: "
-		+ IntegrationTest.class.getName());
-
 	System.setProperty("aj.aj_files_location",
 		System.getProperty("user.dir") + File.separator + "src"
 			+ File.separator + "test" + File.separator
-			+ "resources" + File.separator + "integration_test");
+			+ "resources" + File.separator + "system_test");
 	AJConfig.getInstance().loadSystemProperties();
 
 	String[] args = new String[] { "--console" };
@@ -75,8 +73,6 @@ public class IntegrationTest {
      */
     @AfterClass
     public static void tearDownAfterClass() throws Exception {
-
-	log.info("File cleaning:");
 	try {
 	    AJConfig.getInstance().cleanAJFolder();
 	} catch (IOException e) {
@@ -139,6 +135,10 @@ public class IntegrationTest {
      */
     @Test
     public void testGeneratedReportByDate() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
 	// tex + pdf
 	assertTrue(new File(AJConfig.getInstance().getAJFilesLocation()
 		+ File.separator + AJConfig.REPORT_BY_DATE_FILENAME).exists());
@@ -155,6 +155,10 @@ public class IntegrationTest {
      */
     @Test
     public void testGeneratedReportByTarget() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
 	// tex + pdf
 	assertTrue(new File(AJConfig.getInstance().getAJFilesLocation()
 		+ File.separator + AJConfig.REPORT_BY_TARGET_FILENAME).exists());
@@ -171,6 +175,10 @@ public class IntegrationTest {
      */
     @Test
     public void testGeneratedReportByConstellation() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
 	// tex + pdf
 	assertTrue(new File(AJConfig.getInstance().getAJFilesLocation()
 		+ File.separator + AJConfig.REPORT_BY_CONSTELLATION_FILENAME)
@@ -188,6 +196,10 @@ public class IntegrationTest {
      */
     @Test
     public void testGeneratedSGLReportByDate() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
 	// txt
 	assertTrue(new File(AJConfig.getInstance().getAJFilesLocation()
 		+ File.separator + AJConfig.SGL_REPORT_BY_DATE_FILENAME)

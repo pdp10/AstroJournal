@@ -111,7 +111,7 @@ On GNU/Linux Debian/Ubuntu 14.04+, users can install the LaTeX dependencies requ
 ```
 sudo apt-get --no-install-recommends install texlive-latex-base texlive-latex-recommended
 ``` 
-On Windows, users should install MikTeX and then the LaTeX packages url and mptopdf using MikTeX Manager.
+On Windows, users should install MikTeX and then the LaTeX packages *url* and *mptopdf* using MikTeX Manager.
 
 ### Clone & Compile
 To clone AstroJournal repository:
@@ -149,12 +149,12 @@ To clean:
 mvn clean
 ```
 
-You can test AstroJournal on GNU/Linux typing:
+To test AstroJournal on GNU/Linux type:
 ```
 ./astrojournal.sh
 ```
 
 ### Integration Tests
-A .travix.yml script is included with this project in order to perform continuous integration tests at each commit.
-To use travis-ci, you need an account on github.com and you should at least read [this guide](https://docs.travis-ci.com/user/getting-started/).
-[Here](https://help.github.com/articles/fork-a-repo/) you find information on how to fork astrojournal.
+A .travis.yml script is included with this project in order to perform continuous integration tests at each push.
+To use travis-ci, an account on github.com is required as now and [this guide](https://docs.travis-ci.com/user/getting-started/) 
+is suggested. Information on how to fork AstroJournal can be found [here](https://help.github.com/articles/fork-a-repo/).

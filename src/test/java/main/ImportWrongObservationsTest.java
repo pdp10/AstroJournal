@@ -28,8 +28,6 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.util.ArrayList;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.generator.ajimporter.AJImporter;
 import org.astrojournal.generator.ajimporter.AJTabSeparatedValueImporter;
@@ -41,16 +39,14 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
+ * Import a set of incorrect observations.
  * 
  * @author Piero Dalle Pezze
+ * @version $Rev$
+ * @since 1.0
+ * @date 15 Jan 2016
  */
 public class ImportWrongObservationsTest {
-
-    /**
-     * The log associated to this class.
-     */
-    private static Logger log = LogManager
-	    .getLogger(ImportWrongObservationsTest.class);
 
     /**
      * The imported observations.
@@ -62,12 +58,6 @@ public class ImportWrongObservationsTest {
      */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-
-	log.info("Running unit test: "
-		+ ImportWrongObservationsTest.class.getName());
-	System.out.println("Running unit test: "
-		+ ImportWrongObservationsTest.class.getName());
-
 	System.setProperty("aj.aj_files_location",
 		System.getProperty("user.dir") + File.separator + "src"
 			+ File.separator + "test" + File.separator
@@ -104,6 +94,10 @@ public class ImportWrongObservationsTest {
      */
     @Test
     public void testNumberReports() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
 	assertEquals(5, observations.size());
     }
 
@@ -112,6 +106,10 @@ public class ImportWrongObservationsTest {
      */
     @Test
     public void testNumberTargets() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
 	int targets = 0;
 	for (int i = 0; i < observations.size(); i++) {
 	    targets = targets
@@ -125,6 +123,10 @@ public class ImportWrongObservationsTest {
      */
     @Test
     public void testMispeltTransparency() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
 	assertEquals("04/06/2015", observations.get(0).getDate());
 	assertEquals("12C (wind: 0km/h)", observations.get(0).getTemperature());
 	assertEquals("", observations.get(0).getTransparency());
@@ -139,6 +141,10 @@ public class ImportWrongObservationsTest {
      */
     @Test
     public void testLowerCaseAltitude() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
 	assertEquals("04/06/2015", observations.get(0).getDate());
 	assertEquals("12m", observations.get(0).getAltitude());
     }
@@ -148,6 +154,10 @@ public class ImportWrongObservationsTest {
      */
     @Test
     public void testSkippedReport() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
 	assertEquals("04/06/2015", observations.get(0).getDate());
 	// Second report is 05/06/2015 and should be skipped because of
 	// unrecognised Datte
@@ -159,6 +169,10 @@ public class ImportWrongObservationsTest {
      */
     @Test
     public void testIncompleteTargetEntry() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
 	assertEquals("07/06/2015b", observations.get(2).getDate());
 	// NOTE: The field `constellation` for the Moon is empty but is there.
 	// Therefore this is not a malformed entry.
@@ -173,6 +187,10 @@ public class ImportWrongObservationsTest {
      */
     @Test
     public void testIncompleteReport() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
 	assertEquals("11/06/2015", observations.get(3).getDate());
 	assertEquals(" ", observations.get(3).getTemperature());
 	assertEquals("5 - Clear", observations.get(3).getTransparency());
@@ -184,6 +202,10 @@ public class ImportWrongObservationsTest {
      */
     @Test
     public void testWrongFieldTelescopes() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
 	assertEquals("", observations.get(3).getTelescopes());
     }
 
@@ -192,6 +214,10 @@ public class ImportWrongObservationsTest {
      */
     @Test
     public void testDiscardedTarget() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
 	assertEquals("11/06/2015", observations.get(3).getDate());
 	assertEquals(1, observations.get(3).getObservationItems().size());
     }
@@ -201,6 +227,10 @@ public class ImportWrongObservationsTest {
      */
     @Test
     public void testReportWithoutTargets() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
 	assertEquals("15/06/2015", observations.get(4).getDate());
 	assertEquals(0, observations.get(4).getObservationItems().size());
     }

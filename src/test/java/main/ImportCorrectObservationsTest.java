@@ -28,8 +28,6 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.util.ArrayList;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.generator.ajimporter.AJImporter;
 import org.astrojournal.generator.ajimporter.AJTabSeparatedValueImporter;
@@ -41,16 +39,14 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
+ * Import a set of correct observations.
  * 
  * @author Piero Dalle Pezze
+ * @version $Rev$
+ * @since 1.0
+ * @date 15 Jan 2016
  */
 public class ImportCorrectObservationsTest {
-
-    /**
-     * The log associated to this class.
-     */
-    private static Logger log = LogManager
-	    .getLogger(ImportCorrectObservationsTest.class);
 
     /**
      * The imported observations.
@@ -62,12 +58,6 @@ public class ImportCorrectObservationsTest {
      */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-
-	log.info("Running unit test: "
-		+ ImportCorrectObservationsTest.class.getName());
-	System.out.println("Running unit test: "
-		+ ImportCorrectObservationsTest.class.getName());
-
 	System.setProperty("aj.aj_files_location",
 		System.getProperty("user.dir") + File.separator + "src"
 			+ File.separator + "test" + File.separator
@@ -104,6 +94,10 @@ public class ImportCorrectObservationsTest {
      */
     @Test
     public void testNumberReports() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
 	assertEquals(4, observations.size());
     }
 
@@ -112,6 +106,10 @@ public class ImportCorrectObservationsTest {
      */
     @Test
     public void testNumberTargets() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
 	int targets = 0;
 	for (int i = 0; i < observations.size(); i++) {
 	    targets = targets
@@ -125,6 +123,10 @@ public class ImportCorrectObservationsTest {
      */
     @Test
     public void testReport1() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
 	assertEquals("22/03/2015", observations.get(1).getDate());
 	assertEquals("19:00-22:00", observations.get(1).getTime());
 	assertEquals("Cambridge, UK", observations.get(1).getLocation());
@@ -145,6 +147,10 @@ public class ImportCorrectObservationsTest {
      */
     @Test
     public void testReport1Target3() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
 	assertEquals("Sigma", observations.get(1).getObservationItems().get(2)
 		.getTarget());
 	assertEquals("Ori", observations.get(1).getObservationItems().get(2)
@@ -162,6 +168,10 @@ public class ImportCorrectObservationsTest {
      */
     @Test
     public void testReport0Targets() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
 	assertEquals("23/02/2015", observations.get(0).getDate());
 	assertEquals("M42", observations.get(0).getObservationItems().get(0)
 		.getTarget());
@@ -178,6 +188,10 @@ public class ImportCorrectObservationsTest {
      */
     @Test
     public void testReport0LastTarget() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
 	assertEquals("Jupiter", observations.get(0).getObservationItems()
 		.get(3).getTarget());
 	assertEquals("Cnc", observations.get(0).getObservationItems().get(3)
@@ -196,6 +210,10 @@ public class ImportCorrectObservationsTest {
      */
     @Test
     public void testReports() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
 	assertEquals("23/02/2015", observations.get(0).getDate());
 	assertEquals("22/03/2015", observations.get(1).getDate());
 	assertEquals("03/06/2015", observations.get(2).getDate());
