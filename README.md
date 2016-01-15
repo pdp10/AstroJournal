@@ -36,8 +36,12 @@ To use AstroJournal you need to install:
 
 - [TeX Live](http://www.tug.org/texlive/) (for Linux Users) or [MikTeX](http://miktex.org/download) (for Windows Users) (pdflatex must be installed)
 
-For windows users who installed MikTeX, the LaTeX packages url and mptopdf must be installed using the MikTeX Manager.
- 
+On GNU/Linux Debian/Ubuntu 14.04+, users can install the LaTeX dependencies required by AstroJournal with the following command:
+```
+sudo apt-get --no-install-recommends install texlive-latex-base texlive-latex-recommended
+``` 
+On Windows, users should install MikTeX and then the LaTeX packages *url* and *mptopdf* using MikTeX Manager.
+
 
 ### Download
 You can download the latest version of this software application here:
@@ -112,6 +116,7 @@ On GNU/Linux Debian/Ubuntu 14.04+, users can install the LaTeX dependencies requ
 sudo apt-get --no-install-recommends install texlive-latex-base texlive-latex-recommended
 ``` 
 On Windows, users should install MikTeX and then the LaTeX packages *url* and *mptopdf* using MikTeX Manager.
+
 
 ### Clone & Compile
 To clone AstroJournal repository:
