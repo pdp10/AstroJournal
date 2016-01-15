@@ -20,7 +20,7 @@ v0.10.12
 - Migrated from junit 4.11 to 4.12
 - Added Darkness as new Observation parameter. This can be used for recording sky quality reading using meters such as SQM-L.
 - Added Tango icon set to AJ menu items.
-- Bug fixes
+- Bug fixes & use of travix.yml
 
 v0.9.12
 
