@@ -64,7 +64,7 @@ public class IntegrationTest {
 		System.getProperty("user.dir") + File.separator + "src"
 			+ File.separator + "test" + File.separator
 			+ "resources" + File.separator + "integration_test");
-	AJConfig.getInstance().readSystemProperties();
+	AJConfig.getInstance().loadSystemProperties();
 
 	String[] args = new String[] { "--console" };
 	AJMain.main(args);
