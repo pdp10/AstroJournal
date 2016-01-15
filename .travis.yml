@@ -3,6 +3,9 @@ jdk:
   - oraclejdk8
   - oraclejdk7
   - openjdk6
-install: mvn package
-before_script: chmod 755 ./astrojournal.sh
-script: ./astrojournal.sh
+before_install:
+  - sudo apt-get install texlive
+install: 
+  - mvn package
+before_script: chmod 755 ./test_astrojournal.sh
+script: ./test_astrojournal.sh
