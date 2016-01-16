@@ -12,7 +12,7 @@
   <!-- Output to jar format -->
   <packaging>jar</packaging>
   
-  <version>0.10.12</version>
+  <version>0.10.14</version>
   <name>AstroJournal</name>
   <description>AstroJournal is a tool for generating astronomy observation reports in LaTeX.</description>
   <url>https://github.com/pdp10/AstroJournal</url>

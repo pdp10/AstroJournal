@@ -86,10 +86,10 @@ public class AJMain {
 	    } else if (args[0].equals("-h") || args[0].equals("--help")) {
 		log.info(AJMainConsole.printHelp());
 		System.exit(0);
-	    } else if (args[0].equals("-l") || args[0].equals("--license")) {
+	    } else if (args[0].equals("--license")) {
 		log.info(AJConfig.getInstance().printLicense());
 		System.exit(0);
-	    } else if (args[0].equals("-x") || args[0].equals("--test-latex")) {
+	    } else if (args[0].equals("-t") || args[0].equals("--test-latex")) {
 		log.info(AJConfig.getInstance().printPDFLatexVersion());
 		System.exit(0);
 	    } else {

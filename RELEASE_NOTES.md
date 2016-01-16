@@ -7,8 +7,10 @@ Website: http://pdp10.github.io/AstroJournal/
 ### RELEASE NOTES
 
 
-v0.10.12
+v0.10.14
 
+- Added unit tests to test java properties to configure AJ.
+- The command pdflatex is now tested at start up and notifies users about its installation.
 - XML Configuration file replaces astrojournal.conf.
 - Exporters and importers are now loaded dynamically.
 - All output text is now managed with log4j for both GUI and Console.
@@ -20,7 +22,7 @@ v0.10.12
 - Migrated from junit 4.11 to 4.12
 - Added Darkness as new Observation parameter. This can be used for recording sky quality reading using meters such as SQM-L.
 - Added Tango icon set to AJ menu items.
-- Bug fixes & use of travix.yml
+- Bug fixes & use of .travis.yml
 
 v0.9.12
 
