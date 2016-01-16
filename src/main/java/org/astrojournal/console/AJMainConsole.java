@@ -61,7 +61,8 @@ public class AJMainConsole {
 			+ "\t-c [--console] :\tRun AstroJournal via command line instead of via GUI.\n"
 			+ "\t-o [--latex-output] :\tIn combination with the option -c, it prints the LaTeX output.\n"
 			+ "\t-h [--help] :\t\tShow this help on a shell.\n"
-			+ "\t-l [--license] :\tShow the license for AstroJournal on a shell.\n");
+			+ "\t-l [--license] :\tShow the license for AstroJournal on a shell.\n"
+			+ "\t-x [--test-latex] :\tTest pdflatex.\n");
 	return help;
     }
 

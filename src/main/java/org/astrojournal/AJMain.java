@@ -79,23 +79,25 @@ public class AJMain {
 		startAJMainGUI();
 	    } else if (args[0].equals("-f") || args[0].equals("--config")) {
 		log.info(AJConfig.getInstance().printConfiguration());
+		System.exit(0);
 	    } else if (args[0].equals("-c") || args[0].equals("--console")) {
 		AJMainConsole.main(args);
+		System.exit(0);
 	    } else if (args[0].equals("-h") || args[0].equals("--help")) {
 		log.info(AJMainConsole.printHelp());
+		System.exit(0);
 	    } else if (args[0].equals("-l") || args[0].equals("--license")) {
 		log.info(AJConfig.getInstance().printLicense());
+		System.exit(0);
+	    } else if (args[0].equals("-x") || args[0].equals("--test-latex")) {
+		log.info(AJConfig.getInstance().printPDFLatexVersion());
+		System.exit(0);
 	    } else {
 		log.error("Unrecognised option. Please, run AstroJournal with the option -h [--help] for suggestions.");
+		System.exit(0);
 	    }
 	} catch (Exception ex) {
 	    log.error(ex, ex);
 	}
-	// Leave this otherwise the line commands do not terminate.
-	// A bit weird as the program does not terminate if an unrecognised
-	// option is passed.
-	// It makes me think that this non termination is due to the log system,
-	// which holds the file open.
-	System.exit(0);
     }
 }
