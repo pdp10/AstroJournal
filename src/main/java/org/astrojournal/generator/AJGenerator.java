@@ -63,16 +63,17 @@ public class AJGenerator {
      *         exported to Latex correctly
      */
     public boolean generateJournals() {
+	AJConfig ajConfig = AJConfig.getInstance();
 
-	if (AJConfig.getInstance().isShowLicenseAtStart()) {
+	if (!ajConfig.isQuiet() && ajConfig.isShowLicenseAtStart()) {
 	    showLicense();
 	}
 
-	if (AJConfig.getInstance().isShowPDFLatexVersion()) {
+	if (!ajConfig.isQuiet() && ajConfig.isShowPDFLatexVersion()) {
 	    showPDFLatexVersion();
 	}
 
-	if (AJConfig.getInstance().isShowConfigurationAtStart()) {
+	if (!ajConfig.isQuiet() && ajConfig.isShowConfigurationAtStart()) {
 	    showConfiguration();
 	}
 

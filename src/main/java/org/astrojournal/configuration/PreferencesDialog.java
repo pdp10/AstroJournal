@@ -35,6 +35,7 @@ import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -51,33 +52,53 @@ public class PreferencesDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = 5832696837018920916L;
 
     /**
+     * The instance of the configurator
+     */
+    private AJConfig ajConfig = AJConfig.getInstance();
+
+    /**
      * The relative path containing the raw files (observation input folder).
      */
-    private JTextField rawReportsFolder;
+    private JTextField rawReportsFolder = new JTextField();
     /**
      * The AstroJournal files location (the path).
      */
-    private JTextField ajFilesLocation;
+    private JTextField ajFilesLocation = new JTextField();
     /**
      * The name of the folder containing the latex observation files by date
      * (observation output folder).
      */
-    private JTextField latexReportsFolderByDate;
+    private JTextField latexReportsFolderByDate = new JTextField();
     /**
      * The name of the folder containing the latex observation files by target
      * (observation output folder).
      */
-    private JTextField latexReportsFolderByTarget;
+    private JTextField latexReportsFolderByTarget = new JTextField();
     /**
      * The name of the folder containing the latex observation files by
      * constellation (observation output folder).
      */
-    private JTextField latexReportsFolderByConstellation;
+    private JTextField latexReportsFolderByConstellation = new JTextField();
     /**
      * The name of the folder containing the latex observation files by date
      * (observation output folder).
      */
-    private JTextField sglReportsFolderByDate;
+    private JTextField sglReportsFolderByDate = new JTextField();
+
+    /** True if the application should run quietly */
+    private JCheckBox quiet = new JCheckBox();
+
+    /** True if latex output should be printed. */
+    private JCheckBox latexOutput = new JCheckBox();
+
+    /** True if the license should be shown at start. */
+    private JCheckBox showLicenseAtStart = new JCheckBox();
+
+    /** True if the version of pdflatex. */
+    private JCheckBox showPDFLatexVersion = new JCheckBox();
+
+    /** True if the configuration should be shown at start. */
+    private JCheckBox showConfigurationAtStart = new JCheckBox();
 
     /**
      * Instantiates a new edits the preferences dialog.
@@ -97,7 +118,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
      * @param application
      *            the application
      */
-    private void initComponents(AJMainGUI application) {
+    private void initComponents(final AJMainGUI application) {
 	setSize(600, 280);
 	setLocationRelativeTo(application);
 	setModal(true);
@@ -107,6 +128,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	filePanel.setLayout(new GridBagLayout());
 	GridBagConstraints c = new GridBagConstraints();
 
+	// Start text fields
 	c.gridx = 0;
 	c.gridy = 0;
 	c.weightx = 0.1;
@@ -119,9 +141,8 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	filePanel.add(ajFilesLocationLBL, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
-	ajFilesLocation = new JTextField();
-	ajFilesLocation.setText(AJConfig.getInstance().getAJFilesLocation()
-		.getAbsolutePath());
+	ajFilesLocation
+		.setText(ajConfig.getAJFilesLocation().getAbsolutePath());
 	ajFilesLocation.setEditable(false);
 	filePanel.add(ajFilesLocation, c);
 	c.gridx = 2;
@@ -142,8 +163,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	filePanel.add(inputDir, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
-	rawReportsFolder = new JTextField();
-	rawReportsFolder.setText(AJConfig.getInstance().getRawReportsFolder());
+	rawReportsFolder.setText(ajConfig.getRawReportsFolder());
 	filePanel.add(rawReportsFolder, c);
 	c.gridx = 2;
 	c.weightx = 0.1;
@@ -158,9 +178,8 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	filePanel.add(outputDirByDate, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
-	latexReportsFolderByDate = new JTextField();
-	latexReportsFolderByDate.setText(AJConfig.getInstance()
-		.getLatexReportsFolderByDate());
+	latexReportsFolderByDate
+		.setText(ajConfig.getLatexReportsFolderByDate());
 	filePanel.add(latexReportsFolderByDate, c);
 	c.gridx = 2;
 	c.weightx = 0.1;
@@ -175,8 +194,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	filePanel.add(outputDirByTarget, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
-	latexReportsFolderByTarget = new JTextField();
-	latexReportsFolderByTarget.setText(AJConfig.getInstance()
+	latexReportsFolderByTarget.setText(ajConfig
 		.getLatexReportsFolderByTarget());
 	filePanel.add(latexReportsFolderByTarget, c);
 	c.gridx = 2;
@@ -192,8 +210,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	filePanel.add(outputDirByConstellation, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
-	latexReportsFolderByConstellation = new JTextField();
-	latexReportsFolderByConstellation.setText(AJConfig.getInstance()
+	latexReportsFolderByConstellation.setText(ajConfig
 		.getLatexReportsFolderByConstellation());
 	filePanel.add(latexReportsFolderByConstellation, c);
 	c.gridx = 2;
@@ -209,12 +226,112 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	filePanel.add(outputSGLDirByDate, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
-	sglReportsFolderByDate = new JTextField();
-	sglReportsFolderByDate.setText(AJConfig.getInstance()
-		.getSglReportsFolderByDate());
+	sglReportsFolderByDate.setText(ajConfig.getSglReportsFolderByDate());
 	filePanel.add(sglReportsFolderByDate, c);
 	c.gridx = 2;
 	c.weightx = 0.1;
+
+	// End text fields
+
+	// Start boolean checkboxes
+
+	c.gridx = 0;
+	c.gridy++;
+	c.weightx = 0.1;
+	JLabel lblQuiet = new JLabel(
+		AJConfig.BUNDLE.getString("AJ.lblQuiet.text"));
+	lblQuiet.setToolTipText(AJConfig.BUNDLE
+		.getString("AJ.lblQuiet.toolTipText"));
+	filePanel.add(lblQuiet, c);
+	c.gridx = 1;
+	c.weightx = 0.5;
+	quiet.addActionListener(new ActionListener() {
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+		if (quiet.isSelected()) {
+		    showLicenseAtStart.setEnabled(false);
+		    latexOutput.setEnabled(false);
+		    showConfigurationAtStart.setEnabled(false);
+		    showPDFLatexVersion.setEnabled(false);
+		} else {
+		    showLicenseAtStart.setEnabled(true);
+		    latexOutput.setEnabled(true);
+		    showConfigurationAtStart.setEnabled(true);
+		    showPDFLatexVersion.setEnabled(true);
+		}
+	    }
+	});
+	quiet.setSelected(ajConfig.isQuiet());
+	// let's perform its action programmatically
+	quiet.doClick();
+	quiet.doClick();
+	filePanel.add(quiet, c);
+	c.gridx = 2;
+	c.weightx = 0.1;
+
+	c.gridx = 0;
+	c.gridy++;
+	c.weightx = 0.1;
+	JLabel lblShowLatexOutput = new JLabel(
+		AJConfig.BUNDLE.getString("AJ.lblShowLatexOutput.text"));
+	lblShowLatexOutput.setToolTipText(AJConfig.BUNDLE
+		.getString("AJ.lblShowLatexOutput.toolTipText"));
+	latexOutput.setSelected(ajConfig.isLatexOutput());
+	filePanel.add(lblShowLatexOutput, c);
+	c.gridx = 1;
+	c.weightx = 0.5;
+	filePanel.add(latexOutput, c);
+	c.gridx = 2;
+	c.weightx = 0.1;
+
+	c.gridx = 0;
+	c.gridy++;
+	c.weightx = 0.1;
+	JLabel lblShowLicenseAtStart = new JLabel(
+		AJConfig.BUNDLE.getString("AJ.lblShowLicenseAtStart.text"));
+	lblShowLicenseAtStart.setToolTipText(AJConfig.BUNDLE
+		.getString("AJ.lblShowLicenseAtStart.toolTipText"));
+	showLicenseAtStart.setSelected(ajConfig.isShowLicenseAtStart());
+	filePanel.add(lblShowLicenseAtStart, c);
+	c.gridx = 1;
+	c.weightx = 0.5;
+	filePanel.add(showLicenseAtStart, c);
+	c.gridx = 2;
+	c.weightx = 0.1;
+
+	c.gridx = 0;
+	c.gridy++;
+	c.weightx = 0.1;
+	JLabel lblShowPDFLatexVersion = new JLabel(
+		AJConfig.BUNDLE.getString("AJ.lblShowPDFLatexVersion.text"));
+	lblShowPDFLatexVersion.setToolTipText(AJConfig.BUNDLE
+		.getString("AJ.lblShowPDFLatexVersion.toolTipText"));
+	showPDFLatexVersion.setSelected(ajConfig.isShowPDFLatexVersion());
+	filePanel.add(lblShowPDFLatexVersion, c);
+	c.gridx = 1;
+	c.weightx = 0.5;
+	filePanel.add(showPDFLatexVersion, c);
+	c.gridx = 2;
+	c.weightx = 0.1;
+
+	c.gridx = 0;
+	c.gridy++;
+	c.weightx = 0.1;
+	JLabel lblShowConfigurationAtStart = new JLabel(
+		AJConfig.BUNDLE
+			.getString("AJ.lblShowConfigurationAtStart.text"));
+	lblShowConfigurationAtStart.setToolTipText(AJConfig.BUNDLE
+		.getString("AJ.lblShowConfigurationAtStart.toolTipText"));
+	showConfigurationAtStart.setSelected(ajConfig
+		.isShowConfigurationAtStart());
+	filePanel.add(lblShowConfigurationAtStart, c);
+	c.gridx = 1;
+	c.weightx = 0.5;
+	filePanel.add(showConfigurationAtStart, c);
+	c.gridx = 2;
+	c.weightx = 0.1;
+
+	// End boolean checkboxes
 
 	getContentPane().setLayout(new BorderLayout());
 	getContentPane().add(filePanel, BorderLayout.CENTER);
@@ -272,22 +389,33 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	    setVisible(false);
 	    dispose();
 	} else if (action.equals("save")) {
-	    AJConfig config = AJConfig.getInstance();
 
 	    File ajFilesLocationFile = new File(ajFilesLocation.getText());
 
-	    config.setAJFilesLocation(ajFilesLocationFile);
-	    config.setRawReportsFolder(rawReportsFolder.getText());
-	    config.setLatexReportsFolderByDate(latexReportsFolderByDate
+	    // text fields
+	    ajConfig.setAJFilesLocation(ajFilesLocationFile);
+	    ajConfig.setRawReportsFolder(rawReportsFolder.getText());
+	    ajConfig.setLatexReportsFolderByDate(latexReportsFolderByDate
 		    .getText());
-	    config.setLatexReportsFolderByTarget(latexReportsFolderByTarget
+	    ajConfig.setLatexReportsFolderByTarget(latexReportsFolderByTarget
 		    .getText());
-	    config.setLatexReportsFolderByConstellation(latexReportsFolderByConstellation
+	    ajConfig.setLatexReportsFolderByConstellation(latexReportsFolderByConstellation
 		    .getText());
-	    config.setSglReportsFolderByDate(sglReportsFolderByDate.getText());
-	    config.saveConfiguration();
+	    ajConfig.setSglReportsFolderByDate(sglReportsFolderByDate.getText());
+
+	    // combobox fields
+	    ajConfig.setQuiet(quiet.isSelected());
+	    ajConfig.setLatexOutput(latexOutput.isSelected());
+	    ajConfig.setShowLicenseAtStart(showLicenseAtStart.isSelected());
+	    ajConfig.setPDFLatexVersion(showPDFLatexVersion.isSelected());
+	    ajConfig.setShowConfigurationAtStart(showConfigurationAtStart
+		    .isSelected());
+
+	    // Save the configuration
+	    ajConfig.saveConfiguration();
 	    // prepare the folders for AJ.
-	    config.prepareAJFolders();
+	    ajConfig.prepareAJFolders();
+
 	    setVisible(false);
 	    dispose();
 	}

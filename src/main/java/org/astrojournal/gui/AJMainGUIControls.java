@@ -62,18 +62,19 @@ public class AJMainGUIControls {
 
     /**
      * Create the journals.
-     * 
-     * @param latexOutput
-     *            true if the latex code should also be reported.
      */
-    public void createJournal(boolean latexOutput) {
+    public void createJournal() {
+
+	AJConfig ajConfig = AJConfig.getInstance();
+
+	boolean latexOutput = !ajConfig.isQuiet() && ajConfig.isLatexOutput();
 
 	// prepare the folders for AJ.
-	AJConfig.getInstance().prepareAJFolders();
+	ajConfig.prepareAJFolders();
 
 	// Delete previous content if present
 	try {
-	    AJConfig.getInstance().cleanAJFolder();
+	    ajConfig.cleanAJFolder();
 	} catch (IOException e) {
 	    ajMainGUI.setStatusPanelText(AJConfig.BUNDLE
 		    .getString("AJ.errUnconfiguredPreferences.text"));
@@ -85,8 +86,7 @@ public class AJMainGUIControls {
 	AJGenerator ajLatexGenerator = new AJGenerator();
 	ajLatexGenerator.generateJournals();
 
-	String path = AJConfig.getInstance().getAJFilesLocation()
-		.getAbsolutePath();
+	String path = ajConfig.getAJFilesLocation().getAbsolutePath();
 	try {
 	    // The pdflatex command must be called two times in order to
 	    // generate the list of contents correctly.
