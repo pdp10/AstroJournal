@@ -31,8 +31,8 @@ import java.io.IOException;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.AJMain;
 import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.console.AJMainConsole;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -65,7 +65,7 @@ public class SystemTest {
 	AJConfig.getInstance().loadSystemProperties();
 
 	String[] args = new String[] { "--console" };
-	AJMain.main(args);
+	AJMainConsole.main(args);
     }
 
     /**

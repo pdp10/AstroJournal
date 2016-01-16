@@ -97,7 +97,7 @@ public class AJMainConsole {
     public static void main(String args[]) {
 	AJMainConsole ajMainConsole = new AJMainConsole();
 	if (args.length > 1
-		&& (args[0].equals("-o") || args[1].equals("--latex-output")))
+		&& (args[1].equals("-o") || args[1].equals("--latex-output")))
 	    ajMainConsole.printLaTeXOutput(true);
 	ajMainConsole.createJournals();
     }

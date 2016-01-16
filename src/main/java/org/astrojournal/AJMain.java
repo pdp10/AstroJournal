@@ -91,6 +91,11 @@ public class AJMain {
 	} catch (Exception ex) {
 	    log.error(ex, ex);
 	}
+	// Leave this otherwise the line commands do not terminate.
+	// A bit weird as the program does not terminate if an unrecognised
+	// option is passed.
+	// It makes me think that this non termination is due to the log system,
+	// which holds the file open.
+	System.exit(0);
     }
-
 }
