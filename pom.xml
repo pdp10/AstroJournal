@@ -141,9 +141,10 @@
                 <goal>launch4j</goal>
             </goals>
             <configuration>
+            	<dontWrapJar>true</dontWrapJar>
                 <headerType>gui</headerType>
                 <outfile>astrojournal.exe</outfile>
-                <jar>target/${project.artifactId}-${project.version}-jar-with-dependencies.jar</jar> <!-- 'shaded' is the value set on shadedClassifierName above -->
+                <jar>target/${project.artifactId}-${project.version}-jar-with-dependencies.jar</jar>
                 <errTitle>AstroJournal</errTitle>
                 <classPath>
                     <mainClass>org.astrojournal.AJMain</mainClass>
