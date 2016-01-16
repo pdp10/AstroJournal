@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>true</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>target/astrojournal-0.10.14-jar-with-dependencies.jar</jar>
+  <outfile>/home/pdp/eclipse_workspace/AstroJournal/astrojournal.exe</outfile>
+  <errTitle>AstroJournal</errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl>http://java.com/download</downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>false</restartOnCrash>
+  <manifest></manifest>
+  <icon>/home/pdp/eclipse_workspace/AstroJournal/src/main/resources/graphics/logo/aj_icon_win.ico</icon>
+  <jre>
+    <path></path>
+    <bundledJre64Bit>false</bundledJre64Bit>
+    <bundledJreAsFallback>false</bundledJreAsFallback>
+    <minVersion>1.7.0</minVersion>
+    <maxVersion></maxVersion>
+    <jdkPreference>preferJre</jdkPreference>
+    <runtimeBits>64/32</runtimeBits>
+    <initialHeapSize>200</initialHeapSize>
+    <initialHeapPercent>15</initialHeapPercent>
+    <maxHeapSize>500</maxHeapSize>
+    <maxHeapPercent>20</maxHeapPercent>
+  </jre>
+  <versionInfo>
+    <fileVersion>0.10.14.0</fileVersion>
+    <txtFileVersion>0.10.14.0</txtFileVersion>
+    <fileDescription>A tool for generating astronomy observation reports in LaTeX / PDF</fileDescription>
+    <copyright>Copyright (C) 2015-2016 Piero Dalle Pezze (GPL v3 License)</copyright>
+    <productVersion>0.10.14.0</productVersion>
+    <txtProductVersion>0.10.14.0</txtProductVersion>
+    <productName>AstroJournal</productName>
+    <companyName></companyName>
+    <internalName>GUI AstroJournal</internalName>
+    <originalFilename>astrojournal.exe</originalFilename>
+  </versionInfo>
+</launch4jConfig>
