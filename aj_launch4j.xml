@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch4jConfig>
-  <dontWrapJar>false</dontWrapJar>
+  <dontWrapJar>true</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>/home/pdp/eclipse_workspace/AstroJournal/target/astrojournal-0.10.14-jar-with-dependencies.jar</jar>
+  <jar>target/astrojournal-0.10.14-jar-with-dependencies.jar</jar>
   <outfile>/home/pdp/eclipse_workspace/AstroJournal/astrojournal.exe</outfile>
   <errTitle>AstroJournal</errTitle>
   <cmdLine></cmdLine>
@@ -28,12 +28,12 @@
     <maxHeapPercent>20</maxHeapPercent>
   </jre>
   <versionInfo>
-    <fileVersion>0.12.14.0</fileVersion>
-    <txtFileVersion>0.12.14.0</txtFileVersion>
+    <fileVersion>0.10.14.0</fileVersion>
+    <txtFileVersion>0.10.14.0</txtFileVersion>
     <fileDescription>A tool for generating astronomy observation reports in LaTeX / PDF</fileDescription>
     <copyright>Copyright (C) 2015-2016 Piero Dalle Pezze (GPL v3 License)</copyright>
-    <productVersion>0.12.14.0</productVersion>
-    <txtProductVersion>0.12.14.0</txtProductVersion>
+    <productVersion>0.10.14.0</productVersion>
+    <txtProductVersion>0.10.14.0</txtProductVersion>
     <productName>AstroJournal</productName>
     <companyName></companyName>
     <internalName>GUI AstroJournal</internalName>
