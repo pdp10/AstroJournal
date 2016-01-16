@@ -624,7 +624,7 @@ public class AJConfig {
 
 	ajFilesLocation.mkdir();
 
-	// AJ folder
+	// AJ header footer folder
 	File ajHeaderFooterDir = new File(LATEX_HEADER_FOOTER_FOLDER);
 	ajHeaderFooterDir.mkdir();
 	// Create a local folder for header_footer and copy the content from
@@ -638,6 +638,9 @@ public class AJConfig {
 		return pathname.getName().endsWith(".tex");
 	    }
 	};
+
+	// if the header footer folder does not exist, let's copy the default
+	// one.
 	if (!userHeaderFooterDir.exists()
 		|| userHeaderFooterDir.listFiles(latexFilter).length < 1) {
 	    try {
@@ -650,8 +653,38 @@ public class AJConfig {
 	    }
 	}
 
-	new File(ajFilesLocation.getAbsolutePath() + File.separator
-		+ rawReportsFolder).mkdir();
+	// Let's do the same for the raw_reports folder
+	// AJ raw reports folder
+	File ajRawReportsDir = new File(rawReportsFolder);
+	ajRawReportsDir.mkdir();
+	// Create a local folder for ajRawReports and copy the content from
+	// the AJ folder to here
+	File userRawReportsDir = new File(ajFilesLocation.getAbsolutePath()
+		+ File.separator + rawReportsFolder);
+
+	FileFilter rawReportsFilter = new FileFilter() {
+	    @Override
+	    public boolean accept(File pathname) {
+		return pathname.getName().endsWith(".csv")
+			|| pathname.getName().endsWith(".tsv");
+	    }
+	};
+
+	// if the raw reports folder does not exist, let's copy the default one.
+	// This is convenient for testing.
+	if (!userRawReportsDir.exists()
+		|| userRawReportsDir.listFiles(rawReportsFilter).length < 1) {
+	    try {
+		FileUtils.copyDirectory(ajRawReportsDir, userRawReportsDir,
+			true);
+	    } catch (IOException e) {
+		log.error(AJConfig.BUNDLE
+			.getString("AJ.errCannotCopyRawReportsFolder.text"), e);
+	    }
+	}
+	// TODO
+	// new File(ajFilesLocation.getAbsolutePath() + File.separator
+	// + rawReportsFolder).mkdir();
 	new File(ajFilesLocation.getAbsolutePath() + File.separator
 		+ latexReportsFolderByDate).mkdir();
 	new File(ajFilesLocation.getAbsolutePath() + File.separator
