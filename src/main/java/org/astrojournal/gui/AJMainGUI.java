@@ -30,7 +30,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -66,7 +65,6 @@ public class AJMainGUI extends JFrame {
 
     private static final long serialVersionUID = -7217707367091677434L;
 
-    private JCheckBox cbxLatexOutput;
     private JButton btnCreateJournal;
     private JButton btnQuit;
     private JTextPane textPane;
@@ -75,7 +73,6 @@ public class AJMainGUI extends JFrame {
     private JPanel outputPanel;
     private JPanel controlPanel;
     private StatusPanel statusPanel;
-    private boolean latexOutput = AJConfig.getInstance().isLatexOutput();
     private AJMainGUIControls commandRunner;
     private AJMenuBar menu = null;
 
@@ -128,7 +125,7 @@ public class AJMainGUI extends JFrame {
 		btnCreateJournal.setEnabled(false);
 		menu.setEnabled("create_journal", false);
 		menu.setEnabled("preferences", false);
-		commandRunner.createJournal(latexOutput);
+		commandRunner.createJournal();
 		btnCreateJournal.setEnabled(true);
 		menu.setEnabled("create_journal", true);
 		menu.setEnabled("preferences", true);
@@ -189,21 +186,6 @@ public class AJMainGUI extends JFrame {
      * Set AstroJournal control buttons. A small keyboard.
      */
     private void setControlButtons() {
-	// Create the checkbox for printing the Latex output
-	cbxLatexOutput = new JCheckBox();
-	if (latexOutput) {
-	    cbxLatexOutput.setSelected(true);
-	}
-	cbxLatexOutput.addActionListener(new ActionListener() {
-	    @Override
-	    public void actionPerformed(ActionEvent e) {
-		if (cbxLatexOutput.isSelected()) {
-		    latexOutput = true;
-		} else {
-		    latexOutput = false;
-		}
-	    }
-	});
 
 	// Create the button for creating the journals
 	btnCreateJournal = new JButton();
@@ -248,9 +230,6 @@ public class AJMainGUI extends JFrame {
 	// Setup for the control panel
 	// Create the control panel containing the button and the checkbox
 	controlPanel = new JPanel();
-	controlPanel.add(new JLabel(AJConfig.BUNDLE
-		.getString("AJ.lblShowLatexOutput.text")));
-	controlPanel.add(cbxLatexOutput);
 	controlPanel.add(btnCreateJournal);
 	controlPanel.add(btnQuit);
 
