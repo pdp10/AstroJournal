@@ -1,182 +1,160 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-  	http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0     http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.astrojournal</groupId>
   <artifactId>astrojournal</artifactId>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  
   <!-- Output to jar format -->
   <packaging>jar</packaging>
-  
   <version>0.10.14</version>
   <name>AstroJournal</name>
   <description>AstroJournal is a tool for generating astronomy observation reports in LaTeX.</description>
   <url>https://github.com/pdp10/AstroJournal</url>
   <inceptionYear>2015</inceptionYear>
   <organization>
-        <name>AstroJournal</name>
-        <url>https://github.com/pdp10/AstroJournal</url>
+    <name>AstroJournal</name>
+    <url>https://github.com/pdp10/AstroJournal</url>
   </organization>
   <licenses>
-        <license>
-            <name>General Public License 3.0</name>
-            <url>http://www.gnu.org/licenses/gpl-3.0.en.html</url>
-            <distribution>repo</distribution>
-        </license>
+    <license>
+      <name>General Public License 3.0</name>
+      <url>http://www.gnu.org/licenses/gpl-3.0.en.html</url>
+      <distribution>repo</distribution>
+    </license>
   </licenses>
-    <developers>
-        <developer>
-            <id>pdp</id>
-            <name>Piero Dalle Pezze</name>
-            <email>piero.dallepezze@gmail.com</email>
-        </developer>
-    </developers>    
-  
-    <issueManagement>
-        <system>github</system>
-        <url>https://github.com/pdp10/astrojournal/issues</url>
-    </issueManagement>    
-
-    
+  <developers>
+    <developer>
+      <id>pdp</id>
+      <name>Piero Dalle Pezze</name>
+      <email>piero.dallepezze@gmail.com</email>
+    </developer>
+  </developers>
+  <issueManagement>
+    <system>github</system>
+    <url>https://github.com/pdp10/astrojournal/issues</url>
+  </issueManagement>
   <dependencies>
-	<!-- Above 2.0.2 there are weird messages and log4j crashes.. -->
-	<dependency>
-	  <groupId>org.apache.logging.log4j</groupId>
-	  <artifactId>log4j-core</artifactId>
-	  <version>2.0.2</version>
-	</dependency>
-	<dependency>
-	  <groupId>commons-io</groupId>
-	  <artifactId>commons-io</artifactId>
-	  <version>2.4</version>
-	</dependency>
-	<dependency>
-	  <groupId>org.apache.commons</groupId>
-	  <artifactId>commons-lang3</artifactId>
-	  <version>3.4</version>
-	</dependency>
-	<dependency>
-	  <groupId>javax.help</groupId>
-	  <artifactId>javahelp</artifactId>
-	  <version>2.0.05</version>
-	</dependency>	
-	<dependency>
-	  <groupId>junit</groupId>
-	  <artifactId>junit</artifactId>
-	  <version>4.12</version>
-	  <scope>test</scope>
-	</dependency>
-	<dependency>
-	  <groupId>org.hamcrest</groupId>
-	  <artifactId>hamcrest-junit</artifactId>
-	  <version>2.0.0.0</version>
-	  <scope>test</scope>
-	</dependency>
+    <!-- Above 2.0.2 there are weird messages and log4j crashes.. -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.4</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.help</groupId>
+      <artifactId>javahelp</artifactId>
+      <version>2.0.05</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-junit</artifactId>
+      <version>2.0.0.0</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
-  
-  
   <build>
-    
-  <plugins>
-  <plugin>
-    <artifactId>maven-assembly-plugin</artifactId>
-    <executions>
-      <execution>
-        <phase>package</phase>
-        <goals>
-          <goal>single</goal>
-        </goals>
-      </execution>
-    </executions>    
-    <configuration>
-      <archive>
-      <manifest>
-        <addClasspath>true</addClasspath>
-        <mainClass>org.astrojournal.AJMain</mainClass>
-      </manifest>
-      </archive>
-      <descriptorRefs>
-        <descriptorRef>jar-with-dependencies</descriptorRef>
-      </descriptorRefs>
-    </configuration>
-  </plugin> 
-  
-  <plugin>
-     <groupId>org.apache.maven.plugins</groupId>
-     <artifactId>maven-compiler-plugin</artifactId>
-     <version>3.3</version>
-     <configuration>
-       <source>1.6</source>
-       <target>1.6</target>
-     </configuration>
-  </plugin>
-  
-  <plugin>
-      <artifactId>maven-surefire-plugin</artifactId>
-      <version>2.19.1</version>
-      <configuration>
-	  <test>main/AllTests.java</test>
-	  <useSystemClassLoader>true</useSystemClassLoader>
-	  <enableAssertions>false</enableAssertions>
-      </configuration>
-  </plugin>  
-  
-  
-
-<plugin>
-    <groupId>org.bluestemsoftware.open.maven.plugin</groupId>
-    <artifactId>launch4j-plugin</artifactId>
-    <version>1.5.0.0</version>
-    <executions>
-
-        <!-- GUI exe -->
-        <execution>
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <mainClass>org.astrojournal.AJMain</mainClass>
+            </manifest>
+          </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
+        <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.19.1</version>
+        <configuration>
+          <test>main/AllTests.java</test>
+          <useSystemClassLoader>true</useSystemClassLoader>
+          <enableAssertions>false</enableAssertions>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.bluestemsoftware.open.maven.plugin</groupId>
+        <artifactId>launch4j-plugin</artifactId>
+        <version>1.5.0.0</version>
+        <executions>
+          <!-- GUI exe -->
+          <execution>
             <id>l4j-gui</id>
             <phase>package</phase>
             <goals>
-                <goal>launch4j</goal>
+              <goal>launch4j</goal>
             </goals>
             <configuration>
-            	<dontWrapJar>true</dontWrapJar>
-                <headerType>gui</headerType>
-                <outfile>astrojournal.exe</outfile>
-                <jar>target/${project.artifactId}-${project.version}-jar-with-dependencies.jar</jar>
-                <errTitle>AstroJournal</errTitle>
-                <classPath>
-                    <mainClass>org.astrojournal.AJMain</mainClass>
-                </classPath>
-                <icon>src/main/resources/graphics/logo/aj_icon_win.ico</icon>
-                <jre>
-                    <minVersion>1.7.0</minVersion>
-                    <maxVersion></maxVersion>
-                    <initialHeapSize>256</initialHeapSize>
-                    <maxHeapSize>512</maxHeapSize>
-                </jre>
-                <versionInfo>
-                    <fileVersion>${project.version}.0</fileVersion>
-                    <txtFileVersion>${project.version}.0</txtFileVersion>
-                    <fileDescription>A tool for generating astronomy observation reports in LaTeX / PDF</fileDescription>
-                    <copyright>Copyright (C) 2015-2016 Piero Dalle Pezze (GPL v3 License)</copyright>
-                    <productVersion>${project.version}0.0</productVersion>
-                    <txtProductVersion>${project.version}.0</txtProductVersion>
-                    <productName>AstroJournal</productName>
-                    <internalName>AstroJournal</internalName>
-                    <originalFilename>astrojournal.exe</originalFilename>
-                </versionInfo>
+              <dontWrapJar>true</dontWrapJar>
+              <headerType>gui</headerType>
+              <outfile>astrojournal.exe</outfile>
+              <jar>target/${project.artifactId}-${project.version}-jar-with-dependencies.jar</jar>
+              <errTitle>AstroJournal</errTitle>
+              <classPath>
+                <mainClass>org.astrojournal.AJMain</mainClass>
+              </classPath>
+              <icon>src/main/resources/graphics/logo/aj_icon_win.ico</icon>
+              <jre>
+                <minVersion>1.7.0</minVersion>
+                <maxVersion />
+                <initialHeapSize>256</initialHeapSize>
+                <maxHeapSize>512</maxHeapSize>
+              </jre>
+              <versionInfo>
+                <fileVersion>${project.version}.0</fileVersion>
+                <txtFileVersion>${project.version}.0</txtFileVersion>
+                <fileDescription>A tool for generating astronomy observation reports in LaTeX / PDF</fileDescription>
+                <copyright>Copyright (C) 2015-2016 Piero Dalle Pezze (GPL v3 License)</copyright>
+                <productVersion>${project.version}0.0</productVersion>
+                <txtProductVersion>${project.version}.0</txtProductVersion>
+                <productName>AstroJournal</productName>
+                <internalName>AstroJournal</internalName>
+                <originalFilename>astrojournal.exe</originalFilename>
+              </versionInfo>
             </configuration>
-        </execution>
-    </executions>
-</plugin>
-  
-  
-
-  
-  </plugins> 
-  
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
-  
 </project>
