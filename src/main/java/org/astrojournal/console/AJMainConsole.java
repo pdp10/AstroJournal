@@ -77,9 +77,12 @@ public class AJMainConsole {
 
     /**
      * Create the astro journals.
+     * 
+     * @return true if the observations sorted by date and by target have been
+     *         exported to Latex correctly
      */
-    public void createJournals() {
-	commandRunner.createJournal(latexOutput);
+    public boolean createJournals() {
+	return commandRunner.createJournal(latexOutput);
     }
 
     /**
@@ -100,7 +103,9 @@ public class AJMainConsole {
 	if (args.length > 1
 		&& (args[1].equals("-l") || args[1].equals("--latex-output")))
 	    ajMainConsole.printLaTeXOutput(true);
-	ajMainConsole.createJournals();
+	if (!ajMainConsole.createJournals()) {
+	    System.exit(1);
+	}
     }
 
 }

@@ -683,9 +683,7 @@ public class AJConfig {
 			.getString("AJ.errCannotCopyRawReportsFolder.text"), e);
 	    }
 	}
-	// TODO
-	// new File(ajFilesLocation.getAbsolutePath() + File.separator
-	// + rawReportsFolder).mkdir();
+
 	new File(ajFilesLocation.getAbsolutePath() + File.separator
 		+ latexReportsFolderByDate).mkdir();
 	new File(ajFilesLocation.getAbsolutePath() + File.separator
@@ -789,7 +787,19 @@ public class AJConfig {
 	    }
 	    stdError.close();
 	} catch (IOException e) {
-	    log.error(e, e);
+	    // Don't report this exception stack trace.
+	    log.fatal("The command "
+		    + command
+		    + " was not found. \n"
+		    + command
+		    + " is required for generating PDF documents from \n"
+		    + "LaTeX code. \n\n"
+		    + "Please install:\n"
+		    + " - TeX Live (http://www.tug.org/texlive/) (GNU/Linux Users); \n"
+		    + " - MikTeX (http://miktex.org/download) (Windows Users). \n\n"
+		    + "See http://pdp10.github.io/AstroJournal/ for information \n"
+		    + "about AstroJournal requirements.\n\n" + "Abort.");
+	    return "";
 	}
 
 	return sb.toString();

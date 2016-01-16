@@ -70,7 +70,9 @@ public class AJGenerator {
 	}
 
 	if (!ajConfig.isQuiet() && ajConfig.isShowPDFLatexVersion()) {
-	    showPDFLatexVersion();
+	    if (!showPDFLatexVersion()) {
+		return false;
+	    }
 	}
 
 	if (!ajConfig.isQuiet() && ajConfig.isShowConfigurationAtStart()) {
@@ -106,9 +108,16 @@ public class AJGenerator {
 
     /**
      * Print the version of pdflatex.
+     * 
+     * @return true if pdflatex is installed, false otherwise
      */
-    public void showPDFLatexVersion() {
-	log.info(AJConfig.getInstance().printPDFLatexVersion());
+    public boolean showPDFLatexVersion() {
+	String pdfLatexVersion = AJConfig.getInstance().printPDFLatexVersion();
+	if (pdfLatexVersion.isEmpty()) {
+	    return false;
+	}
+	log.info(pdfLatexVersion);
+	return true;
     }
 
     /**

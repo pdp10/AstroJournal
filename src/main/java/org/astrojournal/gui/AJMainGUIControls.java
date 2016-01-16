@@ -62,8 +62,11 @@ public class AJMainGUIControls {
 
     /**
      * Create the journals.
+     * 
+     * @return true if the observations sorted by date and by target have been
+     *         exported to Latex correctly
      */
-    public void createJournal() {
+    public boolean createJournal() {
 
 	AJConfig ajConfig = AJConfig.getInstance();
 
@@ -80,11 +83,13 @@ public class AJMainGUIControls {
 		    .getString("AJ.errUnconfiguredPreferences.text"));
 	    log.error(AJConfig.BUNDLE
 		    .getString("AJ.errUnconfiguredPreferences.text"), e);
-	    return;
+	    return false;
 	}
 
 	AJGenerator ajLatexGenerator = new AJGenerator();
-	ajLatexGenerator.generateJournals();
+	if (!ajLatexGenerator.generateJournals()) {
+	    return false;
+	}
 
 	String path = ajConfig.getAJFilesLocation().getAbsolutePath();
 	try {
@@ -161,6 +166,8 @@ public class AJMainGUIControls {
 	    log.error(AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"), ioe);
 	    ajMainGUI.setStatusPanelText(AJConfig.BUNDLE
 		    .getString("AJ.errPDFLatexShort.text"));
+	    return false;
 	}
+	return true;
     }
 }

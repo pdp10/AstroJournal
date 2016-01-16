@@ -125,7 +125,10 @@ public class AJMainGUI extends JFrame {
 		btnCreateJournal.setEnabled(false);
 		menu.setEnabled("create_journal", false);
 		menu.setEnabled("preferences", false);
-		commandRunner.createJournal();
+		if (!commandRunner.createJournal()) {
+		    setStatusPanelText(AJConfig.BUNDLE
+			    .getString("AJ.errPDFLatexShort.text"));
+		}
 		btnCreateJournal.setEnabled(true);
 		menu.setEnabled("create_journal", true);
 		menu.setEnabled("preferences", true);
@@ -154,7 +157,7 @@ public class AJMainGUI extends JFrame {
 	setIconImage(new ImageIcon(
 		ClassLoader.getSystemResource("graphics/logo/aj_icon_32.png"))
 		.getImage());
-	setSize(520, 550);
+	setSize(520, 580);
 	setMinimumSize(new Dimension(520, 450));
 	setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	setResizable(true);
