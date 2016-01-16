@@ -25,6 +25,7 @@ package org.astrojournal;
 
 import javax.swing.UIManager;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConfig;
@@ -73,6 +74,14 @@ public class AJMain {
      * @param args
      */
     public static void main(String[] args) {
+
+	// Get some information for debugging
+	log.debug("Application: " + AJConfig.APPLICATION_NAME + " "
+		+ AJConfig.APPLICATION_VERSION);
+	log.debug("Operating System: " + SystemUtils.OS_ARCH + " "
+		+ SystemUtils.OS_NAME + " " + SystemUtils.OS_VERSION);
+	log.debug("Java: " + SystemUtils.JAVA_VENDOR + " "
+		+ SystemUtils.JAVA_VERSION);
 
 	try {
 	    if (args.length == 0) {
