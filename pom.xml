@@ -24,6 +24,11 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  <scm>
+	<url>https://github.com/pdp10/astrojournal.git</url>
+	<connection>scm:git:git://github.com/pdp10/astrojournal.git</connection>
+	<developerConnection>scm:git:git@github.com:pdp10/astrojournal.git</developerConnection>
+  </scm>
   <developers>
     <developer>
       <id>pdp</id>
