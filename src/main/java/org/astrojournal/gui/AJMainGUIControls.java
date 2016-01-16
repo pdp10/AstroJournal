@@ -95,28 +95,29 @@ public class AJMainGUIControls {
 	try {
 	    // The pdflatex command must be called two times in order to
 	    // generate the list of contents correctly.
+	    String command = "pdflatex -halt-on-error";
 	    String commandOutput;
-	    commandOutput = RunExternalCommand.runCommand("pdflatex "
+	    commandOutput = RunExternalCommand.runCommand(command + " "
 		    + AJConfig.REPORT_BY_DATE_FILENAME);
 	    if (latexOutput)
 		log.info(commandOutput);
-	    commandOutput = RunExternalCommand.runCommand("pdflatex "
+	    commandOutput = RunExternalCommand.runCommand(command + " "
 		    + AJConfig.REPORT_BY_DATE_FILENAME);
 	    // if(latexOutput) log.info(commandOutput);
 
-	    commandOutput = RunExternalCommand.runCommand("pdflatex "
+	    commandOutput = RunExternalCommand.runCommand(command + " "
 		    + AJConfig.REPORT_BY_TARGET_FILENAME);
 	    if (latexOutput)
 		log.info(commandOutput);
-	    commandOutput = RunExternalCommand.runCommand("pdflatex "
+	    commandOutput = RunExternalCommand.runCommand(command + " "
 		    + AJConfig.REPORT_BY_TARGET_FILENAME);
 	    // if(latexOutput) log.info(commandOutput);
 
-	    commandOutput = RunExternalCommand.runCommand("pdflatex "
+	    commandOutput = RunExternalCommand.runCommand(command + " "
 		    + AJConfig.REPORT_BY_CONSTELLATION_FILENAME);
 	    if (latexOutput)
 		log.info(commandOutput);
-	    commandOutput = RunExternalCommand.runCommand("pdflatex "
+	    commandOutput = RunExternalCommand.runCommand(command + " "
 		    + AJConfig.REPORT_BY_CONSTELLATION_FILENAME);
 	    // if(latexOutput) log.info(commandOutput);
 
