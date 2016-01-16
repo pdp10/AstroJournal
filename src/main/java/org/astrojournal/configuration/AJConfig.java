@@ -144,20 +144,21 @@ public class AJConfig {
     // which can edit these parameters must be positioned in the
     // configuration
     // package. The setters have therefore "package visibility".
-    /** True if latex output should be printed. */
-    private boolean latexOutput = false;
 
     /** True if the application should run quietly */
     private boolean quiet = false;
 
-    /** True if the configuration should be shown at start. */
-    private boolean showConfigurationAtStart = true;
+    /** True if latex output should be printed. */
+    private boolean latexOutput = false;
 
     /** True if the license should be shown at start. */
     private boolean showLicenseAtStart = true;
 
     /** True if the version of pdflatex. */
     private boolean showPDFLatexVersion = true;
+
+    /** True if the configuration should be shown at start. */
+    private boolean showConfigurationAtStart = true;
 
     /** The absolute path containing AstroJournal input and output folders. */
     private File ajFilesLocation = new File(System.getProperty("user.home")
@@ -200,11 +201,11 @@ public class AJConfig {
      * not scanned by this method.
      */
     public void reset() {
-	latexOutput = false;
 	quiet = false;
+	latexOutput = false;
 	showLicenseAtStart = true;
-	showConfigurationAtStart = true;
 	showPDFLatexVersion = true;
+	showConfigurationAtStart = true;
 	ajFilesLocation = new File(System.getProperty("user.home")
 		+ File.separator + "AstroJournal_files");
 	rawReportsFolder = "raw_reports";
@@ -274,24 +275,16 @@ public class AJConfig {
 	    NodeList nodeList;
 	    Element elem;
 
-	    nodeList = rootEle.getElementsByTagName(LATEX_OUTPUT_NAME);
-	    elem = (Element) nodeList.item(0);
-	    latexOutput = Boolean.parseBoolean(elem.getFirstChild()
-		    .getNodeValue());
-	    log.debug(LATEX_OUTPUT_NAME + ":" + latexOutput);
-
 	    nodeList = rootEle.getElementsByTagName(QUIET_NAME);
 	    elem = (Element) nodeList.item(0);
 	    quiet = Boolean.parseBoolean(elem.getFirstChild().getNodeValue());
 	    log.debug(QUIET_NAME + ":" + quiet);
 
-	    nodeList = rootEle
-		    .getElementsByTagName(SHOW_CONFIGURATION_AT_START_NAME);
+	    nodeList = rootEle.getElementsByTagName(LATEX_OUTPUT_NAME);
 	    elem = (Element) nodeList.item(0);
-	    showConfigurationAtStart = Boolean.parseBoolean(elem
-		    .getFirstChild().getNodeValue());
-	    log.debug(SHOW_CONFIGURATION_AT_START_NAME + ":"
-		    + showConfigurationAtStart);
+	    latexOutput = Boolean.parseBoolean(elem.getFirstChild()
+		    .getNodeValue());
+	    log.debug(LATEX_OUTPUT_NAME + ":" + latexOutput);
 
 	    nodeList = rootEle.getElementsByTagName(SHOW_LICENSE_AT_START_NAME);
 	    elem = (Element) nodeList.item(0);
@@ -304,6 +297,14 @@ public class AJConfig {
 	    showPDFLatexVersion = Boolean.parseBoolean(elem.getFirstChild()
 		    .getNodeValue());
 	    log.debug(SHOW_PDFLATEX_VERSION_NAME + ":" + showPDFLatexVersion);
+
+	    nodeList = rootEle
+		    .getElementsByTagName(SHOW_CONFIGURATION_AT_START_NAME);
+	    elem = (Element) nodeList.item(0);
+	    showConfigurationAtStart = Boolean.parseBoolean(elem
+		    .getFirstChild().getNodeValue());
+	    log.debug(SHOW_CONFIGURATION_AT_START_NAME + ":"
+		    + showConfigurationAtStart);
 
 	    nodeList = rootEle.getElementsByTagName(AJ_FILES_LOCATION_NAME);
 	    elem = (Element) nodeList.item(0);
@@ -398,19 +399,13 @@ public class AJConfig {
 	    log.debug("Create elements and node and attach it to root astrojournal");
 	    Element elem;
 	    Text value;
-	    elem = dom.createElement(LATEX_OUTPUT_NAME);
-	    value = dom.createTextNode(String.valueOf(latexOutput));
-	    elem.appendChild(value);
-	    rootElem.appendChild(elem);
-
 	    elem = dom.createElement(QUIET_NAME);
 	    value = dom.createTextNode(String.valueOf(quiet));
 	    elem.appendChild(value);
 	    rootElem.appendChild(elem);
 
-	    elem = dom.createElement(SHOW_CONFIGURATION_AT_START_NAME);
-	    value = dom
-		    .createTextNode(String.valueOf(showConfigurationAtStart));
+	    elem = dom.createElement(LATEX_OUTPUT_NAME);
+	    value = dom.createTextNode(String.valueOf(latexOutput));
 	    elem.appendChild(value);
 	    rootElem.appendChild(elem);
 
@@ -421,6 +416,12 @@ public class AJConfig {
 
 	    elem = dom.createElement(SHOW_PDFLATEX_VERSION_NAME);
 	    value = dom.createTextNode(String.valueOf(showPDFLatexVersion));
+	    elem.appendChild(value);
+	    rootElem.appendChild(elem);
+
+	    elem = dom.createElement(SHOW_CONFIGURATION_AT_START_NAME);
+	    value = dom
+		    .createTextNode(String.valueOf(showConfigurationAtStart));
 	    elem.appendChild(value);
 	    rootElem.appendChild(elem);
 

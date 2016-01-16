@@ -61,12 +61,14 @@ public class AJMainConsoleControls {
      */
     public void createJournal(boolean latexOutput) {
 
+	AJConfig ajConfig = AJConfig.getInstance();
+
 	// prepare the folders for AJ.
-	AJConfig.getInstance().prepareAJFolders();
+	ajConfig.prepareAJFolders();
 
 	// Delete previous content if present
 	try {
-	    AJConfig.getInstance().cleanAJFolder();
+	    ajConfig.cleanAJFolder();
 	} catch (IOException e) {
 	    log.error(AJConfig.BUNDLE
 		    .getString("AJ.errUnconfiguredPreferences.text"), e);
@@ -76,8 +78,7 @@ public class AJMainConsoleControls {
 	AJGenerator ajLatexGenerator = new AJGenerator();
 	ajLatexGenerator.generateJournals();
 
-	String path = AJConfig.getInstance().getAJFilesLocation()
-		.getAbsolutePath();
+	String path = ajConfig.getAJFilesLocation().getAbsolutePath();
 	try {
 	    // The pdflatex command must be called two times in order to
 	    // generate the list of contents correctly.
@@ -140,8 +141,7 @@ public class AJMainConsoleControls {
 				"/bin/sh",
 				"-c",
 				"cd "
-					+ AJConfig.getInstance()
-						.getAJFilesLocation()
+					+ ajConfig.getAJFilesLocation()
 						.getAbsolutePath()
 					+ " && rm -rf *.aux *.toc *.log *.out"
 					+ " && cd -" });
