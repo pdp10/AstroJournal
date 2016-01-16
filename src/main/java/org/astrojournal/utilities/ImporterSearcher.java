@@ -44,7 +44,7 @@ public class ImporterSearcher {
     private static Logger log = LogManager.getLogger(ImporterSearcher.class);
 
     /** The super package containing the importers. */
-    private static String importerSuperPackage = "org.astrojournal.generator";
+    private static String importerSuperPackage = "org.astrojournal.generator.ajimporter";
 
     /**
      * Return the container package of the importers.

@@ -44,7 +44,7 @@ public class ExporterSearcher {
     private static Logger log = LogManager.getLogger(ExporterSearcher.class);
 
     /** The super package containing the exporters. */
-    private static String exporterSuperPackage = "org.astrojournal.generator";
+    private static String exporterSuperPackage = "org.astrojournal.generator.ajexporter";
 
     /**
      * Return the container package of the exporters.
