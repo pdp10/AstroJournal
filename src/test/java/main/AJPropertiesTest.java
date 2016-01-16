@@ -74,6 +74,7 @@ public class AJPropertiesTest {
 	System.clearProperty("aj.quiet");
 	System.clearProperty("aj.show_configuration_at_start");
 	System.clearProperty("aj.show_license_at_start");
+	System.clearProperty("aj.show_pdflatex_version");
 	System.clearProperty("aj.aj_files_location");
 	System.clearProperty("aj.raw_reports_folder");
 	System.clearProperty("aj.latex_reports_folder_by_date");
@@ -97,6 +98,7 @@ public class AJPropertiesTest {
 	System.setProperty("aj.quiet", "true");
 	System.setProperty("aj.show_configuration_at_start", "true");
 	System.setProperty("aj.show_license_at_start", "true");
+	System.setProperty("aj.show_pdflatex_version", "true");
 
 	AJConfig ajConfig = AJConfig.getInstance();
 
@@ -107,6 +109,7 @@ public class AJPropertiesTest {
 	assertTrue(ajConfig.isQuiet());
 	assertTrue(ajConfig.isShowConfigurationAtStart());
 	assertTrue(ajConfig.isShowLicenseAtStart());
+	assertTrue(ajConfig.isShowPDFLatexVersion());
     }
 
     /**
@@ -122,6 +125,7 @@ public class AJPropertiesTest {
 	System.setProperty("aj.quiet", "false");
 	System.setProperty("aj.show_configuration_at_start", "false");
 	System.setProperty("aj.show_license_at_start", "false");
+	System.setProperty("aj.show_pdflatex_version", "false");
 
 	AJConfig ajConfig = AJConfig.getInstance();
 
@@ -132,7 +136,7 @@ public class AJPropertiesTest {
 	assertFalse(ajConfig.isQuiet());
 	assertFalse(ajConfig.isShowConfigurationAtStart());
 	assertFalse(ajConfig.isShowLicenseAtStart());
-
+	assertFalse(ajConfig.isShowPDFLatexVersion());
     }
 
     /**

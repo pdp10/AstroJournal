@@ -23,11 +23,13 @@
  */
 package org.astrojournal.configuration;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ResourceBundle;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -128,6 +130,7 @@ public class AJConfig {
     private static final String QUIET_NAME = "quiet";
     private static final String SHOW_CONFIGURATION_AT_START_NAME = "show_configuration_at_start";
     private static final String SHOW_LICENSE_AT_START_NAME = "show_license_at_start";
+    private static final String SHOW_PDFLATEX_VERSION_NAME = "show_pdflatex_version";
     private static final String AJ_FILES_LOCATION_NAME = "aj_files_location";
     private static final String RAW_REPORTS_FOLDER_NAME = "raw_reports_folder";
     private static final String LATEX_REPORTS_FOLDER_BY_DATE_NAME = "latex_reports_folder_by_date";
@@ -147,11 +150,14 @@ public class AJConfig {
     /** True if the application should run quietly */
     private boolean quiet = false;
 
-    /** True if the license should be shown at start. */
-    private boolean showLicenseAtStart = true;
-
     /** True if the configuration should be shown at start. */
     private boolean showConfigurationAtStart = true;
+
+    /** True if the license should be shown at start. */
+    private boolean showLicenseAtStart = false;
+
+    /** True if the version of pdflatex. */
+    private boolean showPDFLatexVersion = true;
 
     /** The absolute path containing AstroJournal input and output folders. */
     private File ajFilesLocation = new File(System.getProperty("user.home")
@@ -196,8 +202,9 @@ public class AJConfig {
     public void reset() {
 	latexOutput = false;
 	quiet = false;
-	showLicenseAtStart = true;
+	showLicenseAtStart = false;
 	showConfigurationAtStart = true;
+	showPDFLatexVersion = true;
 	ajFilesLocation = new File(System.getProperty("user.home")
 		+ File.separator + "AstroJournal_files");
 	rawReportsFolder = "raw_reports";
@@ -292,6 +299,12 @@ public class AJConfig {
 		    .getNodeValue());
 	    log.debug(SHOW_LICENSE_AT_START_NAME + ":" + showLicenseAtStart);
 
+	    nodeList = rootEle.getElementsByTagName(SHOW_PDFLATEX_VERSION_NAME);
+	    elem = (Element) nodeList.item(0);
+	    showPDFLatexVersion = Boolean.parseBoolean(elem.getFirstChild()
+		    .getNodeValue());
+	    log.debug(SHOW_PDFLATEX_VERSION_NAME + ":" + showPDFLatexVersion);
+
 	    nodeList = rootEle.getElementsByTagName(AJ_FILES_LOCATION_NAME);
 	    elem = (Element) nodeList.item(0);
 	    File oldAJFilesLocation = ajFilesLocation;
@@ -349,11 +362,17 @@ public class AJConfig {
 		saveConfiguration();
 	    }
 	} catch (ParserConfigurationException e) {
-	    log.error(e, e);
+	    log.error("The configuration file " + configFile.getAbsolutePath()
+		    + " was not read correctly. A suggestion is to delete it.",
+		    e);
 	} catch (SAXException e) {
-	    log.error(e, e);
+	    log.error("The configuration file " + configFile.getAbsolutePath()
+		    + " was not read correctly. A suggestion is to delete it.",
+		    e);
 	} catch (IOException e) {
-	    log.error(e, e);
+	    log.error("The configuration file " + configFile.getAbsolutePath()
+		    + " was not read correctly. A suggestion is to delete it.",
+		    e);
 	}
     }
 
@@ -397,6 +416,11 @@ public class AJConfig {
 
 	    elem = dom.createElement(SHOW_LICENSE_AT_START_NAME);
 	    value = dom.createTextNode(String.valueOf(showLicenseAtStart));
+	    elem.appendChild(value);
+	    rootElem.appendChild(elem);
+
+	    elem = dom.createElement(SHOW_PDFLATEX_VERSION_NAME);
+	    value = dom.createTextNode(String.valueOf(showPDFLatexVersion));
 	    elem.appendChild(value);
 	    rootElem.appendChild(elem);
 
@@ -452,11 +476,23 @@ public class AJConfig {
 	    log.error("Error while trying to instantiate DocumentBuilder " + e,
 		    e);
 	} catch (TransformerConfigurationException e) {
-	    log.error(e, e);
+	    log.error(
+		    "The configuration file "
+			    + configFile.getAbsolutePath()
+			    + " was not saved correctly. A suggestion is to delete it if this exists.",
+		    e);
 	} catch (TransformerException e) {
-	    log.error(e, e);
+	    log.error(
+		    "The configuration file "
+			    + configFile.getAbsolutePath()
+			    + " was not saved correctly. A suggestion is to delete it if this exists.",
+		    e);
 	} catch (FileNotFoundException e) {
-	    log.error(e, e);
+	    log.error(
+		    "The configuration file "
+			    + configFile.getAbsolutePath()
+			    + " was not saved correctly. A suggestion is to delete it if this exists.",
+		    e);
 	}
     }
 
@@ -515,6 +551,16 @@ public class AJConfig {
 		showLicenseAtStart = true;
 	    } else {
 		showLicenseAtStart = false;
+	    }
+	}
+
+	// Show the pdflatex version at start
+	if (System.getProperty("aj." + SHOW_PDFLATEX_VERSION_NAME) != null) {
+	    if (System.getProperty("aj." + SHOW_PDFLATEX_VERSION_NAME).equals(
+		    "true")) {
+		showPDFLatexVersion = true;
+	    } else {
+		showPDFLatexVersion = false;
 	    }
 	}
 
@@ -674,7 +720,38 @@ public class AJConfig {
     }
 
     /**
-     * print the current configuration.
+     * Create a string containing the output of the command `pdflatex -version`.
+     * 
+     * @return the current configuration
+     */
+    public String printPDFLatexVersion() {
+	StringBuilder sb = new StringBuilder();
+	String command = "pdflatex";
+	String argument = "-version";
+	Process p;
+	try {
+	    p = Runtime.getRuntime().exec(command + " " + argument);
+	    // read the output messages from the command
+	    BufferedReader stdInput = new BufferedReader(new InputStreamReader(
+		    p.getInputStream()));
+	    sb.append(AJConfig.BUNDLE
+		    .getString("AJ.lblOutputForPDFLatexVersion.text")
+		    + " `"
+		    + command + " " + argument + "`:\n\n");
+	    String temp;
+	    while ((temp = stdInput.readLine()) != null) {
+		sb.append(temp).append("\n");
+	    }
+	    stdInput.close();
+	} catch (IOException e) {
+	    log.error(e, e);
+	}
+
+	return sb.append("\n").toString();
+    }
+
+    /**
+     * Print the current configuration.
      * 
      * @return the current configuration
      */
@@ -748,6 +825,21 @@ public class AJConfig {
      */
     void setShowLicenseAtStart(boolean showLicenseAtStart) {
 	this.showLicenseAtStart = showLicenseAtStart;
+    }
+
+    /**
+     * @return the showPDFLatexVersion
+     */
+    public boolean isShowPDFLatexVersion() {
+	return showPDFLatexVersion;
+    }
+
+    /**
+     * @param showPDFLatexVersion
+     *            the showPDFLatexVersion to set
+     */
+    void setPDFLatexVersion(boolean showPDFLatexVersion) {
+	this.showPDFLatexVersion = showPDFLatexVersion;
     }
 
     /**

@@ -66,6 +66,8 @@ public class RunExternalCommand {
 	while ((temp = stdInput.readLine()) != null) {
 	    sb.append(temp).append("\n");
 	}
+	stdInput.close();
+
 	// read the error messages from the command
 	BufferedReader stdError = new BufferedReader(new InputStreamReader(
 		p.getErrorStream()));
@@ -75,6 +77,7 @@ public class RunExternalCommand {
 	while ((temp = stdError.readLine()) != null) {
 	    sb.append(temp).append("\n");
 	}
+	stdError.close();
 	return sb.toString();
     }
 }

@@ -68,6 +68,10 @@ public class AJGenerator {
 	    showLicense();
 	}
 
+	if (AJConfig.getInstance().isShowPDFLatexVersion()) {
+	    showPDFLatexVersion();
+	}
+
 	if (AJConfig.getInstance().isShowConfigurationAtStart()) {
 	    showConfiguration();
 	}
@@ -97,6 +101,13 @@ public class AJGenerator {
      */
     public void showLicense() {
 	log.info(AJConfig.getInstance().printLicense());
+    }
+
+    /**
+     * Print the version of pdflatex.
+     */
+    public void showPDFLatexVersion() {
+	log.info(AJConfig.getInstance().printPDFLatexVersion());
     }
 
     /**
