@@ -24,7 +24,7 @@
 package org.astrojournal.gui.dialogs;
 
 import java.awt.BorderLayout;
-import java.awt.Desktop;
+import java.net.URISyntaxException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -41,6 +41,8 @@ import javax.swing.text.StyleConstants;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.utilities.DesktopBrowse;
 
 /**
  * A panel containing a title for AstroJournal.
@@ -84,18 +86,18 @@ public class AJTitlePanel extends JPanel {
 	textPane.setOpaque(false);
 	textPane.setEditorKit(JEditorPane
 		.createEditorKitForContentType("text/html"));
-	textPane.setText("<a href='http://pdp10.github.io/AstroJournal'>http://pdp10.github.io/AstroJournal</a>");
+	textPane.setText("<a href='" + AJConfig.APPLICATION_WEBSITE + "'>"
+		+ AJConfig.APPLICATION_WEBSITE + "</a>");
 
 	textPane.addHyperlinkListener(new HyperlinkListener() {
 	    @Override
 	    public void hyperlinkUpdate(HyperlinkEvent hle) {
 		if (HyperlinkEvent.EventType.ACTIVATED.equals(hle
 			.getEventType())) {
-		    Desktop desktop = Desktop.getDesktop();
 		    try {
-			desktop.browse(hle.getURL().toURI());
-		    } catch (Exception ex) {
-			log.error(ex, ex);
+			DesktopBrowse.browse(hle.getURL().toURI());
+		    } catch (URISyntaxException e) {
+			log.error(e, e);
 		    }
 		}
 	    }

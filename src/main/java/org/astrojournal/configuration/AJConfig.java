@@ -85,6 +85,9 @@ public class AJConfig {
     /** The AJ application version. */
     public static final String APPLICATION_VERSION = "v0.10.14";
 
+    /** The AJ website. */
+    public static final String APPLICATION_WEBSITE = "http://pdp10.github.io/AstroJournal";
+
     /** The name of the main Latex file sorted by date. */
     public static final String REPORT_BY_DATE_FILENAME = "astrojournal_by_date.tex";
 
