@@ -758,7 +758,7 @@ public class AJConfig {
 	    log.error(e, e);
 	}
 
-	return sb.append("\n").toString();
+	return sb.toString();
     }
 
     /**
