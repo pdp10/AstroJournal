@@ -182,7 +182,8 @@ public class JTextPaneAppender extends AbstractAppender {
 						    + AJConfig.APPLICATION_VERSION)) {
 					doc.insertString(doc.getLength(),
 						message, styleSmallItalic);
-				    } else if (message.indexOf("pdflatex") != -1) {
+				    } else if (message
+					    .indexOf("Testing pdflatex") != -1) {
 					String[] lines = message.split("\n");
 					doc.insertString(doc.getLength(),
 						lines[0], styleBold);

@@ -154,7 +154,7 @@ public class AJConfig {
     private boolean showConfigurationAtStart = true;
 
     /** True if the license should be shown at start. */
-    private boolean showLicenseAtStart = false;
+    private boolean showLicenseAtStart = true;
 
     /** True if the version of pdflatex. */
     private boolean showPDFLatexVersion = true;
@@ -202,7 +202,7 @@ public class AJConfig {
     public void reset() {
 	latexOutput = false;
 	quiet = false;
-	showLicenseAtStart = false;
+	showLicenseAtStart = true;
 	showConfigurationAtStart = true;
 	showPDFLatexVersion = true;
 	ajFilesLocation = new File(System.getProperty("user.home")
@@ -743,6 +743,17 @@ public class AJConfig {
 		sb.append(temp).append("\n");
 	    }
 	    stdInput.close();
+	    // read the error messages from the command
+	    BufferedReader stdError = new BufferedReader(new InputStreamReader(
+		    p.getErrorStream()));
+	    sb.append("\n"
+		    + AJConfig.BUNDLE
+			    .getString("AJ.lblErrorForPDFLatexVersion.text")
+		    + " `" + command + " " + argument + "`:\n\n");
+	    while ((temp = stdError.readLine()) != null) {
+		sb.append(temp).append("\n");
+	    }
+	    stdError.close();
 	} catch (IOException e) {
 	    log.error(e, e);
 	}
