@@ -128,18 +128,50 @@ public class AJConfig {
     public static final String FOOTER_BY_CONSTELLATION_FILENAME = LATEX_HEADER_FOOTER_FOLDER
 	    + File.separator + "footer_by_constellation.tex";
 
-    /** The configuration file element names */
-    private static final String LATEX_OUTPUT_NAME = "latex_output";
-    private static final String QUIET_NAME = "quiet";
-    private static final String SHOW_CONFIGURATION_AT_START_NAME = "show_configuration_at_start";
-    private static final String SHOW_LICENSE_AT_START_NAME = "show_license_at_start";
-    private static final String SHOW_PDFLATEX_VERSION_NAME = "show_pdflatex_version";
-    private static final String AJ_FILES_LOCATION_NAME = "aj_files_location";
-    private static final String RAW_REPORTS_FOLDER_NAME = "raw_reports_folder";
-    private static final String LATEX_REPORTS_FOLDER_BY_DATE_NAME = "latex_reports_folder_by_date";
-    private static final String LATEX_REPORTS_FOLDER_BY_TARGET_NAME = "latex_reports_folder_by_target";
-    private static final String LATEX_REPORTS_FOLDER_BY_CONSTELLATION_NAME = "latex_reports_folder_by_constellation";
-    private static final String SGL_REPORTS_FOLDER_BY_DATE_NAME = "sgl_reports_folder_by_date";
+    /** True if the application should run quietly */
+    public static final String QUIET_PROP = "aj.quiet";
+
+    /** True if latex output should be printed. */
+    public static final String LATEX_OUTPUT_PROP = "aj.latex_output";
+
+    /** True if the license should be shown at start. */
+    public static final String SHOW_LICENSE_AT_START_PROP = "aj.show_license_at_start";
+
+    /** True if the version of pdflatex. */
+    public static final String SHOW_PDFLATEX_VERSION_PROP = "aj.show_pdflatex_version";
+
+    /** True if the configuration should be shown at start. */
+    public static final String SHOW_CONFIGURATION_AT_START_PROP = "aj.show_configuration_at_start";
+
+    /** The absolute path containing AstroJournal input and output folders. */
+    public static final String AJ_FILES_LOCATION_PROP = "aj.aj_files_location";
+
+    /** The relative path containing the raw files (observation input folder). */
+    public static final String RAW_REPORTS_FOLDER_PROP = "aj.raw_reports_folder";
+
+    /**
+     * The name of the folder containing the latex observation files by date
+     * (observation output folder).
+     */
+    public static final String LATEX_REPORTS_FOLDER_BY_DATE_PROP = "aj.latex_reports_folder_by_date";
+
+    /**
+     * The name of the folder containing the latex observation files by target
+     * (observation output folder).
+     */
+    public static final String LATEX_REPORTS_FOLDER_BY_TARGET_PROP = "aj.latex_reports_folder_by_target";
+
+    /**
+     * The name of the folder containing the latex observation files by
+     * constellation (observation output folder).
+     */
+    public static final String LATEX_REPORTS_FOLDER_BY_CONSTELLATION_PROP = "aj.latex_reports_folder_by_constellation";
+
+    /**
+     * The name of the folder containing the latex observation files by date
+     * (observation output folder).
+     */
+    public static final String SGL_REPORTS_FOLDER_BY_DATE_PROP = "aj.sgl_reports_folder_by_date";
 
     // THESE PARAMETERS ARE CONFIGURABLE
     // All AstroJournal classes can only read these values. The only
@@ -185,11 +217,13 @@ public class AJConfig {
      * (observation output folder).
      */
     private String latexReportsFolderByTarget = "latex_reports_by_target";
+
     /**
      * The name of the folder containing the latex observation files by
      * constellation (observation output folder).
      */
     private String latexReportsFolderByConstellation = "latex_reports_by_constellation";
+
     /**
      * The name of the folder containing the latex observation files by date
      * (observation output folder).
@@ -278,42 +312,42 @@ public class AJConfig {
 	    NodeList nodeList;
 	    Element elem;
 
-	    nodeList = rootEle.getElementsByTagName(QUIET_NAME);
+	    nodeList = rootEle.getElementsByTagName(QUIET_PROP);
 	    elem = (Element) nodeList.item(0);
 	    quiet = Boolean.parseBoolean(elem.getFirstChild().getNodeValue());
-	    log.debug(QUIET_NAME + ":" + quiet);
+	    log.debug(QUIET_PROP + ":" + quiet);
 
-	    nodeList = rootEle.getElementsByTagName(LATEX_OUTPUT_NAME);
+	    nodeList = rootEle.getElementsByTagName(LATEX_OUTPUT_PROP);
 	    elem = (Element) nodeList.item(0);
 	    latexOutput = Boolean.parseBoolean(elem.getFirstChild()
 		    .getNodeValue());
-	    log.debug(LATEX_OUTPUT_NAME + ":" + latexOutput);
+	    log.debug(LATEX_OUTPUT_PROP + ":" + latexOutput);
 
-	    nodeList = rootEle.getElementsByTagName(SHOW_LICENSE_AT_START_NAME);
+	    nodeList = rootEle.getElementsByTagName(SHOW_LICENSE_AT_START_PROP);
 	    elem = (Element) nodeList.item(0);
 	    showLicenseAtStart = Boolean.parseBoolean(elem.getFirstChild()
 		    .getNodeValue());
-	    log.debug(SHOW_LICENSE_AT_START_NAME + ":" + showLicenseAtStart);
+	    log.debug(SHOW_LICENSE_AT_START_PROP + ":" + showLicenseAtStart);
 
-	    nodeList = rootEle.getElementsByTagName(SHOW_PDFLATEX_VERSION_NAME);
+	    nodeList = rootEle.getElementsByTagName(SHOW_PDFLATEX_VERSION_PROP);
 	    elem = (Element) nodeList.item(0);
 	    showPDFLatexVersion = Boolean.parseBoolean(elem.getFirstChild()
 		    .getNodeValue());
-	    log.debug(SHOW_PDFLATEX_VERSION_NAME + ":" + showPDFLatexVersion);
+	    log.debug(SHOW_PDFLATEX_VERSION_PROP + ":" + showPDFLatexVersion);
 
 	    nodeList = rootEle
-		    .getElementsByTagName(SHOW_CONFIGURATION_AT_START_NAME);
+		    .getElementsByTagName(SHOW_CONFIGURATION_AT_START_PROP);
 	    elem = (Element) nodeList.item(0);
 	    showConfigurationAtStart = Boolean.parseBoolean(elem
 		    .getFirstChild().getNodeValue());
-	    log.debug(SHOW_CONFIGURATION_AT_START_NAME + ":"
+	    log.debug(SHOW_CONFIGURATION_AT_START_PROP + ":"
 		    + showConfigurationAtStart);
 
-	    nodeList = rootEle.getElementsByTagName(AJ_FILES_LOCATION_NAME);
+	    nodeList = rootEle.getElementsByTagName(AJ_FILES_LOCATION_PROP);
 	    elem = (Element) nodeList.item(0);
 	    File oldAJFilesLocation = ajFilesLocation;
 	    ajFilesLocation = new File(elem.getFirstChild().getNodeValue());
-	    log.debug(AJ_FILES_LOCATION_NAME + ":"
+	    log.debug(AJ_FILES_LOCATION_PROP + ":"
 		    + ajFilesLocation.getAbsolutePath());
 	    if (ajFilesLocation == null || !ajFilesLocation.exists()
 		    || !ajFilesLocation.canWrite()) {
@@ -326,38 +360,38 @@ public class AJConfig {
 		correctLocation = false;
 	    }
 
-	    nodeList = rootEle.getElementsByTagName(RAW_REPORTS_FOLDER_NAME);
+	    nodeList = rootEle.getElementsByTagName(RAW_REPORTS_FOLDER_PROP);
 	    elem = (Element) nodeList.item(0);
 	    rawReportsFolder = elem.getFirstChild().getNodeValue();
-	    log.debug(RAW_REPORTS_FOLDER_NAME + ":" + rawReportsFolder);
+	    log.debug(RAW_REPORTS_FOLDER_PROP + ":" + rawReportsFolder);
 
 	    nodeList = rootEle
-		    .getElementsByTagName(LATEX_REPORTS_FOLDER_BY_DATE_NAME);
+		    .getElementsByTagName(LATEX_REPORTS_FOLDER_BY_DATE_PROP);
 	    elem = (Element) nodeList.item(0);
 	    latexReportsFolderByDate = elem.getFirstChild().getNodeValue();
-	    log.debug(LATEX_REPORTS_FOLDER_BY_DATE_NAME + ":"
+	    log.debug(LATEX_REPORTS_FOLDER_BY_DATE_PROP + ":"
 		    + latexReportsFolderByDate);
 
 	    nodeList = rootEle
-		    .getElementsByTagName(LATEX_REPORTS_FOLDER_BY_TARGET_NAME);
+		    .getElementsByTagName(LATEX_REPORTS_FOLDER_BY_TARGET_PROP);
 	    elem = (Element) nodeList.item(0);
 	    latexReportsFolderByTarget = elem.getFirstChild().getNodeValue();
-	    log.debug(LATEX_REPORTS_FOLDER_BY_TARGET_NAME + ":"
+	    log.debug(LATEX_REPORTS_FOLDER_BY_TARGET_PROP + ":"
 		    + latexReportsFolderByTarget);
 
 	    nodeList = rootEle
-		    .getElementsByTagName(LATEX_REPORTS_FOLDER_BY_CONSTELLATION_NAME);
+		    .getElementsByTagName(LATEX_REPORTS_FOLDER_BY_CONSTELLATION_PROP);
 	    elem = (Element) nodeList.item(0);
 	    latexReportsFolderByConstellation = elem.getFirstChild()
 		    .getNodeValue();
-	    log.debug(LATEX_REPORTS_FOLDER_BY_CONSTELLATION_NAME + ":"
+	    log.debug(LATEX_REPORTS_FOLDER_BY_CONSTELLATION_PROP + ":"
 		    + latexReportsFolderByConstellation);
 
 	    nodeList = rootEle
-		    .getElementsByTagName(SGL_REPORTS_FOLDER_BY_DATE_NAME);
+		    .getElementsByTagName(SGL_REPORTS_FOLDER_BY_DATE_PROP);
 	    elem = (Element) nodeList.item(0);
 	    sglReportsFolderByDate = elem.getFirstChild().getNodeValue();
-	    log.debug(SGL_REPORTS_FOLDER_BY_DATE_NAME + ":"
+	    log.debug(SGL_REPORTS_FOLDER_BY_DATE_PROP + ":"
 		    + sglReportsFolderByDate);
 
 	    log.debug("Configuration file " + configFile.getAbsolutePath()
@@ -402,59 +436,59 @@ public class AJConfig {
 	    log.debug("Create elements and node and attach it to root astrojournal");
 	    Element elem;
 	    Text value;
-	    elem = dom.createElement(QUIET_NAME);
+	    elem = dom.createElement(QUIET_PROP);
 	    value = dom.createTextNode(String.valueOf(quiet));
 	    elem.appendChild(value);
 	    rootElem.appendChild(elem);
 
-	    elem = dom.createElement(LATEX_OUTPUT_NAME);
+	    elem = dom.createElement(LATEX_OUTPUT_PROP);
 	    value = dom.createTextNode(String.valueOf(latexOutput));
 	    elem.appendChild(value);
 	    rootElem.appendChild(elem);
 
-	    elem = dom.createElement(SHOW_LICENSE_AT_START_NAME);
+	    elem = dom.createElement(SHOW_LICENSE_AT_START_PROP);
 	    value = dom.createTextNode(String.valueOf(showLicenseAtStart));
 	    elem.appendChild(value);
 	    rootElem.appendChild(elem);
 
-	    elem = dom.createElement(SHOW_PDFLATEX_VERSION_NAME);
+	    elem = dom.createElement(SHOW_PDFLATEX_VERSION_PROP);
 	    value = dom.createTextNode(String.valueOf(showPDFLatexVersion));
 	    elem.appendChild(value);
 	    rootElem.appendChild(elem);
 
-	    elem = dom.createElement(SHOW_CONFIGURATION_AT_START_NAME);
+	    elem = dom.createElement(SHOW_CONFIGURATION_AT_START_PROP);
 	    value = dom
 		    .createTextNode(String.valueOf(showConfigurationAtStart));
 	    elem.appendChild(value);
 	    rootElem.appendChild(elem);
 
-	    elem = dom.createElement(AJ_FILES_LOCATION_NAME);
+	    elem = dom.createElement(AJ_FILES_LOCATION_PROP);
 	    value = dom.createTextNode(ajFilesLocation.getAbsolutePath());
 	    elem.appendChild(value);
 	    rootElem.appendChild(elem);
 
-	    elem = dom.createElement(RAW_REPORTS_FOLDER_NAME);
+	    elem = dom.createElement(RAW_REPORTS_FOLDER_PROP);
 	    value = dom.createTextNode(rawReportsFolder);
 	    elem.appendChild(value);
 	    rootElem.appendChild(elem);
 
-	    elem = dom.createElement(LATEX_REPORTS_FOLDER_BY_DATE_NAME);
+	    elem = dom.createElement(LATEX_REPORTS_FOLDER_BY_DATE_PROP);
 	    value = dom.createTextNode(latexReportsFolderByDate);
 	    elem.appendChild(value);
 	    rootElem.appendChild(elem);
 
-	    elem = dom.createElement(LATEX_REPORTS_FOLDER_BY_TARGET_NAME);
+	    elem = dom.createElement(LATEX_REPORTS_FOLDER_BY_TARGET_PROP);
 	    value = dom.createTextNode(latexReportsFolderByTarget);
 	    elem.appendChild(value);
 	    rootElem.appendChild(elem);
 
 	    elem = dom
-		    .createElement(LATEX_REPORTS_FOLDER_BY_CONSTELLATION_NAME);
+		    .createElement(LATEX_REPORTS_FOLDER_BY_CONSTELLATION_PROP);
 	    value = dom.createTextNode(latexReportsFolderByConstellation);
 	    elem.appendChild(value);
 	    rootElem.appendChild(elem);
 
-	    elem = dom.createElement(SGL_REPORTS_FOLDER_BY_DATE_NAME);
+	    elem = dom.createElement(SGL_REPORTS_FOLDER_BY_DATE_PROP);
 	    value = dom.createTextNode(sglReportsFolderByDate);
 	    elem.appendChild(value);
 	    rootElem.appendChild(elem);
@@ -521,8 +555,8 @@ public class AJConfig {
     public void loadSystemProperties() {
 
 	// Latex output
-	if (System.getProperty("aj." + LATEX_OUTPUT_NAME) != null) {
-	    if (System.getProperty("aj." + LATEX_OUTPUT_NAME).equals("true")) {
+	if (System.getProperty(LATEX_OUTPUT_PROP) != null) {
+	    if (System.getProperty(LATEX_OUTPUT_PROP).equals("true")) {
 		latexOutput = true;
 	    } else {
 		latexOutput = false;
@@ -530,8 +564,8 @@ public class AJConfig {
 	}
 
 	// Quiet
-	if (System.getProperty("aj." + QUIET_NAME) != null) {
-	    if (System.getProperty("aj." + QUIET_NAME).equals("true")) {
+	if (System.getProperty(QUIET_PROP) != null) {
+	    if (System.getProperty(QUIET_PROP).equals("true")) {
 		quiet = true;
 	    } else {
 		quiet = false;
@@ -539,9 +573,9 @@ public class AJConfig {
 	}
 
 	// Show configuration at start
-	if (System.getProperty("aj." + SHOW_CONFIGURATION_AT_START_NAME) != null) {
-	    if (System.getProperty("aj." + SHOW_CONFIGURATION_AT_START_NAME)
-		    .equals("true")) {
+	if (System.getProperty(SHOW_CONFIGURATION_AT_START_PROP) != null) {
+	    if (System.getProperty(SHOW_CONFIGURATION_AT_START_PROP).equals(
+		    "true")) {
 		showConfigurationAtStart = true;
 	    } else {
 		showConfigurationAtStart = false;
@@ -549,9 +583,8 @@ public class AJConfig {
 	}
 
 	// Show license at start
-	if (System.getProperty("aj." + SHOW_LICENSE_AT_START_NAME) != null) {
-	    if (System.getProperty("aj." + SHOW_LICENSE_AT_START_NAME).equals(
-		    "true")) {
+	if (System.getProperty(SHOW_LICENSE_AT_START_PROP) != null) {
+	    if (System.getProperty(SHOW_LICENSE_AT_START_PROP).equals("true")) {
 		showLicenseAtStart = true;
 	    } else {
 		showLicenseAtStart = false;
@@ -559,9 +592,8 @@ public class AJConfig {
 	}
 
 	// Show the pdflatex version at start
-	if (System.getProperty("aj." + SHOW_PDFLATEX_VERSION_NAME) != null) {
-	    if (System.getProperty("aj." + SHOW_PDFLATEX_VERSION_NAME).equals(
-		    "true")) {
+	if (System.getProperty(SHOW_PDFLATEX_VERSION_PROP) != null) {
+	    if (System.getProperty(SHOW_PDFLATEX_VERSION_PROP).equals("true")) {
 		showPDFLatexVersion = true;
 	    } else {
 		showPDFLatexVersion = false;
@@ -569,10 +601,10 @@ public class AJConfig {
 	}
 
 	// AJ files location
-	if (System.getProperty("aj." + AJ_FILES_LOCATION_NAME) != null) {
+	if (System.getProperty(AJ_FILES_LOCATION_PROP) != null) {
 	    File oldAJFilesLocation = ajFilesLocation;
-	    ajFilesLocation = new File(System.getProperty("aj."
-		    + AJ_FILES_LOCATION_NAME));
+	    ajFilesLocation = new File(
+		    System.getProperty(AJ_FILES_LOCATION_PROP));
 	    if (!(ajFilesLocation != null && ajFilesLocation.exists() && ajFilesLocation
 		    .canWrite())) {
 		log.warn("The location for storing AJ Files set as Java Property does not exist or is not writeable.\n"
@@ -586,35 +618,33 @@ public class AJConfig {
 	}
 
 	// Raw reports folder
-	if (System.getProperty("aj." + RAW_REPORTS_FOLDER_NAME) != null) {
-	    rawReportsFolder = new String(System.getProperty("aj."
-		    + RAW_REPORTS_FOLDER_NAME));
+	if (System.getProperty(RAW_REPORTS_FOLDER_PROP) != null) {
+	    rawReportsFolder = new String(
+		    System.getProperty(RAW_REPORTS_FOLDER_PROP));
 	}
 
 	// Latex reports folder by date
-	if (System.getProperty("aj." + LATEX_REPORTS_FOLDER_BY_DATE_NAME) != null) {
-	    latexReportsFolderByDate = new String(System.getProperty("aj."
-		    + LATEX_REPORTS_FOLDER_BY_DATE_NAME));
+	if (System.getProperty(LATEX_REPORTS_FOLDER_BY_DATE_PROP) != null) {
+	    latexReportsFolderByDate = new String(
+		    System.getProperty(LATEX_REPORTS_FOLDER_BY_DATE_PROP));
 	}
 
 	// Latex reports folder by target
-	if (System.getProperty("aj." + LATEX_REPORTS_FOLDER_BY_TARGET_NAME) != null) {
-	    latexReportsFolderByTarget = new String(System.getProperty("aj."
-		    + LATEX_REPORTS_FOLDER_BY_TARGET_NAME));
+	if (System.getProperty(LATEX_REPORTS_FOLDER_BY_TARGET_PROP) != null) {
+	    latexReportsFolderByTarget = new String(
+		    System.getProperty(LATEX_REPORTS_FOLDER_BY_TARGET_PROP));
 	}
 
 	// Latex reports folder by constellation
-	if (System.getProperty("aj."
-		+ LATEX_REPORTS_FOLDER_BY_CONSTELLATION_NAME) != null) {
+	if (System.getProperty(LATEX_REPORTS_FOLDER_BY_CONSTELLATION_PROP) != null) {
 	    latexReportsFolderByConstellation = new String(
-		    System.getProperty("aj."
-			    + LATEX_REPORTS_FOLDER_BY_CONSTELLATION_NAME));
+		    System.getProperty(LATEX_REPORTS_FOLDER_BY_CONSTELLATION_PROP));
 	}
 
 	// SGL reports folder by date
-	if (System.getProperty("aj." + SGL_REPORTS_FOLDER_BY_DATE_NAME) != null) {
-	    sglReportsFolderByDate = new String(System.getProperty("aj."
-		    + SGL_REPORTS_FOLDER_BY_DATE_NAME));
+	if (System.getProperty(SGL_REPORTS_FOLDER_BY_DATE_PROP) != null) {
+	    sglReportsFolderByDate = new String(
+		    System.getProperty(SGL_REPORTS_FOLDER_BY_DATE_PROP));
 	}
 
     }

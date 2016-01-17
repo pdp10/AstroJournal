@@ -58,7 +58,7 @@ public class ImportWrongObservationsTest {
      */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-	System.setProperty("aj.aj_files_location",
+	System.setProperty(AJConfig.AJ_FILES_LOCATION_PROP,
 		System.getProperty("user.dir") + File.separator + "src"
 			+ File.separator + "test" + File.separator
 			+ "resources" + File.separator + "wrong_observations");

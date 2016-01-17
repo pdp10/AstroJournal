@@ -70,17 +70,17 @@ public class AJPropertiesTest {
      */
     @After
     public void tearDown() throws Exception {
-	System.clearProperty("aj.latex_output");
-	System.clearProperty("aj.quiet");
-	System.clearProperty("aj.show_configuration_at_start");
-	System.clearProperty("aj.show_license_at_start");
-	System.clearProperty("aj.show_pdflatex_version");
-	System.clearProperty("aj.aj_files_location");
-	System.clearProperty("aj.raw_reports_folder");
-	System.clearProperty("aj.latex_reports_folder_by_date");
-	System.clearProperty("aj.latex_reports_folder_by_target");
-	System.clearProperty("aj.latex_reports_folder_by_constellation");
-	System.clearProperty("aj.sgl_reports_folder_by_date");
+	System.clearProperty(AJConfig.LATEX_OUTPUT_PROP);
+	System.clearProperty(AJConfig.QUIET_PROP);
+	System.clearProperty(AJConfig.SHOW_CONFIGURATION_AT_START_PROP);
+	System.clearProperty(AJConfig.SHOW_LICENSE_AT_START_PROP);
+	System.clearProperty(AJConfig.SHOW_PDFLATEX_VERSION_PROP);
+	System.clearProperty(AJConfig.AJ_FILES_LOCATION_PROP);
+	System.clearProperty(AJConfig.RAW_REPORTS_FOLDER_PROP);
+	System.clearProperty(AJConfig.LATEX_REPORTS_FOLDER_BY_DATE_PROP);
+	System.clearProperty(AJConfig.LATEX_REPORTS_FOLDER_BY_TARGET_PROP);
+	System.clearProperty(AJConfig.LATEX_REPORTS_FOLDER_BY_CONSTELLATION_PROP);
+	System.clearProperty(AJConfig.SGL_REPORTS_FOLDER_BY_DATE_PROP);
 	// Notify AJConfig that the system properties have changed.
 	AJConfig.getInstance().reset();
     }
@@ -94,11 +94,11 @@ public class AJPropertiesTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	System.setProperty("aj.latex_output", "true");
-	System.setProperty("aj.quiet", "true");
-	System.setProperty("aj.show_configuration_at_start", "true");
-	System.setProperty("aj.show_license_at_start", "true");
-	System.setProperty("aj.show_pdflatex_version", "true");
+	System.setProperty(AJConfig.LATEX_OUTPUT_PROP, "true");
+	System.setProperty(AJConfig.QUIET_PROP, "true");
+	System.setProperty(AJConfig.SHOW_CONFIGURATION_AT_START_PROP, "true");
+	System.setProperty(AJConfig.SHOW_LICENSE_AT_START_PROP, "true");
+	System.setProperty(AJConfig.SHOW_PDFLATEX_VERSION_PROP, "true");
 
 	AJConfig ajConfig = AJConfig.getInstance();
 
@@ -121,11 +121,11 @@ public class AJPropertiesTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	System.setProperty("aj.latex_output", "false");
-	System.setProperty("aj.quiet", "false");
-	System.setProperty("aj.show_configuration_at_start", "false");
-	System.setProperty("aj.show_license_at_start", "false");
-	System.setProperty("aj.show_pdflatex_version", "false");
+	System.setProperty(AJConfig.LATEX_OUTPUT_PROP, "false");
+	System.setProperty(AJConfig.QUIET_PROP, "false");
+	System.setProperty(AJConfig.SHOW_CONFIGURATION_AT_START_PROP, "false");
+	System.setProperty(AJConfig.SHOW_LICENSE_AT_START_PROP, "false");
+	System.setProperty(AJConfig.SHOW_PDFLATEX_VERSION_PROP, "false");
 
 	AJConfig ajConfig = AJConfig.getInstance();
 
@@ -148,14 +148,17 @@ public class AJPropertiesTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	System.setProperty("aj.aj_files_location",
+	System.setProperty(AJConfig.AJ_FILES_LOCATION_PROP,
 		System.getProperty("java.io.tmpdir"));
-	System.setProperty("aj.raw_reports_folder", "rr_test");
-	System.setProperty("aj.latex_reports_folder_by_date", "lrdate_test");
-	System.setProperty("aj.latex_reports_folder_by_target", "lrtarget_test");
-	System.setProperty("aj.latex_reports_folder_by_constellation",
+	System.setProperty(AJConfig.RAW_REPORTS_FOLDER_PROP, "rr_test");
+	System.setProperty(AJConfig.LATEX_REPORTS_FOLDER_BY_DATE_PROP,
+		"lrdate_test");
+	System.setProperty(AJConfig.LATEX_REPORTS_FOLDER_BY_TARGET_PROP,
+		"lrtarget_test");
+	System.setProperty(AJConfig.LATEX_REPORTS_FOLDER_BY_CONSTELLATION_PROP,
 		"lrconst_test");
-	System.setProperty("aj.sgl_reports_folder_by_date", "trdate_test");
+	System.setProperty(AJConfig.SGL_REPORTS_FOLDER_BY_DATE_PROP,
+		"trdate_test");
 
 	AJConfig ajConfig = AJConfig.getInstance();
 
