@@ -24,6 +24,7 @@
 package org.astrojournal.generator.ajexporter;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.astrojournal.generator.observation.AJObservation;
@@ -111,4 +112,27 @@ public abstract class AJExporter {
 	this.ajFilesLocation = ajFilesLocation;
     }
 
+    /**
+     * Return the exporter name
+     * 
+     * @return the exporter name
+     */
+    public abstract String getName();
+
+    @Override
+    public boolean equals(Object o) {
+	if (o instanceof AJExporter) {
+	    AJExporter that = (AJExporter) o;
+	    return this.getName().equals(that.getName());
+	}
+	return false;
+    }
+
+    /**
+     * Run additional post processing commands if necessary.
+     * 
+     * @throws IOException
+     *             if the post-processing failed.
+     */
+    public abstract void postProcessing() throws IOException;
 }

@@ -35,6 +35,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConfig;
@@ -42,6 +43,7 @@ import org.astrojournal.generator.headerfooter.AJLatexFooter;
 import org.astrojournal.generator.headerfooter.AJLatexHeader;
 import org.astrojournal.generator.observation.AJObservation;
 import org.astrojournal.generator.observation.AJObservationItem;
+import org.astrojournal.utilities.RunExternalCommand;
 
 /**
  * Exports the observed targets by constellation to Latex code.
@@ -50,11 +52,11 @@ import org.astrojournal.generator.observation.AJObservationItem;
  * @version 0.2
  * @since 28/05/2015
  */
-public class AJExporterByConstellation extends AJExporter {
+public class AJTextExporterByConstellation extends AJLatexExporter {
 
     /** The log associated to this class */
     private static Logger log = LogManager
-	    .getLogger(AJExporterByConstellation.class);
+	    .getLogger(AJTextExporterByConstellation.class);
 
     private HashMap<String, HashSet<String>> constellations = new HashMap<String, HashSet<String>>();
 
@@ -74,7 +76,7 @@ public class AJExporterByConstellation extends AJExporter {
     /**
      * Default Constructor
      */
-    public AJExporterByConstellation() {
+    public AJTextExporterByConstellation() {
 	super();
     }
 
@@ -83,7 +85,7 @@ public class AJExporterByConstellation extends AJExporter {
      * 
      * @param ajFilesLocation
      */
-    public AJExporterByConstellation(File ajFilesLocation) {
+    public AJTextExporterByConstellation(File ajFilesLocation) {
 	super(ajFilesLocation);
     }
 
@@ -286,5 +288,37 @@ public class AJExporterByConstellation extends AJExporter {
 			item.getTarget() + " (" + item.getType() + ")");
 	    }
 	}
+    }
+
+    @Override
+    public String getName() {
+	return this.getClass().getName();
+    }
+
+    @Override
+    public void postProcessing() throws IOException {
+	AJConfig ajConfig = AJConfig.getInstance();
+
+	// The pdflatex command must be called two times in order to
+	// generate the list of contents correctly.
+	String commandOutput;
+	commandOutput = RunExternalCommand.runCommand(command + " "
+		+ AJConfig.REPORT_BY_CONSTELLATION_FILENAME);
+	if (!ajConfig.isQuiet() && ajConfig.isShowLatexOutput())
+	    log.info(commandOutput + "\n");
+	commandOutput = RunExternalCommand.runCommand(command + " "
+		+ AJConfig.REPORT_BY_CONSTELLATION_FILENAME);
+	// if(latexOutput) log.info(commandOutput + "\n");
+
+	// Add this at the end to avoid mixing with the latex command
+	// output.
+	log.info("\t"
+		+ ajConfig.getFilesLocation().getAbsolutePath()
+		+ File.separator
+		+ FilenameUtils
+			.removeExtension(AJConfig.REPORT_BY_CONSTELLATION_FILENAME)
+		+ ".pdf");
+
+	cleanPDFLatexOutput();
     }
 }

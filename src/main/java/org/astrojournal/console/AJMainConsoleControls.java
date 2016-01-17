@@ -23,16 +23,7 @@
  */
 package org.astrojournal.console;
 
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.SystemUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.AJConfig;
-import org.astrojournal.generator.AJGenerator;
-import org.astrojournal.utilities.RunExternalCommand;
+import org.astrojournal.AJMainControls;
 
 /**
  * A simple class containing the commands for AJMainConsole.
@@ -42,10 +33,7 @@ import org.astrojournal.utilities.RunExternalCommand;
  * @since 1.0
  * @date 22 Dec 2015
  */
-public class AJMainConsoleControls {
-
-    private static Logger log = LogManager
-	    .getLogger(AJMainConsoleControls.class);
+public class AJMainConsoleControls extends AJMainControls {
 
     /**
      * Constructor
@@ -53,110 +41,20 @@ public class AJMainConsoleControls {
     public AJMainConsoleControls() {
     }
 
-    /**
-     * Create the journals.
-     * 
-     * @param latexOutput
-     *            true if the latex code should also be reported.
-     * @return true if the observations sorted by date and by target have been
-     *         exported to Latex correctly
-     */
-    public boolean createJournal(boolean latexOutput) {
-
-	AJConfig ajConfig = AJConfig.getInstance();
-
-	// prepare the folders for AJ.
-	ajConfig.prepareAJFolders();
-
-	// Delete previous content if present
-	try {
-	    ajConfig.cleanAJFolder();
-	} catch (IOException e) {
-	    log.error(AJConfig.BUNDLE
-		    .getString("AJ.errUnconfiguredPreferences.text"), e);
+    @Override
+    public boolean createJournal() {
+	if (!preProcessing()) {
 	    return false;
 	}
 
-	AJGenerator ajLatexGenerator = new AJGenerator();
-	if (!ajLatexGenerator.generateJournals()) {
+	if (!processing()) {
 	    return false;
 	}
 
-	String path = ajConfig.getAJFilesLocation().getAbsolutePath();
-	try {
-	    // The pdflatex command must be called two times in order to
-	    // generate the list of contents correctly.
-	    String command = "pdflatex -halt-on-error";
-	    String commandOutput;
-	    commandOutput = RunExternalCommand.runCommand(command + " "
-		    + AJConfig.REPORT_BY_DATE_FILENAME);
-	    if (latexOutput)
-		log.info(commandOutput + "\n");
-	    commandOutput = RunExternalCommand.runCommand(command + " "
-		    + AJConfig.REPORT_BY_DATE_FILENAME);
-	    // if(latexOutput) log.info(commandOutput + "\n");
-
-	    commandOutput = RunExternalCommand.runCommand(command + " "
-		    + AJConfig.REPORT_BY_TARGET_FILENAME);
-	    if (latexOutput)
-		log.info(commandOutput + "\n");
-	    commandOutput = RunExternalCommand.runCommand(command + " "
-		    + AJConfig.REPORT_BY_TARGET_FILENAME);
-	    // if(latexOutput) log.info(commandOutput + "\n");
-
-	    commandOutput = RunExternalCommand.runCommand(command + " "
-		    + AJConfig.REPORT_BY_CONSTELLATION_FILENAME);
-	    if (latexOutput)
-		log.info(commandOutput + "\n");
-	    commandOutput = RunExternalCommand.runCommand(command + " "
-		    + AJConfig.REPORT_BY_CONSTELLATION_FILENAME);
-	    // if(latexOutput) log.info(commandOutput +
-	    // "\n");
-
-	    // Add this at the end to avoid mixing with the latex command
-	    // output.
-	    log.info("");
-	    log.info(AJConfig.BUNDLE.getString("AJ.lblCreatedReports.text"));
-	    log.info("\t"
-		    + path
-		    + File.separator
-		    + FilenameUtils
-			    .removeExtension(AJConfig.REPORT_BY_DATE_FILENAME)
-		    + ".pdf");
-	    log.info("\t"
-		    + path
-		    + File.separator
-		    + FilenameUtils
-			    .removeExtension(AJConfig.REPORT_BY_TARGET_FILENAME)
-		    + ".pdf");
-	    log.info("\t"
-		    + path
-		    + File.separator
-		    + FilenameUtils
-			    .removeExtension(AJConfig.REPORT_BY_CONSTELLATION_FILENAME)
-		    + ".pdf\n");
-
-	    // clean folders from LaTeX temporary, log, and output files
-	    if (SystemUtils.IS_OS_WINDOWS) {
-		commandOutput = RunExternalCommand
-			.runCommand("cmd /c del /s *.aux *.toc *.log *.out");
-	    } else {
-		Runtime.getRuntime().exec(
-			new String[] {
-				"/bin/sh",
-				"-c",
-				"cd "
-					+ ajConfig.getAJFilesLocation()
-						.getAbsolutePath()
-					+ " && rm -rf *.aux *.toc *.log *.out"
-					+ " && cd -" });
-	    }
-
-	    log.info(AJConfig.BUNDLE.getString("AJ.lblCreatedReportsLong.text"));
-	} catch (IOException ioe) {
-	    log.error(AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"), ioe);
+	if (!postProcessing()) {
 	    return false;
 	}
+
 	return true;
     }
 }

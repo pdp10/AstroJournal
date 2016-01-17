@@ -24,6 +24,7 @@
 package org.astrojournal.generator;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,7 +42,7 @@ import org.astrojournal.utilities.ImporterSearcher;
  * This class automatically generates astro journal documents.
  * 
  * @author Piero Dalle Pezze
- * @version 0.10
+ * @version 0.11
  * @since 12/04/2015
  */
 public class AJGenerator {
@@ -52,15 +53,21 @@ public class AJGenerator {
     /** The list of observations. */
     private ArrayList<AJObservation> observations = new ArrayList<AJObservation>();
 
+    /** The list of AJImporter objects. */
+    private ArrayList<AJImporter> ajImporters = new ArrayList<AJImporter>();
+
+    /** The list of AJExporter objects. */
+    private ArrayList<AJExporter> ajExporters = new ArrayList<AJExporter>();
+
     /** Default constructor */
     public AJGenerator() {
     }
 
     /**
-     * It generates the latex files for AstroJournal.
+     * It generates the files for AstroJournal.
      * 
      * @return true if the observations sorted by date and by target have been
-     *         exported to Latex correctly
+     *         exported correctly
      */
     public boolean generateJournals() {
 	AJConfig ajConfig = AJConfig.getInstance();
@@ -69,7 +76,7 @@ public class AJGenerator {
 	    showLicense();
 	}
 
-	if (!ajConfig.isQuiet() && ajConfig.isShowPDFLatexVersion()) {
+	if (!ajConfig.isQuiet() && ajConfig.isShowPDFLatexVersionAtStart()) {
 	    if (!showPDFLatexVersion()) {
 		return false;
 	    }
@@ -82,7 +89,7 @@ public class AJGenerator {
 	if (!ajImport()) {
 	    if (observations.isEmpty()) {
 		log.error("No observation was imported. Is the folder "
-			+ AJConfig.getInstance().getAJFilesLocation()
+			+ AJConfig.getInstance().getFilesLocation()
 				.getAbsolutePath() + File.separator
 			+ AJConfig.getInstance().getRawReportsFolder()
 			+ " empty?");
@@ -141,23 +148,76 @@ public class AJGenerator {
     }
 
     /**
-     * Export the observations using the available exporters.
+     * Returns the list of AJImporter objects.
      * 
-     * @return true if the observations have been exported.
+     * @return the AJImporters
+     */
+    public ArrayList<AJImporter> getAJImporters() {
+	return ajImporters;
+    }
+
+    /**
+     * Returns the list of AJExporter objects.
+     * 
+     * @return the AJExporters
+     */
+    public ArrayList<AJExporter> getAJExporters() {
+	return ajExporters;
+    }
+
+    /**
+     * Reset the generator.
+     */
+    public void reset() {
+	resetObservations();
+	resetAJImporters();
+	resetAJExporters();
+    }
+
+    /**
+     * Reset the generator observations.
+     */
+    public void resetObservations() {
+	observations = new ArrayList<AJObservation>();
+    }
+
+    /**
+     * Reset the AJImporters.
+     */
+    public void resetAJImporters() {
+	ajImporters = new ArrayList<AJImporter>();
+    }
+
+    /**
+     * Reset the AJExporters.
+     */
+    public void resetAJExporters() {
+	ajExporters = new ArrayList<AJExporter>();
+    }
+
+    /**
+     * Export the observations using the available AJImporters.
+     * 
+     * @return true if the observations have been imported.
      */
     public boolean ajImport() {
 	boolean status = true;
-	ArrayList<String> ajImporters = ImporterSearcher
+	ArrayList<String> ajImporterNames = ImporterSearcher
 		.getImporterFullNameList();
-	Collections.sort(ajImporters);
-	for (String ajImporterName : ajImporters) {
+	Collections.sort(ajImporterNames);
+	for (String ajImporterName : ajImporterNames) {
 	    try {
 		log.debug("Loading importer " + ajImporterName);
 		Class<?> cls = Class.forName(ajImporterName);
 		Object clsInstance = cls.newInstance();
 		AJImporter ajImporter = (AJImporter) clsInstance;
-		log.debug("Importer " + ajImporter.getClass() + " is loaded");
-		observations.addAll(ajImporter.importObservations());
+		if (!ajImporters.contains(ajImporter)) {
+		    ajImporters.add(ajImporter);
+		    log.debug("Importer " + ajImporter.getName() + " is loaded");
+		} else {
+		    log.debug("Importer " + ajImporter.getName()
+			    + " was already loaded");
+		}
 	    } catch (InstantiationException e) {
 		status = false;
 		log.debug(e);
@@ -175,29 +235,42 @@ public class AJGenerator {
 		log.debug(e);
 	    }
 	}
+	if (ajImporters.isEmpty()) {
+	    log.error("Data loading failed. There is no AJImporter.");
+	    return false;
+	}
+	resetObservations();
+	for (AJImporter ajImporter : ajImporters) {
+	    observations.addAll(ajImporter.importObservations());
+	}
 	return status;
     }
 
     /**
-     * Export the observations using the available exporters.
+     * Export the observations using the available AJExporters.
      * 
      * @return true if the observations have been exported.
      */
     public boolean ajExport() {
 	boolean status = true;
-	ArrayList<String> ajExporters = ExporterSearcher
+	ArrayList<String> ajExporterNames = ExporterSearcher
 		.getExporterFullNameList();
-	Collections.sort(ajExporters);
-	for (String ajExporterName : ajExporters) {
+	Collections.sort(ajExporterNames);
+	for (String ajExporterName : ajExporterNames) {
 	    try {
 		log.debug("Loading exporter " + ajExporterName);
 		Class<?> cls = Class.forName(ajExporterName);
 		Object clsInstance = cls.getDeclaredConstructor(File.class)
 			.newInstance(
-				AJConfig.getInstance().getAJFilesLocation());
+				AJConfig.getInstance().getFilesLocation());
 		AJExporter ajExporter = (AJExporter) clsInstance;
-		log.debug("Exporter " + ajExporter.getClass() + " is loaded");
-		status = ajExporter.generateJournal(observations) && status;
+		if (!ajExporters.contains(ajExporter)) {
+		    ajExporters.add(ajExporter);
+		    log.debug("Exporter " + ajExporter.getName() + " is loaded");
+		} else {
+		    log.debug("Exporter " + ajExporter.getName()
+			    + " was already loaded");
+		}
 	    } catch (InstantiationException e) {
 		status = false;
 		log.debug(e);
@@ -221,7 +294,32 @@ public class AJGenerator {
 		log.debug(e);
 	    }
 	}
+	if (ajExporters.isEmpty()) {
+	    log.error("Data exporting failed. There is no AJExporter.");
+	    return false;
+	}
+	for (AJExporter ajExporter : ajExporters) {
+	    status = ajExporter.generateJournal(observations) && status;
+	}
 	return status;
     }
 
+    /**
+     * Runs the method postProcessing() for each available ajExporter.
+     * 
+     * @return true if the post processing succeeded.
+     */
+    public boolean postProcessing() {
+	boolean status = true;
+	for (AJExporter ajExporter : ajExporters) {
+	    try {
+		ajExporter.postProcessing();
+	    } catch (IOException e) {
+		log.debug(ajExporter.getName()
+			+ " failed the post processing phase.", e);
+		status = false;
+	    }
+	}
+	return status;
+    }
 }

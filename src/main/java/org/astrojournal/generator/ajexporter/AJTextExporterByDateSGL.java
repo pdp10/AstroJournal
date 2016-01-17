@@ -48,15 +48,15 @@ import org.astrojournal.generator.observation.AJObservationItem;
  * @version 0.1
  * @since 11/09/2015
  */
-public class AJExporterByDateSGL extends AJExporter {
+public class AJTextExporterByDateSGL extends AJExporter {
 
     /** The log associated to this class */
-    private static Logger log = LogManager.getLogger(AJExporterByDateSGL.class);
+    private static Logger log = LogManager.getLogger(AJTextExporterByDateSGL.class);
 
     /**
      * Default constructor
      */
-    public AJExporterByDateSGL() {
+    public AJTextExporterByDateSGL() {
 	super();
     }
 
@@ -65,7 +65,7 @@ public class AJExporterByDateSGL extends AJExporter {
      * 
      * @param ajFilesLocation
      */
-    public AJExporterByDateSGL(File ajFilesLocation) {
+    public AJTextExporterByDateSGL(File ajFilesLocation) {
 	super(ajFilesLocation);
     }
 
@@ -253,6 +253,18 @@ public class AJExporterByDateSGL extends AJExporter {
 	}
 
 	return result;
+    }
+
+    @Override
+    public String getName() {
+	return this.getClass().getName();
+    }
+
+    @Override
+    public void postProcessing() throws IOException {
+	log.info("\t"
+		+ AJConfig.getInstance().getFilesLocation().getAbsolutePath()
+		+ File.separator + AJConfig.SGL_REPORT_BY_DATE_FILENAME);
     }
 
 }

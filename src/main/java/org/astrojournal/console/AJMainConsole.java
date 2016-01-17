@@ -34,7 +34,6 @@ import org.astrojournal.configuration.AJConfig;
  */
 public class AJMainConsole {
 
-    private boolean latexOutput = AJConfig.getInstance().isLatexOutput();
     private AJMainConsoleControls commandRunner;
 
     /**
@@ -67,22 +66,13 @@ public class AJMainConsole {
     }
 
     /**
-     * Set whether the LaTeXOutput should be printed.
-     * 
-     * @param value
-     */
-    public void printLaTeXOutput(boolean value) {
-	latexOutput = value;
-    }
-
-    /**
      * Create the astro journals.
      * 
      * @return true if the observations sorted by date and by target have been
      *         exported to Latex correctly
      */
     public boolean createJournals() {
-	return commandRunner.createJournal(latexOutput);
+	return commandRunner.createJournal();
     }
 
     /**
@@ -99,13 +89,26 @@ public class AJMainConsole {
      *            The command line arguments
      */
     public static void main(String args[]) {
+	AJConfig ajConfig = AJConfig.getInstance();
 	AJMainConsole ajMainConsole = new AJMainConsole();
 	if (args.length > 1
-		&& (args[1].equals("-l") || args[1].equals("--latex-output")))
-	    ajMainConsole.printLaTeXOutput(true);
+		&& (args[1].equals("-l") || args[1].equals("--latex-output"))) {
+	    if (ajConfig.isQuiet()) {
+		// If the configuration was quiet, we switch every thing off,
+		// except for LATEX_OUTPUT_PROP
+		System.setProperty(AJConfig.QUIET_PROP, "false");
+		System.setProperty(AJConfig.SHOW_LICENSE_AT_START_PROP, "false");
+		System.setProperty(AJConfig.SHOW_PDFLATEX_VERSION_AT_START_PROP, "false");
+		System.setProperty(AJConfig.SHOW_CONFIGURATION_AT_START_PROP,
+			"false");
+	    }
+	    System.setProperty(AJConfig.SHOW_LATEX_OUTPUT_PROP, "true");
+	} else {
+	    System.setProperty(AJConfig.SHOW_LATEX_OUTPUT_PROP, "false");
+	}
+	ajConfig.loadSystemProperties();
 	if (!ajMainConsole.createJournals()) {
 	    System.exit(1);
 	}
     }
-
 }

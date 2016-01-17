@@ -62,7 +62,7 @@ public class AJTabSeparatedValueImporter extends AJImporter {
     @Override
     public ArrayList<AJObservation> importObservations() {
 	log.info("Importing observation files:");
-	String rawReportPath = AJConfig.getInstance().getAJFilesLocation()
+	String rawReportPath = AJConfig.getInstance().getFilesLocation()
 		.getAbsolutePath()
 		+ File.separator + AJConfig.getInstance().getRawReportsFolder();
 	File[] files = new File(rawReportPath).listFiles();
@@ -318,5 +318,10 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 			+ line + "]. Property discarded.");
 	    }
 	}
+    }
+
+    @Override
+    public String getName() {
+	return this.getClass().getName();
     }
 }

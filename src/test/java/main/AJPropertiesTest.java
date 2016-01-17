@@ -70,12 +70,12 @@ public class AJPropertiesTest {
      */
     @After
     public void tearDown() throws Exception {
-	System.clearProperty(AJConfig.LATEX_OUTPUT_PROP);
+	System.clearProperty(AJConfig.SHOW_LATEX_OUTPUT_PROP);
 	System.clearProperty(AJConfig.QUIET_PROP);
 	System.clearProperty(AJConfig.SHOW_CONFIGURATION_AT_START_PROP);
 	System.clearProperty(AJConfig.SHOW_LICENSE_AT_START_PROP);
-	System.clearProperty(AJConfig.SHOW_PDFLATEX_VERSION_PROP);
-	System.clearProperty(AJConfig.AJ_FILES_LOCATION_PROP);
+	System.clearProperty(AJConfig.SHOW_PDFLATEX_VERSION_AT_START_PROP);
+	System.clearProperty(AJConfig.FILES_LOCATION_PROP);
 	System.clearProperty(AJConfig.RAW_REPORTS_FOLDER_PROP);
 	System.clearProperty(AJConfig.LATEX_REPORTS_FOLDER_BY_DATE_PROP);
 	System.clearProperty(AJConfig.LATEX_REPORTS_FOLDER_BY_TARGET_PROP);
@@ -94,22 +94,22 @@ public class AJPropertiesTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	System.setProperty(AJConfig.LATEX_OUTPUT_PROP, "true");
+	System.setProperty(AJConfig.SHOW_LATEX_OUTPUT_PROP, "true");
 	System.setProperty(AJConfig.QUIET_PROP, "true");
 	System.setProperty(AJConfig.SHOW_CONFIGURATION_AT_START_PROP, "true");
 	System.setProperty(AJConfig.SHOW_LICENSE_AT_START_PROP, "true");
-	System.setProperty(AJConfig.SHOW_PDFLATEX_VERSION_PROP, "true");
+	System.setProperty(AJConfig.SHOW_PDFLATEX_VERSION_AT_START_PROP, "true");
 
 	AJConfig ajConfig = AJConfig.getInstance();
 
 	// Notify AJConfig that the system properties have changed.
 	ajConfig.loadSystemProperties();
 
-	assertTrue(ajConfig.isLatexOutput());
+	assertTrue(ajConfig.isShowLatexOutput());
 	assertTrue(ajConfig.isQuiet());
 	assertTrue(ajConfig.isShowConfigurationAtStart());
 	assertTrue(ajConfig.isShowLicenseAtStart());
-	assertTrue(ajConfig.isShowPDFLatexVersion());
+	assertTrue(ajConfig.isShowPDFLatexVersionAtStart());
     }
 
     /**
@@ -121,22 +121,22 @@ public class AJPropertiesTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	System.setProperty(AJConfig.LATEX_OUTPUT_PROP, "false");
+	System.setProperty(AJConfig.SHOW_LATEX_OUTPUT_PROP, "false");
 	System.setProperty(AJConfig.QUIET_PROP, "false");
 	System.setProperty(AJConfig.SHOW_CONFIGURATION_AT_START_PROP, "false");
 	System.setProperty(AJConfig.SHOW_LICENSE_AT_START_PROP, "false");
-	System.setProperty(AJConfig.SHOW_PDFLATEX_VERSION_PROP, "false");
+	System.setProperty(AJConfig.SHOW_PDFLATEX_VERSION_AT_START_PROP, "false");
 
 	AJConfig ajConfig = AJConfig.getInstance();
 
 	// Notify AJConfig that the system properties have changed.
 	ajConfig.loadSystemProperties();
 
-	assertFalse(ajConfig.isLatexOutput());
+	assertFalse(ajConfig.isShowLatexOutput());
 	assertFalse(ajConfig.isQuiet());
 	assertFalse(ajConfig.isShowConfigurationAtStart());
 	assertFalse(ajConfig.isShowLicenseAtStart());
-	assertFalse(ajConfig.isShowPDFLatexVersion());
+	assertFalse(ajConfig.isShowPDFLatexVersionAtStart());
     }
 
     /**
@@ -148,7 +148,7 @@ public class AJPropertiesTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	System.setProperty(AJConfig.AJ_FILES_LOCATION_PROP,
+	System.setProperty(AJConfig.FILES_LOCATION_PROP,
 		System.getProperty("java.io.tmpdir"));
 	System.setProperty(AJConfig.RAW_REPORTS_FOLDER_PROP, "rr_test");
 	System.setProperty(AJConfig.LATEX_REPORTS_FOLDER_BY_DATE_PROP,
@@ -165,7 +165,7 @@ public class AJPropertiesTest {
 	// Notify AJConfig that the system properties have changed.
 	ajConfig.loadSystemProperties();
 
-	assertEquals(ajConfig.getAJFilesLocation().getAbsolutePath(),
+	assertEquals(ajConfig.getFilesLocation().getAbsolutePath(),
 		System.getProperty("java.io.tmpdir"));
 	assertEquals(ajConfig.getRawReportsFolder(), "rr_test");
 	assertEquals(ajConfig.getLatexReportsFolderByDate(), "lrdate_test");

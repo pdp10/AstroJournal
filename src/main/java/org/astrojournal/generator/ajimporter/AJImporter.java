@@ -111,4 +111,20 @@ public abstract class AJImporter {
 	    AJObservation obs, String line, String delimiter)
 	    throws IOException;
 
+    /**
+     * Return the importer name
+     * 
+     * @return the importer name
+     */
+    public abstract String getName();
+
+    @Override
+    public boolean equals(Object o) {
+	if (o instanceof AJImporter) {
+	    AJImporter that = (AJImporter) o;
+	    return this.getName().equals(that.getName());
+	}
+	return false;
+    }
+
 }

@@ -142,7 +142,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.gridx = 1;
 	c.weightx = 0.5;
 	ajFilesLocation
-		.setText(ajConfig.getAJFilesLocation().getAbsolutePath());
+		.setText(ajConfig.getFilesLocation().getAbsolutePath());
 	ajFilesLocation.setEditable(false);
 	filePanel.add(ajFilesLocation, c);
 	c.gridx = 2;
@@ -276,7 +276,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 		AJConfig.BUNDLE.getString("AJ.lblShowLatexOutput.text"));
 	lblShowLatexOutput.setToolTipText(AJConfig.BUNDLE
 		.getString("AJ.lblShowLatexOutput.toolTipText"));
-	latexOutput.setSelected(ajConfig.isLatexOutput());
+	latexOutput.setSelected(ajConfig.isShowLatexOutput());
 	filePanel.add(lblShowLatexOutput, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
@@ -306,7 +306,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 		AJConfig.BUNDLE.getString("AJ.lblShowPDFLatexVersion.text"));
 	lblShowPDFLatexVersion.setToolTipText(AJConfig.BUNDLE
 		.getString("AJ.lblShowPDFLatexVersion.toolTipText"));
-	showPDFLatexVersion.setSelected(ajConfig.isShowPDFLatexVersion());
+	showPDFLatexVersion.setSelected(ajConfig.isShowPDFLatexVersionAtStart());
 	filePanel.add(lblShowPDFLatexVersion, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
@@ -393,7 +393,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	    File ajFilesLocationFile = new File(ajFilesLocation.getText());
 
 	    // text fields
-	    ajConfig.setAJFilesLocation(ajFilesLocationFile);
+	    ajConfig.setFilesLocation(ajFilesLocationFile);
 	    ajConfig.setRawReportsFolder(rawReportsFolder.getText());
 	    ajConfig.setLatexReportsFolderByDate(latexReportsFolderByDate
 		    .getText());
@@ -405,9 +405,9 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 
 	    // combobox fields
 	    ajConfig.setQuiet(quiet.isSelected());
-	    ajConfig.setLatexOutput(latexOutput.isSelected());
+	    ajConfig.setShowLatexOutput(latexOutput.isSelected());
 	    ajConfig.setShowLicenseAtStart(showLicenseAtStart.isSelected());
-	    ajConfig.setPDFLatexVersion(showPDFLatexVersion.isSelected());
+	    ajConfig.setPDFLatexVersionAtStart(showPDFLatexVersion.isSelected());
 	    ajConfig.setShowConfigurationAtStart(showConfigurationAtStart
 		    .isSelected());
 

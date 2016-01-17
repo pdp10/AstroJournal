@@ -1,0 +1,113 @@
+/*
+ * Copyright 2015 Piero Dalle Pezze
+ *
+ * This file is part of AstroJournal.
+ *
+ * AstroJournal is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
+/*
+ * Changelog:
+ * - Piero Dalle Pezze: class creation.
+ */
+package org.astrojournal;
+
+import java.io.IOException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.generator.AJGenerator;
+
+/**
+ * A simple class containing the commands for AJMain*Control classes.
+ * 
+ * @author Piero Dalle Pezze
+ * @version $Rev$
+ * @since 1.0
+ * @date 12 Dec 2015
+ */
+public abstract class AJMainControls {
+
+    private static Logger log = LogManager.getLogger(AJMainControls.class);
+
+    /**
+     * A reference to AJ Generator.
+     */
+    protected AJGenerator ajGenerator = new AJGenerator();
+
+    /**
+     * Constructor
+     */
+    public AJMainControls() {
+    }
+
+    /**
+     * Create the journals.
+     * 
+     * @return true if the observations have been exported correctly
+     */
+    public abstract boolean createJournal();
+
+    /**
+     * Initialise the folders.
+     * 
+     * @return true if the pre-processing phase succeeded.
+     */
+    protected boolean preProcessing() {
+	AJConfig ajConfig = AJConfig.getInstance();
+
+	// prepare the folders for AJ.
+	ajConfig.prepareAJFolders();
+
+	// Delete previous content if present
+	try {
+	    ajConfig.cleanAJFolder();
+	} catch (IOException e) {
+	    log.error(AJConfig.BUNDLE
+		    .getString("AJ.errUnconfiguredPreferences.text"), e);
+	    return false;
+	}
+	return true;
+    }
+
+    /**
+     * Generate the journals.
+     * 
+     * @return true if the processing phase succeeded.
+     */
+    protected boolean processing() {
+	if (!ajGenerator.generateJournals()) {
+	    log.error(AJConfig.BUNDLE
+		    .getString("AJ.errJournalNotExported.text"));
+	    return false;
+	}
+	return true;
+    }
+
+    /**
+     * Run post processing commands after the generation of the journals.
+     * 
+     * @return true if the post-processing phase succeeded.
+     */
+    protected boolean postProcessing() {
+	log.info("");
+	log.info(AJConfig.BUNDLE.getString("AJ.lblCreatedReports.text"));
+	if (!ajGenerator.postProcessing()) {
+	    log.error(AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"));
+	    return false;
+	}
+	return true;
+    }
+}

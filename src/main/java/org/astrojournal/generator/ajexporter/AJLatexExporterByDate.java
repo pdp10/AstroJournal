@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConfig;
@@ -40,6 +41,7 @@ import org.astrojournal.generator.headerfooter.AJLatexFooter;
 import org.astrojournal.generator.headerfooter.AJLatexHeader;
 import org.astrojournal.generator.observation.AJObservation;
 import org.astrojournal.generator.observation.AJObservationItem;
+import org.astrojournal.utilities.RunExternalCommand;
 
 /**
  * Exports an AstroJournal observation to Latex code.
@@ -48,15 +50,16 @@ import org.astrojournal.generator.observation.AJObservationItem;
  * @version 0.2
  * @since 28/05/2015
  */
-public class AJExporterByDate extends AJExporter {
+public class AJLatexExporterByDate extends AJLatexExporter {
 
     /** The log associated to this class */
-    private static Logger log = LogManager.getLogger(AJExporterByDate.class);
+    private static Logger log = LogManager
+	    .getLogger(AJLatexExporterByDate.class);
 
     /**
      * Default constructor
      */
-    public AJExporterByDate() {
+    public AJLatexExporterByDate() {
 	super();
     }
 
@@ -65,7 +68,7 @@ public class AJExporterByDate extends AJExporter {
      * 
      * @param ajFilesLocation
      */
-    public AJExporterByDate(File ajFilesLocation) {
+    public AJLatexExporterByDate(File ajFilesLocation) {
 	super(ajFilesLocation);
     }
 
@@ -292,6 +295,38 @@ public class AJExporterByDate extends AJExporter {
 	}
 
 	return result;
+    }
+
+    @Override
+    public String getName() {
+	return this.getClass().getName();
+    }
+
+    @Override
+    public void postProcessing() throws IOException {
+	AJConfig ajConfig = AJConfig.getInstance();
+
+	// The pdflatex command must be called two times in order to
+	// generate the list of contents correctly.
+	String commandOutput;
+	commandOutput = RunExternalCommand.runCommand(command + " "
+		+ AJConfig.REPORT_BY_DATE_FILENAME);
+	if (!ajConfig.isQuiet() && ajConfig.isShowLatexOutput())
+	    log.info(commandOutput + "\n");
+	commandOutput = RunExternalCommand.runCommand(command + " "
+		+ AJConfig.REPORT_BY_DATE_FILENAME);
+	// if(latexOutput) log.info(commandOutput + "\n");
+
+	// Add this at the end to avoid mixing with the latex command
+	// output.
+	log.info("\t"
+		+ ajConfig.getFilesLocation().getAbsolutePath()
+		+ File.separator
+		+ FilenameUtils
+			.removeExtension(AJConfig.REPORT_BY_DATE_FILENAME)
+		+ ".pdf");
+
+	cleanPDFLatexOutput();
     }
 
 }
