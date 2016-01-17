@@ -108,7 +108,7 @@ public abstract class AJMainControls {
     protected boolean postProcessing() {
 	log.debug("Starting post-processing");
 	log.info("");
-	log.info(AJConfig.BUNDLE.getString("AJ.lblCreatedReports.text"));
+	log.info(AJConfig.BUNDLE.getString("AJ.lblCreatingReports.text"));
 	if (!ajGenerator.postProcessing()) {
 	    log.error(AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"));
 	    return false;
