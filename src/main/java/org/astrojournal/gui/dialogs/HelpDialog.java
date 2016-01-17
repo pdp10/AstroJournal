@@ -68,18 +68,22 @@ public class HelpDialog {
 	    helpViewer.setCurrentID("Index");
 	} catch (Exception e) {
 	    log.error(
-		    AJConfig.BUNDLE.getString("AJ.errHelpIndexNotFound.text"),
-		    e);
-	    JOptionPane.showMessageDialog(application,
-		    AJConfig.BUNDLE.getString("AJ.errHelpIndexNotFound.text"),
-		    AJConfig.BUNDLE.getString("AJ.errFileNotFound.text"),
+		    AJConfig.getInstance().getLocaleBundle()
+			    .getString("AJ.errHelpIndexNotFound.text"), e);
+	    JOptionPane.showMessageDialog(
+		    application,
+		    AJConfig.getInstance().getLocaleBundle()
+			    .getString("AJ.errHelpIndexNotFound.text"),
+		    AJConfig.getInstance().getLocaleBundle()
+			    .getString("AJ.errFileNotFound.text"),
 		    JOptionPane.ERROR_MESSAGE);
 	    return;
 	}
 
 	frame = new JFrame();
 	frame.setSize(550, 450);
-	frame.setTitle(AJConfig.BUNDLE.getString("AJ.mnuHelpContents.text"));
+	frame.setTitle(AJConfig.getInstance().getLocaleBundle()
+		.getString("AJ.mnuHelpContents.text"));
 	frame.setIconImage(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/logo/aj_icon_32.png")).getImage());
 	frame.getContentPane().add(helpViewer);

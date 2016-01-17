@@ -29,6 +29,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJProperties;
 import org.astrojournal.generator.ajimporter.AJImporter;
 import org.astrojournal.generator.ajimporter.AJTabSeparatedValueImporter;
 import org.astrojournal.generator.observation.AJObservation;
@@ -58,11 +59,13 @@ public class ImportCorrectObservationsTest {
      */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-	System.setProperty(AJConfig.FILES_LOCATION_PROP,
+	System.setProperty(AJProperties.FILES_LOCATION,
 		System.getProperty("user.dir") + File.separator + "src"
 			+ File.separator + "test" + File.separator
 			+ "resources" + File.separator + "correct_observations");
-	AJConfig.getInstance().loadSystemProperties();
+
+	// Load the new properties
+	AJConfig.getInstance().loadAJProperties();
 
 	AJImporter ajTabSeparatedValueImporter = new AJTabSeparatedValueImporter(
 		AJConfig.getInstance());

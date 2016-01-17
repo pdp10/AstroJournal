@@ -24,6 +24,8 @@
 package org.astrojournal.console;
 
 import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJConstants;
+import org.astrojournal.configuration.AJProperties;
 
 /**
  * A class for running AstroJournal via command line.
@@ -50,9 +52,9 @@ public class AJMainConsole {
      */
     public static String printHelp() {
 	String help = new String(
-		AJConfig.APPLICATION_NAME
+		AJConstants.APPLICATION_NAME
 			+ " "
-			+ AJConfig.APPLICATION_VERSION
+			+ AJConstants.APPLICATION_VERSION
 			+ "\n"
 			+ "USAGE: run_astrojournal.sh [options]\n"
 			+ "Options are:\n"
@@ -96,17 +98,18 @@ public class AJMainConsole {
 	    if (ajConfig.isQuiet()) {
 		// If the configuration was quiet, we switch every thing off,
 		// except for LATEX_OUTPUT_PROP
-		System.setProperty(AJConfig.QUIET_PROP, "false");
-		System.setProperty(AJConfig.SHOW_LICENSE_AT_START_PROP, "false");
-		System.setProperty(AJConfig.SHOW_PDFLATEX_VERSION_AT_START_PROP, "false");
-		System.setProperty(AJConfig.SHOW_CONFIGURATION_AT_START_PROP,
+		System.setProperty(AJProperties.QUIET, "false");
+		System.setProperty(AJProperties.SHOW_LICENSE_AT_START, "false");
+		System.setProperty(AJProperties.SHOW_PDFLATEX_VERSION_AT_START,
+			"false");
+		System.setProperty(AJProperties.SHOW_CONFIGURATION_AT_START,
 			"false");
 	    }
-	    System.setProperty(AJConfig.SHOW_LATEX_OUTPUT_PROP, "true");
+	    System.setProperty(AJProperties.SHOW_LATEX_OUTPUT, "true");
 	} else {
-	    System.setProperty(AJConfig.SHOW_LATEX_OUTPUT_PROP, "false");
+	    System.setProperty(AJProperties.SHOW_LATEX_OUTPUT, "false");
 	}
-	ajConfig.loadSystemProperties();
+	ajConfig.loadAJProperties();
 	if (!ajMainConsole.createJournals()) {
 	    System.exit(1);
 	}

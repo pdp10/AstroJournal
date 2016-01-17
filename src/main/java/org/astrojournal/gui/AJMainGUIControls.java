@@ -53,24 +53,26 @@ public class AJMainGUIControls extends AJMainControls {
     @Override
     public boolean createJournal() {
 	if (!preProcessing()) {
-	    ajMainGUI.setStatusPanelText(AJConfig.BUNDLE
+	    ajMainGUI.setStatusPanelText(AJConfig.getInstance()
+		    .getLocaleBundle()
 		    .getString("AJ.errUnconfiguredPreferences.text"));
 	    return false;
 	}
 
 	if (!processing()) {
-	    ajMainGUI.setStatusPanelText(AJConfig.BUNDLE
+	    ajMainGUI.setStatusPanelText(AJConfig.getInstance()
+		    .getLocaleBundle()
 		    .getString("AJ.errJournalNotExportedShort.text"));
 	    return false;
 	}
 
 	if (!postProcessing()) {
-	    ajMainGUI.setStatusPanelText(AJConfig.BUNDLE
-		    .getString("AJ.errPDFLatexShort.text"));
+	    ajMainGUI.setStatusPanelText(AJConfig.getInstance()
+		    .getLocaleBundle().getString("AJ.errPDFLatexShort.text"));
 	    return false;
 	}
 
-	ajMainGUI.setStatusPanelText(AJConfig.BUNDLE
+	ajMainGUI.setStatusPanelText(AJConfig.getInstance().getLocaleBundle()
 		.getString("AJ.lblCreatedReportsLong.text"));
 	return true;
     }

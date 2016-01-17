@@ -37,6 +37,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJConstants;
 import org.astrojournal.generator.headerfooter.AJLatexFooter;
 import org.astrojournal.generator.headerfooter.AJLatexHeader;
 import org.astrojournal.generator.observation.AJObservation;
@@ -81,9 +82,9 @@ public class AJLatexExporterByDate extends AJLatexExporter {
 	boolean resultByDate = exportObservations(observations, AJConfig
 		.getInstance().getLatexReportsFolderByDate());
 	generateJournal(ajConfig.getLatexReportsFolderByDate(),
-		AJConfig.HEADER_BY_DATE_FILENAME,
-		AJConfig.REPORT_BY_DATE_FILENAME,
-		AJConfig.FOOTER_BY_DATE_FILENAME);
+		AJConstants.HEADER_BY_DATE_FILENAME,
+		AJConstants.REPORT_BY_DATE_FILENAME,
+		AJConstants.FOOTER_BY_DATE_FILENAME);
 	return resultByDate;
     }
 
@@ -303,11 +304,11 @@ public class AJLatexExporterByDate extends AJLatexExporter {
 	// generate the list of contents correctly.
 	String commandOutput;
 	commandOutput = RunExternalCommand.runCommand(command + " "
-		+ AJConfig.REPORT_BY_DATE_FILENAME);
+		+ AJConstants.REPORT_BY_DATE_FILENAME);
 	if (!ajConfig.isQuiet() && ajConfig.isShowLatexOutput())
 	    log.info(commandOutput + "\n");
 	commandOutput = RunExternalCommand.runCommand(command + " "
-		+ AJConfig.REPORT_BY_DATE_FILENAME);
+		+ AJConstants.REPORT_BY_DATE_FILENAME);
 	// if(latexOutput) log.info(commandOutput + "\n");
 
 	// Add this at the end to avoid mixing with the latex command
@@ -316,7 +317,7 @@ public class AJLatexExporterByDate extends AJLatexExporter {
 		+ ajConfig.getFilesLocation().getAbsolutePath()
 		+ File.separator
 		+ FilenameUtils
-			.removeExtension(AJConfig.REPORT_BY_DATE_FILENAME)
+			.removeExtension(AJConstants.REPORT_BY_DATE_FILENAME)
 		+ ".pdf");
 
 	cleanPDFLatexOutput();

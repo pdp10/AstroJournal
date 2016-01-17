@@ -78,8 +78,8 @@ public class WelcomePanel extends JPanel {
 	gbc.gridy++;
 	gbc.weighty = 0.5;
 
-	JLabel welcomeLabel = new JLabel(
-		AJConfig.BUNDLE.getString("AJ.lblWelcomeLabel.text"));
+	JLabel welcomeLabel = new JLabel(AJConfig.getInstance()
+		.getLocaleBundle().getString("AJ.lblWelcomeLabel.text"));
 	welcomeLabel.setFont(new Font("Arial", Font.BOLD, 12));
 	add(welcomeLabel, gbc);
 

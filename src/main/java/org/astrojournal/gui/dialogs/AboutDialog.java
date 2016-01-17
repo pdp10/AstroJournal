@@ -65,15 +65,16 @@ public class AboutDialog extends JDialog {
      */
     private void initComponents(AJMainGUI application) {
 
-	setTitle(AJConfig.BUNDLE.getString("AJ.mnuAbout.text"));
+	setTitle(AJConfig.getInstance().getLocaleBundle()
+		.getString("AJ.mnuAbout.text"));
 	setLayout(new BorderLayout());
 
 	AJTitlePanel welcomePanel = new AJTitlePanel();
 	add(welcomePanel, BorderLayout.CENTER);
 
 	JPanel buttonPanel = new JPanel();
-	JButton btnClose = new JButton(
-		AJConfig.BUNDLE.getString("AJ.cmdClose.text"));
+	JButton btnClose = new JButton(AJConfig.getInstance().getLocaleBundle()
+		.getString("AJ.cmdClose.text"));
 	getRootPane().setDefaultButton(btnClose);
 	btnClose.addActionListener(new ActionListener() {
 	    @Override

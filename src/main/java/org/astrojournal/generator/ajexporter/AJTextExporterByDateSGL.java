@@ -38,6 +38,7 @@ import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJConstants;
 import org.astrojournal.generator.observation.AJObservation;
 import org.astrojournal.generator.observation.AJObservationItem;
 
@@ -80,7 +81,7 @@ public class AJTextExporterByDateSGL extends AJExporter {
 	boolean resultByDateSGL = exportObservations(observations, AJConfig
 		.getInstance().getSglReportsFolderByDate());
 	generateJournal(AJConfig.getInstance().getSglReportsFolderByDate(), "",
-		AJConfig.SGL_REPORT_BY_DATE_FILENAME, "");
+		AJConstants.SGL_REPORT_BY_DATE_FILENAME, "");
 	return resultByDateSGL;
     }
 
@@ -259,7 +260,7 @@ public class AJTextExporterByDateSGL extends AJExporter {
     @Override
     public void postProcessing() throws IOException {
 	log.info("\t" + ajConfig.getFilesLocation().getAbsolutePath()
-		+ File.separator + AJConfig.SGL_REPORT_BY_DATE_FILENAME);
+		+ File.separator + AJConstants.SGL_REPORT_BY_DATE_FILENAME);
     }
 
 }

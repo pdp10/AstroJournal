@@ -32,6 +32,8 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJConstants;
+import org.astrojournal.configuration.AJProperties;
 import org.astrojournal.console.AJMainConsole;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -58,11 +60,13 @@ public class SystemTest {
      */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-	System.setProperty(AJConfig.FILES_LOCATION_PROP,
+	System.setProperty(AJProperties.FILES_LOCATION,
 		System.getProperty("user.dir") + File.separator + "src"
 			+ File.separator + "test" + File.separator
 			+ "resources" + File.separator + "system_test");
-	AJConfig.getInstance().loadSystemProperties();
+
+	// Load the new properties
+	AJConfig.getInstance().loadAJProperties();
 
 	String[] args = new String[] { "--console" };
 	AJMainConsole.main(args);
@@ -78,8 +82,8 @@ public class SystemTest {
 	} catch (IOException e) {
 	    log.error(e, e);
 	}
-	File reportByDate = new File(AJConfig.getInstance()
-		.getFilesLocation().getAbsolutePath()
+	File reportByDate = new File(AJConfig.getInstance().getFilesLocation()
+		.getAbsolutePath()
 		+ File.separator
 		+ AJConfig.getInstance().getLatexReportsFolderByDate());
 	reportByDate.delete();
@@ -98,8 +102,8 @@ public class SystemTest {
 		+ File.separator
 		+ AJConfig.getInstance().getSglReportsFolderByDate());
 	reportByDateSGL.delete();
-	File headerFooter = new File(AJConfig.getInstance()
-		.getFilesLocation().getAbsolutePath()
+	File headerFooter = new File(AJConfig.getInstance().getFilesLocation()
+		.getAbsolutePath()
 		+ File.separator + "latex_header_footer");
 	for (File f : headerFooter.listFiles()) {
 	    f.delete();
@@ -141,12 +145,12 @@ public class SystemTest {
 
 	// tex + pdf
 	assertTrue(new File(AJConfig.getInstance().getFilesLocation()
-		+ File.separator + AJConfig.REPORT_BY_DATE_FILENAME).exists());
+		+ File.separator + AJConstants.REPORT_BY_DATE_FILENAME).exists());
 	assertTrue(new File(
 		AJConfig.getInstance().getFilesLocation()
 			+ File.separator
 			+ FilenameUtils
-				.removeExtension(AJConfig.REPORT_BY_DATE_FILENAME)
+				.removeExtension(AJConstants.REPORT_BY_DATE_FILENAME)
 			+ ".pdf").exists());
     }
 
@@ -161,12 +165,12 @@ public class SystemTest {
 
 	// tex + pdf
 	assertTrue(new File(AJConfig.getInstance().getFilesLocation()
-		+ File.separator + AJConfig.REPORT_BY_TARGET_FILENAME).exists());
+		+ File.separator + AJConstants.REPORT_BY_TARGET_FILENAME).exists());
 	assertTrue(new File(
 		AJConfig.getInstance().getFilesLocation()
 			+ File.separator
 			+ FilenameUtils
-				.removeExtension(AJConfig.REPORT_BY_TARGET_FILENAME)
+				.removeExtension(AJConstants.REPORT_BY_TARGET_FILENAME)
 			+ ".pdf").exists());
     }
 
@@ -181,13 +185,13 @@ public class SystemTest {
 
 	// tex + pdf
 	assertTrue(new File(AJConfig.getInstance().getFilesLocation()
-		+ File.separator + AJConfig.REPORT_BY_CONSTELLATION_FILENAME)
+		+ File.separator + AJConstants.REPORT_BY_CONSTELLATION_FILENAME)
 		.exists());
 	assertTrue(new File(
 		AJConfig.getInstance().getFilesLocation()
 			+ File.separator
 			+ FilenameUtils
-				.removeExtension(AJConfig.REPORT_BY_CONSTELLATION_FILENAME)
+				.removeExtension(AJConstants.REPORT_BY_CONSTELLATION_FILENAME)
 			+ ".pdf").exists());
     }
 
@@ -202,7 +206,7 @@ public class SystemTest {
 
 	// txt
 	assertTrue(new File(AJConfig.getInstance().getFilesLocation()
-		+ File.separator + AJConfig.SGL_REPORT_BY_DATE_FILENAME)
+		+ File.separator + AJConstants.SGL_REPORT_BY_DATE_FILENAME)
 		.exists());
     }
 }

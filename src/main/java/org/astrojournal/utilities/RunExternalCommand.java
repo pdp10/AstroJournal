@@ -59,7 +59,8 @@ public class RunExternalCommand {
 	BufferedReader stdInput = new BufferedReader(new InputStreamReader(
 		p.getInputStream()));
 	sb.append("\n\n\n");
-	sb.append(AJConfig.BUNDLE.getString("AJ.lblOutputForTheCommand.text")
+	sb.append(AJConfig.getInstance().getLocaleBundle()
+		.getString("AJ.lblOutputForTheCommand.text")
 		+ " `" + command + "`:\n\n");
 	String temp;
 	while ((temp = stdInput.readLine()) != null) {
@@ -71,8 +72,9 @@ public class RunExternalCommand {
 	BufferedReader stdError = new BufferedReader(new InputStreamReader(
 		p.getErrorStream()));
 	sb.append("\n"
-		+ AJConfig.BUNDLE.getString("AJ.lblErrorsForTheCommand.text")
-		+ " `" + command + "`:\n\n");
+		+ AJConfig.getInstance().getLocaleBundle()
+			.getString("AJ.lblErrorsForTheCommand.text") + " `"
+		+ command + "`:\n\n");
 	while ((temp = stdError.readLine()) != null) {
 	    sb.append(temp).append("\n");
 	}

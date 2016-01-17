@@ -76,8 +76,9 @@ public abstract class AJMainControls {
 	try {
 	    ajConfig.cleanAJFolder();
 	} catch (IOException e) {
-	    log.error(AJConfig.BUNDLE
-		    .getString("AJ.errUnconfiguredPreferences.text"), e);
+	    log.error(
+		    AJConfig.getInstance().getLocaleBundle()
+			    .getString("AJ.errUnconfiguredPreferences.text"), e);
 	    return false;
 	}
 	log.debug("Pre-processing was SUCCESSFUL");
@@ -92,7 +93,7 @@ public abstract class AJMainControls {
     protected boolean processing() {
 	log.debug("Starting processing");
 	if (!ajGenerator.generateJournals()) {
-	    log.error(AJConfig.BUNDLE
+	    log.error(AJConfig.getInstance().getLocaleBundle()
 		    .getString("AJ.errJournalNotExported.text"));
 	    return false;
 	}
@@ -108,9 +109,11 @@ public abstract class AJMainControls {
     protected boolean postProcessing() {
 	log.debug("Starting post-processing");
 	log.info("");
-	log.info(AJConfig.BUNDLE.getString("AJ.lblCreatingReports.text"));
+	log.info(AJConfig.getInstance().getLocaleBundle()
+		.getString("AJ.lblCreatingReports.text"));
 	if (!ajGenerator.postProcessing()) {
-	    log.error(AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"));
+	    log.error(AJConfig.getInstance().getLocaleBundle()
+		    .getString("AJ.errPDFLatex.text"));
 	    return false;
 	}
 	log.debug("Post-processing was SUCCESSFUL");

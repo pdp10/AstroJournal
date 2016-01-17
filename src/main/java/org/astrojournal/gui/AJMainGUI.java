@@ -43,6 +43,7 @@ import javax.swing.text.DefaultCaret;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJConstants;
 import org.astrojournal.gui.dialogs.StatusPanel;
 import org.astrojournal.gui.dialogs.WelcomePanel;
 import org.astrojournal.gui.menu.AJMenuBar;
@@ -119,14 +120,14 @@ public class AJMainGUI extends JFrame {
 	SwingWorker<String, Void> worker = new SwingWorker<String, Void>() {
 	    @Override
 	    public String doInBackground() {
-		setStatusPanelText(AJConfig.BUNDLE
+		setStatusPanelText(AJConfig.getInstance().getLocaleBundle()
 			.getString("AJ.lblFileGenerationinProgressLong.text"));
 		cleanJTextPane();
 		btnCreateJournal.setEnabled(false);
 		menu.setEnabled("create_journal", false);
 		menu.setEnabled("preferences", false);
 		if (!commandRunner.createJournal()) {
-		    setStatusPanelText(AJConfig.BUNDLE
+		    setStatusPanelText(AJConfig.getInstance().getLocaleBundle()
 			    .getString("AJ.errPDFLatexShort.text"));
 		}
 		btnCreateJournal.setEnabled(true);
@@ -153,7 +154,8 @@ public class AJMainGUI extends JFrame {
     private void setAJWindow() {
 	commandRunner = new AJMainGUIControls(this);
 	// Configure AJMainGUI with basic parameters
-	setTitle(AJConfig.APPLICATION_NAME + " " + AJConfig.APPLICATION_VERSION);
+	setTitle(AJConstants.APPLICATION_NAME + " "
+		+ AJConstants.APPLICATION_VERSION);
 	setIconImage(new ImageIcon(
 		ClassLoader.getSystemResource("graphics/logo/aj_icon_32.png"))
 		.getImage());
@@ -192,7 +194,7 @@ public class AJMainGUI extends JFrame {
 
 	// Create the button for creating the journals
 	btnCreateJournal = new JButton();
-	btnCreateJournal.setText(AJConfig.BUNDLE
+	btnCreateJournal.setText(AJConfig.getInstance().getLocaleBundle()
 		.getString("AJ.cmdCreateJournal.text"));
 	btnCreateJournal.setIcon(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/icons/create_journals_16.png")));
@@ -209,7 +211,8 @@ public class AJMainGUI extends JFrame {
 	btnQuit = new JButton();
 	btnQuit.setIcon(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/icons/quit_16.png")));
-	btnQuit.setText(AJConfig.BUNDLE.getString("AJ.cmdQuit.text"));
+	btnQuit.setText(AJConfig.getInstance().getLocaleBundle()
+		.getString("AJ.cmdQuit.text"));
 	btnQuit.addActionListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
@@ -241,9 +244,8 @@ public class AJMainGUI extends JFrame {
 
 	// Setup for the output panel
 	outputPanel = new JPanel(new BorderLayout());
-	outputPanel.add(
-		new JLabel(AJConfig.BUNDLE.getString("AJ.lblOutput.text")),
-		BorderLayout.NORTH);
+	outputPanel.add(new JLabel(AJConfig.getInstance().getLocaleBundle()
+		.getString("AJ.lblOutput.text")), BorderLayout.NORTH);
 	outputPanel.add(scrollPane, BorderLayout.CENTER);
 
 	// Add welcome panel and control panel inside the main panel
