@@ -74,19 +74,13 @@ public class AJTextExporterByConstellation extends AJLatexExporter {
     };
 
     /**
-     * Default Constructor
-     */
-    public AJTextExporterByConstellation() {
-	super();
-    }
-
-    /**
      * Constructor
      * 
-     * @param ajFilesLocation
+     * @param ajConfig
+     *            the astro journal configurator
      */
-    public AJTextExporterByConstellation(File ajFilesLocation) {
-	super(ajFilesLocation);
+    public AJTextExporterByConstellation(AJConfig ajConfig) {
+	super(ajConfig);
     }
 
     /**
@@ -129,24 +123,29 @@ public class AJTextExporterByConstellation extends AJLatexExporter {
     public void generateJournal(String latexReportsFolderByConst,
 	    String latexHeaderByConst, String latexMainByConst,
 	    String latexFooterByConst) {
-	AJLatexHeader ajLatexHeaderByConst = new AJLatexHeader(
-		ajFilesLocation.getAbsolutePath(), latexHeaderByConst);
-	AJLatexFooter ajLatexFooterByConst = new AJLatexFooter(
-		ajFilesLocation.getAbsolutePath(), latexFooterByConst);
+	AJLatexHeader ajLatexHeaderByConst = new AJLatexHeader(ajConfig
+		.getFilesLocation().getAbsolutePath(), latexHeaderByConst);
+	AJLatexFooter ajLatexFooterByConst = new AJLatexFooter(ajConfig
+		.getFilesLocation().getAbsolutePath(), latexFooterByConst);
 	Writer writerByConst = null;
 	try {
 	    writerByConst = new BufferedWriter(new OutputStreamWriter(
-		    new FileOutputStream(ajFilesLocation.getAbsolutePath()
-			    + File.separator + latexMainByConst), "utf-8"));
+		    new FileOutputStream(ajConfig.getFilesLocation()
+			    .getAbsolutePath()
+			    + File.separator
+			    + latexMainByConst), "utf-8"));
 	    // write the Latex Header
 	    writerByConst.write(ajLatexHeaderByConst.getHeader());
 
 	    // write the Latex Body
 	    // parse each file in the latex obs folder
-	    File[] files = new File(ajFilesLocation.getAbsolutePath()
-		    + File.separator + latexReportsFolderByConst).listFiles();
+	    File[] files = new File(ajConfig.getFilesLocation()
+		    .getAbsolutePath()
+		    + File.separator
+		    + latexReportsFolderByConst).listFiles();
 	    if (files == null) {
-		log.warn("Folder " + ajFilesLocation.getAbsolutePath()
+		log.warn("Folder "
+			+ ajConfig.getFilesLocation().getAbsolutePath()
 			+ File.separator + latexReportsFolderByConst
 			+ " not found");
 		return;
@@ -179,10 +178,9 @@ public class AJTextExporterByConstellation extends AJLatexExporter {
 	    writerByConst.write(ajLatexFooterByConst.getFooter());
 
 	} catch (IOException ex) {
-	    log.error(
-		    "Error when opening the file "
-			    + ajFilesLocation.getAbsolutePath()
-			    + File.separator + latexMainByConst, ex);
+	    log.error("Error when opening the file "
+		    + ajConfig.getFilesLocation().getAbsolutePath()
+		    + File.separator + latexMainByConst, ex);
 	} catch (Exception ex) {
 	    log.error(ex, ex);
 	} finally {
@@ -217,11 +215,10 @@ public class AJTextExporterByConstellation extends AJLatexExporter {
 	    String filenameOut = keys[i];
 	    try {
 		list = new BufferedWriter(new OutputStreamWriter(
-			new FileOutputStream(new File(
-				ajFilesLocation.getAbsolutePath()
-					+ File.separator
-					+ latexReportsByConstFolder, "const_"
-					+ filenameOut + ".tex")), "utf-8"));
+			new FileOutputStream(new File(ajConfig
+				.getFilesLocation().getAbsolutePath()
+				+ File.separator + latexReportsByConstFolder,
+				"const_" + filenameOut + ".tex")), "utf-8"));
 		String[] targets = constellations.get(keys[i]).toArray(
 			new String[0]);
 		// sort the targets here, before writing them in the file
@@ -236,10 +233,9 @@ public class AJTextExporterByConstellation extends AJLatexExporter {
 		list.write(listOfTargets.toString() + "\n\n");
 		log.info("\tExported constellation " + filenameOut);
 	    } catch (IOException ex) {
-		log.error(
-			"Error when opening the file "
-				+ ajFilesLocation.getAbsolutePath()
-				+ File.separator + filenameOut, ex);
+		log.error("Error when opening the file "
+			+ ajConfig.getFilesLocation().getAbsolutePath()
+			+ File.separator + filenameOut, ex);
 		result = false;
 	    } catch (Exception ex) {
 		log.error(ex, ex);
@@ -297,8 +293,6 @@ public class AJTextExporterByConstellation extends AJLatexExporter {
 
     @Override
     public void postProcessing() throws IOException {
-	AJConfig ajConfig = AJConfig.getInstance();
-
 	// The pdflatex command must be called two times in order to
 	// generate the list of contents correctly.
 	String commandOutput;

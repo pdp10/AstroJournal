@@ -49,9 +49,14 @@ public class AJTabSeparatedValueImporter extends AJImporter {
     private static Logger log = LogManager
 	    .getLogger(AJTabSeparatedValueImporter.class);
 
-    /** Default constructor */
-    public AJTabSeparatedValueImporter() {
-	super();
+    /**
+     * Default constructor
+     * 
+     * @param ajConfig
+     *            The astro journal configurator.
+     */
+    public AJTabSeparatedValueImporter(AJConfig ajConfig) {
+	super(ajConfig);
     }
 
     /**
@@ -62,9 +67,8 @@ public class AJTabSeparatedValueImporter extends AJImporter {
     @Override
     public ArrayList<AJObservation> importObservations() {
 	log.info("Importing observation files:");
-	String rawReportPath = AJConfig.getInstance().getFilesLocation()
-		.getAbsolutePath()
-		+ File.separator + AJConfig.getInstance().getRawReportsFolder();
+	String rawReportPath = ajConfig.getFilesLocation().getAbsolutePath()
+		+ File.separator + ajConfig.getRawReportsFolder();
 	File[] files = new File(rawReportPath).listFiles();
 	if (files == null) {
 	    log.error("Folder " + rawReportPath + " not found");

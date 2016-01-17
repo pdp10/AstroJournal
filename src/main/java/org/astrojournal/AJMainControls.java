@@ -66,6 +66,7 @@ public abstract class AJMainControls {
      * @return true if the pre-processing phase succeeded.
      */
     protected boolean preProcessing() {
+	log.debug("Starting pre-processing");
 	AJConfig ajConfig = AJConfig.getInstance();
 
 	// prepare the folders for AJ.
@@ -79,6 +80,7 @@ public abstract class AJMainControls {
 		    .getString("AJ.errUnconfiguredPreferences.text"), e);
 	    return false;
 	}
+	log.debug("Pre-processing was SUCCESSFUL");
 	return true;
     }
 
@@ -88,11 +90,13 @@ public abstract class AJMainControls {
      * @return true if the processing phase succeeded.
      */
     protected boolean processing() {
+	log.debug("Starting processing");
 	if (!ajGenerator.generateJournals()) {
 	    log.error(AJConfig.BUNDLE
 		    .getString("AJ.errJournalNotExported.text"));
 	    return false;
 	}
+	log.debug("Processing was SUCCESSFUL");
 	return true;
     }
 
@@ -102,12 +106,14 @@ public abstract class AJMainControls {
      * @return true if the post-processing phase succeeded.
      */
     protected boolean postProcessing() {
+	log.debug("Starting post-processing");
 	log.info("");
 	log.info(AJConfig.BUNDLE.getString("AJ.lblCreatedReports.text"));
 	if (!ajGenerator.postProcessing()) {
 	    log.error(AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"));
 	    return false;
 	}
+	log.debug("Post-processing was SUCCESSFUL");
 	return true;
     }
 }

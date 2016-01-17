@@ -64,7 +64,8 @@ public class ImportWrongObservationsTest {
 			+ "resources" + File.separator + "wrong_observations");
 	AJConfig.getInstance().loadSystemProperties();
 
-	AJImporter ajTabSeparatedValueImporter = new AJTabSeparatedValueImporter();
+	AJImporter ajTabSeparatedValueImporter = new AJTabSeparatedValueImporter(
+		AJConfig.getInstance());
 	observations = ajTabSeparatedValueImporter.importObservations();
     }
 

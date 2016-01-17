@@ -51,22 +51,17 @@ import org.astrojournal.generator.observation.AJObservationItem;
 public class AJTextExporterByDateSGL extends AJExporter {
 
     /** The log associated to this class */
-    private static Logger log = LogManager.getLogger(AJTextExporterByDateSGL.class);
+    private static Logger log = LogManager
+	    .getLogger(AJTextExporterByDateSGL.class);
 
     /**
      * Default constructor
-     */
-    public AJTextExporterByDateSGL() {
-	super();
-    }
-
-    /**
-     * Constructor
      * 
-     * @param ajFilesLocation
+     * @param ajConfig
+     *            The astro journal configurator
      */
-    public AJTextExporterByDateSGL(File ajFilesLocation) {
-	super(ajFilesLocation);
+    public AJTextExporterByDateSGL(AJConfig ajConfig) {
+	super(ajConfig);
     }
 
     /**
@@ -108,18 +103,21 @@ public class AJTextExporterByDateSGL extends AJExporter {
 	Writer writerByDate = null;
 	try {
 	    writerByDate = new BufferedWriter(new OutputStreamWriter(
-		    new FileOutputStream(ajFilesLocation.getAbsolutePath()
-			    + File.separator + mainByDate), "utf-8"));
+		    new FileOutputStream(ajConfig.getFilesLocation()
+			    .getAbsolutePath() + File.separator + mainByDate),
+		    "utf-8"));
 	    // write the Header
 
 	    // write the Body
 	    // Write the observation reports
 	    // parse each file in the obs folder (sorted by observation
 	    // increasing)
-	    File[] files = new File(ajFilesLocation.getAbsolutePath()
-		    + File.separator + reportsFolderByDate).listFiles();
+	    File[] files = new File(ajConfig.getFilesLocation()
+		    .getAbsolutePath() + File.separator + reportsFolderByDate)
+		    .listFiles();
 	    if (files == null) {
-		log.warn("Folder " + ajFilesLocation.getAbsolutePath()
+		log.warn("Folder "
+			+ ajConfig.getFilesLocation().getAbsolutePath()
 			+ File.separator + reportsFolderByDate + " not found");
 		return;
 	    }
@@ -144,10 +142,9 @@ public class AJTextExporterByDateSGL extends AJExporter {
 	    // write the Footer
 
 	} catch (IOException ex) {
-	    log.warn(
-		    "Error when opening the file "
-			    + ajFilesLocation.getAbsolutePath()
-			    + File.separator + mainByDate, ex);
+	    log.warn("Error when opening the file "
+		    + ajConfig.getFilesLocation().getAbsolutePath()
+		    + File.separator + mainByDate, ex);
 	} catch (Exception ex) {
 	    log.error(ex, ex);
 	} finally {
@@ -196,10 +193,10 @@ public class AJTextExporterByDateSGL extends AJExporter {
 		    .getObservationItems();
 	    try {
 		text = new BufferedWriter(new OutputStreamWriter(
-			new FileOutputStream(new File(
-				ajFilesLocation.getAbsolutePath()
-					+ File.separator + reportsByDateFolder,
-				"obs" + filenameOut + ".txt")), "utf-8"));
+			new FileOutputStream(new File(ajConfig
+				.getFilesLocation().getAbsolutePath()
+				+ File.separator + reportsByDateFolder, "obs"
+				+ filenameOut + ".txt")), "utf-8"));
 
 		text.write(AJObservation.DATE_NAME + " " + obs.getDate() + "\n");
 		text.write(AJObservation.TIME_NAME + " " + obs.getTime() + "\n");
@@ -234,10 +231,9 @@ public class AJTextExporterByDateSGL extends AJExporter {
 		log.info("\tExported report " + obs.getDate() + " ("
 			+ observationItems.size() + " targets)");
 	    } catch (IOException ex) {
-		log.error(
-			"Error when opening the file "
-				+ ajFilesLocation.getAbsolutePath()
-				+ File.separator + filenameOut, ex);
+		log.error("Error when opening the file "
+			+ ajConfig.getFilesLocation().getAbsolutePath()
+			+ File.separator + filenameOut, ex);
 		result = false;
 	    } catch (Exception ex) {
 		log.error(ex, ex);
@@ -262,8 +258,7 @@ public class AJTextExporterByDateSGL extends AJExporter {
 
     @Override
     public void postProcessing() throws IOException {
-	log.info("\t"
-		+ AJConfig.getInstance().getFilesLocation().getAbsolutePath()
+	log.info("\t" + ajConfig.getFilesLocation().getAbsolutePath()
 		+ File.separator + AJConfig.SGL_REPORT_BY_DATE_FILENAME);
     }
 

@@ -23,10 +23,10 @@
  */
 package org.astrojournal.generator.ajexporter;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.generator.observation.AJObservation;
 
 /**
@@ -38,21 +38,19 @@ import org.astrojournal.generator.observation.AJObservation;
  */
 public abstract class AJExporter {
 
-    protected File ajFilesLocation;
+    // We pass this as parameter to leave the ability to pass different
+    // configurators.
+    /** An instance of AJConfig. */
+    protected AJConfig ajConfig = null;
 
     /**
-     * Default constructor
-     */
-    public AJExporter() {
-    }
-
-    /**
-     * The path location where to export the files.
+     * Constructor
      * 
-     * @param ajFilesLocation
+     * @param ajConfig
+     *            An astro journal configurator
      */
-    public AJExporter(File ajFilesLocation) {
-	this.ajFilesLocation = ajFilesLocation;
+    public AJExporter(AJConfig ajConfig) {
+	this.ajConfig = ajConfig;
     }
 
     /**
@@ -94,22 +92,22 @@ public abstract class AJExporter {
 	    String headerFilename, String mainFilename, String footerFilename);
 
     /**
-     * Return AstroJournal files location
+     * Return the AJConfig
      * 
      * @return the ajFilesLocation
      */
-    public File getAjFilesLocation() {
-	return ajFilesLocation;
+    public AJConfig getAjFilesLocation() {
+	return ajConfig;
     }
 
     /**
      * Set AstroJournal Files location
      * 
-     * @param ajFilesLocation
-     *            the ajFilesLocation to set
+     * @param ajConfig
+     *            an astro journal configurator
      */
-    public void setAjFilesLocation(File ajFilesLocation) {
-	this.ajFilesLocation = ajFilesLocation;
+    public void setAjFilesLocation(AJConfig ajConfig) {
+	this.ajConfig = ajConfig;
     }
 
     /**

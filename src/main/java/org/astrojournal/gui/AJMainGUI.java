@@ -157,7 +157,7 @@ public class AJMainGUI extends JFrame {
 	setIconImage(new ImageIcon(
 		ClassLoader.getSystemResource("graphics/logo/aj_icon_32.png"))
 		.getImage());
-	setSize(520, 580);
+	setSize(550, 580);
 	setMinimumSize(new Dimension(520, 450));
 	setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	setResizable(true);

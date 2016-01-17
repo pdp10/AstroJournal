@@ -23,7 +23,6 @@
  */
 package org.astrojournal.generator.ajexporter;
 
-import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.lang3.SystemUtils;
@@ -44,19 +43,12 @@ public abstract class AJLatexExporter extends AJExporter {
     protected String command = "pdflatex -halt-on-error";
 
     /**
-     * Default constructor
-     */
-    public AJLatexExporter() {
-	super();
-    }
-
-    /**
      * Constructor
      * 
-     * @param ajFilesLocation
+     * @param ajConfig
      */
-    public AJLatexExporter(File ajFilesLocation) {
-	super(ajFilesLocation);
+    public AJLatexExporter(AJConfig ajConfig) {
+	super(ajConfig);
     }
 
     /**
@@ -75,8 +67,7 @@ public abstract class AJLatexExporter extends AJExporter {
 			    "/bin/sh",
 			    "-c",
 			    "cd "
-				    + AJConfig.getInstance()
-					    .getFilesLocation()
+				    + ajConfig.getFilesLocation()
 					    .getAbsolutePath()
 				    + " && rm -rf *.aux *.toc *.log *.out"
 				    + " && cd -" });

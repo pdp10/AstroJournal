@@ -189,7 +189,7 @@ public class JTextPaneAppender extends AbstractAppender {
 						lines[0], styleBold);
 					for (int i = 1; i < lines.length; i++) {
 					    doc.insertString(doc.getLength(),
-						    "\t" + lines[i] + "\n",
+						    lines[i] + "\n",
 						    styleSmallItalic);
 					}
 					doc.insertString(doc.getLength(),
@@ -197,7 +197,7 @@ public class JTextPaneAppender extends AbstractAppender {
 				    } else if (StringUtils.countMatches(
 					    message, "\n") > 1) {
 					doc.insertString(doc.getLength(),
-						message, styleSmall);
+						message, styleSmallItalic);
 				    } else if (!message.startsWith("\t")) {
 					doc.insertString(doc.getLength(),
 						message, styleBold);

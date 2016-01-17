@@ -56,7 +56,8 @@ import org.astrojournal.utilities.RunExternalCommand;
 public class AJLatexExporterByTarget extends AJLatexExporter {
 
     /** The log associated to this class */
-    private static Logger log = LogManager.getLogger(AJLatexExporterByTarget.class);
+    private static Logger log = LogManager
+	    .getLogger(AJLatexExporterByTarget.class);
 
     /** A cache of the visited targets. */
     private HashSet<String> processedTargetCache = new HashSet<String>(1000);
@@ -76,19 +77,13 @@ public class AJLatexExporterByTarget extends AJLatexExporter {
     };
 
     /**
-     * Default constructor
-     */
-    public AJLatexExporterByTarget() {
-	super();
-    }
-
-    /**
      * Constructor
      * 
-     * @param ajFilesLocation
+     * @param ajConfig
+     *            the astro journal configurator
      */
-    public AJLatexExporterByTarget(File ajFilesLocation) {
-	super(ajFilesLocation);
+    public AJLatexExporterByTarget(AJConfig ajConfig) {
+	super(ajConfig);
     }
 
     /**
@@ -130,25 +125,30 @@ public class AJLatexExporterByTarget extends AJLatexExporter {
     public void generateJournal(String latexReportsFolderByTarget,
 	    String latexHeaderByTarget, String latexMainByTarget,
 	    String latexFooterByTarget) {
-	AJLatexHeader ajLatexHeaderByTarget = new AJLatexHeader(
-		ajFilesLocation.getAbsolutePath(), latexHeaderByTarget);
-	AJLatexFooter ajLatexFooterByTarget = new AJLatexFooter(
-		ajFilesLocation.getAbsolutePath(), latexFooterByTarget);
+	AJLatexHeader ajLatexHeaderByTarget = new AJLatexHeader(ajConfig
+		.getFilesLocation().getAbsolutePath(), latexHeaderByTarget);
+	AJLatexFooter ajLatexFooterByTarget = new AJLatexFooter(ajConfig
+		.getFilesLocation().getAbsolutePath(), latexFooterByTarget);
 	Writer writerByTarget = null;
 	try {
 	    writerByTarget = new BufferedWriter(new OutputStreamWriter(
-		    new FileOutputStream(ajFilesLocation.getAbsolutePath()
-			    + File.separator + latexMainByTarget), "utf-8"));
+		    new FileOutputStream(ajConfig.getFilesLocation()
+			    .getAbsolutePath()
+			    + File.separator
+			    + latexMainByTarget), "utf-8"));
 	    // write the Latex Header
 	    writerByTarget.write(ajLatexHeaderByTarget.getHeader());
 	    // write the Latex Body
 	    // Write the observation reports
 	    // parse each file in the latex obs folder (sorted by observation
 	    // increasing)
-	    File[] files = new File(ajFilesLocation.getAbsolutePath()
-		    + File.separator + latexReportsFolderByTarget).listFiles();
+	    File[] files = new File(ajConfig.getFilesLocation()
+		    .getAbsolutePath()
+		    + File.separator
+		    + latexReportsFolderByTarget).listFiles();
 	    if (files == null) {
-		log.warn("Folder " + ajFilesLocation.getAbsolutePath()
+		log.warn("Folder "
+			+ ajConfig.getFilesLocation().getAbsolutePath()
 			+ File.separator + latexReportsFolderByTarget
 			+ " not found");
 		return;
@@ -259,10 +259,9 @@ public class AJLatexExporterByTarget extends AJLatexExporter {
 	    // write the Latex Footer
 	    writerByTarget.write(ajLatexFooterByTarget.getFooter());
 	} catch (IOException ex) {
-	    log.warn(
-		    "Error when opening the file "
-			    + ajFilesLocation.getAbsolutePath()
-			    + File.separator + latexMainByTarget, ex);
+	    log.warn("Error when opening the file "
+		    + ajConfig.getFilesLocation().getAbsolutePath()
+		    + File.separator + latexMainByTarget, ex);
 	} catch (Exception ex) {
 	    log.error(ex, ex);
 	} finally {
@@ -301,7 +300,7 @@ public class AJLatexExporterByTarget extends AJLatexExporter {
 			processedTargetCache.add(filenameOut);
 			targetWriter = new BufferedWriter(
 				new OutputStreamWriter(new FileOutputStream(
-					new File(ajFilesLocation
+					new File(ajConfig.getFilesLocation()
 						.getAbsolutePath()
 						+ File.separator
 						+ latexReportsByTargetFolder,
@@ -347,7 +346,7 @@ public class AJLatexExporterByTarget extends AJLatexExporter {
 			// lines
 			targetWriter = new BufferedWriter(
 				new OutputStreamWriter(new FileOutputStream(
-					new File(ajFilesLocation
+					new File(ajConfig.getFilesLocation()
 						.getAbsolutePath()
 						+ File.separator
 						+ latexReportsByTargetFolder,
@@ -366,10 +365,9 @@ public class AJLatexExporterByTarget extends AJLatexExporter {
 		    // for this target.
 
 		} catch (IOException ex) {
-		    log.warn(
-			    "Error when opening the file "
-				    + ajFilesLocation.getAbsolutePath()
-				    + File.separator + filenameOut, ex);
+		    log.warn("Error when opening the file "
+			    + ajConfig.getFilesLocation().getAbsolutePath()
+			    + File.separator + filenameOut, ex);
 		    return false;
 		} catch (Exception ex) {
 		    log.error(ex, ex);
@@ -413,7 +411,7 @@ public class AJLatexExporterByTarget extends AJLatexExporter {
 			processedTargetCache.add(filenameOut);
 			targetWriter = new BufferedWriter(
 				new OutputStreamWriter(new FileOutputStream(
-					new File(ajFilesLocation
+					new File(ajConfig.getFilesLocation()
 						.getAbsolutePath()
 						+ File.separator
 						+ latexReportsByTargetFolder,
@@ -424,10 +422,9 @@ public class AJLatexExporterByTarget extends AJLatexExporter {
 		    }
 
 		} catch (IOException ex) {
-		    log.warn(
-			    "Error when opening the file "
-				    + ajFilesLocation.getAbsolutePath()
-				    + File.separator + filenameOut, ex);
+		    log.warn("Error when opening the file "
+			    + ajConfig.getFilesLocation().getAbsolutePath()
+			    + File.separator + filenameOut, ex);
 		    return false;
 		} catch (Exception ex) {
 		    log.error(ex, ex);
@@ -676,8 +673,6 @@ public class AJLatexExporterByTarget extends AJLatexExporter {
 
     @Override
     public void postProcessing() throws IOException {
-	AJConfig ajConfig = AJConfig.getInstance();
-
 	// The pdflatex command must be called two times in order to
 	// generate the list of contents correctly.
 	String commandOutput;

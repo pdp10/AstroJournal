@@ -169,7 +169,6 @@ public class AJGenerator {
      * Reset the generator.
      */
     public void reset() {
-	resetObservations();
 	resetAJImporters();
 	resetAJExporters();
     }
@@ -177,7 +176,7 @@ public class AJGenerator {
     /**
      * Reset the generator observations.
      */
-    public void resetObservations() {
+    private void resetObservations() {
 	observations = new ArrayList<AJObservation>();
     }
 
@@ -209,7 +208,8 @@ public class AJGenerator {
 	    try {
 		log.debug("Loading importer " + ajImporterName);
 		Class<?> cls = Class.forName(ajImporterName);
-		Object clsInstance = cls.newInstance();
+		Object clsInstance = cls.getDeclaredConstructor(AJConfig.class)
+			.newInstance(AJConfig.getInstance());
 		AJImporter ajImporter = (AJImporter) clsInstance;
 		if (!ajImporters.contains(ajImporter)) {
 		    ajImporters.add(ajImporter);
@@ -233,6 +233,12 @@ public class AJGenerator {
 	    } catch (SecurityException e) {
 		status = false;
 		log.debug(e);
+	    } catch (InvocationTargetException e) {
+		status = false;
+		log.debug(e);
+	    } catch (NoSuchMethodException e) {
+		status = false;
+		log.debug(e);
 	    }
 	}
 	if (ajImporters.isEmpty()) {
@@ -241,7 +247,11 @@ public class AJGenerator {
 	}
 	resetObservations();
 	for (AJImporter ajImporter : ajImporters) {
-	    observations.addAll(ajImporter.importObservations());
+	    log.debug(ajImporter.getName() + " is importing observations");
+	    ArrayList<AJObservation> obs = ajImporter.importObservations();
+	    observations.addAll(obs);
+	    log.debug(ajImporter.getName() + " imported " + obs.size()
+		    + " observations");
 	}
 	return status;
     }
@@ -260,9 +270,8 @@ public class AJGenerator {
 	    try {
 		log.debug("Loading exporter " + ajExporterName);
 		Class<?> cls = Class.forName(ajExporterName);
-		Object clsInstance = cls.getDeclaredConstructor(File.class)
-			.newInstance(
-				AJConfig.getInstance().getFilesLocation());
+		Object clsInstance = cls.getDeclaredConstructor(AJConfig.class)
+			.newInstance(AJConfig.getInstance());
 		AJExporter ajExporter = (AJExporter) clsInstance;
 		if (!ajExporters.contains(ajExporter)) {
 		    ajExporters.add(ajExporter);
@@ -299,7 +308,14 @@ public class AJGenerator {
 	    return false;
 	}
 	for (AJExporter ajExporter : ajExporters) {
-	    status = ajExporter.generateJournal(observations) && status;
+	    log.debug(ajExporter.getName() + " is exporting observations");
+	    boolean result = ajExporter.generateJournal(observations);
+	    status = result && status;
+	    if (result) {
+		log.debug(ajExporter.getName() + " SUCCEEDED");
+	    } else {
+		log.debug(ajExporter.getName() + " FAILED");
+	    }
 	}
 	return status;
     }

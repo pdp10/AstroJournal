@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.generator.observation.AJObservation;
 
 /**
@@ -42,11 +43,23 @@ public abstract class AJImporter {
 
     /** The keyword denoting the first line of the observation record */
     protected static String initialKeyword = AJObservation.DATE_NAME;
+
     /** The values contained in an imported string. */
     protected String[] values = null;
 
-    /** Default constructor */
-    public AJImporter() {
+    // We pass this as parameter to leave the ability to pass different
+    // configurators.
+    /** An instance of AJConfig. */
+    protected AJConfig ajConfig = null;
+
+    /**
+     * Default constructor
+     * 
+     * @param ajConfig
+     *            The astro journal configurator.
+     */
+    public AJImporter(AJConfig ajConfig) {
+	this.ajConfig = ajConfig;
     }
 
     /**

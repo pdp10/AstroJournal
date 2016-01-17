@@ -54,13 +54,12 @@ public class RunExternalCommand {
 	// So
 	// leave it.
 	Process p = Runtime.getRuntime().exec(command, null,
-		AJConfig.getInstance().getAJFilesLocation());
+		AJConfig.getInstance().getFilesLocation());
 	// read the output messages from the command
 	BufferedReader stdInput = new BufferedReader(new InputStreamReader(
 		p.getInputStream()));
-	sb.append("#######################\n\n");
-	sb.append("\n"
-		+ AJConfig.BUNDLE.getString("AJ.lblOutputForTheCommand.text")
+	sb.append("\n\n\n");
+	sb.append(AJConfig.BUNDLE.getString("AJ.lblOutputForTheCommand.text")
 		+ " `" + command + "`:\n\n");
 	String temp;
 	while ((temp = stdInput.readLine()) != null) {
