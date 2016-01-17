@@ -9,6 +9,8 @@ Website: http://pdp10.github.io/AstroJournal/
 
 v0.10.14
 
+- Tested on GNU/Linux Kubuntu 14.04+, Windows 7 32bit, Mac OS X 10.9 (See README.md for instruction on how to 
+install a more recent Java version to run AstroJournal). 
 - Added unit tests to test java properties to configure AJ.
 - The command pdflatex is now tested at start up and notifies users about its installation.
 - XML Configuration file replaces astrojournal.conf.

@@ -34,13 +34,26 @@ To use AstroJournal you need to install:
 
 - [Java 1.7+](https://java.com/en/download/)
 
-- [TeX Live](http://www.tug.org/texlive/) (for Linux Users) or [MikTeX](http://miktex.org/download) (for Windows Users) (pdflatex must be installed)
+- [TeX Live](http://www.tug.org/texlive/) (for Linux Users) or [MikTeX](http://miktex.org/download) (for Windows Users) or [MacTeX](https://tug.org/mactex/) (pdflatex must be installed)
 
+Notes:
 On GNU/Linux Debian/Ubuntu 14.04+, users can install the LaTeX dependencies required by AstroJournal with the following command:
 ```
 sudo apt-get --no-install-recommends install texlive-latex-base texlive-latex-recommended
-``` 
+```
 On Windows, users should install MikTeX and then the LaTeX packages *url* and *mptopdf* using MikTeX Manager.
+
+On Mac OS X, users should install MacTeX. I have not tested this directly. If the command *pdflatex* is not available, I think it should be possible to create a link called *pdflatex* to the corresponding program used by MacTeX to compile LaTeX code.
+In Addition, to run AstroJournal on a MAC OS X platform, some steps are required since Mac OS X still uses Java 1.6 while AstroJournal requires Java 1.7+: 
+- Download the latest Java from [https://java.com/en/download/mac_download.jsp](https://java.com/en/download/mac_download.jsp);
+- Follow the procedure for installing the package.
+- Unfortunately, Mac OS X installs this version of Java as Plugin, and this is not in the $PATH environment variable.
+To correct this, 1) open the application Terminal; 2) type *nano ~/.bash_profile* ; 3) now write at the beginning of the file the following instruction: *export PATH=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin/:$PATH*  ; 4) Hold the button *Control* while pressing the button *x* ; 5) Press the button *y* (Yes) ; Press the button *Enter* / *Return* ; 5) close Terminal, 6) To test: start Terminal and type *java -version*. It should report a version above 1.6. As of the time this README was written, it should print 1.8. This procedure is only done the first time. 
+- Download AstroJournal and enter the folder.
+- Enter the folder *target*. 
+- Click *astrojournal-x.x.x-jar-with-dependencies.jar
+- Mac OS X will ask permissions to execute the file. Answer *Yes*. This may require the user to disable special controls in Mac OS X *System Preference > Security & Privacy*. In particular at least the radio box *Mac App Store and identified developers* should be selected. 
+- AstroJournal should start correctly now. 
 
 
 ### Download
