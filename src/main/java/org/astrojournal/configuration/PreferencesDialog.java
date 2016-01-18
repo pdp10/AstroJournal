@@ -432,9 +432,9 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 		    String.valueOf(showConfigurationAtStart.isSelected()));
 
 	    // Load the properties
-	    ajConfig.loadAJProperties();
+	    ajConfig.loadSystemProperties();
 	    // Save the configuration
-	    ajConfig.saveConfiguration();
+	    ajConfig.saveProperties();
 
 	    // prepare the folders for AJ.
 	    ajConfig.prepareAJFolders();

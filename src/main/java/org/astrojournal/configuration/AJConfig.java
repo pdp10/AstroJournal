@@ -23,38 +23,18 @@
  */
 package org.astrojournal.configuration;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.SystemUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Text;
-import org.xml.sax.SAXException;
+import org.astrojournal.utilities.PropertiesManager;
 
 /**
  * A class containing the configuration of AstroJournal.
@@ -80,13 +60,6 @@ public class AJConfig {
      * AJProperties.
      */
 
-    /*
-     * I wonder whether it is convenient to save an xml file for the
-     * configuration rather than just save a file containing the java
-     * properties. Eventually this is the same and is also Java native. It would
-     * remove two big methods possibly.. Have to think about this.
-     */
-
     /** The logger */
     private static Logger log = LogManager.getLogger(AJConfig.class);
 
@@ -94,19 +67,22 @@ public class AJConfig {
      * The AJConfig instance to be used. Eager initialisation for this
      * singleton.
      */
-    private static AJConfig singleton = new AJConfig();
-
-    /** The configuration file name. */
-    private String configFileName = "astrojournal.xml";
+    private static AJConfig instance = new AJConfig();
 
     /**
-     * The configuration file (a reference to the real file in the file system).
+     * The user configuration file reference to the real file in the file
+     * system.
      */
     private File configFile = null;
 
     /** The bundle for internationalisation */
     private ResourceBundle localeBundle = ResourceBundle.getBundle("locale.aj",
 	    new Locale("en"));
+
+    /**
+     * The Properties for this application.
+     */
+    private Properties applicationProperties;
 
     /** True if the application should run quietly */
     private boolean quiet = false;
@@ -164,8 +140,9 @@ public class AJConfig {
      * Reset AJConfig as at its initialisation. AstroJournal Java properties are
      * not scanned by this method.
      */
+    @Deprecated
     public void reset() {
-	localeBundle = ResourceBundle.getBundle("locale/Bundle");
+	localeBundle = ResourceBundle.getBundle("locale.aj", new Locale("en"));
 	quiet = false;
 	showLatexOutput = false;
 	showLicenseAtStart = true;
@@ -179,18 +156,15 @@ public class AJConfig {
 	latexReportsFolderByConstellation = "latex_reports_by_constellation";
 	sglReportsFolderByDate = "sgl_reports_by_date";
 	// Read the configuration file
-	configurationInit();
+	init();
     }
 
     /**
      * Private constructor for creating only one instance of AJConfig.
      */
     private AJConfig() {
-	// Read the configuration file
-	configurationInit();
-	// Read the system properties (this may override the configuration
-	// file)
-	loadAJProperties();
+	// Read the application properties
+	init();
     }
 
     /**
@@ -199,488 +173,198 @@ public class AJConfig {
      * @return the instance of AJConfig.
      */
     public static AJConfig getInstance() {
-	return singleton;
+	return instance;
     }
 
     /**
-     * Setup the configuration file and load the preference for AstroJournal.
+     * Initialise the properties for this application by reading an
+     * application-level and then an user-level xml configuration file
+     * containing java properties. After these files are loaded, System
+     * properties are checked for updates. Properties passed as System
+     * properties are not saved in the user configuration file at this stage.
      */
-    private void configurationInit() {
+    private void init() {
+	configFile = AJConfigUtils.setupUserConfigurationFile();
 
-	if (SystemUtils.IS_OS_MAC_OSX) {
-	    configFile = new File(System.getProperty("user.home")
-		    + File.separator + "." + configFileName);
-	} else if (SystemUtils.IS_OS_WINDOWS) {
-	    configFile = new File(System.getProperty("user.home")
-		    + File.separator + configFileName);
-	} else if (SystemUtils.IS_OS_UNIX) {
-	    configFile = new File(System.getProperty("user.home")
-		    + File.separator + "." + configFileName);
-	} else {
-	    configFile = new File(System.getProperty("user.home")
-		    + File.separator + configFileName);
-	}
-
-	if (configFile != null && configFile.exists()) {
-	    loadConfiguration();
-	} else {
-	    saveConfiguration();
-	}
-    }
-
-    /**
-     * Test a XML element.
-     * 
-     * @param nodeList
-     * @param elem
-     * @throws IOException
-     */
-    private void testXMLElement(NodeList nodeList, Element elem)
-	    throws IOException {
-	if (elem == null) {
-	    throw new IOException("NodeList: " + nodeList.item(0)
-		    + " returned null element");
-	}
-    }
-
-    /**
-     * Load the configuration file.
-     */
-    private void loadConfiguration() {
-	boolean correctLocation = true;
-	log.debug("Loading the configuration file "
-		+ configFile.getAbsolutePath());
-	log.debug("Get the factory");
-	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 	try {
-	    log.debug("Get an instance of DocumentBuilder to parse the XML file");
-	    DocumentBuilder parser = dbf.newDocumentBuilder();
-	    log.debug("Parse using builder to get a DOM representation for the XML file");
-	    Document dom = parser.parse(configFile);
-
-	    log.debug("Get the root element");
-	    Element rootEle = dom.getDocumentElement();
-	    log.debug("Retrieving elements by tag name and first child by node list");
-	    NodeList nodeList;
-	    Element elem;
-
-	    nodeList = rootEle.getElementsByTagName(AJProperties.LOCALE);
-	    elem = (Element) nodeList.item(0);
-	    testXMLElement(nodeList, elem);
-
-	    // TODO THIS DOES NOT CURRENTLY WORK. newLocale is not NULL when
-	    // instead it does not exist.
-	    // TRY TO SET the configuration file to enk and it still retrieves
-	    // it and set it...WEIRD!
-	    // Check that the locale exists
-	    ResourceBundle newLocale = null;
-	    // try {
-	    newLocale = ResourceBundle.getBundle("locale.aj", new Locale(elem
-		    .getFirstChild().getNodeValue()));
-	    if (newLocale != null) {
-		log.debug("Setting new locale "
-			+ elem.getFirstChild().getNodeValue());
-		localeBundle = newLocale;
+	    log.debug("Loading application configuration file: "
+		    + AJConstants.APPLICATION_PROPERTIES_FILE_NAME);
+	    // Default application properties: these are in resources/
+	    applicationProperties = PropertiesManager
+		    .loadFromXML(AJConstants.APPLICATION_PROPERTIES_FILE_NAME);
+	    /*
+	     * // TODO IN THE JAR FILE IT SHOULD BE THIS: ClassLoader
+	     * .getSystemResource(
+	     * "AJConstants.APPLICATION_PROPERTIES_FILE_NAME") .toString());
+	     */
+	    // Unfortunately we cannot set the filesLocation in the application
+	    // properties xml file as we do not
+	    // know the file system. We adjust this here:
+	    applicationProperties.put(
+		    AJProperties.FILES_LOCATION,
+		    System.getProperty("user.home")
+			    + File.separator
+			    + applicationProperties
+				    .get(AJProperties.FILES_LOCATION));
+	    log.debug("Application configuration file is loaded.");
+	    // User application properties: these are in the user space
+	    if (configFile != null && configFile.exists()) {
+		log.debug("Loading user configuration file: "
+			+ configFile.getAbsolutePath());
+		applicationProperties = PropertiesManager.loadFromXML(
+			applicationProperties, configFile.getAbsolutePath());
+		log.debug("User configuration file is loaded.");
+		validateProperties();
 	    } else {
-		log.error("The locale : " + elem.getFirstChild().getNodeValue()
-			+ " does not exist. Using previous Locale.");
+		// use the default
+		log.info("User configuration file not found.");
+		saveProperties();
+		log.info("User configuration saved.");
 	    }
-
-	    nodeList = rootEle.getElementsByTagName(AJProperties.QUIET);
-	    elem = (Element) nodeList.item(0);
-	    testXMLElement(nodeList, elem);
-	    quiet = Boolean.parseBoolean(elem.getFirstChild().getNodeValue());
-	    log.debug(AJProperties.QUIET + ":" + quiet);
-
-	    nodeList = rootEle
-		    .getElementsByTagName(AJProperties.SHOW_LATEX_OUTPUT);
-	    elem = (Element) nodeList.item(0);
-	    testXMLElement(nodeList, elem);
-	    showLatexOutput = Boolean.parseBoolean(elem.getFirstChild()
-		    .getNodeValue());
-	    log.debug(AJProperties.SHOW_LATEX_OUTPUT + ":" + showLatexOutput);
-
-	    nodeList = rootEle
-		    .getElementsByTagName(AJProperties.SHOW_LICENSE_AT_START);
-	    elem = (Element) nodeList.item(0);
-	    testXMLElement(nodeList, elem);
-	    showLicenseAtStart = Boolean.parseBoolean(elem.getFirstChild()
-		    .getNodeValue());
-	    log.debug(AJProperties.SHOW_LICENSE_AT_START + ":"
-		    + showLicenseAtStart);
-
-	    nodeList = rootEle
-		    .getElementsByTagName(AJProperties.SHOW_PDFLATEX_VERSION_AT_START);
-	    elem = (Element) nodeList.item(0);
-	    testXMLElement(nodeList, elem);
-	    showPDFLatexVersionAtStart = Boolean.parseBoolean(elem
-		    .getFirstChild().getNodeValue());
-	    log.debug(AJProperties.SHOW_PDFLATEX_VERSION_AT_START + ":"
-		    + showPDFLatexVersionAtStart);
-
-	    nodeList = rootEle
-		    .getElementsByTagName(AJProperties.SHOW_CONFIGURATION_AT_START);
-	    elem = (Element) nodeList.item(0);
-	    testXMLElement(nodeList, elem);
-	    showConfigurationAtStart = Boolean.parseBoolean(elem
-		    .getFirstChild().getNodeValue());
-	    log.debug(AJProperties.SHOW_CONFIGURATION_AT_START + ":"
-		    + showConfigurationAtStart);
-
-	    nodeList = rootEle
-		    .getElementsByTagName(AJProperties.FILES_LOCATION);
-	    elem = (Element) nodeList.item(0);
-	    testXMLElement(nodeList, elem);
-	    File oldFilesLocation = filesLocation;
-	    filesLocation = new File(elem.getFirstChild().getNodeValue());
-	    log.debug(AJProperties.FILES_LOCATION + ":"
-		    + filesLocation.getAbsolutePath());
-	    if (filesLocation == null || !filesLocation.exists()
-		    || !filesLocation.canWrite()) {
-		log.warn("The location for storing AJ Files does not exist.\n"
-			+ "Check Edit > Preference or "
-			+ configFile.getAbsolutePath()
-			+ ".\nUsing default path: "
-			+ oldFilesLocation.getAbsolutePath());
-		filesLocation = oldFilesLocation;
-		correctLocation = false;
-	    }
-
-	    nodeList = rootEle
-		    .getElementsByTagName(AJProperties.RAW_REPORTS_FOLDER);
-	    elem = (Element) nodeList.item(0);
-	    testXMLElement(nodeList, elem);
-	    rawReportsFolder = elem.getFirstChild().getNodeValue();
-	    log.debug(AJProperties.RAW_REPORTS_FOLDER + ":" + rawReportsFolder);
-
-	    nodeList = rootEle
-		    .getElementsByTagName(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE);
-	    elem = (Element) nodeList.item(0);
-	    latexReportsFolderByDate = elem.getFirstChild().getNodeValue();
-	    log.debug(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE + ":"
-		    + latexReportsFolderByDate);
-
-	    nodeList = rootEle
-		    .getElementsByTagName(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET);
-	    elem = (Element) nodeList.item(0);
-	    testXMLElement(nodeList, elem);
-	    latexReportsFolderByTarget = elem.getFirstChild().getNodeValue();
-	    log.debug(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET + ":"
-		    + latexReportsFolderByTarget);
-
-	    nodeList = rootEle
-		    .getElementsByTagName(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION);
-	    elem = (Element) nodeList.item(0);
-	    testXMLElement(nodeList, elem);
-	    latexReportsFolderByConstellation = elem.getFirstChild()
-		    .getNodeValue();
-	    log.debug(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION + ":"
-		    + latexReportsFolderByConstellation);
-
-	    nodeList = rootEle
-		    .getElementsByTagName(AJProperties.SGL_REPORTS_FOLDER_BY_DATE);
-	    elem = (Element) nodeList.item(0);
-	    testXMLElement(nodeList, elem);
-	    sglReportsFolderByDate = elem.getFirstChild().getNodeValue();
-	    log.debug(AJProperties.SGL_REPORTS_FOLDER_BY_DATE + ":"
-		    + sglReportsFolderByDate);
-
-	    log.debug("Configuration file " + configFile.getAbsolutePath()
-		    + " loaded");
-	    if (!correctLocation) {
-		saveConfiguration();
-	    }
-	} catch (ParserConfigurationException e) {
-	    log.debug(e, e);
-	    log.error("The configuration file "
-		    + configFile.getAbsolutePath()
-		    + " was not read correctly. A new configuration file will be generated.");
-	    saveConfiguration();
-	} catch (SAXException e) {
-	    log.debug(e, e);
-	    log.error("The configuration file "
-		    + configFile.getAbsolutePath()
-		    + " was not read correctly. A new configuration file will be generated.");
-	    saveConfiguration();
 	} catch (IOException e) {
+	    // NOTE: we always have the default, as it is in the jar file
 	    log.debug(e, e);
-	    log.error("The configuration file "
-		    + configFile.getAbsolutePath()
-		    + " was not read correctly. A new configuration file will be generated.");
-	    saveConfiguration();
+	    log.error("Errors reading the user configuration file: "
+		    + configFile.getAbsolutePath());
+	    saveProperties();
+	    log.info("A new configuration file was saved.");
 	}
+
+	// override property values with corresponding system property values
+	// passed to the application via command line if this is the case.
+	loadSystemProperties();
     }
 
     /**
-     * Save the configuration file.
+     * Validate the loaded properties for this application.
      */
-    public void saveConfiguration() {
+    private void validateProperties() {
+	// This is the only function knowing about the actual properties.
+	// example of processing a file location
 
-	log.debug("Saving the configuration file "
-		+ configFile.getAbsolutePath());
-	log.debug("Get the factory");
-	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+	log.debug("Validating properties");
+
+	// TODO THIS DOES NOT CURRENTLY WORK. newLocale is not NULL when
+	// instead it does not exist.
+	// TRY TO SET the configuration file to enk and it still retrieves
+	// it and set it...WEIRD!
+	// Check that the locale exists
+	ResourceBundle newResourceBundle = null;
+	Locale locale = new Locale(
+		applicationProperties.getProperty(AJProperties.LOCALE));
+	newResourceBundle = ResourceBundle.getBundle("locale.aj", locale);
+	if (newResourceBundle != null) {
+	    log.debug(AJProperties.LOCALE + ":"
+		    + applicationProperties.getProperty(AJProperties.LOCALE));
+	    localeBundle = newResourceBundle;
+	} else {
+	    log.error("The locale : "
+		    + applicationProperties.getProperty(AJProperties.LOCALE)
+		    + " does not exist. Using previous `locale` setting.");
+	}
+
+	quiet = Boolean.parseBoolean(applicationProperties
+		.getProperty(AJProperties.QUIET));
+	log.debug(AJProperties.QUIET + ":" + quiet);
+
+	showLatexOutput = Boolean.parseBoolean(applicationProperties
+		.getProperty(AJProperties.SHOW_LATEX_OUTPUT));
+	log.debug(AJProperties.SHOW_LATEX_OUTPUT + ":" + showLatexOutput);
+
+	showLicenseAtStart = Boolean.parseBoolean(applicationProperties
+		.getProperty(AJProperties.SHOW_LICENSE_AT_START));
+	log.debug(AJProperties.SHOW_LICENSE_AT_START + ":" + showLicenseAtStart);
+
+	showPDFLatexVersionAtStart = Boolean.parseBoolean(applicationProperties
+		.getProperty(AJProperties.SHOW_PDFLATEX_VERSION_AT_START));
+	log.debug(AJProperties.SHOW_PDFLATEX_VERSION_AT_START + ":"
+		+ showPDFLatexVersionAtStart);
+
+	showConfigurationAtStart = Boolean.parseBoolean(applicationProperties
+		.getProperty(AJProperties.SHOW_CONFIGURATION_AT_START));
+	log.debug(AJProperties.SHOW_CONFIGURATION_AT_START + ":"
+		+ showConfigurationAtStart);
+
+	File newFilesLocation = new File(
+		applicationProperties.getProperty(AJProperties.FILES_LOCATION));
+	if (newFilesLocation == null || !newFilesLocation.exists()
+		|| !newFilesLocation.canWrite()) {
+	    log.error("The property "
+		    + AJProperties.FILES_LOCATION
+		    + ":"
+		    + newFilesLocation.getAbsolutePath()
+		    + " is not accessible. Using previous `files location` setting.");
+	    applicationProperties.put(AJProperties.FILES_LOCATION,
+		    filesLocation.getAbsolutePath());
+	} else {
+	    filesLocation = newFilesLocation;
+	}
+
+	rawReportsFolder = applicationProperties
+		.getProperty(AJProperties.RAW_REPORTS_FOLDER);
+	log.debug(AJProperties.RAW_REPORTS_FOLDER + ":" + rawReportsFolder);
+
+	latexReportsFolderByDate = applicationProperties
+		.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE);
+	log.debug(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE + ":"
+		+ latexReportsFolderByDate);
+
+	latexReportsFolderByTarget = applicationProperties
+		.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET);
+	log.debug(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET + ":"
+		+ latexReportsFolderByTarget);
+
+	latexReportsFolderByConstellation = applicationProperties
+		.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION);
+	log.debug(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION + ":"
+		+ latexReportsFolderByConstellation);
+
+	sglReportsFolderByDate = applicationProperties
+		.getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE);
+	log.debug(AJProperties.SGL_REPORTS_FOLDER_BY_DATE + ":"
+		+ sglReportsFolderByDate);
+
+	log.debug("Properties are validated.");
+    }
+
+    /**
+     * Save the properties to a XML file.
+     */
+    public void saveProperties() {
 	try {
-	    log.debug("Get an instance of DocumentBuilder");
-	    DocumentBuilder db = dbf.newDocumentBuilder();
-	    log.debug("Parse using builder to get a new DOM representation for the XML file");
-	    Document dom = db.newDocument();
-
-	    log.debug("Create the root element");
-	    Element rootElem = dom.createElement(AJConstants.APPLICATION_NAME);
-	    dom.appendChild(rootElem);
-
-	    log.debug("Create elements and node and attach it to root astrojournal");
-	    Element elem;
-	    Text value;
-
-	    elem = dom.createElement(AJProperties.LOCALE);
-	    value = dom.createTextNode(localeBundle.getLocale().getLanguage());
-	    elem.appendChild(value);
-	    rootElem.appendChild(elem);
-
-	    elem = dom.createElement(AJProperties.QUIET);
-	    value = dom.createTextNode(String.valueOf(quiet));
-	    elem.appendChild(value);
-	    rootElem.appendChild(elem);
-
-	    elem = dom.createElement(AJProperties.SHOW_LATEX_OUTPUT);
-	    value = dom.createTextNode(String.valueOf(showLatexOutput));
-	    elem.appendChild(value);
-	    rootElem.appendChild(elem);
-
-	    elem = dom.createElement(AJProperties.SHOW_LICENSE_AT_START);
-	    value = dom.createTextNode(String.valueOf(showLicenseAtStart));
-	    elem.appendChild(value);
-	    rootElem.appendChild(elem);
-
-	    elem = dom
-		    .createElement(AJProperties.SHOW_PDFLATEX_VERSION_AT_START);
-	    value = dom.createTextNode(String
-		    .valueOf(showPDFLatexVersionAtStart));
-	    elem.appendChild(value);
-	    rootElem.appendChild(elem);
-
-	    elem = dom.createElement(AJProperties.SHOW_CONFIGURATION_AT_START);
-	    value = dom
-		    .createTextNode(String.valueOf(showConfigurationAtStart));
-	    elem.appendChild(value);
-	    rootElem.appendChild(elem);
-
-	    elem = dom.createElement(AJProperties.FILES_LOCATION);
-	    value = dom.createTextNode(filesLocation.getAbsolutePath());
-	    elem.appendChild(value);
-	    rootElem.appendChild(elem);
-
-	    elem = dom.createElement(AJProperties.RAW_REPORTS_FOLDER);
-	    value = dom.createTextNode(rawReportsFolder);
-	    elem.appendChild(value);
-	    rootElem.appendChild(elem);
-
-	    elem = dom.createElement(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE);
-	    value = dom.createTextNode(latexReportsFolderByDate);
-	    elem.appendChild(value);
-	    rootElem.appendChild(elem);
-
-	    elem = dom
-		    .createElement(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET);
-	    value = dom.createTextNode(latexReportsFolderByTarget);
-	    elem.appendChild(value);
-	    rootElem.appendChild(elem);
-
-	    elem = dom
-		    .createElement(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION);
-	    value = dom.createTextNode(latexReportsFolderByConstellation);
-	    elem.appendChild(value);
-	    rootElem.appendChild(elem);
-
-	    elem = dom.createElement(AJProperties.SGL_REPORTS_FOLDER_BY_DATE);
-	    value = dom.createTextNode(sglReportsFolderByDate);
-	    elem.appendChild(value);
-	    rootElem.appendChild(elem);
-
-	    log.debug("Saving XML document using JAXP");
-	    TransformerFactory transFactory = TransformerFactory.newInstance();
-	    log.debug("TransformerFactory: "
-		    + transFactory.getClass().getName());
-	    // transFactory.setAttribute("indent-number", 2);
-	    Transformer idTransform = transFactory.newTransformer();
-	    idTransform.setOutputProperty(OutputKeys.METHOD, "xml");
-	    idTransform.setOutputProperty(OutputKeys.INDENT, "yes");
-	    idTransform.setOutputProperty(
-		    "{http://xml.apache.org/xslt}indent-amount", "2");
-	    Source input = new DOMSource(dom);
-	    Result output = new StreamResult(new FileOutputStream(configFile));
-	    idTransform.transform(input, output);
-
-	    log.debug("Configuration file " + configFile.getAbsolutePath()
-		    + " saved");
-
-	} catch (ParserConfigurationException e) {
-	    log.error("Error while trying to instantiate DocumentBuilder " + e,
-		    e);
-	} catch (TransformerConfigurationException e) {
-	    log.error(
-		    "The configuration file "
-			    + configFile.getAbsolutePath()
-			    + " was not saved correctly. A suggestion is to delete it if this exists.",
-		    e);
-	} catch (TransformerException e) {
-	    log.error(
-		    "The configuration file "
-			    + configFile.getAbsolutePath()
-			    + " was not saved correctly. A suggestion is to delete it if this exists.",
-		    e);
-	} catch (FileNotFoundException e) {
-	    log.error(
-		    "The configuration file "
-			    + configFile.getAbsolutePath()
-			    + " was not saved correctly. A suggestion is to delete it if this exists.",
-		    e);
+	    PropertiesManager.storeToXML(applicationProperties,
+		    configFile.getAbsolutePath(),
+		    AJConstants.USER_PROPERTIES_FILE_COMMENT);
+	} catch (IOException e) {
+	    System.out.println("Errors when writing the file "
+		    + configFile.getAbsolutePath());
+	    e.printStackTrace();
 	}
     }
 
     /**
-     * Load the Java System Properties for AstroJournal dynamically.
+     * Update the application and user property values with the property values
+     * defined as System properties if these are defined. A validation process
+     * will occur checking that the inserted property values are consistent with
+     * their meaning.
      */
-    public void loadAJProperties() {
+    public void loadSystemProperties() {
+	applicationProperties = PropertiesManager
+		.updateWithMatchingSystemProperties(applicationProperties);
+	validateProperties();
+    }
 
-	// The locale
-	// TODO THIS DOES NOT CURRENTLY WORK.. BETTER.. newLocale is not null
-	// when the parameter does not exist. See TODO comment above.
-	if (System.getProperty(AJProperties.LOCALE) != null) {
-	    log.debug("Setting AJ Property LOCALE="
-		    + System.getProperty(AJProperties.LOCALE));
-	    ResourceBundle newLocale = null;
-	    newLocale = ResourceBundle.getBundle("locale.aj",
-		    new Locale(System.getProperty(AJProperties.LOCALE)));
-	    if (newLocale != null) {
-		log.debug("Setting new locale "
-			+ System.getProperty(AJProperties.LOCALE));
-		localeBundle = newLocale;
-	    } else {
-		log.error("The locale : "
-			+ System.getProperty(AJProperties.LOCALE)
-			+ " does not exist. Using previous Locale.");
-	    }
-	}
-
-	// Quiet
-	if (System.getProperty(AJProperties.QUIET) != null) {
-	    log.debug("Setting AJ Property QUIET="
-		    + System.getProperty(AJProperties.QUIET));
-	    if (System.getProperty(AJProperties.QUIET).equals("true")) {
-		quiet = true;
-	    } else {
-		quiet = false;
-	    }
-	}
-
-	// Latex output
-	if (System.getProperty(AJProperties.SHOW_LATEX_OUTPUT) != null) {
-	    log.debug("Setting AJ Property LATEX_OUTPUT="
-		    + System.getProperty(AJProperties.SHOW_LATEX_OUTPUT));
-	    if (System.getProperty(AJProperties.SHOW_LATEX_OUTPUT).equals(
-		    "true")) {
-		showLatexOutput = true;
-	    } else {
-		showLatexOutput = false;
-	    }
-	}
-
-	// Show license at start
-	if (System.getProperty(AJProperties.SHOW_LICENSE_AT_START) != null) {
-	    log.debug("Setting AJ Property SHOW_LICENSE_AT_START="
-		    + System.getProperty(AJProperties.SHOW_LICENSE_AT_START));
-	    if (System.getProperty(AJProperties.SHOW_LICENSE_AT_START).equals(
-		    "true")) {
-		showLicenseAtStart = true;
-	    } else {
-		showLicenseAtStart = false;
-	    }
-	}
-
-	// Show the pdflatex version at start
-	if (System.getProperty(AJProperties.SHOW_PDFLATEX_VERSION_AT_START) != null) {
-	    log.debug("Setting AJ Property SHOW_PDFLATEX_VERSION="
-		    + System.getProperty(AJProperties.SHOW_PDFLATEX_VERSION_AT_START));
-	    if (System.getProperty(AJProperties.SHOW_PDFLATEX_VERSION_AT_START)
-		    .equals("true")) {
-		showPDFLatexVersionAtStart = true;
-	    } else {
-		showPDFLatexVersionAtStart = false;
-	    }
-	}
-
-	// Show configuration at start
-	if (System.getProperty(AJProperties.SHOW_CONFIGURATION_AT_START) != null) {
-	    log.debug("Setting AJ Property SHOW_CONFIGURATION_AT_START="
-		    + System.getProperty(AJProperties.SHOW_CONFIGURATION_AT_START));
-	    if (System.getProperty(AJProperties.SHOW_CONFIGURATION_AT_START)
-		    .equals("true")) {
-		showConfigurationAtStart = true;
-	    } else {
-		showConfigurationAtStart = false;
-	    }
-	}
-
-	// AJ files location
-	if (System.getProperty(AJProperties.FILES_LOCATION) != null) {
-	    log.debug("Setting AJ Property FILES_LOCATION="
-		    + System.getProperty(AJProperties.FILES_LOCATION));
-	    File newFilesLocation = new File(
-		    System.getProperty(AJProperties.FILES_LOCATION));
-	    if (!(newFilesLocation != null && newFilesLocation.exists() && newFilesLocation
-		    .canWrite())) {
-		log.error("The location for storing AJ Files set as Java Property does not exist or is not writeable.\n"
-			+ ".\nUsing previous path: "
-			+ getFilesLocation().getAbsolutePath());
-	    } else {
-		filesLocation = newFilesLocation;
-	    }
-	}
-
-	// Raw reports folder
-	if (System.getProperty(AJProperties.RAW_REPORTS_FOLDER) != null) {
-	    log.debug("Setting AJ Property RAW_REPORTS_FOLDER="
-		    + System.getProperty(AJProperties.RAW_REPORTS_FOLDER));
-	    rawReportsFolder = System
-		    .getProperty(AJProperties.RAW_REPORTS_FOLDER);
-	}
-
-	// Latex reports folder by date
-	if (System.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE) != null) {
-	    log.debug("Setting AJ Property LATEX_REPORTS_FOLDER_BY_DATE="
-		    + System.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE));
-	    latexReportsFolderByDate = System
-		    .getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE);
-	}
-
-	// Latex reports folder by target
-	if (System.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET) != null) {
-	    log.debug("Setting AJ Property LATEX_REPORTS_FOLDER_BY_TARGET="
-		    + System.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET));
-	    latexReportsFolderByTarget = System
-		    .getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET);
-	}
-
-	// Latex reports folder by constellation
-	if (System
-		.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION) != null) {
-	    log.debug("Setting AJ Property LATEX_REPORTS_FOLDER_BY_CONSTELLATION="
-		    + System.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION));
-	    latexReportsFolderByConstellation = System
-		    .getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION);
-	}
-
-	// SGL reports folder by date
-	if (System.getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE) != null) {
-	    log.debug("Setting AJ Property SGL_REPORTS_FOLDER_BY_DATE="
-		    + System.getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE));
-	    sglReportsFolderByDate = System
-		    .getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE);
-	}
-
+    /**
+     * Return the value for a property key.
+     * 
+     * @param key
+     *            the property key to retrieve or null if this does not exist.
+     * @return the value for the Java property key
+     */
+    public String getProperty(String key) {
+	// Doing so, we don't need a set method for each property, saving code
+	// and time.
+	return applicationProperties.getProperty(key);
     }
 
     /**
@@ -802,128 +486,13 @@ public class AJConfig {
     }
 
     /**
-     * Create a string containing the license for AstroJournal.
-     * 
-     * @return a string
-     */
-    public String printLicense() {
-	String license = AJConstants.APPLICATION_NAME
-		+ " "
-		+ AJConstants.APPLICATION_VERSION
-		+ " is free software: you can redistribute it and/or modify \n"
-		+ "it under the terms of the GNU General Public License as published by \n"
-		+ "the Free Software Foundation, either version 3 of the License, or \n"
-		+ "(at your option) any later version. \n\n"
-		+ "This program is distributed in the hope that it will be useful, \n"
-		+ "but WITHOUT ANY WARRANTY; without even the implied warranty of \n"
-		+ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the \n"
-		+ "GNU General Public License for more details. \n\n"
-		+ "You should have received a copy of the GNU General Public License \n"
-		+ "along with this program; if not, see <http://www.gnu.org/licenses/>. \n"
-		+ "\n"
-		+ "AstroJournal Web Site: <https://github.com/pdp10/AstroJournal>\n\n";
-	return license;
-    }
-
-    /**
-     * Create a string containing the output of the command `pdflatex -version`.
-     * 
-     * @return the current configuration
-     */
-    public String printPDFLatexVersion() {
-	StringBuilder sb = new StringBuilder();
-	String command = "pdflatex";
-	String argument = "-version";
-	Process p;
-	try {
-	    p = Runtime.getRuntime().exec(command + " " + argument);
-	    // read the output messages from the command
-	    BufferedReader stdInput = new BufferedReader(new InputStreamReader(
-		    p.getInputStream()));
-	    sb.append(localeBundle
-		    .getString("AJ.lblOutputForPDFLatexVersion.text")
-		    + " `"
-		    + command + " " + argument + "`:\n\n");
-	    String temp;
-	    while ((temp = stdInput.readLine()) != null) {
-		sb.append(temp).append("\n");
-	    }
-	    stdInput.close();
-	    // read the error messages from the command
-	    BufferedReader stdError = new BufferedReader(new InputStreamReader(
-		    p.getErrorStream()));
-	    sb.append("\n"
-		    + localeBundle
-			    .getString("AJ.lblErrorForPDFLatexVersion.text")
-		    + " `" + command + " " + argument + "`:\n\n");
-	    while ((temp = stdError.readLine()) != null) {
-		sb.append(temp).append("\n");
-	    }
-	    stdError.close();
-	} catch (IOException e) {
-	    // Don't report this exception stack trace.
-	    log.fatal("The command "
-		    + command
-		    + " was not found. \n"
-		    + command
-		    + " is required for generating PDF documents from \n"
-		    + "LaTeX code. \n\n"
-		    + "Please install:\n"
-		    + " - TeX Live (http://www.tug.org/texlive/) (GNU/Linux Users); \n"
-		    + " - MikTeX (http://miktex.org/download) (Windows Users). \n\n"
-		    + "See http://pdp10.github.io/AstroJournal/ for information \n"
-		    + "about AstroJournal requirements.\n\n" + "Abort.");
-	    return "";
-	}
-
-	return sb.toString();
-    }
-
-    /**
-     * Print the current configuration.
-     * 
-     * @return the current configuration
-     */
-    public String printConfiguration() {
-	String configuration = "AstroJournal current configuration:\n" + "\t"
-		+ localeBundle.getString("AJ.lblAJFilesLocation.text") + " "
-		+ filesLocation.getAbsolutePath() + "\n\t"
-		+ localeBundle.getString("AJ.lblInpDir.text") + " "
-		+ rawReportsFolder + "\n\t"
-		+ localeBundle.getString("AJ.lblOutByDateDir.text") + " "
-		+ latexReportsFolderByDate + "\n\t"
-		+ localeBundle.getString("AJ.lblOutByTargetDir.text") + " "
-		+ latexReportsFolderByTarget + "\n\t"
-		+ localeBundle.getString("AJ.lblOutByConstellationDir.text")
-		+ " " + latexReportsFolderByConstellation + "\n\t"
-		+ localeBundle.getString("AJ.lblSGLOutByDateDir.text") + " "
-		+ sglReportsFolderByDate + "\n\t"
-		+ localeBundle.getString("AJ.lblQuiet.text") + " " + quiet
-		+ "\n\t" + localeBundle.getString("AJ.lblShowLatexOutput.text")
-		+ " " + showLatexOutput + "\n\t"
-		+ localeBundle.getString("AJ.lblShowLicenseAtStart.text") + " "
-		+ showLicenseAtStart + "\n\t"
-		+ localeBundle.getString("AJ.lblShowPDFLatexVersion.text")
-		+ " " + showPDFLatexVersionAtStart + "\n\t"
-		+ localeBundle.getString("AJ.lblShowConfigurationAtStart.text")
-		+ " " + showConfigurationAtStart + "\n" + "\n\n";
-	return configuration;
-    }
-
-    /**
-     * @return the configFileName
-     */
-    public String getConfigFileName() {
-	return configFileName;
-    }
-
-    /**
      * @return the localeBundle
      */
     public ResourceBundle getLocaleBundle() {
 	return localeBundle;
     }
 
+    // TODO replace these with getProperty()
     /**
      * @return the quiet
      */

@@ -28,10 +28,12 @@ import java.io.IOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJConfigUtils;
+import org.astrojournal.configuration.AJConstants;
 import org.astrojournal.generator.AJGenerator;
 
 /**
- * A simple class containing the commands for AJMain*Control classes.
+ * A generic class containing the commands running the logic of the application.
  * 
  * @author Piero Dalle Pezze
  * @version $Rev$
@@ -48,6 +50,12 @@ public abstract class AJMainControls {
     protected AJGenerator ajGenerator = new AJGenerator();
 
     /**
+     * A reference to AJConfig
+     */
+    // TODO inject this as parameter.
+    protected AJConfig ajConfig = AJConfig.getInstance();
+
+    /**
      * Constructor
      */
     public AJMainControls() {
@@ -61,13 +69,44 @@ public abstract class AJMainControls {
     public abstract boolean createJournal();
 
     /**
+     * Print the license for AstroJournal.
+     */
+    public void showLicense() {
+	log.info(AJConstants.SHORT_LICENSE);
+    }
+
+    /**
+     * Print the version of pdflatex.
+     * 
+     * @return true if pdflatex is installed, false otherwise
+     */
+    public boolean showPDFLatexVersion() {
+	String pdfLatexVersion = AJConfigUtils.printPDFLatexVersion();
+	if (pdfLatexVersion.isEmpty()) {
+	    return false;
+	}
+	log.info(pdfLatexVersion);
+	return true;
+    }
+
+    /**
+     * Print the configuration for AstroJournal.
+     */
+    public void showConfiguration() {
+	String[] conf = AJConfigUtils.printConfiguration().split("\n");
+	for (String str : conf) {
+	    log.info(str);
+	}
+	log.info(System.getProperty("line.separator"));
+    }
+
+    /**
      * Initialise the folders.
      * 
      * @return true if the pre-processing phase succeeded.
      */
     protected boolean preProcessing() {
 	log.debug("Starting pre-processing");
-	AJConfig ajConfig = AJConfig.getInstance();
 
 	// prepare the folders for AJ.
 	ajConfig.prepareAJFolders();
@@ -77,8 +116,8 @@ public abstract class AJMainControls {
 	    ajConfig.cleanAJFolder();
 	} catch (IOException e) {
 	    log.error(
-		    AJConfig.getInstance().getLocaleBundle()
-			    .getString("AJ.errUnconfiguredPreferences.text"), e);
+		    ajConfig.getLocaleBundle().getString(
+			    "AJ.errUnconfiguredPreferences.text"), e);
 	    return false;
 	}
 	log.debug("Pre-processing was SUCCESSFUL");
@@ -92,9 +131,20 @@ public abstract class AJMainControls {
      */
     protected boolean processing() {
 	log.debug("Starting processing");
+	if (!ajConfig.isQuiet() && ajConfig.isShowLicenseAtStart()) {
+	    showLicense();
+	}
+	if (!ajConfig.isQuiet() && ajConfig.isShowPDFLatexVersionAtStart()) {
+	    if (!showPDFLatexVersion()) {
+		return false;
+	    }
+	}
+	if (!ajConfig.isQuiet() && ajConfig.isShowConfigurationAtStart()) {
+	    showConfiguration();
+	}
 	if (!ajGenerator.generateJournals()) {
-	    log.error(AJConfig.getInstance().getLocaleBundle()
-		    .getString("AJ.errJournalNotExported.text"));
+	    log.error(ajConfig.getLocaleBundle().getString(
+		    "AJ.errJournalNotExported.text"));
 	    return false;
 	}
 	log.debug("Processing was SUCCESSFUL");
@@ -109,11 +159,11 @@ public abstract class AJMainControls {
     protected boolean postProcessing() {
 	log.debug("Starting post-processing");
 	log.info("");
-	log.info(AJConfig.getInstance().getLocaleBundle()
-		.getString("AJ.lblCreatingReports.text"));
+	log.info(ajConfig.getLocaleBundle().getString(
+		"AJ.lblCreatingReports.text"));
 	if (!ajGenerator.postProcessing()) {
-	    log.error(AJConfig.getInstance().getLocaleBundle()
-		    .getString("AJ.errPDFLatex.text"));
+	    log.error(ajConfig.getLocaleBundle().getString(
+		    "AJ.errPDFLatex.text"));
 	    return false;
 	}
 	log.debug("Post-processing was SUCCESSFUL");

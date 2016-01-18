@@ -66,7 +66,7 @@ public class SystemTest {
 			+ "resources" + File.separator + "system_test");
 
 	// Load the new properties
-	AJConfig.getInstance().loadAJProperties();
+	AJConfig.getInstance().loadSystemProperties();
 
 	String[] args = new String[] { "--console" };
 	AJMainConsole.main(args);
@@ -145,7 +145,8 @@ public class SystemTest {
 
 	// tex + pdf
 	assertTrue(new File(AJConfig.getInstance().getFilesLocation()
-		+ File.separator + AJConstants.REPORT_BY_DATE_FILENAME).exists());
+		+ File.separator + AJConstants.REPORT_BY_DATE_FILENAME)
+		.exists());
 	assertTrue(new File(
 		AJConfig.getInstance().getFilesLocation()
 			+ File.separator
@@ -165,7 +166,8 @@ public class SystemTest {
 
 	// tex + pdf
 	assertTrue(new File(AJConfig.getInstance().getFilesLocation()
-		+ File.separator + AJConstants.REPORT_BY_TARGET_FILENAME).exists());
+		+ File.separator + AJConstants.REPORT_BY_TARGET_FILENAME)
+		.exists());
 	assertTrue(new File(
 		AJConfig.getInstance().getFilesLocation()
 			+ File.separator

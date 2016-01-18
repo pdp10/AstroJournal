@@ -28,7 +28,7 @@ import javax.swing.UIManager;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJConfigUtils;
 import org.astrojournal.configuration.AJConstants;
 import org.astrojournal.console.AJMainConsole;
 import org.astrojournal.gui.AJMainGUI;
@@ -88,7 +88,7 @@ public class AJMain {
 	    if (args.length == 0) {
 		startAJMainGUI();
 	    } else if (args[0].equals("-f") || args[0].equals("--config")) {
-		log.info(AJConfig.getInstance().printConfiguration());
+		log.info(AJConfigUtils.printConfiguration());
 		System.exit(0);
 	    } else if (args[0].equals("-c") || args[0].equals("--console")) {
 		AJMainConsole.main(args);
@@ -97,10 +97,10 @@ public class AJMain {
 		log.info(AJMainConsole.printHelp());
 		System.exit(0);
 	    } else if (args[0].equals("--license")) {
-		log.info(AJConfig.getInstance().printLicense());
+		log.info(AJConstants.SHORT_LICENSE);
 		System.exit(0);
 	    } else if (args[0].equals("-t") || args[0].equals("--test-latex")) {
-		log.info(AJConfig.getInstance().printPDFLatexVersion());
+		log.info(AJConfigUtils.printPDFLatexVersion());
 		System.exit(0);
 	    } else {
 		log.error("Unrecognised option. Please, run AstroJournal with the option -h [--help] for suggestions.");

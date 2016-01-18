@@ -23,6 +23,7 @@
  */
 package org.astrojournal.console;
 
+import org.astrojournal.AJMainControls;
 import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.configuration.AJConstants;
 import org.astrojournal.configuration.AJProperties;
@@ -36,7 +37,7 @@ import org.astrojournal.configuration.AJProperties;
  */
 public class AJMainConsole {
 
-    private AJMainConsoleControls commandRunner;
+    private AJMainControls commandRunner;
 
     /**
      * Creates new form NewJFrame
@@ -109,7 +110,7 @@ public class AJMainConsole {
 	} else {
 	    System.setProperty(AJProperties.SHOW_LATEX_OUTPUT, "false");
 	}
-	ajConfig.loadAJProperties();
+	ajConfig.loadSystemProperties();
 	if (!ajMainConsole.createJournals()) {
 	    System.exit(1);
 	}

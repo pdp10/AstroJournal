@@ -104,7 +104,7 @@ public class AJPropertiesTest {
 	AJConfig ajConfig = AJConfig.getInstance();
 
 	// Load the new properties
-	ajConfig.loadAJProperties();
+	ajConfig.loadSystemProperties();
 
 	assertTrue(ajConfig.isShowLatexOutput());
 	assertTrue(ajConfig.isQuiet());
@@ -131,7 +131,7 @@ public class AJPropertiesTest {
 	AJConfig ajConfig = AJConfig.getInstance();
 
 	// Load the new properties
-	ajConfig.loadAJProperties();
+	ajConfig.loadSystemProperties();
 
 	assertFalse(ajConfig.isShowLatexOutput());
 	assertFalse(ajConfig.isQuiet());
@@ -164,7 +164,7 @@ public class AJPropertiesTest {
 	AJConfig ajConfig = AJConfig.getInstance();
 
 	// Load the new properties
-	ajConfig.loadAJProperties();
+	ajConfig.loadSystemProperties();
 
 	assertEquals(ajConfig.getFilesLocation().getAbsolutePath(),
 		System.getProperty("java.io.tmpdir"));

@@ -33,7 +33,7 @@ import java.io.File;
  * @since 1.0
  * @date 17 Jan 2016
  */
-public final class AJConstants {
+public class AJConstants {
 
     /** The AJ application name. */
     public static final String APPLICATION_NAME = "AstroJournal";
@@ -43,6 +43,18 @@ public final class AJConstants {
 
     /** The AJ website. */
     public static final String APPLICATION_WEBSITE = "http://pdp10.github.io/AstroJournal";
+
+    /**
+     * The application configuration file name. This is in
+     * resources/configuration.
+     */
+    public static final String APPLICATION_PROPERTIES_FILE_NAME = "/home/pdp/eclipse_workspace/AstroJournal/application_properties.xml";
+
+    /** The user configuration file name. */
+    public static final String USER_PROPERTIES_FILE_NAME = "astrojournal.xml";
+
+    /** The comment to be inserted in the user configuration file. */
+    public static final String USER_PROPERTIES_FILE_COMMENT = "User setting for the application Config. Edit at your own risk.";
 
     /** The name of the main Latex file sorted by date. */
     public static final String REPORT_BY_DATE_FILENAME = "astrojournal_by_date.tex";
@@ -84,5 +96,22 @@ public final class AJConstants {
     /** The Latex footer with path for astrojournal by constellation. */
     public static final String FOOTER_BY_CONSTELLATION_FILENAME = LATEX_HEADER_FOOTER_FOLDER
 	    + File.separator + "footer_by_constellation.tex";
+
+    /** The short text for the application license. */
+    public static final String SHORT_LICENSE = AJConstants.APPLICATION_NAME
+	    + " "
+	    + AJConstants.APPLICATION_VERSION
+	    + " is free software: you can redistribute it and/or modify \n"
+	    + "it under the terms of the GNU General Public License as published by \n"
+	    + "the Free Software Foundation, either version 3 of the License, or \n"
+	    + "(at your option) any later version. \n\n"
+	    + "This program is distributed in the hope that it will be useful, \n"
+	    + "but WITHOUT ANY WARRANTY; without even the implied warranty of \n"
+	    + "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the \n"
+	    + "GNU General Public License for more details. \n\n"
+	    + "You should have received a copy of the GNU General Public License \n"
+	    + "along with this program; if not, see <http://www.gnu.org/licenses/>. \n"
+	    + "\n"
+	    + "AstroJournal Web Site: <https://github.com/pdp10/AstroJournal>\n\n";
 
 }

@@ -70,22 +70,6 @@ public class AJGenerator {
      *         exported correctly
      */
     public boolean generateJournals() {
-	AJConfig ajConfig = AJConfig.getInstance();
-
-	if (!ajConfig.isQuiet() && ajConfig.isShowLicenseAtStart()) {
-	    showLicense();
-	}
-
-	if (!ajConfig.isQuiet() && ajConfig.isShowPDFLatexVersionAtStart()) {
-	    if (!showPDFLatexVersion()) {
-		return false;
-	    }
-	}
-
-	if (!ajConfig.isQuiet() && ajConfig.isShowConfigurationAtStart()) {
-	    showConfiguration();
-	}
-
 	if (!ajImport()) {
 	    if (observations.isEmpty()) {
 		log.error("No observation was imported. Is the folder "
@@ -97,45 +81,11 @@ public class AJGenerator {
 	    }
 	    log.warn("Some importer failed, but there are still observations which can be processed.");
 	}
-
 	if (!ajExport()) {
 	    log.warn("Some exporter failed!");
 	    return false;
 	}
-
 	return true;
-    }
-
-    /**
-     * Print the license for AstroJournal.
-     */
-    public void showLicense() {
-	log.info(AJConfig.getInstance().printLicense());
-    }
-
-    /**
-     * Print the version of pdflatex.
-     * 
-     * @return true if pdflatex is installed, false otherwise
-     */
-    public boolean showPDFLatexVersion() {
-	String pdfLatexVersion = AJConfig.getInstance().printPDFLatexVersion();
-	if (pdfLatexVersion.isEmpty()) {
-	    return false;
-	}
-	log.info(pdfLatexVersion);
-	return true;
-    }
-
-    /**
-     * Print the configuration for AstroJournal.
-     */
-    public void showConfiguration() {
-	String[] conf = AJConfig.getInstance().printConfiguration().split("\n");
-	for (String str : conf) {
-	    log.info(str);
-	}
-	log.info(System.getProperty("line.separator"));
     }
 
     /**

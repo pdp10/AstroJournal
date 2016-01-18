@@ -42,6 +42,7 @@ import javax.swing.text.DefaultCaret;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.astrojournal.AJMainControls;
 import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.configuration.AJConstants;
 import org.astrojournal.gui.dialogs.StatusPanel;
@@ -74,7 +75,7 @@ public class AJMainGUI extends JFrame {
     private JPanel outputPanel;
     private JPanel controlPanel;
     private StatusPanel statusPanel;
-    private AJMainGUIControls commandRunner;
+    private AJMainControls commandRunner;
     private AJMenuBar menu = null;
 
     /**
