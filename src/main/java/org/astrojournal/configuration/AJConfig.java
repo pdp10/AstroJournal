@@ -30,6 +30,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -79,6 +80,13 @@ public class AJConfig {
      * AJProperties.
      */
 
+    /*
+     * I wonder whether it is convenient to save an xml file for the
+     * configuration rather than just save a file containing the java
+     * properties. Eventually this is the same and is also Java native. It would
+     * remove two big methods possibly.. Have to think about this.
+     */
+
     /** The logger */
     private static Logger log = LogManager.getLogger(AJConfig.class);
 
@@ -95,6 +103,10 @@ public class AJConfig {
      * The configuration file (a reference to the real file in the file system).
      */
     private File configFile = null;
+
+    /** The bundle for internationalisation */
+    private ResourceBundle localeBundle = ResourceBundle.getBundle("locale.aj",
+	    new Locale("en"));
 
     /** True if the application should run quietly */
     private boolean quiet = false;
@@ -148,15 +160,12 @@ public class AJConfig {
      */
     private String sglReportsFolderByDate = "sgl_reports_by_date";
 
-    /** The bundle for internationalisation */
-    private ResourceBundle localeBundle = ResourceBundle
-	    .getBundle("locale/Bundle");
-
     /**
      * Reset AJConfig as at its initialisation. AstroJournal Java properties are
      * not scanned by this method.
      */
     public void reset() {
+	localeBundle = ResourceBundle.getBundle("locale/Bundle");
 	quiet = false;
 	showLatexOutput = false;
 	showLicenseAtStart = true;
@@ -169,7 +178,6 @@ public class AJConfig {
 	latexReportsFolderByTarget = "latex_reports_by_target";
 	latexReportsFolderByConstellation = "latex_reports_by_constellation";
 	sglReportsFolderByDate = "sgl_reports_by_date";
-	localeBundle = ResourceBundle.getBundle("locale/Bundle");
 	// Read the configuration file
 	configurationInit();
     }
@@ -255,6 +263,28 @@ public class AJConfig {
 	    log.debug("Retrieving elements by tag name and first child by node list");
 	    NodeList nodeList;
 	    Element elem;
+
+	    nodeList = rootEle.getElementsByTagName(AJProperties.LOCALE);
+	    elem = (Element) nodeList.item(0);
+	    testXMLElement(nodeList, elem);
+
+	    // TODO THIS DOES NOT CURRENTLY WORK. newLocale is not NULL when
+	    // instead it does not exist.
+	    // TRY TO SET the configuration file to enk and it still retrieves
+	    // it and set it...WEIRD!
+	    // Check that the locale exists
+	    ResourceBundle newLocale = null;
+	    // try {
+	    newLocale = ResourceBundle.getBundle("locale.aj", new Locale(elem
+		    .getFirstChild().getNodeValue()));
+	    if (newLocale != null) {
+		log.debug("Setting new locale "
+			+ elem.getFirstChild().getNodeValue());
+		localeBundle = newLocale;
+	    } else {
+		log.error("The locale : " + elem.getFirstChild().getNodeValue()
+			+ " does not exist. Using previous Locale.");
+	    }
 
 	    nodeList = rootEle.getElementsByTagName(AJProperties.QUIET);
 	    elem = (Element) nodeList.item(0);
@@ -403,6 +433,12 @@ public class AJConfig {
 	    log.debug("Create elements and node and attach it to root astrojournal");
 	    Element elem;
 	    Text value;
+
+	    elem = dom.createElement(AJProperties.LOCALE);
+	    value = dom.createTextNode(localeBundle.getLocale().getLanguage());
+	    elem.appendChild(value);
+	    rootElem.appendChild(elem);
+
 	    elem = dom.createElement(AJProperties.QUIET);
 	    value = dom.createTextNode(String.valueOf(quiet));
 	    elem.appendChild(value);
@@ -508,6 +544,26 @@ public class AJConfig {
      * Load the Java System Properties for AstroJournal dynamically.
      */
     public void loadAJProperties() {
+
+	// The locale
+	// TODO THIS DOES NOT CURRENTLY WORK.. BETTER.. newLocale is not null
+	// when the parameter does not exist. See TODO comment above.
+	if (System.getProperty(AJProperties.LOCALE) != null) {
+	    log.debug("Setting AJ Property LOCALE="
+		    + System.getProperty(AJProperties.LOCALE));
+	    ResourceBundle newLocale = null;
+	    newLocale = ResourceBundle.getBundle("locale.aj",
+		    new Locale(System.getProperty(AJProperties.LOCALE)));
+	    if (newLocale != null) {
+		log.debug("Setting new locale "
+			+ System.getProperty(AJProperties.LOCALE));
+		localeBundle = newLocale;
+	    } else {
+		log.error("The locale : "
+			+ System.getProperty(AJProperties.LOCALE)
+			+ " does not exist. Using previous Locale.");
+	    }
+	}
 
 	// Quiet
 	if (System.getProperty(AJProperties.QUIET) != null) {
@@ -623,25 +679,6 @@ public class AJConfig {
 		    + System.getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE));
 	    sglReportsFolderByDate = System
 		    .getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE);
-	}
-
-	// The locale
-	if (System.getProperty(AJProperties.LOCALE) != null) {
-	    log.debug("Setting AJ Property LOCALE="
-		    + System.getProperty(AJProperties.LOCALE));
-	    ResourceBundle newLocale = null;
-	    try {
-		newLocale = ResourceBundle.getBundle(System
-			.getProperty(AJProperties.LOCALE));
-	    } catch (Exception e) {
-		log.error("The locale : "
-			+ System.getProperty(AJProperties.LOCALE)
-			+ " does not exist. Using previous Locale.");
-		newLocale = null;
-	    }
-	    if (newLocale != null) {
-		localeBundle = newLocale;
-	    }
 	}
 
     }
