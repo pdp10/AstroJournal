@@ -59,17 +59,17 @@ public class AJConfigUtils {
 	if (SystemUtils.IS_OS_MAC_OSX) {
 	    configFile = new File(System.getProperty("user.home")
 		    + File.separator + "."
-		    + AJConstants.USER_PROPERTIES_FILE_NAME);
+		    + AJConstants.USER_CONFIGURATION_PROPERTIES_FILE_NAME);
 	} else if (SystemUtils.IS_OS_WINDOWS) {
 	    configFile = new File(System.getProperty("user.home")
-		    + File.separator + AJConstants.USER_PROPERTIES_FILE_NAME);
+		    + File.separator + AJConstants.USER_CONFIGURATION_PROPERTIES_FILE_NAME);
 	} else if (SystemUtils.IS_OS_UNIX) {
 	    configFile = new File(System.getProperty("user.home")
 		    + File.separator + "."
-		    + AJConstants.USER_PROPERTIES_FILE_NAME);
+		    + AJConstants.USER_CONFIGURATION_PROPERTIES_FILE_NAME);
 	} else {
 	    configFile = new File(System.getProperty("user.home")
-		    + File.separator + AJConstants.USER_PROPERTIES_FILE_NAME);
+		    + File.separator + AJConstants.USER_CONFIGURATION_PROPERTIES_FILE_NAME);
 	}
 	return configFile;
     }

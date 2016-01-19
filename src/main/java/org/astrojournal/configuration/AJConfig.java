@@ -138,35 +138,9 @@ public class AJConfig {
     private String sglReportsFolderByDate = "sgl_reports_by_date";
 
     /**
-     * Reset AJConfig as at its initialisation. AstroJournal Java properties are
-     * not scanned by this method.
-     */
-    @Deprecated
-    // TODO
-    public void reset() {
-	localeBundle = ResourceBundle.getBundle("locale.aj", new Locale("en",
-		"GB"));
-	quiet = false;
-	showLatexOutput = false;
-	showLicenseAtStart = true;
-	showPDFLatexVersionAtStart = true;
-	showConfigurationAtStart = true;
-	filesLocation = new File(System.getProperty("user.home")
-		+ File.separator + "AstroJournal_files");
-	rawReportsFolder = "raw_reports";
-	latexReportsFolderByDate = "latex_reports_by_date";
-	latexReportsFolderByTarget = "latex_reports_by_target";
-	latexReportsFolderByConstellation = "latex_reports_by_constellation";
-	sglReportsFolderByDate = "sgl_reports_by_date";
-	// Read the configuration file
-	init();
-    }
-
-    /**
      * Private constructor for creating only one instance of AJConfig.
      */
     private AJConfig() {
-	// Read the application properties
 	init();
     }
 
@@ -189,22 +163,21 @@ public class AJConfig {
     private void init() {
 	configFile = AJConfigUtils.setupUserConfigurationFile();
 
+	log.debug("Loading application configuration file: "
+		+ AJConstants.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME);
 	try {
-	    log.debug("Loading application configuration file: "
-		    + AJConstants.DEFAULT_PROPERTIES_FILE_NAME);
 
 	    // DEFAULT APPLICATION PROPERTIES: these are in resources/
 	    File temp = new ReadFromJar().getFileFromJARFile("aj_config_", "/"
-		    + AJConstants.DEFAULT_PROPERTIES_FILE_NAME);
+		    + AJConstants.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME);
 	    log.debug("Extracted "
-		    + AJConstants.DEFAULT_PROPERTIES_FILE_NAME
+		    + AJConstants.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME
 		    + " from JAR and stored in " + temp.getAbsolutePath());
 	    applicationProperties = PropertiesManager.loadFromXML(temp
 		    .getAbsolutePath());
 
-	    // Unfortunately we cannot set the filesLocation in the application
-	    // properties xml file as we do not
-	    // know the file system. We adjust this here:
+	    // Adjust the files location as this information is not known a
+	    // priori (we don't know the user.home!)
 	    applicationProperties.put(
 		    AJProperties.FILES_LOCATION,
 		    System.getProperty("user.home")
@@ -252,23 +225,23 @@ public class AJConfig {
 	log.debug("Validating properties");
 
 	// TODO solve the locale. it doesnt work.
-	try {
-	    String locale = "locale/aj_"
-		    + applicationProperties.getProperty(AJProperties.LOCALE);
-	    String bundle = new ReadFromJar().getStringFileFromJARFile("/"
-		    + locale + ".properties");
-	    if (!bundle.isEmpty()) {
-		localeBundle = ResourceBundle.getBundle(locale);
-	    }
-	} catch (IOException e) {
-	    log.debug(e, e);
-	    log.error("The locale : "
-		    + applicationProperties.getProperty(AJProperties.LOCALE)
-		    + " does not exist. Using previous `locale` setting.");
-	    applicationProperties.put(AJProperties.LOCALE,
-		    localeBundle.getLocale());
-	}
-	log.debug(AJProperties.LOCALE + ":" + localeBundle.getLocale());
+	// try {
+	// String locale = "locale/aj_"
+	// + applicationProperties.getProperty(AJProperties.LOCALE);
+	// String bundle = new ReadFromJar().getStringFileFromJARFile("/"
+	// + locale + ".properties");
+	// if (!bundle.isEmpty()) {
+	// localeBundle = ResourceBundle.getBundle(locale);
+	// }
+	// } catch (IOException e) {
+	// log.debug(e, e);
+	// log.error("The locale : "
+	// + applicationProperties.getProperty(AJProperties.LOCALE)
+	// + " does not exist. Using previous `locale` setting.");
+	// applicationProperties.put(AJProperties.LOCALE,
+	// localeBundle.getLocale());
+	// }
+	// log.debug(AJProperties.LOCALE + ":" + localeBundle.getLocale());
 
 	quiet = Boolean.parseBoolean(applicationProperties
 		.getProperty(AJProperties.QUIET));
@@ -341,7 +314,7 @@ public class AJConfig {
 	try {
 	    PropertiesManager.storeToXML(applicationProperties,
 		    configFile.getAbsolutePath(),
-		    AJConstants.USER_PROPERTIES_FILE_COMMENT);
+		    AJConstants.USER_CONFIGURATION_PROPERTIES_FILE_COMMENT);
 	} catch (IOException e) {
 	    System.out.println("Errors when writing the file "
 		    + configFile.getAbsolutePath());
@@ -357,7 +330,7 @@ public class AJConfig {
      */
     public void loadSystemProperties() {
 	applicationProperties = PropertiesManager
-		.updateWithMatchingSystemProperties(applicationProperties);
+		.updateWithMatchSystemProperties(applicationProperties);
 	validateProperties();
     }
 

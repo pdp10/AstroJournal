@@ -45,16 +45,15 @@ public class AJConstants {
     public static final String APPLICATION_WEBSITE = "http://pdp10.github.io/AstroJournal";
 
     /**
-     * The application configuration file name. This is in
-     * resources/configuration.
+     * The default application configuration file name. This is in resources/.
      */
-    public static final String DEFAULT_PROPERTIES_FILE_NAME = "application_properties.xml";
+    public static final String DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME = "application_properties.xml";
 
     /** The user configuration file name. */
-    public static final String USER_PROPERTIES_FILE_NAME = "astrojournal.xml";
+    public static final String USER_CONFIGURATION_PROPERTIES_FILE_NAME = "astrojournal.xml";
 
     /** The comment to be inserted in the user configuration file. */
-    public static final String USER_PROPERTIES_FILE_COMMENT = "User setting for the application Config. Edit at your own risk.";
+    public static final String USER_CONFIGURATION_PROPERTIES_FILE_COMMENT = "User setting for the application Config. Edit at your own risk.";
 
     /** The name of the main Latex file sorted by date. */
     public static final String REPORT_BY_DATE_FILENAME = "astrojournal_by_date.tex";

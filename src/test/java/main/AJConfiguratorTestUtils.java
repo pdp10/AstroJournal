@@ -29,9 +29,11 @@ import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.configuration.AJConstants;
 import org.astrojournal.configuration.AJProperties;
 import org.astrojournal.utilities.PropertiesManager;
+import org.astrojournal.utilities.ReadFromJar;
 
 /**
  * A set of utilities for the tests.
@@ -41,24 +43,30 @@ import org.astrojournal.utilities.PropertiesManager;
  * @since 1.0
  * @date 15 Jan 2016
  */
-public class ConfiguratorTestUtils {
+public class AJConfiguratorTestUtils {
 
     /** The logger */
     private static Logger log = LogManager
-	    .getLogger(ConfiguratorTestUtils.class);
+	    .getLogger(AJConfiguratorTestUtils.class);
 
     /**
      * Return the default application properties as Java Properties.
      * 
      * @return the default application properties.
      */
-    public static Properties getDefaultApplicationProperties() {
+    private static Properties getDefaultApplicationProperties() {
 	log.debug("Loading default configuration file: "
-		+ AJConstants.DEFAULT_PROPERTIES_FILE_NAME);
+		+ AJConstants.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME);
 	Properties defaultProperties = new Properties();
 	try {
-	    defaultProperties = PropertiesManager
-		    .loadFromXML(AJConstants.DEFAULT_PROPERTIES_FILE_NAME);
+	    // DEFAULT APPLICATION PROPERTIES: these are in resources/
+	    File temp = new ReadFromJar().getFileFromJARFile("aj_config_", "/"
+		    + AJConstants.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME);
+	    log.debug("Extracted "
+		    + AJConstants.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME
+		    + " from JAR and stored in " + temp.getAbsolutePath());
+	    defaultProperties = PropertiesManager.loadFromXML(temp
+		    .getAbsolutePath());
 	    defaultProperties.put(
 		    AJProperties.FILES_LOCATION,
 		    System.getProperty("user.home")
@@ -72,5 +80,16 @@ public class ConfiguratorTestUtils {
 	}
 	log.debug("Default configuration file is loaded.");
 	return defaultProperties;
+    }
+
+    /**
+     * Reset the default application properties.
+     */
+    public static void resetDefaultProperties() {
+	// Notify AJConfig that the system properties have changed.
+	Properties defaultProperties = AJConfiguratorTestUtils
+		.getDefaultApplicationProperties();
+	PropertiesManager.updateSystemProperties(defaultProperties);
+	AJConfig.getInstance().loadSystemProperties();
     }
 }

@@ -43,7 +43,7 @@ import org.junit.Test;
  * @since 1.0
  * @date 15 Jan 2016
  */
-public class ConfiguratorTest {
+public class AJConfiguratorTest {
 
     /**
      * @throws java.lang.Exception
@@ -71,19 +71,7 @@ public class ConfiguratorTest {
      */
     @After
     public void tearDown() throws Exception {
-	System.clearProperty(AJProperties.SHOW_LATEX_OUTPUT);
-	System.clearProperty(AJProperties.QUIET);
-	System.clearProperty(AJProperties.SHOW_CONFIGURATION_AT_START);
-	System.clearProperty(AJProperties.SHOW_LICENSE_AT_START);
-	System.clearProperty(AJProperties.SHOW_PDFLATEX_VERSION_AT_START);
-	System.clearProperty(AJProperties.FILES_LOCATION);
-	System.clearProperty(AJProperties.RAW_REPORTS_FOLDER);
-	System.clearProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE);
-	System.clearProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET);
-	System.clearProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION);
-	System.clearProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE);
-	// Notify AJConfig that the system properties have changed.
-	AJConfig.getInstance().reset();
+	AJConfiguratorTestUtils.resetDefaultProperties();
     }
 
     /**

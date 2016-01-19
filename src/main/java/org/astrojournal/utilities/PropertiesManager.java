@@ -203,14 +203,15 @@ public class PropertiesManager {
     }
 
     /**
-     * Update the property values passed in the object properties with the
-     * property values defined as System properties if these are defined.
+     * Update the properties passed as parameter with the corresponding system
+     * properties if defined.
      * 
      * @param properties
-     *            The set of properties to update.
+     *            The set of properties to update using the corresponding System
+     *            properties if defined.
      * @return The updated set of properties.
      */
-    public static Properties updateWithMatchingSystemProperties(
+    public static Properties updateWithMatchSystemProperties(
 	    Properties properties) {
 	for (Object key : properties.keySet()) {
 	    String override = System.getProperty((String) key);
@@ -219,6 +220,21 @@ public class PropertiesManager {
 	    }
 	}
 	return properties;
+    }
+
+    /**
+     * Update the System properties with properties passed as parameter.
+     * 
+     * @param properties
+     *            The set of properties to put as System properties.
+     */
+    public static void updateSystemProperties(Properties properties) {
+	for (Object key : properties.keySet()) {
+	    String override = properties.getProperty((String) key);
+	    if (override != null) {
+		System.getProperties().put(key, override);
+	    }
+	}
     }
 
 }
