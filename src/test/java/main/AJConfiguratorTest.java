@@ -75,6 +75,43 @@ public class AJConfiguratorTest {
     }
 
     /**
+     * Test the passing from system properties to application properties.
+     */
+    @Test
+    public void testSystemPropertiesPassing() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
+	AJConfig ajConfig = AJConfig.getInstance();
+	System.setProperty(AJProperties.QUIET, "true");
+	System.setProperty(AJProperties.RAW_REPORTS_FOLDER, "raw_report_test1");
+	System.setProperty("aj.fake_property", "this property does not exist!");
+
+	ajConfig.loadSystemProperties();
+
+	assertEquals(ajConfig.getProperty(AJProperties.QUIET), "true");
+	assertEquals(ajConfig.getProperty(AJProperties.RAW_REPORTS_FOLDER),
+		"raw_report_test1");
+	assertEquals(ajConfig.getProperty("aj.fake_property"), null);
+
+	// Let's set them again with different values as additional control
+	System.setProperty(AJProperties.QUIET, "false");
+	System.setProperty(AJProperties.RAW_REPORTS_FOLDER, "raw_report_test2");
+
+	ajConfig.loadSystemProperties();
+
+	assertEquals(ajConfig.getProperty(AJProperties.QUIET), "false");
+	assertEquals(ajConfig.getProperty(AJProperties.RAW_REPORTS_FOLDER),
+		"raw_report_test2");
+
+	// let's remove these properties from the system.
+	System.clearProperty(AJProperties.QUIET);
+	System.clearProperty(AJProperties.RAW_REPORTS_FOLDER);
+	System.clearProperty("aj.fake_property");
+    }
+
+    /**
      * Test AstroJournal boolean Java properties set to true.
      */
     @Test
