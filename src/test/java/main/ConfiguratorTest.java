@@ -43,7 +43,7 @@ import org.junit.Test;
  * @since 1.0
  * @date 15 Jan 2016
  */
-public class AJPropertiesTest {
+public class ConfiguratorTest {
 
     /**
      * @throws java.lang.Exception

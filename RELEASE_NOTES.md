@@ -7,6 +7,16 @@ Website: http://pdp10.github.io/AstroJournal/
 ### RELEASE NOTES
 
 
+v1.1.3
+
+- Simplified the configurator (global data members and unnecessary code out).
+- Default and user xml configuration files.
+- Application configurator design based on Java properties.
+
+v1.0.0
+
+- Stable release.
+
 v0.10.14
 
 - Tested on GNU/Linux Kubuntu 14.04+, Windows 7 32bit, Mac OS X 10.9 (See README.md for instruction on how to 
