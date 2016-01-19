@@ -6,6 +6,8 @@ Website: http://pdp10.github.io/AstroJournal/
 
 ### RELEASE NOTES
 
+v1.0.0
+ - Stable release.
 
 v0.10.14
 
