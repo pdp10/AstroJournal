@@ -48,7 +48,7 @@ public class AJConstants {
      * The application configuration file name. This is in
      * resources/configuration.
      */
-    public static final String APPLICATION_PROPERTIES_FILE_NAME = "/home/pdp/eclipse_workspace/AstroJournal/application_properties.xml";
+    public static final String DEFAULT_PROPERTIES_FILE_NAME = "application_properties.xml";
 
     /** The user configuration file name. */
     public static final String USER_PROPERTIES_FILE_NAME = "astrojournal.xml";

@@ -2,7 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <comment>User setting for the application Config. Edit at your own risk.</comment>
-<entry key="aj.locale">BUG__LOCALE_DOES_NOT_EXIST</entry>
+<entry key="aj.locale">en_US</entry>
 <entry key="aj.quiet">false</entry>
 <entry key="aj.show_latex_output">false</entry>
 <entry key="aj.show_license_at_start">true</entry>

@@ -35,6 +35,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.utilities.PropertiesManager;
+import org.astrojournal.utilities.ReadFromJar;
 
 /**
  * A class containing the configuration of AstroJournal.
@@ -77,7 +78,7 @@ public class AJConfig {
 
     /** The bundle for internationalisation */
     private ResourceBundle localeBundle = ResourceBundle.getBundle("locale.aj",
-	    new Locale("en"));
+	    new Locale("en", "GB"));
 
     /**
      * The Properties for this application.
@@ -141,8 +142,10 @@ public class AJConfig {
      * not scanned by this method.
      */
     @Deprecated
+    // TODO
     public void reset() {
-	localeBundle = ResourceBundle.getBundle("locale.aj", new Locale("en"));
+	localeBundle = ResourceBundle.getBundle("locale.aj", new Locale("en",
+		"GB"));
 	quiet = false;
 	showLatexOutput = false;
 	showLicenseAtStart = true;
@@ -188,15 +191,17 @@ public class AJConfig {
 
 	try {
 	    log.debug("Loading application configuration file: "
-		    + AJConstants.APPLICATION_PROPERTIES_FILE_NAME);
-	    // Default application properties: these are in resources/
-	    applicationProperties = PropertiesManager
-		    .loadFromXML(AJConstants.APPLICATION_PROPERTIES_FILE_NAME);
-	    /*
-	     * // TODO IN THE JAR FILE IT SHOULD BE THIS: ClassLoader
-	     * .getSystemResource(
-	     * "AJConstants.APPLICATION_PROPERTIES_FILE_NAME") .toString());
-	     */
+		    + AJConstants.DEFAULT_PROPERTIES_FILE_NAME);
+
+	    // DEFAULT APPLICATION PROPERTIES: these are in resources/
+	    File temp = new ReadFromJar().getFileFromJARFile("aj_config_", "/"
+		    + AJConstants.DEFAULT_PROPERTIES_FILE_NAME);
+	    log.debug("Extracted "
+		    + AJConstants.DEFAULT_PROPERTIES_FILE_NAME
+		    + " from JAR and stored in " + temp.getAbsolutePath());
+	    applicationProperties = PropertiesManager.loadFromXML(temp
+		    .getAbsolutePath());
+
 	    // Unfortunately we cannot set the filesLocation in the application
 	    // properties xml file as we do not
 	    // know the file system. We adjust this here:
@@ -207,20 +212,22 @@ public class AJConfig {
 			    + applicationProperties
 				    .get(AJProperties.FILES_LOCATION));
 	    log.debug("Application configuration file is loaded.");
-	    // User application properties: these are in the user space
+
+	    // USER APPLICATION PROPERTIES: these are in the user space
 	    if (configFile != null && configFile.exists()) {
 		log.debug("Loading user configuration file: "
 			+ configFile.getAbsolutePath());
 		applicationProperties = PropertiesManager.loadFromXML(
 			applicationProperties, configFile.getAbsolutePath());
 		log.debug("User configuration file is loaded.");
-		validateProperties();
+
 	    } else {
 		// use the default
 		log.info("User configuration file not found.");
-		saveProperties();
-		log.info("User configuration saved.");
 	    }
+	    validateProperties();
+	    saveProperties();
+	    log.info("User configuration saved.");
 	} catch (IOException e) {
 	    // NOTE: we always have the default, as it is in the jar file
 	    log.debug(e, e);
@@ -244,24 +251,24 @@ public class AJConfig {
 
 	log.debug("Validating properties");
 
-	// TODO THIS DOES NOT CURRENTLY WORK. newLocale is not NULL when
-	// instead it does not exist.
-	// TRY TO SET the configuration file to enk and it still retrieves
-	// it and set it...WEIRD!
-	// Check that the locale exists
-	ResourceBundle newResourceBundle = null;
-	Locale locale = new Locale(
-		applicationProperties.getProperty(AJProperties.LOCALE));
-	newResourceBundle = ResourceBundle.getBundle("locale.aj", locale);
-	if (newResourceBundle != null) {
-	    log.debug(AJProperties.LOCALE + ":"
-		    + applicationProperties.getProperty(AJProperties.LOCALE));
-	    localeBundle = newResourceBundle;
-	} else {
+	// TODO solve the locale. it doesnt work.
+	try {
+	    String locale = "locale/aj_"
+		    + applicationProperties.getProperty(AJProperties.LOCALE);
+	    String bundle = new ReadFromJar().getStringFileFromJARFile("/"
+		    + locale + ".properties");
+	    if (!bundle.isEmpty()) {
+		localeBundle = ResourceBundle.getBundle(locale);
+	    }
+	} catch (IOException e) {
+	    log.debug(e, e);
 	    log.error("The locale : "
 		    + applicationProperties.getProperty(AJProperties.LOCALE)
 		    + " does not exist. Using previous `locale` setting.");
+	    applicationProperties.put(AJProperties.LOCALE,
+		    localeBundle.getLocale());
 	}
+	log.debug(AJProperties.LOCALE + ":" + localeBundle.getLocale());
 
 	quiet = Boolean.parseBoolean(applicationProperties
 		.getProperty(AJProperties.QUIET));
