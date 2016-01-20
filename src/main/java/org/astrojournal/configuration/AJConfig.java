@@ -36,6 +36,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.utilities.PropertiesManager;
 import org.astrojournal.utilities.ReadFromJar;
+import org.astrojournal.utilities.filefilters.LaTeXFilter;
+import org.astrojournal.utilities.filefilters.TabSeparatedValueRawReportFilter;
 
 /**
  * A class containing the configuration of AstroJournal.
@@ -105,7 +107,7 @@ public class AJConfig {
 	    + File.separator + "AstroJournal_files");
 
     /*
-     * NOTE: These field MUST NOT have a file separator because Latex uses '/'
+     * NOTE: These fields MUST NOT have a file separator because Latex uses '/'
      * by default.
      */
     /**
@@ -310,7 +312,7 @@ public class AJConfig {
     /**
      * Save the properties to a XML file.
      */
-    public void saveProperties() {
+    void saveProperties() {
 	try {
 	    PropertiesManager.storeToXML(applicationProperties,
 		    configFile.getAbsolutePath(),
@@ -350,6 +352,7 @@ public class AJConfig {
     /**
      * Adjust the file separator if needed.
      */
+    // TODO put into utilities and pass parameters.
     private void adjustFileSeparator() {
 	// File separator must be '/' as this is the default file separator in
 	// LaTeX. Therefore, let's replace eventual '\' with '/'.
@@ -365,6 +368,7 @@ public class AJConfig {
     /**
      * Prepare input and output folders for AstroJournal if these do not exist.
      */
+    // TODO put into utilities and pass parameters.
     public void prepareAJFolders() {
 	adjustFileSeparator();
 	// Create the folders if these do not exist.
@@ -380,12 +384,7 @@ public class AJConfig {
 	File userHeaderFooterDir = new File(filesLocation.getAbsolutePath()
 		+ File.separator + AJConstants.LATEX_HEADER_FOOTER_FOLDER);
 
-	FileFilter latexFilter = new FileFilter() {
-	    @Override
-	    public boolean accept(File pathname) {
-		return pathname.getName().endsWith(".tex");
-	    }
-	};
+	FileFilter latexFilter = new LaTeXFilter();
 
 	// if the header footer folder does not exist, let's copy the default
 	// one.
@@ -410,18 +409,12 @@ public class AJConfig {
 	File userRawReportsDir = new File(filesLocation.getAbsolutePath()
 		+ File.separator + rawReportsFolder);
 
-	FileFilter rawReportsFilter = new FileFilter() {
-	    @Override
-	    public boolean accept(File pathname) {
-		return pathname.getName().endsWith(".csv")
-			|| pathname.getName().endsWith(".tsv");
-	    }
-	};
+	FileFilter rawReportFilter = new TabSeparatedValueRawReportFilter();
 
 	// if the raw reports folder does not exist, let's copy the default one.
 	// This is convenient for testing.
 	if (!userRawReportsDir.exists()
-		|| userRawReportsDir.listFiles(rawReportsFilter).length < 1) {
+		|| userRawReportsDir.listFiles(rawReportFilter).length < 1) {
 	    try {
 		FileUtils.copyDirectory(ajRawReportsDir, userRawReportsDir,
 			true);
@@ -447,6 +440,7 @@ public class AJConfig {
      * @throws IOException
      *             if the folder could not be cleaned.
      */
+    // TODO Put into utilities, and pass parameters.
     public void cleanAJFolder() throws IOException {
 	try {
 	    if (!(filesLocation.exists() && filesLocation.canWrite())) {
@@ -471,85 +465,4 @@ public class AJConfig {
     public ResourceBundle getLocaleBundle() {
 	return localeBundle;
     }
-
-//    // TODO replace these with getProperty()
-//    /**
-//     * @return the quiet
-//     */
-//    public boolean isQuiet() {
-//	return quiet;
-//    }
-//
-//    /**
-//     * @return the showLatexOutput
-//     */
-//    public boolean isShowLatexOutput() {
-//	return showLatexOutput;
-//    }
-//
-//    /**
-//     * @return the showConfigurationAtStart
-//     */
-//    public boolean isShowConfigurationAtStart() {
-//	return showConfigurationAtStart;
-//    }
-//
-//    /**
-//     * @return the showLicenseAtStart
-//     */
-//    public boolean isShowLicenseAtStart() {
-//	return showLicenseAtStart;
-//    }
-//
-//    /**
-//     * @return the showPDFLatexVersionAtStart
-//     */
-//    public boolean isShowPDFLatexVersionAtStart() {
-//	return showPDFLatexVersionAtStart;
-//    }
-//
-//    /**
-//     * Return the file containing all input and output files.
-//     * 
-//     * @return the AstroJournal Files Location.
-//     */
-//    public File getFilesLocation() {
-//	return filesLocation;
-//    }
-//
-//    /**
-//     * @return the rawReportsFolder
-//     */
-//    public String getRawReportsFolder() {
-//	return rawReportsFolder;
-//    }
-//
-//    /**
-//     * @return the latexReportsFolderByDate
-//     */
-//    public String getLatexReportsFolderByDate() {
-//	return latexReportsFolderByDate;
-//    }
-//
-//    /**
-//     * @return the latexReportsFolderByTarget
-//     */
-//    public String getLatexReportsFolderByTarget() {
-//	return latexReportsFolderByTarget;
-//    }
-//
-//    /**
-//     * @return the latexReportsFolderByConstellation
-//     */
-//    public String getLatexReportsFolderByConstellation() {
-//	return latexReportsFolderByConstellation;
-//    }
-//
-//    /**
-//     * @return the sglReportsFolderByDate
-//     */
-//    public String getSglReportsFolderByDate() {
-//	return sglReportsFolderByDate;
-//    }
-
 }

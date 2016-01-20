@@ -44,6 +44,7 @@ import org.astrojournal.generator.headerfooter.AJLatexHeader;
 import org.astrojournal.generator.observation.AJObservation;
 import org.astrojournal.generator.observation.AJObservationItem;
 import org.astrojournal.utilities.RunExternalCommand;
+import org.astrojournal.utilities.filefilters.LaTeXFilter;
 
 /**
  * Exports the observed targets by constellation to Latex code.
@@ -100,7 +101,7 @@ public class AJLatexExporterByConstellation extends AJLatexExporter {
 	    // write the Latex Body
 	    // parse each file in the latex obs folder
 	    File[] files = new File(filesLocation + File.separator
-		    + reportFolder).listFiles();
+		    + reportFolder).listFiles(new LaTeXFilter());
 	    if (files == null) {
 		log.warn("Folder " + filesLocation + File.separator
 			+ reportFolder + " not found");
@@ -114,7 +115,7 @@ public class AJLatexExporterByConstellation extends AJLatexExporter {
 	    // returns null.
 	    for (File file : files) {
 		filename = file.getName();
-		if (file.isFile() && filename.endsWith(".tex")) {
+		if (file.isFile()) {
 		    if (!currConst.equals(filename.substring(
 			    filename.indexOf("_") + 1, filename.indexOf(".")))) {
 			currConst = filename.substring(

@@ -45,6 +45,7 @@ import org.astrojournal.generator.headerfooter.AJLatexHeader;
 import org.astrojournal.generator.observation.AJObservation;
 import org.astrojournal.generator.observation.AJObservationItem;
 import org.astrojournal.utilities.RunExternalCommand;
+import org.astrojournal.utilities.filefilters.LaTeXFilter;
 
 /**
  * Exports an AstroJournal set of observations by target to Latex code.
@@ -104,7 +105,7 @@ public class AJLatexExporterByTarget extends AJLatexExporter {
 	    // parse each file in the latex obs folder (sorted by observation
 	    // increasing)
 	    File[] files = new File(filesLocation + File.separator
-		    + reportFolder).listFiles();
+		    + reportFolder).listFiles(new LaTeXFilter());
 	    if (files == null) {
 		log.warn("Folder " + filesLocation + File.separator
 			+ reportFolder + " not found");
@@ -117,7 +118,7 @@ public class AJLatexExporterByTarget extends AJLatexExporter {
 	    String target = null, type = "";
 	    for (File file : files) {
 		target = file.getName();
-		if (file.isFile() && target.endsWith(".tex")) {
+		if (file.isFile()) {
 		    if (target
 			    .matches("^(sun|moon|mercury|venus|mars|asteroid|jupiter|saturn|uranus|neptune|pluto|comet|Sun|Moon|Mercury|Venus|Mars|Asteroid|Jupiter|Saturn|Uranus|Neptune|Pluto|Comet).*$")) {
 			writeSectionName(writer, target, type, "Solar System");

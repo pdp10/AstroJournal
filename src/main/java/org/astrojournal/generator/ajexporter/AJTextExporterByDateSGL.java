@@ -40,6 +40,7 @@ import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConstants;
 import org.astrojournal.generator.observation.AJObservation;
 import org.astrojournal.generator.observation.AJObservationItem;
+import org.astrojournal.utilities.filefilters.TextFilter;
 
 /**
  * Exports an AstroJournal observation to txt for Stargazers Lounge reports.
@@ -78,7 +79,7 @@ public class AJTextExporterByDateSGL extends AJExporter {
 	    // parse each file in the obs folder (sorted by observation
 	    // increasing)
 	    File[] files = new File(filesLocation + File.separator
-		    + reportFolder).listFiles();
+		    + reportFolder).listFiles(new TextFilter());
 	    if (files == null) {
 		log.warn("Folder " + filesLocation + File.separator
 			+ reportFolder + " not found");
@@ -88,7 +89,7 @@ public class AJTextExporterByDateSGL extends AJExporter {
 	    // If this pathname does not denote a directory, then listFiles()
 	    // returns null.
 	    for (File file : files) {
-		if (file.isFile() && file.getName().endsWith(".txt")) {
+		if (file.isFile()) {
 		    // include the file removing the extension .txt
 		    try {
 			Scanner scanner = new Scanner(file, "UTF-8");

@@ -42,6 +42,7 @@ import org.astrojournal.generator.headerfooter.AJLatexHeader;
 import org.astrojournal.generator.observation.AJObservation;
 import org.astrojournal.generator.observation.AJObservationItem;
 import org.astrojournal.utilities.RunExternalCommand;
+import org.astrojournal.utilities.filefilters.LaTeXFilter;
 
 /**
  * Exports an AstroJournal observation to LaTeX code.
@@ -88,7 +89,7 @@ public class AJLatexExporterByDate extends AJLatexExporter {
 	    // parse each file in the latex obs folder (sorted by observation
 	    // increasing)
 	    File[] files = new File(filesLocation + File.separator
-		    + reportFolder).listFiles();
+		    + reportFolder).listFiles(new LaTeXFilter());
 	    if (files == null) {
 		log.warn("Folder " + filesLocation + File.separator
 			+ reportFolder + " not found");
@@ -98,7 +99,7 @@ public class AJLatexExporterByDate extends AJLatexExporter {
 	    // If this pathname does not denote a directory, then listFiles()
 	    // returns null.
 	    for (File file : files) {
-		if (file.isFile() && file.getName().endsWith(".tex")) {
+		if (file.isFile()) {
 		    // include the file removing the extension .tex
 		    writerByDate.write("\\input{" + reportFolder + "/"
 			    + file.getName().replaceFirst("[.][^.]+$", "")
