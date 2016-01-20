@@ -39,7 +39,7 @@ public class AJConstants {
     public static final String APPLICATION_NAME = "AstroJournal";
 
     /** The AJ application version. */
-    public static final String APPLICATION_VERSION = "v0.10.14";
+    public static final String APPLICATION_VERSION = "v1.1.0";
 
     /** The AJ website. */
     public static final String APPLICATION_WEBSITE = "http://pdp10.github.io/AstroJournal";

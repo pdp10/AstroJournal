@@ -36,7 +36,6 @@ import java.util.Collections;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.configuration.AJConstants;
 import org.astrojournal.generator.headerfooter.AJLatexFooter;
 import org.astrojournal.generator.headerfooter.AJLatexHeader;
@@ -45,7 +44,7 @@ import org.astrojournal.generator.observation.AJObservationItem;
 import org.astrojournal.utilities.RunExternalCommand;
 
 /**
- * Exports an AstroJournal observation to Latex code.
+ * Exports an AstroJournal observation to LaTeX code.
  * 
  * @author Piero Dalle Pezze
  * @version 0.2
@@ -58,64 +57,26 @@ public class AJLatexExporterByDate extends AJLatexExporter {
 	    .getLogger(AJLatexExporterByDate.class);
 
     /**
-     * Constructor
-     * 
-     * @param ajConfig
+     * Default constructor.
      */
-    public AJLatexExporterByDate(AJConfig ajConfig) {
-	super(ajConfig);
+    public AJLatexExporterByDate() {
+	super();
     }
 
     /**
-     * Generate the Latex document sorted by date
-     * 
-     * @param observations
-     *            the list of observations to exportObservation
-     * @return true if the observations sorted by date have been exported to
-     *         Latex correctly
+     * Generate the LaTeX document sorting the observation by decreasing date.
      */
     @Override
-    public boolean generateJournal(ArrayList<AJObservation> observations) {
-	// export the imported observation by date to Latex
-	log.info("");
-	log.info("Exporting observations by date:");
-	boolean resultByDate = exportObservations(observations, AJConfig
-		.getInstance().getLatexReportsFolderByDate());
-	generateJournal(ajConfig.getLatexReportsFolderByDate(),
-		AJConstants.HEADER_BY_DATE_FILENAME,
-		AJConstants.REPORT_BY_DATE_FILENAME,
-		AJConstants.FOOTER_BY_DATE_FILENAME);
-	return resultByDate;
-    }
-
-    /**
-     * Generate the Latex document sorting the observation by decreasing date
-     * 
-     * @param latexReportsFolderByDate
-     *            the directory containing the single observations by date in
-     *            latex format (output)
-     * @param latexHeaderByDate
-     *            the latex header code (by date)
-     * @param latexMainByDate
-     *            the latex main body code (by date)
-     * @param latexFooterByDate
-     *            the latex footer code (by date)
-     */
-    @Override
-    public void generateJournal(String latexReportsFolderByDate,
-	    String latexHeaderByDate, String latexMainByDate,
-	    String latexFooterByDate) {
-	AJLatexHeader ajLatexHeaderByDate = new AJLatexHeader(ajConfig
-		.getFilesLocation().getAbsolutePath(), latexHeaderByDate);
-	AJLatexFooter ajLatexFooterByDate = new AJLatexFooter(ajConfig
-		.getFilesLocation().getAbsolutePath(), latexFooterByDate);
+    public boolean generateJournal() {
+	AJLatexHeader ajLatexHeaderByDate = new AJLatexHeader(filesLocation,
+		headerFilename);
+	AJLatexFooter ajLatexFooterByDate = new AJLatexFooter(filesLocation,
+		footerFilename);
 	Writer writerByDate = null;
 	try {
 	    writerByDate = new BufferedWriter(new OutputStreamWriter(
-		    new FileOutputStream(ajConfig.getFilesLocation()
-			    .getAbsolutePath()
-			    + File.separator
-			    + latexMainByDate), "utf-8"));
+		    new FileOutputStream(filesLocation + File.separator
+			    + reportFilename), "utf-8"));
 	    // write the Latex Header
 	    writerByDate.write(ajLatexHeaderByDate.getHeader());
 
@@ -126,16 +87,12 @@ public class AJLatexExporterByDate extends AJLatexExporter {
 	    writerByDate.write("\\hspace{4 mm}\n");
 	    // parse each file in the latex obs folder (sorted by observation
 	    // increasing)
-	    File[] files = new File(ajConfig.getFilesLocation()
-		    .getAbsolutePath()
-		    + File.separator
-		    + latexReportsFolderByDate).listFiles();
+	    File[] files = new File(filesLocation + File.separator
+		    + reportFolder).listFiles();
 	    if (files == null) {
-		log.warn("Folder "
-			+ ajConfig.getFilesLocation().getAbsolutePath()
-			+ File.separator + latexReportsFolderByDate
-			+ " not found");
-		return;
+		log.warn("Folder " + filesLocation + File.separator
+			+ reportFolder + " not found");
+		return false;
 	    }
 	    Arrays.sort(files, Collections.reverseOrder());
 	    // If this pathname does not denote a directory, then listFiles()
@@ -143,8 +100,7 @@ public class AJLatexExporterByDate extends AJLatexExporter {
 	    for (File file : files) {
 		if (file.isFile() && file.getName().endsWith(".tex")) {
 		    // include the file removing the extension .tex
-		    writerByDate.write("\\input{" + latexReportsFolderByDate
-			    + "/"
+		    writerByDate.write("\\input{" + reportFolder + "/"
 			    + file.getName().replaceFirst("[.][^.]+$", "")
 			    + "}\n");
 		    writerByDate.write("\\clearpage \n");
@@ -155,34 +111,28 @@ public class AJLatexExporterByDate extends AJLatexExporter {
 	    writerByDate.write(ajLatexFooterByDate.getFooter());
 
 	} catch (IOException ex) {
-	    log.warn("Error when opening the file "
-		    + ajConfig.getFilesLocation().getAbsolutePath()
-		    + File.separator + latexMainByDate, ex);
+	    log.warn("Error when opening the file " + filesLocation
+		    + File.separator + reportFilename, ex);
+	    return false;
 	} catch (Exception ex) {
 	    log.error(ex, ex);
+	    return false;
 	} finally {
 	    try {
 		if (writerByDate != null)
 		    writerByDate.close();
 	    } catch (Exception ex) {
 		log.error(ex, ex);
+		return false;
 	    }
 	}
+	return true;
     }
 
-    /**
-     * Exports an observation record to Latex
-     * 
-     * @param observations
-     *            the list of observations to exportObservation
-     * @param latexReportsByDateFolder
-     *            the folder to write the observation in.
-     * @return true if the observations are exported
-     */
     @Override
-    public boolean exportObservations(ArrayList<AJObservation> observations,
-	    String latexReportsByDateFolder) {
-
+    public boolean exportObservations(ArrayList<AJObservation> observations) {
+	log.info("");
+	log.info("Exporting observations by date:");
 	AJObservation obs = null;
 	int nObservations = observations.size();
 	boolean result = true;
@@ -206,10 +156,9 @@ public class AJLatexExporterByDate extends AJLatexExporter {
 		    .getObservationItems();
 	    try {
 		table = new BufferedWriter(new OutputStreamWriter(
-			new FileOutputStream(new File(ajConfig
-				.getFilesLocation().getAbsolutePath()
-				+ File.separator + latexReportsByDateFolder,
-				"obs" + filenameOut + ".tex")), "utf-8"));
+			new FileOutputStream(new File(filesLocation
+				+ File.separator + reportFolder, "obs"
+				+ filenameOut + ".tex")), "utf-8"));
 
 		table.write("% General observation data\n");
 		table.write("\\begin{tabular}{ p{0.7in} p{1.2in} p{1.1in} p{5.7in}}\n");
@@ -273,8 +222,7 @@ public class AJLatexExporterByDate extends AJLatexExporter {
 		log.info("\tExported report " + obs.getDate() + " ("
 			+ observationItems.size() + " targets)");
 	    } catch (IOException ex) {
-		log.error("Error when opening the file "
-			+ ajConfig.getFilesLocation().getAbsolutePath()
+		log.error("Error when opening the file " + filesLocation
 			+ File.separator + filenameOut, ex);
 		result = false;
 	    } catch (Exception ex) {
@@ -286,6 +234,7 @@ public class AJLatexExporterByDate extends AJLatexExporter {
 			table.close();
 		} catch (Exception ex) {
 		    log.error(ex, ex);
+		    return false;
 		}
 	    }
 	}
@@ -305,7 +254,7 @@ public class AJLatexExporterByDate extends AJLatexExporter {
 	String commandOutput;
 	commandOutput = RunExternalCommand.runCommand(command + " "
 		+ AJConstants.REPORT_BY_DATE_FILENAME);
-	if (!ajConfig.isQuiet() && ajConfig.isShowLatexOutput())
+	if (!quiet && latexOutput)
 	    log.info(commandOutput + "\n");
 	commandOutput = RunExternalCommand.runCommand(command + " "
 		+ AJConstants.REPORT_BY_DATE_FILENAME);
@@ -314,7 +263,7 @@ public class AJLatexExporterByDate extends AJLatexExporter {
 	// Add this at the end to avoid mixing with the latex command
 	// output.
 	log.info("\t"
-		+ ajConfig.getFilesLocation().getAbsolutePath()
+		+ filesLocation
 		+ File.separator
 		+ FilenameUtils
 			.removeExtension(AJConstants.REPORT_BY_DATE_FILENAME)

@@ -472,84 +472,84 @@ public class AJConfig {
 	return localeBundle;
     }
 
-    // TODO replace these with getProperty()
-    /**
-     * @return the quiet
-     */
-    public boolean isQuiet() {
-	return quiet;
-    }
-
-    /**
-     * @return the showLatexOutput
-     */
-    public boolean isShowLatexOutput() {
-	return showLatexOutput;
-    }
-
-    /**
-     * @return the showConfigurationAtStart
-     */
-    public boolean isShowConfigurationAtStart() {
-	return showConfigurationAtStart;
-    }
-
-    /**
-     * @return the showLicenseAtStart
-     */
-    public boolean isShowLicenseAtStart() {
-	return showLicenseAtStart;
-    }
-
-    /**
-     * @return the showPDFLatexVersionAtStart
-     */
-    public boolean isShowPDFLatexVersionAtStart() {
-	return showPDFLatexVersionAtStart;
-    }
-
-    /**
-     * Return the file containing all input and output files.
-     * 
-     * @return the AstroJournal Files Location.
-     */
-    public File getFilesLocation() {
-	return filesLocation;
-    }
-
-    /**
-     * @return the rawReportsFolder
-     */
-    public String getRawReportsFolder() {
-	return rawReportsFolder;
-    }
-
-    /**
-     * @return the latexReportsFolderByDate
-     */
-    public String getLatexReportsFolderByDate() {
-	return latexReportsFolderByDate;
-    }
-
-    /**
-     * @return the latexReportsFolderByTarget
-     */
-    public String getLatexReportsFolderByTarget() {
-	return latexReportsFolderByTarget;
-    }
-
-    /**
-     * @return the latexReportsFolderByConstellation
-     */
-    public String getLatexReportsFolderByConstellation() {
-	return latexReportsFolderByConstellation;
-    }
-
-    /**
-     * @return the sglReportsFolderByDate
-     */
-    public String getSglReportsFolderByDate() {
-	return sglReportsFolderByDate;
-    }
+//    // TODO replace these with getProperty()
+//    /**
+//     * @return the quiet
+//     */
+//    public boolean isQuiet() {
+//	return quiet;
+//    }
+//
+//    /**
+//     * @return the showLatexOutput
+//     */
+//    public boolean isShowLatexOutput() {
+//	return showLatexOutput;
+//    }
+//
+//    /**
+//     * @return the showConfigurationAtStart
+//     */
+//    public boolean isShowConfigurationAtStart() {
+//	return showConfigurationAtStart;
+//    }
+//
+//    /**
+//     * @return the showLicenseAtStart
+//     */
+//    public boolean isShowLicenseAtStart() {
+//	return showLicenseAtStart;
+//    }
+//
+//    /**
+//     * @return the showPDFLatexVersionAtStart
+//     */
+//    public boolean isShowPDFLatexVersionAtStart() {
+//	return showPDFLatexVersionAtStart;
+//    }
+//
+//    /**
+//     * Return the file containing all input and output files.
+//     * 
+//     * @return the AstroJournal Files Location.
+//     */
+//    public File getFilesLocation() {
+//	return filesLocation;
+//    }
+//
+//    /**
+//     * @return the rawReportsFolder
+//     */
+//    public String getRawReportsFolder() {
+//	return rawReportsFolder;
+//    }
+//
+//    /**
+//     * @return the latexReportsFolderByDate
+//     */
+//    public String getLatexReportsFolderByDate() {
+//	return latexReportsFolderByDate;
+//    }
+//
+//    /**
+//     * @return the latexReportsFolderByTarget
+//     */
+//    public String getLatexReportsFolderByTarget() {
+//	return latexReportsFolderByTarget;
+//    }
+//
+//    /**
+//     * @return the latexReportsFolderByConstellation
+//     */
+//    public String getLatexReportsFolderByConstellation() {
+//	return latexReportsFolderByConstellation;
+//    }
+//
+//    /**
+//     * @return the sglReportsFolderByDate
+//     */
+//    public String getSglReportsFolderByDate() {
+//	return sglReportsFolderByDate;
+//    }
 
 }

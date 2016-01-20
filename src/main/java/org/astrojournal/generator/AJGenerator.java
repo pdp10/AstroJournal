@@ -25,14 +25,20 @@ package org.astrojournal.generator;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJConstants;
+import org.astrojournal.configuration.AJProperties;
 import org.astrojournal.generator.ajexporter.AJExporter;
+import org.astrojournal.generator.ajexporter.AJLatexExporter;
+import org.astrojournal.generator.ajexporter.AJLatexExporterByConstellation;
+import org.astrojournal.generator.ajexporter.AJLatexExporterByDate;
+import org.astrojournal.generator.ajexporter.AJLatexExporterByTarget;
+import org.astrojournal.generator.ajexporter.AJTextExporterByDateSGL;
 import org.astrojournal.generator.ajimporter.AJImporter;
 import org.astrojournal.generator.observation.AJObservation;
 import org.astrojournal.utilities.ExporterSearcher;
@@ -49,6 +55,9 @@ public class AJGenerator {
 
     /** The log associated to this class */
     private static Logger log = LogManager.getLogger(AJGenerator.class);
+
+    /** The configurator. */
+    private AJConfig ajConfig = AJConfig.getInstance();
 
     /** The list of observations. */
     private ArrayList<AJObservation> observations = new ArrayList<AJObservation>();
@@ -73,9 +82,9 @@ public class AJGenerator {
 	if (!ajImport()) {
 	    if (observations.isEmpty()) {
 		log.error("No observation was imported. Is the folder "
-			+ AJConfig.getInstance().getFilesLocation()
-				.getAbsolutePath() + File.separator
-			+ AJConfig.getInstance().getRawReportsFolder()
+			+ ajConfig.getProperty(AJProperties.FILES_LOCATION)
+			+ File.separator
+			+ ajConfig.getProperty(AJProperties.RAW_REPORTS_FOLDER)
 			+ " empty?");
 		return false;
 	    }
@@ -158,8 +167,7 @@ public class AJGenerator {
 	    try {
 		log.debug("Loading importer " + ajImporterName);
 		Class<?> cls = Class.forName(ajImporterName);
-		Object clsInstance = cls.getDeclaredConstructor(AJConfig.class)
-			.newInstance(AJConfig.getInstance());
+		Object clsInstance = cls.newInstance();
 		AJImporter ajImporter = (AJImporter) clsInstance;
 		if (!ajImporters.contains(ajImporter)) {
 		    ajImporters.add(ajImporter);
@@ -183,12 +191,6 @@ public class AJGenerator {
 	    } catch (SecurityException e) {
 		status = false;
 		log.debug(e);
-	    } catch (InvocationTargetException e) {
-		status = false;
-		log.debug(e);
-	    } catch (NoSuchMethodException e) {
-		status = false;
-		log.debug(e);
 	    }
 	}
 	if (ajImporters.isEmpty()) {
@@ -197,6 +199,17 @@ public class AJGenerator {
 	}
 	resetObservations();
 	for (AJImporter ajImporter : ajImporters) {
+
+	    // TODO: TEMPORARY IMPLEMENTATION. WITH DEPENDENCY INJECTION, THESE
+	    // PARAMETERS ARE PASSED BY THE INJECTOR
+	    // THEREFORE, THERE IS NO NEED TO SET THEM HERE!! :)
+	    log.warn(ajConfig.getProperty(AJProperties.FILES_LOCATION));
+	    ajImporter.setFilesLocation(ajConfig
+		    .getProperty(AJProperties.FILES_LOCATION));
+	    ajImporter.setRawReportFolder(ajConfig
+		    .getProperty(AJProperties.RAW_REPORTS_FOLDER));
+	    // TODO: END
+
 	    log.debug(ajImporter.getName() + " is importing observations");
 	    ArrayList<AJObservation> obs = ajImporter.importObservations();
 	    observations.addAll(obs);
@@ -220,8 +233,7 @@ public class AJGenerator {
 	    try {
 		log.debug("Loading exporter " + ajExporterName);
 		Class<?> cls = Class.forName(ajExporterName);
-		Object clsInstance = cls.getDeclaredConstructor(AJConfig.class)
-			.newInstance(AJConfig.getInstance());
+		Object clsInstance = cls.newInstance();
 		AJExporter ajExporter = (AJExporter) clsInstance;
 		if (!ajExporters.contains(ajExporter)) {
 		    ajExporters.add(ajExporter);
@@ -242,12 +254,6 @@ public class AJGenerator {
 	    } catch (IllegalArgumentException e) {
 		status = false;
 		log.debug(e);
-	    } catch (InvocationTargetException e) {
-		status = false;
-		log.debug(e);
-	    } catch (NoSuchMethodException e) {
-		status = false;
-		log.debug(e);
 	    } catch (SecurityException e) {
 		status = false;
 		log.debug(e);
@@ -258,8 +264,67 @@ public class AJGenerator {
 	    return false;
 	}
 	for (AJExporter ajExporter : ajExporters) {
+
+	    // TODO: TEMPORARY IMPLEMENTATION. WITH DEPENDENCY INJECTION, THESE
+	    // PARAMETERS ARE PASSED BY THE INJECTOR
+	    // THEREFORE, THERE IS NO NEED TO SET THEM HERE!! :)
+	    log.warn(ajConfig.getProperty(AJProperties.FILES_LOCATION));
+	    ajExporter.setFilesLocation(ajConfig
+		    .getProperty(AJProperties.FILES_LOCATION));
+	    ajExporter.setQuiet(Boolean.getBoolean(ajConfig
+		    .getProperty(AJProperties.QUIET)));
+	    if (ajExporter instanceof AJLatexExporter) {
+		((AJLatexExporter) ajExporter).setLatexOutput(Boolean
+			.getBoolean(ajConfig
+				.getProperty(AJProperties.SHOW_LATEX_OUTPUT)));
+		if (ajExporter instanceof AJLatexExporterByDate) {
+		    ((AJLatexExporterByDate) ajExporter)
+			    .setReportFolder(ajConfig
+				    .getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE));
+		    ((AJLatexExporterByDate) ajExporter)
+			    .setHeaderFilename(AJConstants.HEADER_BY_DATE_FILENAME);
+		    ((AJLatexExporterByDate) ajExporter)
+			    .setReportFilename(AJConstants.REPORT_BY_DATE_FILENAME);
+		    ((AJLatexExporterByDate) ajExporter)
+			    .setFooterFilename(AJConstants.FOOTER_BY_DATE_FILENAME);
+		}
+		if (ajExporter instanceof AJLatexExporterByTarget) {
+		    ((AJLatexExporterByTarget) ajExporter)
+			    .setReportFolder(ajConfig
+				    .getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET));
+		    ((AJLatexExporterByTarget) ajExporter)
+			    .setHeaderFilename(AJConstants.HEADER_BY_TARGET_FILENAME);
+		    ((AJLatexExporterByTarget) ajExporter)
+			    .setReportFilename(AJConstants.REPORT_BY_TARGET_FILENAME);
+		    ((AJLatexExporterByTarget) ajExporter)
+			    .setFooterFilename(AJConstants.FOOTER_BY_TARGET_FILENAME);
+		}
+		if (ajExporter instanceof AJLatexExporterByConstellation) {
+		    ((AJLatexExporterByConstellation) ajExporter)
+			    .setReportFolder(ajConfig
+				    .getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION));
+		    ((AJLatexExporterByConstellation) ajExporter)
+			    .setHeaderFilename(AJConstants.HEADER_BY_CONSTELLATION_FILENAME);
+		    ((AJLatexExporterByConstellation) ajExporter)
+			    .setReportFilename(AJConstants.REPORT_BY_CONSTELLATION_FILENAME);
+		    ((AJLatexExporterByConstellation) ajExporter)
+			    .setFooterFilename(AJConstants.FOOTER_BY_CONSTELLATION_FILENAME);
+		}
+
+	    } else {
+		if (ajExporter instanceof AJTextExporterByDateSGL) {
+		    ((AJTextExporterByDateSGL) ajExporter)
+			    .setReportFolder(ajConfig
+				    .getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE));
+		    ((AJTextExporterByDateSGL) ajExporter)
+			    .setReportFilename(AJConstants.SGL_REPORT_BY_DATE_FILENAME);
+		}
+	    }
+	    // TODO END
+
 	    log.debug(ajExporter.getName() + " is exporting observations");
-	    boolean result = ajExporter.generateJournal(observations);
+	    boolean result = ajExporter.exportObservations(observations)
+		    && ajExporter.generateJournal();
 	    status = result && status;
 	    if (result) {
 		log.debug(ajExporter.getName() + " SUCCEEDED");

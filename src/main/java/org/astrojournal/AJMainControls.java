@@ -30,6 +30,7 @@ import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.configuration.AJConfigUtils;
 import org.astrojournal.configuration.AJConstants;
+import org.astrojournal.configuration.AJProperties;
 import org.astrojournal.generator.AJGenerator;
 
 /**
@@ -131,15 +132,23 @@ public abstract class AJMainControls {
      */
     protected boolean processing() {
 	log.debug("Starting processing");
-	if (!ajConfig.isQuiet() && ajConfig.isShowLicenseAtStart()) {
+	if (ajConfig.getProperty(AJProperties.QUIET).equals("false")
+		&& ajConfig.getProperty(AJProperties.SHOW_LICENSE_AT_START)
+			.equals("true")) {
 	    showLicense();
 	}
-	if (!ajConfig.isQuiet() && ajConfig.isShowPDFLatexVersionAtStart()) {
+	if (ajConfig.getProperty(AJProperties.QUIET).equals("false")
+		&& ajConfig.getProperty(
+			AJProperties.SHOW_PDFLATEX_VERSION_AT_START).equals(
+			"true")) {
 	    if (!showPDFLatexVersion()) {
 		return false;
 	    }
 	}
-	if (!ajConfig.isQuiet() && ajConfig.isShowConfigurationAtStart()) {
+	if (ajConfig.getProperty(AJProperties.QUIET).equals("false")
+		&& ajConfig.getProperty(
+			AJProperties.SHOW_CONFIGURATION_AT_START)
+			.equals("true")) {
 	    showConfiguration();
 	}
 	if (!ajGenerator.generateJournals()) {

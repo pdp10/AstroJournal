@@ -23,14 +23,12 @@
  */
 package org.astrojournal.utilities;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.generator.ajimporter.AJImporter;
 
 /**
@@ -67,8 +65,7 @@ public class ImporterSearcher {
     private static boolean isImporter(String className) {
 	try {
 	    Class<?> cls = Class.forName(className);
-	    Object clsInstance = cls.getDeclaredConstructor(AJConfig.class)
-		    .newInstance(AJConfig.getInstance());
+	    Object clsInstance = cls.newInstance();
 	    if (clsInstance instanceof AJImporter) {
 		return true;
 	    }
@@ -81,10 +78,6 @@ public class ImporterSearcher {
 	} catch (IllegalAccessException e) {
 	    log.debug(e);
 	} catch (IllegalArgumentException e) {
-	    log.debug(e);
-	} catch (InvocationTargetException e) {
-	    log.debug(e);
-	} catch (NoSuchMethodException e) {
 	    log.debug(e);
 	} catch (SecurityException e) {
 	    log.debug(e);

@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.generator.observation.AJObservation;
 
 /**
@@ -47,19 +46,16 @@ public abstract class AJImporter {
     /** The values contained in an imported string. */
     protected String[] values = null;
 
-    // We pass this as parameter to leave the ability to pass different
-    // configurators.
-    /** An instance of AJConfig. */
-    protected AJConfig ajConfig = null;
+    /** The absolute path of the location containing the data. */
+    protected String filesLocation = System.getProperty("user.home");
+
+    /** The folder containing the raw reports to import. */
+    protected String rawReportFolder = "reports";
 
     /**
      * Default constructor
-     * 
-     * @param ajConfig
-     *            The astro journal configurator.
      */
-    public AJImporter(AJConfig ajConfig) {
-	this.ajConfig = ajConfig;
+    public AJImporter() {
     }
 
     /**
@@ -138,6 +134,44 @@ public abstract class AJImporter {
 	    return this.getName().equals(that.getName());
 	}
 	return false;
+    }
+
+    /**
+     * Return the absolute path for storing the data.
+     * 
+     * @return filesLocation
+     */
+    public String getFilesLocation() {
+	return filesLocation;
+    }
+
+    /**
+     * Set the absolute path for storing the data.
+     * 
+     * @param filesLocation
+     *            the files location
+     */
+    public void setFilesLocation(String filesLocation) {
+	this.filesLocation = filesLocation;
+    }
+
+    /**
+     * Return the name of the folder containing the raw reports to import.
+     * 
+     * @return the rawReportFolder
+     */
+    public String getRawReportFolder() {
+	return rawReportFolder;
+    }
+
+    /**
+     * Set the name of the folder containing the raw reports to import.
+     * 
+     * @param rawReportFolder
+     *            the rawReportFolder to set
+     */
+    public void setRawReportFolder(String rawReportFolder) {
+	this.rawReportFolder = rawReportFolder;
     }
 
 }

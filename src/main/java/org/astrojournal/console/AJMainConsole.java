@@ -96,7 +96,7 @@ public class AJMainConsole {
 	AJMainConsole ajMainConsole = new AJMainConsole();
 	if (args.length > 1
 		&& (args[1].equals("-l") || args[1].equals("--latex-output"))) {
-	    if (ajConfig.isQuiet()) {
+	    if (ajConfig.getProperty(AJProperties.QUIET).equals("true")) {
 		// If the configuration was quiet, we switch every thing off,
 		// except for LATEX_OUTPUT_PROP
 		System.setProperty(AJProperties.QUIET, "false");

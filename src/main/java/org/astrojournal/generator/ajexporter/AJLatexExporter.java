@@ -26,11 +26,10 @@ package org.astrojournal.generator.ajexporter;
 import java.io.IOException;
 
 import org.apache.commons.lang3.SystemUtils;
-import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.utilities.RunExternalCommand;
 
 /**
- * A generic AJ Latex Exporter.
+ * A generic latex Exporter.
  * 
  * @author Piero Dalle Pezze
  * @version $Rev$
@@ -42,13 +41,14 @@ public abstract class AJLatexExporter extends AJExporter {
     /** The command to post-process the LaTeX code. */
     protected String command = "pdflatex -halt-on-error";
 
+    /** If the LaTeX output should be printed. */
+    protected boolean latexOutput = false;
+
     /**
-     * Constructor
-     * 
-     * @param ajConfig
+     * Default constructor.
      */
-    public AJLatexExporter(AJConfig ajConfig) {
-	super(ajConfig);
+    public AJLatexExporter() {
+	super();
     }
 
     /**
@@ -66,12 +66,29 @@ public abstract class AJLatexExporter extends AJExporter {
 		    new String[] {
 			    "/bin/sh",
 			    "-c",
-			    "cd "
-				    + ajConfig.getFilesLocation()
-					    .getAbsolutePath()
+			    "cd " + filesLocation
 				    + " && rm -rf *.aux *.toc *.log *.out"
 				    + " && cd -" });
 	}
 
+    }
+
+    /**
+     * Get true if the latex output is printed.
+     * 
+     * @return the latexOutput
+     */
+    public boolean isLatexOutput() {
+	return latexOutput;
+    }
+
+    /**
+     * Set true to print the latex output.
+     * 
+     * @param latexOutput
+     *            the latexOutput to set
+     */
+    public void setLatexOutput(boolean latexOutput) {
+	this.latexOutput = latexOutput;
     }
 }

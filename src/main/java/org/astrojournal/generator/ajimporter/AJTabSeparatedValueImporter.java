@@ -31,7 +31,6 @@ import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.generator.observation.AJObservation;
 import org.astrojournal.generator.observation.AJObservationItem;
 
@@ -51,12 +50,9 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 
     /**
      * Default constructor
-     * 
-     * @param ajConfig
-     *            The astro journal configurator.
      */
-    public AJTabSeparatedValueImporter(AJConfig ajConfig) {
-	super(ajConfig);
+    public AJTabSeparatedValueImporter() {
+	super();
     }
 
     /**
@@ -67,8 +63,7 @@ public class AJTabSeparatedValueImporter extends AJImporter {
     @Override
     public ArrayList<AJObservation> importObservations() {
 	log.info("Importing observation files:");
-	String rawReportPath = ajConfig.getFilesLocation().getAbsolutePath()
-		+ File.separator + ajConfig.getRawReportsFolder();
+	String rawReportPath = filesLocation + File.separator + rawReportFolder;
 	File[] files = new File(rawReportPath).listFiles();
 	if (files == null) {
 	    log.error("Folder " + rawReportPath + " not found");

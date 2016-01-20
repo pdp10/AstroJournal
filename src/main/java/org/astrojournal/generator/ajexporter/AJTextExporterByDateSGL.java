@@ -37,7 +37,6 @@ import java.util.Scanner;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.configuration.AJConstants;
 import org.astrojournal.generator.observation.AJObservation;
 import org.astrojournal.generator.observation.AJObservationItem;
@@ -57,70 +56,33 @@ public class AJTextExporterByDateSGL extends AJExporter {
 
     /**
      * Default constructor
-     * 
-     * @param ajConfig
-     *            The astro journal configurator
      */
-    public AJTextExporterByDateSGL(AJConfig ajConfig) {
-	super(ajConfig);
-    }
-
-    /**
-     * Generate the Latex document sorted by date for the forum StargazersLounge
-     * 
-     * @param observations
-     *            the list of observations to exportObservation
-     * @return true if the observations sorted by date have been exported to txt
-     *         correctly
-     */
-    @Override
-    public boolean generateJournal(ArrayList<AJObservation> observations) {
-	// export the imported observation by date to txt
-	log.info("");
-	log.info("Exporting observations by date for SGL:");
-	boolean resultByDateSGL = exportObservations(observations, AJConfig
-		.getInstance().getSglReportsFolderByDate());
-	generateJournal(AJConfig.getInstance().getSglReportsFolderByDate(), "",
-		AJConstants.SGL_REPORT_BY_DATE_FILENAME, "");
-	return resultByDateSGL;
+    public AJTextExporterByDateSGL() {
+	super();
     }
 
     /**
      * Generate a txt document sorting the observation by decreasing date
-     * 
-     * @param reportsFolderByDate
-     *            the directory containing the single observations by date
-     *            (output)
-     * @param headerByDate
-     *            the header code (by date)
-     * @param mainByDate
-     *            the main body code (by date)
-     * @param footerByDate
-     *            the footer code (by date)
      */
     @Override
-    public void generateJournal(String reportsFolderByDate,
-	    String headerByDate, String mainByDate, String footerByDate) {
+    public boolean generateJournal() {
 	Writer writerByDate = null;
 	try {
 	    writerByDate = new BufferedWriter(new OutputStreamWriter(
-		    new FileOutputStream(ajConfig.getFilesLocation()
-			    .getAbsolutePath() + File.separator + mainByDate),
-		    "utf-8"));
+		    new FileOutputStream(filesLocation + File.separator
+			    + reportFilename), "utf-8"));
 	    // write the Header
 
 	    // write the Body
 	    // Write the observation reports
 	    // parse each file in the obs folder (sorted by observation
 	    // increasing)
-	    File[] files = new File(ajConfig.getFilesLocation()
-		    .getAbsolutePath() + File.separator + reportsFolderByDate)
-		    .listFiles();
+	    File[] files = new File(filesLocation + File.separator
+		    + reportFolder).listFiles();
 	    if (files == null) {
-		log.warn("Folder "
-			+ ajConfig.getFilesLocation().getAbsolutePath()
-			+ File.separator + reportsFolderByDate + " not found");
-		return;
+		log.warn("Folder " + filesLocation + File.separator
+			+ reportFolder + " not found");
+		return false;
 	    }
 	    Arrays.sort(files, Collections.reverseOrder());
 	    // If this pathname does not denote a directory, then listFiles()
@@ -143,34 +105,28 @@ public class AJTextExporterByDateSGL extends AJExporter {
 	    // write the Footer
 
 	} catch (IOException ex) {
-	    log.warn("Error when opening the file "
-		    + ajConfig.getFilesLocation().getAbsolutePath()
-		    + File.separator + mainByDate, ex);
+	    log.warn("Error when opening the file " + filesLocation
+		    + File.separator + reportFilename, ex);
+	    return false;
 	} catch (Exception ex) {
 	    log.error(ex, ex);
+	    return false;
 	} finally {
 	    try {
 		if (writerByDate != null)
 		    writerByDate.close();
 	    } catch (Exception ex) {
 		log.error(ex, ex);
+		return false;
 	    }
 	}
+	return true;
     }
 
-    /**
-     * Exports an observation record to txt
-     * 
-     * @param observations
-     *            the list of observations to exportObservation
-     * @param reportsByDateFolder
-     *            the folder to write the observation in.
-     * @return true if the observations are exported
-     */
     @Override
-    public boolean exportObservations(ArrayList<AJObservation> observations,
-	    String reportsByDateFolder) {
-
+    public boolean exportObservations(ArrayList<AJObservation> observations) {
+	log.info("");
+	log.info("Exporting observations by date for SGL:");
 	AJObservation obs = null;
 	int nObservations = observations.size();
 	boolean result = true;
@@ -194,9 +150,8 @@ public class AJTextExporterByDateSGL extends AJExporter {
 		    .getObservationItems();
 	    try {
 		text = new BufferedWriter(new OutputStreamWriter(
-			new FileOutputStream(new File(ajConfig
-				.getFilesLocation().getAbsolutePath()
-				+ File.separator + reportsByDateFolder, "obs"
+			new FileOutputStream(new File(filesLocation
+				+ File.separator + reportFolder, "obs"
 				+ filenameOut + ".txt")), "utf-8"));
 
 		text.write(AJObservation.DATE_NAME + " " + obs.getDate() + "\n");
@@ -232,8 +187,7 @@ public class AJTextExporterByDateSGL extends AJExporter {
 		log.info("\tExported report " + obs.getDate() + " ("
 			+ observationItems.size() + " targets)");
 	    } catch (IOException ex) {
-		log.error("Error when opening the file "
-			+ ajConfig.getFilesLocation().getAbsolutePath()
+		log.error("Error when opening the file " + filesLocation
 			+ File.separator + filenameOut, ex);
 		result = false;
 	    } catch (Exception ex) {
@@ -245,6 +199,7 @@ public class AJTextExporterByDateSGL extends AJExporter {
 			text.close();
 		} catch (Exception ex) {
 		    log.error(ex, ex);
+		    result = false;
 		}
 	    }
 	}
@@ -259,8 +214,8 @@ public class AJTextExporterByDateSGL extends AJExporter {
 
     @Override
     public void postProcessing() throws IOException {
-	log.info("\t" + ajConfig.getFilesLocation().getAbsolutePath()
-		+ File.separator + AJConstants.SGL_REPORT_BY_DATE_FILENAME);
+	log.info("\t" + filesLocation + File.separator
+		+ AJConstants.SGL_REPORT_BY_DATE_FILENAME);
     }
 
 }

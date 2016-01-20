@@ -26,7 +26,6 @@ package org.astrojournal.generator.ajexporter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.generator.observation.AJObservation;
 
 /**
@@ -38,77 +37,54 @@ import org.astrojournal.generator.observation.AJObservation;
  */
 public abstract class AJExporter {
 
-    // We pass this as parameter to leave the ability to pass different
-    // configurators.
-    /** An instance of AJConfig. */
-    protected AJConfig ajConfig = null;
+    /** The absolute path of the location to export the data. */
+    protected String filesLocation = System.getProperty("user.home");
+
+    /** The folder containing the reports. */
+    protected String reportFolder = "reports";
+
+    /** The report header file name. */
+    protected String headerFilename = "";
+
+    /** The report body file name. */
+    protected String reportFilename = "report.txt";
+
+    /** The report footer file name. */
+    protected String footerFilename = "";
+
+    /** If no output should be printed. */
+    protected boolean quiet = true;
 
     /**
-     * Constructor
-     * 
-     * @param ajConfig
-     *            An astro journal configurator
+     * Default constructor.
      */
-    public AJExporter(AJConfig ajConfig) {
-	this.ajConfig = ajConfig;
+    public AJExporter() {
     }
 
     /**
-     * Exports an observation record to Latex
+     * Exports an observation record.
      * 
      * @param observations
      *            the list of observations to exportObservation
-     * @param outputReportsFolder
-     *            the folder to write the observation in.
-     * @return true if the observations are exported
+     * @return true if the observations were exported
      */
     public abstract boolean exportObservations(
-	    ArrayList<AJObservation> observations, String outputReportsFolder);
-
-    /**
-     * Generate the journal document
-     * 
-     * @param observations
-     *            the list of observations to exportObservation
-     * @return true if the observations have been exported correctly
-     */
-    public abstract boolean generateJournal(
 	    ArrayList<AJObservation> observations);
 
     /**
-     * Generate the journal document
+     * Generate the journal document.
      * 
-     * @param outputReportsFolder
-     *            the directory containing the single observations in a specific
-     *            format
-     * @param headerFilename
-     *            the header filename
-     * @param mainFilename
-     *            the main filename
-     * @param footerFilename
-     *            the footer filename
+     * @return true if the journal was generated
      */
-    public abstract void generateJournal(String outputReportsFolder,
-	    String headerFilename, String mainFilename, String footerFilename);
+    public abstract boolean generateJournal();
 
     /**
-     * Return the AJConfig
+     * Run additional post processing commands if necessary.
      * 
-     * @return the ajFilesLocation
+     * @throws IOException
+     *             if the post-processing failed.
      */
-    public AJConfig getAjFilesLocation() {
-	return ajConfig;
-    }
-
-    /**
-     * Set AstroJournal Files location
-     * 
-     * @param ajConfig
-     *            an astro journal configurator
-     */
-    public void setAjFilesLocation(AJConfig ajConfig) {
-	this.ajConfig = ajConfig;
-    }
+    public abstract void postProcessing() throws IOException;
 
     /**
      * Return the exporter name
@@ -127,10 +103,116 @@ public abstract class AJExporter {
     }
 
     /**
-     * Run additional post processing commands if necessary.
+     * Return the absolute path of the files to export.
      * 
-     * @throws IOException
-     *             if the post-processing failed.
+     * @return filesLocation
      */
-    public abstract void postProcessing() throws IOException;
+    public String getFilesLocation() {
+	return filesLocation;
+    }
+
+    /**
+     * Set the absolute path of the files to export.
+     * 
+     * @param filesLocation
+     *            the files location
+     */
+    public void setFilesLocation(String filesLocation) {
+	this.filesLocation = filesLocation;
+    }
+
+    /**
+     * Get the folder containing the reports for this exporter.
+     * 
+     * @return the reportFolder
+     */
+    public String getReportFolder() {
+	return reportFolder;
+    }
+
+    /**
+     * Set the folder containing the reports for this exporter.
+     * 
+     * @param reportFolder
+     *            the reportFolder to set
+     */
+    public void setReportFolder(String reportFolder) {
+	this.reportFolder = reportFolder;
+    }
+
+    /**
+     * Get the header filename.
+     * 
+     * @return the headerFilename
+     */
+    public String getHeaderFilename() {
+	return headerFilename;
+    }
+
+    /**
+     * Set the header filename.
+     * 
+     * @param headerFilename
+     *            the headerFilename to set
+     */
+    public void setHeaderFilename(String headerFilename) {
+	this.headerFilename = headerFilename;
+    }
+
+    /**
+     * Get the report filename.
+     * 
+     * @return the reportFilename
+     */
+    public String getReportFilename() {
+	return reportFilename;
+    }
+
+    /**
+     * Set the report filename.
+     * 
+     * @param reportFilename
+     *            the reportFilename to set
+     */
+    public void setReportFilename(String reportFilename) {
+	this.reportFilename = reportFilename;
+    }
+
+    /**
+     * Get the footer filename.
+     * 
+     * @return the footerFilename
+     */
+    public String getFooterFilename() {
+	return footerFilename;
+    }
+
+    /**
+     * Set the footer filename.
+     * 
+     * @param footerFilename
+     *            the footerFilename to set
+     */
+    public void setFooterFilename(String footerFilename) {
+	this.footerFilename = footerFilename;
+    }
+
+    /**
+     * Get true if no additional prints should be made.
+     * 
+     * @return the quiet
+     */
+    public boolean isQuiet() {
+	return quiet;
+    }
+
+    /**
+     * Set true if no additional prints should be made.
+     * 
+     * @param quiet
+     *            the quiet to set
+     */
+    public void setQuiet(boolean quiet) {
+	this.quiet = quiet;
+    }
 }

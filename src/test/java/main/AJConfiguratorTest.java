@@ -24,8 +24,6 @@
 package main;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.configuration.AJProperties;
@@ -131,11 +129,17 @@ public class AJConfiguratorTest {
 	// Load the new properties
 	ajConfig.loadSystemProperties();
 
-	assertTrue(ajConfig.isShowLatexOutput());
-	assertTrue(ajConfig.isQuiet());
-	assertTrue(ajConfig.isShowConfigurationAtStart());
-	assertTrue(ajConfig.isShowLicenseAtStart());
-	assertTrue(ajConfig.isShowPDFLatexVersionAtStart());
+	assertEquals(ajConfig.getProperty(AJProperties.QUIET), "true");
+	assertEquals(ajConfig.getProperty(AJProperties.SHOW_LATEX_OUTPUT),
+		"true");
+	assertEquals(ajConfig.getProperty(AJProperties.SHOW_LICENSE_AT_START),
+		"true");
+	assertEquals(
+		ajConfig.getProperty(AJProperties.SHOW_PDFLATEX_VERSION_AT_START),
+		"true");
+	assertEquals(
+		ajConfig.getProperty(AJProperties.SHOW_CONFIGURATION_AT_START),
+		"true");
     }
 
     /**
@@ -158,11 +162,17 @@ public class AJConfiguratorTest {
 	// Load the new properties
 	ajConfig.loadSystemProperties();
 
-	assertFalse(ajConfig.isShowLatexOutput());
-	assertFalse(ajConfig.isQuiet());
-	assertFalse(ajConfig.isShowConfigurationAtStart());
-	assertFalse(ajConfig.isShowLicenseAtStart());
-	assertFalse(ajConfig.isShowPDFLatexVersionAtStart());
+	assertEquals(ajConfig.getProperty(AJProperties.QUIET), "false");
+	assertEquals(ajConfig.getProperty(AJProperties.SHOW_LATEX_OUTPUT),
+		"false");
+	assertEquals(ajConfig.getProperty(AJProperties.SHOW_LICENSE_AT_START),
+		"false");
+	assertEquals(
+		ajConfig.getProperty(AJProperties.SHOW_PDFLATEX_VERSION_AT_START),
+		"false");
+	assertEquals(
+		ajConfig.getProperty(AJProperties.SHOW_CONFIGURATION_AT_START),
+		"false");
     }
 
     /**
@@ -191,13 +201,21 @@ public class AJConfiguratorTest {
 	// Load the new properties
 	ajConfig.loadSystemProperties();
 
-	assertEquals(ajConfig.getFilesLocation().getAbsolutePath(),
+	assertEquals(ajConfig.getProperty(AJProperties.FILES_LOCATION),
 		System.getProperty("java.io.tmpdir"));
-	assertEquals(ajConfig.getRawReportsFolder(), "rr_test");
-	assertEquals(ajConfig.getLatexReportsFolderByDate(), "lrdate_test");
-	assertEquals(ajConfig.getLatexReportsFolderByTarget(), "lrtarget_test");
-	assertEquals(ajConfig.getLatexReportsFolderByConstellation(),
+	assertEquals(ajConfig.getProperty(AJProperties.RAW_REPORTS_FOLDER),
+		"rr_test");
+	assertEquals(
+		ajConfig.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE),
+		"lrdate_test");
+	assertEquals(
+		ajConfig.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET),
+		"lrtarget_test");
+	assertEquals(
+		ajConfig.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION),
 		"lrconst_test");
-	assertEquals(ajConfig.getSglReportsFolderByDate(), "trdate_test");
+	assertEquals(
+		ajConfig.getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE),
+		"trdate_test");
     }
 }

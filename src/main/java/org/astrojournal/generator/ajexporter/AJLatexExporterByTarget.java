@@ -39,7 +39,6 @@ import java.util.List;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.configuration.AJConstants;
 import org.astrojournal.generator.headerfooter.AJLatexFooter;
 import org.astrojournal.generator.headerfooter.AJLatexHeader;
@@ -78,81 +77,38 @@ public class AJLatexExporterByTarget extends AJLatexExporter {
     };
 
     /**
-     * Constructor
-     * 
-     * @param ajConfig
-     *            the astro journal configurator
+     * Default constructor.
      */
-    public AJLatexExporterByTarget(AJConfig ajConfig) {
-	super(ajConfig);
-    }
-
-    /**
-     * Generate the Latex document sorted by target
-     * 
-     * @param observations
-     *            the list of observations to exportObservation
-     * @return true if the observations sorted by target have been exported to
-     *         Latex correctly
-     */
-    @Override
-    public boolean generateJournal(ArrayList<AJObservation> observations) {
-	// export the imported observation by target to Latex
-	log.info("");
-	log.info("Exporting observations by target:");
-	boolean resultByTarget = exportObservations(observations, AJConfig
-		.getInstance().getLatexReportsFolderByTarget());
-	generateJournal(AJConfig.getInstance().getLatexReportsFolderByTarget(),
-		AJConstants.HEADER_BY_TARGET_FILENAME,
-		AJConstants.REPORT_BY_TARGET_FILENAME,
-		AJConstants.FOOTER_BY_TARGET_FILENAME);
-	return resultByTarget;
+    public AJLatexExporterByTarget() {
+	super();
     }
 
     /**
      * Generate the Latex document sorting the observation by decreasing target
-     * 
-     * @param latexReportsFolderByTarget
-     *            the directory containing the single observations by target in
-     *            latex format (output)
-     * @param latexHeaderByTarget
-     *            the latex header code (by target)
-     * @param latexMainByTarget
-     *            the latex main body code (by target)
-     * @param latexFooterByTarget
-     *            the latex footer code (by target)
      */
     @Override
-    public void generateJournal(String latexReportsFolderByTarget,
-	    String latexHeaderByTarget, String latexMainByTarget,
-	    String latexFooterByTarget) {
-	AJLatexHeader ajLatexHeaderByTarget = new AJLatexHeader(ajConfig
-		.getFilesLocation().getAbsolutePath(), latexHeaderByTarget);
-	AJLatexFooter ajLatexFooterByTarget = new AJLatexFooter(ajConfig
-		.getFilesLocation().getAbsolutePath(), latexFooterByTarget);
-	Writer writerByTarget = null;
+    public boolean generateJournal() {
+	AJLatexHeader ajLatexHeaderByTarget = new AJLatexHeader(filesLocation,
+		headerFilename);
+	AJLatexFooter ajLatexFooterByTarget = new AJLatexFooter(filesLocation,
+		footerFilename);
+	Writer writer = null;
 	try {
-	    writerByTarget = new BufferedWriter(new OutputStreamWriter(
-		    new FileOutputStream(ajConfig.getFilesLocation()
-			    .getAbsolutePath()
-			    + File.separator
-			    + latexMainByTarget), "utf-8"));
+	    writer = new BufferedWriter(new OutputStreamWriter(
+		    new FileOutputStream(filesLocation + File.separator
+			    + reportFilename), "utf-8"));
 	    // write the Latex Header
-	    writerByTarget.write(ajLatexHeaderByTarget.getHeader());
+	    writer.write(ajLatexHeaderByTarget.getHeader());
 	    // write the Latex Body
 	    // Write the observation reports
 	    // parse each file in the latex obs folder (sorted by observation
 	    // increasing)
-	    File[] files = new File(ajConfig.getFilesLocation()
-		    .getAbsolutePath()
-		    + File.separator
-		    + latexReportsFolderByTarget).listFiles();
+	    File[] files = new File(filesLocation + File.separator
+		    + reportFolder).listFiles();
 	    if (files == null) {
-		log.warn("Folder "
-			+ ajConfig.getFilesLocation().getAbsolutePath()
-			+ File.separator + latexReportsFolderByTarget
-			+ " not found");
-		return;
+		log.warn("Folder " + filesLocation + File.separator
+			+ reportFolder + " not found");
+		return false;
 	    }
 	    sortFilesByTarget(files);
 	    // If this pathname does not denote a directory, then listFiles()
@@ -164,129 +120,79 @@ public class AJLatexExporterByTarget extends AJLatexExporter {
 		if (file.isFile() && target.endsWith(".tex")) {
 		    if (target
 			    .matches("^(sun|moon|mercury|venus|mars|asteroid|jupiter|saturn|uranus|neptune|pluto|comet|Sun|Moon|Mercury|Venus|Mars|Asteroid|Jupiter|Saturn|Uranus|Neptune|Pluto|Comet).*$")) {
-			if (!type.equals("Solar System")) {
-			    type = "Solar System";
-			    writerByTarget.write("\\clearpage\n");
-			    writerByTarget.write("\\section{" + type + "}\n");
-			}
+			writeSectionName(writer, target, type, "Solar System");
 		    } else if (target
 			    .matches("^(milkyway|MilkyWay|MILKYWAY).*$")) {
-			if (!type.equals("Milky Way")) {
-			    type = "Milky Way";
-			    writerByTarget.write("\\clearpage\n");
-			    writerByTarget.write("\\section{" + type + "}\n");
-			}
+			writeSectionName(writer, target, type, "Milky Way");
 		    } else if (target.matches("^(m|M)[0-9].*$")) {
-			if (!type.equals("Messier Catalogue")) {
-			    type = "Messier Catalogue";
-			    writerByTarget.write("\\clearpage\n");
-			    writerByTarget.write("\\section{" + type + "}\n");
-			}
+			writeSectionName(writer, target, type,
+				"Messier Catalogue");
 		    } else if (target.matches("^(ngc|NGC)[0-9].*$")) {
-			if (!type.equals("New General Catalogue (NGC)")) {
-			    type = "New General Catalogue (NGC)";
-			    writerByTarget.write("\\clearpage\n");
-			    writerByTarget.write("\\section{" + type + "}\n");
-			}
+			writeSectionName(writer, target, type,
+				"New General Catalogue (NGC)");
 		    } else if (target.matches("^(ic|IC)[0-9].*$")) {
-			if (!type.equals("Index Catalogue (IC)")) {
-			    type = "Index Catalogue (IC)";
-			    writerByTarget.write("\\clearpage\n");
-			    writerByTarget.write("\\section{" + type + "}\n");
-			}
+			writeSectionName(writer, target, type,
+				"Index Catalogue (IC)");
 		    } else if (target.matches("^(stock|Stock|STOCK)[0-9].*$")) {
-			if (!type.equals("Stock Catalogue")) {
-			    type = "Stock Catalogue";
-			    writerByTarget.write("\\clearpage\n");
-			    writerByTarget.write("\\section{" + type + "}\n");
-			}
+			writeSectionName(writer, target, type,
+				"Stock Catalogue");
 		    } else if (target.matches("^(mel|Mel|MEL)[0-9].*$")) {
-			if (!type.equals("Melotte Catalogue")) {
-			    type = "Melotte Catalogue";
-			    writerByTarget.write("\\clearpage\n");
-			    writerByTarget.write("\\section{" + type + "}\n");
-			}
+			writeSectionName(writer, target, type,
+				"Melotte Catalogue");
 		    } else if (target.matches("^(cr|Cr|CR)[0-9].*$")) {
-			if (!type.equals("Collider Catalogue")) {
-			    type = "Collider Catalogue";
-			    writerByTarget.write("\\clearpage\n");
-			    writerByTarget.write("\\section{" + type + "}\n");
-			}
+			writeSectionName(writer, target, type,
+				"Collider Catalogue");
 		    } else if (target.matches("^(pk|PK)[0-9].*$")) {
-			if (!type.equals("Perek-Kohoutek Catalogue")) {
-			    type = "Perek-Kohoutek Catalogue";
-			    writerByTarget.write("\\clearpage\n");
-			    writerByTarget.write("\\section{" + type + "}\n");
-			}
+			writeSectionName(writer, target, type,
+				"Perek-Kohoutex Catalogue");
 		    } else if (target.matches("^(b|B|Barnard|BARNARD)[0-9].*$")) {
-			if (!type.equals("Barnard Catalogue")) {
-			    type = "Barnard Catalogue";
-			    writerByTarget.write("\\clearpage\n");
-			    writerByTarget.write("\\section{" + type + "}\n");
-			}
+			writeSectionName(writer, target, type,
+				"Barnard Catalogue");
 		    } else if (target
 			    .matches("^(hcg|HCG|Hickson Compact Group)[0-9].*$")) {
-			if (!type.equals("Hickson Compact Group Catalogue")) {
-			    type = "Hickson Compact Group Catalogue";
-			    writerByTarget.write("\\clearpage\n");
-			    writerByTarget.write("\\section{" + type + "}\n");
-			}
+			writeSectionName(writer, target, type,
+				"Hickson Compact Group Catalogue");
 		    } else if (target.matches("^(ugc|UGC)[0-9].*$")) {
-			if (!type.equals("Uppsala General Catalogue")) {
-			    type = "Uppsala General Catalogue";
-			    writerByTarget.write("\\clearpage\n");
-			    writerByTarget.write("\\section{" + type + "}\n");
-			}
+			writeSectionName(writer, target, type,
+				"Uppsala General Catalogue");
 		    } else if (target.matches("^(Steph)[0-9].*$")) {
-			if (!type.equals("Steph Catalogue")) {
-			    type = "Steph Catalogue";
-			    writerByTarget.write("\\clearpage\n");
-			    writerByTarget.write("\\section{" + type + "}\n");
-			}
+			writeSectionName(writer, target, type,
+				"Steph Catalogue");
 		    } else {
-			if (!type.equals("Stars and unclassified targets")) {
-			    type = "Stars and unclassified targets";
-			    writerByTarget.write("\\clearpage\n");
-			    writerByTarget.write("\\section{" + type + "}\n");
-			}
+			writeSectionName(writer, target, type,
+				"Stars and unclassified targets");
 		    }
 		    // include the file removing the extension .tex
-		    writerByTarget.write("\\input{"
-			    + latexReportsFolderByTarget + "/"
+		    writer.write("\\input{" + reportFolder + "/"
 			    + target.replaceFirst("[.][^.]+$", "") + "}\n");
-		    writerByTarget.write("\\vspace{4 mm}\n");
+		    writer.write("\\vspace{4 mm}\n");
 		}
 	    }
 	    // write the Latex Footer
-	    writerByTarget.write(ajLatexFooterByTarget.getFooter());
+	    writer.write(ajLatexFooterByTarget.getFooter());
 	} catch (IOException ex) {
-	    log.warn("Error when opening the file "
-		    + ajConfig.getFilesLocation().getAbsolutePath()
-		    + File.separator + latexMainByTarget, ex);
+	    log.warn("Error when opening the file " + filesLocation
+		    + File.separator + reportFilename, ex);
+	    return false;
 	} catch (Exception ex) {
 	    log.error(ex, ex);
+	    return false;
 	} finally {
 	    try {
-		if (writerByTarget != null)
-		    writerByTarget.close();
+		if (writer != null)
+		    writer.close();
 	    } catch (Exception ex) {
 		log.error(ex, ex);
+		return false;
 	    }
 	}
+	return true;
     }
 
-    /**
-     * Exports a list of observations by target to Latex
-     * 
-     * @param observations
-     *            the list of observations to exportObservation
-     * @param latexReportsByTargetFolder
-     *            the folder to write the observation in.
-     * @return true if the observations are exported
-     */
     @Override
-    public boolean exportObservations(ArrayList<AJObservation> observations,
-	    String latexReportsByTargetFolder) {
+    public boolean exportObservations(ArrayList<AJObservation> observations) {
+	log.info("");
+	log.info("Exporting observations by target:");
 	processedTargetCache.clear();
 	for (int i = 0; i < observations.size(); i++) {
 	    AJObservation obs = observations.get(i);
@@ -301,11 +207,9 @@ public class AJLatexExporterByTarget extends AJLatexExporter {
 			processedTargetCache.add(filenameOut);
 			targetWriter = new BufferedWriter(
 				new OutputStreamWriter(new FileOutputStream(
-					new File(ajConfig.getFilesLocation()
-						.getAbsolutePath()
-						+ File.separator
-						+ latexReportsByTargetFolder,
-						filenameOut + ".tex")), "utf-8"));
+					new File(filesLocation + File.separator
+						+ reportFolder, filenameOut
+						+ ".tex")), "utf-8"));
 			if (obsItem.getType().toLowerCase().equals("planet")
 				|| obsItem.getTarget().toLowerCase()
 					.equals("moon")
@@ -347,12 +251,9 @@ public class AJLatexExporterByTarget extends AJLatexExporter {
 			// lines
 			targetWriter = new BufferedWriter(
 				new OutputStreamWriter(new FileOutputStream(
-					new File(ajConfig.getFilesLocation()
-						.getAbsolutePath()
-						+ File.separator
-						+ latexReportsByTargetFolder,
-						filenameOut + ".tex"), true),
-					"utf-8"));
+					new File(filesLocation + File.separator
+						+ reportFolder, filenameOut
+						+ ".tex"), true), "utf-8"));
 		    }
 		    targetWriter.write("\\item " + obs.getDate() + " "
 			    + obs.getTime() + ", " + obs.getLocation() + ". "
@@ -366,8 +267,7 @@ public class AJLatexExporterByTarget extends AJLatexExporter {
 		    // for this target.
 
 		} catch (IOException ex) {
-		    log.warn("Error when opening the file "
-			    + ajConfig.getFilesLocation().getAbsolutePath()
+		    log.warn("Error when opening the file " + filesLocation
 			    + File.separator + filenameOut, ex);
 		    return false;
 		} catch (Exception ex) {
@@ -384,7 +284,25 @@ public class AJLatexExporterByTarget extends AJLatexExporter {
 		}
 	    }
 	}
-	return closeLists(observations, latexReportsByTargetFolder);
+	return closeLists(observations);
+    }
+
+    /**
+     * Write a catalogue section.
+     * 
+     * @param writer
+     * @param target
+     * @param type
+     * @param catName
+     * @throws IOException
+     */
+    private void writeSectionName(Writer writer, String target, String type,
+	    String catName) throws IOException {
+	if (!type.equals(catName)) {
+	    type = catName;
+	    writer.write("\\clearpage\n");
+	    writer.write("\\section{" + type + "}\n");
+	}
     }
 
     /**
@@ -392,12 +310,9 @@ public class AJLatexExporterByTarget extends AJLatexExporter {
      * 
      * @param observations
      *            the list of observations to exportObservation
-     * @param latexReportsByTargetFolder
-     *            the folder to write the observation in.
      * @return true if the lists are closed
      */
-    private boolean closeLists(ArrayList<AJObservation> observations,
-	    String latexReportsByTargetFolder) {
+    private boolean closeLists(ArrayList<AJObservation> observations) {
 	processedTargetCache.clear();
 	for (int i = 0; i < observations.size(); i++) {
 	    AJObservation obs = observations.get(i);
@@ -412,19 +327,15 @@ public class AJLatexExporterByTarget extends AJLatexExporter {
 			processedTargetCache.add(filenameOut);
 			targetWriter = new BufferedWriter(
 				new OutputStreamWriter(new FileOutputStream(
-					new File(ajConfig.getFilesLocation()
-						.getAbsolutePath()
-						+ File.separator
-						+ latexReportsByTargetFolder,
-						filenameOut + ".tex"), true),
-					"utf-8"));
+					new File(filesLocation + File.separator
+						+ reportFolder, filenameOut
+						+ ".tex"), true), "utf-8"));
 			targetWriter.write("\\end{itemize}\n");
 			log.info("\tExported target " + filenameOut);
 		    }
 
 		} catch (IOException ex) {
-		    log.warn("Error when opening the file "
-			    + ajConfig.getFilesLocation().getAbsolutePath()
+		    log.warn("Error when opening the file " + filesLocation
 			    + File.separator + filenameOut, ex);
 		    return false;
 		} catch (Exception ex) {
@@ -644,7 +555,7 @@ public class AJLatexExporterByTarget extends AJLatexExporter {
 	Collections.sort(abell, catalogueItemComparator);
 	Collections.sort(ugc, catalogueItemComparator);
 	Collections.sort(steph, catalogueItemComparator);
-	// normal lexico-graphical sorting for stars
+	// normal lexicon-numerical sorting for stars
 	Collections.sort(unclassified);
 	log.debug("Catalogues are now sorted by target.");
 
@@ -679,7 +590,7 @@ public class AJLatexExporterByTarget extends AJLatexExporter {
 	String commandOutput;
 	commandOutput = RunExternalCommand.runCommand(command + " "
 		+ AJConstants.REPORT_BY_TARGET_FILENAME);
-	if (!ajConfig.isQuiet() && ajConfig.isShowLatexOutput())
+	if (!quiet && latexOutput)
 	    log.info(commandOutput + "\n");
 	commandOutput = RunExternalCommand.runCommand(command + " "
 		+ AJConstants.REPORT_BY_TARGET_FILENAME);
@@ -688,7 +599,7 @@ public class AJLatexExporterByTarget extends AJLatexExporter {
 	// Add this at the end to avoid mixing with the latex command
 	// output.
 	log.info("\t"
-		+ ajConfig.getFilesLocation().getAbsolutePath()
+		+ filesLocation
 		+ File.separator
 		+ FilenameUtils
 			.removeExtension(AJConstants.REPORT_BY_TARGET_FILENAME)

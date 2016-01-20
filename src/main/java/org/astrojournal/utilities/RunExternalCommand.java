@@ -24,10 +24,12 @@
 package org.astrojournal.utilities;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJProperties;
 
 /**
  * A simple class to run an external command from AstroJournal.
@@ -38,6 +40,10 @@ import org.astrojournal.configuration.AJConfig;
  * @date 22 Dec 2015
  */
 public class RunExternalCommand {
+
+    /** The configurator. */
+    private static AJConfig ajConfig = AJConfig.getInstance();
+
     /**
      * Run a command
      * 
@@ -54,7 +60,7 @@ public class RunExternalCommand {
 	// So
 	// leave it.
 	Process p = Runtime.getRuntime().exec(command, null,
-		AJConfig.getInstance().getFilesLocation());
+		new File(ajConfig.getProperty(AJProperties.FILES_LOCATION)));
 	// read the output messages from the command
 	BufferedReader stdInput = new BufferedReader(new InputStreamReader(
 		p.getInputStream()));

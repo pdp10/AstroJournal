@@ -38,7 +38,6 @@ import java.util.HashSet;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.configuration.AJConstants;
 import org.astrojournal.generator.headerfooter.AJLatexFooter;
 import org.astrojournal.generator.headerfooter.AJLatexHeader;
@@ -53,11 +52,11 @@ import org.astrojournal.utilities.RunExternalCommand;
  * @version 0.2
  * @since 28/05/2015
  */
-public class AJTextExporterByConstellation extends AJLatexExporter {
+public class AJLatexExporterByConstellation extends AJLatexExporter {
 
     /** The log associated to this class */
     private static Logger log = LogManager
-	    .getLogger(AJTextExporterByConstellation.class);
+	    .getLogger(AJLatexExporterByConstellation.class);
 
     private HashMap<String, HashSet<String>> constellations = new HashMap<String, HashSet<String>>();
 
@@ -75,81 +74,37 @@ public class AJTextExporterByConstellation extends AJLatexExporter {
     };
 
     /**
-     * Constructor
-     * 
-     * @param ajConfig
-     *            the astro journal configurator
+     * Default constructor.
      */
-    public AJTextExporterByConstellation(AJConfig ajConfig) {
-	super(ajConfig);
-    }
-
-    /**
-     * Generate the Latex document sorted by constellation
-     * 
-     * @param observations
-     *            the list of observations to exportObservation
-     * @return true if the observations sorted by constellation have been
-     *         exported to Latex correctly
-     */
-    @Override
-    public boolean generateJournal(ArrayList<AJObservation> observations) {
-	// export the imported observation by constellation to Latex
-	log.info("");
-	log.info("Exporting observations by constellation:");
-	boolean resultByConstellation = exportObservations(observations,
-		AJConfig.getInstance().getLatexReportsFolderByConstellation());
-	generateJournal(AJConfig.getInstance()
-		.getLatexReportsFolderByConstellation(),
-		AJConstants.HEADER_BY_CONSTELLATION_FILENAME,
-		AJConstants.REPORT_BY_CONSTELLATION_FILENAME,
-		AJConstants.FOOTER_BY_CONSTELLATION_FILENAME);
-	return resultByConstellation;
+    public AJLatexExporterByConstellation() {
+	super();
     }
 
     /**
      * Generate the Latex document by constellation
-     * 
-     * @param latexReportsFolderByConst
-     *            the directory containing the single observations by date in
-     *            latex format (output)
-     * @param latexHeaderByConst
-     *            the latex header code (by date)
-     * @param latexMainByConst
-     *            the latex main body code (by date)
-     * @param latexFooterByConst
-     *            the latex footer code (by date)
      */
     @Override
-    public void generateJournal(String latexReportsFolderByConst,
-	    String latexHeaderByConst, String latexMainByConst,
-	    String latexFooterByConst) {
-	AJLatexHeader ajLatexHeaderByConst = new AJLatexHeader(ajConfig
-		.getFilesLocation().getAbsolutePath(), latexHeaderByConst);
-	AJLatexFooter ajLatexFooterByConst = new AJLatexFooter(ajConfig
-		.getFilesLocation().getAbsolutePath(), latexFooterByConst);
+    public boolean generateJournal() {
+	AJLatexHeader ajLatexHeaderByConst = new AJLatexHeader(filesLocation,
+		headerFilename);
+	AJLatexFooter ajLatexFooterByConst = new AJLatexFooter(filesLocation,
+		footerFilename);
 	Writer writerByConst = null;
 	try {
 	    writerByConst = new BufferedWriter(new OutputStreamWriter(
-		    new FileOutputStream(ajConfig.getFilesLocation()
-			    .getAbsolutePath()
-			    + File.separator
-			    + latexMainByConst), "utf-8"));
+		    new FileOutputStream(filesLocation + File.separator
+			    + reportFilename), "utf-8"));
 	    // write the Latex Header
 	    writerByConst.write(ajLatexHeaderByConst.getHeader());
 
 	    // write the Latex Body
 	    // parse each file in the latex obs folder
-	    File[] files = new File(ajConfig.getFilesLocation()
-		    .getAbsolutePath()
-		    + File.separator
-		    + latexReportsFolderByConst).listFiles();
+	    File[] files = new File(filesLocation + File.separator
+		    + reportFolder).listFiles();
 	    if (files == null) {
-		log.warn("Folder "
-			+ ajConfig.getFilesLocation().getAbsolutePath()
-			+ File.separator + latexReportsFolderByConst
-			+ " not found");
-		return;
+		log.warn("Folder " + filesLocation + File.separator
+			+ reportFolder + " not found");
+		return false;
 	    }
 	    // sort the constellations when we parse the files
 	    Arrays.sort(files);
@@ -168,9 +123,8 @@ public class AJTextExporterByConstellation extends AJLatexExporter {
 			writerByConst.write("\\section{" + currConst + "}\n");
 		    }
 		    // include the file removing the extension .tex
-		    writerByConst.write("\\input{" + latexReportsFolderByConst
-			    + "/" + filename.replaceFirst("[.][^.]+$", "")
-			    + "}\n");
+		    writerByConst.write("\\input{" + reportFolder + "/"
+			    + filename.replaceFirst("[.][^.]+$", "") + "}\n");
 		    // writerByConst.write("\\clearpage \n");
 		}
 	    }
@@ -179,33 +133,28 @@ public class AJTextExporterByConstellation extends AJLatexExporter {
 	    writerByConst.write(ajLatexFooterByConst.getFooter());
 
 	} catch (IOException ex) {
-	    log.error("Error when opening the file "
-		    + ajConfig.getFilesLocation().getAbsolutePath()
-		    + File.separator + latexMainByConst, ex);
+	    log.error("Error when opening the file " + filesLocation
+		    + File.separator + reportFilename, ex);
+	    return false;
 	} catch (Exception ex) {
 	    log.error(ex, ex);
+	    return false;
 	} finally {
 	    try {
 		if (writerByConst != null)
 		    writerByConst.close();
 	    } catch (Exception ex) {
 		log.error(ex, ex);
+		return false;
 	    }
 	}
+	return true;
     }
 
-    /**
-     * Exports an observation record to Latex
-     * 
-     * @param observations
-     *            the list of observations to exportObservation
-     * @param latexReportsByConstFolder
-     *            the folder to write the observation in.
-     * @return true if the observations are exported
-     */
     @Override
-    public boolean exportObservations(ArrayList<AJObservation> observations,
-	    String latexReportsByConstFolder) {
+    public boolean exportObservations(ArrayList<AJObservation> observations) {
+	log.info("");
+	log.info("Exporting observations by constellation:");
 	boolean result = true;
 	if (constellations.size() == 0) {
 	    organiseTargetsByConstellation(observations);
@@ -216,10 +165,9 @@ public class AJTextExporterByConstellation extends AJLatexExporter {
 	    String filenameOut = keys[i];
 	    try {
 		list = new BufferedWriter(new OutputStreamWriter(
-			new FileOutputStream(new File(ajConfig
-				.getFilesLocation().getAbsolutePath()
-				+ File.separator + latexReportsByConstFolder,
-				"const_" + filenameOut + ".tex")), "utf-8"));
+			new FileOutputStream(new File(filesLocation
+				+ File.separator + reportFolder, "const_"
+				+ filenameOut + ".tex")), "utf-8"));
 		String[] targets = constellations.get(keys[i]).toArray(
 			new String[0]);
 		// sort the targets here, before writing them in the file
@@ -234,8 +182,7 @@ public class AJTextExporterByConstellation extends AJLatexExporter {
 		list.write(listOfTargets.toString() + "\n\n");
 		log.info("\tExported constellation " + filenameOut);
 	    } catch (IOException ex) {
-		log.error("Error when opening the file "
-			+ ajConfig.getFilesLocation().getAbsolutePath()
+		log.error("Error when opening the file " + filesLocation
 			+ File.separator + filenameOut, ex);
 		result = false;
 	    } catch (Exception ex) {
@@ -247,6 +194,7 @@ public class AJTextExporterByConstellation extends AJLatexExporter {
 			list.close();
 		} catch (Exception ex) {
 		    log.error(ex, ex);
+		    result = false;
 		}
 	    }
 	}
@@ -299,7 +247,7 @@ public class AJTextExporterByConstellation extends AJLatexExporter {
 	String commandOutput;
 	commandOutput = RunExternalCommand.runCommand(command + " "
 		+ AJConstants.REPORT_BY_CONSTELLATION_FILENAME);
-	if (!ajConfig.isQuiet() && ajConfig.isShowLatexOutput())
+	if (!quiet && latexOutput)
 	    log.info(commandOutput + "\n");
 	commandOutput = RunExternalCommand.runCommand(command + " "
 		+ AJConstants.REPORT_BY_CONSTELLATION_FILENAME);
@@ -308,7 +256,7 @@ public class AJTextExporterByConstellation extends AJLatexExporter {
 	// Add this at the end to avoid mixing with the latex command
 	// output.
 	log.info("\t"
-		+ ajConfig.getFilesLocation().getAbsolutePath()
+		+ filesLocation
 		+ File.separator
 		+ FilenameUtils
 			.removeExtension(AJConstants.REPORT_BY_CONSTELLATION_FILENAME)
