@@ -34,7 +34,7 @@ import javax.swing.UIManager;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJConfigurator;
 import org.astrojournal.gui.AJMainGUI;
 
 /**
@@ -68,13 +68,13 @@ public class HelpDialog {
 	    helpViewer.setCurrentID("Index");
 	} catch (Exception e) {
 	    log.error(
-		    AJConfig.getInstance().getLocaleBundle()
+		    AJConfigurator.getInstance().getLocaleBundle()
 			    .getString("AJ.errHelpIndexNotFound.text"), e);
 	    JOptionPane.showMessageDialog(
 		    application,
-		    AJConfig.getInstance().getLocaleBundle()
+		    AJConfigurator.getInstance().getLocaleBundle()
 			    .getString("AJ.errHelpIndexNotFound.text"),
-		    AJConfig.getInstance().getLocaleBundle()
+		    AJConfigurator.getInstance().getLocaleBundle()
 			    .getString("AJ.errFileNotFound.text"),
 		    JOptionPane.ERROR_MESSAGE);
 	    return;
@@ -82,7 +82,7 @@ public class HelpDialog {
 
 	frame = new JFrame();
 	frame.setSize(550, 450);
-	frame.setTitle(AJConfig.getInstance().getLocaleBundle()
+	frame.setTitle(AJConfigurator.getInstance().getLocaleBundle()
 		.getString("AJ.mnuHelpContents.text"));
 	frame.setIconImage(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/logo/aj_icon_32.png")).getImage());

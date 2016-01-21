@@ -38,7 +38,7 @@ import javax.swing.JEditorPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJConfigurator;
 import org.astrojournal.configuration.AJConstants;
 import org.astrojournal.gui.AJMainGUI;
 import org.astrojournal.utilities.ReadFromJar;
@@ -94,7 +94,7 @@ public class LicenseDialog extends JDialog {
 
 	setTitle(AJConstants.APPLICATION_NAME
 		+ " "
-		+ AJConfig.getInstance().getLocaleBundle()
+		+ AJConfigurator.getInstance().getLocaleBundle()
 			.getString("AJ.lblLicense.text"));
 	setLayout(new BorderLayout());
 
@@ -119,7 +119,7 @@ public class LicenseDialog extends JDialog {
 	add(scrollPane, BorderLayout.CENTER);
 
 	JPanel buttonPanel = new JPanel();
-	JButton btnClose = new JButton(AJConfig.getInstance().getLocaleBundle()
+	JButton btnClose = new JButton(AJConfigurator.getInstance().getLocaleBundle()
 		.getString("AJ.cmdClose.text"));
 	getRootPane().setDefaultButton(btnClose);
 	btnClose.addActionListener(new ActionListener() {

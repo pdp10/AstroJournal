@@ -28,7 +28,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJConfigurator;
 import org.astrojournal.configuration.AJProperties;
 
 /**
@@ -42,7 +42,7 @@ import org.astrojournal.configuration.AJProperties;
 public class RunExternalCommand {
 
     /** The configurator. */
-    private static AJConfig ajConfig = AJConfig.getInstance();
+    private static AJConfigurator ajConfig = AJConfigurator.getInstance();
 
     /**
      * Run a command
@@ -65,7 +65,7 @@ public class RunExternalCommand {
 	BufferedReader stdInput = new BufferedReader(new InputStreamReader(
 		p.getInputStream()));
 	sb.append("\n\n\n");
-	sb.append(AJConfig.getInstance().getLocaleBundle()
+	sb.append(AJConfigurator.getInstance().getLocaleBundle()
 		.getString("AJ.lblOutputForTheCommand.text")
 		+ " `" + command + "`:\n\n");
 	String temp;
@@ -78,7 +78,7 @@ public class RunExternalCommand {
 	BufferedReader stdError = new BufferedReader(new InputStreamReader(
 		p.getErrorStream()));
 	sb.append("\n"
-		+ AJConfig.getInstance().getLocaleBundle()
+		+ AJConfigurator.getInstance().getLocaleBundle()
 			.getString("AJ.lblErrorsForTheCommand.text") + " `"
 		+ command + "`:\n\n");
 	while ((temp = stdError.readLine()) != null) {

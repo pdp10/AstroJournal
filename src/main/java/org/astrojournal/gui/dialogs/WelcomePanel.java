@@ -32,7 +32,7 @@ import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJConfigurator;
 
 /**
  * A panel for AstroJournal Welcome.
@@ -78,7 +78,7 @@ public class WelcomePanel extends JPanel {
 	gbc.gridy++;
 	gbc.weighty = 0.5;
 
-	JLabel welcomeLabel = new JLabel(AJConfig.getInstance()
+	JLabel welcomeLabel = new JLabel(AJConfigurator.getInstance()
 		.getLocaleBundle().getString("AJ.lblWelcomeLabel.text"));
 	welcomeLabel.setFont(new Font("Arial", Font.BOLD, 12));
 	add(welcomeLabel, gbc);

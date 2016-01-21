@@ -25,7 +25,7 @@ package main;
 
 import static org.junit.Assert.assertEquals;
 
-import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJConfigurator;
 import org.astrojournal.configuration.AJProperties;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -81,7 +81,7 @@ public class AJConfiguratorTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	AJConfig ajConfig = AJConfig.getInstance();
+	AJConfigurator ajConfig = AJConfigurator.getInstance();
 	System.setProperty(AJProperties.QUIET, "true");
 	System.setProperty(AJProperties.RAW_REPORTS_FOLDER, "raw_report_test1");
 	System.setProperty("aj.fake_property", "this property does not exist!");
@@ -124,7 +124,7 @@ public class AJConfiguratorTest {
 	System.setProperty(AJProperties.SHOW_LICENSE_AT_START, "true");
 	System.setProperty(AJProperties.SHOW_PDFLATEX_VERSION_AT_START, "true");
 
-	AJConfig ajConfig = AJConfig.getInstance();
+	AJConfigurator ajConfig = AJConfigurator.getInstance();
 
 	// Load the new properties
 	ajConfig.loadSystemProperties();
@@ -157,7 +157,7 @@ public class AJConfiguratorTest {
 	System.setProperty(AJProperties.SHOW_LICENSE_AT_START, "false");
 	System.setProperty(AJProperties.SHOW_PDFLATEX_VERSION_AT_START, "false");
 
-	AJConfig ajConfig = AJConfig.getInstance();
+	AJConfigurator ajConfig = AJConfigurator.getInstance();
 
 	// Load the new properties
 	ajConfig.loadSystemProperties();
@@ -196,7 +196,7 @@ public class AJConfiguratorTest {
 	System.setProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE,
 		"trdate_test");
 
-	AJConfig ajConfig = AJConfig.getInstance();
+	AJConfigurator ajConfig = AJConfigurator.getInstance();
 
 	// Load the new properties
 	ajConfig.loadSystemProperties();

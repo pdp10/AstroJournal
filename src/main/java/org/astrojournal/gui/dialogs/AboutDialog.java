@@ -31,7 +31,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJConfigurator;
 import org.astrojournal.gui.AJMainGUI;
 
 /**
@@ -65,7 +65,7 @@ public class AboutDialog extends JDialog {
      */
     private void initComponents(AJMainGUI application) {
 
-	setTitle(AJConfig.getInstance().getLocaleBundle()
+	setTitle(AJConfigurator.getInstance().getLocaleBundle()
 		.getString("AJ.mnuAbout.text"));
 	setLayout(new BorderLayout());
 
@@ -73,7 +73,7 @@ public class AboutDialog extends JDialog {
 	add(welcomePanel, BorderLayout.CENTER);
 
 	JPanel buttonPanel = new JPanel();
-	JButton btnClose = new JButton(AJConfig.getInstance().getLocaleBundle()
+	JButton btnClose = new JButton(AJConfigurator.getInstance().getLocaleBundle()
 		.getString("AJ.cmdClose.text"));
 	getRootPane().setDefaultButton(btnClose);
 	btnClose.addActionListener(new ActionListener() {

@@ -42,7 +42,7 @@ import org.astrojournal.utilities.ReadFromJar;
  * @since 1.0
  * @date 12 Dec 2015
  */
-public class AJConfig {
+public class AJConfigurator implements Configurator {
     /*
      * NOTE: To be a proper singleton and not a `global variable`, store here
      * the variables which can change over time: the actual configuration.
@@ -59,13 +59,13 @@ public class AJConfig {
      */
 
     /** The logger */
-    private static Logger log = LogManager.getLogger(AJConfig.class);
+    private static Logger log = LogManager.getLogger(AJConfigurator.class);
 
     /**
      * The AJConfig instance to be used. Eager initialisation for this
      * singleton.
      */
-    private static AJConfig instance = new AJConfig();
+    private static AJConfigurator instance = new AJConfigurator();
 
     /**
      * The user configuration file reference to the real file in the file
@@ -137,7 +137,7 @@ public class AJConfig {
     /**
      * Private constructor for creating only one instance of AJConfig.
      */
-    private AJConfig() {
+    private AJConfigurator() {
 	init();
     }
 
@@ -146,7 +146,7 @@ public class AJConfig {
      * 
      * @return the instance of AJConfig.
      */
-    public static AJConfig getInstance() {
+    public static AJConfigurator getInstance() {
 	return instance;
     }
 
@@ -320,32 +320,19 @@ public class AJConfig {
 	}
     }
 
-    /**
-     * Update the application and user property values with the property values
-     * defined as System properties if these are defined. A validation process
-     * will occur checking that the inserted property values are consistent with
-     * their meaning.
-     */
+    @Override
     public void loadSystemProperties() {
 	applicationProperties = PropertiesManager
 		.updateWithMatchSystemProperties(applicationProperties);
 	validateProperties();
     }
 
-    /**
-     * @return the localeBundle
-     */
+    @Override
     public ResourceBundle getLocaleBundle() {
 	return localeBundle;
     }
 
-    /**
-     * Return the value for a property key.
-     * 
-     * @param key
-     *            the property key to retrieve or null if this does not exist.
-     * @return the value for the Java property key
-     */
+    @Override
     public String getProperty(String key) {
 	// Doing so, we don't need a set method for each property, saving code
 	// and time.

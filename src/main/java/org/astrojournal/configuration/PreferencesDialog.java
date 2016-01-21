@@ -54,7 +54,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
     /**
      * The instance of the configurator.
      */
-    private AJConfig ajConfig = AJConfig.getInstance();
+    private AJConfigurator ajConfig = AJConfigurator.getInstance();
 
     /**
      * The relative path containing the raw files (observation input folder).
@@ -107,10 +107,10 @@ public class PreferencesDialog extends JDialog implements ActionListener {
      *            the application
      */
     public PreferencesDialog(AJMainGUI application) {
-	super(application, AJConfig.getInstance().getLocaleBundle()
+	super(application, AJConfigurator.getInstance().getLocaleBundle()
 		.getString("AJ.mnuEdit.text")
 		+ " "
-		+ AJConfig.getInstance().getLocaleBundle()
+		+ AJConfigurator.getInstance().getLocaleBundle()
 			.getString("AJ.mnuPreferences.text"));
 	initComponents(application);
     }

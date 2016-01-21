@@ -30,7 +30,7 @@ import java.util.Collections;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJConfigurator;
 import org.astrojournal.configuration.AJConstants;
 import org.astrojournal.configuration.AJProperties;
 import org.astrojournal.generator.ajexporter.AJExporter;
@@ -57,7 +57,7 @@ public class AJGenerator {
     private static Logger log = LogManager.getLogger(AJGenerator.class);
 
     /** The configurator. */
-    private AJConfig ajConfig = AJConfig.getInstance();
+    private AJConfigurator ajConfig = AJConfigurator.getInstance();
 
     /** The list of observations. */
     private ArrayList<AJObservation> observations = new ArrayList<AJObservation>();

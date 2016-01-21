@@ -28,7 +28,7 @@ import javax.swing.UIManager;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJConfigurator;
 import org.astrojournal.configuration.AJConfigUtils;
 import org.astrojournal.configuration.AJConstants;
 import org.astrojournal.console.AJMainConsole;
@@ -76,7 +76,7 @@ public class AJMain {
      * @param args
      */
     public static void main(String[] args) {
-	AJConfig ajConfig = AJConfig.getInstance();
+	AJConfigurator ajConfig = AJConfigurator.getInstance();
 
 	// Get some information for debugging
 	log.debug("Application: " + AJConstants.APPLICATION_NAME + " "

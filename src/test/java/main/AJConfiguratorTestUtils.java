@@ -29,7 +29,7 @@ import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJConfigurator;
 import org.astrojournal.configuration.AJConstants;
 import org.astrojournal.configuration.AJProperties;
 import org.astrojournal.utilities.PropertiesManager;
@@ -90,6 +90,6 @@ public class AJConfiguratorTestUtils {
 	Properties defaultProperties = AJConfiguratorTestUtils
 		.getDefaultApplicationProperties();
 	PropertiesManager.updateSystemProperties(defaultProperties);
-	AJConfig.getInstance().loadSystemProperties();
+	AJConfigurator.getInstance().loadSystemProperties();
     }
 }

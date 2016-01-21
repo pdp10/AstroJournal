@@ -31,7 +31,7 @@ import java.io.IOException;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJConfigurator;
 import org.astrojournal.configuration.AJConfigUtils;
 import org.astrojournal.configuration.AJConstants;
 import org.astrojournal.configuration.AJProperties;
@@ -57,7 +57,7 @@ public class SystemTest {
     private static Logger log = LogManager.getLogger(SystemTest.class);
 
     /** The configurator. */
-    private static AJConfig ajConfig = AJConfig.getInstance();
+    private static AJConfigurator ajConfig = AJConfigurator.getInstance();
 
     /**
      * @throws java.lang.Exception

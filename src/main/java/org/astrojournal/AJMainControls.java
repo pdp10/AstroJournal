@@ -27,7 +27,7 @@ import java.io.IOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJConfigurator;
 import org.astrojournal.configuration.AJConfigUtils;
 import org.astrojournal.configuration.AJConstants;
 import org.astrojournal.configuration.AJProperties;
@@ -54,7 +54,7 @@ public abstract class AJMainControls {
      * A reference to AJConfig
      */
     // TODO inject this as parameter.
-    protected AJConfig ajConfig = AJConfig.getInstance();
+    protected AJConfigurator ajConfig = AJConfigurator.getInstance();
 
     /**
      * Constructor

@@ -28,7 +28,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.util.ArrayList;
 
-import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJConfigurator;
 import org.astrojournal.configuration.AJProperties;
 import org.astrojournal.generator.ajimporter.AJImporter;
 import org.astrojournal.generator.ajimporter.AJTabSeparatedValueImporter;
@@ -66,16 +66,16 @@ public class AJTabSeparatedValueImporterTest {
 			+ "aj_tab_separated_value_importer_test");
 
 	// Load the new properties
-	AJConfig.getInstance().loadSystemProperties();
+	AJConfigurator.getInstance().loadSystemProperties();
 
 	AJImporter ajImporter = new AJTabSeparatedValueImporter();
 
 	// TODO: TEMPORARY IMPLEMENTATION. WITH DEPENDENCY INJECTION, THESE
 	// PARAMETERS ARE PASSED BY THE INJECTOR
 	// THEREFORE, THERE IS NO NEED TO SET THEM HERE!! :)
-	ajImporter.setFilesLocation(AJConfig.getInstance().getProperty(
+	ajImporter.setFilesLocation(AJConfigurator.getInstance().getProperty(
 		AJProperties.FILES_LOCATION));
-	ajImporter.setRawReportFolder(AJConfig.getInstance().getProperty(
+	ajImporter.setRawReportFolder(AJConfigurator.getInstance().getProperty(
 		AJProperties.RAW_REPORTS_FOLDER));
 	// TODO: END
 

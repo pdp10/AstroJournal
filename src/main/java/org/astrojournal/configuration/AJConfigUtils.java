@@ -97,7 +97,7 @@ public class AJConfigUtils {
      *            The configurator.
      * @return the current configuration
      */
-    public static String printPDFLatexVersion(AJConfig ajConfig) {
+    public static String printPDFLatexVersion(AJConfigurator ajConfig) {
 	StringBuilder sb = new StringBuilder();
 	String command = "pdflatex";
 	String argument = "-version";
@@ -153,7 +153,7 @@ public class AJConfigUtils {
      *            The configurator
      * @return the current configuration
      */
-    public static String printConfiguration(AJConfig ajConfig) {
+    public static String printConfiguration(AJConfigurator ajConfig) {
 	ResourceBundle resourceBundle = ajConfig.getLocaleBundle();
 	String configuration = "AstroJournal current configuration:\n" + "\t"
 		+ resourceBundle.getString("AJ.lblAJFilesLocation.text")
@@ -215,7 +215,7 @@ public class AJConfigUtils {
      * @param ajConfig
      *            The configurator
      */
-    public static void prepareAJFolders(AJConfig ajConfig) {
+    public static void prepareAJFolders(AJConfigurator ajConfig) {
 	// Create the folders if these do not exist.
 	File filesLocation = new File(
 		ajConfig.getProperty(AJProperties.FILES_LOCATION));
@@ -236,7 +236,7 @@ public class AJConfigUtils {
      *            The configurator
      * @param filesLocation
      */
-    private static void prepareAJHeaderFooter(AJConfig ajConfig,
+    private static void prepareAJHeaderFooter(AJConfigurator ajConfig,
 	    File filesLocation) {
 	// AJ header footer folder
 	File ajHeaderFooterDir = new File(
@@ -271,7 +271,7 @@ public class AJConfigUtils {
      *            The configurator
      * @param filesLocation
      */
-    private static void prepareRawReportsDir(AJConfig ajConfig,
+    private static void prepareRawReportsDir(AJConfigurator ajConfig,
 	    File filesLocation) {
 	// Let's do the same for the raw_reports folder
 	// AJ raw reports folder
@@ -308,7 +308,7 @@ public class AJConfigUtils {
      *            The configurator
      * @param filesLocation
      */
-    private static void prepareOutputReportsDir(AJConfig ajConfig,
+    private static void prepareOutputReportsDir(AJConfigurator ajConfig,
 	    File filesLocation) {
 	new File(
 		filesLocation.getAbsolutePath()
@@ -341,7 +341,7 @@ public class AJConfigUtils {
      * @throws IOException
      *             if the folder could not be cleaned.
      */
-    public static void cleanAJFolder(AJConfig ajConfig) throws IOException {
+    public static void cleanAJFolder(AJConfigurator ajConfig) throws IOException {
 	File filesLocation = new File(
 		ajConfig.getProperty(AJProperties.FILES_LOCATION));
 	if (!(filesLocation.exists() && filesLocation.canWrite())) {

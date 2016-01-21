@@ -39,7 +39,7 @@ import javax.swing.KeyStroke;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJConfigurator;
 import org.astrojournal.configuration.PreferencesDialog;
 import org.astrojournal.gui.AJMainGUI;
 import org.astrojournal.gui.dialogs.AboutDialog;
@@ -91,11 +91,11 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
      */
     private void initComponents() {
 
-	fileMenu = new JMenu(AJConfig.getInstance().getLocaleBundle()
+	fileMenu = new JMenu(AJConfigurator.getInstance().getLocaleBundle()
 		.getString("AJ.mnuFile.text"));
 	fileMenu.setMnemonic(KeyEvent.VK_F);
 
-	fileCreateJournal = new JMenuItem(AJConfig.getInstance()
+	fileCreateJournal = new JMenuItem(AJConfigurator.getInstance()
 		.getLocaleBundle().getString("AJ.cmdCreateJournal.text"));
 	fileCreateJournal.setIcon(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/icons/create_journals_16.png")));
@@ -108,7 +108,7 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 
 	// fileMenu.addSeparator();
 
-	fileQuit = new JMenuItem(AJConfig.getInstance().getLocaleBundle()
+	fileQuit = new JMenuItem(AJConfigurator.getInstance().getLocaleBundle()
 		.getString("AJ.mnuQuit.text"));
 	fileQuit.setIcon(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/icons/quit_16.png")));
@@ -121,10 +121,10 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 
 	add(fileMenu);
 
-	editMenu = new JMenu(AJConfig.getInstance().getLocaleBundle()
+	editMenu = new JMenu(AJConfigurator.getInstance().getLocaleBundle()
 		.getString("AJ.mnuEdit.text"));
 	editMenu.setMnemonic(KeyEvent.VK_E);
-	editPreferences = new JMenuItem(AJConfig.getInstance()
+	editPreferences = new JMenuItem(AJConfigurator.getInstance()
 		.getLocaleBundle().getString("AJ.mnuPreferences.text"));
 	editPreferences.setIcon(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/icons/preferences_16.png")));
@@ -136,11 +136,11 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	editMenu.add(editPreferences);
 	add(editMenu);
 
-	helpMenu = new JMenu(AJConfig.getInstance().getLocaleBundle()
+	helpMenu = new JMenu(AJConfigurator.getInstance().getLocaleBundle()
 		.getString("AJ.mnuHelp.text"));
 	helpMenu.setMnemonic(KeyEvent.VK_H);
 
-	helpContents = new JMenuItem(AJConfig.getInstance().getLocaleBundle()
+	helpContents = new JMenuItem(AJConfigurator.getInstance().getLocaleBundle()
 		.getString("AJ.mnuHelpContents.text"));
 	helpContents.setIcon(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/icons/help_16.png")));
@@ -151,7 +151,7 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	helpContents.addActionListener(this);
 	helpMenu.add(helpContents);
 
-	helpLicense = new JMenuItem(AJConfig.getInstance().getLocaleBundle()
+	helpLicense = new JMenuItem(AJConfigurator.getInstance().getLocaleBundle()
 		.getString("AJ.mnuLicense.text"));
 	helpLicense.setIcon(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/icons/license_16.png")));
@@ -162,7 +162,7 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	helpLicense.addActionListener(this);
 	helpMenu.add(helpLicense);
 
-	helpAbout = new JMenuItem(AJConfig.getInstance().getLocaleBundle()
+	helpAbout = new JMenuItem(AJConfigurator.getInstance().getLocaleBundle()
 		.getString("AJ.mnuAbout.text"));
 	helpAbout.setIcon(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/icons/about_16.png")));
@@ -202,15 +202,15 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 			license);
 	    } catch (FileNotFoundException e) {
 		log.error(
-			AJConfig.getInstance().getLocaleBundle()
+			AJConfigurator.getInstance().getLocaleBundle()
 				.getString("AJ.errLicenseNotFound.text"),
-			AJConfig.getInstance().getLocaleBundle()
+			AJConfigurator.getInstance().getLocaleBundle()
 				.getString("AJ.errFileNotFound.text"), e);
 		JOptionPane.showMessageDialog(
 			application,
-			AJConfig.getInstance().getLocaleBundle()
+			AJConfigurator.getInstance().getLocaleBundle()
 				.getString("AJ.errLicenseNotFound.text"),
-			AJConfig.getInstance().getLocaleBundle()
+			AJConfigurator.getInstance().getLocaleBundle()
 				.getString("AJ.errFileNotFound.text"),
 			JOptionPane.ERROR_MESSAGE);
 	    } catch (IOException e) {
@@ -221,12 +221,12 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	    AboutDialog aboutDialog = new AboutDialog(application);
 
 	} else {
-	    log.error(AJConfig.getInstance().getLocaleBundle()
+	    log.error(AJConfigurator.getInstance().getLocaleBundle()
 		    .getString("AJ.errCommandNotFound.text")
 		    + action);
-	    JOptionPane.showMessageDialog(application, AJConfig.getInstance()
+	    JOptionPane.showMessageDialog(application, AJConfigurator.getInstance()
 		    .getLocaleBundle().getString("AJ.errCommandNotFound.text")
-		    + action, AJConfig.getInstance().getLocaleBundle()
+		    + action, AJConfigurator.getInstance().getLocaleBundle()
 		    .getString("AJ.errCommandNotFound.text"),
 		    JOptionPane.ERROR_MESSAGE);
 	}

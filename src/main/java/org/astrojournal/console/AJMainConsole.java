@@ -24,7 +24,7 @@
 package org.astrojournal.console;
 
 import org.astrojournal.AJMainControls;
-import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJConfigurator;
 import org.astrojournal.configuration.AJConstants;
 import org.astrojournal.configuration.AJProperties;
 
@@ -92,7 +92,7 @@ public class AJMainConsole {
      *            The command line arguments
      */
     public static void main(String args[]) {
-	AJConfig ajConfig = AJConfig.getInstance();
+	AJConfigurator ajConfig = AJConfigurator.getInstance();
 	AJMainConsole ajMainConsole = new AJMainConsole();
 	if (args.length > 1
 		&& (args[1].equals("-l") || args[1].equals("--latex-output"))) {
