@@ -24,20 +24,15 @@
 package org.astrojournal.configuration;
 
 import java.io.File;
-import java.io.FileFilter;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.utilities.PropertiesManager;
 import org.astrojournal.utilities.ReadFromJar;
-import org.astrojournal.utilities.filefilters.LaTeXFilter;
-import org.astrojournal.utilities.filefilters.TabSeparatedValueRawReportFilter;
 
 /**
  * A class containing the configuration of AstroJournal.
@@ -180,7 +175,7 @@ public class AJConfig {
 
 	    // Adjust the files location as this information is not known a
 	    // priori (we don't know the user.home!)
-	    applicationProperties.put(
+	    applicationProperties.setProperty(
 		    AJProperties.FILES_LOCATION,
 		    System.getProperty("user.home")
 			    + File.separator
@@ -225,8 +220,9 @@ public class AJConfig {
 	// example of processing a file location
 
 	log.debug("Validating properties");
+	adjustFileSeparator();
 
-	// TODO solve the locale. it doesnt work.
+	// TODO solve the locale. it doesn't work.
 	// try {
 	// String locale = "locale/aj_"
 	// + applicationProperties.getProperty(AJProperties.LOCALE);
@@ -240,7 +236,7 @@ public class AJConfig {
 	// log.error("The locale : "
 	// + applicationProperties.getProperty(AJProperties.LOCALE)
 	// + " does not exist. Using previous `locale` setting.");
-	// applicationProperties.put(AJProperties.LOCALE,
+	// applicationProperties.setProperty(AJProperties.LOCALE,
 	// localeBundle.getLocale());
 	// }
 	// log.debug(AJProperties.LOCALE + ":" + localeBundle.getLocale());
@@ -276,7 +272,7 @@ public class AJConfig {
 		    + ":"
 		    + newFilesLocation.getAbsolutePath()
 		    + " is not accessible. Using previous `files location` setting.");
-	    applicationProperties.put(AJProperties.FILES_LOCATION,
+	    applicationProperties.setProperty(AJProperties.FILES_LOCATION,
 		    filesLocation.getAbsolutePath());
 	} else {
 	    filesLocation = newFilesLocation;
@@ -337,6 +333,13 @@ public class AJConfig {
     }
 
     /**
+     * @return the localeBundle
+     */
+    public ResourceBundle getLocaleBundle() {
+	return localeBundle;
+    }
+
+    /**
      * Return the value for a property key.
      * 
      * @param key
@@ -350,119 +353,33 @@ public class AJConfig {
     }
 
     /**
-     * Adjust the file separator if needed.
+     * Adjust the file separator if needed. The file separator must be '/' as
+     * this is the default file separator in LaTeX. Therefore, let's replace '\'
+     * with '/'.
      */
-    // TODO put into utilities and pass parameters.
     private void adjustFileSeparator() {
-	// File separator must be '/' as this is the default file separator in
-	// LaTeX. Therefore, let's replace eventual '\' with '/'.
-	rawReportsFolder = rawReportsFolder.replace("\\", "/");
-	latexReportsFolderByDate = latexReportsFolderByDate.replace("\\", "/");
-	latexReportsFolderByTarget = latexReportsFolderByTarget.replace("\\",
-		"/");
-	latexReportsFolderByConstellation = latexReportsFolderByConstellation
-		.replace("\\", "/");
-	sglReportsFolderByDate = sglReportsFolderByDate.replace("\\", "/");
-    }
-
-    /**
-     * Prepare input and output folders for AstroJournal if these do not exist.
-     */
-    // TODO put into utilities and pass parameters.
-    public void prepareAJFolders() {
-	adjustFileSeparator();
-	// Create the folders if these do not exist.
-
-	filesLocation.mkdir();
-
-	// AJ header footer folder
-	File ajHeaderFooterDir = new File(
-		AJConstants.LATEX_HEADER_FOOTER_FOLDER);
-	ajHeaderFooterDir.mkdir();
-	// Create a local folder for header_footer and copy the content from
-	// the AJ folder to here
-	File userHeaderFooterDir = new File(filesLocation.getAbsolutePath()
-		+ File.separator + AJConstants.LATEX_HEADER_FOOTER_FOLDER);
-
-	FileFilter latexFilter = new LaTeXFilter();
-
-	// if the header footer folder does not exist, let's copy the default
-	// one.
-	if (!userHeaderFooterDir.exists()
-		|| userHeaderFooterDir.listFiles(latexFilter).length < 1) {
-	    try {
-		FileUtils.copyDirectory(ajHeaderFooterDir, userHeaderFooterDir,
-			true);
-	    } catch (IOException e) {
-		log.error(localeBundle
-			.getString("AJ.errCannotCopyHeaderFooterFolder.text"),
-			e);
-	    }
-	}
-
-	// Let's do the same for the raw_reports folder
-	// AJ raw reports folder
-	File ajRawReportsDir = new File(rawReportsFolder);
-	ajRawReportsDir.mkdir();
-	// Create a local folder for ajRawReports and copy the content from
-	// the AJ folder to here
-	File userRawReportsDir = new File(filesLocation.getAbsolutePath()
-		+ File.separator + rawReportsFolder);
-
-	FileFilter rawReportFilter = new TabSeparatedValueRawReportFilter();
-
-	// if the raw reports folder does not exist, let's copy the default one.
-	// This is convenient for testing.
-	if (!userRawReportsDir.exists()
-		|| userRawReportsDir.listFiles(rawReportFilter).length < 1) {
-	    try {
-		FileUtils.copyDirectory(ajRawReportsDir, userRawReportsDir,
-			true);
-	    } catch (IOException e) {
-		log.error(localeBundle
-			.getString("AJ.errCannotCopyRawReportsFolder.text"), e);
-	    }
-	}
-
-	new File(filesLocation.getAbsolutePath() + File.separator
-		+ latexReportsFolderByDate).mkdir();
-	new File(filesLocation.getAbsolutePath() + File.separator
-		+ latexReportsFolderByTarget).mkdir();
-	new File(filesLocation.getAbsolutePath() + File.separator
-		+ latexReportsFolderByConstellation).mkdir();
-	new File(filesLocation.getAbsolutePath() + File.separator
-		+ sglReportsFolderByDate).mkdir();
-    }
-
-    /**
-     * Delete the previous output folder content if this is present.
-     * 
-     * @throws IOException
-     *             if the folder could not be cleaned.
-     */
-    // TODO Put into utilities, and pass parameters.
-    public void cleanAJFolder() throws IOException {
-	try {
-	    if (!(filesLocation.exists() && filesLocation.canWrite())) {
-		throw new FileNotFoundException();
-	    }
-	    FileUtils.cleanDirectory(new File(filesLocation.getAbsolutePath()
-		    + File.separator + latexReportsFolderByDate));
-	    FileUtils.cleanDirectory(new File(filesLocation.getAbsolutePath()
-		    + File.separator + latexReportsFolderByTarget));
-	    FileUtils.cleanDirectory(new File(filesLocation.getAbsolutePath()
-		    + File.separator + latexReportsFolderByConstellation));
-	    FileUtils.cleanDirectory(new File(filesLocation.getAbsolutePath()
-		    + File.separator + sglReportsFolderByDate));
-	} catch (IOException e) {
-	    throw e;
-	}
-    }
-
-    /**
-     * @return the localeBundle
-     */
-    public ResourceBundle getLocaleBundle() {
-	return localeBundle;
+	applicationProperties.setProperty(
+		AJProperties.RAW_REPORTS_FOLDER,
+		applicationProperties.getProperty(
+			AJProperties.RAW_REPORTS_FOLDER).replace("\\", "/"));
+	applicationProperties.setProperty(
+		AJProperties.LATEX_REPORTS_FOLDER_BY_DATE,
+		applicationProperties.getProperty(
+			AJProperties.LATEX_REPORTS_FOLDER_BY_DATE).replace(
+			"\\", "/"));
+	applicationProperties.setProperty(
+		AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET,
+		applicationProperties.getProperty(
+			AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET).replace(
+			"\\", "/"));
+	applicationProperties.setProperty(
+		AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION,
+		applicationProperties.getProperty(
+			AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION)
+			.replace("\\", "/"));
+	applicationProperties.setProperty(
+		AJProperties.SGL_REPORTS_FOLDER_BY_DATE, applicationProperties
+			.getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE)
+			.replace("\\", "/"));
     }
 }

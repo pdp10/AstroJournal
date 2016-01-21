@@ -33,6 +33,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.generator.observation.AJObservation;
 import org.astrojournal.generator.observation.AJObservationItem;
+import org.astrojournal.utilities.filefilters.TabSeparatedValueRawReportFilter;
 
 /**
  * The parser for AstroJournal. It imports tab separated value (tsv or csv)
@@ -64,7 +65,7 @@ public class AJTabSeparatedValueImporter extends AJImporter {
     public ArrayList<AJObservation> importObservations() {
 	log.info("Importing observation files:");
 	String rawReportPath = filesLocation + File.separator + rawReportFolder;
-	File[] files = new File(rawReportPath).listFiles();
+	File[] files = new File(rawReportPath).listFiles(new TabSeparatedValueRawReportFilter());
 	if (files == null) {
 	    log.error("Folder " + rawReportPath + " not found");
 	    return new ArrayList<AJObservation>();
@@ -83,20 +84,11 @@ public class AJTabSeparatedValueImporter extends AJImporter {
     @Override
     public ArrayList<AJObservation> importObservations(File file) {
 	ArrayList<AJObservation> observations = new ArrayList<AJObservation>();
-	if (file.isFile()) {
+	if (file.isFile() && new TabSeparatedValueRawReportFilter().accept(file)) {
 
 	    // whether this is tsv or csv it does not matter as long as fields
-	    // are
-	    // separated by a TAB character
-	    String delimiter;
-	    if (file.getName().endsWith(".tsv")) {
-		delimiter = "\t";
-	    } else if (file.getName().endsWith(".csv")) {
-		delimiter = "\t";
-	    } else {
-		log.error("Input files must be either .tsv or .csv . Field delimiter must be a TAB");
-		return observations;
-	    }
+	    // are separated by a TAB character
+	    String delimiter = "\t";
 
 	    // Get the current file name.
 	    String rawFilename = file.getName();

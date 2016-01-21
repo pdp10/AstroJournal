@@ -28,6 +28,7 @@ import javax.swing.UIManager;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.astrojournal.configuration.AJConfig;
 import org.astrojournal.configuration.AJConfigUtils;
 import org.astrojournal.configuration.AJConstants;
 import org.astrojournal.console.AJMainConsole;
@@ -75,6 +76,7 @@ public class AJMain {
      * @param args
      */
     public static void main(String[] args) {
+	AJConfig ajConfig = AJConfig.getInstance();
 
 	// Get some information for debugging
 	log.debug("Application: " + AJConstants.APPLICATION_NAME + " "
@@ -88,7 +90,7 @@ public class AJMain {
 	    if (args.length == 0) {
 		startAJMainGUI();
 	    } else if (args[0].equals("-f") || args[0].equals("--config")) {
-		log.info(AJConfigUtils.printConfiguration());
+		log.info(AJConfigUtils.printConfiguration(ajConfig));
 		System.exit(0);
 	    } else if (args[0].equals("-c") || args[0].equals("--console")) {
 		AJMainConsole.main(args);
@@ -100,7 +102,7 @@ public class AJMain {
 		log.info(AJConstants.SHORT_LICENSE);
 		System.exit(0);
 	    } else if (args[0].equals("-t") || args[0].equals("--test-latex")) {
-		log.info(AJConfigUtils.printPDFLatexVersion());
+		log.info(AJConfigUtils.printPDFLatexVersion(ajConfig));
 		System.exit(0);
 	    } else {
 		log.error("Unrecognised option. Please, run AstroJournal with the option -h [--help] for suggestions.");

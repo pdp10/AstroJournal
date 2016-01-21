@@ -32,6 +32,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.AJConfigUtils;
 import org.astrojournal.configuration.AJConstants;
 import org.astrojournal.configuration.AJProperties;
 import org.astrojournal.console.AJMainConsole;
@@ -81,7 +82,7 @@ public class SystemTest {
     @AfterClass
     public static void tearDownAfterClass() throws Exception {
 	try {
-	    ajConfig.cleanAJFolder();
+	    AJConfigUtils.cleanAJFolder(ajConfig);
 	} catch (IOException e) {
 	    log.error(e, e);
 	}

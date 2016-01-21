@@ -25,13 +25,18 @@ package org.astrojournal.configuration;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileFilter;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ResourceBundle;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.astrojournal.utilities.filefilters.LaTeXFilter;
+import org.astrojournal.utilities.filefilters.TabSeparatedValueRawReportFilter;
 
 /**
  * A collection of utilities used by AJConfig.
@@ -62,14 +67,16 @@ public class AJConfigUtils {
 		    + AJConstants.USER_CONFIGURATION_PROPERTIES_FILE_NAME);
 	} else if (SystemUtils.IS_OS_WINDOWS) {
 	    configFile = new File(System.getProperty("user.home")
-		    + File.separator + AJConstants.USER_CONFIGURATION_PROPERTIES_FILE_NAME);
+		    + File.separator
+		    + AJConstants.USER_CONFIGURATION_PROPERTIES_FILE_NAME);
 	} else if (SystemUtils.IS_OS_UNIX) {
 	    configFile = new File(System.getProperty("user.home")
 		    + File.separator + "."
 		    + AJConstants.USER_CONFIGURATION_PROPERTIES_FILE_NAME);
 	} else {
 	    configFile = new File(System.getProperty("user.home")
-		    + File.separator + AJConstants.USER_CONFIGURATION_PROPERTIES_FILE_NAME);
+		    + File.separator
+		    + AJConstants.USER_CONFIGURATION_PROPERTIES_FILE_NAME);
 	}
 	return configFile;
     }
@@ -88,7 +95,7 @@ public class AJConfigUtils {
      * 
      * @return the current configuration
      */
-    public static String printPDFLatexVersion() {
+    public static String printPDFLatexVersion(AJConfig ajConfig) {
 	StringBuilder sb = new StringBuilder();
 	String command = "pdflatex";
 	String argument = "-version";
@@ -98,8 +105,8 @@ public class AJConfigUtils {
 	    // read the output messages from the command
 	    BufferedReader stdInput = new BufferedReader(new InputStreamReader(
 		    p.getInputStream()));
-	    sb.append(AJConfig.getInstance().getLocaleBundle()
-		    .getString("AJ.lblOutputForPDFLatexVersion.text")
+	    sb.append(ajConfig.getLocaleBundle().getString(
+		    "AJ.lblOutputForPDFLatexVersion.text")
 		    + " `" + command + " " + argument + "`:\n\n");
 	    String temp;
 	    while ((temp = stdInput.readLine()) != null) {
@@ -110,9 +117,9 @@ public class AJConfigUtils {
 	    BufferedReader stdError = new BufferedReader(new InputStreamReader(
 		    p.getErrorStream()));
 	    sb.append("\n"
-		    + AJConfig.getInstance().getLocaleBundle()
-			    .getString("AJ.lblErrorForPDFLatexVersion.text")
-		    + " `" + command + " " + argument + "`:\n\n");
+		    + ajConfig.getLocaleBundle().getString(
+			    "AJ.lblErrorForPDFLatexVersion.text") + " `"
+		    + command + " " + argument + "`:\n\n");
 	    while ((temp = stdError.readLine()) != null) {
 		sb.append(temp).append("\n");
 	    }
@@ -142,8 +149,7 @@ public class AJConfigUtils {
      * 
      * @return the current configuration
      */
-    public static String printConfiguration() {
-	AJConfig ajConfig = AJConfig.getInstance();
+    public static String printConfiguration(AJConfig ajConfig) {
 	ResourceBundle resourceBundle = ajConfig.getLocaleBundle();
 	String configuration = "AstroJournal current configuration:\n" + "\t"
 		+ resourceBundle.getString("AJ.lblAJFilesLocation.text")
@@ -197,5 +203,148 @@ public class AJConfigUtils {
 			.getProperty(AJProperties.SHOW_CONFIGURATION_AT_START)
 		+ "\n" + "\n\n";
 	return configuration;
+    }
+
+    /**
+     * Prepare input and output folders for AstroJournal if these do not exist.
+     */
+    // TODO Improve this function and the following three calls as it is awful..
+    public static void prepareAJFolders(AJConfig ajConfig) {
+	// Create the folders if these do not exist.
+	File filesLocation = new File(
+		ajConfig.getProperty(AJProperties.FILES_LOCATION));
+	filesLocation.mkdir();
+
+	prepareAJHeaderFooter(ajConfig, filesLocation);
+
+	prepareRawReportsDir(ajConfig, filesLocation);
+
+	prepareOutputReportsDir(ajConfig, filesLocation);
+
+    }
+
+    private static void prepareAJHeaderFooter(AJConfig ajConfig,
+	    File filesLocation) {
+	// AJ header footer folder
+	File ajHeaderFooterDir = new File(
+		AJConstants.LATEX_HEADER_FOOTER_FOLDER);
+	ajHeaderFooterDir.mkdir();
+	// Create a local folder for header_footer and copy the content from
+	// the AJ folder to here
+	File userHeaderFooterDir = new File(filesLocation.getAbsolutePath()
+		+ File.separator + AJConstants.LATEX_HEADER_FOOTER_FOLDER);
+
+	FileFilter latexFilter = new LaTeXFilter();
+
+	// if the header footer folder does not exist, let's copy the default
+	// one.
+	if (!userHeaderFooterDir.exists()
+		|| userHeaderFooterDir.listFiles(latexFilter).length < 1) {
+	    try {
+		FileUtils.copyDirectory(ajHeaderFooterDir, userHeaderFooterDir,
+			true);
+	    } catch (IOException e) {
+		log.error(
+			ajConfig.getLocaleBundle().getString(
+				"AJ.errCannotCopyHeaderFooterFolder.text"), e);
+	    }
+	}
+    }
+
+    private static void prepareRawReportsDir(AJConfig ajConfig,
+	    File filesLocation) {
+	// Let's do the same for the raw_reports folder
+	// AJ raw reports folder
+	File ajRawReportsDir = new File(
+		ajConfig.getProperty(AJProperties.RAW_REPORTS_FOLDER));
+	ajRawReportsDir.mkdir();
+	// Create a local folder for ajRawReports and copy the content from
+	// the AJ folder to here
+	File userRawReportsDir = new File(filesLocation.getAbsolutePath()
+		+ File.separator
+		+ ajConfig.getProperty(AJProperties.RAW_REPORTS_FOLDER));
+
+	FileFilter rawReportFilter = new TabSeparatedValueRawReportFilter();
+
+	// if the raw reports folder does not exist, let's copy the default one.
+	// This is convenient for testing.
+	if (!userRawReportsDir.exists()
+		|| userRawReportsDir.listFiles(rawReportFilter).length < 1) {
+	    try {
+		FileUtils.copyDirectory(ajRawReportsDir, userRawReportsDir,
+			true);
+	    } catch (IOException e) {
+		log.error(
+			ajConfig.getLocaleBundle().getString(
+				"AJ.errCannotCopyRawReportsFolder.text"), e);
+	    }
+	}
+    }
+
+    private static void prepareOutputReportsDir(AJConfig ajConfig,
+	    File filesLocation) {
+	new File(
+		filesLocation.getAbsolutePath()
+			+ File.separator
+			+ ajConfig
+				.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE))
+		.mkdir();
+	new File(
+		filesLocation.getAbsolutePath()
+			+ File.separator
+			+ ajConfig
+				.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET))
+		.mkdir();
+	new File(
+		filesLocation.getAbsolutePath()
+			+ File.separator
+			+ ajConfig
+				.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION))
+		.mkdir();
+	new File(filesLocation.getAbsolutePath() + File.separator
+		+ ajConfig.getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE))
+		.mkdir();
+    }
+
+    /**
+     * Delete the previous output folder content if this is present.
+     * 
+     * @throws IOException
+     *             if the folder could not be cleaned.
+     */
+    public static void cleanAJFolder(AJConfig ajConfig) throws IOException {
+	File filesLocation = new File(
+		ajConfig.getProperty(AJProperties.FILES_LOCATION));
+	if (!(filesLocation.exists() && filesLocation.canWrite())) {
+	    throw new FileNotFoundException();
+	}
+	try {
+	    FileUtils
+		    .cleanDirectory(new File(
+			    filesLocation.getAbsolutePath()
+				    + File.separator
+				    + ajConfig
+					    .getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE)));
+	    FileUtils
+		    .cleanDirectory(new File(
+			    filesLocation.getAbsolutePath()
+				    + File.separator
+				    + ajConfig
+					    .getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET)));
+	    FileUtils
+		    .cleanDirectory(new File(
+			    filesLocation.getAbsolutePath()
+				    + File.separator
+				    + ajConfig
+					    .getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION)));
+	    FileUtils
+		    .cleanDirectory(new File(
+			    filesLocation.getAbsolutePath()
+				    + File.separator
+				    + ajConfig
+					    .getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE)));
+	} catch (IOException e) {
+	    throw e;
+	}
     }
 }

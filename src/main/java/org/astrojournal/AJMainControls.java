@@ -82,7 +82,7 @@ public abstract class AJMainControls {
      * @return true if pdflatex is installed, false otherwise
      */
     public boolean showPDFLatexVersion() {
-	String pdfLatexVersion = AJConfigUtils.printPDFLatexVersion();
+	String pdfLatexVersion = AJConfigUtils.printPDFLatexVersion(ajConfig);
 	if (pdfLatexVersion.isEmpty()) {
 	    return false;
 	}
@@ -94,7 +94,7 @@ public abstract class AJMainControls {
      * Print the configuration for AstroJournal.
      */
     public void showConfiguration() {
-	String[] conf = AJConfigUtils.printConfiguration().split("\n");
+	String[] conf = AJConfigUtils.printConfiguration(ajConfig).split("\n");
 	for (String str : conf) {
 	    log.info(str);
 	}
@@ -110,11 +110,11 @@ public abstract class AJMainControls {
 	log.debug("Starting pre-processing");
 
 	// prepare the folders for AJ.
-	ajConfig.prepareAJFolders();
+	AJConfigUtils.prepareAJFolders(ajConfig);
 
 	// Delete previous content if present
 	try {
-	    ajConfig.cleanAJFolder();
+	    AJConfigUtils.cleanAJFolder(ajConfig);
 	} catch (IOException e) {
 	    log.error(
 		    ajConfig.getLocaleBundle().getString(

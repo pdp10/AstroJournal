@@ -435,7 +435,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	    ajConfig.saveProperties();
 
 	    // prepare the folders for AJ.
-	    ajConfig.prepareAJFolders();
+	    AJConfigUtils.prepareAJFolders(ajConfig);
 
 	    setVisible(false);
 	    dispose();
