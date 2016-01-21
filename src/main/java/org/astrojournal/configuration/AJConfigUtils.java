@@ -93,6 +93,8 @@ public class AJConfigUtils {
     /**
      * Create a string containing the output of the command `pdflatex -version`.
      * 
+     * @param ajConfig
+     *            The configurator.
      * @return the current configuration
      */
     public static String printPDFLatexVersion(AJConfig ajConfig) {
@@ -147,6 +149,8 @@ public class AJConfigUtils {
     /**
      * Print the current configuration.
      * 
+     * @param ajConfig
+     *            The configurator
      * @return the current configuration
      */
     public static String printConfiguration(AJConfig ajConfig) {
@@ -207,8 +211,10 @@ public class AJConfigUtils {
 
     /**
      * Prepare input and output folders for AstroJournal if these do not exist.
+     * 
+     * @param ajConfig
+     *            The configurator
      */
-    // TODO Improve this function and the following three calls as it is awful..
     public static void prepareAJFolders(AJConfig ajConfig) {
 	// Create the folders if these do not exist.
 	File filesLocation = new File(
@@ -223,6 +229,13 @@ public class AJConfigUtils {
 
     }
 
+    /**
+     * Create the folder containing headers and footers.
+     * 
+     * @param ajConfig
+     *            The configurator
+     * @param filesLocation
+     */
     private static void prepareAJHeaderFooter(AJConfig ajConfig,
 	    File filesLocation) {
 	// AJ header footer folder
@@ -251,6 +264,13 @@ public class AJConfigUtils {
 	}
     }
 
+    /**
+     * Create the folder containing the input raw reports.
+     * 
+     * @param ajConfig
+     *            The configurator
+     * @param filesLocation
+     */
     private static void prepareRawReportsDir(AJConfig ajConfig,
 	    File filesLocation) {
 	// Let's do the same for the raw_reports folder
@@ -281,6 +301,13 @@ public class AJConfigUtils {
 	}
     }
 
+    /**
+     * Create the folder containing the output reports.
+     * 
+     * @param ajConfig
+     *            The configurator
+     * @param filesLocation
+     */
     private static void prepareOutputReportsDir(AJConfig ajConfig,
 	    File filesLocation) {
 	new File(
@@ -309,6 +336,8 @@ public class AJConfigUtils {
     /**
      * Delete the previous output folder content if this is present.
      * 
+     * @param ajConfig
+     *            The configurator.
      * @throws IOException
      *             if the folder could not be cleaned.
      */
