@@ -30,9 +30,9 @@ import java.util.Collections;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.AJConfigurator;
-import org.astrojournal.configuration.AJConstants;
-import org.astrojournal.configuration.AJProperties;
+import org.astrojournal.configuration.Configuration;
+import org.astrojournal.configuration.ajconfiguration.AJConstants;
+import org.astrojournal.configuration.ajconfiguration.AJProperties;
 import org.astrojournal.generator.ajexporter.AJExporter;
 import org.astrojournal.generator.ajexporter.AJLatexExporter;
 import org.astrojournal.generator.ajexporter.AJLatexExporterByConstellation;
@@ -56,8 +56,8 @@ public class AJGenerator {
     /** The log associated to this class */
     private static Logger log = LogManager.getLogger(AJGenerator.class);
 
-    /** The configurator. */
-    private AJConfigurator ajConfig = AJConfigurator.getInstance();
+    /** The configuration. */
+    private Configuration config;
 
     /** The list of observations. */
     private ArrayList<AJObservation> observations = new ArrayList<AJObservation>();
@@ -68,8 +68,13 @@ public class AJGenerator {
     /** The list of AJExporter objects. */
     private ArrayList<AJExporter> ajExporters = new ArrayList<AJExporter>();
 
-    /** Default constructor */
-    public AJGenerator() {
+    /**
+     * Default constructor
+     * 
+     * @param config
+     */
+    public AJGenerator(Configuration config) {
+	this.config = config;
     }
 
     /**
@@ -82,9 +87,9 @@ public class AJGenerator {
 	if (!ajImport()) {
 	    if (observations.isEmpty()) {
 		log.error("No observation was imported. Is the folder "
-			+ ajConfig.getProperty(AJProperties.FILES_LOCATION)
+			+ config.getProperty(AJProperties.FILES_LOCATION)
 			+ File.separator
-			+ ajConfig.getProperty(AJProperties.RAW_REPORTS_FOLDER)
+			+ config.getProperty(AJProperties.RAW_REPORTS_FOLDER)
 			+ " empty?");
 		return false;
 	    }
@@ -203,10 +208,9 @@ public class AJGenerator {
 	    // TODO: TEMPORARY IMPLEMENTATION. WITH DEPENDENCY INJECTION, THESE
 	    // PARAMETERS ARE PASSED BY THE INJECTOR
 	    // THEREFORE, THERE IS NO NEED TO SET THEM HERE!! :)
-	    log.warn(ajConfig.getProperty(AJProperties.FILES_LOCATION));
-	    ajImporter.setFilesLocation(ajConfig
+	    ajImporter.setFilesLocation(config
 		    .getProperty(AJProperties.FILES_LOCATION));
-	    ajImporter.setRawReportFolder(ajConfig
+	    ajImporter.setRawReportFolder(config
 		    .getProperty(AJProperties.RAW_REPORTS_FOLDER));
 	    // TODO: END
 
@@ -268,18 +272,17 @@ public class AJGenerator {
 	    // TODO: TEMPORARY IMPLEMENTATION. WITH DEPENDENCY INJECTION, THESE
 	    // PARAMETERS ARE PASSED BY THE INJECTOR
 	    // THEREFORE, THERE IS NO NEED TO SET THEM HERE!! :)
-	    log.warn(ajConfig.getProperty(AJProperties.FILES_LOCATION));
-	    ajExporter.setFilesLocation(ajConfig
+	    ajExporter.setFilesLocation(config
 		    .getProperty(AJProperties.FILES_LOCATION));
-	    ajExporter.setQuiet(Boolean.getBoolean(ajConfig
+	    ajExporter.setQuiet(Boolean.getBoolean(config
 		    .getProperty(AJProperties.QUIET)));
 	    if (ajExporter instanceof AJLatexExporter) {
 		((AJLatexExporter) ajExporter).setLatexOutput(Boolean
-			.getBoolean(ajConfig
+			.getBoolean(config
 				.getProperty(AJProperties.SHOW_LATEX_OUTPUT)));
 		if (ajExporter instanceof AJLatexExporterByDate) {
 		    ((AJLatexExporterByDate) ajExporter)
-			    .setReportFolder(ajConfig
+			    .setReportFolder(config
 				    .getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE));
 		    ((AJLatexExporterByDate) ajExporter)
 			    .setHeaderFilename(AJConstants.HEADER_BY_DATE_FILENAME);
@@ -290,7 +293,7 @@ public class AJGenerator {
 		}
 		if (ajExporter instanceof AJLatexExporterByTarget) {
 		    ((AJLatexExporterByTarget) ajExporter)
-			    .setReportFolder(ajConfig
+			    .setReportFolder(config
 				    .getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET));
 		    ((AJLatexExporterByTarget) ajExporter)
 			    .setHeaderFilename(AJConstants.HEADER_BY_TARGET_FILENAME);
@@ -301,7 +304,7 @@ public class AJGenerator {
 		}
 		if (ajExporter instanceof AJLatexExporterByConstellation) {
 		    ((AJLatexExporterByConstellation) ajExporter)
-			    .setReportFolder(ajConfig
+			    .setReportFolder(config
 				    .getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION));
 		    ((AJLatexExporterByConstellation) ajExporter)
 			    .setHeaderFilename(AJConstants.HEADER_BY_CONSTELLATION_FILENAME);
@@ -314,7 +317,7 @@ public class AJGenerator {
 	    } else {
 		if (ajExporter instanceof AJTextExporterByDateSGL) {
 		    ((AJTextExporterByDateSGL) ajExporter)
-			    .setReportFolder(ajConfig
+			    .setReportFolder(config
 				    .getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE));
 		    ((AJTextExporterByDateSGL) ajExporter)
 			    .setReportFilename(AJConstants.SGL_REPORT_BY_DATE_FILENAME);

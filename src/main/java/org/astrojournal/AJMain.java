@@ -28,9 +28,11 @@ import javax.swing.UIManager;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.AJConfigurator;
-import org.astrojournal.configuration.AJConfigUtils;
-import org.astrojournal.configuration.AJConstants;
+import org.astrojournal.configuration.Configuration;
+import org.astrojournal.configuration.ConfigurationUtils;
+import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
+import org.astrojournal.configuration.ajconfiguration.AJConfigurationUtils;
+import org.astrojournal.configuration.ajconfiguration.AJConstants;
 import org.astrojournal.console.AJMainConsole;
 import org.astrojournal.gui.AJMainGUI;
 
@@ -48,8 +50,11 @@ public class AJMain {
 
     /**
      * Start AJMiniGUI.
+     * 
+     * @param config
+     *            The configuration
      */
-    private static void startAJMainGUI() {
+    private static void startAJMainGUI(final Configuration config) {
 	// Note Nimbus does not seem to show the vertical scroll bar if there is
 	// too much text..
 	try {
@@ -64,7 +69,7 @@ public class AJMain {
 	java.awt.EventQueue.invokeLater(new Runnable() {
 	    @Override
 	    public void run() {
-		new AJMainGUI().setVisible(true);
+		new AJMainGUI(config).setVisible(true);
 	    }
 	});
     }
@@ -76,7 +81,8 @@ public class AJMain {
      * @param args
      */
     public static void main(String[] args) {
-	AJConfigurator ajConfig = AJConfigurator.getInstance();
+	Configuration config = new AJConfiguration();
+	ConfigurationUtils configUtils = config.getConfigurationUtils();
 
 	// Get some information for debugging
 	log.debug("Application: " + AJConstants.APPLICATION_NAME + " "
@@ -88,9 +94,9 @@ public class AJMain {
 
 	try {
 	    if (args.length == 0) {
-		startAJMainGUI();
+		startAJMainGUI(config);
 	    } else if (args[0].equals("-f") || args[0].equals("--config")) {
-		log.info(AJConfigUtils.printConfiguration(ajConfig));
+		log.info(configUtils.printConfiguration(config));
 		System.exit(0);
 	    } else if (args[0].equals("-c") || args[0].equals("--console")) {
 		AJMainConsole.main(args);
@@ -102,7 +108,12 @@ public class AJMain {
 		log.info(AJConstants.SHORT_LICENSE);
 		System.exit(0);
 	    } else if (args[0].equals("-t") || args[0].equals("--test-latex")) {
-		log.info(AJConfigUtils.printPDFLatexVersion(ajConfig));
+		if (configUtils instanceof AJConfigurationUtils) {
+		    log.info(((AJConfigurationUtils) configUtils)
+			    .printPDFLatexVersion(config));
+		} else {
+		    log.error("Cannot test LaTeX with this configuration.");
+		}
 		System.exit(0);
 	    } else {
 		log.error("Unrecognised option. Please, run AstroJournal with the option -h [--help] for suggestions.");

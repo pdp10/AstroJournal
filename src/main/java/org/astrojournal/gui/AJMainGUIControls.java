@@ -24,6 +24,7 @@
 package org.astrojournal.gui;
 
 import org.astrojournal.AJMainControls;
+import org.astrojournal.configuration.Configuration;
 
 /**
  * A simple class containing the commands for AJMiniGUI.
@@ -44,32 +45,36 @@ public class AJMainGUIControls extends AJMainControls {
      * Constructor
      * 
      * @param ajMainGUI
+     *            The GUI
+     * @param config
+     *            The configuration
      */
-    public AJMainGUIControls(AJMainGUI ajMainGUI) {
+    public AJMainGUIControls(AJMainGUI ajMainGUI, Configuration config) {
+	super(config);
 	this.ajMainGUI = ajMainGUI;
     }
 
     @Override
     public boolean createJournal() {
 	if (!preProcessing()) {
-	    ajMainGUI.setStatusPanelText(ajConfig.getLocaleBundle().getString(
+	    ajMainGUI.setStatusPanelText(config.getResourceBundle().getString(
 		    "AJ.errUnconfiguredPreferences.text"));
 	    return false;
 	}
 
 	if (!processing()) {
-	    ajMainGUI.setStatusPanelText(ajConfig.getLocaleBundle().getString(
+	    ajMainGUI.setStatusPanelText(config.getResourceBundle().getString(
 		    "AJ.errJournalNotExportedShort.text"));
 	    return false;
 	}
 
 	if (!postProcessing()) {
-	    ajMainGUI.setStatusPanelText(ajConfig.getLocaleBundle().getString(
+	    ajMainGUI.setStatusPanelText(config.getResourceBundle().getString(
 		    "AJ.errPDFLatexShort.text"));
 	    return false;
 	}
 
-	ajMainGUI.setStatusPanelText(ajConfig.getLocaleBundle().getString(
+	ajMainGUI.setStatusPanelText(config.getResourceBundle().getString(
 		"AJ.lblCreatedReportsLong.text"));
 	return true;
     }

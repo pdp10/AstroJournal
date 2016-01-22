@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.configuration;
+package org.astrojournal.configuration.ajconfiguration;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -35,21 +35,24 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.astrojournal.configuration.Configuration;
+import org.astrojournal.configuration.ConfigurationUtils;
 import org.astrojournal.utilities.filefilters.LaTeXFilter;
 import org.astrojournal.utilities.filefilters.TabSeparatedValueRawReportFilter;
 
 /**
- * A collection of utilities used by AJConfig.
+ * A collection of utilities used by AJConfiguration.
  * 
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
  * @date 18 Jan 2016
  */
-public class AJConfigUtils {
+public class AJConfigurationUtils implements ConfigurationUtils {
 
     /** The logger */
-    private static Logger log = LogManager.getLogger(AJConfigUtils.class);
+    private static Logger log = LogManager
+	    .getLogger(AJConfigurationUtils.class);
 
     /**
      * Setup the configuration file
@@ -86,18 +89,19 @@ public class AJConfigUtils {
      * 
      * @return a string
      */
-    public static final String printLicense() {
+    @Override
+    public final String printLicense() {
 	return AJConstants.SHORT_LICENSE;
     }
 
     /**
      * Create a string containing the output of the command `pdflatex -version`.
      * 
-     * @param ajConfig
-     *            The configurator.
+     * @param config
+     *            The configuration.
      * @return the current configuration
      */
-    public static String printPDFLatexVersion(AJConfigurator ajConfig) {
+    public String printPDFLatexVersion(Configuration config) {
 	StringBuilder sb = new StringBuilder();
 	String command = "pdflatex";
 	String argument = "-version";
@@ -107,7 +111,7 @@ public class AJConfigUtils {
 	    // read the output messages from the command
 	    BufferedReader stdInput = new BufferedReader(new InputStreamReader(
 		    p.getInputStream()));
-	    sb.append(ajConfig.getLocaleBundle().getString(
+	    sb.append(config.getResourceBundle().getString(
 		    "AJ.lblOutputForPDFLatexVersion.text")
 		    + " `" + command + " " + argument + "`:\n\n");
 	    String temp;
@@ -119,7 +123,7 @@ public class AJConfigUtils {
 	    BufferedReader stdError = new BufferedReader(new InputStreamReader(
 		    p.getErrorStream()));
 	    sb.append("\n"
-		    + ajConfig.getLocaleBundle().getString(
+		    + config.getResourceBundle().getString(
 			    "AJ.lblErrorForPDFLatexVersion.text") + " `"
 		    + command + " " + argument + "`:\n\n");
 	    while ((temp = stdError.readLine()) != null) {
@@ -149,62 +153,57 @@ public class AJConfigUtils {
     /**
      * Print the current configuration.
      * 
-     * @param ajConfig
-     *            The configurator
+     * @param config
+     *            The configuration
      * @return the current configuration
      */
-    public static String printConfiguration(AJConfigurator ajConfig) {
-	ResourceBundle resourceBundle = ajConfig.getLocaleBundle();
+    @Override
+    public String printConfiguration(Configuration config) {
+	ResourceBundle resourceBundle = config.getResourceBundle();
 	String configuration = "AstroJournal current configuration:\n" + "\t"
 		+ resourceBundle.getString("AJ.lblAJFilesLocation.text")
 		+ " "
-		+ ajConfig.getProperty(AJProperties.FILES_LOCATION)
+		+ config.getProperty(AJProperties.FILES_LOCATION)
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblInpDir.text")
 		+ " "
-		+ ajConfig.getProperty(AJProperties.RAW_REPORTS_FOLDER)
+		+ config.getProperty(AJProperties.RAW_REPORTS_FOLDER)
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblOutByDateDir.text")
 		+ " "
-		+ ajConfig
-			.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE)
+		+ config.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE)
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblOutByTargetDir.text")
 		+ " "
-		+ ajConfig
-			.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET)
+		+ config.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET)
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblOutByConstellationDir.text")
 		+ " "
-		+ ajConfig
-			.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION)
+		+ config.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION)
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblSGLOutByDateDir.text")
 		+ " "
-		+ ajConfig.getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE)
+		+ config.getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE)
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblQuiet.text")
 		+ " "
-		+ ajConfig.getProperty(AJProperties.QUIET)
+		+ config.getProperty(AJProperties.QUIET)
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblShowLatexOutput.text")
 		+ " "
-		+ ajConfig.getProperty(AJProperties.SHOW_LATEX_OUTPUT)
+		+ config.getProperty(AJProperties.SHOW_LATEX_OUTPUT)
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblShowLicenseAtStart.text")
 		+ " "
-		+ ajConfig.getProperty(AJProperties.SHOW_LICENSE_AT_START)
+		+ config.getProperty(AJProperties.SHOW_LICENSE_AT_START)
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblShowPDFLatexVersion.text")
 		+ " "
-		+ ajConfig
-			.getProperty(AJProperties.SHOW_PDFLATEX_VERSION_AT_START)
+		+ config.getProperty(AJProperties.SHOW_PDFLATEX_VERSION_AT_START)
 		+ "\n\t"
 		+ resourceBundle
-			.getString("AJ.lblShowConfigurationAtStart.text")
-		+ " "
-		+ ajConfig
-			.getProperty(AJProperties.SHOW_CONFIGURATION_AT_START)
+			.getString("AJ.lblShowConfigurationAtStart.text") + " "
+		+ config.getProperty(AJProperties.SHOW_CONFIGURATION_AT_START)
 		+ "\n" + "\n\n";
 	return configuration;
     }
@@ -212,32 +211,32 @@ public class AJConfigUtils {
     /**
      * Prepare input and output folders for AstroJournal if these do not exist.
      * 
-     * @param ajConfig
-     *            The configurator
+     * @param config
+     *            The configuration
      */
-    public static void prepareAJFolders(AJConfigurator ajConfig) {
+    @Override
+    public void prepareFolders(Configuration config) {
 	// Create the folders if these do not exist.
 	File filesLocation = new File(
-		ajConfig.getProperty(AJProperties.FILES_LOCATION));
+		config.getProperty(AJProperties.FILES_LOCATION));
 	filesLocation.mkdir();
 
-	prepareAJHeaderFooter(ajConfig, filesLocation);
+	prepareAJHeaderFooter(config, filesLocation);
 
-	prepareRawReportsDir(ajConfig, filesLocation);
+	prepareRawReportsDir(config, filesLocation);
 
-	prepareOutputReportsDir(ajConfig, filesLocation);
+	prepareOutputReportsDir(config, filesLocation);
 
     }
 
     /**
      * Create the folder containing headers and footers.
      * 
-     * @param ajConfig
-     *            The configurator
+     * @param config
+     *            The configuration
      * @param filesLocation
      */
-    private static void prepareAJHeaderFooter(AJConfigurator ajConfig,
-	    File filesLocation) {
+    private void prepareAJHeaderFooter(Configuration config, File filesLocation) {
 	// AJ header footer folder
 	File ajHeaderFooterDir = new File(
 		AJConstants.LATEX_HEADER_FOOTER_FOLDER);
@@ -258,7 +257,7 @@ public class AJConfigUtils {
 			true);
 	    } catch (IOException e) {
 		log.error(
-			ajConfig.getLocaleBundle().getString(
+			config.getResourceBundle().getString(
 				"AJ.errCannotCopyHeaderFooterFolder.text"), e);
 	    }
 	}
@@ -267,22 +266,21 @@ public class AJConfigUtils {
     /**
      * Create the folder containing the input raw reports.
      * 
-     * @param ajConfig
-     *            The configurator
+     * @param config
+     *            The configuration
      * @param filesLocation
      */
-    private static void prepareRawReportsDir(AJConfigurator ajConfig,
-	    File filesLocation) {
+    private void prepareRawReportsDir(Configuration config, File filesLocation) {
 	// Let's do the same for the raw_reports folder
 	// AJ raw reports folder
 	File ajRawReportsDir = new File(
-		ajConfig.getProperty(AJProperties.RAW_REPORTS_FOLDER));
+		config.getProperty(AJProperties.RAW_REPORTS_FOLDER));
 	ajRawReportsDir.mkdir();
 	// Create a local folder for ajRawReports and copy the content from
 	// the AJ folder to here
 	File userRawReportsDir = new File(filesLocation.getAbsolutePath()
 		+ File.separator
-		+ ajConfig.getProperty(AJProperties.RAW_REPORTS_FOLDER));
+		+ config.getProperty(AJProperties.RAW_REPORTS_FOLDER));
 
 	FileFilter rawReportFilter = new TabSeparatedValueRawReportFilter();
 
@@ -295,7 +293,7 @@ public class AJConfigUtils {
 			true);
 	    } catch (IOException e) {
 		log.error(
-			ajConfig.getLocaleBundle().getString(
+			config.getResourceBundle().getString(
 				"AJ.errCannotCopyRawReportsFolder.text"), e);
 	    }
 	}
@@ -304,46 +302,42 @@ public class AJConfigUtils {
     /**
      * Create the folder containing the output reports.
      * 
-     * @param ajConfig
-     *            The configurator
+     * @param config
+     *            The configuration
      * @param filesLocation
      */
-    private static void prepareOutputReportsDir(AJConfigurator ajConfig,
+    private void prepareOutputReportsDir(Configuration config,
 	    File filesLocation) {
-	new File(
-		filesLocation.getAbsolutePath()
-			+ File.separator
-			+ ajConfig
-				.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE))
+	new File(filesLocation.getAbsolutePath() + File.separator
+		+ config.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE))
 		.mkdir();
 	new File(
 		filesLocation.getAbsolutePath()
 			+ File.separator
-			+ ajConfig
-				.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET))
+			+ config.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET))
 		.mkdir();
 	new File(
 		filesLocation.getAbsolutePath()
 			+ File.separator
-			+ ajConfig
-				.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION))
+			+ config.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION))
 		.mkdir();
 	new File(filesLocation.getAbsolutePath() + File.separator
-		+ ajConfig.getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE))
+		+ config.getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE))
 		.mkdir();
     }
 
     /**
      * Delete the previous output folder content if this is present.
      * 
-     * @param ajConfig
-     *            The configurator.
+     * @param config
+     *            The configuration.
      * @throws IOException
      *             if the folder could not be cleaned.
      */
-    public static void cleanAJFolder(AJConfigurator ajConfig) throws IOException {
+    @Override
+    public void cleanFolder(Configuration config) throws IOException {
 	File filesLocation = new File(
-		ajConfig.getProperty(AJProperties.FILES_LOCATION));
+		config.getProperty(AJProperties.FILES_LOCATION));
 	if (!(filesLocation.exists() && filesLocation.canWrite())) {
 	    throw new FileNotFoundException();
 	}
@@ -352,28 +346,25 @@ public class AJConfigUtils {
 		    .cleanDirectory(new File(
 			    filesLocation.getAbsolutePath()
 				    + File.separator
-				    + ajConfig
-					    .getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE)));
+				    + config.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE)));
 	    FileUtils
 		    .cleanDirectory(new File(
 			    filesLocation.getAbsolutePath()
 				    + File.separator
-				    + ajConfig
-					    .getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET)));
+				    + config.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET)));
 	    FileUtils
 		    .cleanDirectory(new File(
 			    filesLocation.getAbsolutePath()
 				    + File.separator
-				    + ajConfig
-					    .getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION)));
+				    + config.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION)));
 	    FileUtils
 		    .cleanDirectory(new File(
 			    filesLocation.getAbsolutePath()
 				    + File.separator
-				    + ajConfig
-					    .getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE)));
+				    + config.getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE)));
 	} catch (IOException e) {
 	    throw e;
 	}
     }
+
 }

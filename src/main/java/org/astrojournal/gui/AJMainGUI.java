@@ -43,8 +43,10 @@ import javax.swing.text.DefaultCaret;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.AJMainControls;
-import org.astrojournal.configuration.AJConfigurator;
-import org.astrojournal.configuration.AJConstants;
+import org.astrojournal.configuration.Configuration;
+import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
+import org.astrojournal.configuration.ajconfiguration.AJConstants;
+import org.astrojournal.configuration.ajconfiguration.PreferencesDialog;
 import org.astrojournal.gui.dialogs.StatusPanel;
 import org.astrojournal.gui.dialogs.WelcomePanel;
 import org.astrojournal.gui.menu.AJMenuBar;
@@ -67,6 +69,11 @@ public class AJMainGUI extends JFrame {
 
     private static final long serialVersionUID = -7217707367091677434L;
 
+    /**
+     * The application configuration.
+     */
+    private Configuration config;
+
     private JButton btnCreateJournal;
     private JButton btnQuit;
     private JTextPane textPane;
@@ -80,8 +87,12 @@ public class AJMainGUI extends JFrame {
 
     /**
      * Creates new form NewJFrame
+     * 
+     * @param config
+     *            The application configuration.
      */
-    public AJMainGUI() {
+    public AJMainGUI(Configuration config) {
+	this.config = config;
 	initComponents();
     }
 
@@ -121,15 +132,15 @@ public class AJMainGUI extends JFrame {
 	SwingWorker<String, Void> worker = new SwingWorker<String, Void>() {
 	    @Override
 	    public String doInBackground() {
-		setStatusPanelText(AJConfigurator.getInstance().getLocaleBundle()
-			.getString("AJ.lblFileGenerationinProgressLong.text"));
+		setStatusPanelText(config.getResourceBundle().getString(
+			"AJ.lblFileGenerationinProgressLong.text"));
 		cleanJTextPane();
 		btnCreateJournal.setEnabled(false);
 		menu.setEnabled("create_journal", false);
 		menu.setEnabled("preferences", false);
 		if (!commandRunner.createJournal()) {
-		    setStatusPanelText(AJConfigurator.getInstance().getLocaleBundle()
-			    .getString("AJ.errPDFLatexShort.text"));
+		    setStatusPanelText(config.getResourceBundle().getString(
+			    "AJ.errPDFLatexShort.text"));
 		}
 		btnCreateJournal.setEnabled(true);
 		menu.setEnabled("create_journal", true);
@@ -142,18 +153,26 @@ public class AJMainGUI extends JFrame {
     }
 
     /**
-     * Dispose this application.
+     * Quit the application.
      */
-    public void closeApplication() {
+    public void quit() {
 	dispose();
 	System.exit(0);
+    }
+
+    /**
+     * Configure the application.
+     */
+    public void configure() {
+	PreferencesDialog preferencesDialog = new PreferencesDialog(this,
+		config);
     }
 
     /**
      * Set AstroJournal window.
      */
     private void setAJWindow() {
-	commandRunner = new AJMainGUIControls(this);
+	commandRunner = new AJMainGUIControls(this, config);
 	// Configure AJMainGUI with basic parameters
 	setTitle(AJConstants.APPLICATION_NAME + " "
 		+ AJConstants.APPLICATION_VERSION);
@@ -195,8 +214,8 @@ public class AJMainGUI extends JFrame {
 
 	// Create the button for creating the journals
 	btnCreateJournal = new JButton();
-	btnCreateJournal.setText(AJConfigurator.getInstance().getLocaleBundle()
-		.getString("AJ.cmdCreateJournal.text"));
+	btnCreateJournal.setText(config.getResourceBundle().getString(
+		"AJ.cmdCreateJournal.text"));
 	btnCreateJournal.setIcon(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/icons/create_journals_16.png")));
 	btnCreateJournal.addActionListener(new ActionListener() {
@@ -212,12 +231,11 @@ public class AJMainGUI extends JFrame {
 	btnQuit = new JButton();
 	btnQuit.setIcon(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/icons/quit_16.png")));
-	btnQuit.setText(AJConfigurator.getInstance().getLocaleBundle()
-		.getString("AJ.cmdQuit.text"));
+	btnQuit.setText(config.getResourceBundle().getString("AJ.cmdQuit.text"));
 	btnQuit.addActionListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-		closeApplication();
+		quit();
 	    }
 	});
 
@@ -241,12 +259,13 @@ public class AJMainGUI extends JFrame {
 	controlPanel.add(btnQuit);
 
 	// Setup for the welcome panel
-	welcomePanel = new WelcomePanel();
+	welcomePanel = new WelcomePanel(config.getResourceBundle());
 
 	// Setup for the output panel
 	outputPanel = new JPanel(new BorderLayout());
-	outputPanel.add(new JLabel(AJConfigurator.getInstance().getLocaleBundle()
-		.getString("AJ.lblOutput.text")), BorderLayout.NORTH);
+	outputPanel.add(
+		new JLabel(config.getResourceBundle().getString(
+			"AJ.lblOutput.text")), BorderLayout.NORTH);
 	outputPanel.add(scrollPane, BorderLayout.CENTER);
 
 	// Add welcome panel and control panel inside the main panel
@@ -264,7 +283,7 @@ public class AJMainGUI extends JFrame {
 	setAJWindow();
 
 	// set the menu bar
-	menu = new AJMenuBar(this);
+	menu = new AJMenuBar(this, config.getResourceBundle());
 	setJMenuBar(menu);
 
 	setAJPanels();
@@ -282,6 +301,8 @@ public class AJMainGUI extends JFrame {
      */
     public static void main(String args[]) {
 
+	final Configuration config = new AJConfiguration();
+
 	// Note Nimbus does not seem to show the vertical scroll bar if there is
 	// too much text..
 	try {
@@ -298,7 +319,7 @@ public class AJMainGUI extends JFrame {
 	java.awt.EventQueue.invokeLater(new Runnable() {
 	    @Override
 	    public void run() {
-		new AJMainGUI().setVisible(true);
+		new AJMainGUI(config).setVisible(true);
 	    }
 	});
 

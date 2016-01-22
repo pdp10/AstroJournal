@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.configuration;
+package org.astrojournal.configuration.ajconfiguration;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,6 +31,8 @@ import java.util.ResourceBundle;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.astrojournal.configuration.Configuration;
+import org.astrojournal.configuration.ConfigurationUtils;
 import org.astrojournal.utilities.PropertiesManager;
 import org.astrojournal.utilities.ReadFromJar;
 
@@ -42,7 +44,7 @@ import org.astrojournal.utilities.ReadFromJar;
  * @since 1.0
  * @date 12 Dec 2015
  */
-public class AJConfigurator implements Configurator {
+public class AJConfiguration implements Configuration {
     /*
      * NOTE: To be a proper singleton and not a `global variable`, store here
      * the variables which can change over time: the actual configuration.
@@ -59,13 +61,7 @@ public class AJConfigurator implements Configurator {
      */
 
     /** The logger */
-    private static Logger log = LogManager.getLogger(AJConfigurator.class);
-
-    /**
-     * The AJConfig instance to be used. Eager initialisation for this
-     * singleton.
-     */
-    private static AJConfigurator instance = new AJConfigurator();
+    private static Logger log = LogManager.getLogger(AJConfiguration.class);
 
     /**
      * The user configuration file reference to the real file in the file
@@ -135,19 +131,10 @@ public class AJConfigurator implements Configurator {
     private String sglReportsFolderByDate = "sgl_reports_by_date";
 
     /**
-     * Private constructor for creating only one instance of AJConfig.
+     * Default constructor.
      */
-    private AJConfigurator() {
+    public AJConfiguration() {
 	init();
-    }
-
-    /**
-     * Return the singleton instance of AJConfig.
-     * 
-     * @return the instance of AJConfig.
-     */
-    public static AJConfigurator getInstance() {
-	return instance;
     }
 
     /**
@@ -158,7 +145,7 @@ public class AJConfigurator implements Configurator {
      * properties are not saved in the user configuration file at this stage.
      */
     private void init() {
-	configFile = AJConfigUtils.setupUserConfigurationFile();
+	configFile = AJConfigurationUtils.setupUserConfigurationFile();
 
 	log.debug("Loading application configuration file: "
 		+ AJConstants.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME);
@@ -328,7 +315,7 @@ public class AJConfigurator implements Configurator {
     }
 
     @Override
-    public ResourceBundle getLocaleBundle() {
+    public ResourceBundle getResourceBundle() {
 	return localeBundle;
     }
 
@@ -337,6 +324,11 @@ public class AJConfigurator implements Configurator {
 	// Doing so, we don't need a set method for each property, saving code
 	// and time.
 	return applicationProperties.getProperty(key);
+    }
+
+    @Override
+    public ConfigurationUtils getConfigurationUtils() {
+	return new AJConfigurationUtils();
     }
 
     /**
@@ -369,4 +361,5 @@ public class AJConfigurator implements Configurator {
 			.getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE)
 			.replace("\\", "/"));
     }
+
 }

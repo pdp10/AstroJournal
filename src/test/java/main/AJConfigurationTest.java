@@ -25,8 +25,9 @@ package main;
 
 import static org.junit.Assert.assertEquals;
 
-import org.astrojournal.configuration.AJConfigurator;
-import org.astrojournal.configuration.AJProperties;
+import org.astrojournal.configuration.Configuration;
+import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
+import org.astrojournal.configuration.ajconfiguration.AJProperties;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -41,7 +42,7 @@ import org.junit.Test;
  * @since 1.0
  * @date 15 Jan 2016
  */
-public class AJConfiguratorTest {
+public class AJConfigurationTest {
 
     /**
      * @throws java.lang.Exception
@@ -69,7 +70,7 @@ public class AJConfiguratorTest {
      */
     @After
     public void tearDown() throws Exception {
-	AJConfiguratorTestUtils.resetDefaultProperties();
+	AJConfigurationTestUtils.resetDefaultProperties();
     }
 
     /**
@@ -81,26 +82,26 @@ public class AJConfiguratorTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	AJConfigurator ajConfig = AJConfigurator.getInstance();
+	Configuration config = new AJConfiguration();
 	System.setProperty(AJProperties.QUIET, "true");
 	System.setProperty(AJProperties.RAW_REPORTS_FOLDER, "raw_report_test1");
 	System.setProperty("aj.fake_property", "this property does not exist!");
 
-	ajConfig.loadSystemProperties();
+	config.loadSystemProperties();
 
-	assertEquals(ajConfig.getProperty(AJProperties.QUIET), "true");
-	assertEquals(ajConfig.getProperty(AJProperties.RAW_REPORTS_FOLDER),
+	assertEquals(config.getProperty(AJProperties.QUIET), "true");
+	assertEquals(config.getProperty(AJProperties.RAW_REPORTS_FOLDER),
 		"raw_report_test1");
-	assertEquals(ajConfig.getProperty("aj.fake_property"), null);
+	assertEquals(config.getProperty("aj.fake_property"), null);
 
 	// Let's set them again with different values as additional control
 	System.setProperty(AJProperties.QUIET, "false");
 	System.setProperty(AJProperties.RAW_REPORTS_FOLDER, "raw_report_test2");
 
-	ajConfig.loadSystemProperties();
+	config.loadSystemProperties();
 
-	assertEquals(ajConfig.getProperty(AJProperties.QUIET), "false");
-	assertEquals(ajConfig.getProperty(AJProperties.RAW_REPORTS_FOLDER),
+	assertEquals(config.getProperty(AJProperties.QUIET), "false");
+	assertEquals(config.getProperty(AJProperties.RAW_REPORTS_FOLDER),
 		"raw_report_test2");
 
 	// let's remove these properties from the system.
@@ -124,7 +125,7 @@ public class AJConfiguratorTest {
 	System.setProperty(AJProperties.SHOW_LICENSE_AT_START, "true");
 	System.setProperty(AJProperties.SHOW_PDFLATEX_VERSION_AT_START, "true");
 
-	AJConfigurator ajConfig = AJConfigurator.getInstance();
+	Configuration ajConfig = new AJConfiguration();
 
 	// Load the new properties
 	ajConfig.loadSystemProperties();
@@ -157,7 +158,7 @@ public class AJConfiguratorTest {
 	System.setProperty(AJProperties.SHOW_LICENSE_AT_START, "false");
 	System.setProperty(AJProperties.SHOW_PDFLATEX_VERSION_AT_START, "false");
 
-	AJConfigurator ajConfig = AJConfigurator.getInstance();
+	Configuration ajConfig = new AJConfiguration();
 
 	// Load the new properties
 	ajConfig.loadSystemProperties();
@@ -196,7 +197,7 @@ public class AJConfiguratorTest {
 	System.setProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE,
 		"trdate_test");
 
-	AJConfigurator ajConfig = AJConfigurator.getInstance();
+	Configuration ajConfig = new AJConfiguration();
 
 	// Load the new properties
 	ajConfig.loadSystemProperties();

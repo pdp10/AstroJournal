@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.ResourceBundle;
 
 import org.astrojournal.generator.observation.AJObservation;
 
@@ -51,6 +52,9 @@ public abstract class AJImporter {
 
     /** The folder containing the raw reports to import. */
     protected String rawReportFolder = "reports";
+
+    /** The resource bundle. */
+    protected ResourceBundle resourceBundle = null;
 
     /**
      * Default constructor
@@ -172,6 +176,25 @@ public abstract class AJImporter {
      */
     public void setRawReportFolder(String rawReportFolder) {
 	this.rawReportFolder = rawReportFolder;
+    }
+
+    /**
+     * Get the resource bundle.
+     * 
+     * @return the resourceBundle
+     */
+    public ResourceBundle getResourceBundle() {
+	return resourceBundle;
+    }
+
+    /**
+     * Set the resource bundle.
+     * 
+     * @param resourceBundle
+     *            the resourceBundle to set
+     */
+    public void setResourceBundle(ResourceBundle resourceBundle) {
+	this.resourceBundle = resourceBundle;
     }
 
 }

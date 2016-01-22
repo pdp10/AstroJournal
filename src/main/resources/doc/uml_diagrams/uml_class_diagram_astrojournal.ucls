@@ -1,47 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.8" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
   realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
-  <class id="1" language="java" name="org.astrojournal.generator.ajimporter.AJTabSeparatedValueImporter" 
-    project="AstroJournal" 
-    file="/AstroJournal/src/main/java/org/astrojournal/generator/ajimporter/AJTabSeparatedValueImporter.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1125" y="409"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="2" language="java" name="org.astrojournal.generator.AJGenerator" project="AstroJournal" 
-    file="/AstroJournal/src/main/java/org/astrojournal/generator/AJGenerator.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="652" y="493"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="3" language="java" name="org.astrojournal.generator.observation.AJObservation" project="AstroJournal" 
-    file="/AstroJournal/src/main/java/org/astrojournal/generator/observation/AJObservation.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="272" y="727"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="4" language="java" name="org.astrojournal.generator.observation.AJObservationItem" project="AstroJournal" 
-    file="/AstroJournal/src/main/java/org/astrojournal/generator/observation/AJObservationItem.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="633" y="1057"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="5" language="java" name="org.astrojournal.AJMain" project="AstroJournal" 
+  <class id="1" language="java" name="org.astrojournal.AJMain" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/AJMain.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="256" y="121"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -50,27 +10,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="org.astrojournal.generator.ajimporter.AJImporter" project="AstroJournal" 
-    file="/AstroJournal/src/main/java/org/astrojournal/generator/ajimporter/AJImporter.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1128" y="168"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="7" language="java" name="org.astrojournal.generator.ajexporter.AJExporter" project="AstroJournal" 
-    file="/AstroJournal/src/main/java/org/astrojournal/generator/ajexporter/AJExporter.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1848" y="122"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="8" language="java" name="org.astrojournal.gui.dialogs.LicenseDialog" project="AstroJournal" 
+  <class id="2" language="java" name="org.astrojournal.gui.dialogs.LicenseDialog" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/gui/dialogs/LicenseDialog.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1792" y="1023"/>    
@@ -80,7 +20,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="org.astrojournal.gui.dialogs.AboutDialog" project="AstroJournal" 
+  <class id="3" language="java" name="org.astrojournal.gui.dialogs.AboutDialog" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/gui/dialogs/AboutDialog.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2024" y="1018"/>    
@@ -90,7 +30,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="org.astrojournal.gui.dialogs.StatusPanel" project="AstroJournal" 
+  <class id="4" language="java" name="org.astrojournal.gui.dialogs.StatusPanel" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/gui/dialogs/StatusPanel.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2323" y="1613"/>    
@@ -100,7 +40,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="org.astrojournal.gui.AJMainGUI" project="AstroJournal" 
+  <class id="5" language="java" name="org.astrojournal.gui.AJMainGUI" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/gui/AJMainGUI.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1989" y="1631"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -109,7 +49,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="org.astrojournal.gui.AJMainGUIControls" project="AstroJournal" 
+  <class id="6" language="java" name="org.astrojournal.gui.AJMainGUIControls" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/gui/AJMainGUIControls.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1980" y="1296"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -118,7 +58,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="org.astrojournal.gui.menu.AJMenuBar" project="AstroJournal" 
+  <class id="7" language="java" name="org.astrojournal.gui.menu.AJMenuBar" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/gui/menu/AJMenuBar.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1500" y="1609"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -127,8 +67,10 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="14" language="java" name="org.astrojournal.configuration.AJConfig" project="AstroJournal" 
-    file="/AstroJournal/src/main/java/org/astrojournal/configuration/AJConfig.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="8" language="java" name="org.astrojournal.configuration.ajconfiguration.AJConfiguration" 
+    project="AstroJournal" 
+    file="/AstroJournal/src/main/java/org/astrojournal/configuration/ajconfiguration/AJConfiguration.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3039" y="1103"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -136,9 +78,10 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="15" language="java" name="org.astrojournal.configuration.PreferencesDialog" project="AstroJournal" 
-    file="/AstroJournal/src/main/java/org/astrojournal/configuration/PreferencesDialog.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <class id="9" language="java" name="org.astrojournal.configuration.ajconfiguration.PreferencesDialog" 
+    project="AstroJournal" 
+    file="/AstroJournal/src/main/java/org/astrojournal/configuration/ajconfiguration/PreferencesDialog.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3672" y="732"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -146,7 +89,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="16" language="java" name="org.astrojournal.console.AJMainConsole" project="AstroJournal" 
+  <class id="10" language="java" name="org.astrojournal.console.AJMainConsole" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/console/AJMainConsole.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="264" y="1456"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -155,7 +98,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="17" language="java" name="org.astrojournal.console.AJMainConsoleControls" project="AstroJournal" 
+  <class id="11" language="java" name="org.astrojournal.console.AJMainConsoleControls" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/console/AJMainConsoleControls.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="304" y="1759"/>    
@@ -165,43 +108,12 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="18" language="java" name="org.astrojournal.generator.headerfooter.AJLatexHeaderFooter" 
-    project="AstroJournal" 
-    file="/AstroJournal/src/main/java/org/astrojournal/generator/headerfooter/AJLatexHeaderFooter.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="900" y="1512"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="19" language="java" name="org.astrojournal.generator.headerfooter.AJLatexFooter" project="AstroJournal" 
-    file="/AstroJournal/src/main/java/org/astrojournal/generator/headerfooter/AJLatexFooter.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="789" y="1676"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="20" language="java" name="org.astrojournal.generator.headerfooter.AJLatexHeader" project="AstroJournal" 
-    file="/AstroJournal/src/main/java/org/astrojournal/generator/headerfooter/AJLatexHeader.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1000" y="1676"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <package id="21" language="java" name="org.astrojournal.generator" project="AstroJournal" 
+  <package id="12" language="java" name="org.astrojournal.generator" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/generator" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2612" y="2113"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <class id="22" language="java" name="org.astrojournal.gui.dialogs.WelcomePanel" project="AstroJournal" 
+  <class id="13" language="java" name="org.astrojournal.gui.dialogs.WelcomePanel" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/gui/dialogs/WelcomePanel.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1912" y="2086"/>    
@@ -211,7 +123,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="23" language="java" name="org.astrojournal.gui.dialogs.AJTitlePanel" project="AstroJournal" 
+  <class id="14" language="java" name="org.astrojournal.gui.dialogs.AJTitlePanel" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/gui/dialogs/AJTitlePanel.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2267" y="1991"/>    
@@ -221,7 +133,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="24" language="java" name="org.astrojournal.gui.dialogs.HelpDialog" project="AstroJournal" 
+  <class id="15" language="java" name="org.astrojournal.gui.dialogs.HelpDialog" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/gui/dialogs/HelpDialog.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2577" y="1952"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -230,7 +142,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="25" language="java" name="org.astrojournal.logging.JTextPaneAppender" project="AstroJournal" 
+  <class id="16" language="java" name="org.astrojournal.logging.JTextPaneAppender" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/logging/JTextPaneAppender.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1008" y="2092"/>    
@@ -240,7 +152,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="26" language="java" name="org.astrojournal.utilities.ClassSearchUtils" project="AstroJournal" 
+  <class id="17" language="java" name="org.astrojournal.utilities.ClassSearchUtils" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/utilities/ClassSearchUtils.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="241" width="235" x="3347" y="1880"/>    
@@ -250,7 +162,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="27" language="java" name="org.astrojournal.utilities.ReadFromJar" project="AstroJournal" 
+  <class id="18" language="java" name="org.astrojournal.utilities.ReadFromJar" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/utilities/ReadFromJar.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="115" width="212" x="3622" y="1880"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -259,7 +171,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="28" language="java" name="org.astrojournal.utilities.ExporterSearcher" project="AstroJournal" 
+  <class id="19" language="java" name="org.astrojournal.utilities.ExporterSearcher" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/utilities/ExporterSearcher.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="223" width="238" x="3874" y="1880"/>    
@@ -269,7 +181,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="29" language="java" name="org.astrojournal.utilities.RunExternalCommand" project="AstroJournal" 
+  <class id="20" language="java" name="org.astrojournal.utilities.RunExternalCommand" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/utilities/RunExternalCommand.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="97" width="156" x="4152" y="1880"/>    
@@ -279,7 +191,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="30" language="java" name="org.astrojournal.utilities.ImporterSearcher" project="AstroJournal" 
+  <class id="21" language="java" name="org.astrojournal.utilities.ImporterSearcher" project="AstroJournal" 
     file="/AstroJournal/src/main/java/org/astrojournal/utilities/ImporterSearcher.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="223" width="236" x="4348" y="1880"/>    
@@ -289,124 +201,52 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <generalization id="31">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="18"/>  
-  </generalization>  
-  <association id="32">    
-    <end type="SOURCE" refId="15" navigable="false">      
-      <attribute id="33" name="ajConfig">        
+  <association id="22">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="23" name="application">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="34" minimum="0" maximum="1">        
+      <multiplicity id="24" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="35">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="36" name="observations">        
+  <association id="25">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="26" name="statusPanel">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="37" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="38">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="39" name="statusPanel">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="40" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="41">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="6"/>  
-  </generalization>  
-  <generalization id="42">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="18"/>  
-  </generalization>  
-  <association id="43">    
-    <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="44" name="application">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="45" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="46">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="47" name="menu">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="48" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="13" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="49">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="50" name="welcomePanel">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="51" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="22" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="52">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="53" name="commandRunner">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="54" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="55">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="56" name="observationItems">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="57" minimum="0" maximum="2147483647">        
+      <multiplicity id="27" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="58">    
-    <end type="SOURCE" refId="16" navigable="false">      
-      <attribute id="59" name="commandRunner">        
+  <association id="28">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="29" name="menu">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="60" minimum="0" maximum="1">        
+      <multiplicity id="30" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="17" navigable="true"/>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="31">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="32" name="welcomePanel">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="33" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

@@ -28,11 +28,10 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.ResourceBundle;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import org.astrojournal.configuration.AJConfigurator;
 
 /**
  * A panel for AstroJournal Welcome.
@@ -48,16 +47,20 @@ public class WelcomePanel extends JPanel {
 
     /**
      * Constructor
+     * 
+     * @param resourceBundle
      */
-    public WelcomePanel() {
+    public WelcomePanel(ResourceBundle resourceBundle) {
 	super();
-	initComponents();
+	initComponents(resourceBundle);
     }
 
     /**
      * This method is called from within the constructor to initialise the form.
+     * 
+     * @param resourceBundle
      */
-    private void initComponents() {
+    private void initComponents(ResourceBundle resourceBundle) {
 	setLayout(new GridBagLayout());
 	GridBagConstraints gbc = new GridBagConstraints();
 
@@ -78,8 +81,8 @@ public class WelcomePanel extends JPanel {
 	gbc.gridy++;
 	gbc.weighty = 0.5;
 
-	JLabel welcomeLabel = new JLabel(AJConfigurator.getInstance()
-		.getLocaleBundle().getString("AJ.lblWelcomeLabel.text"));
+	JLabel welcomeLabel = new JLabel(
+		resourceBundle.getString("AJ.lblWelcomeLabel.text"));
 	welcomeLabel.setFont(new Font("Arial", Font.BOLD, 12));
 	add(welcomeLabel, gbc);
 

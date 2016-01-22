@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.configuration;
+package org.astrojournal.configuration.ajconfiguration;
 
 /**
  * The set of Java Properties for AstroJournal.

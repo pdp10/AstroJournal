@@ -29,6 +29,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
@@ -39,8 +40,6 @@ import javax.swing.KeyStroke;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.AJConfigurator;
-import org.astrojournal.configuration.PreferencesDialog;
 import org.astrojournal.gui.AJMainGUI;
 import org.astrojournal.gui.dialogs.AboutDialog;
 import org.astrojournal.gui.dialogs.HelpDialog;
@@ -63,6 +62,8 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 
     /** The main application */
     private AJMainGUI application;
+    /** The resource bundle */
+    private ResourceBundle resourceBundle;
 
     private JMenu fileMenu;
     private JMenuItem fileCreateJournal;
@@ -80,9 +81,13 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
      * Constructor for this menu bar.
      * 
      * @param application
+     *            The application
+     * @param resourceBundle
+     *            The resource bundle
      */
-    public AJMenuBar(AJMainGUI application) {
+    public AJMenuBar(AJMainGUI application, ResourceBundle resourceBundle) {
 	this.application = application;
+	this.resourceBundle = resourceBundle;
 	initComponents();
     }
 
@@ -91,12 +96,11 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
      */
     private void initComponents() {
 
-	fileMenu = new JMenu(AJConfigurator.getInstance().getLocaleBundle()
-		.getString("AJ.mnuFile.text"));
+	fileMenu = new JMenu(resourceBundle.getString("AJ.mnuFile.text"));
 	fileMenu.setMnemonic(KeyEvent.VK_F);
 
-	fileCreateJournal = new JMenuItem(AJConfigurator.getInstance()
-		.getLocaleBundle().getString("AJ.cmdCreateJournal.text"));
+	fileCreateJournal = new JMenuItem(
+		resourceBundle.getString("AJ.cmdCreateJournal.text"));
 	fileCreateJournal.setIcon(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/icons/create_journals_16.png")));
 	fileCreateJournal.setMnemonic(KeyEvent.VK_J);
@@ -108,8 +112,7 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 
 	// fileMenu.addSeparator();
 
-	fileQuit = new JMenuItem(AJConfigurator.getInstance().getLocaleBundle()
-		.getString("AJ.mnuQuit.text"));
+	fileQuit = new JMenuItem(resourceBundle.getString("AJ.mnuQuit.text"));
 	fileQuit.setIcon(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/icons/quit_16.png")));
 	fileQuit.setMnemonic(KeyEvent.VK_Q);
@@ -121,11 +124,10 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 
 	add(fileMenu);
 
-	editMenu = new JMenu(AJConfigurator.getInstance().getLocaleBundle()
-		.getString("AJ.mnuEdit.text"));
+	editMenu = new JMenu(resourceBundle.getString("AJ.mnuEdit.text"));
 	editMenu.setMnemonic(KeyEvent.VK_E);
-	editPreferences = new JMenuItem(AJConfigurator.getInstance()
-		.getLocaleBundle().getString("AJ.mnuPreferences.text"));
+	editPreferences = new JMenuItem(
+		resourceBundle.getString("AJ.mnuPreferences.text"));
 	editPreferences.setIcon(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/icons/preferences_16.png")));
 	editPreferences.setActionCommand("edit_preferences");
@@ -136,12 +138,11 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	editMenu.add(editPreferences);
 	add(editMenu);
 
-	helpMenu = new JMenu(AJConfigurator.getInstance().getLocaleBundle()
-		.getString("AJ.mnuHelp.text"));
+	helpMenu = new JMenu(resourceBundle.getString("AJ.mnuHelp.text"));
 	helpMenu.setMnemonic(KeyEvent.VK_H);
 
-	helpContents = new JMenuItem(AJConfigurator.getInstance().getLocaleBundle()
-		.getString("AJ.mnuHelpContents.text"));
+	helpContents = new JMenuItem(
+		resourceBundle.getString("AJ.mnuHelpContents.text"));
 	helpContents.setIcon(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/icons/help_16.png")));
 	helpContents.setActionCommand("help_contents");
@@ -151,8 +152,8 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	helpContents.addActionListener(this);
 	helpMenu.add(helpContents);
 
-	helpLicense = new JMenuItem(AJConfigurator.getInstance().getLocaleBundle()
-		.getString("AJ.mnuLicense.text"));
+	helpLicense = new JMenuItem(
+		resourceBundle.getString("AJ.mnuLicense.text"));
 	helpLicense.setIcon(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/icons/license_16.png")));
 	helpLicense.setActionCommand("help_license");
@@ -162,8 +163,7 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	helpLicense.addActionListener(this);
 	helpMenu.add(helpLicense);
 
-	helpAbout = new JMenuItem(AJConfigurator.getInstance().getLocaleBundle()
-		.getString("AJ.mnuAbout.text"));
+	helpAbout = new JMenuItem(resourceBundle.getString("AJ.mnuAbout.text"));
 	helpAbout.setIcon(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/icons/about_16.png")));
 	helpAbout.setActionCommand("help_about");
@@ -186,48 +186,42 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	    application.createJournals();
 
 	} else if (action.equals("quit")) {
-	    application.closeApplication();
+	    application.quit();
 
 	} else if (action.equals("edit_preferences")) {
-	    PreferencesDialog preferencesDialog = new PreferencesDialog(
-		    application);
+	    application.configure();
 
 	} else if (action.equals("help_contents")) {
-	    HelpDialog helpDialog = new HelpDialog(application);
+	    HelpDialog helpDialog = new HelpDialog(application, resourceBundle);
 
 	} else if (action.equals("help_license")) {
 	    String license = "LICENSE.txt";
 	    try {
 		LicenseDialog licenseDialog = new LicenseDialog(application,
-			license);
+			resourceBundle, license);
 	    } catch (FileNotFoundException e) {
 		log.error(
-			AJConfigurator.getInstance().getLocaleBundle()
-				.getString("AJ.errLicenseNotFound.text"),
-			AJConfigurator.getInstance().getLocaleBundle()
-				.getString("AJ.errFileNotFound.text"), e);
-		JOptionPane.showMessageDialog(
-			application,
-			AJConfigurator.getInstance().getLocaleBundle()
-				.getString("AJ.errLicenseNotFound.text"),
-			AJConfigurator.getInstance().getLocaleBundle()
-				.getString("AJ.errFileNotFound.text"),
+			resourceBundle.getString("AJ.errLicenseNotFound.text"),
+			resourceBundle.getString("AJ.errFileNotFound.text"), e);
+		JOptionPane.showMessageDialog(application,
+			resourceBundle.getString("AJ.errLicenseNotFound.text"),
+			resourceBundle.getString("AJ.errFileNotFound.text"),
 			JOptionPane.ERROR_MESSAGE);
 	    } catch (IOException e) {
 		log.error(e, e);
 	    }
 
 	} else if (action.equals("help_about")) {
-	    AboutDialog aboutDialog = new AboutDialog(application);
+	    AboutDialog aboutDialog = new AboutDialog(application,
+		    resourceBundle);
 
 	} else {
-	    log.error(AJConfigurator.getInstance().getLocaleBundle()
-		    .getString("AJ.errCommandNotFound.text")
+	    log.error(resourceBundle.getString("AJ.errCommandNotFound.text")
 		    + action);
-	    JOptionPane.showMessageDialog(application, AJConfigurator.getInstance()
-		    .getLocaleBundle().getString("AJ.errCommandNotFound.text")
-		    + action, AJConfigurator.getInstance().getLocaleBundle()
-		    .getString("AJ.errCommandNotFound.text"),
+	    JOptionPane.showMessageDialog(application,
+		    resourceBundle.getString("AJ.errCommandNotFound.text")
+			    + action,
+		    resourceBundle.getString("AJ.errCommandNotFound.text"),
 		    JOptionPane.ERROR_MESSAGE);
 	}
     }

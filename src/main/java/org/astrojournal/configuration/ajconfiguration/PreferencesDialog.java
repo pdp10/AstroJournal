@@ -24,7 +24,7 @@
  * and does not contain any configuration data for AstroJournal. It is only a 
  * class to change values in AJConfig using a GUI.
  */
-package org.astrojournal.configuration;
+package org.astrojournal.configuration.ajconfiguration;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
@@ -42,6 +42,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.astrojournal.configuration.Configuration;
+import org.astrojournal.configuration.ConfigurationUtils;
 import org.astrojournal.gui.AJMainGUI;
 
 /**
@@ -52,9 +54,9 @@ public class PreferencesDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = 5832696837018920916L;
 
     /**
-     * The instance of the configurator.
+     * The configuration.
      */
-    private AJConfigurator ajConfig = AJConfigurator.getInstance();
+    private Configuration config;
 
     /**
      * The relative path containing the raw files (observation input folder).
@@ -104,14 +106,16 @@ public class PreferencesDialog extends JDialog implements ActionListener {
      * Instantiates a new edits the preferences dialog.
      * 
      * @param application
-     *            the application
+     *            The application
+     * @param config
+     *            The configuration
      */
-    public PreferencesDialog(AJMainGUI application) {
-	super(application, AJConfigurator.getInstance().getLocaleBundle()
+    public PreferencesDialog(AJMainGUI application, Configuration config) {
+	super(application, config.getResourceBundle()
 		.getString("AJ.mnuEdit.text")
 		+ " "
-		+ AJConfigurator.getInstance().getLocaleBundle()
-			.getString("AJ.mnuPreferences.text"));
+		+ config.getResourceBundle().getString("AJ.mnuPreferences.text"));
+	this.config = config;
 	initComponents(application);
     }
 
@@ -137,20 +141,20 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.weightx = 0.1;
 	c.weighty = 0.5;
 	c.fill = GridBagConstraints.HORIZONTAL;
-	JLabel ajFilesLocationLBL = new JLabel(ajConfig.getLocaleBundle()
+	JLabel ajFilesLocationLBL = new JLabel(config.getResourceBundle()
 		.getString("AJ.lblAJFilesLocation.text"));
-	ajFilesLocationLBL.setToolTipText(ajConfig.getLocaleBundle().getString(
+	ajFilesLocationLBL.setToolTipText(config.getResourceBundle().getString(
 		"AJ.lblAJFilesLocation.toolTipText"));
 	filePanel.add(ajFilesLocationLBL, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
-	ajFilesLocation.setText(ajConfig
-		.getProperty(AJProperties.FILES_LOCATION));
+	ajFilesLocation
+		.setText(config.getProperty(AJProperties.FILES_LOCATION));
 	ajFilesLocation.setEditable(false);
 	filePanel.add(ajFilesLocation, c);
 	c.gridx = 2;
 	c.weightx = 0.1;
-	JButton btnBrowerFilesLocation = new JButton(ajConfig.getLocaleBundle()
+	JButton btnBrowerFilesLocation = new JButton(config.getResourceBundle()
 		.getString("AJ.cmdBrowse.text"));
 	btnBrowerFilesLocation.setActionCommand("aj_files_location");
 	btnBrowerFilesLocation.addActionListener(this);
@@ -159,14 +163,14 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.gridx = 0;
 	c.gridy++;
 	c.weightx = 0.1;
-	JLabel inputDir = new JLabel(ajConfig.getLocaleBundle().getString(
+	JLabel inputDir = new JLabel(config.getResourceBundle().getString(
 		"AJ.lblInpDir.text"));
-	inputDir.setToolTipText(ajConfig.getLocaleBundle().getString(
+	inputDir.setToolTipText(config.getResourceBundle().getString(
 		"AJ.lblInpDir.toolTipText"));
 	filePanel.add(inputDir, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
-	rawReportsFolder.setText(ajConfig
+	rawReportsFolder.setText(config
 		.getProperty(AJProperties.RAW_REPORTS_FOLDER));
 	filePanel.add(rawReportsFolder, c);
 	c.gridx = 2;
@@ -175,14 +179,14 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.gridx = 0;
 	c.gridy++;
 	c.weightx = 0.1;
-	JLabel outputDirByDate = new JLabel(ajConfig.getLocaleBundle()
-		.getString("AJ.lblOutByDateDir.text"));
-	outputDirByDate.setToolTipText(ajConfig.getLocaleBundle().getString(
+	JLabel outputDirByDate = new JLabel(config.getResourceBundle().getString(
+		"AJ.lblOutByDateDir.text"));
+	outputDirByDate.setToolTipText(config.getResourceBundle().getString(
 		"AJ.lblOutByDateDir.toolTipText"));
 	filePanel.add(outputDirByDate, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
-	latexReportsFolderByDate.setText(ajConfig
+	latexReportsFolderByDate.setText(config
 		.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE));
 	filePanel.add(latexReportsFolderByDate, c);
 	c.gridx = 2;
@@ -191,14 +195,14 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.gridx = 0;
 	c.gridy++;
 	c.weightx = 0.1;
-	JLabel outputDirByTarget = new JLabel(ajConfig.getLocaleBundle()
+	JLabel outputDirByTarget = new JLabel(config.getResourceBundle()
 		.getString("AJ.lblOutByTargetDir.text"));
-	outputDirByTarget.setToolTipText(ajConfig.getLocaleBundle().getString(
+	outputDirByTarget.setToolTipText(config.getResourceBundle().getString(
 		"AJ.lblOutByTargetDir.toolTipText"));
 	filePanel.add(outputDirByTarget, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
-	latexReportsFolderByTarget.setText(ajConfig
+	latexReportsFolderByTarget.setText(config
 		.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET));
 	filePanel.add(latexReportsFolderByTarget, c);
 	c.gridx = 2;
@@ -207,15 +211,15 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.gridx = 0;
 	c.gridy++;
 	c.weightx = 0.1;
-	JLabel outputDirByConstellation = new JLabel(ajConfig.getLocaleBundle()
+	JLabel outputDirByConstellation = new JLabel(config.getResourceBundle()
 		.getString("AJ.lblOutByConstellationDir.text"));
-	outputDirByConstellation.setToolTipText(ajConfig.getLocaleBundle()
+	outputDirByConstellation.setToolTipText(config.getResourceBundle()
 		.getString("AJ.lblOutByConstellationDir.toolTipText"));
 	filePanel.add(outputDirByConstellation, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
 	latexReportsFolderByConstellation
-		.setText(ajConfig
+		.setText(config
 			.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION));
 	filePanel.add(latexReportsFolderByConstellation, c);
 	c.gridx = 2;
@@ -224,14 +228,14 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.gridx = 0;
 	c.gridy++;
 	c.weightx = 0.1;
-	JLabel outputSGLDirByDate = new JLabel(ajConfig.getLocaleBundle()
+	JLabel outputSGLDirByDate = new JLabel(config.getResourceBundle()
 		.getString("AJ.lblSGLOutByDateDir.text"));
-	outputSGLDirByDate.setToolTipText(ajConfig.getLocaleBundle().getString(
+	outputSGLDirByDate.setToolTipText(config.getResourceBundle().getString(
 		"AJ.lblSGLOutByDateDir.toolTipText"));
 	filePanel.add(outputSGLDirByDate, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
-	sglReportsFolderByDate.setText(ajConfig
+	sglReportsFolderByDate.setText(config
 		.getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE));
 	filePanel.add(sglReportsFolderByDate, c);
 	c.gridx = 2;
@@ -244,9 +248,9 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.gridx = 0;
 	c.gridy++;
 	c.weightx = 0.1;
-	JLabel lblQuiet = new JLabel(ajConfig.getLocaleBundle().getString(
+	JLabel lblQuiet = new JLabel(config.getResourceBundle().getString(
 		"AJ.lblQuiet.text"));
-	lblQuiet.setToolTipText(ajConfig.getLocaleBundle().getString(
+	lblQuiet.setToolTipText(config.getResourceBundle().getString(
 		"AJ.lblQuiet.toolTipText"));
 	filePanel.add(lblQuiet, c);
 	c.gridx = 1;
@@ -267,7 +271,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 		}
 	    }
 	});
-	quiet.setSelected(Boolean.getBoolean(ajConfig
+	quiet.setSelected(Boolean.getBoolean(config
 		.getProperty(AJProperties.QUIET)));
 	// let's perform its action programmatically
 	quiet.doClick();
@@ -279,11 +283,11 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.gridx = 0;
 	c.gridy++;
 	c.weightx = 0.1;
-	JLabel lblShowLatexOutput = new JLabel(ajConfig.getLocaleBundle()
+	JLabel lblShowLatexOutput = new JLabel(config.getResourceBundle()
 		.getString("AJ.lblShowLatexOutput.text"));
-	lblShowLatexOutput.setToolTipText(ajConfig.getLocaleBundle().getString(
+	lblShowLatexOutput.setToolTipText(config.getResourceBundle().getString(
 		"AJ.lblShowLatexOutput.toolTipText"));
-	latexOutput.setSelected(Boolean.getBoolean(ajConfig
+	latexOutput.setSelected(Boolean.getBoolean(config
 		.getProperty(AJProperties.SHOW_LATEX_OUTPUT)));
 	filePanel.add(lblShowLatexOutput, c);
 	c.gridx = 1;
@@ -295,11 +299,11 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.gridx = 0;
 	c.gridy++;
 	c.weightx = 0.1;
-	JLabel lblShowLicenseAtStart = new JLabel(ajConfig.getLocaleBundle()
+	JLabel lblShowLicenseAtStart = new JLabel(config.getResourceBundle()
 		.getString("AJ.lblShowLicenseAtStart.text"));
-	lblShowLicenseAtStart.setToolTipText(ajConfig.getLocaleBundle()
+	lblShowLicenseAtStart.setToolTipText(config.getResourceBundle()
 		.getString("AJ.lblShowLicenseAtStart.toolTipText"));
-	showLicenseAtStart.setSelected(Boolean.getBoolean(ajConfig
+	showLicenseAtStart.setSelected(Boolean.getBoolean(config
 		.getProperty(AJProperties.SHOW_LICENSE_AT_START)));
 	filePanel.add(lblShowLicenseAtStart, c);
 	c.gridx = 1;
@@ -311,11 +315,11 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.gridx = 0;
 	c.gridy++;
 	c.weightx = 0.1;
-	JLabel lblShowPDFLatexVersion = new JLabel(ajConfig.getLocaleBundle()
+	JLabel lblShowPDFLatexVersion = new JLabel(config.getResourceBundle()
 		.getString("AJ.lblShowPDFLatexVersion.text"));
-	lblShowPDFLatexVersion.setToolTipText(ajConfig.getLocaleBundle()
+	lblShowPDFLatexVersion.setToolTipText(config.getResourceBundle()
 		.getString("AJ.lblShowPDFLatexVersion.toolTipText"));
-	showPDFLatexVersion.setSelected(Boolean.getBoolean(ajConfig
+	showPDFLatexVersion.setSelected(Boolean.getBoolean(config
 		.getProperty(AJProperties.SHOW_PDFLATEX_VERSION_AT_START)));
 	filePanel.add(lblShowPDFLatexVersion, c);
 	c.gridx = 1;
@@ -327,12 +331,12 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.gridx = 0;
 	c.gridy++;
 	c.weightx = 0.1;
-	JLabel lblShowConfigurationAtStart = new JLabel(ajConfig
-		.getLocaleBundle().getString(
+	JLabel lblShowConfigurationAtStart = new JLabel(config
+		.getResourceBundle().getString(
 			"AJ.lblShowConfigurationAtStart.text"));
-	lblShowConfigurationAtStart.setToolTipText(ajConfig.getLocaleBundle()
+	lblShowConfigurationAtStart.setToolTipText(config.getResourceBundle()
 		.getString("AJ.lblShowConfigurationAtStart.toolTipText"));
-	showConfigurationAtStart.setSelected(Boolean.getBoolean(ajConfig
+	showConfigurationAtStart.setSelected(Boolean.getBoolean(config
 		.getProperty(AJProperties.SHOW_CONFIGURATION_AT_START)));
 	filePanel.add(lblShowConfigurationAtStart, c);
 	c.gridx = 1;
@@ -347,7 +351,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	getContentPane().add(filePanel, BorderLayout.CENTER);
 
 	JPanel buttonPanel = new JPanel();
-	JButton btnCancel = new JButton(ajConfig.getLocaleBundle().getString(
+	JButton btnCancel = new JButton(config.getResourceBundle().getString(
 		"AJ.cmdCancel.text"));
 	btnCancel.setActionCommand("cancel");
 	// Set this button as default. :)
@@ -355,7 +359,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	btnCancel.addActionListener(this);
 	buttonPanel.add(btnCancel);
 
-	JButton btnSave = new JButton(ajConfig.getLocaleBundle().getString(
+	JButton btnSave = new JButton(config.getResourceBundle().getString(
 		"AJ.cmdSave.text"));
 	btnSave.setActionCommand("save");
 	btnSave.addActionListener(this);
@@ -375,7 +379,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
     private void getDir(JTextField textField) {
 	JFileChooser chooser = new JFileChooser();
 	chooser.setCurrentDirectory(new File(textField.getText()));
-	chooser.setDialogTitle(ajConfig.getLocaleBundle().getString(
+	chooser.setDialogTitle(config.getResourceBundle().getString(
 		"AJ.cmdSelectDirectory.text"));
 	chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 	if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
@@ -430,12 +434,16 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 		    String.valueOf(showConfigurationAtStart.isSelected()));
 
 	    // Load the properties
-	    ajConfig.loadSystemProperties();
-	    // Save the configuration
-	    ajConfig.saveProperties();
+	    config.loadSystemProperties();
 
-	    // prepare the folders for AJ.
-	    AJConfigUtils.prepareAJFolders(ajConfig);
+	    if (config instanceof AJConfiguration) {
+		// Save the configuration
+		((AJConfiguration) config).saveProperties();
+	    }
+
+	    // prepare the folders.
+	    ConfigurationUtils configUtils = config.getConfigurationUtils();
+	    configUtils.prepareFolders(config);
 
 	    setVisible(false);
 	    dispose();

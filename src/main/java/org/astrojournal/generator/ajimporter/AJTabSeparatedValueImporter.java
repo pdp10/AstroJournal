@@ -63,9 +63,12 @@ public class AJTabSeparatedValueImporter extends AJImporter {
      */
     @Override
     public ArrayList<AJObservation> importObservations() {
-	log.info("Importing observation files:");
+	if (resourceBundle != null) {
+	    log.info("Importing observation files:");
+	}
 	String rawReportPath = filesLocation + File.separator + rawReportFolder;
-	File[] files = new File(rawReportPath).listFiles(new TabSeparatedValueRawReportFilter());
+	File[] files = new File(rawReportPath)
+		.listFiles(new TabSeparatedValueRawReportFilter());
 	if (files == null) {
 	    log.error("Folder " + rawReportPath + " not found");
 	    return new ArrayList<AJObservation>();
@@ -84,7 +87,8 @@ public class AJTabSeparatedValueImporter extends AJImporter {
     @Override
     public ArrayList<AJObservation> importObservations(File file) {
 	ArrayList<AJObservation> observations = new ArrayList<AJObservation>();
-	if (file.isFile() && new TabSeparatedValueRawReportFilter().accept(file)) {
+	if (file.isFile()
+		&& new TabSeparatedValueRawReportFilter().accept(file)) {
 
 	    // whether this is tsv or csv it does not matter as long as fields
 	    // are separated by a TAB character
@@ -92,7 +96,9 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 
 	    // Get the current file name.
 	    String rawFilename = file.getName();
-	    log.info("\t" + rawFilename);
+	    if (resourceBundle != null) {
+		log.info("\t" + rawFilename);
+	    }
 	    // Create a buffered reader to read the file
 	    BufferedReader reader = null;
 	    try {

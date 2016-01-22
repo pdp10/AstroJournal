@@ -24,6 +24,7 @@
 package org.astrojournal.console;
 
 import org.astrojournal.AJMainControls;
+import org.astrojournal.configuration.Configuration;
 
 /**
  * A simple class containing the commands for AJMainConsole.
@@ -37,8 +38,12 @@ public class AJMainConsoleControls extends AJMainControls {
 
     /**
      * Constructor
+     * 
+     * @param config
+     *            The configuration
      */
-    public AJMainConsoleControls() {
+    public AJMainConsoleControls(Configuration config) {
+	super(config);
     }
 
     @Override

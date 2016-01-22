@@ -59,8 +59,9 @@ public abstract class AJLatexExporter extends AJExporter {
      */
     public void cleanPDFLatexOutput() throws IOException {
 	if (SystemUtils.IS_OS_WINDOWS) {
-	    RunExternalCommand
-		    .runCommand("cmd /c del /s *.aux *.toc *.log *.out");
+	    RunExternalCommand extCommand = new RunExternalCommand(
+		    filesLocation, resourceBundle);
+	    extCommand.runCommand("cmd /c del /s *.aux *.toc *.log *.out");
 	} else {
 	    Runtime.getRuntime().exec(
 		    new String[] {

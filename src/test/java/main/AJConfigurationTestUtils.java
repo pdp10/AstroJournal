@@ -29,9 +29,8 @@ import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.AJConfigurator;
-import org.astrojournal.configuration.AJConstants;
-import org.astrojournal.configuration.AJProperties;
+import org.astrojournal.configuration.ajconfiguration.AJConstants;
+import org.astrojournal.configuration.ajconfiguration.AJProperties;
 import org.astrojournal.utilities.PropertiesManager;
 import org.astrojournal.utilities.ReadFromJar;
 
@@ -43,11 +42,11 @@ import org.astrojournal.utilities.ReadFromJar;
  * @since 1.0
  * @date 15 Jan 2016
  */
-public class AJConfiguratorTestUtils {
+public class AJConfigurationTestUtils {
 
     /** The logger */
     private static Logger log = LogManager
-	    .getLogger(AJConfiguratorTestUtils.class);
+	    .getLogger(AJConfigurationTestUtils.class);
 
     /**
      * Return the default application properties as Java Properties.
@@ -87,9 +86,8 @@ public class AJConfiguratorTestUtils {
      */
     public static void resetDefaultProperties() {
 	// Notify AJConfig that the system properties have changed.
-	Properties defaultProperties = AJConfiguratorTestUtils
+	Properties defaultProperties = AJConfigurationTestUtils
 		.getDefaultApplicationProperties();
 	PropertiesManager.updateSystemProperties(defaultProperties);
-	AJConfigurator.getInstance().loadSystemProperties();
     }
 }

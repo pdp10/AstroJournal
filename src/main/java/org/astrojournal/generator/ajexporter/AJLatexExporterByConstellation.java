@@ -38,7 +38,7 @@ import java.util.HashSet;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.AJConstants;
+import org.astrojournal.configuration.ajconfiguration.AJConstants;
 import org.astrojournal.generator.headerfooter.AJLatexFooter;
 import org.astrojournal.generator.headerfooter.AJLatexHeader;
 import org.astrojournal.generator.observation.AJObservation;
@@ -154,8 +154,10 @@ public class AJLatexExporterByConstellation extends AJLatexExporter {
 
     @Override
     public boolean exportObservations(ArrayList<AJObservation> observations) {
-	log.info("");
-	log.info("Exporting observations by constellation:");
+	if (resourceBundle != null) {
+	    log.info("");
+	    log.info("Exporting observations by constellation:");
+	}
 	boolean result = true;
 	if (constellations.size() == 0) {
 	    organiseTargetsByConstellation(observations);
@@ -181,7 +183,9 @@ public class AJLatexExporterByConstellation extends AJLatexExporter {
 			listOfTargets.append(targets[j] + ", ");
 		}
 		list.write(listOfTargets.toString() + "\n\n");
-		log.info("\tExported constellation " + filenameOut);
+		if (resourceBundle != null) {
+		    log.info("\tExported constellation " + filenameOut);
+		}
 	    } catch (IOException ex) {
 		log.error("Error when opening the file " + filesLocation
 			+ File.separator + filenameOut, ex);
@@ -246,23 +250,27 @@ public class AJLatexExporterByConstellation extends AJLatexExporter {
 	// The pdflatex command must be called two times in order to
 	// generate the list of contents correctly.
 	String commandOutput;
-	commandOutput = RunExternalCommand.runCommand(command + " "
+	RunExternalCommand extCommand = new RunExternalCommand(filesLocation,
+		resourceBundle);
+	commandOutput = extCommand.runCommand(command + " "
 		+ AJConstants.REPORT_BY_CONSTELLATION_FILENAME);
-	if (!quiet && latexOutput)
+	if (!quiet && latexOutput && resourceBundle != null) {
 	    log.info(commandOutput + "\n");
-	commandOutput = RunExternalCommand.runCommand(command + " "
+	}
+	commandOutput = extCommand.runCommand(command + " "
 		+ AJConstants.REPORT_BY_CONSTELLATION_FILENAME);
 	// if(latexOutput) log.info(commandOutput + "\n");
 
 	// Add this at the end to avoid mixing with the latex command
 	// output.
-	log.info("\t"
-		+ filesLocation
-		+ File.separator
-		+ FilenameUtils
-			.removeExtension(AJConstants.REPORT_BY_CONSTELLATION_FILENAME)
-		+ ".pdf");
-
+	if (resourceBundle != null) {
+	    log.info("\t"
+		    + filesLocation
+		    + File.separator
+		    + FilenameUtils
+			    .removeExtension(AJConstants.REPORT_BY_CONSTELLATION_FILENAME)
+		    + ".pdf");
+	}
 	cleanPDFLatexOutput();
     }
 }

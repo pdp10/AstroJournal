@@ -24,9 +24,10 @@
 package org.astrojournal.console;
 
 import org.astrojournal.AJMainControls;
-import org.astrojournal.configuration.AJConfigurator;
-import org.astrojournal.configuration.AJConstants;
-import org.astrojournal.configuration.AJProperties;
+import org.astrojournal.configuration.Configuration;
+import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
+import org.astrojournal.configuration.ajconfiguration.AJConstants;
+import org.astrojournal.configuration.ajconfiguration.AJProperties;
 
 /**
  * A class for running AstroJournal via command line.
@@ -41,9 +42,12 @@ public class AJMainConsole {
 
     /**
      * Creates new form NewJFrame
+     * 
+     * @param config
+     *            The configuration
      */
-    public AJMainConsole() {
-	initComponents();
+    public AJMainConsole(Configuration config) {
+	initComponents(config);
     }
 
     /**
@@ -80,9 +84,12 @@ public class AJMainConsole {
 
     /**
      * This method is called from within the constructor to initialise the form.
+     * 
+     * @param config
+     *            The configuration
      */
-    private void initComponents() {
-	commandRunner = new AJMainConsoleControls();
+    private void initComponents(Configuration config) {
+	commandRunner = new AJMainConsoleControls(config);
     }
 
     /**
@@ -92,11 +99,11 @@ public class AJMainConsole {
      *            The command line arguments
      */
     public static void main(String args[]) {
-	AJConfigurator ajConfig = AJConfigurator.getInstance();
-	AJMainConsole ajMainConsole = new AJMainConsole();
+	Configuration config = new AJConfiguration();
+	AJMainConsole ajMainConsole = new AJMainConsole(config);
 	if (args.length > 1
 		&& (args[1].equals("-l") || args[1].equals("--latex-output"))) {
-	    if (ajConfig.getProperty(AJProperties.QUIET).equals("true")) {
+	    if (config.getProperty(AJProperties.QUIET).equals("true")) {
 		// If the configuration was quiet, we switch every thing off,
 		// except for LATEX_OUTPUT_PROP
 		System.setProperty(AJProperties.QUIET, "false");
@@ -110,7 +117,7 @@ public class AJMainConsole {
 	} else {
 	    System.setProperty(AJProperties.SHOW_LATEX_OUTPUT, "false");
 	}
-	ajConfig.loadSystemProperties();
+	config.loadSystemProperties();
 	if (!ajMainConsole.createJournals()) {
 	    System.exit(1);
 	}

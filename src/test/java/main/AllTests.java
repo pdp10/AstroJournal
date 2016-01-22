@@ -34,7 +34,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * @date 11 Jan 2016
  */
 @RunWith(Suite.class)
-@SuiteClasses({ AJConfiguratorTest.class,
+@SuiteClasses({ AJConfigurationTest.class,
 	AJTabSeparatedValueImporterTest.class, SystemTest.class })
 public class AllTests {
 }

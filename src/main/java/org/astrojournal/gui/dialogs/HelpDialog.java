@@ -24,6 +24,8 @@
 package org.astrojournal.gui.dialogs;
 
 import java.net.URL;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.help.HelpSet;
 import javax.help.JHelp;
@@ -34,7 +36,6 @@ import javax.swing.UIManager;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.AJConfigurator;
 import org.astrojournal.gui.AJMainGUI;
 
 /**
@@ -57,8 +58,24 @@ public class HelpDialog {
      * A simple HelpDialog
      * 
      * @param application
+     *            The application
+     * @param resourceBundle
+     *            The resource bundle
      */
-    public HelpDialog(AJMainGUI application) {
+    public HelpDialog(AJMainGUI application, ResourceBundle resourceBundle) {
+	initComponents(application, resourceBundle);
+    }
+
+    /**
+     * This method is called from within the constructor to initialise the form.
+     * 
+     * @param application
+     *            The application
+     * @param resourceBundle
+     *            The resource bundle
+     */
+    private void initComponents(AJMainGUI application,
+	    ResourceBundle resourceBundle) {
 	try {
 	    // Initialisation of JavaHelp
 	    final String helpHS = "help/helpset.hs";
@@ -67,23 +84,18 @@ public class HelpDialog {
 	    helpViewer = new JHelp(new HelpSet(classLoader, hsURL));
 	    helpViewer.setCurrentID("Index");
 	} catch (Exception e) {
-	    log.error(
-		    AJConfigurator.getInstance().getLocaleBundle()
-			    .getString("AJ.errHelpIndexNotFound.text"), e);
-	    JOptionPane.showMessageDialog(
-		    application,
-		    AJConfigurator.getInstance().getLocaleBundle()
-			    .getString("AJ.errHelpIndexNotFound.text"),
-		    AJConfigurator.getInstance().getLocaleBundle()
-			    .getString("AJ.errFileNotFound.text"),
+	    log.error(resourceBundle.getString("AJ.errHelpIndexNotFound.text"),
+		    e);
+	    JOptionPane.showMessageDialog(application,
+		    resourceBundle.getString("AJ.errHelpIndexNotFound.text"),
+		    resourceBundle.getString("AJ.errFileNotFound.text"),
 		    JOptionPane.ERROR_MESSAGE);
 	    return;
 	}
 
 	frame = new JFrame();
 	frame.setSize(550, 450);
-	frame.setTitle(AJConfigurator.getInstance().getLocaleBundle()
-		.getString("AJ.mnuHelpContents.text"));
+	frame.setTitle(resourceBundle.getString("AJ.mnuHelpContents.text"));
 	frame.setIconImage(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/logo/aj_icon_32.png")).getImage());
 	frame.getContentPane().add(helpViewer);
@@ -98,6 +110,8 @@ public class HelpDialog {
      * @param args
      */
     public static void main(String args[]) {
+	final ResourceBundle resourceBundle = ResourceBundle.getBundle(
+		"locale.aj", new Locale("en", "GB"));
 	try {
 	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 	} catch (Exception ex) {
@@ -107,7 +121,7 @@ public class HelpDialog {
 	java.awt.EventQueue.invokeLater(new Runnable() {
 	    @Override
 	    public void run() {
-		HelpDialog hd = new HelpDialog(null);
+		HelpDialog hd = new HelpDialog(null, resourceBundle);
 	    }
 	});
     }

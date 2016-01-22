@@ -47,7 +47,7 @@ import org.apache.logging.log4j.core.config.plugins.PluginAttribute;
 import org.apache.logging.log4j.core.config.plugins.PluginElement;
 import org.apache.logging.log4j.core.config.plugins.PluginFactory;
 import org.apache.logging.log4j.core.layout.PatternLayout;
-import org.astrojournal.configuration.AJConstants;
+import org.astrojournal.configuration.ajconfiguration.AJConstants;
 
 /**
  * A log4j2 appender to a JTextPane.

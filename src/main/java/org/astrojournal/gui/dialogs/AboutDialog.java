@@ -26,12 +26,12 @@ package org.astrojournal.gui.dialogs;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import org.astrojournal.configuration.AJConfigurator;
 import org.astrojournal.gui.AJMainGUI;
 
 /**
@@ -54,27 +54,35 @@ public class AboutDialog extends JDialog {
      * and copyright. Used in both the welcome panel and the about dialog.
      *
      * @param application
+     *            The application
+     * @param resourceBundle
+     *            The resource bundle
      */
-    public AboutDialog(AJMainGUI application) {
+    public AboutDialog(AJMainGUI application, ResourceBundle resourceBundle) {
 	super(application);
-	initComponents(application);
+	initComponents(application, resourceBundle);
     }
 
     /**
      * This method is called from within the constructor to initialise the form.
+     * 
+     * @param application
+     *            The application
+     * @param resourceBundle
+     *            The resource bundle
      */
-    private void initComponents(AJMainGUI application) {
+    private void initComponents(AJMainGUI application,
+	    ResourceBundle resourceBundle) {
 
-	setTitle(AJConfigurator.getInstance().getLocaleBundle()
-		.getString("AJ.mnuAbout.text"));
+	setTitle(resourceBundle.getString("AJ.mnuAbout.text"));
 	setLayout(new BorderLayout());
 
 	AJTitlePanel welcomePanel = new AJTitlePanel();
 	add(welcomePanel, BorderLayout.CENTER);
 
 	JPanel buttonPanel = new JPanel();
-	JButton btnClose = new JButton(AJConfigurator.getInstance().getLocaleBundle()
-		.getString("AJ.cmdClose.text"));
+	JButton btnClose = new JButton(
+		resourceBundle.getString("AJ.cmdClose.text"));
 	getRootPane().setDefaultButton(btnClose);
 	btnClose.addActionListener(new ActionListener() {
 	    @Override

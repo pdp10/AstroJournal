@@ -23,40 +23,49 @@
  */
 package org.astrojournal.configuration;
 
-import java.util.ResourceBundle;
+import java.io.IOException;
 
 /**
- * The interface of the application configuration.
+ * A collection of utilities for Configuration.
  * 
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
- * @date 12 Dec 2015
+ * @date 18 Jan 2016
  */
-public interface Configurator {
+public interface ConfigurationUtils {
 
     /**
-     * Update the application and user property values with the property values
-     * defined as System properties if these are defined. A validation process
-     * will occur checking that the inserted property values are consistent with
-     * their meaning.
-     */
-    public void loadSystemProperties();
-
-    /**
-     * Return the locale bundle containing the application strings.
+     * Create a string containing the license.
      * 
-     * @return the localeBundle
+     * @return a string
      */
-    public ResourceBundle getLocaleBundle();
+    public String printLicense();
 
     /**
-     * Return the value for a property key.
+     * Print the current configuration.
      * 
-     * @param key
-     *            the property key to retrieve or null if this does not exist.
-     * @return the value for the Java property key
+     * @param config
+     *            The configuration
+     * @return the current configuration
      */
-    public String getProperty(String key);
+    public String printConfiguration(Configuration config);
 
+    /**
+     * Prepare input and output folders for AstroJournal if these do not exist.
+     * 
+     * @param config
+     *            The configuration
+     */
+    public void prepareFolders(Configuration config);
+
+    /**
+     * Delete the previous output folder content if this is present.
+     * 
+     * @param config
+     *            The configuration.
+     * @throws IOException
+     *             if the folder could not be cleaned.
+     */
+    public void cleanFolder(Configuration config) throws IOException;
 }

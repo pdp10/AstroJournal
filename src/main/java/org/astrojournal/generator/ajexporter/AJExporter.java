@@ -25,6 +25,7 @@ package org.astrojournal.generator.ajexporter;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import org.astrojournal.generator.observation.AJObservation;
 
@@ -54,6 +55,9 @@ public abstract class AJExporter {
 
     /** If no output should be printed. */
     protected boolean quiet = true;
+
+    /** The resource bundle. */
+    protected ResourceBundle resourceBundle = null;
 
     /**
      * Default constructor.
@@ -214,5 +218,24 @@ public abstract class AJExporter {
      */
     public void setQuiet(boolean quiet) {
 	this.quiet = quiet;
+    }
+
+    /**
+     * Get the resource bundle.
+     * 
+     * @return the resourceBundle
+     */
+    public ResourceBundle getResourceBundle() {
+	return resourceBundle;
+    }
+
+    /**
+     * Set the resource bundle.
+     * 
+     * @param resourceBundle
+     *            the resourceBundle to set
+     */
+    public void setResourceBundle(ResourceBundle resourceBundle) {
+	this.resourceBundle = resourceBundle;
     }
 }

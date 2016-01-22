@@ -37,7 +37,7 @@ import java.util.Scanner;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.AJConstants;
+import org.astrojournal.configuration.ajconfiguration.AJConstants;
 import org.astrojournal.generator.observation.AJObservation;
 import org.astrojournal.generator.observation.AJObservationItem;
 import org.astrojournal.utilities.filefilters.TextFilter;
@@ -126,8 +126,10 @@ public class AJTextExporterByDateSGL extends AJExporter {
 
     @Override
     public boolean exportObservations(ArrayList<AJObservation> observations) {
-	log.info("");
-	log.info("Exporting observations by date for SGL:");
+	if (resourceBundle != null) {
+	    log.info("");
+	    log.info("Exporting observations by date for SGL:");
+	}
 	AJObservation obs = null;
 	int nObservations = observations.size();
 	boolean result = true;
@@ -185,8 +187,10 @@ public class AJTextExporterByDateSGL extends AJExporter {
 			    + " " + item.getType() + " " + item.getPower()
 			    + "\n" + item.getNotes() + "\n\n");
 		}
-		log.info("\tExported report " + obs.getDate() + " ("
-			+ observationItems.size() + " targets)");
+		if (resourceBundle != null) {
+		    log.info("\tExported report " + obs.getDate() + " ("
+			    + observationItems.size() + " targets)");
+		}
 	    } catch (IOException ex) {
 		log.error("Error when opening the file " + filesLocation
 			+ File.separator + filenameOut, ex);
@@ -215,8 +219,10 @@ public class AJTextExporterByDateSGL extends AJExporter {
 
     @Override
     public void postProcessing() throws IOException {
-	log.info("\t" + filesLocation + File.separator
-		+ AJConstants.SGL_REPORT_BY_DATE_FILENAME);
+	if (resourceBundle != null) {
+	    log.info("\t" + filesLocation + File.separator
+		    + AJConstants.SGL_REPORT_BY_DATE_FILENAME);
+	}
     }
 
 }
