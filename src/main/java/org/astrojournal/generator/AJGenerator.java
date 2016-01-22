@@ -212,6 +212,7 @@ public class AJGenerator {
 		    .getProperty(AJProperties.FILES_LOCATION));
 	    ajImporter.setRawReportFolder(config
 		    .getProperty(AJProperties.RAW_REPORTS_FOLDER));
+	    ajImporter.setResourceBundle(config.getResourceBundle());
 	    // TODO: END
 
 	    log.debug(ajImporter.getName() + " is importing observations");
@@ -276,6 +277,7 @@ public class AJGenerator {
 		    .getProperty(AJProperties.FILES_LOCATION));
 	    ajExporter.setQuiet(Boolean.getBoolean(config
 		    .getProperty(AJProperties.QUIET)));
+	    ajExporter.setResourceBundle(config.getResourceBundle());
 	    if (ajExporter instanceof AJLatexExporter) {
 		((AJLatexExporter) ajExporter).setLatexOutput(Boolean
 			.getBoolean(config
