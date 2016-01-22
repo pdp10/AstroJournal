@@ -33,6 +33,7 @@ import org.astrojournal.configuration.ConfigurationUtils;
 import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
 import org.astrojournal.configuration.ajconfiguration.AJConfigurationUtils;
 import org.astrojournal.configuration.ajconfiguration.AJConstants;
+import org.astrojournal.configuration.ajconfiguration.AppMetaInfo;
 import org.astrojournal.console.AJMainConsole;
 import org.astrojournal.gui.AJMainGUI;
 
@@ -85,8 +86,8 @@ public class AJMain {
 	ConfigurationUtils configUtils = config.getConfigurationUtils();
 
 	// Get some information for debugging
-	log.debug("Application: " + AJConstants.APPLICATION_NAME + " "
-		+ AJConstants.APPLICATION_VERSION);
+	log.debug("Application: " + AppMetaInfo.NAME + " "
+		+ AppMetaInfo.VERSION);
 	log.debug("Operating System: " + SystemUtils.OS_ARCH + " "
 		+ SystemUtils.OS_NAME + " " + SystemUtils.OS_VERSION);
 	log.debug("Java: " + SystemUtils.JAVA_VENDOR + " "

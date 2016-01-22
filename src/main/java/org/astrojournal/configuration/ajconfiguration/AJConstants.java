@@ -35,15 +35,6 @@ import java.io.File;
  */
 public class AJConstants {
 
-    /** The AJ application name. */
-    public static final String APPLICATION_NAME = "AstroJournal";
-
-    /** The AJ application version. */
-    public static final String APPLICATION_VERSION = "v1.1.0";
-
-    /** The AJ website. */
-    public static final String APPLICATION_WEBSITE = "http://pdp10.github.io/AstroJournal";
-
     /**
      * The default application configuration file name. This is in resources/.
      */
@@ -97,9 +88,9 @@ public class AJConstants {
 	    + File.separator + "footer_by_constellation.tex";
 
     /** The short text for the application license. */
-    public static final String SHORT_LICENSE = AJConstants.APPLICATION_NAME
+    public static final String SHORT_LICENSE = AppMetaInfo.NAME
 	    + " "
-	    + AJConstants.APPLICATION_VERSION
+	    + AppMetaInfo.VERSION
 	    + " is free software: you can redistribute it and/or modify \n"
 	    + "it under the terms of the GNU General Public License as published by \n"
 	    + "the Free Software Foundation, either version 3 of the License, or \n"

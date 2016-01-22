@@ -26,8 +26,8 @@ package org.astrojournal.console;
 import org.astrojournal.AJMainControls;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
-import org.astrojournal.configuration.ajconfiguration.AJConstants;
 import org.astrojournal.configuration.ajconfiguration.AJProperties;
+import org.astrojournal.configuration.ajconfiguration.AppMetaInfo;
 
 /**
  * A class for running AstroJournal via command line.
@@ -57,9 +57,9 @@ public class AJMainConsole {
      */
     public static String printHelp() {
 	String help = new String(
-		AJConstants.APPLICATION_NAME
+		AppMetaInfo.NAME
 			+ " "
-			+ AJConstants.APPLICATION_VERSION
+			+ AppMetaInfo.VERSION
 			+ "\n"
 			+ "USAGE: run_astrojournal.sh [options]\n"
 			+ "Options are:\n"

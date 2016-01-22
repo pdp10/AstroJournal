@@ -45,7 +45,7 @@ import org.apache.logging.log4j.Logger;
 import org.astrojournal.AJMainControls;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
-import org.astrojournal.configuration.ajconfiguration.AJConstants;
+import org.astrojournal.configuration.ajconfiguration.AppMetaInfo;
 import org.astrojournal.configuration.ajconfiguration.PreferencesDialog;
 import org.astrojournal.gui.dialogs.StatusPanel;
 import org.astrojournal.gui.dialogs.WelcomePanel;
@@ -174,8 +174,7 @@ public class AJMainGUI extends JFrame {
     private void setAJWindow() {
 	commandRunner = new AJMainGUIControls(this, config);
 	// Configure AJMainGUI with basic parameters
-	setTitle(AJConstants.APPLICATION_NAME + " "
-		+ AJConstants.APPLICATION_VERSION);
+	setTitle(AppMetaInfo.NAME + " " + AppMetaInfo.VERSION);
 	setIconImage(new ImageIcon(
 		ClassLoader.getSystemResource("graphics/logo/aj_icon_32.png"))
 		.getImage());

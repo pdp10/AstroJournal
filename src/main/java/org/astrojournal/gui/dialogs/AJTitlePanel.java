@@ -41,7 +41,7 @@ import javax.swing.text.StyleConstants;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.ajconfiguration.AJConstants;
+import org.astrojournal.configuration.ajconfiguration.AppMetaInfo;
 import org.astrojournal.utilities.DesktopBrowse;
 
 /**
@@ -86,8 +86,8 @@ public class AJTitlePanel extends JPanel {
 	textPane.setOpaque(false);
 	textPane.setEditorKit(JEditorPane
 		.createEditorKitForContentType("text/html"));
-	textPane.setText("<a href='" + AJConstants.APPLICATION_WEBSITE + "'>"
-		+ AJConstants.APPLICATION_WEBSITE + "</a>");
+	textPane.setText("<a href='" + AppMetaInfo.WEBSITE + "'>"
+		+ AppMetaInfo.WEBSITE + "</a>");
 
 	textPane.addHyperlinkListener(new HyperlinkListener() {
 	    @Override
