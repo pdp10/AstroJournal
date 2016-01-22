@@ -31,55 +31,59 @@ package org.astrojournal.configuration.ajconfiguration;
  * @since 1.0
  * @date 17 Jan 2016
  */
-public final class AJProperties {
+public enum AJProperties {
 
     /** True if the application should run quietly */
-    public static final String QUIET = "aj.quiet";
-
+    QUIET("aj.quiet"),
     /** True if latex output should be printed. */
-    public static final String SHOW_LATEX_OUTPUT = "aj.show_latex_output";
-
+    SHOW_LATEX_OUTPUT("aj.show_latex_output"),
     /** True if the license should be shown at start. */
-    public static final String SHOW_LICENSE_AT_START = "aj.show_license_at_start";
-
+    SHOW_LICENSE_AT_START("aj.show_license_at_start"),
     /** True if the version of pdflatex. */
-    public static final String SHOW_PDFLATEX_VERSION_AT_START = "aj.show_pdflatex_version_at_start";
-
+    SHOW_PDFLATEX_VERSION_AT_START("aj.show_pdflatex_version_at_start"),
     /** True if the configuration should be shown at start. */
-    public static final String SHOW_CONFIGURATION_AT_START = "aj.show_configuration_at_start";
-
+    SHOW_CONFIGURATION_AT_START("aj.show_configuration_at_start"),
     /** The absolute path containing AstroJournal input and output folders. */
-    public static final String FILES_LOCATION = "aj.files_location";
-
+    FILES_LOCATION("aj.files_location"),
     /** The relative path containing the raw files (observation input folder). */
-    public static final String RAW_REPORTS_FOLDER = "aj.raw_reports_folder";
-
+    RAW_REPORTS_FOLDER("aj.raw_reports_folder"),
     /**
      * The name of the folder containing the latex observation files by date
      * (observation output folder).
      */
-    public static final String LATEX_REPORTS_FOLDER_BY_DATE = "aj.latex_reports_folder_by_date";
-
+    LATEX_REPORTS_FOLDER_BY_DATE("aj.latex_reports_folder_by_date"),
     /**
      * The name of the folder containing the latex observation files by target
      * (observation output folder).
      */
-    public static final String LATEX_REPORTS_FOLDER_BY_TARGET = "aj.latex_reports_folder_by_target";
-
+    LATEX_REPORTS_FOLDER_BY_TARGET("aj.latex_reports_folder_by_target"),
     /**
      * The name of the folder containing the latex observation files by
      * constellation (observation output folder).
      */
-    public static final String LATEX_REPORTS_FOLDER_BY_CONSTELLATION = "aj.latex_reports_folder_by_constellation";
-
+    LATEX_REPORTS_FOLDER_BY_CONSTELLATION(
+	    "aj.latex_reports_folder_by_constellation"),
     /**
      * The name of the folder containing the latex observation files by date
      * (observation output folder).
      */
-    public static final String SGL_REPORTS_FOLDER_BY_DATE = "aj.sgl_reports_folder_by_date";
-
+    SGL_REPORTS_FOLDER_BY_DATE("aj.sgl_reports_folder_by_date"),
     /**
      * The locale for the internationalisation.
      */
-    public static final String LOCALE = "aj.locale";
+    LOCALE("aj.locale");
+
+    /** The information value. */
+    private final String info;
+
+    /** Constructor */
+    private AJProperties(String key) {
+	this.info = key;
+    }
+
+    @Override
+    public String toString() {
+	return this.info;
+    }
+
 }

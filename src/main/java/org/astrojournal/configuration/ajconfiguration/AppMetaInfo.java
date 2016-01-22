@@ -34,11 +34,11 @@ package org.astrojournal.configuration.ajconfiguration;
 public enum AppMetaInfo {
 
     /** The application name. */
-    NAME("name"),
+    NAME("AstroJournal"),
     /** The version. */
-    VERSION("0.0.0"),
+    VERSION("1.1.0"),
     /** The website. */
-    WEBSITE("http://website");
+    WEBSITE("http://pdp10.github.io/AstroJournal/");
 
     /** The information value. */
     private final String info;

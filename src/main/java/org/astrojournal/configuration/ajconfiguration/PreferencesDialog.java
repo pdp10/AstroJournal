@@ -111,10 +111,11 @@ public class PreferencesDialog extends JDialog implements ActionListener {
      *            The configuration
      */
     public PreferencesDialog(AJMainGUI application, Configuration config) {
-	super(application, config.getResourceBundle()
-		.getString("AJ.mnuEdit.text")
+	super(application, config.getResourceBundle().getString(
+		"AJ.mnuEdit.text")
 		+ " "
-		+ config.getResourceBundle().getString("AJ.mnuPreferences.text"));
+		+ config.getResourceBundle()
+			.getString("AJ.mnuPreferences.text"));
 	this.config = config;
 	initComponents(application);
     }
@@ -148,8 +149,8 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	filePanel.add(ajFilesLocationLBL, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
-	ajFilesLocation
-		.setText(config.getProperty(AJProperties.FILES_LOCATION));
+	ajFilesLocation.setText(config.getProperty(AJProperties.FILES_LOCATION
+		.toString()));
 	ajFilesLocation.setEditable(false);
 	filePanel.add(ajFilesLocation, c);
 	c.gridx = 2;
@@ -171,7 +172,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.gridx = 1;
 	c.weightx = 0.5;
 	rawReportsFolder.setText(config
-		.getProperty(AJProperties.RAW_REPORTS_FOLDER));
+		.getProperty(AJProperties.RAW_REPORTS_FOLDER.toString()));
 	filePanel.add(rawReportsFolder, c);
 	c.gridx = 2;
 	c.weightx = 0.1;
@@ -179,15 +180,16 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.gridx = 0;
 	c.gridy++;
 	c.weightx = 0.1;
-	JLabel outputDirByDate = new JLabel(config.getResourceBundle().getString(
-		"AJ.lblOutByDateDir.text"));
+	JLabel outputDirByDate = new JLabel(config.getResourceBundle()
+		.getString("AJ.lblOutByDateDir.text"));
 	outputDirByDate.setToolTipText(config.getResourceBundle().getString(
 		"AJ.lblOutByDateDir.toolTipText"));
 	filePanel.add(outputDirByDate, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
 	latexReportsFolderByDate.setText(config
-		.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE));
+		.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE
+			.toString()));
 	filePanel.add(latexReportsFolderByDate, c);
 	c.gridx = 2;
 	c.weightx = 0.1;
@@ -203,7 +205,8 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.gridx = 1;
 	c.weightx = 0.5;
 	latexReportsFolderByTarget.setText(config
-		.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET));
+		.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET
+			.toString()));
 	filePanel.add(latexReportsFolderByTarget, c);
 	c.gridx = 2;
 	c.weightx = 0.1;
@@ -218,9 +221,9 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	filePanel.add(outputDirByConstellation, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
-	latexReportsFolderByConstellation
-		.setText(config
-			.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION));
+	latexReportsFolderByConstellation.setText(config
+		.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+			.toString()));
 	filePanel.add(latexReportsFolderByConstellation, c);
 	c.gridx = 2;
 	c.weightx = 0.1;
@@ -235,8 +238,10 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	filePanel.add(outputSGLDirByDate, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
-	sglReportsFolderByDate.setText(config
-		.getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE));
+	sglReportsFolderByDate
+		.setText(config
+			.getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE
+				.toString()));
 	filePanel.add(sglReportsFolderByDate, c);
 	c.gridx = 2;
 	c.weightx = 0.1;
@@ -272,7 +277,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	    }
 	});
 	quiet.setSelected(Boolean.getBoolean(config
-		.getProperty(AJProperties.QUIET)));
+		.getProperty(AJProperties.QUIET.toString())));
 	// let's perform its action programmatically
 	quiet.doClick();
 	quiet.doClick();
@@ -288,7 +293,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	lblShowLatexOutput.setToolTipText(config.getResourceBundle().getString(
 		"AJ.lblShowLatexOutput.toolTipText"));
 	latexOutput.setSelected(Boolean.getBoolean(config
-		.getProperty(AJProperties.SHOW_LATEX_OUTPUT)));
+		.getProperty(AJProperties.SHOW_LATEX_OUTPUT.toString())));
 	filePanel.add(lblShowLatexOutput, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
@@ -304,7 +309,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	lblShowLicenseAtStart.setToolTipText(config.getResourceBundle()
 		.getString("AJ.lblShowLicenseAtStart.toolTipText"));
 	showLicenseAtStart.setSelected(Boolean.getBoolean(config
-		.getProperty(AJProperties.SHOW_LICENSE_AT_START)));
+		.getProperty(AJProperties.SHOW_LICENSE_AT_START.toString())));
 	filePanel.add(lblShowLicenseAtStart, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
@@ -320,7 +325,8 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	lblShowPDFLatexVersion.setToolTipText(config.getResourceBundle()
 		.getString("AJ.lblShowPDFLatexVersion.toolTipText"));
 	showPDFLatexVersion.setSelected(Boolean.getBoolean(config
-		.getProperty(AJProperties.SHOW_PDFLATEX_VERSION_AT_START)));
+		.getProperty(AJProperties.SHOW_PDFLATEX_VERSION_AT_START
+			.toString())));
 	filePanel.add(lblShowPDFLatexVersion, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
@@ -337,7 +343,8 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	lblShowConfigurationAtStart.setToolTipText(config.getResourceBundle()
 		.getString("AJ.lblShowConfigurationAtStart.toolTipText"));
 	showConfigurationAtStart.setSelected(Boolean.getBoolean(config
-		.getProperty(AJProperties.SHOW_CONFIGURATION_AT_START)));
+		.getProperty(AJProperties.SHOW_CONFIGURATION_AT_START
+			.toString())));
 	filePanel.add(lblShowConfigurationAtStart, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
@@ -407,30 +414,36 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	    File ajFilesLocationFile = new File(ajFilesLocation.getText());
 
 	    // text fields
-	    System.setProperty(AJProperties.FILES_LOCATION,
+	    System.setProperty(AJProperties.FILES_LOCATION.toString(),
 		    ajFilesLocationFile.getAbsolutePath());
-	    System.setProperty(AJProperties.RAW_REPORTS_FOLDER,
+	    System.setProperty(AJProperties.RAW_REPORTS_FOLDER.toString(),
 		    rawReportsFolder.getText());
-	    System.setProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE,
+	    System.setProperty(
+		    AJProperties.LATEX_REPORTS_FOLDER_BY_DATE.toString(),
 		    latexReportsFolderByDate.getText());
-	    System.setProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET,
+	    System.setProperty(
+		    AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET.toString(),
 		    latexReportsFolderByTarget.getText());
 	    System.setProperty(
-		    AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION,
-		    latexReportsFolderByConstellation.getText());
-	    System.setProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE,
+		    AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+			    .toString(), latexReportsFolderByConstellation
+			    .getText());
+	    System.setProperty(
+		    AJProperties.SGL_REPORTS_FOLDER_BY_DATE.toString(),
 		    sglReportsFolderByDate.getText());
 
 	    // combobox fields
-	    System.setProperty(AJProperties.QUIET,
+	    System.setProperty(AJProperties.QUIET.toString(),
 		    String.valueOf(quiet.isSelected()));
-	    System.setProperty(AJProperties.SHOW_LATEX_OUTPUT,
+	    System.setProperty(AJProperties.SHOW_LATEX_OUTPUT.toString(),
 		    String.valueOf(latexOutput.isSelected()));
-	    System.setProperty(AJProperties.SHOW_LICENSE_AT_START,
+	    System.setProperty(AJProperties.SHOW_LICENSE_AT_START.toString(),
 		    String.valueOf(showLicenseAtStart.isSelected()));
-	    System.setProperty(AJProperties.SHOW_PDFLATEX_VERSION_AT_START,
+	    System.setProperty(
+		    AJProperties.SHOW_PDFLATEX_VERSION_AT_START.toString(),
 		    String.valueOf(showPDFLatexVersion.isSelected()));
-	    System.setProperty(AJProperties.SHOW_CONFIGURATION_AT_START,
+	    System.setProperty(
+		    AJProperties.SHOW_CONFIGURATION_AT_START.toString(),
 		    String.valueOf(showConfigurationAtStart.isSelected()));
 
 	    // Load the properties

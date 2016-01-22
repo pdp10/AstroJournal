@@ -141,21 +141,23 @@ public abstract class AJMainControls {
      */
     protected boolean processing() {
 	log.debug("Starting processing");
-	if (config.getProperty(AJProperties.QUIET).equals("false")
-		&& config.getProperty(AJProperties.SHOW_LICENSE_AT_START)
-			.equals("true")) {
+	if (config.getProperty(AJProperties.QUIET.toString()).equals("false")
+		&& config.getProperty(
+			AJProperties.SHOW_LICENSE_AT_START.toString()).equals(
+			"true")) {
 	    showLicense();
 	}
-	if (config.getProperty(AJProperties.QUIET).equals("false")
+	if (config.getProperty(AJProperties.QUIET.toString()).equals("false")
 		&& config.getProperty(
-			AJProperties.SHOW_PDFLATEX_VERSION_AT_START).equals(
-			"true")) {
+			AJProperties.SHOW_PDFLATEX_VERSION_AT_START.toString())
+			.equals("true")) {
 	    if (!showPDFLatexVersion()) {
 		return false;
 	    }
 	}
-	if (config.getProperty(AJProperties.QUIET).equals("false")
-		&& config.getProperty(AJProperties.SHOW_CONFIGURATION_AT_START)
+	if (config.getProperty(AJProperties.QUIET.toString()).equals("false")
+		&& config.getProperty(
+			AJProperties.SHOW_CONFIGURATION_AT_START.toString())
 			.equals("true")) {
 	    showConfiguration();
 	}

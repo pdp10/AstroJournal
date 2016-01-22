@@ -103,19 +103,25 @@ public class AJMainConsole {
 	AJMainConsole ajMainConsole = new AJMainConsole(config);
 	if (args.length > 1
 		&& (args[1].equals("-l") || args[1].equals("--latex-output"))) {
-	    if (config.getProperty(AJProperties.QUIET).equals("true")) {
+	    if (config.getProperty(AJProperties.QUIET.toString())
+		    .equals("true")) {
 		// If the configuration was quiet, we switch every thing off,
 		// except for LATEX_OUTPUT_PROP
-		System.setProperty(AJProperties.QUIET, "false");
-		System.setProperty(AJProperties.SHOW_LICENSE_AT_START, "false");
-		System.setProperty(AJProperties.SHOW_PDFLATEX_VERSION_AT_START,
+		System.setProperty(AJProperties.QUIET.toString(), "false");
+		System.setProperty(
+			AJProperties.SHOW_LICENSE_AT_START.toString(), "false");
+		System.setProperty(
+			AJProperties.SHOW_PDFLATEX_VERSION_AT_START.toString(),
 			"false");
-		System.setProperty(AJProperties.SHOW_CONFIGURATION_AT_START,
+		System.setProperty(
+			AJProperties.SHOW_CONFIGURATION_AT_START.toString(),
 			"false");
 	    }
-	    System.setProperty(AJProperties.SHOW_LATEX_OUTPUT, "true");
+	    System.setProperty(AJProperties.SHOW_LATEX_OUTPUT.toString(),
+		    "true");
 	} else {
-	    System.setProperty(AJProperties.SHOW_LATEX_OUTPUT, "false");
+	    System.setProperty(AJProperties.SHOW_LATEX_OUTPUT.toString(),
+		    "false");
 	}
 	config.loadSystemProperties();
 	if (!ajMainConsole.createJournals()) {

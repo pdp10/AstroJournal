@@ -60,7 +60,7 @@ public class AJTabSeparatedValueImporterTest {
      */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-	System.setProperty(AJProperties.FILES_LOCATION,
+	System.setProperty(AJProperties.FILES_LOCATION.toString(),
 		System.getProperty("user.dir") + File.separator + "src"
 			+ File.separator + "test" + File.separator
 			+ "resources" + File.separator
@@ -77,9 +77,9 @@ public class AJTabSeparatedValueImporterTest {
 	// PARAMETERS ARE PASSED BY THE INJECTOR
 	// THEREFORE, THERE IS NO NEED TO SET THEM HERE!! :)
 	ajImporter.setFilesLocation(config
-		.getProperty(AJProperties.FILES_LOCATION));
+		.getProperty(AJProperties.FILES_LOCATION.toString()));
 	ajImporter.setRawReportFolder(config
-		.getProperty(AJProperties.RAW_REPORTS_FOLDER));
+		.getProperty(AJProperties.RAW_REPORTS_FOLDER.toString()));
 	// TODO: END
 
 	observations = ajImporter.importObservations();

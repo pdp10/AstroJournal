@@ -67,11 +67,11 @@ public class AJConfigurationTestUtils {
 	    defaultProperties = PropertiesManager.loadFromXML(temp
 		    .getAbsolutePath());
 	    defaultProperties.put(
-		    AJProperties.FILES_LOCATION,
+		    AJProperties.FILES_LOCATION.toString(),
 		    System.getProperty("user.home")
 			    + File.separator
-			    + defaultProperties
-				    .get(AJProperties.FILES_LOCATION));
+			    + defaultProperties.get(AJProperties.FILES_LOCATION
+				    .toString()));
 	} catch (IOException e) {
 	    log.debug(e, e);
 	    log.error("Errors reading the default configuration file");

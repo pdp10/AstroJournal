@@ -162,12 +162,14 @@ public class AJConfiguration implements Configuration {
 
 	    // Adjust the files location as this information is not known a
 	    // priori (we don't know the user.home!)
-	    applicationProperties.setProperty(
-		    AJProperties.FILES_LOCATION,
-		    System.getProperty("user.home")
-			    + File.separator
-			    + applicationProperties
-				    .get(AJProperties.FILES_LOCATION));
+	    applicationProperties
+		    .setProperty(
+			    AJProperties.FILES_LOCATION.toString(),
+			    System.getProperty("user.home")
+				    + File.separator
+				    + applicationProperties
+					    .get(AJProperties.FILES_LOCATION
+						    .toString()));
 	    log.debug("Application configuration file is loaded.");
 
 	    // USER APPLICATION PROPERTIES: these are in the user space
@@ -229,29 +231,32 @@ public class AJConfiguration implements Configuration {
 	// log.debug(AJProperties.LOCALE + ":" + localeBundle.getLocale());
 
 	quiet = Boolean.parseBoolean(applicationProperties
-		.getProperty(AJProperties.QUIET));
+		.getProperty(AJProperties.QUIET.toString()));
 	log.debug(AJProperties.QUIET + ":" + quiet);
 
 	showLatexOutput = Boolean.parseBoolean(applicationProperties
-		.getProperty(AJProperties.SHOW_LATEX_OUTPUT));
+		.getProperty(AJProperties.SHOW_LATEX_OUTPUT.toString()));
 	log.debug(AJProperties.SHOW_LATEX_OUTPUT + ":" + showLatexOutput);
 
 	showLicenseAtStart = Boolean.parseBoolean(applicationProperties
-		.getProperty(AJProperties.SHOW_LICENSE_AT_START));
+		.getProperty(AJProperties.SHOW_LICENSE_AT_START.toString()));
 	log.debug(AJProperties.SHOW_LICENSE_AT_START + ":" + showLicenseAtStart);
 
 	showPDFLatexVersionAtStart = Boolean.parseBoolean(applicationProperties
-		.getProperty(AJProperties.SHOW_PDFLATEX_VERSION_AT_START));
+		.getProperty(AJProperties.SHOW_PDFLATEX_VERSION_AT_START
+			.toString()));
 	log.debug(AJProperties.SHOW_PDFLATEX_VERSION_AT_START + ":"
 		+ showPDFLatexVersionAtStart);
 
 	showConfigurationAtStart = Boolean.parseBoolean(applicationProperties
-		.getProperty(AJProperties.SHOW_CONFIGURATION_AT_START));
+		.getProperty(AJProperties.SHOW_CONFIGURATION_AT_START
+			.toString()));
 	log.debug(AJProperties.SHOW_CONFIGURATION_AT_START + ":"
 		+ showConfigurationAtStart);
 
 	File newFilesLocation = new File(
-		applicationProperties.getProperty(AJProperties.FILES_LOCATION));
+		applicationProperties.getProperty(AJProperties.FILES_LOCATION
+			.toString()));
 	if (newFilesLocation == null || !newFilesLocation.exists()
 		|| !newFilesLocation.canWrite()) {
 	    log.error("The property "
@@ -259,33 +264,37 @@ public class AJConfiguration implements Configuration {
 		    + ":"
 		    + newFilesLocation.getAbsolutePath()
 		    + " is not accessible. Using previous `files location` setting.");
-	    applicationProperties.setProperty(AJProperties.FILES_LOCATION,
+	    applicationProperties.setProperty(
+		    AJProperties.FILES_LOCATION.toString(),
 		    filesLocation.getAbsolutePath());
 	} else {
 	    filesLocation = newFilesLocation;
 	}
 
 	rawReportsFolder = applicationProperties
-		.getProperty(AJProperties.RAW_REPORTS_FOLDER);
+		.getProperty(AJProperties.RAW_REPORTS_FOLDER.toString());
 	log.debug(AJProperties.RAW_REPORTS_FOLDER + ":" + rawReportsFolder);
 
 	latexReportsFolderByDate = applicationProperties
-		.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE);
+		.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE
+			.toString());
 	log.debug(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE + ":"
 		+ latexReportsFolderByDate);
 
 	latexReportsFolderByTarget = applicationProperties
-		.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET);
+		.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET
+			.toString());
 	log.debug(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET + ":"
 		+ latexReportsFolderByTarget);
 
 	latexReportsFolderByConstellation = applicationProperties
-		.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION);
+		.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+			.toString());
 	log.debug(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION + ":"
 		+ latexReportsFolderByConstellation);
 
 	sglReportsFolderByDate = applicationProperties
-		.getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE);
+		.getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE.toString());
 	log.debug(AJProperties.SGL_REPORTS_FOLDER_BY_DATE + ":"
 		+ sglReportsFolderByDate);
 
@@ -338,27 +347,29 @@ public class AJConfiguration implements Configuration {
      */
     private void adjustFileSeparator() {
 	applicationProperties.setProperty(
-		AJProperties.RAW_REPORTS_FOLDER,
+		AJProperties.RAW_REPORTS_FOLDER.toString(),
 		applicationProperties.getProperty(
-			AJProperties.RAW_REPORTS_FOLDER).replace("\\", "/"));
-	applicationProperties.setProperty(
-		AJProperties.LATEX_REPORTS_FOLDER_BY_DATE,
-		applicationProperties.getProperty(
-			AJProperties.LATEX_REPORTS_FOLDER_BY_DATE).replace(
+			AJProperties.RAW_REPORTS_FOLDER.toString()).replace(
 			"\\", "/"));
 	applicationProperties.setProperty(
-		AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET,
+		AJProperties.LATEX_REPORTS_FOLDER_BY_DATE.toString(),
 		applicationProperties.getProperty(
-			AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET).replace(
-			"\\", "/"));
-	applicationProperties.setProperty(
-		AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION,
-		applicationProperties.getProperty(
-			AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION)
+			AJProperties.LATEX_REPORTS_FOLDER_BY_DATE.toString())
 			.replace("\\", "/"));
 	applicationProperties.setProperty(
-		AJProperties.SGL_REPORTS_FOLDER_BY_DATE, applicationProperties
-			.getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE)
+		AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET.toString(),
+		applicationProperties.getProperty(
+			AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET.toString())
+			.replace("\\", "/"));
+	applicationProperties.setProperty(
+		AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION.toString(),
+		applicationProperties.getProperty(
+			AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+				.toString()).replace("\\", "/"));
+	applicationProperties.setProperty(
+		AJProperties.SGL_REPORTS_FOLDER_BY_DATE.toString(),
+		applicationProperties.getProperty(
+			AJProperties.SGL_REPORTS_FOLDER_BY_DATE.toString())
 			.replace("\\", "/"));
     }
 
