@@ -458,6 +458,8 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	    ConfigurationUtils configUtils = config.getConfigurationUtils();
 	    configUtils.prepareFolders(config);
 
+	    // TODO It might require a getConfiguration();
+
 	    setVisible(false);
 	    dispose();
 	}

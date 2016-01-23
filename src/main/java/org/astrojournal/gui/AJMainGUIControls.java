@@ -25,6 +25,7 @@ package org.astrojournal.gui;
 
 import org.astrojournal.AJMainControls;
 import org.astrojournal.configuration.Configuration;
+import org.astrojournal.generator.AJGenerator;
 
 /**
  * A simple class containing the commands for AJMiniGUI.
@@ -56,19 +57,20 @@ public class AJMainGUIControls extends AJMainControls {
 
     @Override
     public boolean createJournal() {
+	AJGenerator generator = new AJGenerator(config);
 	if (!preProcessing()) {
 	    ajMainGUI.setStatusPanelText(config.getResourceBundle().getString(
 		    "AJ.errUnconfiguredPreferences.text"));
 	    return false;
 	}
 
-	if (!processing()) {
+	if (!processing(generator)) {
 	    ajMainGUI.setStatusPanelText(config.getResourceBundle().getString(
 		    "AJ.errJournalNotExportedShort.text"));
 	    return false;
 	}
 
-	if (!postProcessing()) {
+	if (!postProcessing(generator)) {
 	    ajMainGUI.setStatusPanelText(config.getResourceBundle().getString(
 		    "AJ.errPDFLatexShort.text"));
 	    return false;

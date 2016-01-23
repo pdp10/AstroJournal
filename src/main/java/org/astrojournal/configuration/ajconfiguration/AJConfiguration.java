@@ -415,16 +415,18 @@ public class AJConfiguration implements Configuration {
 		    AppMetaInfo.USER_CONFIGURATION_PROPERTIES_FILE_COMMENT
 			    .toString());
 	} catch (IOException e) {
-	    System.out.println("Errors when writing the file "
-		    + configFile.getAbsolutePath());
-	    e.printStackTrace();
+	    log.error(
+		    "Errors when writing the file "
+			    + configFile.getAbsolutePath(), e);
 	}
     }
 
     @Override
     public void loadSystemProperties() {
+	log.debug("Loading system properties");
 	applicationProperties = PropertiesManager
 		.updateWithMatchSystemProperties(applicationProperties);
+	log.debug("System properties loaded");
 	validateProperties();
     }
 

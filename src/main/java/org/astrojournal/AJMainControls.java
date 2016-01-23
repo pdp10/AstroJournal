@@ -46,9 +46,6 @@ public abstract class AJMainControls {
 
     private static Logger log = LogManager.getLogger(AJMainControls.class);
 
-    /** A reference to Generator. */
-    protected AJGenerator generator;
-
     /** The application configuration. */
     protected Configuration config;
 
@@ -64,7 +61,6 @@ public abstract class AJMainControls {
     public AJMainControls(Configuration config) {
 	this.config = config;
 	configUtils = this.config.getConfigurationUtils();
-	generator = new AJGenerator(this.config);
     }
 
     /**
@@ -137,9 +133,11 @@ public abstract class AJMainControls {
     /**
      * Generate the journals.
      * 
+     * @param generator
+     *            the generator
      * @return true if the processing phase succeeded.
      */
-    protected boolean processing() {
+    protected boolean processing(AJGenerator generator) {
 	log.debug("Starting processing");
 	if (config.getProperty(AJProperties.QUIET.toString()).equals("false")
 		&& config.getProperty(
@@ -173,9 +171,11 @@ public abstract class AJMainControls {
     /**
      * Run post processing commands after the generation of the journals.
      * 
+     * @param generator
+     *            the generator
      * @return true if the post-processing phase succeeded.
      */
-    protected boolean postProcessing() {
+    protected boolean postProcessing(AJGenerator generator) {
 	log.debug("Starting post-processing");
 	log.info("");
 	log.info(config.getResourceBundle().getString(

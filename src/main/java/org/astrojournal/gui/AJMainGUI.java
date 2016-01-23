@@ -43,7 +43,6 @@ import javax.swing.text.DefaultCaret;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.AJMainControls;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
 import org.astrojournal.configuration.ajconfiguration.AppMetaInfo;
@@ -84,7 +83,6 @@ public class AJMainGUI extends JFrame {
     private JPanel outputPanel;
     private JPanel controlPanel;
     private StatusPanel statusPanel;
-    private AJMainControls commandRunner;
     private AJMenuBar menu = null;
 
     /**
@@ -129,6 +127,9 @@ public class AJMainGUI extends JFrame {
 	    add(mainPanel);
 	}
 
+	final AJMainGUIControls commandRunner = new AJMainGUIControls(this,
+		config);
+
 	// define a SwingWorker to run in background
 	// In this way the output is printed gradually as it is
 	// generated.
@@ -137,7 +138,8 @@ public class AJMainGUI extends JFrame {
 	    public String doInBackground() {
 		setStatusPanelText(resourceBundle
 			.getString("AJ.lblFileGenerationinProgressLong.text"));
-		cleanJTextPane();
+		// TODO. This somehow freeze the application..
+		// cleanJTextPane();
 		btnCreateJournal.setEnabled(false);
 		menu.setEnabled("create_journal", false);
 		menu.setEnabled("preferences", false);
@@ -175,7 +177,6 @@ public class AJMainGUI extends JFrame {
      * Set AstroJournal window.
      */
     private void setAJWindow() {
-	commandRunner = new AJMainGUIControls(this, config);
 	// Configure AJMainGUI with basic parameters
 	setTitle(AppMetaInfo.NAME + " " + AppMetaInfo.VERSION);
 	setIconImage(new ImageIcon(
