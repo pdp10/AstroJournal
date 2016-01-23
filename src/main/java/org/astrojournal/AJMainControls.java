@@ -30,8 +30,8 @@ import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ConfigurationUtils;
 import org.astrojournal.configuration.ajconfiguration.AJConfigurationUtils;
-import org.astrojournal.configuration.ajconfiguration.AJConstants;
 import org.astrojournal.configuration.ajconfiguration.AJProperties;
+import org.astrojournal.configuration.ajconfiguration.AppMetaInfo;
 import org.astrojournal.generator.AJGenerator;
 
 /**
@@ -78,7 +78,7 @@ public abstract class AJMainControls {
      * Print the license for AstroJournal.
      */
     public void showLicense() {
-	log.info(AJConstants.SHORT_LICENSE);
+	log.info(AppMetaInfo.SHORT_LICENSE);
     }
 
     /**

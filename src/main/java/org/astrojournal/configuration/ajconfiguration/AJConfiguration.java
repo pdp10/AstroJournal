@@ -190,14 +190,14 @@ public class AJConfiguration implements Configuration {
 	configFile = AJConfigurationUtils.setupUserConfigurationFile();
 
 	log.debug("Loading application configuration file: "
-		+ AJConstants.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME);
+		+ AppMetaInfo.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME);
 	try {
 
 	    // DEFAULT APPLICATION PROPERTIES: these are in resources/
 	    File temp = new ReadFromJar().getFileFromJARFile("aj_config_", "/"
-		    + AJConstants.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME);
+		    + AppMetaInfo.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME);
 	    log.debug("Extracted "
-		    + AJConstants.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME
+		    + AppMetaInfo.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME
 		    + " from JAR and stored in " + temp.getAbsolutePath());
 	    applicationProperties = PropertiesManager.loadFromXML(temp
 		    .getAbsolutePath());
@@ -410,9 +410,10 @@ public class AJConfiguration implements Configuration {
      */
     void saveProperties() {
 	try {
-	    PropertiesManager.storeToXML(applicationProperties,
-		    configFile.getAbsolutePath(),
-		    AJConstants.USER_CONFIGURATION_PROPERTIES_FILE_COMMENT);
+	    PropertiesManager.storeToXML(applicationProperties, configFile
+		    .getAbsolutePath(),
+		    AppMetaInfo.USER_CONFIGURATION_PROPERTIES_FILE_COMMENT
+			    .toString());
 	} catch (IOException e) {
 	    System.out.println("Errors when writing the file "
 		    + configFile.getAbsolutePath());

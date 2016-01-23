@@ -35,10 +35,42 @@ public enum AppMetaInfo {
 
     /** The application name. */
     NAME("AstroJournal"),
+
     /** The version. */
     VERSION("1.1.0"),
+
     /** The website. */
-    WEBSITE("http://pdp10.github.io/AstroJournal/");
+    WEBSITE("http://pdp10.github.io/AstroJournal/"),
+
+    /**
+     * The default application configuration file name. This is in resources/.
+     */
+    DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME("application_properties.xml"),
+
+    /** The user configuration file name. */
+    USER_CONFIGURATION_PROPERTIES_FILE_NAME("astrojournal.xml"),
+
+    /** The comment to be inserted in the user configuration file. */
+    USER_CONFIGURATION_PROPERTIES_FILE_COMMENT(
+	    "User setting for the application Config. Edit at your own risk."),
+
+    /** The short text for the application license. */
+    SHORT_LICENSE(
+	    AppMetaInfo.NAME
+		    + " "
+		    + AppMetaInfo.VERSION
+		    + " is free software: you can redistribute it and/or modify \n"
+		    + "it under the terms of the GNU General Public License as published by \n"
+		    + "the Free Software Foundation, either version 3 of the License, or \n"
+		    + "(at your option) any later version. \n\n"
+		    + "This program is distributed in the hope that it will be useful, \n"
+		    + "but WITHOUT ANY WARRANTY; without even the implied warranty of \n"
+		    + "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the \n"
+		    + "GNU General Public License for more details. \n\n"
+		    + "You should have received a copy of the GNU General Public License \n"
+		    + "along with this program; if not, see <http://www.gnu.org/licenses/>. \n"
+		    + "\n"
+		    + "AstroJournal Web Site: <https://github.com/pdp10/AstroJournal>\n\n");
 
     /** The information value. */
     private final String info;

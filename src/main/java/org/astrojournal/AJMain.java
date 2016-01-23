@@ -32,7 +32,6 @@ import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ConfigurationUtils;
 import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
 import org.astrojournal.configuration.ajconfiguration.AJConfigurationUtils;
-import org.astrojournal.configuration.ajconfiguration.AJConstants;
 import org.astrojournal.configuration.ajconfiguration.AppMetaInfo;
 import org.astrojournal.console.AJMainConsole;
 import org.astrojournal.gui.AJMainGUI;
@@ -106,7 +105,7 @@ public class AJMain {
 		log.info(AJMainConsole.printHelp());
 		System.exit(0);
 	    } else if (args[0].equals("--license")) {
-		log.info(AJConstants.SHORT_LICENSE);
+		log.info(AppMetaInfo.SHORT_LICENSE);
 		System.exit(0);
 	    } else if (args[0].equals("-t") || args[0].equals("--test-latex")) {
 		if (configUtils instanceof AJConfigurationUtils) {

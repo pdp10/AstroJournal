@@ -29,8 +29,8 @@ import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.ajconfiguration.AJConstants;
 import org.astrojournal.configuration.ajconfiguration.AJProperties;
+import org.astrojournal.configuration.ajconfiguration.AppMetaInfo;
 import org.astrojournal.utilities.PropertiesManager;
 import org.astrojournal.utilities.ReadFromJar;
 
@@ -55,14 +55,14 @@ public class AJConfigurationTestUtils {
      */
     private static Properties getDefaultApplicationProperties() {
 	log.debug("Loading default configuration file: "
-		+ AJConstants.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME);
+		+ AppMetaInfo.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME);
 	Properties defaultProperties = new Properties();
 	try {
 	    // DEFAULT APPLICATION PROPERTIES: these are in resources/
 	    File temp = new ReadFromJar().getFileFromJARFile("aj_config_", "/"
-		    + AJConstants.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME);
+		    + AppMetaInfo.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME);
 	    log.debug("Extracted "
-		    + AJConstants.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME
+		    + AppMetaInfo.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME
 		    + " from JAR and stored in " + temp.getAbsolutePath());
 	    defaultProperties = PropertiesManager.loadFromXML(temp
 		    .getAbsolutePath());
