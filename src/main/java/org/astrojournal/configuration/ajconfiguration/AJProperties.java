@@ -71,7 +71,42 @@ public enum AJProperties {
     /**
      * The locale for the internationalisation.
      */
-    LOCALE("aj.locale");
+    LOCALE("aj.locale"),
+
+    /** The name of the main Latex file sorted by date. */
+    REPORT_BY_DATE_FILENAME("aj.report_by_date_filename"),
+
+    /** The name of the main Latex file sorted by target. */
+    REPORT_BY_TARGET_FILENAME("aj.report_by_target_filename"),
+
+    /** The name of the main Latex file sorted by constellation. */
+    REPORT_BY_CONSTELLATION_FILENAME("aj.report_by_constellation_filename"),
+
+    /** The name of the SGL main file sorted by date. */
+    SGL_REPORT_BY_DATE_FILENAME("aj.sgl_report_by_date_filename"),
+
+    /** The folder containing the latex header and footer. */
+    LATEX_HEADER_FOOTER_FOLDER("aj.latex_header_footer_folder"),
+
+    // NOTE: These fields require File.separator in order to be found by Java in
+    // the file system.
+    /** The Latex header with path for astrojournal by date. */
+    HEADER_BY_DATE_FILENAME("aj.header_by_date_filename"),
+
+    /** The Latex footer with path for astrojournal by date. */
+    FOOTER_BY_DATE_FILENAME("aj.footer_by_date_filename"),
+
+    /** The Latex header with path for astrojournal by target. */
+    HEADER_BY_TARGET_FILENAME("aj.header_by_target_filename"),
+
+    /** The Latex footer with path for astrojournal by target. */
+    FOOTER_BY_TARGET_FILENAME("aj.footer_by_target_filename"),
+
+    /** The Latex header with path for astrojournal by constellation. */
+    HEADER_BY_CONSTELLATION_FILENAME("aj.header_by_constellation_filename"),
+
+    /** The Latex footer with path for astrojournal by constellation. */
+    FOOTER_BY_CONSTELLATION_FILENAME("aj.footer_by_constellation_filename");
 
     /** The information value. */
     private final String info;

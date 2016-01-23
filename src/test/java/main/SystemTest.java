@@ -34,7 +34,6 @@ import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ConfigurationUtils;
 import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
-import org.astrojournal.configuration.ajconfiguration.AJConstants;
 import org.astrojournal.configuration.ajconfiguration.AJProperties;
 import org.astrojournal.console.AJMainConsole;
 import org.junit.After;
@@ -108,7 +107,9 @@ public class SystemTest {
 	reportByDateSGL.delete();
 	File headerFooter = new File(
 		config.getProperty(AJProperties.FILES_LOCATION.toString())
-			+ File.separator + "latex_header_footer");
+			+ File.separator
+			+ config.getProperty(AJProperties.LATEX_HEADER_FOOTER_FOLDER
+				.toString()));
 	for (File f : headerFooter.listFiles()) {
 	    f.delete();
 	}
@@ -123,7 +124,6 @@ public class SystemTest {
 		f.delete();
 	    }
 	}
-
     }
 
     /**
@@ -153,13 +153,14 @@ public class SystemTest {
 	assertTrue(new File(config.getProperty(AJProperties.FILES_LOCATION
 		.toString())
 		+ File.separator
-		+ AJConstants.REPORT_BY_DATE_FILENAME).exists());
-	assertTrue(new File(
-		config.getProperty(AJProperties.FILES_LOCATION.toString())
-			+ File.separator
-			+ FilenameUtils
-				.removeExtension(AJConstants.REPORT_BY_DATE_FILENAME)
-			+ ".pdf").exists());
+		+ config.getProperty(AJProperties.REPORT_BY_DATE_FILENAME
+			.toString())).exists());
+	assertTrue(new File(config.getProperty(AJProperties.FILES_LOCATION
+		.toString())
+		+ File.separator
+		+ FilenameUtils.removeExtension(config
+			.getProperty(AJProperties.REPORT_BY_DATE_FILENAME
+				.toString())) + ".pdf").exists());
     }
 
     /**
@@ -175,13 +176,14 @@ public class SystemTest {
 	assertTrue(new File(config.getProperty(AJProperties.FILES_LOCATION
 		.toString())
 		+ File.separator
-		+ AJConstants.REPORT_BY_TARGET_FILENAME).exists());
-	assertTrue(new File(
-		config.getProperty(AJProperties.FILES_LOCATION.toString())
-			+ File.separator
-			+ FilenameUtils
-				.removeExtension(AJConstants.REPORT_BY_TARGET_FILENAME)
-			+ ".pdf").exists());
+		+ config.getProperty(AJProperties.REPORT_BY_TARGET_FILENAME
+			.toString())).exists());
+	assertTrue(new File(config.getProperty(AJProperties.FILES_LOCATION
+		.toString())
+		+ File.separator
+		+ FilenameUtils.removeExtension(config
+			.getProperty(AJProperties.REPORT_BY_TARGET_FILENAME
+				.toString())) + ".pdf").exists());
     }
 
     /**
@@ -194,16 +196,17 @@ public class SystemTest {
 		}.getClass().getEnclosingMethod().getName());
 
 	// tex + pdf
-	assertTrue(new File(config.getProperty(AJProperties.FILES_LOCATION
-		.toString())
-		+ File.separator
-		+ AJConstants.REPORT_BY_CONSTELLATION_FILENAME).exists());
 	assertTrue(new File(
 		config.getProperty(AJProperties.FILES_LOCATION.toString())
 			+ File.separator
-			+ FilenameUtils
-				.removeExtension(AJConstants.REPORT_BY_CONSTELLATION_FILENAME)
-			+ ".pdf").exists());
+			+ config.getProperty(AJProperties.REPORT_BY_CONSTELLATION_FILENAME
+				.toString())).exists());
+	assertTrue(new File(
+		config.getProperty(AJProperties.FILES_LOCATION.toString())
+			+ File.separator
+			+ FilenameUtils.removeExtension(config
+				.getProperty(AJProperties.REPORT_BY_CONSTELLATION_FILENAME
+					.toString())) + ".pdf").exists());
     }
 
     /**
@@ -219,6 +222,7 @@ public class SystemTest {
 	assertTrue(new File(config.getProperty(AJProperties.FILES_LOCATION
 		.toString())
 		+ File.separator
-		+ AJConstants.SGL_REPORT_BY_DATE_FILENAME).exists());
+		+ config.getProperty(AJProperties.SGL_REPORT_BY_DATE_FILENAME
+			.toString())).exists());
     }
 }

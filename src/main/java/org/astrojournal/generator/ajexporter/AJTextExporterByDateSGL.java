@@ -37,7 +37,6 @@ import java.util.Scanner;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.ajconfiguration.AJConstants;
 import org.astrojournal.generator.observation.AJObservation;
 import org.astrojournal.generator.observation.AJObservationItem;
 import org.astrojournal.utilities.filefilters.TextFilter;
@@ -220,8 +219,7 @@ public class AJTextExporterByDateSGL extends AJExporter {
     @Override
     public void postProcessing() throws IOException {
 	if (resourceBundle != null) {
-	    log.info("\t" + filesLocation + File.separator
-		    + AJConstants.SGL_REPORT_BY_DATE_FILENAME);
+	    log.info("\t" + filesLocation + File.separator + reportFilename);
 	}
     }
 

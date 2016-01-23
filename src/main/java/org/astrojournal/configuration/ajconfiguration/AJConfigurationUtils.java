@@ -246,13 +246,15 @@ public class AJConfigurationUtils implements ConfigurationUtils {
     private void prepareAJHeaderFooter(Configuration config, File filesLocation) {
 	// AJ header footer folder
 	File ajHeaderFooterDir = new File(
-		AJConstants.LATEX_HEADER_FOOTER_FOLDER.toString());
+		config.getProperty(AJProperties.LATEX_HEADER_FOOTER_FOLDER
+			.toString()));
 	ajHeaderFooterDir.mkdir();
 	// Create a local folder for header_footer and copy the content from
 	// the AJ folder to here
 	File userHeaderFooterDir = new File(filesLocation.getAbsolutePath()
 		+ File.separator
-		+ AJConstants.LATEX_HEADER_FOOTER_FOLDER.toString());
+		+ config.getProperty(AJProperties.LATEX_HEADER_FOOTER_FOLDER
+			.toString()));
 
 	FileFilter latexFilter = new LaTeXFilter();
 
@@ -382,5 +384,4 @@ public class AJConfigurationUtils implements ConfigurationUtils {
 	    throw e;
 	}
     }
-
 }

@@ -130,6 +130,48 @@ public class AJConfiguration implements Configuration {
      */
     private String sglReportsFolderByDate = "sgl_reports_by_date";
 
+    // Extra properties
+    /** The name of the main Latex file sorted by date. */
+    private String report_by_date_filename = "astrojournal_by_date.tex";
+
+    /** The name of the main Latex file sorted by target. */
+    private String report_by_target_filename = "astrojournal_by_target.tex";
+
+    /** The name of the main Latex file sorted by constellation. */
+    private String report_by_constellation_filename = "astrojournal_by_constellation.tex";
+
+    /** The name of the SGL main file sorted by date. */
+    private String sgl_report_by_date_filename = "astrojournal_by_date_sgl.txt";
+
+    /** The folder containing the latex header and footer. */
+    private String latex_header_footer_folder = "latex_header_footer";
+
+    // NOTE: These fields require File.separator in order to be found by Java in
+    // the file system.
+    /** The Latex header with path for astrojournal by date. */
+    private String header_by_date_filename = latex_header_footer_folder
+	    + File.separator + "header_by_date.tex";
+
+    /** The Latex footer with path for astrojournal by date. */
+    private String footer_by_date_filename = latex_header_footer_folder
+	    + File.separator + "footer_by_date.tex";
+
+    /** The Latex header with path for astrojournal by target. */
+    private String header_by_target_filename = latex_header_footer_folder
+	    + File.separator + "header_by_target.tex";
+
+    /** The Latex footer with path for astrojournal by target. */
+    private String footer_by_target_filename = latex_header_footer_folder
+	    + File.separator + "footer_by_target.tex";
+
+    /** The Latex header with path for astrojournal by constellation. */
+    private String header_by_constellation_filename = latex_header_footer_folder
+	    + File.separator + "header_by_constellation.tex";
+
+    /** The Latex footer with path for astrojournal by constellation. */
+    private String footer_by_constellation_filename = latex_header_footer_folder
+	    + File.separator + "footer_by_constellation.tex";
+
     /**
      * Default constructor.
      */
@@ -170,6 +212,7 @@ public class AJConfiguration implements Configuration {
 				    + applicationProperties
 					    .get(AJProperties.FILES_LOCATION
 						    .toString()));
+
 	    log.debug("Application configuration file is loaded.");
 
 	    // USER APPLICATION PROPERTIES: these are in the user space
@@ -297,6 +340,67 @@ public class AJConfiguration implements Configuration {
 		.getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE.toString());
 	log.debug(AJProperties.SGL_REPORTS_FOLDER_BY_DATE + ":"
 		+ sglReportsFolderByDate);
+
+	// additional properties.
+
+	report_by_date_filename = applicationProperties
+		.getProperty(AJProperties.REPORT_BY_DATE_FILENAME.toString());
+	log.debug(AJProperties.REPORT_BY_DATE_FILENAME + ":"
+		+ report_by_date_filename);
+
+	report_by_target_filename = applicationProperties
+		.getProperty(AJProperties.REPORT_BY_TARGET_FILENAME.toString());
+	log.debug(AJProperties.REPORT_BY_TARGET_FILENAME + ":"
+		+ report_by_target_filename);
+
+	report_by_constellation_filename = applicationProperties
+		.getProperty(AJProperties.REPORT_BY_CONSTELLATION_FILENAME
+			.toString());
+	log.debug(AJProperties.REPORT_BY_CONSTELLATION_FILENAME + ":"
+		+ report_by_constellation_filename);
+
+	sgl_report_by_date_filename = applicationProperties
+		.getProperty(AJProperties.SGL_REPORT_BY_DATE_FILENAME
+			.toString());
+	log.debug(AJProperties.SGL_REPORT_BY_DATE_FILENAME + ":"
+		+ sgl_report_by_date_filename);
+
+	latex_header_footer_folder = applicationProperties
+		.getProperty(AJProperties.LATEX_HEADER_FOOTER_FOLDER.toString());
+	log.debug(AJProperties.LATEX_HEADER_FOOTER_FOLDER + ":"
+		+ latex_header_footer_folder);
+
+	header_by_date_filename = applicationProperties
+		.getProperty(AJProperties.HEADER_BY_DATE_FILENAME.toString());
+	log.debug(AJProperties.HEADER_BY_DATE_FILENAME + ":"
+		+ header_by_date_filename);
+
+	footer_by_date_filename = applicationProperties
+		.getProperty(AJProperties.FOOTER_BY_DATE_FILENAME.toString());
+	log.debug(AJProperties.FOOTER_BY_DATE_FILENAME + ":"
+		+ footer_by_date_filename);
+
+	header_by_target_filename = applicationProperties
+		.getProperty(AJProperties.HEADER_BY_TARGET_FILENAME.toString());
+	log.debug(AJProperties.HEADER_BY_TARGET_FILENAME + ":"
+		+ header_by_target_filename);
+
+	footer_by_target_filename = applicationProperties
+		.getProperty(AJProperties.FOOTER_BY_TARGET_FILENAME.toString());
+	log.debug(AJProperties.FOOTER_BY_TARGET_FILENAME + ":"
+		+ footer_by_target_filename);
+
+	header_by_constellation_filename = applicationProperties
+		.getProperty(AJProperties.HEADER_BY_CONSTELLATION_FILENAME
+			.toString());
+	log.debug(AJProperties.HEADER_BY_CONSTELLATION_FILENAME + ":"
+		+ header_by_constellation_filename);
+
+	footer_by_constellation_filename = applicationProperties
+		.getProperty(AJProperties.FOOTER_BY_CONSTELLATION_FILENAME
+			.toString());
+	log.debug(AJProperties.FOOTER_BY_CONSTELLATION_FILENAME + ":"
+		+ footer_by_constellation_filename);
 
 	log.debug("Properties are validated.");
     }

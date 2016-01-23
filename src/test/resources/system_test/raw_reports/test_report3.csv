@@ -1,4 +1,4 @@
-# This log contains errors. These should be highlighted (1 + 1 + 0 + 3)
+# This log contains errors.
 
 								
 Date	04/06/2015			
@@ -29,7 +29,7 @@ Filters	Astronomik OIII, Single Polarising Filter
 Target	Cons	Type	Power	Notes
 Jupiter	Cnc	Planet	129x +/- SPF	Just a quick look until the sky became darker. 
 				
-Date	07/06/2015			
+Date	07/06/2015a			
 TIme	15:00-18:00			
 Location	Cambridge, UK			
 altitude	12m			
@@ -41,7 +41,22 @@ Telescopes	Tele Vue 60 F6
 Eyepieces	Nagler 7mm, Vixen SLV 5mm
 Filters	Lunt Herschel Wedge, Variable Polarising Filter (VPF)			
 Target	Cons	Type	Power	Notes
-Sun	Tau	Star	51x, 72x +/- VPF	I enjoyed observing the Sun a lot today. 
+Sun	Tau	Star	51x, 72x +/- VPF	I enjoyed observing the Sun a lot today.
+
+Date	07/06/2015b			
+TIme	18:00-21:00			
+Location	Cambridge, UK			
+altitude	12m			
+Temperature	23C (wind: 5-32km/h)			
+Seeing	3 - Moderate seeing			
+Transparency	5 - Clear
+Darkness	20.7 mag						
+Telescopes	Tele Vue 60 F6			
+Eyepieces	Nagler 7mm, Vixen SLV 5mm
+Filters	Lunt Herschel Wedge, Variable Polarising Filter (VPF)			
+Target	Cons	Type	Power	Notes
+Sun	Tau	Star	51x, 72x +/- VPF	I enjoyed observing the Sun a lot today.
+Moon		Satellite	51x, 72x +/- VPF	Bla Bla Bla.
 
 Date	11/06/2015
 Time	15:00-18:00			
@@ -57,3 +72,16 @@ Filters	Lunt Herschel Wedge, Variable Polarising Filter (VPF)
 Target	Cons	Type	Power	Notes
 Sun	Tau	Star	51x, 72x +/- VPF	Bla Bla Bla. 
 Moon	Tau	51x, 72x +/- VPF	Bla Bla Bla.
+
+Date	15/06/2015
+Time	15:00-18:00			
+Location	Cambridge, UK			
+Altitude	12m			
+Temperature
+Seeing	3 - Moderate seeing			
+   Transparency	5 - Clear
+Darkness	20.7 mag						
+AA  Telescopes	Tele Vue 60 F6			
+Eyepieces	Nagler 7mm, Vixen SLV 5mm
+Filters	Lunt Herschel Wedge, Variable Polarising Filter (VPF)			
+Target	Cons	Type	Power	Notes

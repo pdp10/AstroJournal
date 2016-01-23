@@ -23,8 +23,6 @@
  */
 package org.astrojournal.configuration.ajconfiguration;
 
-import java.io.File;
-
 /**
  * The set of AstroJournal constants which do not change.
  * 
@@ -45,47 +43,6 @@ public class AJConstants {
 
     /** The comment to be inserted in the user configuration file. */
     public static final String USER_CONFIGURATION_PROPERTIES_FILE_COMMENT = "User setting for the application Config. Edit at your own risk.";
-
-    /** The name of the main Latex file sorted by date. */
-    public static final String REPORT_BY_DATE_FILENAME = "astrojournal_by_date.tex";
-
-    /** The name of the main Latex file sorted by target. */
-    public static final String REPORT_BY_TARGET_FILENAME = "astrojournal_by_target.tex";
-
-    /** The name of the main Latex file sorted by constellation. */
-    public static final String REPORT_BY_CONSTELLATION_FILENAME = "astrojournal_by_constellation.tex";
-
-    /** The name of the SGL main file sorted by date. */
-    public static final String SGL_REPORT_BY_DATE_FILENAME = "astrojournal_by_date_sgl.txt";
-
-    /** The folder containing the latex header and footer. */
-    public static final String LATEX_HEADER_FOOTER_FOLDER = "latex_header_footer";
-
-    // NOTE: These fields require File.separator in order to be found by Java in
-    // the file system.
-    /** The Latex header with path for astrojournal by date. */
-    public static final String HEADER_BY_DATE_FILENAME = LATEX_HEADER_FOOTER_FOLDER
-	    + File.separator + "header_by_date.tex";
-
-    /** The Latex footer with path for astrojournal by date. */
-    public static final String FOOTER_BY_DATE_FILENAME = LATEX_HEADER_FOOTER_FOLDER
-	    + File.separator + "footer_by_date.tex";
-
-    /** The Latex header with path for astrojournal by target. */
-    public static final String HEADER_BY_TARGET_FILENAME = LATEX_HEADER_FOOTER_FOLDER
-	    + File.separator + "header_by_target.tex";
-
-    /** The Latex footer with path for astrojournal by target. */
-    public static final String FOOTER_BY_TARGET_FILENAME = LATEX_HEADER_FOOTER_FOLDER
-	    + File.separator + "footer_by_target.tex";
-
-    /** The Latex header with path for astrojournal by constellation. */
-    public static final String HEADER_BY_CONSTELLATION_FILENAME = LATEX_HEADER_FOOTER_FOLDER
-	    + File.separator + "header_by_constellation.tex";
-
-    /** The Latex footer with path for astrojournal by constellation. */
-    public static final String FOOTER_BY_CONSTELLATION_FILENAME = LATEX_HEADER_FOOTER_FOLDER
-	    + File.separator + "footer_by_constellation.tex";
 
     /** The short text for the application license. */
     public static final String SHORT_LICENSE = AppMetaInfo.NAME
