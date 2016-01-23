@@ -34,7 +34,7 @@ import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ConfigurationUtils;
 import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
-import org.astrojournal.configuration.ajconfiguration.AJPropertyNames;
+import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.console.AJMainConsole;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -64,7 +64,7 @@ public class SystemTest {
      */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-	System.setProperty(AJPropertyNames.FILES_LOCATION.toString(),
+	System.setProperty(AJPropertyConstants.FILES_LOCATION.getKey(),
 		System.getProperty("user.dir") + File.separator + "src"
 			+ File.separator + "test" + File.separator
 			+ "resources" + File.separator + "system_test");
@@ -88,35 +88,36 @@ public class SystemTest {
 	}
 
 	File reportByTarget = new File(
-		config.getProperty(AJPropertyNames.FILES_LOCATION.toString())
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
 			+ File.separator
-			+ config.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_TARGET
-				.toString()));
+			+ config.getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET
+				.getKey()));
 	reportByTarget.delete();
 	File reportByConstellation = new File(
-		config.getProperty(AJPropertyNames.FILES_LOCATION.toString())
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
 			+ File.separator
-			+ config.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-				.toString()));
+			+ config.getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+				.getKey()));
 	reportByConstellation.delete();
 	File reportByDateSGL = new File(
-		config.getProperty(AJPropertyNames.FILES_LOCATION.toString())
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
 			+ File.separator
-			+ config.getProperty(AJPropertyNames.SGL_REPORTS_FOLDER_BY_DATE
-				.toString()));
+			+ config.getProperty(AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE
+				.getKey()));
 	reportByDateSGL.delete();
 	File headerFooter = new File(
-		config.getProperty(AJPropertyNames.FILES_LOCATION.toString())
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
 			+ File.separator
-			+ config.getProperty(AJPropertyNames.LATEX_HEADER_FOOTER_FOLDER
-				.toString()));
+			+ config.getProperty(AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER
+				.getKey()));
 	for (File f : headerFooter.listFiles()) {
 	    f.delete();
 	}
 	headerFooter.delete();
 
-	File[] files = new File(config.getProperty(AJPropertyNames.FILES_LOCATION
-		.toString())).listFiles();
+	File[] files = new File(
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey()))
+		.listFiles();
 	for (File f : files) {
 	    if (f.getName().endsWith(".tex") || f.getName().endsWith(".pdf")
 		    || f.getName().endsWith(".txt")) {
@@ -150,17 +151,17 @@ public class SystemTest {
 		}.getClass().getEnclosingMethod().getName());
 
 	// tex + pdf
-	assertTrue(new File(config.getProperty(AJPropertyNames.FILES_LOCATION
-		.toString())
-		+ File.separator
-		+ config.getProperty(AJPropertyNames.LATEX_REPORT_BY_DATE_FILENAME
-			.toString())).exists());
-	assertTrue(new File(config.getProperty(AJPropertyNames.FILES_LOCATION
-		.toString())
-		+ File.separator
-		+ FilenameUtils.removeExtension(config
-			.getProperty(AJPropertyNames.LATEX_REPORT_BY_DATE_FILENAME
-				.toString())) + ".pdf").exists());
+	assertTrue(new File(
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
+			+ File.separator
+			+ config.getProperty(AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME
+				.getKey())).exists());
+	assertTrue(new File(
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
+			+ File.separator
+			+ FilenameUtils.removeExtension(config
+				.getProperty(AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME
+					.getKey())) + ".pdf").exists());
     }
 
     /**
@@ -173,17 +174,17 @@ public class SystemTest {
 		}.getClass().getEnclosingMethod().getName());
 
 	// tex + pdf
-	assertTrue(new File(config.getProperty(AJPropertyNames.FILES_LOCATION
-		.toString())
-		+ File.separator
-		+ config.getProperty(AJPropertyNames.LATEX_REPORT_BY_TARGET_FILENAME
-			.toString())).exists());
-	assertTrue(new File(config.getProperty(AJPropertyNames.FILES_LOCATION
-		.toString())
-		+ File.separator
-		+ FilenameUtils.removeExtension(config
-			.getProperty(AJPropertyNames.LATEX_REPORT_BY_TARGET_FILENAME
-				.toString())) + ".pdf").exists());
+	assertTrue(new File(
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
+			+ File.separator
+			+ config.getProperty(AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
+				.getKey())).exists());
+	assertTrue(new File(
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
+			+ File.separator
+			+ FilenameUtils.removeExtension(config
+				.getProperty(AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
+					.getKey())) + ".pdf").exists());
     }
 
     /**
@@ -197,16 +198,16 @@ public class SystemTest {
 
 	// tex + pdf
 	assertTrue(new File(
-		config.getProperty(AJPropertyNames.FILES_LOCATION.toString())
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
 			+ File.separator
-			+ config.getProperty(AJPropertyNames.LATEX_REPORT_BY_CONSTELLATION_FILENAME
-				.toString())).exists());
+			+ config.getProperty(AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
+				.getKey())).exists());
 	assertTrue(new File(
-		config.getProperty(AJPropertyNames.FILES_LOCATION.toString())
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
 			+ File.separator
 			+ FilenameUtils.removeExtension(config
-				.getProperty(AJPropertyNames.LATEX_REPORT_BY_CONSTELLATION_FILENAME
-					.toString())) + ".pdf").exists());
+				.getProperty(AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
+					.getKey())) + ".pdf").exists());
     }
 
     /**
@@ -219,10 +220,10 @@ public class SystemTest {
 		}.getClass().getEnclosingMethod().getName());
 
 	// txt
-	assertTrue(new File(config.getProperty(AJPropertyNames.FILES_LOCATION
-		.toString())
-		+ File.separator
-		+ config.getProperty(AJPropertyNames.SGL_REPORT_BY_DATE_FILENAME
-			.toString())).exists());
+	assertTrue(new File(
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
+			+ File.separator
+			+ config.getProperty(AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME
+				.getKey())).exists());
     }
 }

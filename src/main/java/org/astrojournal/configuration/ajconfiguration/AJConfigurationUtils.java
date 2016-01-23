@@ -65,21 +65,31 @@ public class AJConfigurationUtils implements ConfigurationUtils {
     public static final File setupUserConfigurationFile() {
 	File configFile = null;
 	if (SystemUtils.IS_OS_MAC_OSX) {
-	    configFile = new File(System.getProperty("user.home")
-		    + File.separator + "."
-		    + AppMetaInfo.USER_CONFIGURATION_PROPERTIES_FILE_NAME);
+	    configFile = new File(
+		    System.getProperty("user.home")
+			    + File.separator
+			    + "."
+			    + AppMetaInfo.USER_CONFIGURATION_PROPERTIES_FILE_NAME
+				    .getInfo());
 	} else if (SystemUtils.IS_OS_WINDOWS) {
-	    configFile = new File(System.getProperty("user.home")
-		    + File.separator
-		    + AppMetaInfo.USER_CONFIGURATION_PROPERTIES_FILE_NAME);
+	    configFile = new File(
+		    System.getProperty("user.home")
+			    + File.separator
+			    + AppMetaInfo.USER_CONFIGURATION_PROPERTIES_FILE_NAME
+				    .getInfo());
 	} else if (SystemUtils.IS_OS_UNIX) {
-	    configFile = new File(System.getProperty("user.home")
-		    + File.separator + "."
-		    + AppMetaInfo.USER_CONFIGURATION_PROPERTIES_FILE_NAME);
+	    configFile = new File(
+		    System.getProperty("user.home")
+			    + File.separator
+			    + "."
+			    + AppMetaInfo.USER_CONFIGURATION_PROPERTIES_FILE_NAME
+				    .getInfo());
 	} else {
-	    configFile = new File(System.getProperty("user.home")
-		    + File.separator
-		    + AppMetaInfo.USER_CONFIGURATION_PROPERTIES_FILE_NAME);
+	    configFile = new File(
+		    System.getProperty("user.home")
+			    + File.separator
+			    + AppMetaInfo.USER_CONFIGURATION_PROPERTIES_FILE_NAME
+				    .getInfo());
 	}
 	return configFile;
     }
@@ -91,7 +101,7 @@ public class AJConfigurationUtils implements ConfigurationUtils {
      */
     @Override
     public final String printLicense() {
-	return AppMetaInfo.SHORT_LICENSE.toString();
+	return AppMetaInfo.SHORT_LICENSE.getInfo();
     }
 
     /**
@@ -163,114 +173,115 @@ public class AJConfigurationUtils implements ConfigurationUtils {
 	String configuration = "AstroJournal current configuration:\n" + "\t"
 		+ resourceBundle.getString("AJ.lblAJFilesLocation.text")
 		+ " "
-		+ config.getProperty(AJPropertyNames.FILES_LOCATION.toString())
+		+ config.getProperty(AJPropertyConstants.FILES_LOCATION
+			.getKey())
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblInpDir.text")
 		+ " "
-		+ config.getProperty(AJPropertyNames.RAW_REPORTS_FOLDER
-			.toString())
+		+ config.getProperty(AJPropertyConstants.RAW_REPORTS_FOLDER
+			.getKey())
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblLatexHeaderFolderDir.text")
 		+ " "
-		+ config.getProperty(AJPropertyNames.LATEX_HEADER_FOOTER_FOLDER
-			.toString())
+		+ config.getProperty(AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER
+			.getKey())
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblOutByDateDir.text")
 		+ " "
-		+ config.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_DATE
-			.toString())
+		+ config.getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE
+			.getKey())
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblOutByDateFile.text")
 		+ " "
-		+ config.getProperty(AJPropertyNames.LATEX_REPORT_BY_DATE_FILENAME
-			.toString())
+		+ config.getProperty(AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME
+			.getKey())
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblHeaderByDateFile.text")
 		+ " "
-		+ config.getProperty(AJPropertyNames.LATEX_HEADER_BY_DATE_FILENAME
-			.toString())
+		+ config.getProperty(AJPropertyConstants.LATEX_HEADER_BY_DATE_FILENAME
+			.getKey())
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblFooterByDateFile.text")
 		+ " "
-		+ config.getProperty(AJPropertyNames.LATEX_FOOTER_BY_DATE_FILENAME
-			.toString())
+		+ config.getProperty(AJPropertyConstants.LATEX_FOOTER_BY_DATE_FILENAME
+			.getKey())
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblOutByTargetDir.text")
 		+ " "
-		+ config.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_TARGET
-			.toString())
+		+ config.getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET
+			.getKey())
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblOutByTargetFile.text")
 		+ " "
-		+ config.getProperty(AJPropertyNames.LATEX_REPORT_BY_TARGET_FILENAME
-			.toString())
+		+ config.getProperty(AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
+			.getKey())
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblHeaderByTargetFile.text")
 		+ " "
-		+ config.getProperty(AJPropertyNames.LATEX_HEADER_BY_TARGET_FILENAME
-			.toString())
+		+ config.getProperty(AJPropertyConstants.LATEX_HEADER_BY_TARGET_FILENAME
+			.getKey())
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblFooterByTargetFile.text")
 		+ " "
-		+ config.getProperty(AJPropertyNames.LATEX_FOOTER_BY_TARGET_FILENAME
-			.toString())
+		+ config.getProperty(AJPropertyConstants.LATEX_FOOTER_BY_TARGET_FILENAME
+			.getKey())
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblOutByConstellationDir.text")
 		+ " "
-		+ config.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-			.toString())
+		+ config.getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+			.getKey())
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblOutByConstellationFile.text")
 		+ " "
-		+ config.getProperty(AJPropertyNames.LATEX_REPORT_BY_CONSTELLATION_FILENAME
-			.toString())
+		+ config.getProperty(AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
+			.getKey())
 		+ "\n\t"
 		+ resourceBundle
 			.getString("AJ.lblHeaderByConstellationFile.text")
 		+ " "
-		+ config.getProperty(AJPropertyNames.LATEX_HEADER_BY_CONSTELLATION_FILENAME
-			.toString())
+		+ config.getProperty(AJPropertyConstants.LATEX_HEADER_BY_CONSTELLATION_FILENAME
+			.getKey())
 		+ "\n\t"
 		+ resourceBundle
 			.getString("AJ.lblFooterByConstellationFile.text")
 		+ " "
-		+ config.getProperty(AJPropertyNames.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
-			.toString())
+		+ config.getProperty(AJPropertyConstants.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
+			.getKey())
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblSGLOutByDateDir.text")
 		+ " "
-		+ config.getProperty(AJPropertyNames.SGL_REPORTS_FOLDER_BY_DATE
-			.toString())
+		+ config.getProperty(AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE
+			.getKey())
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblSGLOutByDateFile.text")
 		+ " "
-		+ config.getProperty(AJPropertyNames.SGL_REPORT_BY_DATE_FILENAME
-			.toString())
+		+ config.getProperty(AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME
+			.getKey())
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblQuiet.text")
 		+ " "
-		+ config.getProperty(AJPropertyNames.QUIET.toString())
+		+ config.getProperty(AJPropertyConstants.QUIET.getKey())
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblShowLatexOutput.text")
 		+ " "
-		+ config.getProperty(AJPropertyNames.SHOW_LATEX_OUTPUT
-			.toString())
+		+ config.getProperty(AJPropertyConstants.SHOW_LATEX_OUTPUT
+			.getKey())
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblShowLicenseAtStart.text")
 		+ " "
-		+ config.getProperty(AJPropertyNames.SHOW_LICENSE_AT_START
-			.toString())
+		+ config.getProperty(AJPropertyConstants.SHOW_LICENSE_AT_START
+			.getKey())
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblShowPDFLatexVersion.text")
 		+ " "
-		+ config.getProperty(AJPropertyNames.SHOW_PDFLATEX_VERSION_AT_START
-			.toString())
+		+ config.getProperty(AJPropertyConstants.SHOW_PDFLATEX_VERSION_AT_START
+			.getKey())
 		+ "\n\t"
 		+ resourceBundle
 			.getString("AJ.lblShowConfigurationAtStart.text")
 		+ " "
-		+ config.getProperty(AJPropertyNames.SHOW_CONFIGURATION_AT_START
-			.toString()) + "\n" + "\n\n";
+		+ config.getProperty(AJPropertyConstants.SHOW_CONFIGURATION_AT_START
+			.getKey()) + "\n" + "\n\n";
 	return configuration;
     }
 
@@ -284,7 +295,7 @@ public class AJConfigurationUtils implements ConfigurationUtils {
     public void prepareFolders(Configuration config) {
 	// Create the folders if these do not exist.
 	File filesLocation = new File(
-		config.getProperty(AJPropertyNames.FILES_LOCATION.toString()));
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey()));
 	filesLocation.mkdir();
 
 	prepareAJHeaderFooter(config, filesLocation);
@@ -305,15 +316,16 @@ public class AJConfigurationUtils implements ConfigurationUtils {
     private void prepareAJHeaderFooter(Configuration config, File filesLocation) {
 	// AJ header footer folder
 	File ajHeaderFooterDir = new File(
-		config.getProperty(AJPropertyNames.LATEX_HEADER_FOOTER_FOLDER
-			.toString()));
+		config.getProperty(AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER
+			.getKey()));
 	ajHeaderFooterDir.mkdir();
 	// Create a local folder for header_footer and copy the content from
 	// the AJ folder to here
-	File userHeaderFooterDir = new File(filesLocation.getAbsolutePath()
-		+ File.separator
-		+ config.getProperty(AJPropertyNames.LATEX_HEADER_FOOTER_FOLDER
-			.toString()));
+	File userHeaderFooterDir = new File(
+		filesLocation.getAbsolutePath()
+			+ File.separator
+			+ config.getProperty(AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER
+				.getKey()));
 
 	FileFilter latexFilter = new LaTeXFilter();
 
@@ -343,15 +355,15 @@ public class AJConfigurationUtils implements ConfigurationUtils {
 	// Let's do the same for the raw_reports folder
 	// AJ raw reports folder
 	File ajRawReportsDir = new File(
-		config.getProperty(AJPropertyNames.RAW_REPORTS_FOLDER
-			.toString()));
+		config.getProperty(AJPropertyConstants.RAW_REPORTS_FOLDER
+			.getKey()));
 	ajRawReportsDir.mkdir();
 	// Create a local folder for ajRawReports and copy the content from
 	// the AJ folder to here
 	File userRawReportsDir = new File(filesLocation.getAbsolutePath()
 		+ File.separator
-		+ config.getProperty(AJPropertyNames.RAW_REPORTS_FOLDER
-			.toString()));
+		+ config.getProperty(AJPropertyConstants.RAW_REPORTS_FOLDER
+			.getKey()));
 
 	FileFilter rawReportFilter = new TabSeparatedValueRawReportFilter();
 
@@ -382,22 +394,23 @@ public class AJConfigurationUtils implements ConfigurationUtils {
 	new File(
 		filesLocation.getAbsolutePath()
 			+ File.separator
-			+ config.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_DATE
-				.toString())).mkdir();
+			+ config.getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE
+				.getKey())).mkdir();
 	new File(
 		filesLocation.getAbsolutePath()
 			+ File.separator
-			+ config.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_TARGET
-				.toString())).mkdir();
+			+ config.getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET
+				.getKey())).mkdir();
 	new File(
 		filesLocation.getAbsolutePath()
 			+ File.separator
-			+ config.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-				.toString())).mkdir();
-	new File(filesLocation.getAbsolutePath()
-		+ File.separator
-		+ config.getProperty(AJPropertyNames.SGL_REPORTS_FOLDER_BY_DATE
-			.toString())).mkdir();
+			+ config.getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+				.getKey())).mkdir();
+	new File(
+		filesLocation.getAbsolutePath()
+			+ File.separator
+			+ config.getProperty(AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE
+				.getKey())).mkdir();
     }
 
     /**
@@ -411,7 +424,7 @@ public class AJConfigurationUtils implements ConfigurationUtils {
     @Override
     public void cleanFolder(Configuration config) throws IOException {
 	File filesLocation = new File(
-		config.getProperty(AJPropertyNames.FILES_LOCATION.toString()));
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey()));
 	if (!(filesLocation.exists() && filesLocation.canWrite())) {
 	    throw new FileNotFoundException();
 	}
@@ -420,26 +433,26 @@ public class AJConfigurationUtils implements ConfigurationUtils {
 		    .cleanDirectory(new File(
 			    filesLocation.getAbsolutePath()
 				    + File.separator
-				    + config.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_DATE
-					    .toString())));
+				    + config.getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE
+					    .getKey())));
 	    FileUtils
 		    .cleanDirectory(new File(
 			    filesLocation.getAbsolutePath()
 				    + File.separator
-				    + config.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_TARGET
-					    .toString())));
+				    + config.getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET
+					    .getKey())));
 	    FileUtils
 		    .cleanDirectory(new File(
 			    filesLocation.getAbsolutePath()
 				    + File.separator
-				    + config.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-					    .toString())));
+				    + config.getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+					    .getKey())));
 	    FileUtils
 		    .cleanDirectory(new File(
 			    filesLocation.getAbsolutePath()
 				    + File.separator
-				    + config.getProperty(AJPropertyNames.SGL_REPORTS_FOLDER_BY_DATE
-					    .toString())));
+				    + config.getProperty(AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE
+					    .getKey())));
 	} catch (IOException e) {
 	    throw e;
 	}

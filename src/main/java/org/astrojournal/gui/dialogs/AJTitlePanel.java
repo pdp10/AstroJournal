@@ -86,8 +86,8 @@ public class AJTitlePanel extends JPanel {
 	textPane.setOpaque(false);
 	textPane.setEditorKit(JEditorPane
 		.createEditorKitForContentType("text/html"));
-	textPane.setText("<a href='" + AppMetaInfo.WEBSITE + "'>"
-		+ AppMetaInfo.WEBSITE + "</a>");
+	textPane.setText("<a href='" + AppMetaInfo.WEBSITE.getInfo() + "'>"
+		+ AppMetaInfo.WEBSITE.getInfo() + "</a>");
 
 	textPane.addHyperlinkListener(new HyperlinkListener() {
 	    @Override

@@ -179,7 +179,8 @@ public class AJMainGUI extends JFrame {
      */
     private void setAJWindow() {
 	// Configure AJMainGUI with basic parameters
-	setTitle(AppMetaInfo.NAME + " " + AppMetaInfo.VERSION);
+	setTitle(AppMetaInfo.NAME.getInfo() + " "
+		+ AppMetaInfo.VERSION.getInfo());
 	setIconImage(new ImageIcon(
 		ClassLoader.getSystemResource("graphics/logo/aj_icon_32.png"))
 		.getImage());

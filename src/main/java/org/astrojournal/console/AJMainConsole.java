@@ -26,7 +26,7 @@ package org.astrojournal.console;
 import org.astrojournal.AJMainControls;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
-import org.astrojournal.configuration.ajconfiguration.AJPropertyNames;
+import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.configuration.ajconfiguration.AppMetaInfo;
 
 /**
@@ -57,9 +57,9 @@ public class AJMainConsole {
      */
     public static String printHelp() {
 	String help = new String(
-		AppMetaInfo.NAME
+		AppMetaInfo.NAME.getInfo()
 			+ " "
-			+ AppMetaInfo.VERSION
+			+ AppMetaInfo.VERSION.getInfo()
 			+ "\n"
 			+ "USAGE: run_astrojournal.sh [options]\n"
 			+ "Options are:\n"
@@ -103,24 +103,25 @@ public class AJMainConsole {
 	AJMainConsole ajMainConsole = new AJMainConsole(config);
 	if (args.length > 1
 		&& (args[1].equals("-l") || args[1].equals("--latex-output"))) {
-	    if (config.getProperty(AJPropertyNames.QUIET.toString())
-		    .equals("true")) {
+	    if (config.getProperty(AJPropertyConstants.QUIET.getKey()).equals(
+		    "true")) {
 		// If the configuration was quiet, we switch every thing off,
 		// except for LATEX_OUTPUT_PROP
-		System.setProperty(AJPropertyNames.QUIET.toString(), "false");
+		System.setProperty(AJPropertyConstants.QUIET.getKey(), "false");
 		System.setProperty(
-			AJPropertyNames.SHOW_LICENSE_AT_START.toString(), "false");
-		System.setProperty(
-			AJPropertyNames.SHOW_PDFLATEX_VERSION_AT_START.toString(),
+			AJPropertyConstants.SHOW_LICENSE_AT_START.getKey(),
 			"false");
 		System.setProperty(
-			AJPropertyNames.SHOW_CONFIGURATION_AT_START.toString(),
-			"false");
+			AJPropertyConstants.SHOW_PDFLATEX_VERSION_AT_START
+				.getKey(), "false");
+		System.setProperty(
+			AJPropertyConstants.SHOW_CONFIGURATION_AT_START
+				.getKey(), "false");
 	    }
-	    System.setProperty(AJPropertyNames.SHOW_LATEX_OUTPUT.toString(),
+	    System.setProperty(AJPropertyConstants.SHOW_LATEX_OUTPUT.getKey(),
 		    "true");
 	} else {
-	    System.setProperty(AJPropertyNames.SHOW_LATEX_OUTPUT.toString(),
+	    System.setProperty(AJPropertyConstants.SHOW_LATEX_OUTPUT.getKey(),
 		    "false");
 	}
 	config.loadSystemProperties();

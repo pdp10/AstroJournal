@@ -101,7 +101,7 @@ public class LicenseDialog extends JDialog {
 	    ResourceBundle resourceBundle, String license)
 	    throws FileNotFoundException, IOException {
 
-	setTitle(AppMetaInfo.NAME + " "
+	setTitle(AppMetaInfo.NAME.getInfo() + " "
 		+ resourceBundle.getString("AJ.lblLicense.text"));
 	setLayout(new BorderLayout());
 

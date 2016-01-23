@@ -29,7 +29,7 @@ import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.ajconfiguration.AJPropertyNames;
+import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.configuration.ajconfiguration.AppMetaInfo;
 import org.astrojournal.utilities.PropertiesManager;
 import org.astrojournal.utilities.ReadFromJar;
@@ -55,23 +55,30 @@ public class AJConfigurationTestUtils {
      */
     private static Properties getDefaultApplicationProperties() {
 	log.debug("Loading default configuration file: "
-		+ AppMetaInfo.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME);
+		+ AppMetaInfo.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME
+			.getInfo());
 	Properties defaultProperties = new Properties();
 	try {
 	    // DEFAULT APPLICATION PROPERTIES: these are in resources/
-	    File temp = new ReadFromJar().getFileFromJARFile("aj_config_", "/"
-		    + AppMetaInfo.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME);
+	    File temp = new ReadFromJar()
+		    .getFileFromJARFile(
+			    "aj_config_",
+			    "/"
+				    + AppMetaInfo.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME
+					    .getInfo());
 	    log.debug("Extracted "
 		    + AppMetaInfo.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME
-		    + " from JAR and stored in " + temp.getAbsolutePath());
+			    .getInfo() + " from JAR and stored in "
+		    + temp.getAbsolutePath());
 	    defaultProperties = PropertiesManager.loadFromXML(temp
 		    .getAbsolutePath());
 	    defaultProperties.put(
-		    AJPropertyNames.FILES_LOCATION.toString(),
+		    AJPropertyConstants.FILES_LOCATION.getKey(),
 		    System.getProperty("user.home")
 			    + File.separator
-			    + defaultProperties.get(AJPropertyNames.FILES_LOCATION
-				    .toString()));
+			    + defaultProperties
+				    .get(AJPropertyConstants.FILES_LOCATION
+					    .getKey()));
 	} catch (IOException e) {
 	    log.debug(e, e);
 	    log.error("Errors reading the default configuration file");

@@ -80,8 +80,12 @@ public enum AppMetaInfo {
 	this.info = info;
     }
 
-    @Override
-    public String toString() {
+    /**
+     * Return the info
+     * 
+     * @return the info
+     */
+    public String getInfo() {
 	return this.info;
     }
 }

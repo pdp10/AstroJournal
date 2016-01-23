@@ -23,6 +23,8 @@
  */
 package org.astrojournal.configuration.ajconfiguration;
 
+import java.io.File;
+
 /**
  * The set of Java Properties for AstroJournal.
  * 
@@ -31,69 +33,79 @@ package org.astrojournal.configuration.ajconfiguration;
  * @since 1.0
  * @date 17 Jan 2016
  */
-public enum AJPropertyNames {
+public enum AJPropertyConstants {
 
     // LOCALE
     /**
      * The locale for the internationalisation.
      */
-    LOCALE("aj.locale"),
+    LOCALE("aj.locale", "locale.aj_en_GB"),
 
     // FLAGS
     /** True if the application should run quietly */
-    QUIET("aj.quiet"),
+    QUIET("aj.quiet", "false"),
     /** True if latex output should be printed. */
-    SHOW_LATEX_OUTPUT("aj.show_latex_output"),
+    SHOW_LATEX_OUTPUT("aj.show_latex_output", "false"),
     /** True if the license should be shown at start. */
-    SHOW_LICENSE_AT_START("aj.show_license_at_start"),
+    SHOW_LICENSE_AT_START("aj.show_license_at_start", "true"),
     /** True if the version of pdflatex. */
-    SHOW_PDFLATEX_VERSION_AT_START("aj.show_pdflatex_version_at_start"),
+    SHOW_PDFLATEX_VERSION_AT_START("aj.show_pdflatex_version_at_start", "true"),
     /** True if the configuration should be shown at start. */
-    SHOW_CONFIGURATION_AT_START("aj.show_configuration_at_start"),
+    SHOW_CONFIGURATION_AT_START("aj.show_configuration_at_start", "true"),
 
     // MAIN LOCATION
     /** The absolute path containing AstroJournal input and output folders. */
-    FILES_LOCATION("aj.files_location"),
+    FILES_LOCATION("aj.files_location", System.getProperty("user.home")
+	    + File.separator + "AstroJournal_files"),
 
     // INPUT FOLDER
     /** The relative path containing the raw files (observation input folder). */
-    RAW_REPORTS_FOLDER("aj.raw_reports_folder"),
+    RAW_REPORTS_FOLDER("aj.raw_reports_folder", "raw_reports"),
 
     // LATEX HEADER FOOTER
     /** The folder containing the latex header and footer. */
-    LATEX_HEADER_FOOTER_FOLDER("aj.latex_header_footer_folder"),
+    LATEX_HEADER_FOOTER_FOLDER("aj.latex_header_footer_folder",
+	    "latex_header_footer"),
 
     // LATEX REPORT BY DATE
     /**
      * The name of the folder containing the latex observation files by date
      * (observation output folder).
      */
-    LATEX_REPORTS_FOLDER_BY_DATE("aj.latex_reports_folder_by_date"),
+    LATEX_REPORTS_FOLDER_BY_DATE("aj.latex_reports_folder_by_date",
+	    "latex_reports_by_date"),
 
     /** The name of the main Latex file sorted by date. */
-    LATEX_REPORT_BY_DATE_FILENAME("aj.latex_report_by_date_filename"),
+    LATEX_REPORT_BY_DATE_FILENAME("aj.latex_report_by_date_filename",
+	    "astrojournal_by_date.tex"),
 
     /** The Latex header with path for astrojournal by date. */
-    LATEX_HEADER_BY_DATE_FILENAME("aj.latex_header_by_date_filename"),
+    LATEX_HEADER_BY_DATE_FILENAME("aj.latex_header_by_date_filename",
+	    "header_by_date.tex"),
 
     /** The Latex footer with path for astrojournal by date. */
-    LATEX_FOOTER_BY_DATE_FILENAME("aj.latex_footer_by_date_filename"),
+    LATEX_FOOTER_BY_DATE_FILENAME("aj.latex_footer_by_date_filename",
+	    "footer_by_date.tex"),
 
     // LATEX REPORT BY TARGET
     /**
      * The name of the folder containing the latex observation files by target
      * (observation output folder).
      */
-    LATEX_REPORTS_FOLDER_BY_TARGET("aj.latex_reports_folder_by_target"),
+    LATEX_REPORTS_FOLDER_BY_TARGET("aj.latex_reports_folder_by_target",
+	    "latex_reports_by_target"),
 
     /** The name of the main Latex file sorted by target. */
-    LATEX_REPORT_BY_TARGET_FILENAME("aj.latex_report_by_target_filename"),
+    LATEX_REPORT_BY_TARGET_FILENAME("aj.latex_report_by_target_filename",
+	    "astrojournal_by_target.tex"),
 
     /** The Latex header with path for astrojournal by target. */
-    LATEX_HEADER_BY_TARGET_FILENAME("aj.latex_header_by_target_filename"),
+    LATEX_HEADER_BY_TARGET_FILENAME("aj.latex_header_by_target_filename",
+	    "header_by_target.tex"),
 
     /** The Latex footer with path for astrojournal by target. */
-    LATEX_FOOTER_BY_TARGET_FILENAME("aj.latex_footer_by_target_filename"),
+    LATEX_FOOTER_BY_TARGET_FILENAME("aj.latex_footer_by_target_filename",
+	    "footer_by_target.tex"),
 
     // LATEX REPORT BY CONSTELLATION
     /**
@@ -101,57 +113,83 @@ public enum AJPropertyNames {
      * constellation (observation output folder).
      */
     LATEX_REPORTS_FOLDER_BY_CONSTELLATION(
-	    "aj.latex_reports_folder_by_constellation"),
+	    "aj.latex_reports_folder_by_constellation",
+	    "latex_reports_by_constellation"),
 
     /** The name of the main Latex file sorted by constellation. */
     LATEX_REPORT_BY_CONSTELLATION_FILENAME(
-	    "aj.latex_report_by_constellation_filename"),
+	    "aj.latex_report_by_constellation_filename",
+	    "astrojournal_by_constellation.tex"),
 
     /** The Latex header with path for astrojournal by constellation. */
     LATEX_HEADER_BY_CONSTELLATION_FILENAME(
-	    "aj.latex_header_by_constellation_filename"),
+	    "aj.latex_header_by_constellation_filename",
+	    "header_by_constellation.tex"),
 
     /** The Latex footer with path for astrojournal by constellation. */
     LATEX_FOOTER_BY_CONSTELLATION_FILENAME(
-	    "aj.latex_footer_by_constellation_filename"),
+	    "aj.latex_footer_by_constellation_filename",
+	    "footer_by_constellation.tex"),
 
     // SGL REPORT BY DATE
     /**
      * The name of the folder containing the latex observation files by date
      * (observation output folder).
      */
-    SGL_REPORTS_FOLDER_BY_DATE("aj.sgl_reports_folder_by_date"),
+    SGL_REPORTS_FOLDER_BY_DATE("aj.sgl_reports_folder_by_date",
+	    "sgl_reports_by_date"),
 
     /** The name of the SGL main file sorted by date. */
-    SGL_REPORT_BY_DATE_FILENAME("aj.sgl_report_by_date_filename"),
+    SGL_REPORT_BY_DATE_FILENAME("aj.sgl_report_by_date_filename",
+	    "astrojournal_by_date_sgl.txt"),
 
     ;
 
     /** The property key name. */
-    private final String name;
+    private final String key;
+
+    /** The property value. */
+    private final String value;
 
     /**
      * Constructor.
      *
      * @param key
      *            the key name
+     * @param value
+     *            the value
      */
-    private AJPropertyNames(String key) {
-	this.name = key;
+    private AJPropertyConstants(String key, String value) {
+	this.key = key;
+	this.value = value;
     }
 
+    // TODO THIS MUST BE REPLACED WITH THE CODE BELOW
+    /**
+     * REMOVE THIS METHOD IN THE FUTURE and LEAVE THE DEFAULT IMPLEMENTATION.
+     */
     @Override
+    @Deprecated
     public String toString() {
-	return this.name;
+	return this.key;
     }
 
     /**
-     * Return the property key name
+     * Return the property key
      * 
-     * @return the property key name
+     * @return the property key
      */
-    public String getName() {
-	return this.name;
+    public String getKey() {
+	return this.key;
+    }
+
+    /**
+     * Return the property value
+     * 
+     * @return the property value
+     */
+    public String getValue() {
+	return this.value;
     }
 
 }

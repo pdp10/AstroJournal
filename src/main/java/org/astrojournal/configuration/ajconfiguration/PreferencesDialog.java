@@ -205,7 +205,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	constraints.gridx = 1;
 	constraints.weightx = 0.5;
 	ajFilesLocation.setText(config
-		.getProperty(AJPropertyNames.FILES_LOCATION.toString()));
+		.getProperty(AJPropertyConstants.FILES_LOCATION.getKey()));
 	ajFilesLocation.setEditable(false);
 	panel.add(ajFilesLocation, constraints);
 	constraints.gridx = 2;
@@ -289,75 +289,75 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	    File ajFilesLocationFile = new File(ajFilesLocation.getText());
 
 	    // text fields
-	    System.setProperty(AJPropertyNames.FILES_LOCATION.toString(),
+	    System.setProperty(AJPropertyConstants.FILES_LOCATION.getKey(),
 		    ajFilesLocationFile.getAbsolutePath());
-	    System.setProperty(AJPropertyNames.RAW_REPORTS_FOLDER.toString(),
+	    System.setProperty(AJPropertyConstants.RAW_REPORTS_FOLDER.getKey(),
 		    rawReportsFolder.getText());
 	    System.setProperty(
-		    AJPropertyNames.LATEX_HEADER_FOOTER_FOLDER.toString(),
+		    AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER.getKey(),
 		    latexHeaderFooterFolder.getText());
 	    System.setProperty(
-		    AJPropertyNames.LATEX_REPORTS_FOLDER_BY_DATE.toString(),
+		    AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE.getKey(),
 		    latexReportsFolderByDate.getText());
 	    System.setProperty(
-		    AJPropertyNames.LATEX_REPORT_BY_DATE_FILENAME.toString(),
+		    AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME.getKey(),
 		    latexReportByDateFilename.getText());
 	    System.setProperty(
-		    AJPropertyNames.LATEX_HEADER_BY_DATE_FILENAME.toString(),
+		    AJPropertyConstants.LATEX_HEADER_BY_DATE_FILENAME.getKey(),
 		    latexHeaderByDateFilename.getText());
 	    System.setProperty(
-		    AJPropertyNames.LATEX_FOOTER_BY_DATE_FILENAME.toString(),
+		    AJPropertyConstants.LATEX_FOOTER_BY_DATE_FILENAME.getKey(),
 		    latexFooterByDateFilename.getText());
 	    System.setProperty(
-		    AJPropertyNames.LATEX_REPORTS_FOLDER_BY_TARGET.toString(),
+		    AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET.getKey(),
 		    latexReportsFolderByTarget.getText());
 	    System.setProperty(
-		    AJPropertyNames.LATEX_REPORT_BY_TARGET_FILENAME.toString(),
-		    latexReportByTargetFilename.getText());
+		    AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
+			    .getKey(), latexReportByTargetFilename.getText());
 	    System.setProperty(
-		    AJPropertyNames.LATEX_HEADER_BY_TARGET_FILENAME.toString(),
-		    latexHeaderByTargetFilename.getText());
+		    AJPropertyConstants.LATEX_HEADER_BY_TARGET_FILENAME
+			    .getKey(), latexHeaderByTargetFilename.getText());
 	    System.setProperty(
-		    AJPropertyNames.LATEX_FOOTER_BY_TARGET_FILENAME.toString(),
-		    latexFooterByTargetFilename.getText());
+		    AJPropertyConstants.LATEX_FOOTER_BY_TARGET_FILENAME
+			    .getKey(), latexFooterByTargetFilename.getText());
 
 	    System.setProperty(
-		    AJPropertyNames.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-			    .toString(), latexReportsFolderByConstellation
+		    AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+			    .getKey(), latexReportsFolderByConstellation
 			    .getText());
 	    System.setProperty(
-		    AJPropertyNames.LATEX_REPORT_BY_CONSTELLATION_FILENAME
-			    .toString(), latexReportByConstellationFilename
+		    AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
+			    .getKey(), latexReportByConstellationFilename
 			    .getText());
 	    System.setProperty(
-		    AJPropertyNames.LATEX_HEADER_BY_CONSTELLATION_FILENAME
-			    .toString(), latexHeaderByConstellationFilename
+		    AJPropertyConstants.LATEX_HEADER_BY_CONSTELLATION_FILENAME
+			    .getKey(), latexHeaderByConstellationFilename
 			    .getText());
 	    System.setProperty(
-		    AJPropertyNames.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
-			    .toString(), latexFooterByConstellationFilename
+		    AJPropertyConstants.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
+			    .getKey(), latexFooterByConstellationFilename
 			    .getText());
 
 	    System.setProperty(
-		    AJPropertyNames.SGL_REPORTS_FOLDER_BY_DATE.toString(),
+		    AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE.getKey(),
 		    sglReportsFolderByDate.getText());
 	    System.setProperty(
-		    AJPropertyNames.SGL_REPORT_BY_DATE_FILENAME.toString(),
+		    AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME.getKey(),
 		    sglReportByDateFilename.getText());
 
 	    // combobox fields
-	    System.setProperty(AJPropertyNames.QUIET.toString(),
+	    System.setProperty(AJPropertyConstants.QUIET.getKey(),
 		    String.valueOf(quiet.isSelected()));
-	    System.setProperty(AJPropertyNames.SHOW_LATEX_OUTPUT.toString(),
+	    System.setProperty(AJPropertyConstants.SHOW_LATEX_OUTPUT.getKey(),
 		    String.valueOf(latexOutput.isSelected()));
 	    System.setProperty(
-		    AJPropertyNames.SHOW_LICENSE_AT_START.toString(),
+		    AJPropertyConstants.SHOW_LICENSE_AT_START.getKey(),
 		    String.valueOf(showLicenseAtStart.isSelected()));
 	    System.setProperty(
-		    AJPropertyNames.SHOW_PDFLATEX_VERSION_AT_START.toString(),
+		    AJPropertyConstants.SHOW_PDFLATEX_VERSION_AT_START.getKey(),
 		    String.valueOf(showPDFLatexVersion.isSelected()));
 	    System.setProperty(
-		    AJPropertyNames.SHOW_CONFIGURATION_AT_START.toString(),
+		    AJPropertyConstants.SHOW_CONFIGURATION_AT_START.getKey(),
 		    String.valueOf(showConfigurationAtStart.isSelected()));
 
 	    // Load the properties
@@ -407,76 +407,76 @@ public class PreferencesDialog extends JDialog implements ActionListener {
     private void makeTextFields(JPanel panel, GridBagConstraints constraints) {
 	addStringEntry(panel, constraints, "AJ.lblInpDir.text",
 		"AJ.lblInpDir.toolTipText", rawReportsFolder,
-		AJPropertyNames.RAW_REPORTS_FOLDER.toString());
+		AJPropertyConstants.RAW_REPORTS_FOLDER.getKey());
 	addStringEntry(panel, constraints, "AJ.lblLatexHeaderFolderDir.text",
 		"AJ.lblLatexHeaderFolderDir.toolTipText",
 		latexHeaderFooterFolder,
-		AJPropertyNames.LATEX_HEADER_FOOTER_FOLDER.toString());
+		AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER.getKey());
 
 	// LATEX REPORT BY DATE
 	addStringEntry(panel, constraints, "AJ.lblOutByDateDir.text",
 		"AJ.lblOutByDateDir.toolTipText", latexReportsFolderByDate,
-		AJPropertyNames.LATEX_REPORTS_FOLDER_BY_DATE.toString());
+		AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE.getKey());
 	addStringEntry(panel, constraints, "AJ.lblOutByDateFile.text",
 		"AJ.lblOutByDateFile.toolTipText", latexReportByDateFilename,
-		AJPropertyNames.LATEX_REPORT_BY_DATE_FILENAME.toString());
+		AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME.getKey());
 	addStringEntry(panel, constraints, "AJ.lblHeaderByDateFile.text",
 		"AJ.lblHeaderByDateFile.toolTipText",
 		latexHeaderByDateFilename,
-		AJPropertyNames.LATEX_HEADER_BY_DATE_FILENAME.toString());
+		AJPropertyConstants.LATEX_HEADER_BY_DATE_FILENAME.getKey());
 	addStringEntry(panel, constraints, "AJ.lblFooterByDateFile.text",
 		"AJ.lblFooterByDateFile.toolTipText",
 		latexFooterByDateFilename,
-		AJPropertyNames.LATEX_FOOTER_BY_DATE_FILENAME.toString());
+		AJPropertyConstants.LATEX_FOOTER_BY_DATE_FILENAME.getKey());
 
 	// LATEX REPORT BY TARGET
 	addStringEntry(panel, constraints, "AJ.lblOutByTargetDir.text",
 		"AJ.lblOutByTargetDir.toolTipText", latexReportsFolderByTarget,
-		AJPropertyNames.LATEX_REPORTS_FOLDER_BY_TARGET.toString());
+		AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET.getKey());
 	addStringEntry(panel, constraints, "AJ.lblOutByTargetFile.text",
 		"AJ.lblOutByTargetFile.toolTipText",
 		latexReportByTargetFilename,
-		AJPropertyNames.LATEX_REPORT_BY_TARGET_FILENAME.toString());
+		AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME.getKey());
 	addStringEntry(panel, constraints, "AJ.lblHeaderByTargetFile.text",
 		"AJ.lblHeaderByTargetFile.toolTipText",
 		latexHeaderByTargetFilename,
-		AJPropertyNames.LATEX_HEADER_BY_TARGET_FILENAME.toString());
+		AJPropertyConstants.LATEX_HEADER_BY_TARGET_FILENAME.getKey());
 	addStringEntry(panel, constraints, "AJ.lblFooterByTargetFile.text",
 		"AJ.lblFooterByTargetFile.toolTipText",
 		latexFooterByTargetFilename,
-		AJPropertyNames.LATEX_FOOTER_BY_TARGET_FILENAME.toString());
+		AJPropertyConstants.LATEX_FOOTER_BY_TARGET_FILENAME.getKey());
 
 	// LATEX REPORT BY CONSTELLATION
 	addStringEntry(panel, constraints, "AJ.lblOutByConstellationDir.text",
 		"AJ.lblOutByConstellationDir.toolTipText",
 		latexReportsFolderByConstellation,
-		AJPropertyNames.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-			.toString());
+		AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+			.getKey());
 	addStringEntry(panel, constraints, "AJ.lblOutByConstellationFile.text",
 		"AJ.lblOutByConstellationFile.toolTipText",
 		latexReportByConstellationFilename,
-		AJPropertyNames.LATEX_REPORT_BY_CONSTELLATION_FILENAME
-			.toString());
+		AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
+			.getKey());
 	addStringEntry(panel, constraints,
 		"AJ.lblHeaderByConstellationFile.text",
 		"AJ.lblHeaderByConstellationFile.toolTipText",
 		latexHeaderByConstellationFilename,
-		AJPropertyNames.LATEX_HEADER_BY_CONSTELLATION_FILENAME
-			.toString());
+		AJPropertyConstants.LATEX_HEADER_BY_CONSTELLATION_FILENAME
+			.getKey());
 	addStringEntry(panel, constraints,
 		"AJ.lblFooterByConstellationFile.text",
 		"AJ.lblFooterByConstellationFile.toolTipText",
 		latexFooterByConstellationFilename,
-		AJPropertyNames.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
-			.toString());
+		AJPropertyConstants.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
+			.getKey());
 
 	// SGL REPORT BY DATE
 	addStringEntry(panel, constraints, "AJ.lblSGLOutByDateDir.text",
 		"AJ.lblSGLOutByDateDir.toolTipText", sglReportsFolderByDate,
-		AJPropertyNames.SGL_REPORTS_FOLDER_BY_DATE.toString());
+		AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE.getKey());
 	addStringEntry(panel, constraints, "AJ.lblSGLOutByDateFile.text",
 		"AJ.lblSGLOutByDateFile.toolTipText", sglReportByDateFilename,
-		AJPropertyNames.SGL_REPORT_BY_DATE_FILENAME.toString());
+		AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME.getKey());
     }
 
     /**
@@ -516,25 +516,25 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 
 	addCheckBoxEntry(panel, constraints, "AJ.lblQuiet.text",
 		"AJ.lblQuiet.toolTipText", quiet,
-		AJPropertyNames.QUIET.toString());
+		AJPropertyConstants.QUIET.getKey());
 
 	addCheckBoxEntry(panel, constraints, "AJ.lblShowLatexOutput.text",
 		"AJ.lblShowLatexOutput.toolTipText", latexOutput,
-		AJPropertyNames.SHOW_LATEX_OUTPUT.toString());
+		AJPropertyConstants.SHOW_LATEX_OUTPUT.getKey());
 
 	addCheckBoxEntry(panel, constraints, "AJ.lblShowLicenseAtStart.text",
 		"AJ.lblShowLicenseAtStart.toolTipText", showLicenseAtStart,
-		AJPropertyNames.SHOW_LICENSE_AT_START.toString());
+		AJPropertyConstants.SHOW_LICENSE_AT_START.getKey());
 
 	addCheckBoxEntry(panel, constraints, "AJ.lblShowPDFLatexVersion.text",
 		"AJ.lblShowPDFLatexVersion.toolTipText", showPDFLatexVersion,
-		AJPropertyNames.SHOW_PDFLATEX_VERSION_AT_START.toString());
+		AJPropertyConstants.SHOW_PDFLATEX_VERSION_AT_START.getKey());
 
 	addCheckBoxEntry(panel, constraints,
 		"AJ.lblShowConfigurationAtStart.text",
 		"AJ.lblShowConfigurationAtStart.toolTipText",
 		showConfigurationAtStart,
-		AJPropertyNames.SHOW_CONFIGURATION_AT_START.toString());
+		AJPropertyConstants.SHOW_CONFIGURATION_AT_START.getKey());
     }
 
     /**

@@ -30,7 +30,7 @@ import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ConfigurationUtils;
 import org.astrojournal.configuration.ajconfiguration.AJConfigurationUtils;
-import org.astrojournal.configuration.ajconfiguration.AJPropertyNames;
+import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.configuration.ajconfiguration.AppMetaInfo;
 import org.astrojournal.generator.AJGenerator;
 
@@ -74,7 +74,7 @@ public abstract class AJMainControls {
      * Print the license for AstroJournal.
      */
     public void showLicense() {
-	log.info(AppMetaInfo.SHORT_LICENSE);
+	log.info(AppMetaInfo.SHORT_LICENSE.getInfo());
     }
 
     /**
@@ -139,24 +139,27 @@ public abstract class AJMainControls {
      */
     protected boolean processing(AJGenerator generator) {
 	log.debug("Starting processing");
-	if (config.getProperty(AJPropertyNames.QUIET.toString()).equals("false")
+	if (config.getProperty(AJPropertyConstants.QUIET.getKey()).equals(
+		"false")
 		&& config.getProperty(
-			AJPropertyNames.SHOW_LICENSE_AT_START.toString()).equals(
-			"true")) {
+			AJPropertyConstants.SHOW_LICENSE_AT_START.getKey())
+			.equals("true")) {
 	    showLicense();
 	}
-	if (config.getProperty(AJPropertyNames.QUIET.toString()).equals("false")
+	if (config.getProperty(AJPropertyConstants.QUIET.getKey()).equals(
+		"false")
 		&& config.getProperty(
-			AJPropertyNames.SHOW_PDFLATEX_VERSION_AT_START.toString())
-			.equals("true")) {
+			AJPropertyConstants.SHOW_PDFLATEX_VERSION_AT_START
+				.getKey()).equals("true")) {
 	    if (!showPDFLatexVersion()) {
 		return false;
 	    }
 	}
-	if (config.getProperty(AJPropertyNames.QUIET.toString()).equals("false")
+	if (config.getProperty(AJPropertyConstants.QUIET.getKey()).equals(
+		"false")
 		&& config.getProperty(
-			AJPropertyNames.SHOW_CONFIGURATION_AT_START.toString())
-			.equals("true")) {
+			AJPropertyConstants.SHOW_CONFIGURATION_AT_START
+				.getKey()).equals("true")) {
 	    showConfiguration();
 	}
 	if (!generator.generateJournals()) {

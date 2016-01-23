@@ -30,7 +30,7 @@ import java.util.ArrayList;
 
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
-import org.astrojournal.configuration.ajconfiguration.AJPropertyNames;
+import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.generator.ajimporter.AJImporter;
 import org.astrojournal.generator.ajimporter.AJTabSeparatedValueImporter;
 import org.astrojournal.generator.observation.AJObservation;
@@ -60,7 +60,7 @@ public class AJTabSeparatedValueImporterTest {
      */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-	System.setProperty(AJPropertyNames.FILES_LOCATION.toString(),
+	System.setProperty(AJPropertyConstants.FILES_LOCATION.getKey(),
 		System.getProperty("user.dir") + File.separator + "src"
 			+ File.separator + "test" + File.separator
 			+ "resources" + File.separator
@@ -77,9 +77,9 @@ public class AJTabSeparatedValueImporterTest {
 	// PARAMETERS ARE PASSED BY THE INJECTOR
 	// THEREFORE, THERE IS NO NEED TO SET THEM HERE!! :)
 	ajImporter.setFilesLocation(config
-		.getProperty(AJPropertyNames.FILES_LOCATION.toString()));
+		.getProperty(AJPropertyConstants.FILES_LOCATION.getKey()));
 	ajImporter.setRawReportFolder(config
-		.getProperty(AJPropertyNames.RAW_REPORTS_FOLDER.toString()));
+		.getProperty(AJPropertyConstants.RAW_REPORTS_FOLDER.getKey()));
 	// TODO: END
 
 	observations = ajImporter.importObservations();

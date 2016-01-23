@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
-import org.astrojournal.configuration.ajconfiguration.AJPropertyNames;
+import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -83,34 +83,34 @@ public class AJConfigurationTest {
 		}.getClass().getEnclosingMethod().getName());
 
 	Configuration config = new AJConfiguration();
-	System.setProperty(AJPropertyNames.QUIET.toString(), "true");
-	System.setProperty(AJPropertyNames.RAW_REPORTS_FOLDER.toString(),
+	System.setProperty(AJPropertyConstants.QUIET.getKey(), "true");
+	System.setProperty(AJPropertyConstants.RAW_REPORTS_FOLDER.getKey(),
 		"raw_report_test1");
 	System.setProperty("aj.fake_property", "this property does not exist!");
 
 	config.loadSystemProperties();
 
-	assertEquals(config.getProperty(AJPropertyNames.QUIET.toString()),
+	assertEquals(config.getProperty(AJPropertyConstants.QUIET.getKey()),
 		"true");
-	assertEquals(config.getProperty(AJPropertyNames.RAW_REPORTS_FOLDER
-		.toString()), "raw_report_test1");
+	assertEquals(config.getProperty(AJPropertyConstants.RAW_REPORTS_FOLDER
+		.getKey()), "raw_report_test1");
 	assertEquals(config.getProperty("aj.fake_property"), null);
 
 	// Let's set them again with different values as additional control
-	System.setProperty(AJPropertyNames.QUIET.toString(), "false");
-	System.setProperty(AJPropertyNames.RAW_REPORTS_FOLDER.toString(),
+	System.setProperty(AJPropertyConstants.QUIET.getKey(), "false");
+	System.setProperty(AJPropertyConstants.RAW_REPORTS_FOLDER.getKey(),
 		"raw_report_test2");
 
 	config.loadSystemProperties();
 
-	assertEquals(config.getProperty(AJPropertyNames.QUIET.toString()),
+	assertEquals(config.getProperty(AJPropertyConstants.QUIET.getKey()),
 		"false");
-	assertEquals(config.getProperty(AJPropertyNames.RAW_REPORTS_FOLDER
-		.toString()), "raw_report_test2");
+	assertEquals(config.getProperty(AJPropertyConstants.RAW_REPORTS_FOLDER
+		.getKey()), "raw_report_test2");
 
 	// let's remove these properties from the system.
-	System.clearProperty(AJPropertyNames.QUIET.toString());
-	System.clearProperty(AJPropertyNames.RAW_REPORTS_FOLDER.toString());
+	System.clearProperty(AJPropertyConstants.QUIET.getKey());
+	System.clearProperty(AJPropertyConstants.RAW_REPORTS_FOLDER.getKey());
 	System.clearProperty("aj.fake_property");
     }
 
@@ -123,14 +123,16 @@ public class AJConfigurationTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	System.setProperty(AJPropertyNames.SHOW_LATEX_OUTPUT.toString(), "true");
-	System.setProperty(AJPropertyNames.QUIET.toString(), "true");
+	System.setProperty(AJPropertyConstants.SHOW_LATEX_OUTPUT.getKey(),
+		"true");
+	System.setProperty(AJPropertyConstants.QUIET.getKey(), "true");
 	System.setProperty(
-		AJPropertyNames.SHOW_CONFIGURATION_AT_START.toString(), "true");
-	System.setProperty(AJPropertyNames.SHOW_LICENSE_AT_START.toString(),
+		AJPropertyConstants.SHOW_CONFIGURATION_AT_START.getKey(),
+		"true");
+	System.setProperty(AJPropertyConstants.SHOW_LICENSE_AT_START.getKey(),
 		"true");
 	System.setProperty(
-		AJPropertyNames.SHOW_PDFLATEX_VERSION_AT_START.toString(),
+		AJPropertyConstants.SHOW_PDFLATEX_VERSION_AT_START.getKey(),
 		"true");
 
 	Configuration config = new AJConfiguration();
@@ -138,18 +140,19 @@ public class AJConfigurationTest {
 	// Load the new properties
 	config.loadSystemProperties();
 
-	assertEquals(config.getProperty(AJPropertyNames.QUIET.toString()),
+	assertEquals(config.getProperty(AJPropertyConstants.QUIET.getKey()),
 		"true");
-	assertEquals(config.getProperty(AJPropertyNames.SHOW_LATEX_OUTPUT
-		.toString()), "true");
-	assertEquals(config.getProperty(AJPropertyNames.SHOW_LICENSE_AT_START
-		.toString()), "true");
+	assertEquals(config.getProperty(AJPropertyConstants.SHOW_LATEX_OUTPUT
+		.getKey()), "true");
 	assertEquals(
-		config.getProperty(AJPropertyNames.SHOW_PDFLATEX_VERSION_AT_START
-			.toString()), "true");
+		config.getProperty(AJPropertyConstants.SHOW_LICENSE_AT_START
+			.getKey()), "true");
 	assertEquals(
-		config.getProperty(AJPropertyNames.SHOW_CONFIGURATION_AT_START
-			.toString()), "true");
+		config.getProperty(AJPropertyConstants.SHOW_PDFLATEX_VERSION_AT_START
+			.getKey()), "true");
+	assertEquals(
+		config.getProperty(AJPropertyConstants.SHOW_CONFIGURATION_AT_START
+			.getKey()), "true");
     }
 
     /**
@@ -161,15 +164,16 @@ public class AJConfigurationTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	System.setProperty(AJPropertyNames.SHOW_LATEX_OUTPUT.toString(),
+	System.setProperty(AJPropertyConstants.SHOW_LATEX_OUTPUT.getKey(),
 		"false");
-	System.setProperty(AJPropertyNames.QUIET.toString(), "false");
+	System.setProperty(AJPropertyConstants.QUIET.getKey(), "false");
 	System.setProperty(
-		AJPropertyNames.SHOW_CONFIGURATION_AT_START.toString(), "false");
-	System.setProperty(AJPropertyNames.SHOW_LICENSE_AT_START.toString(),
+		AJPropertyConstants.SHOW_CONFIGURATION_AT_START.getKey(),
+		"false");
+	System.setProperty(AJPropertyConstants.SHOW_LICENSE_AT_START.getKey(),
 		"false");
 	System.setProperty(
-		AJPropertyNames.SHOW_PDFLATEX_VERSION_AT_START.toString(),
+		AJPropertyConstants.SHOW_PDFLATEX_VERSION_AT_START.getKey(),
 		"false");
 
 	Configuration config = new AJConfiguration();
@@ -177,18 +181,19 @@ public class AJConfigurationTest {
 	// Load the new properties
 	config.loadSystemProperties();
 
-	assertEquals(config.getProperty(AJPropertyNames.QUIET.toString()),
+	assertEquals(config.getProperty(AJPropertyConstants.QUIET.getKey()),
 		"false");
-	assertEquals(config.getProperty(AJPropertyNames.SHOW_LATEX_OUTPUT
-		.toString()), "false");
-	assertEquals(config.getProperty(AJPropertyNames.SHOW_LICENSE_AT_START
-		.toString()), "false");
+	assertEquals(config.getProperty(AJPropertyConstants.SHOW_LATEX_OUTPUT
+		.getKey()), "false");
 	assertEquals(
-		config.getProperty(AJPropertyNames.SHOW_PDFLATEX_VERSION_AT_START
-			.toString()), "false");
+		config.getProperty(AJPropertyConstants.SHOW_LICENSE_AT_START
+			.getKey()), "false");
 	assertEquals(
-		config.getProperty(AJPropertyNames.SHOW_CONFIGURATION_AT_START
-			.toString()), "false");
+		config.getProperty(AJPropertyConstants.SHOW_PDFLATEX_VERSION_AT_START
+			.getKey()), "false");
+	assertEquals(
+		config.getProperty(AJPropertyConstants.SHOW_CONFIGURATION_AT_START
+			.getKey()), "false");
     }
 
     /**
@@ -200,12 +205,12 @@ public class AJConfigurationTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	System.setProperty(AJPropertyNames.FILES_LOCATION.toString(),
+	System.setProperty(AJPropertyConstants.FILES_LOCATION.getKey(),
 		System.getProperty("java.io.tmpdir"));
-	System.setProperty(AJPropertyNames.RAW_REPORTS_FOLDER.toString(),
+	System.setProperty(AJPropertyConstants.RAW_REPORTS_FOLDER.getKey(),
 		"rr_test");
 	System.setProperty(
-		AJPropertyNames.LATEX_HEADER_FOOTER_FOLDER.toString(),
+		AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER.getKey(),
 		"lhffolder_test");
 
 	Configuration config = new AJConfiguration();
@@ -213,19 +218,19 @@ public class AJConfigurationTest {
 	config.loadSystemProperties();
 
 	assertEquals(
-		config.getProperty(AJPropertyNames.FILES_LOCATION.toString()),
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey()),
 		System.getProperty("java.io.tmpdir"));
-	assertEquals(config.getProperty(AJPropertyNames.RAW_REPORTS_FOLDER
-		.toString()), "rr_test");
+	assertEquals(config.getProperty(AJPropertyConstants.RAW_REPORTS_FOLDER
+		.getKey()), "rr_test");
 	assertEquals(
-		config.getProperty(AJPropertyNames.LATEX_HEADER_FOOTER_FOLDER
-			.toString()), "lhffolder_test");
+		config.getProperty(AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER
+			.getKey()), "lhffolder_test");
 
 	// let's remove these properties from the system.
-	System.clearProperty(AJPropertyNames.FILES_LOCATION.toString());
-	System.clearProperty(AJPropertyNames.RAW_REPORTS_FOLDER.toString());
-	System.clearProperty(AJPropertyNames.LATEX_HEADER_FOOTER_FOLDER
-		.toString());
+	System.clearProperty(AJPropertyConstants.FILES_LOCATION.getKey());
+	System.clearProperty(AJPropertyConstants.RAW_REPORTS_FOLDER.getKey());
+	System.clearProperty(AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER
+		.getKey());
     }
 
     /**
@@ -238,16 +243,16 @@ public class AJConfigurationTest {
 		}.getClass().getEnclosingMethod().getName());
 
 	System.setProperty(
-		AJPropertyNames.LATEX_REPORTS_FOLDER_BY_DATE.toString(),
+		AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE.getKey(),
 		"lrdate_test");
 	System.setProperty(
-		AJPropertyNames.LATEX_REPORT_BY_DATE_FILENAME.toString(),
+		AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME.getKey(),
 		"lrdatefile_test");
 	System.setProperty(
-		AJPropertyNames.LATEX_HEADER_BY_DATE_FILENAME.toString(),
+		AJPropertyConstants.LATEX_HEADER_BY_DATE_FILENAME.getKey(),
 		"lrdateheader_test");
 	System.setProperty(
-		AJPropertyNames.LATEX_FOOTER_BY_DATE_FILENAME.toString(),
+		AJPropertyConstants.LATEX_FOOTER_BY_DATE_FILENAME.getKey(),
 		"lrdatefooter_test");
 
 	Configuration config = new AJConfiguration();
@@ -255,27 +260,27 @@ public class AJConfigurationTest {
 	config.loadSystemProperties();
 
 	assertEquals(
-		config.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_DATE
-			.toString()), "lrdate_test");
+		config.getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE
+			.getKey()), "lrdate_test");
 	assertEquals(
-		config.getProperty(AJPropertyNames.LATEX_REPORT_BY_DATE_FILENAME
-			.toString()), "lrdatefile_test");
+		config.getProperty(AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME
+			.getKey()), "lrdatefile_test");
 	assertEquals(
-		config.getProperty(AJPropertyNames.LATEX_HEADER_BY_DATE_FILENAME
-			.toString()), "lrdateheader_test");
+		config.getProperty(AJPropertyConstants.LATEX_HEADER_BY_DATE_FILENAME
+			.getKey()), "lrdateheader_test");
 	assertEquals(
-		config.getProperty(AJPropertyNames.LATEX_FOOTER_BY_DATE_FILENAME
-			.toString()), "lrdatefooter_test");
+		config.getProperty(AJPropertyConstants.LATEX_FOOTER_BY_DATE_FILENAME
+			.getKey()), "lrdatefooter_test");
 
 	// let's remove these properties from the system.
-	System.clearProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_DATE
-		.toString());
-	System.clearProperty(AJPropertyNames.LATEX_REPORT_BY_DATE_FILENAME
-		.toString());
-	System.clearProperty(AJPropertyNames.LATEX_HEADER_BY_DATE_FILENAME
-		.toString());
-	System.clearProperty(AJPropertyNames.LATEX_FOOTER_BY_DATE_FILENAME
-		.toString());
+	System.clearProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE
+		.getKey());
+	System.clearProperty(AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME
+		.getKey());
+	System.clearProperty(AJPropertyConstants.LATEX_HEADER_BY_DATE_FILENAME
+		.getKey());
+	System.clearProperty(AJPropertyConstants.LATEX_FOOTER_BY_DATE_FILENAME
+		.getKey());
     }
 
     /**
@@ -288,16 +293,16 @@ public class AJConfigurationTest {
 		}.getClass().getEnclosingMethod().getName());
 
 	System.setProperty(
-		AJPropertyNames.LATEX_REPORTS_FOLDER_BY_TARGET.toString(),
+		AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET.getKey(),
 		"lrtarget_test");
 	System.setProperty(
-		AJPropertyNames.LATEX_REPORT_BY_TARGET_FILENAME.toString(),
+		AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME.getKey(),
 		"lrtargetfile_test");
 	System.setProperty(
-		AJPropertyNames.LATEX_HEADER_BY_TARGET_FILENAME.toString(),
+		AJPropertyConstants.LATEX_HEADER_BY_TARGET_FILENAME.getKey(),
 		"lrtargetheader_test");
 	System.setProperty(
-		AJPropertyNames.LATEX_FOOTER_BY_TARGET_FILENAME.toString(),
+		AJPropertyConstants.LATEX_FOOTER_BY_TARGET_FILENAME.getKey(),
 		"lrtargetfooter_test");
 
 	Configuration config = new AJConfiguration();
@@ -305,27 +310,27 @@ public class AJConfigurationTest {
 	config.loadSystemProperties();
 
 	assertEquals(
-		config.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_TARGET
-			.toString()), "lrtarget_test");
+		config.getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET
+			.getKey()), "lrtarget_test");
 	assertEquals(
-		config.getProperty(AJPropertyNames.LATEX_REPORT_BY_TARGET_FILENAME
-			.toString()), "lrtargetfile_test");
+		config.getProperty(AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
+			.getKey()), "lrtargetfile_test");
 	assertEquals(
-		config.getProperty(AJPropertyNames.LATEX_HEADER_BY_TARGET_FILENAME
-			.toString()), "lrtargetheader_test");
+		config.getProperty(AJPropertyConstants.LATEX_HEADER_BY_TARGET_FILENAME
+			.getKey()), "lrtargetheader_test");
 	assertEquals(
-		config.getProperty(AJPropertyNames.LATEX_FOOTER_BY_TARGET_FILENAME
-			.toString()), "lrtargetfooter_test");
+		config.getProperty(AJPropertyConstants.LATEX_FOOTER_BY_TARGET_FILENAME
+			.getKey()), "lrtargetfooter_test");
 
 	// let's remove these properties from the system.
-	System.clearProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_TARGET
-		.toString());
-	System.clearProperty(AJPropertyNames.LATEX_REPORT_BY_TARGET_FILENAME
-		.toString());
-	System.clearProperty(AJPropertyNames.LATEX_HEADER_BY_TARGET_FILENAME
-		.toString());
-	System.clearProperty(AJPropertyNames.LATEX_FOOTER_BY_TARGET_FILENAME
-		.toString());
+	System.clearProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET
+		.getKey());
+	System.clearProperty(AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
+		.getKey());
+	System.clearProperty(AJPropertyConstants.LATEX_HEADER_BY_TARGET_FILENAME
+		.getKey());
+	System.clearProperty(AJPropertyConstants.LATEX_FOOTER_BY_TARGET_FILENAME
+		.getKey());
     }
 
     /**
@@ -338,44 +343,44 @@ public class AJConfigurationTest {
 		}.getClass().getEnclosingMethod().getName());
 
 	System.setProperty(
-		AJPropertyNames.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-			.toString(), "lrconst_test");
+		AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+			.getKey(), "lrconst_test");
 	System.setProperty(
-		AJPropertyNames.LATEX_REPORT_BY_CONSTELLATION_FILENAME
-			.toString(), "lrconstfile_test");
+		AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
+			.getKey(), "lrconstfile_test");
 	System.setProperty(
-		AJPropertyNames.LATEX_HEADER_BY_CONSTELLATION_FILENAME
-			.toString(), "lrconstheader_test");
+		AJPropertyConstants.LATEX_HEADER_BY_CONSTELLATION_FILENAME
+			.getKey(), "lrconstheader_test");
 	System.setProperty(
-		AJPropertyNames.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
-			.toString(), "lrconstfooter_test");
+		AJPropertyConstants.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
+			.getKey(), "lrconstfooter_test");
 
 	Configuration config = new AJConfiguration();
 	// Load the new properties
 	config.loadSystemProperties();
 
 	assertEquals(
-		config.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-			.toString()), "lrconst_test");
+		config.getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+			.getKey()), "lrconst_test");
 	assertEquals(
-		config.getProperty(AJPropertyNames.LATEX_REPORT_BY_CONSTELLATION_FILENAME
-			.toString()), "lrconstfile_test");
+		config.getProperty(AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
+			.getKey()), "lrconstfile_test");
 	assertEquals(
-		config.getProperty(AJPropertyNames.LATEX_HEADER_BY_CONSTELLATION_FILENAME
-			.toString()), "lrconstheader_test");
+		config.getProperty(AJPropertyConstants.LATEX_HEADER_BY_CONSTELLATION_FILENAME
+			.getKey()), "lrconstheader_test");
 	assertEquals(
-		config.getProperty(AJPropertyNames.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
-			.toString()), "lrconstfooter_test");
+		config.getProperty(AJPropertyConstants.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
+			.getKey()), "lrconstfooter_test");
 
 	// let's remove these properties from the system.
-	System.clearProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-		.toString());
-	System.clearProperty(AJPropertyNames.LATEX_REPORT_BY_CONSTELLATION_FILENAME
-		.toString());
-	System.clearProperty(AJPropertyNames.LATEX_HEADER_BY_CONSTELLATION_FILENAME
-		.toString());
-	System.clearProperty(AJPropertyNames.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
-		.toString());
+	System.clearProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+		.getKey());
+	System.clearProperty(AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
+		.getKey());
+	System.clearProperty(AJPropertyConstants.LATEX_HEADER_BY_CONSTELLATION_FILENAME
+		.getKey());
+	System.clearProperty(AJPropertyConstants.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
+		.getKey());
     }
 
     /**
@@ -388,10 +393,10 @@ public class AJConfigurationTest {
 		}.getClass().getEnclosingMethod().getName());
 
 	System.setProperty(
-		AJPropertyNames.SGL_REPORTS_FOLDER_BY_DATE.toString(),
+		AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE.getKey(),
 		"trdate_test");
 	System.setProperty(
-		AJPropertyNames.SGL_REPORT_BY_DATE_FILENAME.toString(),
+		AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME.getKey(),
 		"trdatefile_test");
 
 	Configuration config = new AJConfiguration();
@@ -399,17 +404,17 @@ public class AJConfigurationTest {
 	config.loadSystemProperties();
 
 	assertEquals(
-		config.getProperty(AJPropertyNames.SGL_REPORTS_FOLDER_BY_DATE
-			.toString()), "trdate_test");
+		config.getProperty(AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE
+			.getKey()), "trdate_test");
 	assertEquals(
-		config.getProperty(AJPropertyNames.SGL_REPORT_BY_DATE_FILENAME
-			.toString()), "trdatefile_test");
+		config.getProperty(AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME
+			.getKey()), "trdatefile_test");
 
 	// let's remove these properties from the system.
-	System.clearProperty(AJPropertyNames.SGL_REPORTS_FOLDER_BY_DATE
-		.toString());
-	System.clearProperty(AJPropertyNames.SGL_REPORT_BY_DATE_FILENAME
-		.toString());
+	System.clearProperty(AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE
+		.getKey());
+	System.clearProperty(AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME
+		.getKey());
 
     }
 

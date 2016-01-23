@@ -177,7 +177,9 @@ public class JTextPaneAppender extends AbstractAppender {
 					    styleSmall);
 				} else if (event.getLevel().equals(Level.INFO)) {
 				    if (message.startsWith(AppMetaInfo.NAME
-					    + " " + AppMetaInfo.VERSION)) {
+					    .getInfo()
+					    + " "
+					    + AppMetaInfo.VERSION.getInfo())) {
 					doc.insertString(doc.getLength(),
 						message, styleSmallItalic);
 				    } else if (message
