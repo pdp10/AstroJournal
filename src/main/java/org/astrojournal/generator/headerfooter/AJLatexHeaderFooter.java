@@ -43,24 +43,25 @@ public abstract class AJLatexHeaderFooter {
     /** The log associated to this class */
     private static Logger log = LogManager.getLogger(AJLatexHeaderFooter.class);
 
+    /** Default constructor. It initialises default header and footer. */
+    public AJLatexHeaderFooter() {
+    }
+
     /**
      * Imports a LaTeX file
      * 
-     * @param path
-     *            The path to the file
      * @param file
-     *            The LaTeX file
+     *            The LaTeX file to import.
      * @return the imported LaTeX file as a string
      */
-    protected String importLatex(String path, String file) {
-	File f = new File(path + File.separator + file);
+    protected String importLatex(File file) {
 	StringBuilder sb = new StringBuilder();
-	if (f.isFile() && f.getName().endsWith(".tex")) {
-	    log.debug("Processing latex file " + path + File.separator + file);
+	if (file.isFile() && file.getName().endsWith(".tex")) {
+	    log.debug("Processing LaTeX file " + file.getAbsolutePath());
 	    // Create a buffered reader to read the file
 	    BufferedReader reader = null;
 	    try {
-		reader = new BufferedReader(new FileReader(f));
+		reader = new BufferedReader(new FileReader(file));
 		String line;
 		// Read all lines
 		while ((line = reader.readLine()) != null) {
@@ -68,23 +69,45 @@ public abstract class AJLatexHeaderFooter {
 		    sb.append(line).append(" \n");
 		} // end while
 	    } catch (IOException ex) {
-		log.error(ex, ex);
+		log.error(
+			"Error when reading the file " + file.getAbsolutePath(),
+			ex);
 	    } finally {
 		try {
 		    if (reader != null)
 			reader.close();
 		} catch (IOException ex) {
-		    log.error(ex, ex);
+		    log.error(
+			    "Error when closing the file "
+				    + file.getAbsolutePath(), ex);
 		}
 	    }
 	}
+	log.debug("LaTeX file " + file.getAbsolutePath()
+		+ " was processed correctly");
 	// No need to replace \ with \\ as this is not interpreted by Java at
 	// this stage
 	return sb.toString();
     }
 
-    /** Default constructor. It initialises default header and footer. */
-    public AJLatexHeaderFooter() {
+    /**
+     * Constructor. It reads the header and footer from files.
+     * 
+     * @param path
+     *            The path to the file
+     * @param folder
+     *            The folder containing the filename, if any
+     * @param filename
+     *            The file name
+     */
+    protected String buildPath(String path, String folder, String filename) {
+	String fileString;
+	if (folder == null || folder == "") {
+	    fileString = path + File.separator + filename;
+	} else {
+	    fileString = path + File.separator + folder + File.separator
+		    + filename;
+	}
+	return fileString;
     }
-
 }

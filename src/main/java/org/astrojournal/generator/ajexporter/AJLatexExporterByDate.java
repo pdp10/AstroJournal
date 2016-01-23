@@ -69,9 +69,9 @@ public class AJLatexExporterByDate extends AJLatexExporter {
     @Override
     public boolean generateJournal() {
 	AJLatexHeader ajLatexHeaderByDate = new AJLatexHeader(filesLocation,
-		headerFilename);
+		headerFooterFolder, headerFilename);
 	AJLatexFooter ajLatexFooterByDate = new AJLatexFooter(filesLocation,
-		footerFilename);
+		headerFooterFolder, footerFilename);
 	Writer writerByDate = null;
 	try {
 	    writerByDate = new BufferedWriter(new OutputStreamWriter(

@@ -29,7 +29,7 @@ import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.ajconfiguration.AJProperties;
+import org.astrojournal.configuration.ajconfiguration.AJPropertyNames;
 import org.astrojournal.configuration.ajconfiguration.AppMetaInfo;
 import org.astrojournal.utilities.PropertiesManager;
 import org.astrojournal.utilities.ReadFromJar;
@@ -67,10 +67,10 @@ public class AJConfigurationTestUtils {
 	    defaultProperties = PropertiesManager.loadFromXML(temp
 		    .getAbsolutePath());
 	    defaultProperties.put(
-		    AJProperties.FILES_LOCATION.toString(),
+		    AJPropertyNames.FILES_LOCATION.toString(),
 		    System.getProperty("user.home")
 			    + File.separator
-			    + defaultProperties.get(AJProperties.FILES_LOCATION
+			    + defaultProperties.get(AJPropertyNames.FILES_LOCATION
 				    .toString()));
 	} catch (IOException e) {
 	    log.debug(e, e);

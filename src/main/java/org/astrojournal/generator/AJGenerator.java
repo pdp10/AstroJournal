@@ -31,7 +31,7 @@ import java.util.Collections;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.Configuration;
-import org.astrojournal.configuration.ajconfiguration.AJProperties;
+import org.astrojournal.configuration.ajconfiguration.AJPropertyNames;
 import org.astrojournal.generator.ajexporter.AJExporter;
 import org.astrojournal.generator.ajexporter.AJLatexExporter;
 import org.astrojournal.generator.ajexporter.AJLatexExporterByConstellation;
@@ -86,10 +86,10 @@ public class AJGenerator {
 	if (!ajImport()) {
 	    if (observations.isEmpty()) {
 		log.error("No observation was imported. Is the folder "
-			+ config.getProperty(AJProperties.FILES_LOCATION
+			+ config.getProperty(AJPropertyNames.FILES_LOCATION
 				.toString())
 			+ File.separator
-			+ config.getProperty(AJProperties.RAW_REPORTS_FOLDER
+			+ config.getProperty(AJPropertyNames.RAW_REPORTS_FOLDER
 				.toString()) + " empty?");
 		return false;
 	    }
@@ -209,9 +209,11 @@ public class AJGenerator {
 	    // PARAMETERS ARE PASSED BY THE INJECTOR
 	    // THEREFORE, THERE IS NO NEED TO SET THEM HERE!! :)
 	    ajImporter.setFilesLocation(config
-		    .getProperty(AJProperties.FILES_LOCATION.toString()));
-	    ajImporter.setRawReportFolder(config
-		    .getProperty(AJProperties.RAW_REPORTS_FOLDER.toString()));
+		    .getProperty(AJPropertyNames.FILES_LOCATION.toString()));
+	    ajImporter
+		    .setRawReportFolder(config
+			    .getProperty(AJPropertyNames.RAW_REPORTS_FOLDER
+				    .toString()));
 	    ajImporter.setResourceBundle(config.getResourceBundle());
 	    // TODO: END
 
@@ -274,67 +276,79 @@ public class AJGenerator {
 	    // PARAMETERS ARE PASSED BY THE INJECTOR
 	    // THEREFORE, THERE IS NO NEED TO SET THEM HERE!! :)
 	    ajExporter.setFilesLocation(config
-		    .getProperty(AJProperties.FILES_LOCATION.toString()));
+		    .getProperty(AJPropertyNames.FILES_LOCATION.toString()));
 	    ajExporter.setQuiet(Boolean.parseBoolean(config
-		    .getProperty(AJProperties.QUIET.toString())));
+		    .getProperty(AJPropertyNames.QUIET.toString())));
 	    ajExporter.setResourceBundle(config.getResourceBundle());
 	    if (ajExporter instanceof AJLatexExporter) {
 		((AJLatexExporter) ajExporter).setLatexOutput(Boolean
 			.parseBoolean(config
-				.getProperty(AJProperties.SHOW_LATEX_OUTPUT
+				.getProperty(AJPropertyNames.SHOW_LATEX_OUTPUT
 					.toString())));
 		if (ajExporter instanceof AJLatexExporterByDate) {
 		    ((AJLatexExporterByDate) ajExporter)
 			    .setReportFolder(config
-				    .getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE
-					    .toString()));
-		    ((AJLatexExporterByDate) ajExporter)
-			    .setHeaderFilename(config
-				    .getProperty(AJProperties.HEADER_BY_DATE_FILENAME
+				    .getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_DATE
 					    .toString()));
 		    ((AJLatexExporterByDate) ajExporter)
 			    .setReportFilename(config
-				    .getProperty(AJProperties.REPORT_BY_DATE_FILENAME
+				    .getProperty(AJPropertyNames.LATEX_REPORT_BY_DATE_FILENAME
+					    .toString()));
+		    ((AJLatexExporterByDate) ajExporter)
+			    .setHeaderFooterFolder(config
+				    .getProperty(AJPropertyNames.LATEX_HEADER_FOOTER_FOLDER
+					    .toString()));
+		    ((AJLatexExporterByDate) ajExporter)
+			    .setHeaderFilename(config
+				    .getProperty(AJPropertyNames.LATEX_HEADER_BY_DATE_FILENAME
 					    .toString()));
 		    ((AJLatexExporterByDate) ajExporter)
 			    .setFooterFilename(config
-				    .getProperty(AJProperties.FOOTER_BY_DATE_FILENAME
+				    .getProperty(AJPropertyNames.LATEX_FOOTER_BY_DATE_FILENAME
 					    .toString()));
 		}
 		if (ajExporter instanceof AJLatexExporterByTarget) {
 		    ((AJLatexExporterByTarget) ajExporter)
 			    .setReportFolder(config
-				    .getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET
-					    .toString()));
-		    ((AJLatexExporterByTarget) ajExporter)
-			    .setHeaderFilename(config
-				    .getProperty(AJProperties.HEADER_BY_TARGET_FILENAME
+				    .getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_TARGET
 					    .toString()));
 		    ((AJLatexExporterByTarget) ajExporter)
 			    .setReportFilename(config
-				    .getProperty(AJProperties.REPORT_BY_TARGET_FILENAME
+				    .getProperty(AJPropertyNames.LATEX_REPORT_BY_TARGET_FILENAME
+					    .toString()));
+		    ((AJLatexExporterByTarget) ajExporter)
+			    .setHeaderFooterFolder(config
+				    .getProperty(AJPropertyNames.LATEX_HEADER_FOOTER_FOLDER
+					    .toString()));
+		    ((AJLatexExporterByTarget) ajExporter)
+			    .setHeaderFilename(config
+				    .getProperty(AJPropertyNames.LATEX_HEADER_BY_TARGET_FILENAME
 					    .toString()));
 		    ((AJLatexExporterByTarget) ajExporter)
 			    .setFooterFilename(config
-				    .getProperty(AJProperties.FOOTER_BY_TARGET_FILENAME
+				    .getProperty(AJPropertyNames.LATEX_FOOTER_BY_TARGET_FILENAME
 					    .toString()));
 		}
 		if (ajExporter instanceof AJLatexExporterByConstellation) {
 		    ((AJLatexExporterByConstellation) ajExporter)
 			    .setReportFolder(config
-				    .getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-					    .toString()));
-		    ((AJLatexExporterByConstellation) ajExporter)
-			    .setHeaderFilename(config
-				    .getProperty(AJProperties.HEADER_BY_CONSTELLATION_FILENAME
+				    .getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
 					    .toString()));
 		    ((AJLatexExporterByConstellation) ajExporter)
 			    .setReportFilename(config
-				    .getProperty(AJProperties.REPORT_BY_CONSTELLATION_FILENAME
+				    .getProperty(AJPropertyNames.LATEX_REPORT_BY_CONSTELLATION_FILENAME
+					    .toString()));
+		    ((AJLatexExporterByConstellation) ajExporter)
+			    .setHeaderFooterFolder(config
+				    .getProperty(AJPropertyNames.LATEX_HEADER_FOOTER_FOLDER
+					    .toString()));
+		    ((AJLatexExporterByConstellation) ajExporter)
+			    .setHeaderFilename(config
+				    .getProperty(AJPropertyNames.LATEX_HEADER_BY_CONSTELLATION_FILENAME
 					    .toString()));
 		    ((AJLatexExporterByConstellation) ajExporter)
 			    .setFooterFilename(config
-				    .getProperty(AJProperties.FOOTER_BY_CONSTELLATION_FILENAME
+				    .getProperty(AJPropertyNames.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
 					    .toString()));
 		}
 
@@ -342,11 +356,11 @@ public class AJGenerator {
 		if (ajExporter instanceof AJTextExporterByDateSGL) {
 		    ((AJTextExporterByDateSGL) ajExporter)
 			    .setReportFolder(config
-				    .getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE
+				    .getProperty(AJPropertyNames.SGL_REPORTS_FOLDER_BY_DATE
 					    .toString()));
 		    ((AJTextExporterByDateSGL) ajExporter)
 			    .setReportFilename(config
-				    .getProperty(AJProperties.SGL_REPORT_BY_DATE_FILENAME
+				    .getProperty(AJPropertyNames.SGL_REPORT_BY_DATE_FILENAME
 					    .toString()));
 		}
 	    }

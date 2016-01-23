@@ -26,7 +26,7 @@ package org.astrojournal.console;
 import org.astrojournal.AJMainControls;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
-import org.astrojournal.configuration.ajconfiguration.AJProperties;
+import org.astrojournal.configuration.ajconfiguration.AJPropertyNames;
 import org.astrojournal.configuration.ajconfiguration.AppMetaInfo;
 
 /**
@@ -103,24 +103,24 @@ public class AJMainConsole {
 	AJMainConsole ajMainConsole = new AJMainConsole(config);
 	if (args.length > 1
 		&& (args[1].equals("-l") || args[1].equals("--latex-output"))) {
-	    if (config.getProperty(AJProperties.QUIET.toString())
+	    if (config.getProperty(AJPropertyNames.QUIET.toString())
 		    .equals("true")) {
 		// If the configuration was quiet, we switch every thing off,
 		// except for LATEX_OUTPUT_PROP
-		System.setProperty(AJProperties.QUIET.toString(), "false");
+		System.setProperty(AJPropertyNames.QUIET.toString(), "false");
 		System.setProperty(
-			AJProperties.SHOW_LICENSE_AT_START.toString(), "false");
+			AJPropertyNames.SHOW_LICENSE_AT_START.toString(), "false");
 		System.setProperty(
-			AJProperties.SHOW_PDFLATEX_VERSION_AT_START.toString(),
+			AJPropertyNames.SHOW_PDFLATEX_VERSION_AT_START.toString(),
 			"false");
 		System.setProperty(
-			AJProperties.SHOW_CONFIGURATION_AT_START.toString(),
+			AJPropertyNames.SHOW_CONFIGURATION_AT_START.toString(),
 			"false");
 	    }
-	    System.setProperty(AJProperties.SHOW_LATEX_OUTPUT.toString(),
+	    System.setProperty(AJPropertyNames.SHOW_LATEX_OUTPUT.toString(),
 		    "true");
 	} else {
-	    System.setProperty(AJProperties.SHOW_LATEX_OUTPUT.toString(),
+	    System.setProperty(AJPropertyNames.SHOW_LATEX_OUTPUT.toString(),
 		    "false");
 	}
 	config.loadSystemProperties();

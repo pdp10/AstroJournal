@@ -86,9 +86,9 @@ public class AJLatexExporterByConstellation extends AJLatexExporter {
     @Override
     public boolean generateJournal() {
 	AJLatexHeader ajLatexHeaderByConst = new AJLatexHeader(filesLocation,
-		headerFilename);
+		headerFooterFolder, headerFilename);
 	AJLatexFooter ajLatexFooterByConst = new AJLatexFooter(filesLocation,
-		footerFilename);
+		headerFooterFolder, footerFilename);
 	Writer writerByConst = null;
 	try {
 	    writerByConst = new BufferedWriter(new OutputStreamWriter(

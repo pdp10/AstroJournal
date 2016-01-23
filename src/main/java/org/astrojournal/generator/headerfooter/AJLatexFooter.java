@@ -23,6 +23,8 @@
  */
 package org.astrojournal.generator.headerfooter;
 
+import java.io.File;
+
 /**
  * The footer of the Latex main file.
  * 
@@ -45,12 +47,15 @@ public class AJLatexFooter extends AJLatexHeaderFooter {
      * 
      * @param path
      *            The path to the file
+     * @param folder
+     *            The folder containing the LaTeX header file, if any
      * @param latexFooter
      *            The Latex footer file
      */
-    public AJLatexFooter(String path, String latexFooter) {
+    public AJLatexFooter(String path, String folder, String latexFooter) {
 	super();
-	footer = importLatex(path, latexFooter);
+	String fileString = buildPath(path, folder, latexFooter);
+	footer = importLatex(new File(fileString));
     }
 
     /**

@@ -157,7 +157,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	filePanel.add(ajFilesLocationLBL, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
-	ajFilesLocation.setText(config.getProperty(AJProperties.FILES_LOCATION
+	ajFilesLocation.setText(config.getProperty(AJPropertyNames.FILES_LOCATION
 		.toString()));
 	ajFilesLocation.setEditable(false);
 	filePanel.add(ajFilesLocation, c);
@@ -180,7 +180,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.gridx = 1;
 	c.weightx = 0.5;
 	rawReportsFolder.setText(config
-		.getProperty(AJProperties.RAW_REPORTS_FOLDER.toString()));
+		.getProperty(AJPropertyNames.RAW_REPORTS_FOLDER.toString()));
 	filePanel.add(rawReportsFolder, c);
 	c.gridx = 2;
 	c.weightx = 0.1;
@@ -196,7 +196,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.gridx = 1;
 	c.weightx = 0.5;
 	latexReportsFolderByDate.setText(config
-		.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE
+		.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_DATE
 			.toString()));
 	filePanel.add(latexReportsFolderByDate, c);
 	c.gridx = 2;
@@ -213,7 +213,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.gridx = 1;
 	c.weightx = 0.5;
 	latexReportsFolderByTarget.setText(config
-		.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET
+		.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_TARGET
 			.toString()));
 	filePanel.add(latexReportsFolderByTarget, c);
 	c.gridx = 2;
@@ -230,7 +230,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.gridx = 1;
 	c.weightx = 0.5;
 	latexReportsFolderByConstellation.setText(config
-		.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+		.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
 			.toString()));
 	filePanel.add(latexReportsFolderByConstellation, c);
 	c.gridx = 2;
@@ -248,7 +248,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	c.weightx = 0.5;
 	sglReportsFolderByDate
 		.setText(config
-			.getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE
+			.getProperty(AJPropertyNames.SGL_REPORTS_FOLDER_BY_DATE
 				.toString()));
 	filePanel.add(sglReportsFolderByDate, c);
 	c.gridx = 2;
@@ -285,7 +285,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	    }
 	});
 	quiet.setSelected(Boolean.parseBoolean(config
-		.getProperty(AJProperties.QUIET.toString())));
+		.getProperty(AJPropertyNames.QUIET.toString())));
 	// let's perform its action programmatically
 	quiet.doClick();
 	quiet.doClick();
@@ -301,7 +301,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	lblShowLatexOutput.setToolTipText(config.getResourceBundle().getString(
 		"AJ.lblShowLatexOutput.toolTipText"));
 	latexOutput.setSelected(Boolean.parseBoolean(config
-		.getProperty(AJProperties.SHOW_LATEX_OUTPUT.toString())));
+		.getProperty(AJPropertyNames.SHOW_LATEX_OUTPUT.toString())));
 	filePanel.add(lblShowLatexOutput, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
@@ -317,7 +317,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	lblShowLicenseAtStart.setToolTipText(config.getResourceBundle()
 		.getString("AJ.lblShowLicenseAtStart.toolTipText"));
 	showLicenseAtStart.setSelected(Boolean.parseBoolean(config
-		.getProperty(AJProperties.SHOW_LICENSE_AT_START.toString())));
+		.getProperty(AJPropertyNames.SHOW_LICENSE_AT_START.toString())));
 	filePanel.add(lblShowLicenseAtStart, c);
 	c.gridx = 1;
 	c.weightx = 0.5;
@@ -333,7 +333,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	lblShowPDFLatexVersion.setToolTipText(config.getResourceBundle()
 		.getString("AJ.lblShowPDFLatexVersion.toolTipText"));
 	showPDFLatexVersion.setSelected(Boolean.parseBoolean(config
-		.getProperty(AJProperties.SHOW_PDFLATEX_VERSION_AT_START
+		.getProperty(AJPropertyNames.SHOW_PDFLATEX_VERSION_AT_START
 			.toString())));
 	filePanel.add(lblShowPDFLatexVersion, c);
 	c.gridx = 1;
@@ -351,7 +351,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	lblShowConfigurationAtStart.setToolTipText(config.getResourceBundle()
 		.getString("AJ.lblShowConfigurationAtStart.toolTipText"));
 	showConfigurationAtStart.setSelected(Boolean.parseBoolean(config
-		.getProperty(AJProperties.SHOW_CONFIGURATION_AT_START
+		.getProperty(AJPropertyNames.SHOW_CONFIGURATION_AT_START
 			.toString())));
 	filePanel.add(lblShowConfigurationAtStart, c);
 	c.gridx = 1;
@@ -424,36 +424,36 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	    File ajFilesLocationFile = new File(ajFilesLocation.getText());
 
 	    // text fields
-	    System.setProperty(AJProperties.FILES_LOCATION.toString(),
+	    System.setProperty(AJPropertyNames.FILES_LOCATION.toString(),
 		    ajFilesLocationFile.getAbsolutePath());
-	    System.setProperty(AJProperties.RAW_REPORTS_FOLDER.toString(),
+	    System.setProperty(AJPropertyNames.RAW_REPORTS_FOLDER.toString(),
 		    rawReportsFolder.getText());
 	    System.setProperty(
-		    AJProperties.LATEX_REPORTS_FOLDER_BY_DATE.toString(),
+		    AJPropertyNames.LATEX_REPORTS_FOLDER_BY_DATE.toString(),
 		    latexReportsFolderByDate.getText());
 	    System.setProperty(
-		    AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET.toString(),
+		    AJPropertyNames.LATEX_REPORTS_FOLDER_BY_TARGET.toString(),
 		    latexReportsFolderByTarget.getText());
 	    System.setProperty(
-		    AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+		    AJPropertyNames.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
 			    .toString(), latexReportsFolderByConstellation
 			    .getText());
 	    System.setProperty(
-		    AJProperties.SGL_REPORTS_FOLDER_BY_DATE.toString(),
+		    AJPropertyNames.SGL_REPORTS_FOLDER_BY_DATE.toString(),
 		    sglReportsFolderByDate.getText());
 
 	    // combobox fields
-	    System.setProperty(AJProperties.QUIET.toString(),
+	    System.setProperty(AJPropertyNames.QUIET.toString(),
 		    String.valueOf(quiet.isSelected()));
-	    System.setProperty(AJProperties.SHOW_LATEX_OUTPUT.toString(),
+	    System.setProperty(AJPropertyNames.SHOW_LATEX_OUTPUT.toString(),
 		    String.valueOf(latexOutput.isSelected()));
-	    System.setProperty(AJProperties.SHOW_LICENSE_AT_START.toString(),
+	    System.setProperty(AJPropertyNames.SHOW_LICENSE_AT_START.toString(),
 		    String.valueOf(showLicenseAtStart.isSelected()));
 	    System.setProperty(
-		    AJProperties.SHOW_PDFLATEX_VERSION_AT_START.toString(),
+		    AJPropertyNames.SHOW_PDFLATEX_VERSION_AT_START.toString(),
 		    String.valueOf(showPDFLatexVersion.isSelected()));
 	    System.setProperty(
-		    AJProperties.SHOW_CONFIGURATION_AT_START.toString(),
+		    AJPropertyNames.SHOW_CONFIGURATION_AT_START.toString(),
 		    String.valueOf(showConfigurationAtStart.isSelected()));
 
 	    // Load the properties

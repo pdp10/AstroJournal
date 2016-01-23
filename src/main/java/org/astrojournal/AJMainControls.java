@@ -30,7 +30,7 @@ import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ConfigurationUtils;
 import org.astrojournal.configuration.ajconfiguration.AJConfigurationUtils;
-import org.astrojournal.configuration.ajconfiguration.AJProperties;
+import org.astrojournal.configuration.ajconfiguration.AJPropertyNames;
 import org.astrojournal.configuration.ajconfiguration.AppMetaInfo;
 import org.astrojournal.generator.AJGenerator;
 
@@ -139,23 +139,23 @@ public abstract class AJMainControls {
      */
     protected boolean processing(AJGenerator generator) {
 	log.debug("Starting processing");
-	if (config.getProperty(AJProperties.QUIET.toString()).equals("false")
+	if (config.getProperty(AJPropertyNames.QUIET.toString()).equals("false")
 		&& config.getProperty(
-			AJProperties.SHOW_LICENSE_AT_START.toString()).equals(
+			AJPropertyNames.SHOW_LICENSE_AT_START.toString()).equals(
 			"true")) {
 	    showLicense();
 	}
-	if (config.getProperty(AJProperties.QUIET.toString()).equals("false")
+	if (config.getProperty(AJPropertyNames.QUIET.toString()).equals("false")
 		&& config.getProperty(
-			AJProperties.SHOW_PDFLATEX_VERSION_AT_START.toString())
+			AJPropertyNames.SHOW_PDFLATEX_VERSION_AT_START.toString())
 			.equals("true")) {
 	    if (!showPDFLatexVersion()) {
 		return false;
 	    }
 	}
-	if (config.getProperty(AJProperties.QUIET.toString()).equals("false")
+	if (config.getProperty(AJPropertyNames.QUIET.toString()).equals("false")
 		&& config.getProperty(
-			AJProperties.SHOW_CONFIGURATION_AT_START.toString())
+			AJPropertyNames.SHOW_CONFIGURATION_AT_START.toString())
 			.equals("true")) {
 	    showConfiguration();
 	}

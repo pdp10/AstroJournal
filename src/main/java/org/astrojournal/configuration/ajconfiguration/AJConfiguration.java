@@ -45,20 +45,6 @@ import org.astrojournal.utilities.ReadFromJar;
  * @date 12 Dec 2015
  */
 public class AJConfiguration implements Configuration {
-    /*
-     * NOTE: To be a proper singleton and not a `global variable`, store here
-     * the variables which can change over time: the actual configuration.
-     * Therefore this object is always accessed via AJConfig.getInstance(). To
-     * dynamically change the internal status of this singleton, one can either
-     * invoke System.setProperty(AJProperty prop, value) and then call the
-     * method AJConfig.getInstance().loadAJProperties() or change the
-     * configuration file. This improves thread safety although a proper
-     * thread-safe mechanism has not yet been implemented.
-     * 
-     * 
-     * Global constants go in AJConstants. AJ Java properties go in
-     * AJProperties.
-     */
 
     /** The logger */
     private static Logger log = LogManager.getLogger(AJConfiguration.class);
@@ -78,6 +64,7 @@ public class AJConfiguration implements Configuration {
      */
     private Properties applicationProperties;
 
+    // FLAGS
     /** True if the application should run quietly */
     private boolean quiet = false;
 
@@ -93,84 +80,78 @@ public class AJConfiguration implements Configuration {
     /** True if the configuration should be shown at start. */
     private boolean showConfigurationAtStart = true;
 
+    // MAIN FOLDER
     /** The absolute path containing AstroJournal input and output folders. */
     private File filesLocation = new File(System.getProperty("user.home")
 	    + File.separator + "AstroJournal_files");
 
-    /*
-     * NOTE: These fields MUST NOT have a file separator because Latex uses '/'
-     * by default.
-     */
+    // INPUT FOLDER
     /**
      * The relative path containing the raw files (observation input folder).
      */
     private String rawReportsFolder = "raw_reports";
 
+    // THE HEADER / FOOTER FOLDER
+    /** The folder containing the latex header and footer. */
+    private String latex_header_footer_folder = "latex_header_footer";
+
+    // LATEX REPORT BY DATE
     /**
      * The name of the folder containing the latex observation files by date
      * (observation output folder).
      */
     private String latexReportsFolderByDate = "latex_reports_by_date";
 
+    /** The name of the main Latex file sorted by date. */
+    private String latexReportByDateFilename = "astrojournal_by_date.tex";
+
+    /** The Latex header with path for astrojournal by date. */
+    private String latexHeaderByDateFilename = "latex_header_by_date.tex";
+
+    /** The Latex footer with path for astrojournal by date. */
+    private String latexFooterByDateFilename = "latex_footer_by_date.tex";
+
+    // LATEX REPORT BY TARGET
     /**
      * The name of the folder containing the latex observation files by target
      * (observation output folder).
      */
     private String latexReportsFolderByTarget = "latex_reports_by_target";
 
+    /** The name of the main Latex file sorted by target. */
+    private String latexReportByTargetFilename = "astrojournal_by_target.tex";
+
+    /** The Latex header with path for astrojournal by target. */
+    private String latexHeaderByTargetFilename = "latex_header_by_target.tex";
+
+    /** The Latex footer with path for astrojournal by target. */
+    private String latexFooterByTargetFilename = "latex_footer_by_target.tex";
+
+    // LATEX REPORT BY CONSTELLATION
     /**
      * The name of the folder containing the latex observation files by
      * constellation (observation output folder).
      */
     private String latexReportsFolderByConstellation = "latex_reports_by_constellation";
 
+    /** The name of the main Latex file sorted by constellation. */
+    private String latexReportByConstellationFilename = "astrojournal_by_constellation.tex";
+
+    /** The Latex header with path for astrojournal by constellation. */
+    private String latexHeaderByConstellationFilename = "latex_header_by_constellation.tex";
+
+    /** The Latex footer with path for astrojournal by constellation. */
+    private String latexFooterByConstellationFilename = "latex_footer_by_constellation.tex";
+
+    // SGL REPORT BY DATE
     /**
      * The name of the folder containing the latex observation files by date
      * (observation output folder).
      */
     private String sglReportsFolderByDate = "sgl_reports_by_date";
 
-    // Extra properties
-    /** The name of the main Latex file sorted by date. */
-    private String report_by_date_filename = "astrojournal_by_date.tex";
-
-    /** The name of the main Latex file sorted by target. */
-    private String report_by_target_filename = "astrojournal_by_target.tex";
-
-    /** The name of the main Latex file sorted by constellation. */
-    private String report_by_constellation_filename = "astrojournal_by_constellation.tex";
-
     /** The name of the SGL main file sorted by date. */
-    private String sgl_report_by_date_filename = "astrojournal_by_date_sgl.txt";
-
-    /** The folder containing the latex header and footer. */
-    private String latex_header_footer_folder = "latex_header_footer";
-
-    // NOTE: These fields require File.separator in order to be found by Java in
-    // the file system.
-    /** The Latex header with path for astrojournal by date. */
-    private String header_by_date_filename = latex_header_footer_folder
-	    + File.separator + "header_by_date.tex";
-
-    /** The Latex footer with path for astrojournal by date. */
-    private String footer_by_date_filename = latex_header_footer_folder
-	    + File.separator + "footer_by_date.tex";
-
-    /** The Latex header with path for astrojournal by target. */
-    private String header_by_target_filename = latex_header_footer_folder
-	    + File.separator + "header_by_target.tex";
-
-    /** The Latex footer with path for astrojournal by target. */
-    private String footer_by_target_filename = latex_header_footer_folder
-	    + File.separator + "footer_by_target.tex";
-
-    /** The Latex header with path for astrojournal by constellation. */
-    private String header_by_constellation_filename = latex_header_footer_folder
-	    + File.separator + "header_by_constellation.tex";
-
-    /** The Latex footer with path for astrojournal by constellation. */
-    private String footer_by_constellation_filename = latex_header_footer_folder
-	    + File.separator + "footer_by_constellation.tex";
+    private String sglReportByDateFilename = "astrojournal_by_date_sgl.txt";
 
     /**
      * Default constructor.
@@ -204,14 +185,13 @@ public class AJConfiguration implements Configuration {
 
 	    // Adjust the files location as this information is not known a
 	    // priori (we don't know the user.home!)
-	    applicationProperties
-		    .setProperty(
-			    AJProperties.FILES_LOCATION.toString(),
-			    System.getProperty("user.home")
-				    + File.separator
-				    + applicationProperties
-					    .get(AJProperties.FILES_LOCATION
-						    .toString()));
+	    applicationProperties.setProperty(
+		    AJPropertyNames.FILES_LOCATION.toString(),
+		    System.getProperty("user.home")
+			    + File.separator
+			    + applicationProperties
+				    .get(AJPropertyNames.FILES_LOCATION
+					    .toString()));
 
 	    log.debug("Application configuration file is loaded.");
 
@@ -254,6 +234,8 @@ public class AJConfiguration implements Configuration {
 	log.debug("Validating properties");
 	adjustFileSeparator();
 
+	// LOCALE
+
 	// TODO solve the locale. it doesn't work.
 	// try {
 	// String locale = "locale/aj_"
@@ -273,134 +255,152 @@ public class AJConfiguration implements Configuration {
 	// }
 	// log.debug(AJProperties.LOCALE + ":" + localeBundle.getLocale());
 
+	// FLAGS
 	quiet = Boolean.parseBoolean(applicationProperties
-		.getProperty(AJProperties.QUIET.toString()));
-	log.debug(AJProperties.QUIET + ":" + quiet);
+		.getProperty(AJPropertyNames.QUIET.toString()));
+	log.debug(AJPropertyNames.QUIET + ":" + quiet);
 
 	showLatexOutput = Boolean.parseBoolean(applicationProperties
-		.getProperty(AJProperties.SHOW_LATEX_OUTPUT.toString()));
-	log.debug(AJProperties.SHOW_LATEX_OUTPUT + ":" + showLatexOutput);
+		.getProperty(AJPropertyNames.SHOW_LATEX_OUTPUT.toString()));
+	log.debug(AJPropertyNames.SHOW_LATEX_OUTPUT + ":" + showLatexOutput);
 
 	showLicenseAtStart = Boolean.parseBoolean(applicationProperties
-		.getProperty(AJProperties.SHOW_LICENSE_AT_START.toString()));
-	log.debug(AJProperties.SHOW_LICENSE_AT_START + ":" + showLicenseAtStart);
+		.getProperty(AJPropertyNames.SHOW_LICENSE_AT_START.toString()));
+	log.debug(AJPropertyNames.SHOW_LICENSE_AT_START + ":"
+		+ showLicenseAtStart);
 
 	showPDFLatexVersionAtStart = Boolean.parseBoolean(applicationProperties
-		.getProperty(AJProperties.SHOW_PDFLATEX_VERSION_AT_START
+		.getProperty(AJPropertyNames.SHOW_PDFLATEX_VERSION_AT_START
 			.toString()));
-	log.debug(AJProperties.SHOW_PDFLATEX_VERSION_AT_START + ":"
+	log.debug(AJPropertyNames.SHOW_PDFLATEX_VERSION_AT_START + ":"
 		+ showPDFLatexVersionAtStart);
 
 	showConfigurationAtStart = Boolean.parseBoolean(applicationProperties
-		.getProperty(AJProperties.SHOW_CONFIGURATION_AT_START
+		.getProperty(AJPropertyNames.SHOW_CONFIGURATION_AT_START
 			.toString()));
-	log.debug(AJProperties.SHOW_CONFIGURATION_AT_START + ":"
+	log.debug(AJPropertyNames.SHOW_CONFIGURATION_AT_START + ":"
 		+ showConfigurationAtStart);
 
+	// GENERAL LOCATION
 	File newFilesLocation = new File(
-		applicationProperties.getProperty(AJProperties.FILES_LOCATION
-			.toString()));
+		applicationProperties
+			.getProperty(AJPropertyNames.FILES_LOCATION.toString()));
 	if (newFilesLocation == null || !newFilesLocation.exists()
 		|| !newFilesLocation.canWrite()) {
 	    log.error("The property "
-		    + AJProperties.FILES_LOCATION
+		    + AJPropertyNames.FILES_LOCATION
 		    + ":"
 		    + newFilesLocation.getAbsolutePath()
-		    + " is not accessible. Using previous `files location` setting.");
+		    + " is not accessible. Using previous `files location` setting ("
+		    + filesLocation.getAbsolutePath() + ").");
+	    // reset the previous property
 	    applicationProperties.setProperty(
-		    AJProperties.FILES_LOCATION.toString(),
+		    AJPropertyNames.FILES_LOCATION.toString(),
 		    filesLocation.getAbsolutePath());
 	} else {
 	    filesLocation = newFilesLocation;
 	}
+	log.debug(AJPropertyNames.FILES_LOCATION + ":"
+		+ filesLocation.getAbsolutePath());
 
+	// INPUT FOLDER
 	rawReportsFolder = applicationProperties
-		.getProperty(AJProperties.RAW_REPORTS_FOLDER.toString());
-	log.debug(AJProperties.RAW_REPORTS_FOLDER + ":" + rawReportsFolder);
-
-	latexReportsFolderByDate = applicationProperties
-		.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE
-			.toString());
-	log.debug(AJProperties.LATEX_REPORTS_FOLDER_BY_DATE + ":"
-		+ latexReportsFolderByDate);
-
-	latexReportsFolderByTarget = applicationProperties
-		.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET
-			.toString());
-	log.debug(AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET + ":"
-		+ latexReportsFolderByTarget);
-
-	latexReportsFolderByConstellation = applicationProperties
-		.getProperty(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-			.toString());
-	log.debug(AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION + ":"
-		+ latexReportsFolderByConstellation);
-
-	sglReportsFolderByDate = applicationProperties
-		.getProperty(AJProperties.SGL_REPORTS_FOLDER_BY_DATE.toString());
-	log.debug(AJProperties.SGL_REPORTS_FOLDER_BY_DATE + ":"
-		+ sglReportsFolderByDate);
-
-	// additional properties.
-
-	report_by_date_filename = applicationProperties
-		.getProperty(AJProperties.REPORT_BY_DATE_FILENAME.toString());
-	log.debug(AJProperties.REPORT_BY_DATE_FILENAME + ":"
-		+ report_by_date_filename);
-
-	report_by_target_filename = applicationProperties
-		.getProperty(AJProperties.REPORT_BY_TARGET_FILENAME.toString());
-	log.debug(AJProperties.REPORT_BY_TARGET_FILENAME + ":"
-		+ report_by_target_filename);
-
-	report_by_constellation_filename = applicationProperties
-		.getProperty(AJProperties.REPORT_BY_CONSTELLATION_FILENAME
-			.toString());
-	log.debug(AJProperties.REPORT_BY_CONSTELLATION_FILENAME + ":"
-		+ report_by_constellation_filename);
-
-	sgl_report_by_date_filename = applicationProperties
-		.getProperty(AJProperties.SGL_REPORT_BY_DATE_FILENAME
-			.toString());
-	log.debug(AJProperties.SGL_REPORT_BY_DATE_FILENAME + ":"
-		+ sgl_report_by_date_filename);
+		.getProperty(AJPropertyNames.RAW_REPORTS_FOLDER.toString());
+	log.debug(AJPropertyNames.RAW_REPORTS_FOLDER + ":" + rawReportsFolder);
 
 	latex_header_footer_folder = applicationProperties
-		.getProperty(AJProperties.LATEX_HEADER_FOOTER_FOLDER.toString());
-	log.debug(AJProperties.LATEX_HEADER_FOOTER_FOLDER + ":"
+		.getProperty(AJPropertyNames.LATEX_HEADER_FOOTER_FOLDER
+			.toString());
+	log.debug(AJPropertyNames.LATEX_HEADER_FOOTER_FOLDER + ":"
 		+ latex_header_footer_folder);
 
-	header_by_date_filename = applicationProperties
-		.getProperty(AJProperties.HEADER_BY_DATE_FILENAME.toString());
-	log.debug(AJProperties.HEADER_BY_DATE_FILENAME + ":"
-		+ header_by_date_filename);
-
-	footer_by_date_filename = applicationProperties
-		.getProperty(AJProperties.FOOTER_BY_DATE_FILENAME.toString());
-	log.debug(AJProperties.FOOTER_BY_DATE_FILENAME + ":"
-		+ footer_by_date_filename);
-
-	header_by_target_filename = applicationProperties
-		.getProperty(AJProperties.HEADER_BY_TARGET_FILENAME.toString());
-	log.debug(AJProperties.HEADER_BY_TARGET_FILENAME + ":"
-		+ header_by_target_filename);
-
-	footer_by_target_filename = applicationProperties
-		.getProperty(AJProperties.FOOTER_BY_TARGET_FILENAME.toString());
-	log.debug(AJProperties.FOOTER_BY_TARGET_FILENAME + ":"
-		+ footer_by_target_filename);
-
-	header_by_constellation_filename = applicationProperties
-		.getProperty(AJProperties.HEADER_BY_CONSTELLATION_FILENAME
+	// LATEX REPORT BY DATE
+	latexReportsFolderByDate = applicationProperties
+		.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_DATE
 			.toString());
-	log.debug(AJProperties.HEADER_BY_CONSTELLATION_FILENAME + ":"
-		+ header_by_constellation_filename);
+	log.debug(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_DATE + ":"
+		+ latexReportsFolderByDate);
 
-	footer_by_constellation_filename = applicationProperties
-		.getProperty(AJProperties.FOOTER_BY_CONSTELLATION_FILENAME
+	latexReportByDateFilename = applicationProperties
+		.getProperty(AJPropertyNames.LATEX_REPORT_BY_DATE_FILENAME
 			.toString());
-	log.debug(AJProperties.FOOTER_BY_CONSTELLATION_FILENAME + ":"
-		+ footer_by_constellation_filename);
+	log.debug(AJPropertyNames.LATEX_REPORT_BY_DATE_FILENAME + ":"
+		+ latexReportByDateFilename);
+
+	latexHeaderByDateFilename = applicationProperties
+		.getProperty(AJPropertyNames.LATEX_HEADER_BY_DATE_FILENAME
+			.toString());
+	log.debug(AJPropertyNames.LATEX_HEADER_BY_DATE_FILENAME + ":"
+		+ latexHeaderByDateFilename);
+
+	latexFooterByDateFilename = applicationProperties
+		.getProperty(AJPropertyNames.LATEX_FOOTER_BY_DATE_FILENAME
+			.toString());
+	log.debug(AJPropertyNames.LATEX_FOOTER_BY_DATE_FILENAME + ":"
+		+ latexFooterByDateFilename);
+
+	// LATEX REPORT BY TARGET
+	latexReportsFolderByTarget = applicationProperties
+		.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_TARGET
+			.toString());
+	log.debug(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_TARGET + ":"
+		+ latexReportsFolderByTarget);
+
+	latexReportByTargetFilename = applicationProperties
+		.getProperty(AJPropertyNames.LATEX_REPORT_BY_TARGET_FILENAME
+			.toString());
+	log.debug(AJPropertyNames.LATEX_REPORT_BY_TARGET_FILENAME + ":"
+		+ latexReportByTargetFilename);
+
+	latexHeaderByTargetFilename = applicationProperties
+		.getProperty(AJPropertyNames.LATEX_HEADER_BY_TARGET_FILENAME
+			.toString());
+	log.debug(AJPropertyNames.LATEX_HEADER_BY_TARGET_FILENAME + ":"
+		+ latexHeaderByTargetFilename);
+
+	latexFooterByTargetFilename = applicationProperties
+		.getProperty(AJPropertyNames.LATEX_FOOTER_BY_TARGET_FILENAME
+			.toString());
+	log.debug(AJPropertyNames.LATEX_FOOTER_BY_TARGET_FILENAME + ":"
+		+ latexFooterByTargetFilename);
+
+	// LATEX REPORT BY CONSTELLATION
+	latexReportsFolderByConstellation = applicationProperties
+		.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+			.toString());
+	log.debug(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_CONSTELLATION + ":"
+		+ latexReportsFolderByConstellation);
+
+	latexReportByConstellationFilename = applicationProperties
+		.getProperty(AJPropertyNames.LATEX_REPORT_BY_CONSTELLATION_FILENAME
+			.toString());
+	log.debug(AJPropertyNames.LATEX_REPORT_BY_CONSTELLATION_FILENAME + ":"
+		+ latexReportByConstellationFilename);
+
+	latexHeaderByConstellationFilename = applicationProperties
+		.getProperty(AJPropertyNames.LATEX_HEADER_BY_CONSTELLATION_FILENAME
+			.toString());
+	log.debug(AJPropertyNames.LATEX_HEADER_BY_CONSTELLATION_FILENAME + ":"
+		+ latexHeaderByConstellationFilename);
+
+	latexFooterByConstellationFilename = applicationProperties
+		.getProperty(AJPropertyNames.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
+			.toString());
+	log.debug(AJPropertyNames.LATEX_FOOTER_BY_CONSTELLATION_FILENAME + ":"
+		+ latexFooterByConstellationFilename);
+
+	// SGL REPORT BY DATE
+	sglReportsFolderByDate = applicationProperties
+		.getProperty(AJPropertyNames.SGL_REPORTS_FOLDER_BY_DATE
+			.toString());
+	log.debug(AJPropertyNames.SGL_REPORTS_FOLDER_BY_DATE + ":"
+		+ sglReportsFolderByDate);
+
+	sglReportByDateFilename = applicationProperties
+		.getProperty(AJPropertyNames.SGL_REPORT_BY_DATE_FILENAME
+			.toString());
+	log.debug(AJPropertyNames.SGL_REPORT_BY_DATE_FILENAME + ":"
+		+ sglReportByDateFilename);
 
 	log.debug("Properties are validated.");
     }
@@ -454,29 +454,36 @@ public class AJConfiguration implements Configuration {
      */
     private void adjustFileSeparator() {
 	applicationProperties.setProperty(
-		AJProperties.RAW_REPORTS_FOLDER.toString(),
+		AJPropertyNames.RAW_REPORTS_FOLDER.toString(),
 		applicationProperties.getProperty(
-			AJProperties.RAW_REPORTS_FOLDER.toString()).replace(
+			AJPropertyNames.RAW_REPORTS_FOLDER.toString()).replace(
 			"\\", "/"));
 	applicationProperties.setProperty(
-		AJProperties.LATEX_REPORTS_FOLDER_BY_DATE.toString(),
+		AJPropertyNames.LATEX_HEADER_FOOTER_FOLDER.toString(),
 		applicationProperties.getProperty(
-			AJProperties.LATEX_REPORTS_FOLDER_BY_DATE.toString())
+			AJPropertyNames.LATEX_HEADER_FOOTER_FOLDER.toString())
 			.replace("\\", "/"));
 	applicationProperties.setProperty(
-		AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET.toString(),
-		applicationProperties.getProperty(
-			AJProperties.LATEX_REPORTS_FOLDER_BY_TARGET.toString())
-			.replace("\\", "/"));
+		AJPropertyNames.LATEX_REPORTS_FOLDER_BY_DATE.toString(),
+		applicationProperties
+			.getProperty(
+				AJPropertyNames.LATEX_REPORTS_FOLDER_BY_DATE
+					.toString()).replace("\\", "/"));
 	applicationProperties.setProperty(
-		AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION.toString(),
+		AJPropertyNames.LATEX_REPORTS_FOLDER_BY_TARGET.toString(),
 		applicationProperties.getProperty(
-			AJProperties.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+			AJPropertyNames.LATEX_REPORTS_FOLDER_BY_TARGET
 				.toString()).replace("\\", "/"));
 	applicationProperties.setProperty(
-		AJProperties.SGL_REPORTS_FOLDER_BY_DATE.toString(),
+		AJPropertyNames.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+			.toString(),
 		applicationProperties.getProperty(
-			AJProperties.SGL_REPORTS_FOLDER_BY_DATE.toString())
+			AJPropertyNames.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+				.toString()).replace("\\", "/"));
+	applicationProperties.setProperty(
+		AJPropertyNames.SGL_REPORTS_FOLDER_BY_DATE.toString(),
+		applicationProperties.getProperty(
+			AJPropertyNames.SGL_REPORTS_FOLDER_BY_DATE.toString())
 			.replace("\\", "/"));
     }
 

@@ -44,11 +44,14 @@ public abstract class AJExporter {
     /** The folder containing the reports. */
     protected String reportFolder = "reports";
 
-    /** The report header file name. */
-    protected String headerFilename = "";
-
     /** The report body file name. */
     protected String reportFilename = "report.txt";
+
+    /** The header / footer folder. */
+    protected String headerFooterFolder = "";
+
+    /** The report header file name. */
+    protected String headerFilename = "";
 
     /** The report footer file name. */
     protected String footerFilename = "";
@@ -145,25 +148,6 @@ public abstract class AJExporter {
     }
 
     /**
-     * Get the header filename.
-     * 
-     * @return the headerFilename
-     */
-    public String getHeaderFilename() {
-	return headerFilename;
-    }
-
-    /**
-     * Set the header filename.
-     * 
-     * @param headerFilename
-     *            the headerFilename to set
-     */
-    public void setHeaderFilename(String headerFilename) {
-	this.headerFilename = headerFilename;
-    }
-
-    /**
      * Get the report filename.
      * 
      * @return the reportFilename
@@ -180,6 +164,44 @@ public abstract class AJExporter {
      */
     public void setReportFilename(String reportFilename) {
 	this.reportFilename = reportFilename;
+    }
+
+    /**
+     * Get the header / footer folder
+     * 
+     * @return the headerFooterFolder
+     */
+    public String getHeaderFooterFolder() {
+	return headerFooterFolder;
+    }
+
+    /**
+     * Set the header / footer folder
+     * 
+     * @param headerFooterFolder
+     *            the headerFooterFolder to set
+     */
+    public void setHeaderFooterFolder(String headerFooterFolder) {
+	this.headerFooterFolder = headerFooterFolder;
+    }
+
+    /**
+     * Get the header filename.
+     * 
+     * @return the headerFilename
+     */
+    public String getHeaderFilename() {
+	return headerFilename;
+    }
+
+    /**
+     * Set the header filename.
+     * 
+     * @param headerFilename
+     *            the headerFilename to set
+     */
+    public void setHeaderFilename(String headerFilename) {
+	this.headerFilename = headerFilename;
     }
 
     /**

@@ -89,9 +89,9 @@ public class AJLatexExporterByTarget extends AJLatexExporter {
     @Override
     public boolean generateJournal() {
 	AJLatexHeader ajLatexHeaderByTarget = new AJLatexHeader(filesLocation,
-		headerFilename);
+		headerFooterFolder, headerFilename);
 	AJLatexFooter ajLatexFooterByTarget = new AJLatexFooter(filesLocation,
-		footerFilename);
+		headerFooterFolder, footerFilename);
 	Writer writer = null;
 	try {
 	    writer = new BufferedWriter(new OutputStreamWriter(
