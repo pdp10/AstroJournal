@@ -100,10 +100,9 @@ public class AJMainGUI extends JFrame {
     /**
      * Clean the text area.
      */
-    @Deprecated
-    // TODO QUESTION. This somehow freeze the application..
+    // TODO QUESTION. This somehow / simetimes freeze the application..
     public void cleanJTextPane() {
-	// textPane.setText("");
+	textPane.setText("");
     }
 
     /**
