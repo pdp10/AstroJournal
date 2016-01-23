@@ -42,6 +42,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ConfigurationUtils;
 import org.astrojournal.gui.AJMainGUI;
@@ -52,6 +54,11 @@ import org.astrojournal.gui.AJMainGUI;
 public class PreferencesDialog extends JDialog implements ActionListener {
 
     private static final long serialVersionUID = 5832696837018920916L;
+
+    /**
+     * The log associated to this class.
+     */
+    private static Logger log = LogManager.getLogger(PreferencesDialog.class);
 
     /**
      * The configuration.
@@ -127,6 +134,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
      *            the application
      */
     private void initComponents(final AJMainGUI application) {
+	log.debug("Setting of new parameter values.");
 	setSize(600, 280);
 	setLocationRelativeTo(application);
 	setModal(true);
@@ -276,7 +284,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 		}
 	    }
 	});
-	quiet.setSelected(Boolean.getBoolean(config
+	quiet.setSelected(Boolean.parseBoolean(config
 		.getProperty(AJProperties.QUIET.toString())));
 	// let's perform its action programmatically
 	quiet.doClick();
@@ -292,7 +300,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 		.getString("AJ.lblShowLatexOutput.text"));
 	lblShowLatexOutput.setToolTipText(config.getResourceBundle().getString(
 		"AJ.lblShowLatexOutput.toolTipText"));
-	latexOutput.setSelected(Boolean.getBoolean(config
+	latexOutput.setSelected(Boolean.parseBoolean(config
 		.getProperty(AJProperties.SHOW_LATEX_OUTPUT.toString())));
 	filePanel.add(lblShowLatexOutput, c);
 	c.gridx = 1;
@@ -308,7 +316,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 		.getString("AJ.lblShowLicenseAtStart.text"));
 	lblShowLicenseAtStart.setToolTipText(config.getResourceBundle()
 		.getString("AJ.lblShowLicenseAtStart.toolTipText"));
-	showLicenseAtStart.setSelected(Boolean.getBoolean(config
+	showLicenseAtStart.setSelected(Boolean.parseBoolean(config
 		.getProperty(AJProperties.SHOW_LICENSE_AT_START.toString())));
 	filePanel.add(lblShowLicenseAtStart, c);
 	c.gridx = 1;
@@ -324,7 +332,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 		.getString("AJ.lblShowPDFLatexVersion.text"));
 	lblShowPDFLatexVersion.setToolTipText(config.getResourceBundle()
 		.getString("AJ.lblShowPDFLatexVersion.toolTipText"));
-	showPDFLatexVersion.setSelected(Boolean.getBoolean(config
+	showPDFLatexVersion.setSelected(Boolean.parseBoolean(config
 		.getProperty(AJProperties.SHOW_PDFLATEX_VERSION_AT_START
 			.toString())));
 	filePanel.add(lblShowPDFLatexVersion, c);
@@ -342,7 +350,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 			"AJ.lblShowConfigurationAtStart.text"));
 	lblShowConfigurationAtStart.setToolTipText(config.getResourceBundle()
 		.getString("AJ.lblShowConfigurationAtStart.toolTipText"));
-	showConfigurationAtStart.setSelected(Boolean.getBoolean(config
+	showConfigurationAtStart.setSelected(Boolean.parseBoolean(config
 		.getProperty(AJProperties.SHOW_CONFIGURATION_AT_START
 			.toString())));
 	filePanel.add(lblShowConfigurationAtStart, c);
@@ -375,6 +383,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 
 	setVisible(true);
+	log.debug("New parameter values set.");
     }
 
     /**
@@ -411,6 +420,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	    dispose();
 	} else if (action.equals("save")) {
 
+	    log.debug("Saving a new configuration.");
 	    File ajFilesLocationFile = new File(ajFilesLocation.getText());
 
 	    // text fields
@@ -458,10 +468,29 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	    ConfigurationUtils configUtils = config.getConfigurationUtils();
 	    configUtils.prepareFolders(config);
 
-	    // TODO It might require a getConfiguration();
+	    log.debug("New configuration saved.");
 
 	    setVisible(false);
 	    dispose();
 	}
+    }
+
+    /**
+     * Return the configuration
+     * 
+     * @return the configuration
+     */
+    public Configuration getConfiguration() {
+	return config;
+    }
+
+    /**
+     * Set a new configuration
+     * 
+     * @param config
+     *            the config to set
+     */
+    public void setConfiguration(Configuration config) {
+	this.config = config;
     }
 }

@@ -100,8 +100,10 @@ public class AJMainGUI extends JFrame {
     /**
      * Clean the text area.
      */
+    @Deprecated
+    // TODO QUESTION. This somehow freeze the application..
     public void cleanJTextPane() {
-	textPane.setText(" ");
+	// textPane.setText("");
     }
 
     /**
@@ -138,8 +140,7 @@ public class AJMainGUI extends JFrame {
 	    public String doInBackground() {
 		setStatusPanelText(resourceBundle
 			.getString("AJ.lblFileGenerationinProgressLong.text"));
-		// TODO. This somehow freeze the application..
-		// cleanJTextPane();
+		cleanJTextPane();
 		btnCreateJournal.setEnabled(false);
 		menu.setEnabled("create_journal", false);
 		menu.setEnabled("preferences", false);
@@ -171,6 +172,7 @@ public class AJMainGUI extends JFrame {
     public void configure() {
 	PreferencesDialog preferencesDialog = new PreferencesDialog(this,
 		config);
+	config = preferencesDialog.getConfiguration();
     }
 
     /**

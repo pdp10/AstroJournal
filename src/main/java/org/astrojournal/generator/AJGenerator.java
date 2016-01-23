@@ -275,12 +275,12 @@ public class AJGenerator {
 	    // THEREFORE, THERE IS NO NEED TO SET THEM HERE!! :)
 	    ajExporter.setFilesLocation(config
 		    .getProperty(AJProperties.FILES_LOCATION.toString()));
-	    ajExporter.setQuiet(Boolean.getBoolean(config
+	    ajExporter.setQuiet(Boolean.parseBoolean(config
 		    .getProperty(AJProperties.QUIET.toString())));
 	    ajExporter.setResourceBundle(config.getResourceBundle());
 	    if (ajExporter instanceof AJLatexExporter) {
 		((AJLatexExporter) ajExporter).setLatexOutput(Boolean
-			.getBoolean(config
+			.parseBoolean(config
 				.getProperty(AJProperties.SHOW_LATEX_OUTPUT
 					.toString())));
 		if (ajExporter instanceof AJLatexExporterByDate) {
