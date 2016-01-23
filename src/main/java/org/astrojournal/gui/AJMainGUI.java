@@ -27,6 +27,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -73,6 +74,7 @@ public class AJMainGUI extends JFrame {
      * The application configuration.
      */
     private Configuration config;
+    private ResourceBundle resourceBundle;
 
     private JButton btnCreateJournal;
     private JButton btnQuit;
@@ -93,6 +95,7 @@ public class AJMainGUI extends JFrame {
      */
     public AJMainGUI(Configuration config) {
 	this.config = config;
+	this.resourceBundle = config.getResourceBundle();
 	initComponents();
     }
 
@@ -132,15 +135,15 @@ public class AJMainGUI extends JFrame {
 	SwingWorker<String, Void> worker = new SwingWorker<String, Void>() {
 	    @Override
 	    public String doInBackground() {
-		setStatusPanelText(config.getResourceBundle().getString(
-			"AJ.lblFileGenerationinProgressLong.text"));
+		setStatusPanelText(resourceBundle
+			.getString("AJ.lblFileGenerationinProgressLong.text"));
 		cleanJTextPane();
 		btnCreateJournal.setEnabled(false);
 		menu.setEnabled("create_journal", false);
 		menu.setEnabled("preferences", false);
 		if (!commandRunner.createJournal()) {
-		    setStatusPanelText(config.getResourceBundle().getString(
-			    "AJ.errPDFLatexShort.text"));
+		    setStatusPanelText(resourceBundle
+			    .getString("AJ.errPDFLatexShort.text"));
 		}
 		btnCreateJournal.setEnabled(true);
 		menu.setEnabled("create_journal", true);
@@ -213,8 +216,8 @@ public class AJMainGUI extends JFrame {
 
 	// Create the button for creating the journals
 	btnCreateJournal = new JButton();
-	btnCreateJournal.setText(config.getResourceBundle().getString(
-		"AJ.cmdCreateJournal.text"));
+	btnCreateJournal.setText(resourceBundle
+		.getString("AJ.cmdCreateJournal.text"));
 	btnCreateJournal.setIcon(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/icons/create_journals_16.png")));
 	btnCreateJournal.addActionListener(new ActionListener() {
@@ -230,7 +233,7 @@ public class AJMainGUI extends JFrame {
 	btnQuit = new JButton();
 	btnQuit.setIcon(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/icons/quit_16.png")));
-	btnQuit.setText(config.getResourceBundle().getString("AJ.cmdQuit.text"));
+	btnQuit.setText(resourceBundle.getString("AJ.cmdQuit.text"));
 	btnQuit.addActionListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
@@ -258,13 +261,13 @@ public class AJMainGUI extends JFrame {
 	controlPanel.add(btnQuit);
 
 	// Setup for the welcome panel
-	welcomePanel = new WelcomePanel(config.getResourceBundle());
+	welcomePanel = new WelcomePanel(resourceBundle);
 
 	// Setup for the output panel
 	outputPanel = new JPanel(new BorderLayout());
 	outputPanel.add(
-		new JLabel(config.getResourceBundle().getString(
-			"AJ.lblOutput.text")), BorderLayout.NORTH);
+		new JLabel(resourceBundle.getString("AJ.lblOutput.text")),
+		BorderLayout.NORTH);
 	outputPanel.add(scrollPane, BorderLayout.CENTER);
 
 	// Add welcome panel and control panel inside the main panel
@@ -282,7 +285,7 @@ public class AJMainGUI extends JFrame {
 	setAJWindow();
 
 	// set the menu bar
-	menu = new AJMenuBar(this, config.getResourceBundle());
+	menu = new AJMenuBar(this, resourceBundle);
 	setJMenuBar(menu);
 
 	setAJPanels();

@@ -81,9 +81,6 @@ public class AJMain {
      * @param args
      */
     public static void main(String[] args) {
-	Configuration config = new AJConfiguration();
-	ConfigurationUtils configUtils = config.getConfigurationUtils();
-
 	// Get some information for debugging
 	log.debug("Application: " + AppMetaInfo.NAME + " "
 		+ AppMetaInfo.VERSION);
@@ -91,6 +88,9 @@ public class AJMain {
 		+ SystemUtils.OS_NAME + " " + SystemUtils.OS_VERSION);
 	log.debug("Java: " + SystemUtils.JAVA_VENDOR + " "
 		+ SystemUtils.JAVA_VERSION);
+
+	Configuration config = new AJConfiguration();
+	ConfigurationUtils configUtils = config.getConfigurationUtils();
 
 	try {
 	    if (args.length == 0) {
