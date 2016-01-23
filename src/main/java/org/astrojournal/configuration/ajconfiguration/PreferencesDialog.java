@@ -19,19 +19,18 @@
  */
 /*
  * Changelog:
- * - Piero Dalle Pezze: Code taken from the class EditPreferenceDialogue.java in 
- * the software BamQC (GPL v3). Code adapted for AstroJournal. This class is no longer a Singleton 
- * and does not contain any configuration data for AstroJournal. It is only a 
- * class to change values in AJConfig using a GUI.
+ * - Piero Dalle Pezze: Class creation.
  */
 package org.astrojournal.configuration.ajconfiguration;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -66,34 +65,80 @@ public class PreferencesDialog extends JDialog implements ActionListener {
     private Configuration config;
 
     /**
-     * The relative path containing the raw files (observation input folder).
+     * The resource bundle.
      */
-    private JTextField rawReportsFolder = new JTextField();
+    private ResourceBundle resourceBundle;
+
     /**
      * The AstroJournal files location (the path).
      */
     private JTextField ajFilesLocation = new JTextField();
+
+    /**
+     * The relative path containing the raw files (observation input folder).
+     */
+    private JTextField rawReportsFolder = new JTextField();
+
+    /**
+     * The folder containing the LaTeX header and footer files.
+     */
+    private JTextField latexHeaderFooterFolder = new JTextField();
+
     /**
      * The name of the folder containing the latex observation files by date
      * (observation output folder).
      */
     private JTextField latexReportsFolderByDate = new JTextField();
+
+    /** The name of the main Latex file sorted by date. */
+    private JTextField latexReportByDateFilename = new JTextField();
+
+    /** The Latex header with path for astrojournal by date. */
+    private JTextField latexHeaderByDateFilename = new JTextField();
+
+    /** The Latex footer with path for astrojournal by date. */
+    private JTextField latexFooterByDateFilename = new JTextField();
+
     /**
      * The name of the folder containing the latex observation files by target
      * (observation output folder).
      */
     private JTextField latexReportsFolderByTarget = new JTextField();
+
+    /** The name of the main Latex file sorted by target. */
+    private JTextField latexReportByTargetFilename = new JTextField();
+
+    /** The Latex header with path for astrojournal by target. */
+    private JTextField latexHeaderByTargetFilename = new JTextField();
+
+    /** The Latex footer with path for astrojournal by target. */
+    private JTextField latexFooterByTargetFilename = new JTextField();
+
     /**
      * The name of the folder containing the latex observation files by
      * constellation (observation output folder).
      */
     private JTextField latexReportsFolderByConstellation = new JTextField();
+
+    /** The name of the main Latex file sorted by Constellation. */
+    private JTextField latexReportByConstellationFilename = new JTextField();
+
+    /** The Latex header with path for astrojournal by constellation. */
+    private JTextField latexHeaderByConstellationFilename = new JTextField();
+
+    /** The Latex footer with path for astrojournal by constellation. */
+    private JTextField latexFooterByConstellationFilename = new JTextField();
+
     /**
-     * The name of the folder containing the latex observation files by date
+     * The name of the folder containing the text observation files by date
      * (observation output folder).
      */
     private JTextField sglReportsFolderByDate = new JTextField();
 
+    /** The name of the main SGL file sorted by date. */
+    private JTextField sglReportByDateFilename = new JTextField();
+
+    // FLAGS
     /** True if the application should run quietly */
     private JCheckBox quiet = new JCheckBox();
 
@@ -124,6 +169,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 		+ config.getResourceBundle()
 			.getString("AJ.mnuPreferences.text"));
 	this.config = config;
+	this.resourceBundle = this.config.getResourceBundle();
 	initComponents(application);
     }
 
@@ -135,139 +181,48 @@ public class PreferencesDialog extends JDialog implements ActionListener {
      */
     private void initComponents(final AJMainGUI application) {
 	log.debug("Setting of new parameter values.");
-	setSize(600, 280);
+	setSize(600, 600);
+	setMinimumSize(new Dimension(600, 550));
 	setLocationRelativeTo(application);
 	setModal(true);
 
-	JPanel filePanel = new JPanel();
-	filePanel.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
-	filePanel.setLayout(new GridBagLayout());
-	GridBagConstraints c = new GridBagConstraints();
+	JPanel panel = new JPanel();
+	panel.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+	panel.setLayout(new GridBagLayout());
+	GridBagConstraints constraints = new GridBagConstraints();
 
 	// Start text fields
-	c.gridx = 0;
-	c.gridy = 0;
-	c.weightx = 0.1;
-	c.weighty = 0.5;
-	c.fill = GridBagConstraints.HORIZONTAL;
-	JLabel ajFilesLocationLBL = new JLabel(config.getResourceBundle()
-		.getString("AJ.lblAJFilesLocation.text"));
-	ajFilesLocationLBL.setToolTipText(config.getResourceBundle().getString(
-		"AJ.lblAJFilesLocation.toolTipText"));
-	filePanel.add(ajFilesLocationLBL, c);
-	c.gridx = 1;
-	c.weightx = 0.5;
-	ajFilesLocation.setText(config.getProperty(AJPropertyNames.FILES_LOCATION
-		.toString()));
+	constraints.gridx = 0;
+	constraints.gridy = 0;
+	constraints.weightx = 0.1;
+	constraints.weighty = 0.5;
+	constraints.fill = GridBagConstraints.HORIZONTAL;
+	JLabel ajFilesLocationLBL = new JLabel(
+		resourceBundle.getString("AJ.lblAJFilesLocation.text"));
+	ajFilesLocationLBL.setToolTipText(resourceBundle
+		.getString("AJ.lblAJFilesLocation.toolTipText"));
+	panel.add(ajFilesLocationLBL, constraints);
+	constraints.gridx = 1;
+	constraints.weightx = 0.5;
+	ajFilesLocation.setText(config
+		.getProperty(AJPropertyNames.FILES_LOCATION.toString()));
 	ajFilesLocation.setEditable(false);
-	filePanel.add(ajFilesLocation, c);
-	c.gridx = 2;
-	c.weightx = 0.1;
-	JButton btnBrowerFilesLocation = new JButton(config.getResourceBundle()
-		.getString("AJ.cmdBrowse.text"));
+	panel.add(ajFilesLocation, constraints);
+	constraints.gridx = 2;
+	constraints.weightx = 0.1;
+	JButton btnBrowerFilesLocation = new JButton(
+		resourceBundle.getString("AJ.cmdBrowse.text"));
 	btnBrowerFilesLocation.setActionCommand("aj_files_location");
 	btnBrowerFilesLocation.addActionListener(this);
-	filePanel.add(btnBrowerFilesLocation, c);
+	panel.add(btnBrowerFilesLocation, constraints);
 
-	c.gridx = 0;
-	c.gridy++;
-	c.weightx = 0.1;
-	JLabel inputDir = new JLabel(config.getResourceBundle().getString(
-		"AJ.lblInpDir.text"));
-	inputDir.setToolTipText(config.getResourceBundle().getString(
-		"AJ.lblInpDir.toolTipText"));
-	filePanel.add(inputDir, c);
-	c.gridx = 1;
-	c.weightx = 0.5;
-	rawReportsFolder.setText(config
-		.getProperty(AJPropertyNames.RAW_REPORTS_FOLDER.toString()));
-	filePanel.add(rawReportsFolder, c);
-	c.gridx = 2;
-	c.weightx = 0.1;
+	// start text fields
+	makeTextFields(panel, constraints);
+	// end text fields
 
-	c.gridx = 0;
-	c.gridy++;
-	c.weightx = 0.1;
-	JLabel outputDirByDate = new JLabel(config.getResourceBundle()
-		.getString("AJ.lblOutByDateDir.text"));
-	outputDirByDate.setToolTipText(config.getResourceBundle().getString(
-		"AJ.lblOutByDateDir.toolTipText"));
-	filePanel.add(outputDirByDate, c);
-	c.gridx = 1;
-	c.weightx = 0.5;
-	latexReportsFolderByDate.setText(config
-		.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_DATE
-			.toString()));
-	filePanel.add(latexReportsFolderByDate, c);
-	c.gridx = 2;
-	c.weightx = 0.1;
-
-	c.gridx = 0;
-	c.gridy++;
-	c.weightx = 0.1;
-	JLabel outputDirByTarget = new JLabel(config.getResourceBundle()
-		.getString("AJ.lblOutByTargetDir.text"));
-	outputDirByTarget.setToolTipText(config.getResourceBundle().getString(
-		"AJ.lblOutByTargetDir.toolTipText"));
-	filePanel.add(outputDirByTarget, c);
-	c.gridx = 1;
-	c.weightx = 0.5;
-	latexReportsFolderByTarget.setText(config
-		.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_TARGET
-			.toString()));
-	filePanel.add(latexReportsFolderByTarget, c);
-	c.gridx = 2;
-	c.weightx = 0.1;
-
-	c.gridx = 0;
-	c.gridy++;
-	c.weightx = 0.1;
-	JLabel outputDirByConstellation = new JLabel(config.getResourceBundle()
-		.getString("AJ.lblOutByConstellationDir.text"));
-	outputDirByConstellation.setToolTipText(config.getResourceBundle()
-		.getString("AJ.lblOutByConstellationDir.toolTipText"));
-	filePanel.add(outputDirByConstellation, c);
-	c.gridx = 1;
-	c.weightx = 0.5;
-	latexReportsFolderByConstellation.setText(config
-		.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-			.toString()));
-	filePanel.add(latexReportsFolderByConstellation, c);
-	c.gridx = 2;
-	c.weightx = 0.1;
-
-	c.gridx = 0;
-	c.gridy++;
-	c.weightx = 0.1;
-	JLabel outputSGLDirByDate = new JLabel(config.getResourceBundle()
-		.getString("AJ.lblSGLOutByDateDir.text"));
-	outputSGLDirByDate.setToolTipText(config.getResourceBundle().getString(
-		"AJ.lblSGLOutByDateDir.toolTipText"));
-	filePanel.add(outputSGLDirByDate, c);
-	c.gridx = 1;
-	c.weightx = 0.5;
-	sglReportsFolderByDate
-		.setText(config
-			.getProperty(AJPropertyNames.SGL_REPORTS_FOLDER_BY_DATE
-				.toString()));
-	filePanel.add(sglReportsFolderByDate, c);
-	c.gridx = 2;
-	c.weightx = 0.1;
-
-	// End text fields
-
-	// Start boolean checkboxes
-
-	c.gridx = 0;
-	c.gridy++;
-	c.weightx = 0.1;
-	JLabel lblQuiet = new JLabel(config.getResourceBundle().getString(
-		"AJ.lblQuiet.text"));
-	lblQuiet.setToolTipText(config.getResourceBundle().getString(
-		"AJ.lblQuiet.toolTipText"));
-	filePanel.add(lblQuiet, c);
-	c.gridx = 1;
-	c.weightx = 0.5;
+	// Start boolean check boxes
+	makeCheckBoxes(panel, constraints);
+	// Set up the listeners
 	quiet.addActionListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
@@ -284,98 +239,25 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 		}
 	    }
 	});
-	quiet.setSelected(Boolean.parseBoolean(config
-		.getProperty(AJPropertyNames.QUIET.toString())));
 	// let's perform its action programmatically
 	quiet.doClick();
 	quiet.doClick();
-	filePanel.add(quiet, c);
-	c.gridx = 2;
-	c.weightx = 0.1;
-
-	c.gridx = 0;
-	c.gridy++;
-	c.weightx = 0.1;
-	JLabel lblShowLatexOutput = new JLabel(config.getResourceBundle()
-		.getString("AJ.lblShowLatexOutput.text"));
-	lblShowLatexOutput.setToolTipText(config.getResourceBundle().getString(
-		"AJ.lblShowLatexOutput.toolTipText"));
-	latexOutput.setSelected(Boolean.parseBoolean(config
-		.getProperty(AJPropertyNames.SHOW_LATEX_OUTPUT.toString())));
-	filePanel.add(lblShowLatexOutput, c);
-	c.gridx = 1;
-	c.weightx = 0.5;
-	filePanel.add(latexOutput, c);
-	c.gridx = 2;
-	c.weightx = 0.1;
-
-	c.gridx = 0;
-	c.gridy++;
-	c.weightx = 0.1;
-	JLabel lblShowLicenseAtStart = new JLabel(config.getResourceBundle()
-		.getString("AJ.lblShowLicenseAtStart.text"));
-	lblShowLicenseAtStart.setToolTipText(config.getResourceBundle()
-		.getString("AJ.lblShowLicenseAtStart.toolTipText"));
-	showLicenseAtStart.setSelected(Boolean.parseBoolean(config
-		.getProperty(AJPropertyNames.SHOW_LICENSE_AT_START.toString())));
-	filePanel.add(lblShowLicenseAtStart, c);
-	c.gridx = 1;
-	c.weightx = 0.5;
-	filePanel.add(showLicenseAtStart, c);
-	c.gridx = 2;
-	c.weightx = 0.1;
-
-	c.gridx = 0;
-	c.gridy++;
-	c.weightx = 0.1;
-	JLabel lblShowPDFLatexVersion = new JLabel(config.getResourceBundle()
-		.getString("AJ.lblShowPDFLatexVersion.text"));
-	lblShowPDFLatexVersion.setToolTipText(config.getResourceBundle()
-		.getString("AJ.lblShowPDFLatexVersion.toolTipText"));
-	showPDFLatexVersion.setSelected(Boolean.parseBoolean(config
-		.getProperty(AJPropertyNames.SHOW_PDFLATEX_VERSION_AT_START
-			.toString())));
-	filePanel.add(lblShowPDFLatexVersion, c);
-	c.gridx = 1;
-	c.weightx = 0.5;
-	filePanel.add(showPDFLatexVersion, c);
-	c.gridx = 2;
-	c.weightx = 0.1;
-
-	c.gridx = 0;
-	c.gridy++;
-	c.weightx = 0.1;
-	JLabel lblShowConfigurationAtStart = new JLabel(config
-		.getResourceBundle().getString(
-			"AJ.lblShowConfigurationAtStart.text"));
-	lblShowConfigurationAtStart.setToolTipText(config.getResourceBundle()
-		.getString("AJ.lblShowConfigurationAtStart.toolTipText"));
-	showConfigurationAtStart.setSelected(Boolean.parseBoolean(config
-		.getProperty(AJPropertyNames.SHOW_CONFIGURATION_AT_START
-			.toString())));
-	filePanel.add(lblShowConfigurationAtStart, c);
-	c.gridx = 1;
-	c.weightx = 0.5;
-	filePanel.add(showConfigurationAtStart, c);
-	c.gridx = 2;
-	c.weightx = 0.1;
-
-	// End boolean checkboxes
+	// End boolean check boxes
 
 	getContentPane().setLayout(new BorderLayout());
-	getContentPane().add(filePanel, BorderLayout.CENTER);
+	getContentPane().add(panel, BorderLayout.CENTER);
 
 	JPanel buttonPanel = new JPanel();
-	JButton btnCancel = new JButton(config.getResourceBundle().getString(
-		"AJ.cmdCancel.text"));
+	JButton btnCancel = new JButton(
+		resourceBundle.getString("AJ.cmdCancel.text"));
 	btnCancel.setActionCommand("cancel");
 	// Set this button as default. :)
 	getRootPane().setDefaultButton(btnCancel);
 	btnCancel.addActionListener(this);
 	buttonPanel.add(btnCancel);
 
-	JButton btnSave = new JButton(config.getResourceBundle().getString(
-		"AJ.cmdSave.text"));
+	JButton btnSave = new JButton(
+		resourceBundle.getString("AJ.cmdSave.text"));
 	btnSave.setActionCommand("save");
 	btnSave.addActionListener(this);
 	buttonPanel.add(btnSave);
@@ -384,23 +266,6 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 
 	setVisible(true);
 	log.debug("New parameter values set.");
-    }
-
-    /**
-     * Launches a file browser to select a directory
-     * 
-     * @param textField
-     *            the TextFild from which to take the starting directory
-     */
-    private void getDir(JTextField textField) {
-	JFileChooser chooser = new JFileChooser();
-	chooser.setCurrentDirectory(new File(textField.getText()));
-	chooser.setDialogTitle(config.getResourceBundle().getString(
-		"AJ.cmdSelectDirectory.text"));
-	chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-	if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-	    textField.setText(chooser.getSelectedFile().getAbsolutePath());
-	}
     }
 
     /*
@@ -447,7 +312,8 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 		    String.valueOf(quiet.isSelected()));
 	    System.setProperty(AJPropertyNames.SHOW_LATEX_OUTPUT.toString(),
 		    String.valueOf(latexOutput.isSelected()));
-	    System.setProperty(AJPropertyNames.SHOW_LICENSE_AT_START.toString(),
+	    System.setProperty(
+		    AJPropertyNames.SHOW_LICENSE_AT_START.toString(),
 		    String.valueOf(showLicenseAtStart.isSelected()));
 	    System.setProperty(
 		    AJPropertyNames.SHOW_PDFLATEX_VERSION_AT_START.toString(),
@@ -493,4 +359,189 @@ public class PreferencesDialog extends JDialog implements ActionListener {
     public void setConfiguration(Configuration config) {
 	this.config = config;
     }
+
+    /**
+     * Add a set of labels and jtextfields to the panel.
+     * 
+     * @param panel
+     * @param constraints
+     */
+    private void makeTextFields(JPanel panel, GridBagConstraints constraints) {
+	addStringEntry(panel, constraints, "AJ.lblInpDir.text",
+		"AJ.lblInpDir.toolTipText", rawReportsFolder,
+		AJPropertyNames.RAW_REPORTS_FOLDER.toString());
+	addStringEntry(panel, constraints, "AJ.lblLatexHeaderFolderDir.text",
+		"AJ.lblLatexHeaderFolderDir.toolTipText",
+		latexHeaderFooterFolder,
+		AJPropertyNames.LATEX_HEADER_FOOTER_FOLDER.toString());
+
+	// LATEX REPORT BY DATE
+	addStringEntry(panel, constraints, "AJ.lblOutByDateDir.text",
+		"AJ.lblOutByDateDir.toolTipText", latexReportsFolderByDate,
+		AJPropertyNames.LATEX_REPORTS_FOLDER_BY_DATE.toString());
+	addStringEntry(panel, constraints, "AJ.lblOutByDateFile.text",
+		"AJ.lblOutByDateFile.toolTipText", latexReportByDateFilename,
+		AJPropertyNames.LATEX_REPORT_BY_DATE_FILENAME.toString());
+	addStringEntry(panel, constraints, "AJ.lblHeaderByDateFile.text",
+		"AJ.lblHeaderByDateFile.toolTipText",
+		latexHeaderByDateFilename,
+		AJPropertyNames.LATEX_HEADER_BY_DATE_FILENAME.toString());
+	addStringEntry(panel, constraints, "AJ.lblFooterByDateFile.text",
+		"AJ.lblFooterByDateFile.toolTipText",
+		latexFooterByDateFilename,
+		AJPropertyNames.LATEX_FOOTER_BY_DATE_FILENAME.toString());
+
+	// LATEX REPORT BY TARGET
+	addStringEntry(panel, constraints, "AJ.lblOutByTargetDir.text",
+		"AJ.lblOutByTargetDir.toolTipText", latexReportsFolderByTarget,
+		AJPropertyNames.LATEX_REPORTS_FOLDER_BY_TARGET.toString());
+	addStringEntry(panel, constraints, "AJ.lblOutByTargetFile.text",
+		"AJ.lblOutByTargetFile.toolTipText",
+		latexReportByTargetFilename,
+		AJPropertyNames.LATEX_REPORT_BY_TARGET_FILENAME.toString());
+	addStringEntry(panel, constraints, "AJ.lblHeaderByTargetFile.text",
+		"AJ.lblHeaderByTargetFile.toolTipText",
+		latexHeaderByTargetFilename,
+		AJPropertyNames.LATEX_HEADER_BY_TARGET_FILENAME.toString());
+	addStringEntry(panel, constraints, "AJ.lblFooterByTargetFile.text",
+		"AJ.lblFooterByTargetFile.toolTipText",
+		latexFooterByTargetFilename,
+		AJPropertyNames.LATEX_FOOTER_BY_TARGET_FILENAME.toString());
+
+	// LATEX REPORT BY CONSTELLATION
+	addStringEntry(panel, constraints, "AJ.lblOutByConstellationDir.text",
+		"AJ.lblOutByConstellationDir.toolTipText",
+		latexReportsFolderByConstellation,
+		AJPropertyNames.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+			.toString());
+	addStringEntry(panel, constraints, "AJ.lblOutByConstellationFile.text",
+		"AJ.lblOutByConstellationFile.toolTipText",
+		latexReportByConstellationFilename,
+		AJPropertyNames.LATEX_REPORT_BY_CONSTELLATION_FILENAME
+			.toString());
+	addStringEntry(panel, constraints,
+		"AJ.lblHeaderByConstellationFile.text",
+		"AJ.lblHeaderByConstellationFile.toolTipText",
+		latexHeaderByConstellationFilename,
+		AJPropertyNames.LATEX_HEADER_BY_CONSTELLATION_FILENAME
+			.toString());
+	addStringEntry(panel, constraints,
+		"AJ.lblFooterByConstellationFile.text",
+		"AJ.lblFooterByConstellationFile.toolTipText",
+		latexFooterByConstellationFilename,
+		AJPropertyNames.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
+			.toString());
+
+	// SGL REPORT BY DATE
+	addStringEntry(panel, constraints, "AJ.lblSGLOutByDateDir.text",
+		"AJ.lblSGLOutByDateDir.toolTipText", sglReportsFolderByDate,
+		AJPropertyNames.SGL_REPORTS_FOLDER_BY_DATE.toString());
+	addStringEntry(panel, constraints, "AJ.lblSGLOutByDateFile.text",
+		"AJ.lblSGLOutByDateFile.toolTipText", sglReportByDateFilename,
+		AJPropertyNames.SGL_REPORT_BY_DATE_FILENAME.toString());
+    }
+
+    /**
+     * Add a label and a jtextfield to the panel.
+     * 
+     * @param panel
+     * @param constraints
+     * @param label
+     * @param labelTooltip
+     * @param jTextField
+     * @param jTextFieldText
+     */
+    private void addStringEntry(JPanel panel, GridBagConstraints constraints,
+	    String label, String labelTooltip, JTextField jTextField,
+	    String jTextFieldText) {
+	constraints.gridx = 0;
+	constraints.gridy++;
+	constraints.weightx = 0.1;
+	JLabel lbl = new JLabel(resourceBundle.getString(label));
+	lbl.setToolTipText(resourceBundle.getString(labelTooltip));
+	panel.add(lbl, constraints);
+	constraints.gridx = 1;
+	constraints.weightx = 0.5;
+	jTextField.setText(config.getProperty(jTextFieldText));
+	panel.add(jTextField, constraints);
+	constraints.gridx = 2;
+	constraints.weightx = 0.1;
+    }
+
+    /**
+     * Add a set of labels and checkboxes to the panel.
+     * 
+     * @param panel
+     * @param constraints
+     */
+    private void makeCheckBoxes(JPanel panel, GridBagConstraints constraints) {
+
+	addCheckBoxEntry(panel, constraints, "AJ.lblQuiet.text",
+		"AJ.lblQuiet.toolTipText", quiet,
+		AJPropertyNames.QUIET.toString());
+
+	addCheckBoxEntry(panel, constraints, "AJ.lblShowLatexOutput.text",
+		"AJ.lblShowLatexOutput.toolTipText", latexOutput,
+		AJPropertyNames.SHOW_LATEX_OUTPUT.toString());
+
+	addCheckBoxEntry(panel, constraints, "AJ.lblShowLicenseAtStart.text",
+		"AJ.lblShowLicenseAtStart.toolTipText", showLicenseAtStart,
+		AJPropertyNames.SHOW_LICENSE_AT_START.toString());
+
+	addCheckBoxEntry(panel, constraints, "AJ.lblShowPDFLatexVersion.text",
+		"AJ.lblShowPDFLatexVersion.toolTipText", showPDFLatexVersion,
+		AJPropertyNames.SHOW_PDFLATEX_VERSION_AT_START.toString());
+
+	addCheckBoxEntry(panel, constraints,
+		"AJ.lblShowConfigurationAtStart.text",
+		"AJ.lblShowConfigurationAtStart.toolTipText",
+		showConfigurationAtStart,
+		AJPropertyNames.SHOW_CONFIGURATION_AT_START.toString());
+    }
+
+    /**
+     * Add a label and a jcheckbox to the panel.
+     * 
+     * @param panel
+     * @param constraints
+     * @param label
+     * @param labelTooltip
+     * @param jCheckBox
+     * @param selected
+     */
+    private void addCheckBoxEntry(JPanel panel, GridBagConstraints constraints,
+	    String label, String labelTooltip, JCheckBox jCheckBox,
+	    String selected) {
+	constraints.gridx = 0;
+	constraints.gridy++;
+	constraints.weightx = 0.1;
+	JLabel lbl = new JLabel(resourceBundle.getString(label));
+	lbl.setToolTipText(resourceBundle.getString(labelTooltip));
+	jCheckBox
+		.setSelected(Boolean.parseBoolean(config.getProperty(selected)));
+	panel.add(lbl, constraints);
+	constraints.gridx = 1;
+	constraints.weightx = 0.5;
+	panel.add(jCheckBox, constraints);
+	constraints.gridx = 2;
+	constraints.weightx = 0.1;
+    }
+
+    /**
+     * Launches a file browser to select a directory
+     * 
+     * @param textField
+     *            the TextFild from which to take the starting directory
+     */
+    private void getDir(JTextField textField) {
+	JFileChooser chooser = new JFileChooser();
+	chooser.setCurrentDirectory(new File(textField.getText()));
+	chooser.setDialogTitle(resourceBundle
+		.getString("AJ.cmdSelectDirectory.text"));
+	chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+	if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+	    textField.setText(chooser.getSelectedFile().getAbsolutePath());
+	}
+    }
+
 }
