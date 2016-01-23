@@ -202,14 +202,18 @@ public class AJConfiguration implements Configuration {
 		applicationProperties = PropertiesManager.loadFromXML(
 			applicationProperties, configFile.getAbsolutePath());
 		log.debug("User configuration file is loaded.");
-
+		if (!validateProperties()) {
+		    log.debug("Found inconsistencies in the user configuration file. The inconsistent fields will be re-written.");
+		    saveProperties();
+		    log.info("User configuration saved.");
+		}
 	    } else {
 		// use the default
 		log.info("User configuration file not found.");
+		validateProperties();
+		saveProperties();
+		log.info("User configuration saved.");
 	    }
-	    validateProperties();
-	    saveProperties();
-	    log.info("User configuration saved.");
 	} catch (IOException e) {
 	    // NOTE: we always have the default, as it is in the jar file
 	    log.debug(e, e);
@@ -226,13 +230,14 @@ public class AJConfiguration implements Configuration {
 
     /**
      * Validate the loaded properties for this application.
+     * 
+     * @return true if the validation succeeded.
      */
-    private void validateProperties() {
-	// This is the only function knowing about the actual properties.
-	// example of processing a file location
-
+    private boolean validateProperties() {
 	log.debug("Validating properties");
 	adjustFileSeparator();
+
+	boolean status = true;
 
 	// LOCALE
 
@@ -252,6 +257,7 @@ public class AJConfiguration implements Configuration {
 	// + " does not exist. Using previous `locale` setting.");
 	// applicationProperties.setProperty(AJProperties.LOCALE,
 	// localeBundle.getLocale());
+	// status = false;
 	// }
 	// log.debug(AJProperties.LOCALE + ":" + localeBundle.getLocale());
 
@@ -297,6 +303,7 @@ public class AJConfiguration implements Configuration {
 	    applicationProperties.setProperty(
 		    AJPropertyNames.FILES_LOCATION.toString(),
 		    filesLocation.getAbsolutePath());
+	    status = false;
 	} else {
 	    filesLocation = newFilesLocation;
 	}
@@ -403,6 +410,7 @@ public class AJConfiguration implements Configuration {
 		+ sglReportByDateFilename);
 
 	log.debug("Properties are validated.");
+	return status;
     }
 
     /**

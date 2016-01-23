@@ -294,18 +294,56 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	    System.setProperty(AJPropertyNames.RAW_REPORTS_FOLDER.toString(),
 		    rawReportsFolder.getText());
 	    System.setProperty(
+		    AJPropertyNames.LATEX_HEADER_FOOTER_FOLDER.toString(),
+		    latexHeaderFooterFolder.getText());
+	    System.setProperty(
 		    AJPropertyNames.LATEX_REPORTS_FOLDER_BY_DATE.toString(),
 		    latexReportsFolderByDate.getText());
 	    System.setProperty(
+		    AJPropertyNames.LATEX_REPORT_BY_DATE_FILENAME.toString(),
+		    latexReportByDateFilename.getText());
+	    System.setProperty(
+		    AJPropertyNames.LATEX_HEADER_BY_DATE_FILENAME.toString(),
+		    latexHeaderByDateFilename.getText());
+	    System.setProperty(
+		    AJPropertyNames.LATEX_FOOTER_BY_DATE_FILENAME.toString(),
+		    latexFooterByDateFilename.getText());
+	    System.setProperty(
 		    AJPropertyNames.LATEX_REPORTS_FOLDER_BY_TARGET.toString(),
 		    latexReportsFolderByTarget.getText());
+	    System.setProperty(
+		    AJPropertyNames.LATEX_REPORT_BY_TARGET_FILENAME.toString(),
+		    latexReportByTargetFilename.getText());
+	    System.setProperty(
+		    AJPropertyNames.LATEX_HEADER_BY_TARGET_FILENAME.toString(),
+		    latexHeaderByTargetFilename.getText());
+	    System.setProperty(
+		    AJPropertyNames.LATEX_FOOTER_BY_TARGET_FILENAME.toString(),
+		    latexFooterByTargetFilename.getText());
+
 	    System.setProperty(
 		    AJPropertyNames.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
 			    .toString(), latexReportsFolderByConstellation
 			    .getText());
 	    System.setProperty(
+		    AJPropertyNames.LATEX_REPORT_BY_CONSTELLATION_FILENAME
+			    .toString(), latexReportByConstellationFilename
+			    .getText());
+	    System.setProperty(
+		    AJPropertyNames.LATEX_HEADER_BY_CONSTELLATION_FILENAME
+			    .toString(), latexHeaderByConstellationFilename
+			    .getText());
+	    System.setProperty(
+		    AJPropertyNames.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
+			    .toString(), latexFooterByConstellationFilename
+			    .getText());
+
+	    System.setProperty(
 		    AJPropertyNames.SGL_REPORTS_FOLDER_BY_DATE.toString(),
 		    sglReportsFolderByDate.getText());
+	    System.setProperty(
+		    AJPropertyNames.SGL_REPORT_BY_DATE_FILENAME.toString(),
+		    sglReportByDateFilename.getText());
 
 	    // combobox fields
 	    System.setProperty(AJPropertyNames.QUIET.toString(),
