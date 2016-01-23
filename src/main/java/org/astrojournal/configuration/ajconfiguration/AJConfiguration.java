@@ -93,7 +93,7 @@ public class AJConfiguration implements Configuration {
 
     // THE HEADER / FOOTER FOLDER
     /** The folder containing the latex header and footer. */
-    private String latex_header_footer_folder = "latex_header_footer";
+    private String latexHeaderFooterFolder = "latex_header_footer";
 
     // LATEX REPORT BY DATE
     /**
@@ -161,6 +161,48 @@ public class AJConfiguration implements Configuration {
     }
 
     /**
+     * Save the properties to a XML file.
+     */
+    void saveProperties() {
+	try {
+	    PropertiesManager.storeToXML(applicationProperties, configFile
+		    .getAbsolutePath(),
+		    AppMetaInfo.USER_CONFIGURATION_PROPERTIES_FILE_COMMENT
+			    .toString());
+	} catch (IOException e) {
+	    log.error(
+		    "Errors when writing the file "
+			    + configFile.getAbsolutePath(), e);
+	}
+    }
+
+    @Override
+    public void loadSystemProperties() {
+	log.debug("Loading system properties");
+	applicationProperties = PropertiesManager
+		.updateWithMatchSystemProperties(applicationProperties);
+	log.debug("System properties loaded");
+	validateProperties();
+    }
+
+    @Override
+    public ResourceBundle getResourceBundle() {
+	return localeBundle;
+    }
+
+    @Override
+    public String getProperty(String key) {
+	// Doing so, we don't need a set method for each property, saving code
+	// and time.
+	return applicationProperties.getProperty(key);
+    }
+
+    @Override
+    public ConfigurationUtils getConfigurationUtils() {
+	return new AJConfigurationUtils();
+    }
+
+    /**
      * Initialise the properties for this application by reading an
      * application-level and then an user-level xml configuration file
      * containing java properties. After these files are loaded, System
@@ -203,7 +245,7 @@ public class AJConfiguration implements Configuration {
 			applicationProperties, configFile.getAbsolutePath());
 		log.debug("User configuration file is loaded.");
 		if (!validateProperties()) {
-		    log.debug("Found inconsistencies in the user configuration file. The inconsistent fields will be re-written.");
+		    log.info("Found inconsistencies in the user configuration file. The inconsistent fields will be re-written.");
 		    saveProperties();
 		    log.info("User configuration saved.");
 		}
@@ -262,32 +304,89 @@ public class AJConfiguration implements Configuration {
 	// log.debug(AJProperties.LOCALE + ":" + localeBundle.getLocale());
 
 	// FLAGS
-	quiet = Boolean.parseBoolean(applicationProperties
-		.getProperty(AJPropertyNames.QUIET.toString()));
+	status = checkFlags() && status;
+
+	// GENERAL LOCATION
+	status = checkStrings() && status;
+
+	log.debug("Properties are validated.");
+	return status;
+    }
+
+    private boolean checkFlags() {
+	boolean status = true;
+	String propertyValue;
+
+	propertyValue = applicationProperties.getProperty(AJPropertyNames.QUIET
+		.toString());
+	if (propertyValue.equals("")) {
+	    status = false;
+	    applicationProperties.setProperty(AJPropertyNames.QUIET.toString(),
+		    Boolean.toString(quiet));
+	} else {
+	    quiet = Boolean.parseBoolean(propertyValue);
+	}
 	log.debug(AJPropertyNames.QUIET + ":" + quiet);
 
-	showLatexOutput = Boolean.parseBoolean(applicationProperties
-		.getProperty(AJPropertyNames.SHOW_LATEX_OUTPUT.toString()));
+	propertyValue = applicationProperties
+		.getProperty(AJPropertyNames.SHOW_LATEX_OUTPUT.toString());
+	if (propertyValue.equals("")) {
+	    status = false;
+	    applicationProperties.setProperty(
+		    AJPropertyNames.SHOW_LATEX_OUTPUT.toString(),
+		    Boolean.toString(showLatexOutput));
+	} else {
+	    showLatexOutput = Boolean.parseBoolean(propertyValue);
+	}
 	log.debug(AJPropertyNames.SHOW_LATEX_OUTPUT + ":" + showLatexOutput);
 
-	showLicenseAtStart = Boolean.parseBoolean(applicationProperties
-		.getProperty(AJPropertyNames.SHOW_LICENSE_AT_START.toString()));
+	propertyValue = applicationProperties
+		.getProperty(AJPropertyNames.SHOW_LICENSE_AT_START.toString());
+	if (propertyValue.equals("")) {
+	    status = false;
+	    applicationProperties.setProperty(
+		    AJPropertyNames.SHOW_LICENSE_AT_START.toString(),
+		    Boolean.toString(showLicenseAtStart));
+	} else {
+	    showLicenseAtStart = Boolean.parseBoolean(propertyValue);
+	}
 	log.debug(AJPropertyNames.SHOW_LICENSE_AT_START + ":"
 		+ showLicenseAtStart);
 
-	showPDFLatexVersionAtStart = Boolean.parseBoolean(applicationProperties
+	propertyValue = applicationProperties
 		.getProperty(AJPropertyNames.SHOW_PDFLATEX_VERSION_AT_START
-			.toString()));
+			.toString());
+	if (propertyValue.equals("")) {
+	    status = false;
+	    applicationProperties.setProperty(
+		    AJPropertyNames.SHOW_PDFLATEX_VERSION_AT_START.toString(),
+		    Boolean.toString(showPDFLatexVersionAtStart));
+	} else {
+	    showPDFLatexVersionAtStart = Boolean.parseBoolean(propertyValue);
+	}
 	log.debug(AJPropertyNames.SHOW_PDFLATEX_VERSION_AT_START + ":"
 		+ showPDFLatexVersionAtStart);
 
-	showConfigurationAtStart = Boolean.parseBoolean(applicationProperties
+	propertyValue = applicationProperties
 		.getProperty(AJPropertyNames.SHOW_CONFIGURATION_AT_START
-			.toString()));
+			.toString());
+	if (propertyValue.equals("")) {
+	    status = false;
+	    applicationProperties.setProperty(
+		    AJPropertyNames.SHOW_CONFIGURATION_AT_START.toString(),
+		    Boolean.toString(showConfigurationAtStart));
+	} else {
+	    showConfigurationAtStart = Boolean.parseBoolean(propertyValue);
+	}
 	log.debug(AJPropertyNames.SHOW_CONFIGURATION_AT_START + ":"
 		+ showConfigurationAtStart);
+	return status;
+    }
 
-	// GENERAL LOCATION
+    private boolean checkStrings() {
+	boolean status = true;
+	String propertyValue;
+
 	File newFilesLocation = new File(
 		applicationProperties
 			.getProperty(AJPropertyNames.FILES_LOCATION.toString()));
@@ -307,152 +406,240 @@ public class AJConfiguration implements Configuration {
 	} else {
 	    filesLocation = newFilesLocation;
 	}
+	if (newFilesLocation.equals("")) {
+	    status = false;
+	}
 	log.debug(AJPropertyNames.FILES_LOCATION + ":"
 		+ filesLocation.getAbsolutePath());
 
 	// INPUT FOLDER
-	rawReportsFolder = applicationProperties
+	propertyValue = applicationProperties
 		.getProperty(AJPropertyNames.RAW_REPORTS_FOLDER.toString());
+	if (propertyValue.equals("")) {
+	    status = false;
+	    applicationProperties.setProperty(
+		    AJPropertyNames.RAW_REPORTS_FOLDER.toString(),
+		    rawReportsFolder);
+	} else {
+	    rawReportsFolder = propertyValue;
+	}
 	log.debug(AJPropertyNames.RAW_REPORTS_FOLDER + ":" + rawReportsFolder);
 
-	latex_header_footer_folder = applicationProperties
+	propertyValue = applicationProperties
 		.getProperty(AJPropertyNames.LATEX_HEADER_FOOTER_FOLDER
 			.toString());
+	if (propertyValue.equals("")) {
+	    status = false;
+	    applicationProperties.setProperty(
+		    AJPropertyNames.LATEX_HEADER_FOOTER_FOLDER.toString(),
+		    latexHeaderFooterFolder);
+	} else {
+	    latexHeaderFooterFolder = propertyValue;
+	}
 	log.debug(AJPropertyNames.LATEX_HEADER_FOOTER_FOLDER + ":"
-		+ latex_header_footer_folder);
+		+ latexHeaderFooterFolder);
 
 	// LATEX REPORT BY DATE
-	latexReportsFolderByDate = applicationProperties
+	propertyValue = applicationProperties
 		.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_DATE
 			.toString());
+	if (propertyValue.equals("")) {
+	    status = false;
+	    applicationProperties.setProperty(
+		    AJPropertyNames.LATEX_REPORTS_FOLDER_BY_DATE.toString(),
+		    latexReportsFolderByDate);
+	} else {
+	    latexReportsFolderByDate = propertyValue;
+	}
 	log.debug(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_DATE + ":"
 		+ latexReportsFolderByDate);
 
-	latexReportByDateFilename = applicationProperties
+	propertyValue = applicationProperties
 		.getProperty(AJPropertyNames.LATEX_REPORT_BY_DATE_FILENAME
 			.toString());
+	if (propertyValue.equals("")) {
+	    status = false;
+	    applicationProperties.setProperty(
+		    AJPropertyNames.LATEX_REPORT_BY_DATE_FILENAME.toString(),
+		    latexReportByDateFilename);
+	} else {
+	    latexReportByDateFilename = propertyValue;
+	}
 	log.debug(AJPropertyNames.LATEX_REPORT_BY_DATE_FILENAME + ":"
 		+ latexReportByDateFilename);
 
-	latexHeaderByDateFilename = applicationProperties
+	propertyValue = applicationProperties
 		.getProperty(AJPropertyNames.LATEX_HEADER_BY_DATE_FILENAME
 			.toString());
+	if (propertyValue.equals("")) {
+	    status = false;
+	    applicationProperties.setProperty(
+		    AJPropertyNames.LATEX_HEADER_BY_DATE_FILENAME.toString(),
+		    latexHeaderByDateFilename);
+	} else {
+	    latexHeaderByDateFilename = propertyValue;
+	}
 	log.debug(AJPropertyNames.LATEX_HEADER_BY_DATE_FILENAME + ":"
 		+ latexHeaderByDateFilename);
 
-	latexFooterByDateFilename = applicationProperties
+	propertyValue = applicationProperties
 		.getProperty(AJPropertyNames.LATEX_FOOTER_BY_DATE_FILENAME
 			.toString());
+	if (propertyValue.equals("")) {
+	    status = false;
+	    applicationProperties.setProperty(
+		    AJPropertyNames.LATEX_FOOTER_BY_DATE_FILENAME.toString(),
+		    latexFooterByDateFilename);
+	} else {
+	    latexFooterByDateFilename = propertyValue;
+	}
 	log.debug(AJPropertyNames.LATEX_FOOTER_BY_DATE_FILENAME + ":"
 		+ latexFooterByDateFilename);
 
 	// LATEX REPORT BY TARGET
-	latexReportsFolderByTarget = applicationProperties
+	propertyValue = applicationProperties
 		.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_TARGET
 			.toString());
+	if (propertyValue.equals("")) {
+	    status = false;
+	    applicationProperties.setProperty(
+		    AJPropertyNames.LATEX_REPORTS_FOLDER_BY_TARGET.toString(),
+		    latexReportsFolderByTarget);
+	} else {
+	    latexReportsFolderByTarget = propertyValue;
+	}
 	log.debug(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_TARGET + ":"
 		+ latexReportsFolderByTarget);
 
-	latexReportByTargetFilename = applicationProperties
+	propertyValue = applicationProperties
 		.getProperty(AJPropertyNames.LATEX_REPORT_BY_TARGET_FILENAME
 			.toString());
+	if (propertyValue.equals("")) {
+	    status = false;
+	    applicationProperties.setProperty(
+		    AJPropertyNames.LATEX_REPORT_BY_DATE_FILENAME.toString(),
+		    latexReportByTargetFilename);
+	} else {
+	    latexReportByTargetFilename = propertyValue;
+	}
 	log.debug(AJPropertyNames.LATEX_REPORT_BY_TARGET_FILENAME + ":"
 		+ latexReportByTargetFilename);
 
-	latexHeaderByTargetFilename = applicationProperties
+	propertyValue = applicationProperties
 		.getProperty(AJPropertyNames.LATEX_HEADER_BY_TARGET_FILENAME
 			.toString());
+	if (propertyValue.equals("")) {
+	    status = false;
+	    applicationProperties.setProperty(
+		    AJPropertyNames.LATEX_HEADER_BY_TARGET_FILENAME.toString(),
+		    latexHeaderByTargetFilename);
+	} else {
+	    latexHeaderByTargetFilename = propertyValue;
+	}
 	log.debug(AJPropertyNames.LATEX_HEADER_BY_TARGET_FILENAME + ":"
 		+ latexHeaderByTargetFilename);
 
-	latexFooterByTargetFilename = applicationProperties
+	propertyValue = applicationProperties
 		.getProperty(AJPropertyNames.LATEX_FOOTER_BY_TARGET_FILENAME
 			.toString());
+	if (propertyValue.equals("")) {
+	    status = false;
+	    applicationProperties.setProperty(
+		    AJPropertyNames.LATEX_FOOTER_BY_TARGET_FILENAME.toString(),
+		    latexFooterByTargetFilename);
+	} else {
+	    latexFooterByTargetFilename = propertyValue;
+	}
 	log.debug(AJPropertyNames.LATEX_FOOTER_BY_TARGET_FILENAME + ":"
 		+ latexFooterByTargetFilename);
 
 	// LATEX REPORT BY CONSTELLATION
-	latexReportsFolderByConstellation = applicationProperties
+	propertyValue = applicationProperties
 		.getProperty(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
 			.toString());
+	if (propertyValue.equals("")) {
+	    status = false;
+	    applicationProperties.setProperty(
+		    AJPropertyNames.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+			    .toString(), latexReportsFolderByConstellation);
+	} else {
+	    latexReportsFolderByConstellation = propertyValue;
+	}
 	log.debug(AJPropertyNames.LATEX_REPORTS_FOLDER_BY_CONSTELLATION + ":"
 		+ latexReportsFolderByConstellation);
 
-	latexReportByConstellationFilename = applicationProperties
+	propertyValue = applicationProperties
 		.getProperty(AJPropertyNames.LATEX_REPORT_BY_CONSTELLATION_FILENAME
 			.toString());
+	if (propertyValue.equals("")) {
+	    status = false;
+	    applicationProperties.setProperty(
+		    AJPropertyNames.LATEX_REPORT_BY_CONSTELLATION_FILENAME
+			    .toString(), latexReportByConstellationFilename);
+	} else {
+	    latexReportByConstellationFilename = propertyValue;
+	}
 	log.debug(AJPropertyNames.LATEX_REPORT_BY_CONSTELLATION_FILENAME + ":"
 		+ latexReportByConstellationFilename);
 
-	latexHeaderByConstellationFilename = applicationProperties
+	propertyValue = applicationProperties
 		.getProperty(AJPropertyNames.LATEX_HEADER_BY_CONSTELLATION_FILENAME
 			.toString());
+	if (propertyValue.equals("")) {
+	    status = false;
+	    applicationProperties.setProperty(
+		    AJPropertyNames.LATEX_HEADER_BY_CONSTELLATION_FILENAME
+			    .toString(), latexHeaderByConstellationFilename);
+	} else {
+	    latexHeaderByConstellationFilename = propertyValue;
+	}
 	log.debug(AJPropertyNames.LATEX_HEADER_BY_CONSTELLATION_FILENAME + ":"
 		+ latexHeaderByConstellationFilename);
 
-	latexFooterByConstellationFilename = applicationProperties
+	propertyValue = applicationProperties
 		.getProperty(AJPropertyNames.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
 			.toString());
+	if (propertyValue.equals("")) {
+	    status = false;
+	    applicationProperties.setProperty(
+		    AJPropertyNames.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
+			    .toString(), latexFooterByConstellationFilename);
+	} else {
+	    latexFooterByConstellationFilename = propertyValue;
+	}
 	log.debug(AJPropertyNames.LATEX_FOOTER_BY_CONSTELLATION_FILENAME + ":"
 		+ latexFooterByConstellationFilename);
 
 	// SGL REPORT BY DATE
-	sglReportsFolderByDate = applicationProperties
+	propertyValue = applicationProperties
 		.getProperty(AJPropertyNames.SGL_REPORTS_FOLDER_BY_DATE
 			.toString());
+	if (propertyValue.equals("")) {
+	    status = false;
+	    applicationProperties.setProperty(
+		    AJPropertyNames.SGL_REPORTS_FOLDER_BY_DATE.toString(),
+		    sglReportsFolderByDate);
+	} else {
+	    sglReportsFolderByDate = propertyValue;
+	}
 	log.debug(AJPropertyNames.SGL_REPORTS_FOLDER_BY_DATE + ":"
 		+ sglReportsFolderByDate);
 
-	sglReportByDateFilename = applicationProperties
+	propertyValue = applicationProperties
 		.getProperty(AJPropertyNames.SGL_REPORT_BY_DATE_FILENAME
 			.toString());
+	if (propertyValue.equals("")) {
+	    status = false;
+	    applicationProperties.setProperty(
+		    AJPropertyNames.SGL_REPORT_BY_DATE_FILENAME.toString(),
+		    sglReportByDateFilename);
+	} else {
+	    sglReportByDateFilename = propertyValue;
+	}
 	log.debug(AJPropertyNames.SGL_REPORT_BY_DATE_FILENAME + ":"
 		+ sglReportByDateFilename);
 
-	log.debug("Properties are validated.");
 	return status;
-    }
-
-    /**
-     * Save the properties to a XML file.
-     */
-    void saveProperties() {
-	try {
-	    PropertiesManager.storeToXML(applicationProperties, configFile
-		    .getAbsolutePath(),
-		    AppMetaInfo.USER_CONFIGURATION_PROPERTIES_FILE_COMMENT
-			    .toString());
-	} catch (IOException e) {
-	    log.error(
-		    "Errors when writing the file "
-			    + configFile.getAbsolutePath(), e);
-	}
-    }
-
-    @Override
-    public void loadSystemProperties() {
-	log.debug("Loading system properties");
-	applicationProperties = PropertiesManager
-		.updateWithMatchSystemProperties(applicationProperties);
-	log.debug("System properties loaded");
-	validateProperties();
-    }
-
-    @Override
-    public ResourceBundle getResourceBundle() {
-	return localeBundle;
-    }
-
-    @Override
-    public String getProperty(String key) {
-	// Doing so, we don't need a set method for each property, saving code
-	// and time.
-	return applicationProperties.getProperty(key);
-    }
-
-    @Override
-    public ConfigurationUtils getConfigurationUtils() {
-	return new AJConfigurationUtils();
     }
 
     /**
