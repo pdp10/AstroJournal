@@ -70,7 +70,7 @@ public class AJConfigurationTest {
      */
     @After
     public void tearDown() throws Exception {
-	AJConfigurationTestUtils.resetDefaultProperties();
+	AJConfigurationTestUtils.removeAJPropertiesFromSystem();
     }
 
     /**
@@ -108,9 +108,7 @@ public class AJConfigurationTest {
 	assertEquals(config.getProperty(AJPropertyConstants.RAW_REPORTS_FOLDER
 		.getKey()), "raw_report_test2");
 
-	// let's remove these properties from the system.
-	System.clearProperty(AJPropertyConstants.QUIET.getKey());
-	System.clearProperty(AJPropertyConstants.RAW_REPORTS_FOLDER.getKey());
+	// let's remove this property from the system.
 	System.clearProperty("aj.fake_property");
     }
 
@@ -225,12 +223,6 @@ public class AJConfigurationTest {
 	assertEquals(
 		config.getProperty(AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER
 			.getKey()), "lhffolder_test");
-
-	// let's remove these properties from the system.
-	System.clearProperty(AJPropertyConstants.FILES_LOCATION.getKey());
-	System.clearProperty(AJPropertyConstants.RAW_REPORTS_FOLDER.getKey());
-	System.clearProperty(AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER
-		.getKey());
     }
 
     /**
@@ -272,15 +264,6 @@ public class AJConfigurationTest {
 		config.getProperty(AJPropertyConstants.LATEX_FOOTER_BY_DATE_FILENAME
 			.getKey()), "lrdatefooter_test");
 
-	// let's remove these properties from the system.
-	System.clearProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE
-		.getKey());
-	System.clearProperty(AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME
-		.getKey());
-	System.clearProperty(AJPropertyConstants.LATEX_HEADER_BY_DATE_FILENAME
-		.getKey());
-	System.clearProperty(AJPropertyConstants.LATEX_FOOTER_BY_DATE_FILENAME
-		.getKey());
     }
 
     /**
@@ -322,15 +305,6 @@ public class AJConfigurationTest {
 		config.getProperty(AJPropertyConstants.LATEX_FOOTER_BY_TARGET_FILENAME
 			.getKey()), "lrtargetfooter_test");
 
-	// let's remove these properties from the system.
-	System.clearProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET
-		.getKey());
-	System.clearProperty(AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
-		.getKey());
-	System.clearProperty(AJPropertyConstants.LATEX_HEADER_BY_TARGET_FILENAME
-		.getKey());
-	System.clearProperty(AJPropertyConstants.LATEX_FOOTER_BY_TARGET_FILENAME
-		.getKey());
     }
 
     /**
@@ -372,15 +346,6 @@ public class AJConfigurationTest {
 		config.getProperty(AJPropertyConstants.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
 			.getKey()), "lrconstfooter_test");
 
-	// let's remove these properties from the system.
-	System.clearProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-		.getKey());
-	System.clearProperty(AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
-		.getKey());
-	System.clearProperty(AJPropertyConstants.LATEX_HEADER_BY_CONSTELLATION_FILENAME
-		.getKey());
-	System.clearProperty(AJPropertyConstants.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
-		.getKey());
     }
 
     /**
@@ -409,12 +374,6 @@ public class AJConfigurationTest {
 	assertEquals(
 		config.getProperty(AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME
 			.getKey()), "trdatefile_test");
-
-	// let's remove these properties from the system.
-	System.clearProperty(AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE
-		.getKey());
-	System.clearProperty(AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME
-		.getKey());
 
     }
 

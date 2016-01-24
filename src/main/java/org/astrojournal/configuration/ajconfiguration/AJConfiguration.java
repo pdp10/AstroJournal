@@ -63,133 +63,44 @@ public class AJConfiguration implements Configuration {
      */
     private Properties applicationProperties;
 
-    /*
-     * These data field store the previous value of each Property if this has
-     * changed and not yet validated. They are only required for validation. The
-     * rest of the program uses the properties instead. We initialise them with
-     * the default value found in AJProperties. These values will be overwritten
-     * by the default configuration file, and then by the user configuration
-     * file, if found. If the default configuration file is corrupted, a rescue
-     * procedure is implemented for restoring the fields from AJProperties,
-     * skipping the file.
-     */
-    // FLAGS
-    /** True if the application should run quietly */
-    private boolean quiet = Boolean.parseBoolean(AJPropertyConstants.QUIET
-	    .getValue());
-
-    /** True if latex output should be printed. */
-    private boolean showLatexOutput = Boolean
-	    .parseBoolean(AJPropertyConstants.SHOW_LATEX_OUTPUT.getValue());
-
-    /** True if the license should be shown at start. */
-    private boolean showLicenseAtStart = Boolean
-	    .parseBoolean(AJPropertyConstants.SHOW_LICENSE_AT_START.getValue());
-
-    /** True if the version of pdflatex. */
-    private boolean showPDFLatexVersionAtStart = Boolean
-	    .parseBoolean(AJPropertyConstants.SHOW_PDFLATEX_VERSION_AT_START
-		    .getValue());
-
-    /** True if the configuration should be shown at start. */
-    private boolean showConfigurationAtStart = Boolean
-	    .parseBoolean(AJPropertyConstants.SHOW_CONFIGURATION_AT_START
-		    .getValue());
-
-    // MAIN FOLDER
-    /** The absolute path containing AstroJournal input and output folders. */
-    private File filesLocation = new File(
-	    AJPropertyConstants.FILES_LOCATION.getValue());
-
-    // INPUT FOLDER
-    /**
-     * The relative path containing the raw files (observation input folder).
-     */
-    private String rawReportsFolder = AJPropertyConstants.RAW_REPORTS_FOLDER
-	    .getValue();
-
-    // THE HEADER / FOOTER FOLDER
-    /** The folder containing the latex header and footer. */
-    private String latexHeaderFooterFolder = AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER
-	    .getValue();
-
-    // LATEX REPORT BY DATE
-    /**
-     * The name of the folder containing the latex observation files by date
-     * (observation output folder).
-     */
-    private String latexReportsFolderByDate = AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE
-	    .getValue();
-
-    /** The name of the main Latex file sorted by date. */
-    private String latexReportByDateFilename = AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME
-	    .getValue();
-
-    /** The Latex header with path for astrojournal by date. */
-    private String latexHeaderByDateFilename = AJPropertyConstants.LATEX_HEADER_BY_DATE_FILENAME
-	    .getValue();
-
-    /** The Latex footer with path for astrojournal by date. */
-    private String latexFooterByDateFilename = AJPropertyConstants.LATEX_FOOTER_BY_DATE_FILENAME
-	    .getValue();
-
-    // LATEX REPORT BY TARGET
-    /**
-     * The name of the folder containing the latex observation files by target
-     * (observation output folder).
-     */
-    private String latexReportsFolderByTarget = AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET
-	    .getValue();
-
-    /** The name of the main Latex file sorted by target. */
-    private String latexReportByTargetFilename = AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
-	    .getValue();
-
-    /** The Latex header with path for astrojournal by target. */
-    private String latexHeaderByTargetFilename = AJPropertyConstants.LATEX_HEADER_BY_TARGET_FILENAME
-	    .getValue();
-
-    /** The Latex footer with path for astrojournal by target. */
-    private String latexFooterByTargetFilename = AJPropertyConstants.LATEX_FOOTER_BY_TARGET_FILENAME
-	    .getValue();
-
-    // LATEX REPORT BY CONSTELLATION
-    /**
-     * The name of the folder containing the latex observation files by
-     * constellation (observation output folder).
-     */
-    private String latexReportsFolderByConstellation = AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-	    .getValue();
-
-    /** The name of the main Latex file sorted by constellation. */
-    private String latexReportByConstellationFilename = AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
-	    .getValue();
-
-    /** The Latex header with path for astrojournal by constellation. */
-    private String latexHeaderByConstellationFilename = AJPropertyConstants.LATEX_HEADER_BY_CONSTELLATION_FILENAME
-	    .getValue();
-
-    /** The Latex footer with path for astrojournal by constellation. */
-    private String latexFooterByConstellationFilename = AJPropertyConstants.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
-	    .getValue();
-
-    // SGL REPORT BY DATE
-    /**
-     * The name of the folder containing the latex observation files by date
-     * (observation output folder).
-     */
-    private String sglReportsFolderByDate = AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE
-	    .getValue();
-
-    /** The name of the SGL main file sorted by date. */
-    private String sglReportByDateFilename = AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME
-	    .getValue();
-
     /**
      * Default constructor.
      */
     public AJConfiguration() {
 	init();
+    }
+
+    @Override
+    public void loadSystemProperties() {
+	log.debug("Loading system properties");
+	Properties systemProperties = System.getProperties();
+	Properties ajPropertiesFromSystem = new Properties();
+
+	AJPropertyConstants[] keys = AJPropertyConstants.values();
+	for (AJPropertyConstants key : keys) {
+	    if (systemProperties.containsKey(key.getKey())) {
+		ajPropertiesFromSystem.setProperty(key.getKey(),
+			systemProperties.getProperty(key.getKey()));
+	    }
+	}
+
+	log.debug("System properties loaded");
+	validate(ajPropertiesFromSystem);
+    }
+
+    @Override
+    public ResourceBundle getResourceBundle() {
+	return localeBundle;
+    }
+
+    @Override
+    public String getProperty(String key) {
+	return applicationProperties.getProperty(key);
+    }
+
+    @Override
+    public ConfigurationUtils getConfigurationUtils() {
+	return new AJConfigurationUtils();
     }
 
     /**
@@ -208,140 +119,141 @@ public class AJConfiguration implements Configuration {
 	}
     }
 
-    @Override
-    public void loadSystemProperties() {
-	log.debug("Loading system properties");
-	applicationProperties = PropertiesManager
-		.updateWithMatchSystemProperties(applicationProperties);
-	log.debug("System properties loaded");
-	validateProperties();
-    }
+    /**
+     * Initialise the properties for this application by reading the application
+     * properties, then an application-level configuration file (which can be
+     * different for testing / main purposes), and then an user-level
+     * configuration file. After these files are loaded, System properties are
+     * checked for updates. Properties passed as System properties are not saved
+     * in the user configuration file at this stage.
+     */
+    private void init() {
 
-    @Override
-    public ResourceBundle getResourceBundle() {
-	return localeBundle;
-    }
+	applicationProperties = new Properties();
+	initialiseApplicationProperties();
+	log.debug(getConfigurationUtils().printConfiguration(this));
 
-    @Override
-    public String getProperty(String key) {
-	// Doing so, we don't need a set method for each property, saving code
-	// and time.
-	return applicationProperties.getProperty(key);
-    }
+	Properties defaultProperties = loadDefaultConfigurationFileProperties();
+	if (!validate(defaultProperties)) {
+	    log.error("It seems that the default configuration file is corrupted. "
+		    + "The application can continue, but this should be reported "
+		    + "as an issue.");
+	}
 
-    @Override
-    public ConfigurationUtils getConfigurationUtils() {
-	return new AJConfigurationUtils();
+	Properties userProperties = loadUserConfigurationFileProperties();
+	if (userProperties.isEmpty()) {
+	    saveProperties();
+	    log.info("New user configuration saved.");
+	} else if (!validate(userProperties)) {
+	    log.warn("Found inconsistencies in user configuration file. The inconsistent fields will be re-written.");
+	    saveProperties();
+	    log.info("User configuration restored.");
+	}
+
+	// This method also validates the properties, so that the process is
+	// done automatically and there is no need to offer the validation
+	// method to the client.
+	loadSystemProperties();
+
+	// Don't save the application properties now, as at this stage system
+	// properties can be passed as input parameters and they are only
+	// temporary.
+
     }
 
     /**
-     * Initialise the properties for this application by reading an
-     * application-level and then an user-level xml configuration file
-     * containing java properties. After these files are loaded, System
-     * properties are checked for updates. Properties passed as System
-     * properties are not saved in the user configuration file at this stage.
+     * Adjust the files location when setting the initial configuration from
+     * Java class and from default configuration file. This information is not
+     * known a priori (we don't know the user.home!). Don't invoke this method
+     * after calling the user configuration file instead.
+     * 
+     * @param properties
      */
-    private void init() {
-	configFile = AJConfigurationUtils.setupUserConfigurationFile();
-
-	log.debug("Loading application configuration file: "
-		+ AppMetaInfo.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME
-			.getInfo());
-	try {
-
-	    // DEFAULT APPLICATION PROPERTIES: these are in resources/
-	    File temp = new ReadFromJar()
-		    .getFileFromJARFile(
-			    "aj_config_",
-			    "/"
-				    + AppMetaInfo.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME
-					    .getInfo());
-	    log.debug("Extracted "
-		    + AppMetaInfo.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME
-			    .getInfo() + " from JAR and stored in "
-		    + temp.getAbsolutePath());
-	    applicationProperties = PropertiesManager.loadFromXML(temp
-		    .getAbsolutePath());
-	    String[] keys = applicationProperties.keySet().toArray(
-		    new String[0]);
-	    log.debug("If the default configuration file is corrupted, expect to "
-		    + "see inconsistencies in the list below.");
-	    log.debug("List of Properties imported from : "
-		    + temp.getAbsolutePath());
-	    for (String s : keys) {
-		log.debug(s);
-	    }
-	    // Adjust the files location as this information is not known a
-	    // priori (we don't know the user.home!)
-	    applicationProperties.setProperty(
+    private void adjustFilesLocationPath(Properties properties) {
+	if (properties.containsKey(AJPropertyConstants.FILES_LOCATION.getKey())) {
+	    properties.setProperty(
 		    AJPropertyConstants.FILES_LOCATION.getKey(),
 		    System.getProperty("user.home")
 			    + File.separator
-			    + applicationProperties
-				    .get(AJPropertyConstants.FILES_LOCATION
-					    .getKey()));
-
-	    if (!validateProperties()) {
-		log.error("It seems that the default configuration file is corrupted. "
-			+ "The application can continue, but this should be reported "
-			+ "as an issue.");
-		log.info("Attempting to restore the properties using the default "
-			+ "configuration values stored in this Java class.");
-		rescueProperties();
-	    }
-
-	    log.debug("Application configuration file is loaded.");
-
-	    // USER APPLICATION PROPERTIES: these are in the user space
-	    if (configFile != null && configFile.exists()) {
-		log.debug("Loading user configuration file: "
-			+ configFile.getAbsolutePath());
-		applicationProperties = PropertiesManager.loadFromXML(
-			applicationProperties, configFile.getAbsolutePath());
-		log.debug("User configuration file is loaded.");
-		if (!validateProperties()) {
-		    log.warn("Found inconsistencies in the user configuration file. The inconsistent fields will be re-written.");
-		    saveProperties();
-		    log.info("User configuration saved.");
-		}
-	    } else {
-		// use the default
-		log.info("User configuration file not found.");
-		validateProperties();
-		saveProperties();
-		log.info("User configuration saved.");
-	    }
-	} catch (IOException e) {
-	    // NOTE: we always have the default, as it is in the jar file
-	    log.debug(e, e);
-	    log.warn("Errors reading the user configuration file: "
-		    + configFile.getAbsolutePath());
-	    saveProperties();
-	    log.info("A new configuration file was saved.");
+			    + properties.get(AJPropertyConstants.FILES_LOCATION
+				    .getKey()));
 	}
-
-	// override property values with corresponding system property values
-	// passed to the application via command line if this is the case.
-	loadSystemProperties();
     }
 
     /**
-     * This is a rescue method in case the default configuration file is
-     * corrupted. First it clears the current loaded properties. Then, it
-     * retrieves the property names from the class AJPropertyNames and
-     * repopulate applicationProperties with entries like (key, ""). Then it
-     * runs validateProperties(), for restoring the values from the data member
-     * parameters.
+     * Configure applicationProperties with AJProperties. This is invoked inside
+     * the init() procedure. Don't pass it as constructor parameter as
+     * AJProperties cannot be extended. If AJConfiguration is extended, a new
+     * enum will have to be defined for this new configuration (if this is the
+     * desired implementation).
      */
-    private void rescueProperties() {
-	log.debug("Starting rescue procedure");
-	applicationProperties.clear();
+    private void initialiseApplicationProperties() {
+	log.debug("Loading application properties from "
+		+ AJPropertyConstants.class.getName());
 	AJPropertyConstants[] keys = AJPropertyConstants.values();
 	for (AJPropertyConstants key : keys) {
 	    applicationProperties.setProperty(key.getKey(), key.getValue());
 	}
-	log.debug("Rescue procedure terminated.");
-	validateProperties();
+	adjustFilesLocationPath(applicationProperties);
+	log.debug("Application properties are loaded");
+    }
+
+    /**
+     * Parse the default configuration file and store the properties in
+     * defaultProperties. Then define a method validation(Properties
+     * newProperties), which will copy the new property values in
+     * applicationProperties if these are okay, otherwise don't replace them
+     * 
+     * @return the default properties
+     */
+    private Properties loadDefaultConfigurationFileProperties() {
+	String defaultConfigurationFile = AppMetaInfo.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME
+		.getInfo();
+	log.debug("Loading default configuration file: "
+		+ defaultConfigurationFile);
+	Properties defaultProperties = new Properties();
+	try {
+	    // this file is in resources/
+	    File temp = new ReadFromJar().getFileFromJARFile("aj_config_", "/"
+		    + defaultConfigurationFile);
+	    log.debug("Extracted " + defaultConfigurationFile
+		    + " from JAR and stored in " + temp.getAbsolutePath());
+	    defaultProperties = PropertiesManager.loadFromXML(temp
+		    .getAbsolutePath());
+	} catch (IOException e) {
+	    log.error("Error reading the default configuration file. Please, report this as an issue.");
+	}
+	adjustFilesLocationPath(defaultProperties);
+	log.debug("Default configuration file is loaded.");
+	return defaultProperties;
+    }
+
+    /**
+     * Parse the user configuration file and store the properties in
+     * userProperties. Then invoke the method validation(Properties
+     * newProperties) passing this set of properties. Same procedure as above.
+     * 
+     * @return the user properties
+     */
+    private Properties loadUserConfigurationFileProperties() {
+	// These properties are in the user space
+	configFile = AJConfigurationUtils.setupUserConfigurationFile();
+	Properties userProperties = new Properties();
+	if (configFile != null && configFile.exists()) {
+	    log.debug("Loading user configuration file: "
+		    + configFile.getAbsolutePath());
+	    try {
+		userProperties = PropertiesManager.loadFromXML(userProperties,
+			configFile.getAbsolutePath());
+	    } catch (IOException e) {
+		log.warn("Error reading the user configuration file.");
+		return userProperties;
+	    }
+	    log.debug("User configuration file is loaded.");
+	} else {
+	    log.info("User configuration file not found.");
+	}
+	return userProperties;
     }
 
     /**
@@ -349,19 +261,40 @@ public class AJConfiguration implements Configuration {
      * 
      * @return true if the validation succeeded.
      */
-    private boolean validateProperties() {
+    private boolean validate(Properties properties) {
 	log.debug("Validating properties");
-	adjustFileSeparator();
-
 	boolean status = true;
+	String[] keys = properties.keySet().toArray(new String[0]);
+	for (String key : keys) {
+	    // LOCALE and FILES_LOCATION are treated separately
+	    if (key.equals(AJPropertyConstants.LOCALE.getKey())) {
+		status = status && localeValidation(properties, key);
+	    } else if (key.equals(AJPropertyConstants.FILES_LOCATION.getKey())) {
+		status = status && filepathValidation(properties, key);
+	    } else {
+		status = status && genericValidation(properties, key);
+	    }
+	}
+	log.debug("Properties are validated.");
+	return status;
+    }
 
-	// LOCALE
-
+    /**
+     * Validate a property containing a language LOCALE.
+     * 
+     * @param properties
+     * @param key
+     * @return true if the validation for this property is valid.
+     */
+    private boolean localeValidation(Properties properties, String key) {
+	boolean status = true;
 	// TODO solve the locale. it doesn't work.
+	// TODO possibly PUT THIS IN A METHOD
 	// try {
 	// String locale = "locale/aj_"
 	// + applicationProperties.getProperty(AJProperties.LOCALE);
-	// String bundle = new ReadFromJar().getStringFileFromJARFile("/"
+	// String bundle = new
+	// ReadFromJar().getStringFileFromJARFile("/"
 	// + locale + ".properties");
 	// if (!bundle.isEmpty()) {
 	// localeBundle = ResourceBundle.getBundle(locale);
@@ -375,424 +308,68 @@ public class AJConfiguration implements Configuration {
 	// localeBundle.getLocale());
 	// status = false;
 	// }
-	// log.debug(AJProperties.LOCALE + ":" + localeBundle.getLocale());
-
-	// FLAGS
-	status = checkFlags() && status;
-
-	// GENERAL LOCATION
-	status = checkStrings() && status;
-
-	log.debug("Properties are validated.");
+	// log.debug(AJProperties.LOCALE + ":" +
+	// localeBundle.getLocale());
 	return status;
     }
 
-    private boolean checkFlags() {
+    /**
+     * Validate a property containing a file path as value.
+     * 
+     * @param properties
+     * @param key
+     * @return true if the validation for this property is valid.
+     */
+    private boolean filepathValidation(Properties properties, String key) {
 	boolean status = true;
-	String propertyValue;
-
-	propertyValue = applicationProperties
-		.getProperty(AJPropertyConstants.QUIET.getKey());
-	if (propertyValue == null || propertyValue.equals("")) {
-	    status = false;
-	    log.warn("The property : " + AJPropertyConstants.QUIET.getKey()
-		    + " is not valid.");
-	    applicationProperties
-		    .setProperty(AJPropertyConstants.QUIET.getKey(),
-			    Boolean.toString(quiet));
-	} else {
-	    quiet = Boolean.parseBoolean(propertyValue);
-	}
-	log.debug(AJPropertyConstants.QUIET + ":" + quiet);
-
-	propertyValue = applicationProperties
-		.getProperty(AJPropertyConstants.SHOW_LATEX_OUTPUT.getKey());
-	if (propertyValue == null || propertyValue.equals("")) {
-	    status = false;
-	    log.warn("The property : "
-		    + AJPropertyConstants.SHOW_LATEX_OUTPUT.getKey()
-		    + " is not valid.");
-	    applicationProperties.setProperty(
-		    AJPropertyConstants.SHOW_LATEX_OUTPUT.getKey(),
-		    Boolean.toString(showLatexOutput));
-	} else {
-	    showLatexOutput = Boolean.parseBoolean(propertyValue);
-	}
-	log.debug(AJPropertyConstants.SHOW_LATEX_OUTPUT + ":" + showLatexOutput);
-
-	propertyValue = applicationProperties
-		.getProperty(AJPropertyConstants.SHOW_LICENSE_AT_START.getKey());
-	if (propertyValue == null || propertyValue.equals("")) {
-	    status = false;
-	    log.warn("The property : "
-		    + AJPropertyConstants.SHOW_LICENSE_AT_START.getKey()
-		    + " is not valid.");
-	    applicationProperties.setProperty(
-		    AJPropertyConstants.SHOW_LICENSE_AT_START.getKey(),
-		    Boolean.toString(showLicenseAtStart));
-	} else {
-	    showLicenseAtStart = Boolean.parseBoolean(propertyValue);
-	}
-	log.debug(AJPropertyConstants.SHOW_LICENSE_AT_START + ":"
-		+ showLicenseAtStart);
-
-	propertyValue = applicationProperties
-		.getProperty(AJPropertyConstants.SHOW_PDFLATEX_VERSION_AT_START
-			.getKey());
-	if (propertyValue == null || propertyValue.equals("")) {
-	    status = false;
-	    log.warn("The property : "
-		    + AJPropertyConstants.SHOW_PDFLATEX_VERSION_AT_START
-			    .getKey() + " is not valid.");
-	    applicationProperties
-		    .setProperty(
-			    AJPropertyConstants.SHOW_PDFLATEX_VERSION_AT_START
-				    .getKey(), Boolean
-				    .toString(showPDFLatexVersionAtStart));
-	} else {
-	    showPDFLatexVersionAtStart = Boolean.parseBoolean(propertyValue);
-	}
-	log.debug(AJPropertyConstants.SHOW_PDFLATEX_VERSION_AT_START + ":"
-		+ showPDFLatexVersionAtStart);
-
-	propertyValue = applicationProperties
-		.getProperty(AJPropertyConstants.SHOW_CONFIGURATION_AT_START
-			.getKey());
-	if (propertyValue == null || propertyValue.equals("")) {
-	    status = false;
-	    log.warn("The property : "
-		    + AJPropertyConstants.SHOW_CONFIGURATION_AT_START.getKey()
-		    + " is not valid.");
-	    applicationProperties.setProperty(
-		    AJPropertyConstants.SHOW_CONFIGURATION_AT_START.getKey(),
-		    Boolean.toString(showConfigurationAtStart));
-	} else {
-	    showConfigurationAtStart = Boolean.parseBoolean(propertyValue);
-	}
-	log.debug(AJPropertyConstants.SHOW_CONFIGURATION_AT_START + ":"
-		+ showConfigurationAtStart);
-	return status;
-    }
-
-    private boolean checkStrings() {
-	boolean status = true;
-	String propertyValue;
-
-	File newFilesLocation = new File(
-		applicationProperties
-			.getProperty(AJPropertyConstants.FILES_LOCATION
-				.getKey()));
-	// Let's temporarily create this folder to test it. We will delete it
-	// straight after
-	// as folders are not created here, but by AJConfigurationUtils.
+	String value = properties.getProperty(key);
+	File file = new File(key);
+	// Let's temporarily create this folder to test it.
 	boolean created = false;
-	if (newFilesLocation != null) {
-	    created = newFilesLocation.mkdir();
+	if (file != null) {
+	    created = file.mkdir();
 	}
-	if (newFilesLocation == null || !newFilesLocation.exists()
-		|| !newFilesLocation.canWrite()) {
-	    log.warn("The property : "
-		    + AJPropertyConstants.FILES_LOCATION.getKey()
-		    + " is not valid.");
-	    // reset the previous property
-	    applicationProperties.setProperty(
-		    AJPropertyConstants.FILES_LOCATION.getKey(),
-		    filesLocation.getAbsolutePath());
+	if (file == null || !file.exists() || !file.canWrite()) {
 	    status = false;
+	    log.warn("The property : " + key + " is not valid.");
 	} else {
-	    filesLocation = newFilesLocation;
+	    applicationProperties.setProperty(key, value);
 	}
 	if (created) {
-	    newFilesLocation.delete();
+	    file.delete();
 	}
-	log.debug(AJPropertyConstants.FILES_LOCATION + ":"
-		+ filesLocation.getAbsolutePath());
-
-	// INPUT FOLDER
-	propertyValue = applicationProperties
-		.getProperty(AJPropertyConstants.RAW_REPORTS_FOLDER.getKey());
-	if (propertyValue == null || propertyValue.equals("")) {
-	    status = false;
-	    log.warn("The property : "
-		    + AJPropertyConstants.RAW_REPORTS_FOLDER.getKey()
-		    + " is not valid.");
-	    applicationProperties.setProperty(
-		    AJPropertyConstants.RAW_REPORTS_FOLDER.getKey(),
-		    rawReportsFolder);
-	} else {
-	    rawReportsFolder = propertyValue;
-	}
-	log.debug(AJPropertyConstants.RAW_REPORTS_FOLDER + ":"
-		+ rawReportsFolder);
-
-	propertyValue = applicationProperties
-		.getProperty(AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER
-			.getKey());
-	if (propertyValue == null || propertyValue.equals("")) {
-	    status = false;
-	    log.warn("The property : "
-		    + AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER.getKey()
-		    + " is not valid.");
-	    applicationProperties.setProperty(
-		    AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER.getKey(),
-		    latexHeaderFooterFolder);
-	} else {
-	    latexHeaderFooterFolder = propertyValue;
-	}
-	log.debug(AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER + ":"
-		+ latexHeaderFooterFolder);
-
-	// LATEX REPORT BY DATE
-	propertyValue = applicationProperties
-		.getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE
-			.getKey());
-	if (propertyValue == null || propertyValue.equals("")) {
-	    status = false;
-	    log.warn("The property : "
-		    + AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE.getKey()
-		    + " is not valid.");
-	    applicationProperties.setProperty(
-		    AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE.getKey(),
-		    latexReportsFolderByDate);
-	} else {
-	    latexReportsFolderByDate = propertyValue;
-	}
-	log.debug(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE + ":"
-		+ latexReportsFolderByDate);
-
-	propertyValue = applicationProperties
-		.getProperty(AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME
-			.getKey());
-	if (propertyValue == null || propertyValue.equals("")) {
-	    status = false;
-	    log.warn("The property : "
-		    + AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME
-			    .getKey() + " is not valid.");
-	    applicationProperties.setProperty(
-		    AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME.getKey(),
-		    latexReportByDateFilename);
-	} else {
-	    latexReportByDateFilename = propertyValue;
-	}
-	log.debug(AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME + ":"
-		+ latexReportByDateFilename);
-
-	propertyValue = applicationProperties
-		.getProperty(AJPropertyConstants.LATEX_HEADER_BY_DATE_FILENAME
-			.getKey());
-	if (propertyValue == null || propertyValue.equals("")) {
-	    status = false;
-	    log.warn("The property : "
-		    + AJPropertyConstants.LATEX_HEADER_BY_DATE_FILENAME
-			    .getKey() + " is not valid.");
-	    applicationProperties.setProperty(
-		    AJPropertyConstants.LATEX_HEADER_BY_DATE_FILENAME.getKey(),
-		    latexHeaderByDateFilename);
-	} else {
-	    latexHeaderByDateFilename = propertyValue;
-	}
-	log.debug(AJPropertyConstants.LATEX_HEADER_BY_DATE_FILENAME + ":"
-		+ latexHeaderByDateFilename);
-
-	propertyValue = applicationProperties
-		.getProperty(AJPropertyConstants.LATEX_FOOTER_BY_DATE_FILENAME
-			.getKey());
-	if (propertyValue == null || propertyValue.equals("")) {
-	    status = false;
-	    log.warn("The property : "
-		    + AJPropertyConstants.LATEX_FOOTER_BY_DATE_FILENAME
-			    .getKey() + " is not valid.");
-	    applicationProperties.setProperty(
-		    AJPropertyConstants.LATEX_FOOTER_BY_DATE_FILENAME.getKey(),
-		    latexFooterByDateFilename);
-	} else {
-	    latexFooterByDateFilename = propertyValue;
-	}
-	log.debug(AJPropertyConstants.LATEX_FOOTER_BY_DATE_FILENAME + ":"
-		+ latexFooterByDateFilename);
-
-	// LATEX REPORT BY TARGET
-	propertyValue = applicationProperties
-		.getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET
-			.getKey());
-	if (propertyValue == null || propertyValue.equals("")) {
-	    status = false;
-	    log.warn("The property : "
-		    + AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET
-			    .getKey() + " is not valid.");
-	    applicationProperties
-		    .setProperty(
-			    AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET
-				    .getKey(), latexReportsFolderByTarget);
-	} else {
-	    latexReportsFolderByTarget = propertyValue;
-	}
-	log.debug(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET + ":"
-		+ latexReportsFolderByTarget);
-
-	propertyValue = applicationProperties
-		.getProperty(AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
-			.getKey());
-	if (propertyValue == null || propertyValue.equals("")) {
-	    status = false;
-	    log.warn("The property : "
-		    + AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
-			    .getKey() + " is not valid.");
-	    applicationProperties.setProperty(
-		    AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
-			    .getKey(), latexReportByTargetFilename);
-	} else {
-	    latexReportByTargetFilename = propertyValue;
-	}
-	log.debug(AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME + ":"
-		+ latexReportByTargetFilename);
-
-	propertyValue = applicationProperties
-		.getProperty(AJPropertyConstants.LATEX_HEADER_BY_TARGET_FILENAME
-			.getKey());
-	if (propertyValue == null || propertyValue.equals("")) {
-	    status = false;
-	    log.warn("The property : "
-		    + AJPropertyConstants.LATEX_HEADER_BY_TARGET_FILENAME
-			    .getKey() + " is not valid.");
-	    applicationProperties.setProperty(
-		    AJPropertyConstants.LATEX_HEADER_BY_TARGET_FILENAME
-			    .getKey(), latexHeaderByTargetFilename);
-	} else {
-	    latexHeaderByTargetFilename = propertyValue;
-	}
-	log.debug(AJPropertyConstants.LATEX_HEADER_BY_TARGET_FILENAME + ":"
-		+ latexHeaderByTargetFilename);
-
-	propertyValue = applicationProperties
-		.getProperty(AJPropertyConstants.LATEX_FOOTER_BY_TARGET_FILENAME
-			.getKey());
-	if (propertyValue == null || propertyValue.equals("")) {
-	    status = false;
-	    log.warn("The property : "
-		    + AJPropertyConstants.LATEX_FOOTER_BY_TARGET_FILENAME
-			    .getKey() + " is not valid.");
-	    applicationProperties.setProperty(
-		    AJPropertyConstants.LATEX_FOOTER_BY_TARGET_FILENAME
-			    .getKey(), latexFooterByTargetFilename);
-	} else {
-	    latexFooterByTargetFilename = propertyValue;
-	}
-	log.debug(AJPropertyConstants.LATEX_FOOTER_BY_TARGET_FILENAME + ":"
-		+ latexFooterByTargetFilename);
-
-	// LATEX REPORT BY CONSTELLATION
-	propertyValue = applicationProperties
-		.getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-			.getKey());
-	if (propertyValue == null || propertyValue.equals("")) {
-	    status = false;
-	    log.warn("The property : "
-		    + AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-			    .getKey() + " is not valid.");
-	    applicationProperties.setProperty(
-		    AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-			    .getKey(), latexReportsFolderByConstellation);
-	} else {
-	    latexReportsFolderByConstellation = propertyValue;
-	}
-	log.debug(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-		+ ":" + latexReportsFolderByConstellation);
-
-	propertyValue = applicationProperties
-		.getProperty(AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
-			.getKey());
-	if (propertyValue == null || propertyValue.equals("")) {
-	    status = false;
-	    log.warn("The property : "
-		    + AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
-			    .getKey() + " is not valid.");
-	    applicationProperties.setProperty(
-		    AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
-			    .getKey(), latexReportByConstellationFilename);
-	} else {
-	    latexReportByConstellationFilename = propertyValue;
-	}
-	log.debug(AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
-		+ ":" + latexReportByConstellationFilename);
-
-	propertyValue = applicationProperties
-		.getProperty(AJPropertyConstants.LATEX_HEADER_BY_CONSTELLATION_FILENAME
-			.getKey());
-	if (propertyValue == null || propertyValue.equals("")) {
-	    status = false;
-	    log.warn("The property : "
-		    + AJPropertyConstants.LATEX_HEADER_BY_CONSTELLATION_FILENAME
-			    .getKey() + " is not valid.");
-	    applicationProperties.setProperty(
-		    AJPropertyConstants.LATEX_HEADER_BY_CONSTELLATION_FILENAME
-			    .getKey(), latexHeaderByConstellationFilename);
-	} else {
-	    latexHeaderByConstellationFilename = propertyValue;
-	}
-	log.debug(AJPropertyConstants.LATEX_HEADER_BY_CONSTELLATION_FILENAME
-		+ ":" + latexHeaderByConstellationFilename);
-
-	propertyValue = applicationProperties
-		.getProperty(AJPropertyConstants.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
-			.getKey());
-	if (propertyValue == null || propertyValue.equals("")) {
-	    status = false;
-	    log.warn("The property : "
-		    + AJPropertyConstants.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
-			    .getKey() + " is not valid.");
-	    applicationProperties.setProperty(
-		    AJPropertyConstants.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
-			    .getKey(), latexFooterByConstellationFilename);
-	} else {
-	    latexFooterByConstellationFilename = propertyValue;
-	}
-	log.debug(AJPropertyConstants.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
-		+ ":" + latexFooterByConstellationFilename);
-
-	// SGL REPORT BY DATE
-	propertyValue = applicationProperties
-		.getProperty(AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE
-			.getKey());
-	if (propertyValue == null || propertyValue.equals("")) {
-	    status = false;
-	    log.warn("The property : "
-		    + AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE.getKey()
-		    + " is not valid.");
-	    applicationProperties.setProperty(
-		    AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE.getKey(),
-		    sglReportsFolderByDate);
-	} else {
-	    sglReportsFolderByDate = propertyValue;
-	}
-	log.debug(AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE + ":"
-		+ sglReportsFolderByDate);
-
-	propertyValue = applicationProperties
-		.getProperty(AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME
-			.getKey());
-	if (propertyValue == null || propertyValue.equals("")) {
-	    status = false;
-	    log.warn("The property : "
-		    + AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME.getKey()
-		    + " is not valid.");
-	    applicationProperties.setProperty(
-		    AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME.getKey(),
-		    sglReportByDateFilename);
-	} else {
-	    sglReportByDateFilename = propertyValue;
-	}
-	log.debug(AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME + ":"
-		+ sglReportByDateFilename);
-
+	log.debug("Using " + key + ":" + applicationProperties.getProperty(key));
 	return status;
     }
 
+    /**
+     * Validate the property key in properties and add it to the application
+     * properties if this is fine.
+     * 
+     * @param properties
+     * @param key
+     * @return true if the validation for this property is valid.
+     */
+    private boolean genericValidation(Properties properties, String key) {
+	boolean status = true;
+	String value = properties.getProperty(key);
+	if (value == null || value.equals("")) {
+	    status = false;
+	    log.warn("The property : " + key + " is not valid.");
+	} else {
+	    applicationProperties.setProperty(key, value);
+	}
+	log.debug("Using " + key + ":" + applicationProperties.getProperty(key));
+	return status;
+    }
+
+    // TODO REVISIT THIS
     /**
      * Adjust the file separator if needed. The file separator must be '/' as
      * this is the default file separator in LaTeX. Therefore, let's replace '\'
      * with '/'.
      */
+    @Deprecated
     private void adjustFileSeparator() {
 	applicationProperties.setProperty(
 		AJPropertyConstants.RAW_REPORTS_FOLDER.getKey(),

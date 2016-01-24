@@ -56,9 +56,9 @@ public enum AppMetaInfo {
 
     /** The short text for the application license. */
     SHORT_LICENSE(
-	    AppMetaInfo.NAME
+	    AppMetaInfo.NAME.getInfo()
 		    + " "
-		    + AppMetaInfo.VERSION
+		    + AppMetaInfo.VERSION.getInfo()
 		    + " is free software: you can redistribute it and/or modify \n"
 		    + "it under the terms of the GNU General Public License as published by \n"
 		    + "the Free Software Foundation, either version 3 of the License, or \n"

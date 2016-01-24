@@ -29,6 +29,7 @@ import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import org.apache.commons.io.FileUtils;
@@ -455,6 +456,19 @@ public class AJConfigurationUtils implements ConfigurationUtils {
 					    .getKey())));
 	} catch (IOException e) {
 	    throw e;
+	}
+    }
+
+    /**
+     * Print the property names.
+     * 
+     * @param properties
+     */
+    static void printNames(Properties properties) {
+	String[] keys = properties.keySet().toArray(new String[0]);
+	log.debug("List of Properties: ");
+	for (String s : keys) {
+	    log.debug(s);
 	}
     }
 }

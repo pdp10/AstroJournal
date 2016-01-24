@@ -104,6 +104,7 @@ public class AJTabSeparatedValueImporterTest {
      */
     @After
     public void tearDown() throws Exception {
+	AJConfigurationTestUtils.removeAJPropertiesFromSystem();
     }
 
     /**

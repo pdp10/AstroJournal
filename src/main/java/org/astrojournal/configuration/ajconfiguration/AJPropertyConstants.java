@@ -23,7 +23,6 @@
  */
 package org.astrojournal.configuration.ajconfiguration;
 
-import java.io.File;
 
 /**
  * The set of Java Properties for AstroJournal.
@@ -55,8 +54,7 @@ public enum AJPropertyConstants {
 
     // MAIN LOCATION
     /** The absolute path containing AstroJournal input and output folders. */
-    FILES_LOCATION("aj.files_location", System.getProperty("user.home")
-	    + File.separator + "AstroJournal_files"),
+    FILES_LOCATION("aj.files_location", "AstroJournal_files"),
 
     // INPUT FOLDER
     /** The relative path containing the raw files (observation input folder). */
