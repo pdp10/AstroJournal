@@ -395,6 +395,8 @@ public class AJConfiguration implements Configuration {
 		.getProperty(AJPropertyConstants.QUIET.getKey());
 	if (propertyValue == null || propertyValue.equals("")) {
 	    status = false;
+	    log.warn("The property : " + AJPropertyConstants.QUIET.getKey()
+		    + " is not valid.");
 	    applicationProperties
 		    .setProperty(AJPropertyConstants.QUIET.getKey(),
 			    Boolean.toString(quiet));
@@ -407,6 +409,9 @@ public class AJConfiguration implements Configuration {
 		.getProperty(AJPropertyConstants.SHOW_LATEX_OUTPUT.getKey());
 	if (propertyValue == null || propertyValue.equals("")) {
 	    status = false;
+	    log.warn("The property : "
+		    + AJPropertyConstants.SHOW_LATEX_OUTPUT.getKey()
+		    + " is not valid.");
 	    applicationProperties.setProperty(
 		    AJPropertyConstants.SHOW_LATEX_OUTPUT.getKey(),
 		    Boolean.toString(showLatexOutput));
@@ -419,6 +424,9 @@ public class AJConfiguration implements Configuration {
 		.getProperty(AJPropertyConstants.SHOW_LICENSE_AT_START.getKey());
 	if (propertyValue == null || propertyValue.equals("")) {
 	    status = false;
+	    log.warn("The property : "
+		    + AJPropertyConstants.SHOW_LICENSE_AT_START.getKey()
+		    + " is not valid.");
 	    applicationProperties.setProperty(
 		    AJPropertyConstants.SHOW_LICENSE_AT_START.getKey(),
 		    Boolean.toString(showLicenseAtStart));
@@ -433,6 +441,9 @@ public class AJConfiguration implements Configuration {
 			.getKey());
 	if (propertyValue == null || propertyValue.equals("")) {
 	    status = false;
+	    log.warn("The property : "
+		    + AJPropertyConstants.SHOW_PDFLATEX_VERSION_AT_START
+			    .getKey() + " is not valid.");
 	    applicationProperties
 		    .setProperty(
 			    AJPropertyConstants.SHOW_PDFLATEX_VERSION_AT_START
@@ -449,6 +460,9 @@ public class AJConfiguration implements Configuration {
 			.getKey());
 	if (propertyValue == null || propertyValue.equals("")) {
 	    status = false;
+	    log.warn("The property : "
+		    + AJPropertyConstants.SHOW_CONFIGURATION_AT_START.getKey()
+		    + " is not valid.");
 	    applicationProperties.setProperty(
 		    AJPropertyConstants.SHOW_CONFIGURATION_AT_START.getKey(),
 		    Boolean.toString(showConfigurationAtStart));
@@ -468,14 +482,18 @@ public class AJConfiguration implements Configuration {
 		applicationProperties
 			.getProperty(AJPropertyConstants.FILES_LOCATION
 				.getKey()));
+	// Let's temporarily create this folder to test it. We will delete it
+	// straight after
+	// as folders are not created here, but by AJConfigurationUtils.
+	boolean created = false;
+	if (newFilesLocation != null) {
+	    created = newFilesLocation.mkdir();
+	}
 	if (newFilesLocation == null || !newFilesLocation.exists()
 		|| !newFilesLocation.canWrite()) {
-	    log.debug("The property "
-		    + AJPropertyConstants.FILES_LOCATION
-		    + ":"
-		    + newFilesLocation.getAbsolutePath()
-		    + " is not accessible. Using previous `files location` setting ("
-		    + filesLocation.getAbsolutePath() + ").");
+	    log.warn("The property : "
+		    + AJPropertyConstants.FILES_LOCATION.getKey()
+		    + " is not valid.");
 	    // reset the previous property
 	    applicationProperties.setProperty(
 		    AJPropertyConstants.FILES_LOCATION.getKey(),
@@ -484,8 +502,8 @@ public class AJConfiguration implements Configuration {
 	} else {
 	    filesLocation = newFilesLocation;
 	}
-	if (newFilesLocation.equals("")) {
-	    status = false;
+	if (created) {
+	    newFilesLocation.delete();
 	}
 	log.debug(AJPropertyConstants.FILES_LOCATION + ":"
 		+ filesLocation.getAbsolutePath());
@@ -495,6 +513,9 @@ public class AJConfiguration implements Configuration {
 		.getProperty(AJPropertyConstants.RAW_REPORTS_FOLDER.getKey());
 	if (propertyValue == null || propertyValue.equals("")) {
 	    status = false;
+	    log.warn("The property : "
+		    + AJPropertyConstants.RAW_REPORTS_FOLDER.getKey()
+		    + " is not valid.");
 	    applicationProperties.setProperty(
 		    AJPropertyConstants.RAW_REPORTS_FOLDER.getKey(),
 		    rawReportsFolder);
@@ -509,6 +530,9 @@ public class AJConfiguration implements Configuration {
 			.getKey());
 	if (propertyValue == null || propertyValue.equals("")) {
 	    status = false;
+	    log.warn("The property : "
+		    + AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER.getKey()
+		    + " is not valid.");
 	    applicationProperties.setProperty(
 		    AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER.getKey(),
 		    latexHeaderFooterFolder);
@@ -524,6 +548,9 @@ public class AJConfiguration implements Configuration {
 			.getKey());
 	if (propertyValue == null || propertyValue.equals("")) {
 	    status = false;
+	    log.warn("The property : "
+		    + AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE.getKey()
+		    + " is not valid.");
 	    applicationProperties.setProperty(
 		    AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE.getKey(),
 		    latexReportsFolderByDate);
@@ -538,6 +565,9 @@ public class AJConfiguration implements Configuration {
 			.getKey());
 	if (propertyValue == null || propertyValue.equals("")) {
 	    status = false;
+	    log.warn("The property : "
+		    + AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME
+			    .getKey() + " is not valid.");
 	    applicationProperties.setProperty(
 		    AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME.getKey(),
 		    latexReportByDateFilename);
@@ -552,6 +582,9 @@ public class AJConfiguration implements Configuration {
 			.getKey());
 	if (propertyValue == null || propertyValue.equals("")) {
 	    status = false;
+	    log.warn("The property : "
+		    + AJPropertyConstants.LATEX_HEADER_BY_DATE_FILENAME
+			    .getKey() + " is not valid.");
 	    applicationProperties.setProperty(
 		    AJPropertyConstants.LATEX_HEADER_BY_DATE_FILENAME.getKey(),
 		    latexHeaderByDateFilename);
@@ -566,6 +599,9 @@ public class AJConfiguration implements Configuration {
 			.getKey());
 	if (propertyValue == null || propertyValue.equals("")) {
 	    status = false;
+	    log.warn("The property : "
+		    + AJPropertyConstants.LATEX_FOOTER_BY_DATE_FILENAME
+			    .getKey() + " is not valid.");
 	    applicationProperties.setProperty(
 		    AJPropertyConstants.LATEX_FOOTER_BY_DATE_FILENAME.getKey(),
 		    latexFooterByDateFilename);
@@ -581,6 +617,9 @@ public class AJConfiguration implements Configuration {
 			.getKey());
 	if (propertyValue == null || propertyValue.equals("")) {
 	    status = false;
+	    log.warn("The property : "
+		    + AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET
+			    .getKey() + " is not valid.");
 	    applicationProperties
 		    .setProperty(
 			    AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET
@@ -596,9 +635,12 @@ public class AJConfiguration implements Configuration {
 			.getKey());
 	if (propertyValue == null || propertyValue.equals("")) {
 	    status = false;
+	    log.warn("The property : "
+		    + AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
+			    .getKey() + " is not valid.");
 	    applicationProperties.setProperty(
-		    AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME.getKey(),
-		    latexReportByTargetFilename);
+		    AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
+			    .getKey(), latexReportByTargetFilename);
 	} else {
 	    latexReportByTargetFilename = propertyValue;
 	}
@@ -610,6 +652,9 @@ public class AJConfiguration implements Configuration {
 			.getKey());
 	if (propertyValue == null || propertyValue.equals("")) {
 	    status = false;
+	    log.warn("The property : "
+		    + AJPropertyConstants.LATEX_HEADER_BY_TARGET_FILENAME
+			    .getKey() + " is not valid.");
 	    applicationProperties.setProperty(
 		    AJPropertyConstants.LATEX_HEADER_BY_TARGET_FILENAME
 			    .getKey(), latexHeaderByTargetFilename);
@@ -624,6 +669,9 @@ public class AJConfiguration implements Configuration {
 			.getKey());
 	if (propertyValue == null || propertyValue.equals("")) {
 	    status = false;
+	    log.warn("The property : "
+		    + AJPropertyConstants.LATEX_FOOTER_BY_TARGET_FILENAME
+			    .getKey() + " is not valid.");
 	    applicationProperties.setProperty(
 		    AJPropertyConstants.LATEX_FOOTER_BY_TARGET_FILENAME
 			    .getKey(), latexFooterByTargetFilename);
@@ -639,6 +687,9 @@ public class AJConfiguration implements Configuration {
 			.getKey());
 	if (propertyValue == null || propertyValue.equals("")) {
 	    status = false;
+	    log.warn("The property : "
+		    + AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+			    .getKey() + " is not valid.");
 	    applicationProperties.setProperty(
 		    AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
 			    .getKey(), latexReportsFolderByConstellation);
@@ -653,6 +704,9 @@ public class AJConfiguration implements Configuration {
 			.getKey());
 	if (propertyValue == null || propertyValue.equals("")) {
 	    status = false;
+	    log.warn("The property : "
+		    + AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
+			    .getKey() + " is not valid.");
 	    applicationProperties.setProperty(
 		    AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
 			    .getKey(), latexReportByConstellationFilename);
@@ -667,6 +721,9 @@ public class AJConfiguration implements Configuration {
 			.getKey());
 	if (propertyValue == null || propertyValue.equals("")) {
 	    status = false;
+	    log.warn("The property : "
+		    + AJPropertyConstants.LATEX_HEADER_BY_CONSTELLATION_FILENAME
+			    .getKey() + " is not valid.");
 	    applicationProperties.setProperty(
 		    AJPropertyConstants.LATEX_HEADER_BY_CONSTELLATION_FILENAME
 			    .getKey(), latexHeaderByConstellationFilename);
@@ -681,6 +738,9 @@ public class AJConfiguration implements Configuration {
 			.getKey());
 	if (propertyValue == null || propertyValue.equals("")) {
 	    status = false;
+	    log.warn("The property : "
+		    + AJPropertyConstants.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
+			    .getKey() + " is not valid.");
 	    applicationProperties.setProperty(
 		    AJPropertyConstants.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
 			    .getKey(), latexFooterByConstellationFilename);
@@ -696,6 +756,9 @@ public class AJConfiguration implements Configuration {
 			.getKey());
 	if (propertyValue == null || propertyValue.equals("")) {
 	    status = false;
+	    log.warn("The property : "
+		    + AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE.getKey()
+		    + " is not valid.");
 	    applicationProperties.setProperty(
 		    AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE.getKey(),
 		    sglReportsFolderByDate);
@@ -710,6 +773,9 @@ public class AJConfiguration implements Configuration {
 			.getKey());
 	if (propertyValue == null || propertyValue.equals("")) {
 	    status = false;
+	    log.warn("The property : "
+		    + AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME.getKey()
+		    + " is not valid.");
 	    applicationProperties.setProperty(
 		    AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME.getKey(),
 		    sglReportByDateFilename);
