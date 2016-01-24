@@ -31,7 +31,7 @@ package org.astrojournal.configuration.ajconfiguration;
  * @since 1.0
  * @date 22 Jan 2016
  */
-public enum AppMetaInfo {
+public enum AJMetaInfo {
 
     /** The application name. */
     NAME("AstroJournal"),
@@ -56,9 +56,9 @@ public enum AppMetaInfo {
 
     /** The short text for the application license. */
     SHORT_LICENSE(
-	    AppMetaInfo.NAME.getInfo()
+	    AJMetaInfo.NAME.getInfo()
 		    + " "
-		    + AppMetaInfo.VERSION.getInfo()
+		    + AJMetaInfo.VERSION.getInfo()
 		    + " is free software: you can redistribute it and/or modify \n"
 		    + "it under the terms of the GNU General Public License as published by \n"
 		    + "the Free Software Foundation, either version 3 of the License, or \n"
@@ -76,7 +76,7 @@ public enum AppMetaInfo {
     private final String info;
 
     /** Constructor */
-    private AppMetaInfo(String info) {
+    private AJMetaInfo(String info) {
 	this.info = info;
     }
 

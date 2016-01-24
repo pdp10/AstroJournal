@@ -32,7 +32,7 @@ import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ConfigurationUtils;
 import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
 import org.astrojournal.configuration.ajconfiguration.AJConfigurationUtils;
-import org.astrojournal.configuration.ajconfiguration.AppMetaInfo;
+import org.astrojournal.configuration.ajconfiguration.AJMetaInfo;
 import org.astrojournal.console.AJMainConsole;
 import org.astrojournal.gui.AJMainGUI;
 
@@ -82,8 +82,8 @@ public class AJMain {
      */
     public static void main(String[] args) {
 	// Get some information for debugging
-	log.debug("Application: " + AppMetaInfo.NAME.getInfo() + " "
-		+ AppMetaInfo.VERSION.getInfo());
+	log.debug("Application: " + AJMetaInfo.NAME.getInfo() + " "
+		+ AJMetaInfo.VERSION.getInfo());
 	log.debug("Operating System: " + SystemUtils.OS_ARCH + " "
 		+ SystemUtils.OS_NAME + " " + SystemUtils.OS_VERSION);
 	log.debug("Java: " + SystemUtils.JAVA_VENDOR + " "
@@ -105,7 +105,7 @@ public class AJMain {
 		log.info(AJMainConsole.printHelp());
 		System.exit(0);
 	    } else if (args[0].equals("--license")) {
-		log.info(AppMetaInfo.SHORT_LICENSE.getInfo());
+		log.info(AJMetaInfo.SHORT_LICENSE.getInfo());
 		System.exit(0);
 	    } else if (args[0].equals("-t") || args[0].equals("--test-latex")) {
 		if (configUtils instanceof AJConfigurationUtils) {

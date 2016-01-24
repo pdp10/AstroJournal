@@ -47,7 +47,7 @@ import org.apache.logging.log4j.core.config.plugins.PluginAttribute;
 import org.apache.logging.log4j.core.config.plugins.PluginElement;
 import org.apache.logging.log4j.core.config.plugins.PluginFactory;
 import org.apache.logging.log4j.core.layout.PatternLayout;
-import org.astrojournal.configuration.ajconfiguration.AppMetaInfo;
+import org.astrojournal.configuration.ajconfiguration.AJMetaInfo;
 
 /**
  * A log4j2 appender to a JTextPane.
@@ -176,10 +176,10 @@ public class JTextPaneAppender extends AbstractAppender {
 				    doc.insertString(doc.getLength(), message,
 					    styleSmall);
 				} else if (event.getLevel().equals(Level.INFO)) {
-				    if (message.startsWith(AppMetaInfo.NAME
+				    if (message.startsWith(AJMetaInfo.NAME
 					    .getInfo()
 					    + " "
-					    + AppMetaInfo.VERSION.getInfo())) {
+					    + AJMetaInfo.VERSION.getInfo())) {
 					doc.insertString(doc.getLength(),
 						message, styleSmallItalic);
 				    } else if (message

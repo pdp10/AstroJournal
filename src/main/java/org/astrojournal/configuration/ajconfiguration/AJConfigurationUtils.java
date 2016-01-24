@@ -70,26 +70,26 @@ public class AJConfigurationUtils implements ConfigurationUtils {
 		    System.getProperty("user.home")
 			    + File.separator
 			    + "."
-			    + AppMetaInfo.USER_CONFIGURATION_PROPERTIES_FILE_NAME
+			    + AJMetaInfo.USER_CONFIGURATION_PROPERTIES_FILE_NAME
 				    .getInfo());
 	} else if (SystemUtils.IS_OS_WINDOWS) {
 	    configFile = new File(
 		    System.getProperty("user.home")
 			    + File.separator
-			    + AppMetaInfo.USER_CONFIGURATION_PROPERTIES_FILE_NAME
+			    + AJMetaInfo.USER_CONFIGURATION_PROPERTIES_FILE_NAME
 				    .getInfo());
 	} else if (SystemUtils.IS_OS_UNIX) {
 	    configFile = new File(
 		    System.getProperty("user.home")
 			    + File.separator
 			    + "."
-			    + AppMetaInfo.USER_CONFIGURATION_PROPERTIES_FILE_NAME
+			    + AJMetaInfo.USER_CONFIGURATION_PROPERTIES_FILE_NAME
 				    .getInfo());
 	} else {
 	    configFile = new File(
 		    System.getProperty("user.home")
 			    + File.separator
-			    + AppMetaInfo.USER_CONFIGURATION_PROPERTIES_FILE_NAME
+			    + AJMetaInfo.USER_CONFIGURATION_PROPERTIES_FILE_NAME
 				    .getInfo());
 	}
 	return configFile;
@@ -102,7 +102,7 @@ public class AJConfigurationUtils implements ConfigurationUtils {
      */
     @Override
     public final String printLicense() {
-	return AppMetaInfo.SHORT_LICENSE.getInfo();
+	return AJMetaInfo.SHORT_LICENSE.getInfo();
     }
 
     /**

@@ -39,7 +39,7 @@ import javax.swing.JEditorPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import org.astrojournal.configuration.ajconfiguration.AppMetaInfo;
+import org.astrojournal.configuration.ajconfiguration.AJMetaInfo;
 import org.astrojournal.gui.AJMainGUI;
 import org.astrojournal.utilities.ReadFromJar;
 
@@ -101,7 +101,7 @@ public class LicenseDialog extends JDialog {
 	    ResourceBundle resourceBundle, String license)
 	    throws FileNotFoundException, IOException {
 
-	setTitle(AppMetaInfo.NAME.getInfo() + " "
+	setTitle(AJMetaInfo.NAME.getInfo() + " "
 		+ resourceBundle.getString("AJ.lblLicense.text"));
 	setLayout(new BorderLayout());
 

@@ -110,7 +110,7 @@ public class AJConfiguration implements Configuration {
 	try {
 	    PropertiesManager.storeToXML(applicationProperties, configFile
 		    .getAbsolutePath(),
-		    AppMetaInfo.USER_CONFIGURATION_PROPERTIES_FILE_COMMENT
+		    AJMetaInfo.USER_CONFIGURATION_PROPERTIES_FILE_COMMENT
 			    .getInfo());
 	} catch (IOException e) {
 	    log.error(
@@ -207,7 +207,7 @@ public class AJConfiguration implements Configuration {
      * @return the default properties
      */
     private Properties loadDefaultConfigurationFileProperties() {
-	String defaultConfigurationFile = AppMetaInfo.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME
+	String defaultConfigurationFile = AJMetaInfo.DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME
 		.getInfo();
 	log.debug("Loading default configuration file: "
 		+ defaultConfigurationFile);
