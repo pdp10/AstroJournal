@@ -98,7 +98,9 @@ public abstract class AJExporter {
      * 
      * @return the exporter name
      */
-    public abstract String getName();
+    public String getName() {
+	return this.getClass().getName();
+    }
 
     @Override
     public boolean equals(Object o) {
