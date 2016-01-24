@@ -338,9 +338,8 @@ public class AJConfigurationUtils implements ConfigurationUtils {
 		FileUtils.copyDirectory(ajHeaderFooterDir, userHeaderFooterDir,
 			true);
 	    } catch (IOException e) {
-		log.error(
-			config.getResourceBundle().getString(
-				"AJ.errCannotCopyHeaderFooterFolder.text"), e);
+		log.error(config.getResourceBundle().getString(
+			"AJ.errCannotPrepareHeaderFooterFolder.text"));
 	    }
 	}
     }
@@ -376,9 +375,8 @@ public class AJConfigurationUtils implements ConfigurationUtils {
 		FileUtils.copyDirectory(ajRawReportsDir, userRawReportsDir,
 			true);
 	    } catch (IOException e) {
-		log.error(
-			config.getResourceBundle().getString(
-				"AJ.errCannotCopyRawReportsFolder.text"), e);
+		log.error(config.getResourceBundle().getString(
+			"AJ.errCannotPrepareRawReportsFolder.text"));
 	    }
 	}
     }
