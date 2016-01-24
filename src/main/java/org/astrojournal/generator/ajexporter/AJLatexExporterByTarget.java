@@ -598,7 +598,12 @@ public class AJLatexExporterByTarget extends AJLatexExporter {
 	if (!quiet && latexOutput && resourceBundle != null) {
 	    log.info(commandOutput + "\n");
 	}
-	// if(latexOutput) log.info(commandOutput + "\n");
+
+	// A second execution is required for building the document index.
+	commandOutput = extCommand.runCommand(command + " " + reportFilename);
+	// if (!quiet && latexOutput && resourceBundle != null) {
+	// log.info(commandOutput + "\n");
+	// }
 
 	// Add this at the end to avoid mixing with the latex command
 	// output.
