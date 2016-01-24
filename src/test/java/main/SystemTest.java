@@ -87,6 +87,12 @@ public class SystemTest {
 	    log.error(e, e);
 	}
 
+	File reportByDate = new File(
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
+			+ File.separator
+			+ config.getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE
+				.getKey()));
+	reportByDate.delete();
 	File reportByTarget = new File(
 		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
 			+ File.separator
