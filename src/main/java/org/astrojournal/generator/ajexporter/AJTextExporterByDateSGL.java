@@ -212,11 +212,6 @@ public class AJTextExporterByDateSGL extends AJExporter {
     }
 
     @Override
-    public String getName() {
-	return this.getClass().getName();
-    }
-
-    @Override
     public void postProcessing() throws IOException {
 	if (resourceBundle != null) {
 	    log.info("\t" + filesLocation + File.separator + reportFilename);

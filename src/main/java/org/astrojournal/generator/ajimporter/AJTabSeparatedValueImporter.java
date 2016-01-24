@@ -317,8 +317,4 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 	}
     }
 
-    @Override
-    public String getName() {
-	return this.getClass().getName();
-    }
 }

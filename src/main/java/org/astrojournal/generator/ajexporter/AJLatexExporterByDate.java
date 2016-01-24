@@ -247,11 +247,6 @@ public class AJLatexExporterByDate extends AJLatexExporter {
     }
 
     @Override
-    public String getName() {
-	return this.getClass().getName();
-    }
-
-    @Override
     public void postProcessing() throws IOException {
 	// The pdflatex command must be called two times in order to
 	// generate the list of contents correctly.
