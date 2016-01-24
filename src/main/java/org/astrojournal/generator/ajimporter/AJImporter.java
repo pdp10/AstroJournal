@@ -129,7 +129,9 @@ public abstract class AJImporter {
      * 
      * @return the importer name
      */
-    public abstract String getName();
+    public String getName() {
+	return this.getClass().getName();
+    }
 
     @Override
     public boolean equals(Object o) {
