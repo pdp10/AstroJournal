@@ -23,7 +23,6 @@
  */
 package org.astrojournal.configuration.ajconfiguration;
 
-
 /**
  * The set of Java Properties for AstroJournal.
  * 
@@ -160,16 +159,6 @@ public enum AJPropertyConstants {
     private AJPropertyConstants(String key, String value) {
 	this.key = key;
 	this.value = value;
-    }
-
-    // TODO THIS MUST BE REPLACED WITH THE CODE BELOW
-    /**
-     * REMOVE THIS METHOD IN THE FUTURE and LEAVE THE DEFAULT IMPLEMENTATION.
-     */
-    @Override
-    @Deprecated
-    public String toString() {
-	return this.key;
     }
 
     /**
