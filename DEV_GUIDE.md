@@ -129,10 +129,19 @@ $ git push origin feature_10   # if not done before
 ### New Releases:
 When the `devel` branch includes all the desired feature for a release, it is time to checkout this 
 branch in a new one called `release-x.x.x`. It is at this stage that a version is established. Only bug-fixes or hot-fixes are applied to this branch. When this testing/correction phase is completed, the `master` branch will merge with the `release-x.x.x` branch, using the commands above.
-Finally, to record the version by adding a tag:
+To record the release add a tag:
 ```
 git tag -a v1.3 -m "PROGRAM_NAME v1.3"
 ```
+To transfer the tag to the remote server:
+```
+git push origin v1.3   # Note: it goes in a separate 'branch'
+```
+To see all the releases:
+```
+git show
+```
+
 
 
 ## Project Structure: 
