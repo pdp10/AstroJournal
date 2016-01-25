@@ -29,44 +29,36 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.generator.ajimporter.AJImporter;
 
 /**
- * This class retrieves the list of available importers.
+ * This class retrieves the name list of available classes which are instances
+ * of a specific class type. A super package is used for increasing the search
+ * time.
  * 
  * @author Piero Dalle Pezze
- * @version 0.1
+ * @version 0.2
  * @since 12/04/2015
  */
-public class ImporterSearcher {
+public class ClassesInstanceOf {
 
     /** The log associated to this class */
-    private static Logger log = LogManager.getLogger(ImporterSearcher.class);
-
-    /** The super package containing the importers. */
-    private static String importerSuperPackage = "org.astrojournal.generator.ajimporter";
+    private static Logger log = LogManager.getLogger(ClassesInstanceOf.class);
 
     /**
-     * Return the container package of the importers.
-     * 
-     * @return the container package of the importers
-     */
-    public static String getImporterSuperPackage() {
-	return importerSuperPackage;
-    }
-
-    /**
-     * Check whether className is an importer
+     * Check whether className is an instance of the super class type
      * 
      * @param className
      *            a fully qualified class name including package
-     * @return true if className is an importer
+     * @param superClassType
+     *            The super type.
+     * @return true if className is an exporter
      */
-    private static boolean isImporter(String className) {
+    private static boolean isInstanceOf(String className,
+	    Class<?> superClassType) {
 	try {
 	    Class<?> cls = Class.forName(className);
 	    Object clsInstance = cls.newInstance();
-	    if (clsInstance instanceof AJImporter) {
+	    if (superClassType.isInstance(clsInstance)) {
 		return true;
 	    }
 	} catch (UnsatisfiedLinkError e) {
@@ -86,17 +78,20 @@ public class ImporterSearcher {
     }
 
     /**
-     * Return the list of importer packages.
+     * Return the list of packages whose contained classes are instance of a
+     * super class Type.
      * 
-     * @return the list of importer packages
+     * @param superPackage
+     * @param superClassType
+     * @return the list of packages
      */
-    public static ArrayList<String> getImporterPackageList() {
-	List<String> classes = ClassSearchUtils
-		.searchClassPath(importerSuperPackage);
+    public static ArrayList<String> getClassPackageInstanceOf(
+	    String superPackage, Class<?> superClassType) {
+	List<String> classes = ClassSearchUtils.searchClassPath(superPackage);
 	ArrayList<String> classPackages = new ArrayList<String>();
 	for (int i = 0; i < classes.size(); i++) {
 	    String cls = classes.get(i);
-	    if (isImporter(cls)) {
+	    if (isInstanceOf(cls, superClassType)) {
 		String clsPackage = cls.substring(0, cls.lastIndexOf("."));
 		if (!classPackages.contains(clsPackage)) {
 		    classPackages.add(clsPackage);
@@ -108,17 +103,20 @@ public class ImporterSearcher {
     }
 
     /**
-     * Return the list of importers including their package.
+     * Return the list of object class names which are instance of a super class
+     * Type. The names include the package.
      * 
-     * @return the list of importers including their package
+     * @param superPackage
+     * @param superClassType
+     * @return the list of exporters including their package
      */
-    public static ArrayList<String> getImporterFullNameList() {
-	List<String> classes = ClassSearchUtils
-		.searchClassPath(importerSuperPackage);
+    public static ArrayList<String> getClassFullNamesInstanceOf(
+	    String superPackage, Class<?> superClassType) {
+	List<String> classes = ClassSearchUtils.searchClassPath(superPackage);
 	ArrayList<String> classPackages = new ArrayList<String>();
 	for (int i = 0; i < classes.size(); i++) {
 	    String cls = classes.get(i);
-	    if (isImporter(cls)) {
+	    if (isInstanceOf(cls, superClassType)) {
 		classPackages.add(cls);
 	    }
 	}
@@ -127,17 +125,20 @@ public class ImporterSearcher {
     }
 
     /**
-     * Return the list of importer names.
+     * Return the list of object class names which are instance of a super class
+     * Type.
      * 
-     * @return the list of importer names
+     * @param superPackage
+     * @param superClassType
+     * @return the list of object class names
      */
-    public static ArrayList<String> getImporterNameList() {
-	List<String> classes = ClassSearchUtils
-		.searchClassPath(importerSuperPackage);
+    public static ArrayList<String> getClassNamesInstanceOf(
+	    String superPackage, Class<?> superClassType) {
+	List<String> classes = ClassSearchUtils.searchClassPath(superPackage);
 	ArrayList<String> classNames = new ArrayList<String>();
 	for (int i = 0; i < classes.size(); i++) {
 	    String cls = classes.get(i);
-	    if (isImporter(cls)) {
+	    if (isInstanceOf(cls, superClassType)) {
 		String className = cls.substring(cls.lastIndexOf(".") + 1);
 		if (!classNames.contains(className)) {
 		    classNames.add(className);
@@ -149,29 +150,31 @@ public class ImporterSearcher {
     }
 
     /**
-     * Prints the list of available exporters.
+     * Prints the list of available objects in org.astrojournal (for testing).
      * 
      * @param args
      */
     public static void main(String[] args) {
-	ArrayList<String> importerNames = getImporterNameList();
-	for (int i = 0; i < importerNames.size(); i++) {
-	    System.out.println(importerNames.get(i));
-	    log.info(importerNames.get(i));
+	ArrayList<String> exporterNames = getClassNamesInstanceOf(
+		"org.astrojournal", Object.class);
+	for (int i = 0; i < exporterNames.size(); i++) {
+	    System.out.println(exporterNames.get(i));
+	    log.info(exporterNames.get(i));
 	}
 
-	ArrayList<String> importerFullNames = getImporterFullNameList();
-	for (int i = 0; i < importerFullNames.size(); i++) {
-	    System.out.println(importerFullNames.get(i));
-	    log.info(importerFullNames.get(i));
+	ArrayList<String> exporterFullNames = getClassFullNamesInstanceOf(
+		"org.astrojournal", Object.class);
+	for (int i = 0; i < exporterFullNames.size(); i++) {
+	    System.out.println(exporterFullNames.get(i));
+	    log.info(exporterFullNames.get(i));
 	}
 
-	ArrayList<String> importerPackageNames = getImporterPackageList();
-	for (int i = 0; i < importerPackageNames.size(); i++) {
-	    System.out.println(importerPackageNames.get(i));
-	    log.info(importerPackageNames.get(i));
+	ArrayList<String> exporterPackageNames = getClassPackageInstanceOf(
+		"org.astrojournal", Object.class);
+	for (int i = 0; i < exporterPackageNames.size(); i++) {
+	    System.out.println(exporterPackageNames.get(i));
+	    log.info(exporterPackageNames.get(i));
 	}
 
     }
-
 }

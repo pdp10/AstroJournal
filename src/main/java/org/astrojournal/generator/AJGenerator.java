@@ -40,8 +40,7 @@ import org.astrojournal.generator.ajexporter.AJLatexExporterByTarget;
 import org.astrojournal.generator.ajexporter.AJTextExporterByDateSGL;
 import org.astrojournal.generator.ajimporter.AJImporter;
 import org.astrojournal.generator.observation.AJObservation;
-import org.astrojournal.utilities.ExporterSearcher;
-import org.astrojournal.utilities.ImporterSearcher;
+import org.astrojournal.utilities.ClassesInstanceOf;
 
 /**
  * This class automatically generates astro journal documents.
@@ -165,8 +164,9 @@ public class AJGenerator {
      */
     public boolean ajImport() {
 	boolean status = true;
-	ArrayList<String> ajImporterNames = ImporterSearcher
-		.getImporterFullNameList();
+	ArrayList<String> ajImporterNames = ClassesInstanceOf
+		.getClassFullNamesInstanceOf(this.getClass().getPackage()
+			.getName(), AJImporter.class);
 	Collections.sort(ajImporterNames);
 	for (String ajImporterName : ajImporterNames) {
 	    try {
@@ -232,8 +232,9 @@ public class AJGenerator {
      */
     public boolean ajExport() {
 	boolean status = true;
-	ArrayList<String> ajExporterNames = ExporterSearcher
-		.getExporterFullNameList();
+	ArrayList<String> ajExporterNames = ClassesInstanceOf
+		.getClassFullNamesInstanceOf(this.getClass().getPackage()
+			.getName(), AJExporter.class);
 	Collections.sort(ajExporterNames);
 	for (String ajExporterName : ajExporterNames) {
 	    try {
