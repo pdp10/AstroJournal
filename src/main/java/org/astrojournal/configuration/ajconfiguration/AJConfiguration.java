@@ -49,14 +49,20 @@ public class AJConfiguration implements Configuration {
     private static Logger log = LogManager.getLogger(AJConfiguration.class);
 
     /**
+     * The locale prefix with the folder. This is static as it is used for
+     * configuring localeBundle and validating the locale.
+     */
+    private static String localePrefix = "locale.aj_";
+
+    /**
      * The user configuration file reference to the real file in the file
      * system.
      */
     private File configFile = null;
 
     /** The bundle for internationalisation */
-    private ResourceBundle localeBundle = ResourceBundle
-	    .getBundle(AJPropertyConstants.LOCALE.getValue());
+    private ResourceBundle localeBundle = ResourceBundle.getBundle(localePrefix
+	    + AJPropertyConstants.LOCALE.getValue());
 
     /**
      * The Properties for this application.
@@ -131,6 +137,9 @@ public class AJConfiguration implements Configuration {
 
 	applicationProperties = new Properties();
 	initialiseApplicationProperties();
+	log.debug("Locale:"
+		+ applicationProperties.getProperty(AJPropertyConstants.LOCALE
+			.getKey()));
 	log.debug(getConfigurationUtils().printConfiguration(this));
 
 	Properties defaultProperties = loadDefaultConfigurationFileProperties();
@@ -148,6 +157,9 @@ public class AJConfiguration implements Configuration {
 	    log.warn("Found inconsistencies in user configuration file. The inconsistent fields will be re-written.");
 	    saveProperties();
 	    log.info("User configuration restored.");
+	} else if (applicationProperties.size() > userProperties.size()) {
+	    saveProperties();
+	    log.info("User configuration updated.");
 	}
 
 	// This method also validates the properties, so that the process is
@@ -288,28 +300,38 @@ public class AJConfiguration implements Configuration {
      */
     private boolean localeValidation(Properties properties, String key) {
 	boolean status = true;
-	// TODO solve the locale. it doesn't work.
-	// TODO possibly PUT THIS IN A METHOD
-	// try {
-	// String locale = "locale/aj_"
-	// + applicationProperties.getProperty(AJProperties.LOCALE);
-	// String bundle = new
-	// ReadFromJar().getStringFileFromJARFile("/"
-	// + locale + ".properties");
-	// if (!bundle.isEmpty()) {
-	// localeBundle = ResourceBundle.getBundle(locale);
-	// }
-	// } catch (IOException e) {
-	// log.debug(e, e);
-	// log.warn("The locale : "
-	// + applicationProperties.getProperty(AJProperties.LOCALE)
-	// + " does not exist. Using previous `locale` setting.");
-	// applicationProperties.setProperty(AJProperties.LOCALE,
-	// localeBundle.getLocale());
-	// status = false;
-	// }
-	// log.debug(AJProperties.LOCALE + ":" +
-	// localeBundle.getLocale());
+	String value = properties.getProperty(key);
+	if (value == null || value.equals("")) {
+	    // Check the key exists.
+	    status = false;
+	    log.warn("The property : " + key + " is not valid.");
+	} else {
+	    // Check that the file exists and is not empty
+	    String localeFile = localePrefix.replace('.', '/') + value
+		    + ".properties";
+	    log.debug("Loading " + localeFile + " from Jar");
+	    try {
+		// Retrieve the string containing the file if this exists.
+		String bundleString = new ReadFromJar()
+			.getStringFileFromJARFile("/" + localeFile);
+		log.debug("Locale file " + localeFile + " is loaded.");
+		if (bundleString == null || bundleString.isEmpty()) {
+		    status = false;
+		    log.warn("The locale file for the property : " + key
+			    + " is not valid.");
+		} else {
+		    localeBundle = ResourceBundle.getBundle(localePrefix
+			    + value);
+		    applicationProperties.setProperty(key, value);
+		}
+	    } catch (IOException e) {
+		status = false;
+		log.debug(e);
+		log.warn("The locale : " + value
+			+ " does not exist. Using previous locale setting.");
+	    }
+	}
+	log.debug(key + ":" + applicationProperties.getProperty(key));
 	return status;
     }
 
@@ -369,7 +391,6 @@ public class AJConfiguration implements Configuration {
      * this is the default file separator in LaTeX. Therefore, let's replace '\'
      * with '/'.
      */
-    @Deprecated
     private void adjustFileSeparator() {
 	applicationProperties.setProperty(
 		AJPropertyConstants.RAW_REPORTS_FOLDER.getKey(),
