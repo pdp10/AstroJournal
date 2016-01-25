@@ -109,8 +109,3 @@ Here are some guidelines for using AstroJournal:
 3. Put this file in the folder raw_reports.
 
 4. In the main astrojournal folder type the command above ./astrojournal.sh or astrojournal.exe .
-
-
-
-# Develop AstroJournal
-
