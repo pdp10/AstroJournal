@@ -2,7 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <comment>Default application configuration.</comment>
-<entry key="aj.locale">en_UK</entry>
+<entry key="aj.locale">en_GB</entry>
 <entry key="aj.quiet">false</entry>
 <entry key="aj.show_latex_output">false</entry>
 <entry key="aj.show_license_at_start">true</entry>

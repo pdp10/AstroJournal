@@ -37,7 +37,7 @@ public enum AJPropertyConstants {
     /**
      * The locale for the internationalisation.
      */
-    LOCALE("aj.locale", "locale.aj_en_GB"),
+    LOCALE("aj.locale", "en_GB"),
 
     // FLAGS
     /** True if the application should run quietly */
