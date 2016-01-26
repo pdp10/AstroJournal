@@ -40,6 +40,7 @@ import javax.swing.KeyStroke;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.astrojournal.gui.AJGUIActions;
 import org.astrojournal.gui.AJMainGUI;
 import org.astrojournal.gui.dialogs.AboutDialog;
 import org.astrojournal.gui.dialogs.HelpDialog;
@@ -106,7 +107,7 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	fileCreateJournal.setMnemonic(KeyEvent.VK_J);
 	fileCreateJournal.setAccelerator(KeyStroke.getKeyStroke('J', Toolkit
 		.getDefaultToolkit().getMenuShortcutKeyMask()));
-	fileCreateJournal.setActionCommand("create_journals");
+	fileCreateJournal.setActionCommand(AJGUIActions.CREATE_JOURNAL.name());
 	fileCreateJournal.addActionListener(this);
 	fileMenu.add(fileCreateJournal);
 
@@ -118,7 +119,7 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	fileQuit.setMnemonic(KeyEvent.VK_Q);
 	fileQuit.setAccelerator(KeyStroke.getKeyStroke('Q', Toolkit
 		.getDefaultToolkit().getMenuShortcutKeyMask()));
-	fileQuit.setActionCommand("quit");
+	fileQuit.setActionCommand(AJGUIActions.QUIT.name());
 	fileQuit.addActionListener(this);
 	fileMenu.add(fileQuit);
 
@@ -130,7 +131,7 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 		resourceBundle.getString("AJ.mnuPreferences.text"));
 	editPreferences.setIcon(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/icons/preferences_16.png")));
-	editPreferences.setActionCommand("edit_preferences");
+	editPreferences.setActionCommand(AJGUIActions.EDIT_PREFERENCES.name());
 	editPreferences.setMnemonic(KeyEvent.VK_P);
 	editPreferences.setAccelerator(KeyStroke.getKeyStroke('P', Toolkit
 		.getDefaultToolkit().getMenuShortcutKeyMask()));
@@ -145,7 +146,7 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 		resourceBundle.getString("AJ.mnuHelpContents.text"));
 	helpContents.setIcon(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/icons/help_16.png")));
-	helpContents.setActionCommand("help_contents");
+	helpContents.setActionCommand(AJGUIActions.HELP_CONTENTS.name());
 	helpContents.setMnemonic(KeyEvent.VK_T);
 	helpContents.setAccelerator(KeyStroke.getKeyStroke('T', Toolkit
 		.getDefaultToolkit().getMenuShortcutKeyMask()));
@@ -156,7 +157,7 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 		resourceBundle.getString("AJ.mnuLicense.text"));
 	helpLicense.setIcon(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/icons/license_16.png")));
-	helpLicense.setActionCommand("help_license");
+	helpLicense.setActionCommand(AJGUIActions.HELP_LICENSE.name());
 	helpLicense.setMnemonic(KeyEvent.VK_L);
 	helpLicense.setAccelerator(KeyStroke.getKeyStroke('L', Toolkit
 		.getDefaultToolkit().getMenuShortcutKeyMask()));
@@ -166,7 +167,7 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	helpAbout = new JMenuItem(resourceBundle.getString("AJ.mnuAbout.text"));
 	helpAbout.setIcon(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/icons/about_16.png")));
-	helpAbout.setActionCommand("help_about");
+	helpAbout.setActionCommand(AJGUIActions.HELP_ABOUT.name());
 	helpAbout.setMnemonic(KeyEvent.VK_A);
 	helpAbout.setAccelerator(KeyStroke.getKeyStroke('A', Toolkit
 		.getDefaultToolkit().getMenuShortcutKeyMask()));
@@ -179,22 +180,25 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
+	// Let's clean the status panel as something else is going to be
+	// invoked.
+	application.setStatusPanelText(" ");
 
 	String action = ae.getActionCommand();
 
-	if (action.equals("create_journals")) {
+	if (action.equals(AJGUIActions.CREATE_JOURNAL.name())) {
 	    application.createJournals();
 
-	} else if (action.equals("quit")) {
+	} else if (action.equals(AJGUIActions.QUIT.name())) {
 	    application.quit();
 
-	} else if (action.equals("edit_preferences")) {
+	} else if (action.equals(AJGUIActions.EDIT_PREFERENCES.name())) {
 	    application.configure();
 
-	} else if (action.equals("help_contents")) {
+	} else if (action.equals(AJGUIActions.HELP_CONTENTS.name())) {
 	    HelpDialog helpDialog = new HelpDialog(application, resourceBundle);
 
-	} else if (action.equals("help_license")) {
+	} else if (action.equals(AJGUIActions.HELP_LICENSE.name())) {
 	    String license = "LICENSE.txt";
 	    try {
 		LicenseDialog licenseDialog = new LicenseDialog(application,
@@ -211,7 +215,7 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 		log.error(e, e);
 	    }
 
-	} else if (action.equals("help_about")) {
+	} else if (action.equals(AJGUIActions.HELP_ABOUT.name())) {
 	    AboutDialog aboutDialog = new AboutDialog(application,
 		    resourceBundle);
 
@@ -233,9 +237,9 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
      * @param enabled
      */
     public void setEnabled(String action, boolean enabled) {
-	if (action.equals("create_journal")) {
+	if (action.equals(AJGUIActions.CREATE_JOURNAL.name())) {
 	    fileCreateJournal.setEnabled(enabled);
-	} else if (action.equals("preferences")) {
+	} else if (action.equals(AJGUIActions.EDIT_PREFERENCES.name())) {
 	    editPreferences.setEnabled(enabled);
 	} else {
 	    log.error("Unknown action : " + action);

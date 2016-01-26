@@ -24,6 +24,7 @@
 package org.astrojournal.configuration.ajconfiguration;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -45,6 +46,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ConfigurationUtils;
+import org.astrojournal.gui.AJGUIActions;
 import org.astrojournal.gui.AJMainGUI;
 
 /**
@@ -212,7 +214,8 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	constraints.weightx = 0.1;
 	JButton btnBrowerFilesLocation = new JButton(
 		resourceBundle.getString("AJ.cmdBrowse.text"));
-	btnBrowerFilesLocation.setActionCommand("aj_files_location");
+	btnBrowerFilesLocation.setActionCommand(AJGUIActions.FILES_LOCATION
+		.name());
 	btnBrowerFilesLocation.addActionListener(this);
 	panel.add(btnBrowerFilesLocation, constraints);
 
@@ -250,7 +253,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	JPanel buttonPanel = new JPanel();
 	JButton btnCancel = new JButton(
 		resourceBundle.getString("AJ.cmdCancel.text"));
-	btnCancel.setActionCommand("cancel");
+	btnCancel.setActionCommand(AJGUIActions.CANCEL.name());
 	// Set this button as default. :)
 	getRootPane().setDefaultButton(btnCancel);
 	btnCancel.addActionListener(this);
@@ -258,7 +261,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 
 	JButton btnSave = new JButton(
 		resourceBundle.getString("AJ.cmdSave.text"));
-	btnSave.setActionCommand("save");
+	btnSave.setActionCommand(AJGUIActions.SAVE.name());
 	btnSave.addActionListener(this);
 	buttonPanel.add(btnSave);
 
@@ -268,24 +271,19 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	log.debug("New parameter values set.");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-     */
     @Override
     public void actionPerformed(ActionEvent ae) {
 	String action = ae.getActionCommand();
 
-	if (action.equals("aj_files_location")) {
+	if (action.equals(AJGUIActions.FILES_LOCATION.name())) {
 	    getDir(ajFilesLocation);
-	} else if (action.equals("cancel")) {
+	} else if (action.equals(AJGUIActions.CANCEL.name())) {
 	    setVisible(false);
 	    dispose();
-	} else if (action.equals("save")) {
+	} else if (action.equals(AJGUIActions.SAVE.name())) {
 
 	    log.debug("Saving a new configuration.");
+
 	    File ajFilesLocationFile = new File(ajFilesLocation.getText());
 
 	    // text fields
@@ -373,6 +371,12 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	    configUtils.prepareFolders(config);
 
 	    log.debug("New configuration saved.");
+	    Container container = this.getParent();
+	    if (container instanceof AJMainGUI) {
+		AJMainGUI ajMainGUI = (AJMainGUI) container;
+		ajMainGUI.setStatusPanelText(resourceBundle
+			.getString("AJ.lblUserConfigSaved.text"));
+	    }
 
 	    setVisible(false);
 	    dispose();
