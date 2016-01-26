@@ -27,6 +27,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -43,8 +44,30 @@ public abstract class AJLatexHeaderFooter {
     /** The log associated to this class */
     private static Logger log = LogManager.getLogger(AJLatexHeaderFooter.class);
 
+    /** The resource bundle. */
+    protected ResourceBundle resourceBundle = null;
+
     /** Default constructor. It initialises default header and footer. */
     public AJLatexHeaderFooter() {
+    }
+
+    /**
+     * Get the resource bundle.
+     * 
+     * @return the resourceBundle
+     */
+    public ResourceBundle getResourceBundle() {
+	return resourceBundle;
+    }
+
+    /**
+     * Set the resource bundle.
+     * 
+     * @param resourceBundle
+     *            the resourceBundle to set
+     */
+    public void setResourceBundle(ResourceBundle resourceBundle) {
+	this.resourceBundle = resourceBundle;
     }
 
     /**
@@ -69,17 +92,24 @@ public abstract class AJLatexHeaderFooter {
 		    sb.append(line).append(" \n");
 		} // end while
 	    } catch (IOException ex) {
-		log.error(
-			"Error when reading the file " + file.getAbsolutePath(),
-			ex);
+		log.debug(ex, ex);
+		if (resourceBundle != null) {
+		    log.error(resourceBundle
+			    .getString("AJ.errReadingFile.text")
+			    + " "
+			    + file.getAbsolutePath());
+		}
 	    } finally {
 		try {
 		    if (reader != null)
 			reader.close();
 		} catch (IOException ex) {
-		    log.error(
-			    "Error when closing the file "
-				    + file.getAbsolutePath(), ex);
+		    if (resourceBundle != null) {
+			log.error(resourceBundle
+				.getString("AJ.errClosingFile.text")
+				+ " "
+				+ file.getAbsolutePath());
+		    }
 		}
 	    }
 	}

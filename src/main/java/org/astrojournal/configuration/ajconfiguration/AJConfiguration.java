@@ -61,8 +61,8 @@ public class AJConfiguration implements Configuration {
     private File configFile = null;
 
     /** The bundle for internationalisation */
-    private ResourceBundle localeBundle = ResourceBundle.getBundle(localePrefix
-	    + AJPropertyConstants.LOCALE.getValue());
+    private ResourceBundle resourceBundle = ResourceBundle
+	    .getBundle(localePrefix + AJPropertyConstants.LOCALE.getValue());
 
     /**
      * The Properties for this application.
@@ -96,7 +96,7 @@ public class AJConfiguration implements Configuration {
 
     @Override
     public ResourceBundle getResourceBundle() {
-	return localeBundle;
+	return resourceBundle;
     }
 
     @Override
@@ -119,9 +119,8 @@ public class AJConfiguration implements Configuration {
 		    AJMetaInfo.USER_CONFIGURATION_PROPERTIES_FILE_COMMENT
 			    .getInfo());
 	} catch (IOException e) {
-	    log.error(
-		    "Errors when writing the file "
-			    + configFile.getAbsolutePath(), e);
+	    log.error(resourceBundle.getString("AJ.errWritingFile.text") + " "
+		    + configFile.getAbsolutePath(), e);
 	}
     }
 
@@ -144,22 +143,21 @@ public class AJConfiguration implements Configuration {
 
 	Properties defaultProperties = loadDefaultConfigurationFileProperties();
 	if (!validate(defaultProperties)) {
-	    log.error("It seems that the default configuration file is corrupted. "
-		    + "The application can continue, but this should be reported "
-		    + "as an issue.");
+	    log.error(resourceBundle
+		    .getString("AJ.errDefaultConfigFailed.text"));
 	}
 
 	Properties userProperties = loadUserConfigurationFileProperties();
 	if (userProperties.isEmpty()) {
 	    saveProperties();
-	    log.info("New user configuration saved.");
+	    log.info(resourceBundle.getString("AJ.lblUserConfigSaved.text"));
 	} else if (!validate(userProperties)) {
-	    log.warn("Found inconsistencies in user configuration file. The inconsistent fields will be re-written.");
+	    log.warn(resourceBundle.getString("AJ.errUserConfig.text"));
 	    saveProperties();
-	    log.info("User configuration restored.");
+	    log.info(resourceBundle.getString("AJ.lblUserConfigRestored.text"));
 	} else if (applicationProperties.size() > userProperties.size()) {
 	    saveProperties();
-	    log.info("User configuration updated.");
+	    log.info(resourceBundle.getString("AJ.lblUserConfigUpdated.text"));
 	}
 
 	// This method also validates the properties, so that the process is
@@ -233,7 +231,8 @@ public class AJConfiguration implements Configuration {
 	    defaultProperties = PropertiesManager.loadFromXML(temp
 		    .getAbsolutePath());
 	} catch (IOException e) {
-	    log.error("Error reading the default configuration file. Please, report this as an issue.");
+	    log.error(resourceBundle
+		    .getString("AJ.errDefaultConfigFailed.text"));
 	}
 	adjustFilesLocationPath(defaultProperties);
 	log.debug("Default configuration file is loaded.");
@@ -258,12 +257,14 @@ public class AJConfiguration implements Configuration {
 		userProperties = PropertiesManager.loadFromXML(userProperties,
 			configFile.getAbsolutePath());
 	    } catch (IOException e) {
-		log.warn("Error reading the user configuration file.");
+		log.warn(resourceBundle
+			.getString("AJ.errReadingUserConfig.text"));
 		return userProperties;
 	    }
 	    log.debug("User configuration file is loaded.");
 	} else {
-	    log.info("User configuration file not found.");
+	    log.info(resourceBundle
+		    .getString("AJ.lblUserConfigFileNotFound.text"));
 	}
 	return userProperties;
     }
@@ -304,7 +305,7 @@ public class AJConfiguration implements Configuration {
 	if (value == null || value.equals("")) {
 	    // Check the key exists.
 	    status = false;
-	    log.warn("The property : " + key + " is not valid.");
+	    log.warn("Property not valid: " + key);
 	} else {
 	    // Check that the file exists and is not empty
 	    String localeFile = localePrefix.replace('.', '/') + value
@@ -320,7 +321,7 @@ public class AJConfiguration implements Configuration {
 		    log.warn("The locale file for the property : " + key
 			    + " is not valid.");
 		} else {
-		    localeBundle = ResourceBundle.getBundle(localePrefix
+		    resourceBundle = ResourceBundle.getBundle(localePrefix
 			    + value);
 		    applicationProperties.setProperty(key, value);
 		}
@@ -353,7 +354,7 @@ public class AJConfiguration implements Configuration {
 	}
 	if (file == null || !file.exists() || !file.canWrite()) {
 	    status = false;
-	    log.warn("The property : " + key + " is not valid.");
+	    log.warn("Property not valid: " + key);
 	} else {
 	    applicationProperties.setProperty(key, value);
 	}
@@ -377,7 +378,7 @@ public class AJConfiguration implements Configuration {
 	String value = properties.getProperty(key);
 	if (value == null || value.equals("")) {
 	    status = false;
-	    log.warn("The property : " + key + " is not valid.");
+	    log.warn("Property not valid: " + key);
 	} else {
 	    applicationProperties.setProperty(key, value);
 	}
