@@ -33,6 +33,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
@@ -60,7 +61,7 @@ import org.astrojournal.logging.JTextPaneAppender;
  * @version 0.1
  * @since 10/09/2015
  */
-public class AJMainGUI extends JFrame {
+public class AJMainGUI extends JFrame implements ActionListener {
 
     /**
      * The log associated to this class.
@@ -141,15 +142,15 @@ public class AJMainGUI extends JFrame {
 			.getString("AJ.lblFileGenerationinProgressLong.text"));
 		cleanJTextPane();
 		btnCreateJournal.setEnabled(false);
-		menu.setEnabled("create_journal", false);
-		menu.setEnabled("preferences", false);
+		menu.setEnabled(AJGUIActions.CREATE_JOURNAL.name(), false);
+		menu.setEnabled(AJGUIActions.EDIT_PREFERENCES.name(), false);
 		if (!commandRunner.createJournal()) {
 		    setStatusPanelText(resourceBundle
 			    .getString("AJ.errPDFLatexShort.text"));
 		}
 		btnCreateJournal.setEnabled(true);
-		menu.setEnabled("create_journal", true);
-		menu.setEnabled("preferences", true);
+		menu.setEnabled(AJGUIActions.CREATE_JOURNAL.name(), true);
+		menu.setEnabled(AJGUIActions.EDIT_PREFERENCES.name(), true);
 		return "";
 	    }
 	};
@@ -179,8 +180,7 @@ public class AJMainGUI extends JFrame {
      */
     private void setAJWindow() {
 	// Configure AJMainGUI with basic parameters
-	setTitle(AJMetaInfo.NAME.getInfo() + " "
-		+ AJMetaInfo.VERSION.getInfo());
+	setTitle(AJMetaInfo.NAME.getInfo() + " " + AJMetaInfo.VERSION.getInfo());
 	setIconImage(new ImageIcon(
 		ClassLoader.getSystemResource("graphics/logo/aj_icon_32.png"))
 		.getImage());
@@ -223,12 +223,8 @@ public class AJMainGUI extends JFrame {
 		.getString("AJ.cmdCreateJournal.text"));
 	btnCreateJournal.setIcon(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/icons/create_journals_16.png")));
-	btnCreateJournal.addActionListener(new ActionListener() {
-	    @Override
-	    public void actionPerformed(ActionEvent e) {
-		createJournals();
-	    }
-	});
+	btnCreateJournal.setActionCommand(AJGUIActions.CREATE_JOURNAL.name());
+	btnCreateJournal.addActionListener(this);
 	// Set this button as default. :)
 	getRootPane().setDefaultButton(btnCreateJournal);
 
@@ -237,13 +233,26 @@ public class AJMainGUI extends JFrame {
 	btnQuit.setIcon(new ImageIcon(ClassLoader
 		.getSystemResource("graphics/icons/quit_16.png")));
 	btnQuit.setText(resourceBundle.getString("AJ.cmdQuit.text"));
-	btnQuit.addActionListener(new ActionListener() {
-	    @Override
-	    public void actionPerformed(ActionEvent e) {
-		quit();
-	    }
-	});
+	btnQuit.setActionCommand(AJGUIActions.QUIT.name());
+	btnQuit.addActionListener(this);
+    }
 
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+	String action = ae.getActionCommand();
+	if (action.equals(AJGUIActions.CREATE_JOURNAL.name())) {
+	    createJournals();
+	} else if (action.equals(AJGUIActions.QUIT.name())) {
+	    quit();
+	} else {
+	    log.error(resourceBundle.getString("AJ.errCommandNotFound.text")
+		    + action);
+	    JOptionPane.showMessageDialog(this,
+		    resourceBundle.getString("AJ.errCommandNotFound.text")
+			    + action,
+		    resourceBundle.getString("AJ.errCommandNotFound.text"),
+		    JOptionPane.ERROR_MESSAGE);
+	}
     }
 
     /**

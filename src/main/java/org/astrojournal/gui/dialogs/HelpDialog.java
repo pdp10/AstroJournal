@@ -24,7 +24,6 @@
 package org.astrojournal.gui.dialogs;
 
 import java.net.URL;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.help.HelpSet;
@@ -36,6 +35,7 @@ import javax.swing.UIManager;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.gui.AJMainGUI;
 
 /**
@@ -110,8 +110,8 @@ public class HelpDialog {
      * @param args
      */
     public static void main(String args[]) {
-	final ResourceBundle resourceBundle = ResourceBundle.getBundle(
-		"locale.aj", new Locale("en", "GB"));
+	final ResourceBundle resourceBundle = ResourceBundle
+		.getBundle("locale.aj_" + AJPropertyConstants.LOCALE.getValue());
 	try {
 	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 	} catch (Exception ex) {
