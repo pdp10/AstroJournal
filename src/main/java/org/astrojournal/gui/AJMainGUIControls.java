@@ -28,7 +28,7 @@ import org.astrojournal.configuration.Configuration;
 import org.astrojournal.generator.AJGenerator;
 
 /**
- * A simple class containing the commands for AJMiniGUI.
+ * A simple class containing the commands for AJMainGUI.
  * 
  * @author Piero Dalle Pezze
  * @version $Rev$

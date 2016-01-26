@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.ResourceBundle;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -57,6 +58,9 @@ public class AJGenerator {
     /** The configuration. */
     private Configuration config;
 
+    /** The resource bundle. */
+    private ResourceBundle resourceBundle = null;
+
     /** The list of observations. */
     private ArrayList<AJObservation> observations = new ArrayList<AJObservation>();
 
@@ -73,6 +77,7 @@ public class AJGenerator {
      */
     public AJGenerator(Configuration config) {
 	this.config = config;
+	this.resourceBundle = config.getResourceBundle();
     }
 
     /**
@@ -84,18 +89,20 @@ public class AJGenerator {
     public boolean generateJournals() {
 	if (!ajImport()) {
 	    if (observations.isEmpty()) {
-		log.error("No observation was imported. Is the folder "
+		log.error(resourceBundle
+			.getString("AJ.errNoObservationFound.text")
+			+ " "
 			+ config.getProperty(AJPropertyConstants.FILES_LOCATION
 				.getKey())
 			+ File.separator
 			+ config.getProperty(AJPropertyConstants.RAW_REPORTS_FOLDER
-				.getKey()) + " empty?");
+				.getKey()));
 		return false;
 	    }
-	    log.warn("Some importer failed, but there are still observations which can be processed.");
+	    log.warn(resourceBundle.getString("AJ.errSomeImporterFailed.text"));
 	}
 	if (!ajExport()) {
-	    log.warn("Some exporter failed!");
+	    log.warn(resourceBundle.getString("AJ.errSomeExporterFailed.text"));
 	    return false;
 	}
 	return true;
@@ -199,7 +206,7 @@ public class AJGenerator {
 	    }
 	}
 	if (ajImporters.isEmpty()) {
-	    log.error("Data loading failed. There is no AJImporter.");
+	    log.error(resourceBundle.getString("AJ.errNoDataImported.text"));
 	    return false;
 	}
 	resetObservations();
@@ -267,7 +274,7 @@ public class AJGenerator {
 	    }
 	}
 	if (ajExporters.isEmpty()) {
-	    log.error("Data exporting failed. There is no AJExporter.");
+	    log.error(resourceBundle.getString("AJ.errNoDataExported.text"));
 	    return false;
 	}
 	for (AJExporter ajExporter : ajExporters) {
