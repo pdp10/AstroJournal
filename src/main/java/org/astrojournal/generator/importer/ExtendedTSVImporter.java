@@ -21,72 +21,54 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator.ajimporter;
+package org.astrojournal.generator.importer;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.generator.observation.AJObservation;
-import org.astrojournal.generator.observation.AJObservationItem;
+import org.astrojournal.generator.Report;
+import org.astrojournal.generator.reportdata.ExtendedReportHeader;
+import org.astrojournal.generator.reportdata.ExtendedReportItem;
 import org.astrojournal.utilities.filefilters.TabSeparatedValueRawReportFilter;
 
 /**
  * The parser for AstroJournal. It imports tab separated value (tsv or csv)
- * files containing the observations.
+ * files containing the reports.
  * 
  * @author Piero Dalle Pezze
  * @version 0.4
  * @since 28/05/2015
  */
-public class AJTabSeparatedValueImporter extends AJImporter {
+public class ExtendedTSVImporter extends Importer {
 
     /** The log associated to this class */
     private static Logger log = LogManager
-	    .getLogger(AJTabSeparatedValueImporter.class);
+	    .getLogger(ExtendedTSVImporter.class);
 
     /**
      * Default constructor
      */
-    public AJTabSeparatedValueImporter() {
+    public ExtendedTSVImporter() {
 	super();
     }
 
     /**
-     * Import the observations.
-     * 
-     * @return the imported observations
-     */
-    @Override
-    public ArrayList<AJObservation> importObservations() {
-	if (resourceBundle != null) {
-	    log.info("Importing observation files:");
-	}
-	String rawReportPath = filesLocation + File.separator + rawReportFolder;
-	File[] files = new File(rawReportPath)
-		.listFiles(new TabSeparatedValueRawReportFilter());
-	if (files == null) {
-	    log.error("Folder " + rawReportPath + " not found");
-	    return new ArrayList<AJObservation>();
-	}
-	return importObservations(files);
-    }
-
-    /**
-     * Imports the observation data stored in a file.
+     * Imports the report data stored in a file.
      * 
      * @param file
      *            The file to parse (either CSV or TSV file, separated by TAB
      *            delimiter).
-     * @return a list of AJObservation objects
+     * @return a list of Report objects
      */
     @Override
-    public ArrayList<AJObservation> importObservations(File file) {
-	ArrayList<AJObservation> observations = new ArrayList<AJObservation>();
+    public List<Report> importReports(File file) {
+	List<Report> reports = new ArrayList<Report>();
 	if (file.isFile()
 		&& new TabSeparatedValueRawReportFilter().accept(file)) {
 
@@ -103,9 +85,6 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 	    BufferedReader reader = null;
 	    try {
 		reader = new BufferedReader(new FileReader(file));
-		// reader = new BufferedReader(new FileReader(new
-		// File(rawReportsFolder,
-		// rawFilename)));
 		String line;
 		// Read all lines
 		boolean foundWrongDate = false;
@@ -115,19 +94,13 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 		    if (line.equals("") || line.startsWith("#")) {
 			// comments or empty line. Skip
 
-		    } else if (line.indexOf(AJTabSeparatedValueImporter
+		    } else if (line.indexOf(ExtendedTSVImporter
 			    .getInitialKeyword()) > -1) {
-			AJObservation obs = new AJObservation();
-			// this should receive (obs, rawReportsFolder) as input
-			// instead of
-			// (obs, line, reader) and manage the reader thing
-			// internally.
-			// import a new observation
-			importObservation(reader, obs, line, delimiter);
-			// Add the new observation to the list of observations
-			observations.add(obs);
+			Report report = new Report();
+			importReport(reader, report, line, delimiter);
+			// Add the new report to the list of reports
+			reports.add(report);
 			foundWrongDate = false;
-
 		    } else {
 			if (!foundWrongDate) {
 			    foundWrongDate = true;
@@ -135,8 +108,7 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 				    + line + "]. Report discarded.");
 			}
 		    }
-
-		} // end while
+		}
 	    } catch (IOException ex) {
 		log.error(ex, ex);
 	    } finally {
@@ -147,32 +119,16 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 		    log.error(ex, ex);
 		}
 	    }
-	} // end if
-	return observations;
-    }
-
-    /**
-     * Removes single or double quotes at the beginning and at the end of each
-     * field if these are present. This can be the case for .csv files.
-     */
-    private void cleanFields() {
-	for (int i = 0; i < values.length; i++) {
-	    if (values[i].startsWith("\"") || values[i].startsWith("\'")) {
-		values[i] = values[i].substring(1);
-	    }
-	    if (values[i].endsWith("\"") || values[i].endsWith("\'")) {
-		values[i] = values[i].substring(0, values[i].length() - 1);
-	    }
-	    values[i] = values[i].trim();
 	}
+	return reports;
     }
 
     /**
-     * Imports an observation record
+     * Imports a report record
      * 
      * @param reader
      *            the buffered reader associated to the file
-     * @param obs
+     * @param report
      *            the object containing the observation to import
      * @param line
      *            the current line parsed in the file (the first line of the
@@ -183,18 +139,20 @@ public class AJTabSeparatedValueImporter extends AJImporter {
      *             if reader cannot read the observation
      */
     @Override
-    protected void importObservation(BufferedReader reader, AJObservation obs,
+    protected void importReport(BufferedReader reader, Report report,
 	    String line, String delimiter) throws IOException {
 	// log.debug(line);
 	// copy the first line
 	values = line.split(delimiter);
 	// clean the field values if containing quotes at the beginning or end
 	cleanFields();
+	ExtendedReportHeader reportHeader = new ExtendedReportHeader();
 	if (values.length == 2) {
 	    if (values[0].toLowerCase().equals(
-		    AJObservation.DATE_NAME.toLowerCase())) {
-		obs.setDate(values[1]);
-		log.debug(AJObservation.DATE_NAME + "=" + values[1]);
+		    ExtendedReportHeader.DATE_NAME.toLowerCase())) {
+		reportHeader.setDate(values[1]);
+		report.setDataHeader(reportHeader);
+		log.debug(ExtendedReportHeader.DATE_NAME + "=" + values[1]);
 	    }
 	}
 	// Read the other lines for this observation
@@ -215,63 +173,72 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 	    }
 	    if (values.length == 2) {
 		if (values[0].toLowerCase().equals(
-			AJObservation.TIME_NAME.toLowerCase())) {
-		    obs.setTime(values[1]);
-		    log.debug(AJObservation.TIME_NAME + "=" + values[1]);
+			ExtendedReportHeader.TIME_NAME.toLowerCase())) {
+		    reportHeader.setTime(values[1]);
+		    log.debug(ExtendedReportHeader.TIME_NAME + "=" + values[1]);
 		} else if (values[0].toLowerCase().equals(
-			AJObservation.LOCATION_NAME.toLowerCase())) {
-		    obs.setLocation(values[1]);
-		    log.debug(AJObservation.LOCATION_NAME + "=" + values[1]);
+			ExtendedReportHeader.LOCATION_NAME.toLowerCase())) {
+		    reportHeader.setLocation(values[1]);
+		    log.debug(ExtendedReportHeader.LOCATION_NAME + "="
+			    + values[1]);
 		} else if (values[0].toLowerCase().equals(
-			AJObservation.ALTITUDE_NAME.toLowerCase())) {
-		    obs.setAltitude(values[1]);
-		    log.debug(AJObservation.ALTITUDE_NAME + "=" + values[1]);
+			ExtendedReportHeader.ALTITUDE_NAME.toLowerCase())) {
+		    reportHeader.setAltitude(values[1]);
+		    log.debug(ExtendedReportHeader.ALTITUDE_NAME + "="
+			    + values[1]);
 		} else if (values[0].toLowerCase().equals(
-			AJObservation.TEMPERATURE_NAME.toLowerCase())) {
-		    obs.setTemperature(values[1]);
-		    log.debug(AJObservation.TEMPERATURE_NAME + "=" + values[1]);
+			ExtendedReportHeader.TEMPERATURE_NAME.toLowerCase())) {
+		    reportHeader.setTemperature(values[1]);
+		    log.debug(ExtendedReportHeader.TEMPERATURE_NAME + "="
+			    + values[1]);
 		} else if (values[0].toLowerCase().equals(
-			AJObservation.SEEING_NAME.toLowerCase())) {
-		    obs.setSeeing(values[1]);
-		    log.debug(AJObservation.SEEING_NAME + "=" + values[1]);
+			ExtendedReportHeader.SEEING_NAME.toLowerCase())) {
+		    reportHeader.setSeeing(values[1]);
+		    log.debug(ExtendedReportHeader.SEEING_NAME + "="
+			    + values[1]);
 		} else if (values[0].toLowerCase().equals(
-			AJObservation.TRANSPARENCY_NAME.toLowerCase())) {
-		    obs.setTransparency(values[1]);
-		    log.debug(AJObservation.TRANSPARENCY_NAME + "=" + values[1]);
+			ExtendedReportHeader.TRANSPARENCY_NAME.toLowerCase())) {
+		    reportHeader.setTransparency(values[1]);
+		    log.debug(ExtendedReportHeader.TRANSPARENCY_NAME + "="
+			    + values[1]);
 		} else if (values[0].toLowerCase().equals(
-			AJObservation.DARKNESS_NAME.toLowerCase())) {
-		    obs.setSkyDarkness(values[1]);
-		    log.debug(AJObservation.DARKNESS_NAME + "=" + values[1]);
+			ExtendedReportHeader.DARKNESS_NAME.toLowerCase())) {
+		    reportHeader.setSkyDarkness(values[1]);
+		    log.debug(ExtendedReportHeader.DARKNESS_NAME + "="
+			    + values[1]);
 		} else if (values[0].toLowerCase().equals(
-			AJObservation.TELESCOPES_NAME.toLowerCase())) {
-		    obs.setTelescopes(values[1]);
-		    log.debug(AJObservation.TELESCOPES_NAME + "=" + values[1]);
+			ExtendedReportHeader.TELESCOPES_NAME.toLowerCase())) {
+		    reportHeader.setTelescopes(values[1]);
+		    log.debug(ExtendedReportHeader.TELESCOPES_NAME + "="
+			    + values[1]);
 		} else if (values[0].toLowerCase().equals(
-			AJObservation.EYEPIECES_NAME.toLowerCase())) {
-		    obs.setEyepieces(values[1]);
-		    log.debug(AJObservation.EYEPIECES_NAME + "=" + values[1]);
+			ExtendedReportHeader.EYEPIECES_NAME.toLowerCase())) {
+		    reportHeader.setEyepieces(values[1]);
+		    log.debug(ExtendedReportHeader.EYEPIECES_NAME + "="
+			    + values[1]);
 		} else if (values[0].toLowerCase().equals(
-			AJObservation.FILTERS_NAME.toLowerCase())) {
-		    obs.setFilters(values[1]);
-		    log.debug(AJObservation.FILTERS_NAME + "=" + values[1]);
+			ExtendedReportHeader.FILTERS_NAME.toLowerCase())) {
+		    reportHeader.setFilters(values[1]);
+		    log.debug(ExtendedReportHeader.FILTERS_NAME + "="
+			    + values[1]);
 		} else {
-		    log.warn("Report:" + obs.getDate() + ". Unknown property ["
-			    + values[0] + ":" + values[1]
-			    + "]. Property discarded.");
+		    log.warn("Report:" + reportHeader.getDate()
+			    + ". Unknown property [" + values[0] + ":"
+			    + values[1] + "]. Property discarded.");
 		}
 	    } else if (values.length == 5) {
 
 		if (values[0].toLowerCase().equals(
-			AJObservationItem.TARGET_NAME.toLowerCase())
+			ExtendedReportItem.TARGET_NAME.toLowerCase())
 			&& values[1].toLowerCase().equals(
-				AJObservationItem.CONSTELLATION_NAME
+				ExtendedReportItem.CONSTELLATION_NAME
 					.toLowerCase())
 			&& values[2].toLowerCase().equals(
-				AJObservationItem.TYPE_NAME.toLowerCase())
+				ExtendedReportItem.TYPE_NAME.toLowerCase())
 			&& values[3].toLowerCase().equals(
-				AJObservationItem.POWER_NAME.toLowerCase())
+				ExtendedReportItem.POWER_NAME.toLowerCase())
 			&& values[4].toLowerCase().equals(
-				AJObservationItem.NOTES_NAME.toLowerCase())) {
+				ExtendedReportItem.NOTES_NAME.toLowerCase())) {
 		    while ((line = reader.readLine()) != null) {
 			line = line.trim();
 			values = line.split(delimiter);
@@ -282,38 +249,57 @@ public class AJTabSeparatedValueImporter extends AJImporter {
 			    return;
 			}
 			if (values.length != 5) {
-			    log.warn("Report:" + obs.getDate()
+			    log.warn("Report:" + reportHeader.getDate()
 				    + ". Malformed target [" + line
 				    + "]. Target discarded.");
 			    break;
 			}
-			AJObservationItem item = new AJObservationItem();
-			item.setTarget(values[0]);
-			log.debug(AJObservationItem.TARGET_NAME + "="
+			ExtendedReportItem reportItem = new ExtendedReportItem();
+			reportItem.setTarget(values[0]);
+			log.debug(ExtendedReportItem.TARGET_NAME + "="
 				+ values[0]);
-			item.setConstellation(values[1]);
-			log.debug(AJObservationItem.CONSTELLATION_NAME + "="
+			reportItem.setConstellation(values[1]);
+			log.debug(ExtendedReportItem.CONSTELLATION_NAME + "="
 				+ values[1]);
-			item.setType(values[2]);
-			log.debug(AJObservationItem.TYPE_NAME + "=" + values[2]);
-			item.setPower(values[3]);
-			log.debug(AJObservationItem.POWER_NAME + "="
+			reportItem.setType(values[2]);
+			log.debug(ExtendedReportItem.TYPE_NAME + "="
+				+ values[2]);
+			reportItem.setPower(values[3]);
+			log.debug(ExtendedReportItem.POWER_NAME + "="
 				+ values[3]);
-			item.setNotes(values[4].replace("%", "\\%").replace(
-				"&", " and "));
-			log.debug(AJObservationItem.NOTES_NAME + "="
+			reportItem.setNotes(values[4].replace("%", "\\%")
+				.replace("&", " and "));
+			log.debug(ExtendedReportItem.NOTES_NAME + "="
 				+ values[4]);
-			obs.addObservationItem(item);
+			report.addReportItem(reportItem);
 		    }
 		} else {
-		    log.warn("Report:" + obs.getDate() + ". Unknown property ["
-			    + values[0] + " " + values[1] + " " + values[2]
-			    + " " + values[3] + " " + values[4] + "]");
+		    log.warn("Report:" + reportHeader.getDate()
+			    + ". Unknown property [" + values[0] + " "
+			    + values[1] + " " + values[2] + " " + values[3]
+			    + " " + values[4] + "]");
 		}
 	    } else {
-		log.warn("Report:" + obs.getDate() + ". Malformed property ["
-			+ line + "]. Property discarded.");
+		log.warn("Report:" + reportHeader.getDate()
+			+ ". Malformed property [" + line
+			+ "]. Property discarded.");
 	    }
+	}
+    }
+
+    /**
+     * Removes single or double quotes at the beginning and at the end of each
+     * field if these are present. This can be the case for .csv files.
+     */
+    private void cleanFields() {
+	for (int i = 0; i < values.length; i++) {
+	    if (values[i].startsWith("\"") || values[i].startsWith("\'")) {
+		values[i] = values[i].substring(1);
+	    }
+	    if (values[i].endsWith("\"") || values[i].endsWith("\'")) {
+		values[i] = values[i].substring(0, values[i].length() - 1);
+	    }
+	    values[i] = values[i].trim();
 	}
     }
 

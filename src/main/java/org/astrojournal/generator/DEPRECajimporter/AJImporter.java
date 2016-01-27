@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator.ajimporter;
+package org.astrojournal.generator.DEPRECajimporter;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
-import org.astrojournal.generator.observation.AJObservation;
+import org.astrojournal.generator.DEPRECobservation.AJObservation;
 
 /**
  * The parser for AstroJournal. It imports files containing the observations.

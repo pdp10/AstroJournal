@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator.ajexporter;
+package org.astrojournal.generator.exporter;
 
 import java.io.IOException;
 
@@ -36,7 +36,7 @@ import org.astrojournal.utilities.RunExternalCommand;
  * @since 1.0
  * @date 17 Jan 2016
  */
-public abstract class AJLatexExporter extends AJExporter {
+public abstract class LatexExporter extends Exporter {
 
     /** The command to post-process the LaTeX code. */
     protected String command = "pdflatex -halt-on-error";
@@ -47,7 +47,7 @@ public abstract class AJLatexExporter extends AJExporter {
     /**
      * Default constructor.
      */
-    public AJLatexExporter() {
+    public LatexExporter() {
 	super();
     }
 

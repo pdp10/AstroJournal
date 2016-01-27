@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator.ajexporter;
+package org.astrojournal.generator.DEPRECajexporter;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -38,10 +38,10 @@ import java.util.HashSet;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.generator.headerfooter.AJLatexFooter;
-import org.astrojournal.generator.headerfooter.AJLatexHeader;
-import org.astrojournal.generator.observation.AJObservation;
-import org.astrojournal.generator.observation.AJObservationItem;
+import org.astrojournal.generator.DEPRECobservation.AJObservation;
+import org.astrojournal.generator.DEPRECobservation.AJObservationItem;
+import org.astrojournal.generator.reportheadfoot.AJLatexFooter;
+import org.astrojournal.generator.reportheadfoot.AJLatexHeader;
 import org.astrojournal.utilities.RunExternalCommand;
 import org.astrojournal.utilities.filefilters.LaTeXFilter;
 
@@ -52,7 +52,7 @@ import org.astrojournal.utilities.filefilters.LaTeXFilter;
  * @version 0.2
  * @since 28/05/2015
  */
-public class AJLatexExporterByConstellation extends AJLatexExporter {
+public class AJLatexExporterByConstellation extends LatexExporter {
 
     /** The log associated to this class */
     private static Logger log = LogManager

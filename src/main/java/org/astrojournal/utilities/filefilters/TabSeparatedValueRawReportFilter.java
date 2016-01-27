@@ -27,7 +27,7 @@ import java.io.File;
 import java.io.FileFilter;
 
 /**
- * A filter for LaTeX Files.
+ * A filter for tab separated value (tsv, csv) files.
  * 
  * @author Piero Dalle Pezze
  * @version $Rev$

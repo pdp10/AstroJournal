@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator.ajexporter;
+package org.astrojournal.generator.DEPRECajexporter;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -37,8 +37,8 @@ import java.util.Scanner;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.generator.observation.AJObservation;
-import org.astrojournal.generator.observation.AJObservationItem;
+import org.astrojournal.generator.DEPRECobservation.AJObservation;
+import org.astrojournal.generator.DEPRECobservation.AJObservationItem;
 import org.astrojournal.utilities.filefilters.TextFilter;
 
 /**

@@ -21,22 +21,22 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator.ajexporter;
+package org.astrojournal.generator.exporter;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
-import org.astrojournal.generator.observation.AJObservation;
+import org.astrojournal.generator.Report;
 
 /**
- * Abstract class of AstroJournal observation exporter.
+ * Abstract class of AstroJournal report exporter.
  * 
  * @author Piero Dalle Pezze
  * @version 0.1
  * @since 13/09/2015
  */
-public abstract class AJExporter {
+public abstract class Exporter {
 
     /** The absolute path of the location to export the data. */
     protected String filesLocation = System.getProperty("user.home");
@@ -65,18 +65,17 @@ public abstract class AJExporter {
     /**
      * Default constructor.
      */
-    public AJExporter() {
+    public Exporter() {
     }
 
     /**
      * Exports an observation record.
      * 
-     * @param observations
-     *            the list of observations to exportObservation
-     * @return true if the observations were exported
+     * @param reports
+     *            the list of reports to exportReport
+     * @return true if the reports were exported
      */
-    public abstract boolean exportObservations(
-	    ArrayList<AJObservation> observations);
+    public abstract boolean exportReports(List<Report> reports);
 
     /**
      * Generate the journal document.
@@ -104,8 +103,8 @@ public abstract class AJExporter {
 
     @Override
     public boolean equals(Object o) {
-	if (o instanceof AJExporter) {
-	    AJExporter that = (AJExporter) o;
+	if (o instanceof Exporter) {
+	    Exporter that = (Exporter) o;
 	    return this.getName().equals(that.getName());
 	}
 	return false;

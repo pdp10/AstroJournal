@@ -26,14 +26,16 @@ package main;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
 import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
-import org.astrojournal.generator.ajimporter.AJImporter;
-import org.astrojournal.generator.ajimporter.AJTabSeparatedValueImporter;
-import org.astrojournal.generator.observation.AJObservation;
+import org.astrojournal.generator.Report;
+import org.astrojournal.generator.importer.ExtendedTSVImporter;
+import org.astrojournal.generator.importer.Importer;
+import org.astrojournal.generator.reportdata.ExtendedReportHeader;
+import org.astrojournal.generator.reportdata.ExtendedReportItem;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -48,12 +50,12 @@ import org.junit.Test;
  * @since 1.0
  * @date 15 Jan 2016
  */
-public class AJTabSeparatedValueImporterTest {
+public class ExtendedTSVImporterTest {
 
     /**
-     * The imported observations.
+     * The imported reports.
      */
-    private static ArrayList<AJObservation> observations;
+    private static List<Report> reports;
 
     /**
      * @throws java.lang.Exception
@@ -71,18 +73,19 @@ public class AJTabSeparatedValueImporterTest {
 	// Load the new properties
 	config.loadSystemProperties();
 
-	AJImporter ajImporter = new AJTabSeparatedValueImporter();
+	Importer importer = new ExtendedTSVImporter();
 
 	// TODO: TEMPORARY IMPLEMENTATION. WITH DEPENDENCY INJECTION, THESE
 	// PARAMETERS ARE PASSED BY THE INJECTOR
 	// THEREFORE, THERE IS NO NEED TO SET THEM HERE!! :)
-	ajImporter.setFilesLocation(config
+	importer.setFilesLocation(config
 		.getProperty(AJPropertyConstants.FILES_LOCATION.getKey()));
-	ajImporter.setRawReportFolder(config
+	importer.setRawReportFolder(config
 		.getProperty(AJPropertyConstants.RAW_REPORTS_FOLDER.getKey()));
 	// TODO: END
 
-	observations = ajImporter.importObservations();
+	reports = importer.importReports();
+
     }
 
     /**
@@ -116,7 +119,7 @@ public class AJTabSeparatedValueImporterTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	assertEquals(9, observations.size());
+	assertEquals(9, reports.size());
     }
 
     /**
@@ -129,9 +132,8 @@ public class AJTabSeparatedValueImporterTest {
 		}.getClass().getEnclosingMethod().getName());
 
 	int targets = 0;
-	for (int i = 0; i < observations.size(); i++) {
-	    targets = targets
-		    + observations.get(i).getObservationItems().size();
+	for (int i = 0; i < reports.size(); i++) {
+	    targets = targets + reports.get(i).getReportItems().size();
 	}
 	assertEquals(28, targets);
     }
@@ -145,19 +147,21 @@ public class AJTabSeparatedValueImporterTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	assertEquals("22/03/2015", observations.get(1).getDate());
-	assertEquals("19:00-22:00", observations.get(1).getTime());
-	assertEquals("Cambridge, UK", observations.get(1).getLocation());
-	assertEquals("12m", observations.get(1).getAltitude());
-	assertEquals("3C (no wind)", observations.get(1).getTemperature());
-	assertEquals("2 - Slight undulations", observations.get(1).getSeeing());
-	assertEquals("3 - Somewhat clear", observations.get(1)
-		.getTransparency());
-	assertEquals("20.4 mag", observations.get(1).getDarkness());
-	assertEquals("Tele Vue 60 F6", observations.get(1).getTelescopes());
+	ExtendedReportHeader extReportHeader = (ExtendedReportHeader) (reports
+		.get(1).getReportHeader());
+
+	assertEquals("22/03/2015", extReportHeader.getDate());
+	assertEquals("19:00-22:00", extReportHeader.getTime());
+	assertEquals("Cambridge, UK", extReportHeader.getLocation());
+	assertEquals("12m", extReportHeader.getAltitude());
+	assertEquals("3C (no wind)", extReportHeader.getTemperature());
+	assertEquals("2 - Slight undulations", extReportHeader.getSeeing());
+	assertEquals("3 - Somewhat clear", extReportHeader.getTransparency());
+	assertEquals("20.4 mag", extReportHeader.getDarkness());
+	assertEquals("Tele Vue 60 F6", extReportHeader.getTelescopes());
 	assertEquals("TV Panoptic 24mm, Nagler 7mm, Powermate 2.5x",
-		observations.get(1).getEyepieces());
-	assertEquals("Astronomik OIII", observations.get(1).getFilters());
+		extReportHeader.getEyepieces());
+	assertEquals("Astronomik OIII", extReportHeader.getFilters());
     }
 
     /**
@@ -169,16 +173,14 @@ public class AJTabSeparatedValueImporterTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	assertEquals("Sigma", observations.get(1).getObservationItems().get(2)
-		.getTarget());
-	assertEquals("Ori", observations.get(1).getObservationItems().get(2)
-		.getConstellation());
-	assertEquals("Mlt star",
-		observations.get(1).getObservationItems().get(2).getType());
-	assertEquals("51x", observations.get(1).getObservationItems().get(2)
-		.getPower());
-	assertEquals("Sufficient for seeing 5 stars", observations.get(1)
-		.getObservationItems().get(2).getNotes());
+	ExtendedReportItem extReportItem = (ExtendedReportItem) (reports.get(1)
+		.getReportItems().get(2));
+
+	assertEquals("Sigma", extReportItem.getTarget());
+	assertEquals("Ori", extReportItem.getConstellation());
+	assertEquals("Mlt star", extReportItem.getType());
+	assertEquals("51x", extReportItem.getPower());
+	assertEquals("Sufficient for seeing 5 stars", extReportItem.getNotes());
     }
 
     /**
@@ -190,15 +192,25 @@ public class AJTabSeparatedValueImporterTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	assertEquals("23/02/2015", observations.get(0).getDate());
-	assertEquals("M42", observations.get(0).getObservationItems().get(0)
-		.getTarget());
-	assertEquals("NGC2244", observations.get(0).getObservationItems()
-		.get(1).getTarget());
-	assertEquals("NGC2237", observations.get(0).getObservationItems()
-		.get(2).getTarget());
-	assertEquals("Jupiter", observations.get(0).getObservationItems()
-		.get(3).getTarget());
+	ExtendedReportHeader extReportHeader = (ExtendedReportHeader) (reports
+		.get(0).getReportHeader());
+	ExtendedReportItem extReportItem = (ExtendedReportItem) (reports.get(0)
+		.getReportItems().get(0));
+
+	assertEquals("23/02/2015", extReportHeader.getDate());
+
+	extReportItem = (ExtendedReportItem) (reports.get(0).getReportItems()
+		.get(0));
+	assertEquals("M42", extReportItem.getTarget());
+	extReportItem = (ExtendedReportItem) (reports.get(0).getReportItems()
+		.get(1));
+	assertEquals("NGC2244", extReportItem.getTarget());
+	extReportItem = (ExtendedReportItem) (reports.get(0).getReportItems()
+		.get(2));
+	assertEquals("NGC2237", extReportItem.getTarget());
+	extReportItem = (ExtendedReportItem) (reports.get(0).getReportItems()
+		.get(3));
+	assertEquals("Jupiter", extReportItem.getTarget());
     }
 
     /**
@@ -210,17 +222,16 @@ public class AJTabSeparatedValueImporterTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	assertEquals("Jupiter", observations.get(0).getObservationItems()
-		.get(3).getTarget());
-	assertEquals("Cnc", observations.get(0).getObservationItems().get(3)
-		.getConstellation());
-	assertEquals("Planet", observations.get(0).getObservationItems().get(3)
-		.getType());
-	assertEquals("129x", observations.get(0).getObservationItems().get(3)
-		.getPower());
+	ExtendedReportItem extReportItem = (ExtendedReportItem) (reports.get(0)
+		.getReportItems().get(3));
+
+	assertEquals("Jupiter", extReportItem.getTarget());
+	assertEquals("Cnc", extReportItem.getConstellation());
+	assertEquals("Planet", extReportItem.getType());
+	assertEquals("129x", extReportItem.getPower());
 	assertEquals(
 		"A bit of wind, but the image stays crisp at high magnifications. No aberration.",
-		observations.get(0).getObservationItems().get(3).getNotes());
+		extReportItem.getNotes());
     }
 
     /**
@@ -232,10 +243,18 @@ public class AJTabSeparatedValueImporterTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	assertEquals("23/02/2015", observations.get(0).getDate());
-	assertEquals("22/03/2015", observations.get(1).getDate());
-	assertEquals("03/06/2015", observations.get(2).getDate());
-	assertEquals("06/06/2015", observations.get(3).getDate());
+	ExtendedReportHeader extReportHeader = (ExtendedReportHeader) (reports
+		.get(0).getReportHeader());
+	assertEquals("23/02/2015", extReportHeader.getDate());
+	extReportHeader = (ExtendedReportHeader) (reports.get(1)
+		.getReportHeader());
+	assertEquals("22/03/2015", extReportHeader.getDate());
+	extReportHeader = (ExtendedReportHeader) (reports.get(2)
+		.getReportHeader());
+	assertEquals("03/06/2015", extReportHeader.getDate());
+	extReportHeader = (ExtendedReportHeader) (reports.get(3)
+		.getReportHeader());
+	assertEquals("06/06/2015", extReportHeader.getDate());
     }
 
     /**
@@ -247,13 +266,16 @@ public class AJTabSeparatedValueImporterTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	assertEquals("04/06/2015", observations.get(4).getDate());
-	assertEquals("12C (wind: 0km/h)", observations.get(4).getTemperature());
-	assertEquals("", observations.get(4).getTransparency());
-	assertEquals("Jupiter", observations.get(4).getObservationItems()
-		.get(0).getTarget());
-	assertEquals("Planet", observations.get(4).getObservationItems().get(0)
-		.getType());
+	ExtendedReportHeader extReportHeader = (ExtendedReportHeader) (reports
+		.get(4).getReportHeader());
+	assertEquals("04/06/2015", extReportHeader.getDate());
+	assertEquals("12C (wind: 0km/h)", extReportHeader.getTemperature());
+	assertEquals("", extReportHeader.getTransparency());
+
+	ExtendedReportItem extReportItem = (ExtendedReportItem) (reports.get(4)
+		.getReportItems().get(0));
+	assertEquals("Jupiter", extReportItem.getTarget());
+	assertEquals("Planet", extReportItem.getType());
     }
 
     /**
@@ -265,8 +287,10 @@ public class AJTabSeparatedValueImporterTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	assertEquals("04/06/2015", observations.get(4).getDate());
-	assertEquals("12m", observations.get(4).getAltitude());
+	ExtendedReportHeader extReportHeader = (ExtendedReportHeader) (reports
+		.get(4).getReportHeader());
+	assertEquals("04/06/2015", extReportHeader.getDate());
+	assertEquals("12m", extReportHeader.getAltitude());
     }
 
     /**
@@ -278,10 +302,14 @@ public class AJTabSeparatedValueImporterTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	assertEquals("04/06/2015", observations.get(4).getDate());
+	ExtendedReportHeader extReportHeader = (ExtendedReportHeader) (reports
+		.get(4).getReportHeader());
+	assertEquals("04/06/2015", extReportHeader.getDate());
 	// Second report is 05/06/2015 and should be skipped because of
 	// unrecognised Datte
-	assertEquals("07/06/2015a", observations.get(5).getDate());
+	extReportHeader = (ExtendedReportHeader) (reports.get(5)
+		.getReportHeader());
+	assertEquals("07/06/2015a", extReportHeader.getDate());
     }
 
     /**
@@ -293,13 +321,16 @@ public class AJTabSeparatedValueImporterTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	assertEquals("07/06/2015b", observations.get(6).getDate());
+	ExtendedReportHeader extReportHeader = (ExtendedReportHeader) (reports
+		.get(6).getReportHeader());
+	assertEquals("07/06/2015b", extReportHeader.getDate());
+
 	// NOTE: The field `constellation` for the Moon is empty but is there.
 	// Therefore this is not a malformed entry.
-	assertEquals("Moon", observations.get(6).getObservationItems().get(1)
-		.getTarget());
-	assertEquals("", observations.get(6).getObservationItems().get(1)
-		.getConstellation());
+	ExtendedReportItem extReportItem = (ExtendedReportItem) (reports.get(6)
+		.getReportItems().get(1));
+	assertEquals("Moon", extReportItem.getTarget());
+	assertEquals("", extReportItem.getConstellation());
     }
 
     /**
@@ -311,10 +342,12 @@ public class AJTabSeparatedValueImporterTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	assertEquals("11/06/2015", observations.get(7).getDate());
-	assertEquals(" ", observations.get(7).getTemperature());
-	assertEquals("5 - Clear", observations.get(7).getTransparency());
-	assertEquals("", observations.get(7).getTelescopes());
+	ExtendedReportHeader extReportHeader = (ExtendedReportHeader) (reports
+		.get(7).getReportHeader());
+	assertEquals("11/06/2015", extReportHeader.getDate());
+	assertEquals(" ", extReportHeader.getTemperature());
+	assertEquals("5 - Clear", extReportHeader.getTransparency());
+	assertEquals("", extReportHeader.getTelescopes());
     }
 
     /**
@@ -325,8 +358,9 @@ public class AJTabSeparatedValueImporterTest {
 	System.out.println("Running test " + this.getClass().getSimpleName()
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
-
-	assertEquals("", observations.get(7).getTelescopes());
+	ExtendedReportHeader extReportHeader = (ExtendedReportHeader) (reports
+		.get(7).getReportHeader());
+	assertEquals("", extReportHeader.getTelescopes());
     }
 
     /**
@@ -338,8 +372,11 @@ public class AJTabSeparatedValueImporterTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	assertEquals("11/06/2015", observations.get(7).getDate());
-	assertEquals(1, observations.get(7).getObservationItems().size());
+	ExtendedReportHeader extReportHeader = (ExtendedReportHeader) (reports
+		.get(7).getReportHeader());
+	assertEquals("11/06/2015", extReportHeader.getDate());
+
+	assertEquals(1, reports.get(7).getReportItems().size());
     }
 
     /**
@@ -350,9 +387,11 @@ public class AJTabSeparatedValueImporterTest {
 	System.out.println("Running test " + this.getClass().getSimpleName()
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
+	ExtendedReportHeader extReportHeader = (ExtendedReportHeader) (reports
+		.get(8).getReportHeader());
+	assertEquals("15/06/2015", extReportHeader.getDate());
 
-	assertEquals("15/06/2015", observations.get(8).getDate());
-	assertEquals(0, observations.get(8).getObservationItems().size());
+	assertEquals(0, reports.get(8).getReportItems().size());
     }
 
 }
