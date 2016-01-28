@@ -21,20 +21,20 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator.importer;
+package org.astrojournal.generator.extendedgenerator;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.generator.Report;
-import org.astrojournal.generator.reportdata.ExtendedReportHeader;
-import org.astrojournal.generator.reportdata.ExtendedReportItem;
+import org.astrojournal.generator.abstractgenerator.Importer;
 import org.astrojournal.utilities.filefilters.TabSeparatedValueRawReportFilter;
 
 /**
@@ -48,8 +48,13 @@ import org.astrojournal.utilities.filefilters.TabSeparatedValueRawReportFilter;
 public class ExtendedTSVImporter extends Importer {
 
     /** The log associated to this class */
-    private static Logger log = LogManager
-	    .getLogger(ExtendedTSVImporter.class);
+    private static Logger log = LogManager.getLogger(ExtendedTSVImporter.class);
+
+    /** The values contained in an imported string. */
+    private String[] values = null;
+
+    /** The meta data for the current report. */
+    private String[] metaEntry = null;
 
     /**
      * Default constructor
@@ -94,8 +99,8 @@ public class ExtendedTSVImporter extends Importer {
 		    if (line.equals("") || line.startsWith("#")) {
 			// comments or empty line. Skip
 
-		    } else if (line.indexOf(ExtendedTSVImporter
-			    .getInitialKeyword()) > -1) {
+		    } else if (line
+			    .indexOf(MetaDataCols.DATE_NAME.getColName()) > -1) {
 			Report report = new Report();
 			importReport(reader, report, line, delimiter);
 			// Add the new report to the list of reports
@@ -146,14 +151,10 @@ public class ExtendedTSVImporter extends Importer {
 	values = line.split(delimiter);
 	// clean the field values if containing quotes at the beginning or end
 	cleanFields();
-	ExtendedReportHeader reportHeader = new ExtendedReportHeader();
+	metaEntry = new String[MetaDataCols.values().length];
+	Arrays.fill(metaEntry, "");
 	if (values.length == 2) {
-	    if (values[0].toLowerCase().equals(
-		    ExtendedReportHeader.DATE_NAME.toLowerCase())) {
-		reportHeader.setDate(values[1]);
-		report.setDataHeader(reportHeader);
-		log.debug(ExtendedReportHeader.DATE_NAME + "=" + values[1]);
-	    }
+	    setMetaData(MetaDataCols.DATE_NAME);
 	}
 	// Read the other lines for this observation
 	while ((line = reader.readLine()) != null) {
@@ -172,73 +173,42 @@ public class ExtendedTSVImporter extends Importer {
 		values = (line + '\t' + " ").split(delimiter);
 	    }
 	    if (values.length == 2) {
-		if (values[0].toLowerCase().equals(
-			ExtendedReportHeader.TIME_NAME.toLowerCase())) {
-		    reportHeader.setTime(values[1]);
-		    log.debug(ExtendedReportHeader.TIME_NAME + "=" + values[1]);
-		} else if (values[0].toLowerCase().equals(
-			ExtendedReportHeader.LOCATION_NAME.toLowerCase())) {
-		    reportHeader.setLocation(values[1]);
-		    log.debug(ExtendedReportHeader.LOCATION_NAME + "="
-			    + values[1]);
-		} else if (values[0].toLowerCase().equals(
-			ExtendedReportHeader.ALTITUDE_NAME.toLowerCase())) {
-		    reportHeader.setAltitude(values[1]);
-		    log.debug(ExtendedReportHeader.ALTITUDE_NAME + "="
-			    + values[1]);
-		} else if (values[0].toLowerCase().equals(
-			ExtendedReportHeader.TEMPERATURE_NAME.toLowerCase())) {
-		    reportHeader.setTemperature(values[1]);
-		    log.debug(ExtendedReportHeader.TEMPERATURE_NAME + "="
-			    + values[1]);
-		} else if (values[0].toLowerCase().equals(
-			ExtendedReportHeader.SEEING_NAME.toLowerCase())) {
-		    reportHeader.setSeeing(values[1]);
-		    log.debug(ExtendedReportHeader.SEEING_NAME + "="
-			    + values[1]);
-		} else if (values[0].toLowerCase().equals(
-			ExtendedReportHeader.TRANSPARENCY_NAME.toLowerCase())) {
-		    reportHeader.setTransparency(values[1]);
-		    log.debug(ExtendedReportHeader.TRANSPARENCY_NAME + "="
-			    + values[1]);
-		} else if (values[0].toLowerCase().equals(
-			ExtendedReportHeader.DARKNESS_NAME.toLowerCase())) {
-		    reportHeader.setSkyDarkness(values[1]);
-		    log.debug(ExtendedReportHeader.DARKNESS_NAME + "="
-			    + values[1]);
-		} else if (values[0].toLowerCase().equals(
-			ExtendedReportHeader.TELESCOPES_NAME.toLowerCase())) {
-		    reportHeader.setTelescopes(values[1]);
-		    log.debug(ExtendedReportHeader.TELESCOPES_NAME + "="
-			    + values[1]);
-		} else if (values[0].toLowerCase().equals(
-			ExtendedReportHeader.EYEPIECES_NAME.toLowerCase())) {
-		    reportHeader.setEyepieces(values[1]);
-		    log.debug(ExtendedReportHeader.EYEPIECES_NAME + "="
-			    + values[1]);
-		} else if (values[0].toLowerCase().equals(
-			ExtendedReportHeader.FILTERS_NAME.toLowerCase())) {
-		    reportHeader.setFilters(values[1]);
-		    log.debug(ExtendedReportHeader.FILTERS_NAME + "="
-			    + values[1]);
+
+		if (setMetaData(MetaDataCols.TIME_NAME)
+			|| setMetaData(MetaDataCols.LOCATION_NAME)
+			|| setMetaData(MetaDataCols.ALTITUDE_NAME)
+			|| setMetaData(MetaDataCols.TEMPERATURE_NAME)
+			|| setMetaData(MetaDataCols.SEEING_NAME)
+			|| setMetaData(MetaDataCols.TRANSPARENCY_NAME)
+			|| setMetaData(MetaDataCols.DARKNESS_NAME)
+			|| setMetaData(MetaDataCols.TELESCOPES_NAME)
+			|| setMetaData(MetaDataCols.EYEPIECES_NAME)
+			|| setMetaData(MetaDataCols.FILTERS_NAME)) {
+		    // do nothing. || is faster than processing &&
 		} else {
-		    log.warn("Report:" + reportHeader.getDate()
+		    log.warn("Report:"
+			    + metaEntry[MetaDataCols.DATE_NAME.ordinal()]
 			    + ". Unknown property [" + values[0] + ":"
 			    + values[1] + "]. Property discarded.");
 		}
+
 	    } else if (values.length == 5) {
 
+		report.addMetaData(metaEntry);
+
 		if (values[0].toLowerCase().equals(
-			ExtendedReportItem.TARGET_NAME.toLowerCase())
+			DataCols.TARGET_NAME.getColName().toLowerCase())
 			&& values[1].toLowerCase().equals(
-				ExtendedReportItem.CONSTELLATION_NAME
+				DataCols.CONSTELLATION_NAME.getColName()
 					.toLowerCase())
 			&& values[2].toLowerCase().equals(
-				ExtendedReportItem.TYPE_NAME.toLowerCase())
+				DataCols.TYPE_NAME.getColName().toLowerCase())
 			&& values[3].toLowerCase().equals(
-				ExtendedReportItem.POWER_NAME.toLowerCase())
+				DataCols.POWER_NAME.getColName().toLowerCase())
 			&& values[4].toLowerCase().equals(
-				ExtendedReportItem.NOTES_NAME.toLowerCase())) {
+				DataCols.NOTES_NAME.getColName().toLowerCase())) {
+
+		    String[] targetEntry;
 		    while ((line = reader.readLine()) != null) {
 			line = line.trim();
 			values = line.split(delimiter);
@@ -249,42 +219,52 @@ public class ExtendedTSVImporter extends Importer {
 			    return;
 			}
 			if (values.length != 5) {
-			    log.warn("Report:" + reportHeader.getDate()
+			    log.warn("Report:"
+				    + metaEntry[MetaDataCols.DATE_NAME
+					    .ordinal()]
 				    + ". Malformed target [" + line
 				    + "]. Target discarded.");
 			    break;
 			}
-			ExtendedReportItem reportItem = new ExtendedReportItem();
-			reportItem.setTarget(values[0]);
-			log.debug(ExtendedReportItem.TARGET_NAME + "="
-				+ values[0]);
-			reportItem.setConstellation(values[1]);
-			log.debug(ExtendedReportItem.CONSTELLATION_NAME + "="
-				+ values[1]);
-			reportItem.setType(values[2]);
-			log.debug(ExtendedReportItem.TYPE_NAME + "="
-				+ values[2]);
-			reportItem.setPower(values[3]);
-			log.debug(ExtendedReportItem.POWER_NAME + "="
-				+ values[3]);
-			reportItem.setNotes(values[4].replace("%", "\\%")
-				.replace("&", " and "));
-			log.debug(ExtendedReportItem.NOTES_NAME + "="
-				+ values[4]);
-			report.addReportItem(reportItem);
+			targetEntry = new String[DataCols.values().length];
+			Arrays.fill(targetEntry, "");
+			targetEntry[DataCols.TARGET_NAME.ordinal()] = values[0];
+			log.debug(DataCols.TARGET_NAME + "=" + values[0]);
+			targetEntry[DataCols.CONSTELLATION_NAME.ordinal()] = values[1];
+			log.debug(DataCols.CONSTELLATION_NAME + "=" + values[1]);
+			targetEntry[DataCols.TYPE_NAME.ordinal()] = values[2];
+			log.debug(DataCols.TYPE_NAME + "=" + values[2]);
+			targetEntry[DataCols.POWER_NAME.ordinal()] = values[3];
+			log.debug(DataCols.POWER_NAME + "=" + values[3]);
+			targetEntry[DataCols.NOTES_NAME.ordinal()] = values[4]
+				.replace("%", "\\%").replace("&", " and ");
+			log.debug(DataCols.NOTES_NAME + "=" + values[4]);
+			report.addData(targetEntry);
 		    }
 		} else {
-		    log.warn("Report:" + reportHeader.getDate()
+		    log.warn("Report:"
+			    + metaEntry[MetaDataCols.DATE_NAME.ordinal()]
 			    + ". Unknown property [" + values[0] + " "
 			    + values[1] + " " + values[2] + " " + values[3]
 			    + " " + values[4] + "]");
 		}
 	    } else {
-		log.warn("Report:" + reportHeader.getDate()
+		log.warn("Report:"
+			+ metaEntry[MetaDataCols.DATE_NAME.ordinal()]
 			+ ". Malformed property [" + line
 			+ "]. Property discarded.");
 	    }
 	}
+    }
+
+    /** Set the meta data */
+    private boolean setMetaData(MetaDataCols column) {
+	if (values[0].toLowerCase().equals(column.getColName().toLowerCase())) {
+	    metaEntry[column.ordinal()] = values[1];
+	    log.debug(column + "=" + values[1]);
+	    return true;
+	}
+	return false;
     }
 
     /**

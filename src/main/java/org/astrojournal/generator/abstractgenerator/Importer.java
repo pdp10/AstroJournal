@@ -21,31 +21,32 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator.DEPRECajimporter;
+package org.astrojournal.generator.abstractgenerator;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
-import org.astrojournal.generator.DEPRECobservation.AJObservation;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.astrojournal.generator.Report;
+import org.astrojournal.utilities.filefilters.TabSeparatedValueRawReportFilter;
 
 /**
- * The parser for AstroJournal. It imports files containing the observations.
+ * The parser for AstroJournal. It imports files containing the reports.
  * 
  * @author Piero Dalle Pezze
  * @version 0.1
  * @since 28/05/2015
  */
-public abstract class AJImporter {
+public abstract class Importer {
 
-    /** The keyword denoting the first line of the observation record */
-    protected static String initialKeyword = AJObservation.DATE_NAME;
-
-    /** The values contained in an imported string. */
-    protected String[] values = null;
+    /** The log associated to this class */
+    private static Logger log = LogManager.getLogger(Importer.class);
 
     /** The absolute path of the location containing the data. */
     protected String filesLocation = System.getProperty("user.home");
@@ -59,17 +60,7 @@ public abstract class AJImporter {
     /**
      * Default constructor
      */
-    public AJImporter() {
-    }
-
-    /**
-     * Returns the initial keyword denoting the beginning of the observation
-     * record
-     * 
-     * @return initialKeyword
-     */
-    public static String getInitialKeyword() {
-	return initialKeyword;
+    public Importer() {
     }
 
     /**
@@ -77,52 +68,63 @@ public abstract class AJImporter {
      * 
      * @return the imported observations
      */
-    public abstract ArrayList<AJObservation> importObservations();
+    public List<Report> importReports() {
+	if (resourceBundle != null) {
+	    log.info("Importing observation files:");
+	}
+	String rawReportPath = filesLocation + File.separator + rawReportFolder;
+	File[] files = new File(rawReportPath)
+		.listFiles(new TabSeparatedValueRawReportFilter());
+	if (files == null) {
+	    log.error("Folder " + rawReportPath + " not found");
+	    return new ArrayList<Report>();
+	}
+	return importReports(files);
+    }
 
     /**
-     * Imports the observation data stored in multiple files.
+     * Imports the report data stored in multiple files.
      * 
      * @param files
      *            An array of files to parse (either CSV or TSV file, separated
      *            by TAB delimiter).
-     * @return a list of AJObservation objects
+     * @return a list of Report objects
      */
-    public ArrayList<AJObservation> importObservations(File[] files) {
+    public List<Report> importReports(File[] files) {
 	Arrays.sort(files);
-	ArrayList<AJObservation> observations = new ArrayList<AJObservation>();
+	List<Report> reports = new ArrayList<Report>();
 	for (File file : files) {
-	    observations.addAll(importObservations(file));
-	} // end for
-	return observations;
+	    reports.addAll(importReports(file));
+	}
+	return reports;
     }
 
     /**
-     * Imports the observation data stored in a file.
+     * Imports the report data stored in a file.
      * 
      * @param file
      *            The file to parse
-     * @return a list of AJObservation objects
+     * @return a list of Report objects
      */
-    public abstract ArrayList<AJObservation> importObservations(File file);
+    public abstract List<Report> importReports(File file);
 
     /**
-     * Imports an observation record
+     * Imports an report record
      * 
      * @param reader
      *            the buffered reader associated to the file
-     * @param obs
-     *            the object containing the observation to import
+     * @param report
+     *            the object containing the report to import
      * @param line
      *            the current line parsed in the file (the first line of the
      *            record)
      * @param delimiter
      *            the field delimiter
      * @throws IOException
-     *             if reader cannot read the observation
+     *             if reader cannot read the report
      */
-    protected abstract void importObservation(BufferedReader reader,
-	    AJObservation obs, String line, String delimiter)
-	    throws IOException;
+    protected abstract void importReport(BufferedReader reader, Report report,
+	    String line, String delimiter) throws IOException;
 
     /**
      * Return the importer name
@@ -135,8 +137,8 @@ public abstract class AJImporter {
 
     @Override
     public boolean equals(Object o) {
-	if (o instanceof AJImporter) {
-	    AJImporter that = (AJImporter) o;
+	if (o instanceof Importer) {
+	    Importer that = (Importer) o;
 	    return this.getName().equals(that.getName());
 	}
 	return false;

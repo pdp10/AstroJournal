@@ -34,10 +34,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
-import org.astrojournal.generator.exporter.Exporter;
-import org.astrojournal.generator.exporter.LatexExporter;
-import org.astrojournal.generator.exporter.LatexExporterByDate;
-import org.astrojournal.generator.importer.Importer;
+import org.astrojournal.generator.abstractgenerator.Exporter;
+import org.astrojournal.generator.abstractgenerator.Importer;
+import org.astrojournal.generator.abstractgenerator.LatexExporter;
+import org.astrojournal.generator.extendedgenerator.LatexExporterByDate;
 import org.astrojournal.utilities.ClassesInstanceOf;
 
 /**

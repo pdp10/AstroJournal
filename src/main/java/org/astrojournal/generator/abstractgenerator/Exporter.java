@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator.exporter;
+package org.astrojournal.generator.abstractgenerator;
 
 import java.io.IOException;
 import java.util.List;

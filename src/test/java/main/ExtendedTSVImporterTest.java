@@ -32,10 +32,10 @@ import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
 import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.generator.Report;
-import org.astrojournal.generator.importer.ExtendedTSVImporter;
-import org.astrojournal.generator.importer.Importer;
-import org.astrojournal.generator.reportdata.ExtendedReportHeader;
-import org.astrojournal.generator.reportdata.ExtendedReportItem;
+import org.astrojournal.generator.abstractgenerator.Importer;
+import org.astrojournal.generator.extendedgenerator.DataCols;
+import org.astrojournal.generator.extendedgenerator.ExtendedTSVImporter;
+import org.astrojournal.generator.extendedgenerator.MetaDataCols;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -133,7 +133,7 @@ public class ExtendedTSVImporterTest {
 
 	int targets = 0;
 	for (int i = 0; i < reports.size(); i++) {
-	    targets = targets + reports.get(i).getReportItems().size();
+	    targets = targets + reports.get(i).getDataRowNumber();
 	}
 	assertEquals(28, targets);
     }
@@ -147,21 +147,26 @@ public class ExtendedTSVImporterTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	ExtendedReportHeader extReportHeader = (ExtendedReportHeader) (reports
-		.get(1).getReportHeader());
+	String[] metaData = reports.get(1).getMetaData();
 
-	assertEquals("22/03/2015", extReportHeader.getDate());
-	assertEquals("19:00-22:00", extReportHeader.getTime());
-	assertEquals("Cambridge, UK", extReportHeader.getLocation());
-	assertEquals("12m", extReportHeader.getAltitude());
-	assertEquals("3C (no wind)", extReportHeader.getTemperature());
-	assertEquals("2 - Slight undulations", extReportHeader.getSeeing());
-	assertEquals("3 - Somewhat clear", extReportHeader.getTransparency());
-	assertEquals("20.4 mag", extReportHeader.getDarkness());
-	assertEquals("Tele Vue 60 F6", extReportHeader.getTelescopes());
+	assertEquals("22/03/2015", metaData[MetaDataCols.DATE_NAME.ordinal()]);
+	assertEquals("19:00-22:00", metaData[MetaDataCols.TIME_NAME.ordinal()]);
+	assertEquals("Cambridge, UK",
+		metaData[MetaDataCols.LOCATION_NAME.ordinal()]);
+	assertEquals("12m", metaData[MetaDataCols.ALTITUDE_NAME.ordinal()]);
+	assertEquals("3C (no wind)",
+		metaData[MetaDataCols.TEMPERATURE_NAME.ordinal()]);
+	assertEquals("2 - Slight undulations",
+		metaData[MetaDataCols.SEEING_NAME.ordinal()]);
+	assertEquals("3 - Somewhat clear",
+		metaData[MetaDataCols.TRANSPARENCY_NAME.ordinal()]);
+	assertEquals("20.4 mag", metaData[MetaDataCols.DARKNESS_NAME.ordinal()]);
+	assertEquals("Tele Vue 60 F6",
+		metaData[MetaDataCols.TELESCOPES_NAME.ordinal()]);
 	assertEquals("TV Panoptic 24mm, Nagler 7mm, Powermate 2.5x",
-		extReportHeader.getEyepieces());
-	assertEquals("Astronomik OIII", extReportHeader.getFilters());
+		metaData[MetaDataCols.EYEPIECES_NAME.ordinal()]);
+	assertEquals("Astronomik OIII",
+		metaData[MetaDataCols.FILTERS_NAME.ordinal()]);
     }
 
     /**
@@ -173,14 +178,14 @@ public class ExtendedTSVImporterTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	ExtendedReportItem extReportItem = (ExtendedReportItem) (reports.get(1)
-		.getReportItems().get(2));
+	String[] targetEntry = reports.get(1).getData(2);
 
-	assertEquals("Sigma", extReportItem.getTarget());
-	assertEquals("Ori", extReportItem.getConstellation());
-	assertEquals("Mlt star", extReportItem.getType());
-	assertEquals("51x", extReportItem.getPower());
-	assertEquals("Sufficient for seeing 5 stars", extReportItem.getNotes());
+	assertEquals("Sigma", targetEntry[DataCols.TARGET_NAME.ordinal()]);
+	assertEquals("Ori", targetEntry[DataCols.CONSTELLATION_NAME.ordinal()]);
+	assertEquals("Mlt star", targetEntry[DataCols.TYPE_NAME.ordinal()]);
+	assertEquals("51x", targetEntry[DataCols.POWER_NAME.ordinal()]);
+	assertEquals("Sufficient for seeing 5 stars",
+		targetEntry[DataCols.NOTES_NAME.ordinal()]);
     }
 
     /**
@@ -192,25 +197,18 @@ public class ExtendedTSVImporterTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	ExtendedReportHeader extReportHeader = (ExtendedReportHeader) (reports
-		.get(0).getReportHeader());
-	ExtendedReportItem extReportItem = (ExtendedReportItem) (reports.get(0)
-		.getReportItems().get(0));
+	String[] metaData = reports.get(0).getMetaData();
+	String[] targetEntry;
 
-	assertEquals("23/02/2015", extReportHeader.getDate());
-
-	extReportItem = (ExtendedReportItem) (reports.get(0).getReportItems()
-		.get(0));
-	assertEquals("M42", extReportItem.getTarget());
-	extReportItem = (ExtendedReportItem) (reports.get(0).getReportItems()
-		.get(1));
-	assertEquals("NGC2244", extReportItem.getTarget());
-	extReportItem = (ExtendedReportItem) (reports.get(0).getReportItems()
-		.get(2));
-	assertEquals("NGC2237", extReportItem.getTarget());
-	extReportItem = (ExtendedReportItem) (reports.get(0).getReportItems()
-		.get(3));
-	assertEquals("Jupiter", extReportItem.getTarget());
+	assertEquals("23/02/2015", metaData[MetaDataCols.DATE_NAME.ordinal()]);
+	targetEntry = reports.get(0).getData(0);
+	assertEquals("M42", targetEntry[DataCols.TARGET_NAME.ordinal()]);
+	targetEntry = reports.get(0).getData(1);
+	assertEquals("NGC2244", targetEntry[DataCols.TARGET_NAME.ordinal()]);
+	targetEntry = reports.get(0).getData(2);
+	assertEquals("NGC2237", targetEntry[DataCols.TARGET_NAME.ordinal()]);
+	targetEntry = reports.get(0).getData(3);
+	assertEquals("Jupiter", targetEntry[DataCols.TARGET_NAME.ordinal()]);
     }
 
     /**
@@ -222,16 +220,15 @@ public class ExtendedTSVImporterTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	ExtendedReportItem extReportItem = (ExtendedReportItem) (reports.get(0)
-		.getReportItems().get(3));
+	String[] targetEntry = reports.get(0).getData(3);
 
-	assertEquals("Jupiter", extReportItem.getTarget());
-	assertEquals("Cnc", extReportItem.getConstellation());
-	assertEquals("Planet", extReportItem.getType());
-	assertEquals("129x", extReportItem.getPower());
+	assertEquals("Jupiter", targetEntry[DataCols.TARGET_NAME.ordinal()]);
+	assertEquals("Cnc", targetEntry[DataCols.CONSTELLATION_NAME.ordinal()]);
+	assertEquals("Planet", targetEntry[DataCols.TYPE_NAME.ordinal()]);
+	assertEquals("129x", targetEntry[DataCols.POWER_NAME.ordinal()]);
 	assertEquals(
 		"A bit of wind, but the image stays crisp at high magnifications. No aberration.",
-		extReportItem.getNotes());
+		targetEntry[DataCols.NOTES_NAME.ordinal()]);
     }
 
     /**
@@ -243,18 +240,15 @@ public class ExtendedTSVImporterTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	ExtendedReportHeader extReportHeader = (ExtendedReportHeader) (reports
-		.get(0).getReportHeader());
-	assertEquals("23/02/2015", extReportHeader.getDate());
-	extReportHeader = (ExtendedReportHeader) (reports.get(1)
-		.getReportHeader());
-	assertEquals("22/03/2015", extReportHeader.getDate());
-	extReportHeader = (ExtendedReportHeader) (reports.get(2)
-		.getReportHeader());
-	assertEquals("03/06/2015", extReportHeader.getDate());
-	extReportHeader = (ExtendedReportHeader) (reports.get(3)
-		.getReportHeader());
-	assertEquals("06/06/2015", extReportHeader.getDate());
+	String[] metaData = reports.get(0).getMetaData();
+
+	assertEquals("23/02/2015", metaData[MetaDataCols.DATE_NAME.ordinal()]);
+	metaData = reports.get(1).getMetaData();
+	assertEquals("22/03/2015", metaData[MetaDataCols.DATE_NAME.ordinal()]);
+	metaData = reports.get(2).getMetaData();
+	assertEquals("03/06/2015", metaData[MetaDataCols.DATE_NAME.ordinal()]);
+	metaData = reports.get(3).getMetaData();
+	assertEquals("06/06/2015", metaData[MetaDataCols.DATE_NAME.ordinal()]);
     }
 
     /**
@@ -266,16 +260,16 @@ public class ExtendedTSVImporterTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	ExtendedReportHeader extReportHeader = (ExtendedReportHeader) (reports
-		.get(4).getReportHeader());
-	assertEquals("04/06/2015", extReportHeader.getDate());
-	assertEquals("12C (wind: 0km/h)", extReportHeader.getTemperature());
-	assertEquals("", extReportHeader.getTransparency());
+	String[] metaData = reports.get(4).getMetaData();
+	String[] targetEntry = reports.get(4).getData(0);
 
-	ExtendedReportItem extReportItem = (ExtendedReportItem) (reports.get(4)
-		.getReportItems().get(0));
-	assertEquals("Jupiter", extReportItem.getTarget());
-	assertEquals("Planet", extReportItem.getType());
+	assertEquals("04/06/2015", metaData[MetaDataCols.DATE_NAME.ordinal()]);
+	assertEquals("12C (wind: 0km/h)",
+		metaData[MetaDataCols.TEMPERATURE_NAME.ordinal()]);
+	assertEquals("", metaData[MetaDataCols.TRANSPARENCY_NAME.ordinal()]);
+
+	assertEquals("Jupiter", targetEntry[DataCols.TARGET_NAME.ordinal()]);
+	assertEquals("Planet", targetEntry[DataCols.TYPE_NAME.ordinal()]);
     }
 
     /**
@@ -287,10 +281,10 @@ public class ExtendedTSVImporterTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	ExtendedReportHeader extReportHeader = (ExtendedReportHeader) (reports
-		.get(4).getReportHeader());
-	assertEquals("04/06/2015", extReportHeader.getDate());
-	assertEquals("12m", extReportHeader.getAltitude());
+	String[] metaData = reports.get(4).getMetaData();
+
+	assertEquals("04/06/2015", metaData[MetaDataCols.DATE_NAME.ordinal()]);
+	assertEquals("12m", metaData[MetaDataCols.ALTITUDE_NAME.ordinal()]);
     }
 
     /**
@@ -302,14 +296,13 @@ public class ExtendedTSVImporterTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	ExtendedReportHeader extReportHeader = (ExtendedReportHeader) (reports
-		.get(4).getReportHeader());
-	assertEquals("04/06/2015", extReportHeader.getDate());
+	String[] metaData = reports.get(4).getMetaData();
+
+	assertEquals("04/06/2015", metaData[MetaDataCols.DATE_NAME.ordinal()]);
 	// Second report is 05/06/2015 and should be skipped because of
 	// unrecognised Datte
-	extReportHeader = (ExtendedReportHeader) (reports.get(5)
-		.getReportHeader());
-	assertEquals("07/06/2015a", extReportHeader.getDate());
+	metaData = reports.get(5).getMetaData();
+	assertEquals("07/06/2015a", metaData[MetaDataCols.DATE_NAME.ordinal()]);
     }
 
     /**
@@ -321,16 +314,14 @@ public class ExtendedTSVImporterTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	ExtendedReportHeader extReportHeader = (ExtendedReportHeader) (reports
-		.get(6).getReportHeader());
-	assertEquals("07/06/2015b", extReportHeader.getDate());
+	String[] metaData = reports.get(6).getMetaData();
+	assertEquals("07/06/2015b", metaData[MetaDataCols.DATE_NAME.ordinal()]);
 
 	// NOTE: The field `constellation` for the Moon is empty but is there.
 	// Therefore this is not a malformed entry.
-	ExtendedReportItem extReportItem = (ExtendedReportItem) (reports.get(6)
-		.getReportItems().get(1));
-	assertEquals("Moon", extReportItem.getTarget());
-	assertEquals("", extReportItem.getConstellation());
+	String[] targetEntry = reports.get(6).getData(1);
+	assertEquals("Moon", targetEntry[DataCols.TARGET_NAME.ordinal()]);
+	assertEquals("", targetEntry[DataCols.CONSTELLATION_NAME.ordinal()]);
     }
 
     /**
@@ -342,12 +333,13 @@ public class ExtendedTSVImporterTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	ExtendedReportHeader extReportHeader = (ExtendedReportHeader) (reports
-		.get(7).getReportHeader());
-	assertEquals("11/06/2015", extReportHeader.getDate());
-	assertEquals(" ", extReportHeader.getTemperature());
-	assertEquals("5 - Clear", extReportHeader.getTransparency());
-	assertEquals("", extReportHeader.getTelescopes());
+	String[] metaData = reports.get(7).getMetaData();
+
+	assertEquals("11/06/2015", metaData[MetaDataCols.DATE_NAME.ordinal()]);
+	assertEquals(" ", metaData[MetaDataCols.TEMPERATURE_NAME.ordinal()]);
+	assertEquals("5 - Clear",
+		metaData[MetaDataCols.TRANSPARENCY_NAME.ordinal()]);
+	assertEquals("", metaData[MetaDataCols.TELESCOPES_NAME.ordinal()]);
     }
 
     /**
@@ -358,9 +350,9 @@ public class ExtendedTSVImporterTest {
 	System.out.println("Running test " + this.getClass().getSimpleName()
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
-	ExtendedReportHeader extReportHeader = (ExtendedReportHeader) (reports
-		.get(7).getReportHeader());
-	assertEquals("", extReportHeader.getTelescopes());
+
+	String[] metaData = reports.get(7).getMetaData();
+	assertEquals("", metaData[MetaDataCols.TELESCOPES_NAME.ordinal()]);
     }
 
     /**
@@ -372,11 +364,10 @@ public class ExtendedTSVImporterTest {
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
-	ExtendedReportHeader extReportHeader = (ExtendedReportHeader) (reports
-		.get(7).getReportHeader());
-	assertEquals("11/06/2015", extReportHeader.getDate());
+	String[] metaData = reports.get(7).getMetaData();
 
-	assertEquals(1, reports.get(7).getReportItems().size());
+	assertEquals("11/06/2015", metaData[MetaDataCols.DATE_NAME.ordinal()]);
+	assertEquals(1, reports.get(7).getDataRowNumber());
     }
 
     /**
@@ -387,11 +378,10 @@ public class ExtendedTSVImporterTest {
 	System.out.println("Running test " + this.getClass().getSimpleName()
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
-	ExtendedReportHeader extReportHeader = (ExtendedReportHeader) (reports
-		.get(8).getReportHeader());
-	assertEquals("15/06/2015", extReportHeader.getDate());
 
-	assertEquals(0, reports.get(8).getReportItems().size());
+	String[] metaData = reports.get(8).getMetaData();
+
+	assertEquals("15/06/2015", metaData[MetaDataCols.DATE_NAME.ordinal()]);
+	assertEquals(0, reports.get(8).getDataRowNumber());
     }
-
 }
