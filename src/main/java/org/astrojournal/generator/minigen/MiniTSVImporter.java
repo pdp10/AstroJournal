@@ -74,8 +74,7 @@ public class MiniTSVImporter extends Importer {
     @Override
     public List<Report> importReports(File file) {
 	List<Report> reports = new ArrayList<Report>();
-	if (file.isFile()
-		&& new TSVRawReportFilter().accept(file)) {
+	if (file.isFile() && new TSVRawReportFilter().accept(file)) {
 
 	    // whether this is tsv or csv it does not matter as long as fields
 	    // are separated by a TAB character
@@ -99,8 +98,8 @@ public class MiniTSVImporter extends Importer {
 		    if (line.equals("") || line.startsWith("#")) {
 			// comments or empty line. Skip
 
-		    } else if (line
-			    .indexOf(MiniMetaDataCols.DATE_NAME.getColName()) > -1) {
+		    } else if (line.indexOf(MiniMetaDataCols.DATE_NAME
+			    .getColName()) > -1) {
 			Report report = new Report();
 			importReport(reader, report, line, delimiter);
 			// Add the new report to the list of reports
@@ -165,7 +164,7 @@ public class MiniTSVImporter extends Importer {
 	    cleanFields();
 	    if (values.length == 0 || line.equals("")) {
 		return;
-	    } else if (values.length == 1) {
+	    } else if (values.length >= 1) {
 
 		report.addMetaData(metaEntry);
 
@@ -182,7 +181,7 @@ public class MiniTSVImporter extends Importer {
 			if (line.equals("")) {
 			    return;
 			}
-			if (values.length != 1) {
+			if (values.length < 1) { // Does this happen? :)
 			    log.warn("Report:"
 				    + metaEntry[MiniMetaDataCols.DATE_NAME
 					    .ordinal()]
@@ -198,9 +197,7 @@ public class MiniTSVImporter extends Importer {
 		} else {
 		    log.warn("Report:"
 			    + metaEntry[MiniMetaDataCols.DATE_NAME.ordinal()]
-			    + ". Unknown property [" + values[0] + " "
-			    + values[1] + " " + values[2] + " " + values[3]
-			    + " " + values[4] + "]");
+			    + ". Unknown property [" + values[0] + "]");
 		}
 	    } else {
 		log.warn("Report:"

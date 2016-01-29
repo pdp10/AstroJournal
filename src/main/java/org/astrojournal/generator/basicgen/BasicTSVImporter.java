@@ -99,8 +99,8 @@ public class BasicTSVImporter extends Importer {
 		    if (line.equals("") || line.startsWith("#")) {
 			// comments or empty line. Skip
 
-		    } else if (line
-			    .indexOf(BasicMetaDataCols.DATE_NAME.getColName()) > -1) {
+		    } else if (line.indexOf(BasicMetaDataCols.DATE_NAME
+			    .getColName()) > -1) {
 			Report report = new Report();
 			importReport(reader, report, line, delimiter);
 			// Add the new report to the list of reports
@@ -185,18 +185,21 @@ public class BasicTSVImporter extends Importer {
 			    + values[1] + "]. Property discarded.");
 		}
 
-	    } else if (values.length == 4) {
+	    } else if (values.length >= 4) {
 
 		report.addMetaData(metaEntry);
 
 		if (values[0].toLowerCase().equals(
 			BasicDataCols.TARGET_NAME.getColName().toLowerCase())
 			&& values[1].toLowerCase().equals(
-				BasicDataCols.TYPE_NAME.getColName().toLowerCase())
+				BasicDataCols.TYPE_NAME.getColName()
+					.toLowerCase())
 			&& values[2].toLowerCase().equals(
-				BasicDataCols.POWER_NAME.getColName().toLowerCase())
+				BasicDataCols.POWER_NAME.getColName()
+					.toLowerCase())
 			&& values[3].toLowerCase().equals(
-				BasicDataCols.NOTES_NAME.getColName().toLowerCase())) {
+				BasicDataCols.NOTES_NAME.getColName()
+					.toLowerCase())) {
 
 		    String[] targetEntry;
 		    while ((line = reader.readLine()) != null) {
@@ -208,7 +211,7 @@ public class BasicTSVImporter extends Importer {
 			if (line.equals("")) {
 			    return;
 			}
-			if (values.length != 4) {
+			if (values.length < 4) {
 			    log.warn("Report:"
 				    + metaEntry[BasicMetaDataCols.DATE_NAME
 					    .ordinal()]
@@ -234,7 +237,7 @@ public class BasicTSVImporter extends Importer {
 			    + metaEntry[BasicMetaDataCols.DATE_NAME.ordinal()]
 			    + ". Unknown property [" + values[0] + " "
 			    + values[1] + " " + values[2] + " " + values[3]
-			    + " " + values[4] + "]");
+			    + "]");
 		}
 	    } else {
 		log.warn("Report:"

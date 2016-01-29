@@ -98,8 +98,8 @@ public class ExtTSVImporter extends Importer {
 		    if (line.equals("") || line.startsWith("#")) {
 			// comments or empty line. Skip
 
-		    } else if (line
-			    .indexOf(ExtMetaDataCols.DATE_NAME.getColName()) > -1) {
+		    } else if (line.indexOf(ExtMetaDataCols.DATE_NAME
+			    .getColName()) > -1) {
 			Report report = new Report();
 			importReport(reader, report, line, delimiter);
 			// Add the new report to the list of reports
@@ -191,7 +191,7 @@ public class ExtTSVImporter extends Importer {
 			    + values[1] + "]. Property discarded.");
 		}
 
-	    } else if (values.length == 5) {
+	    } else if (values.length >= 5) {
 
 		report.addMetaData(metaEntry);
 
@@ -201,11 +201,14 @@ public class ExtTSVImporter extends Importer {
 				ExtDataCols.CONSTELLATION_NAME.getColName()
 					.toLowerCase())
 			&& values[2].toLowerCase().equals(
-				ExtDataCols.TYPE_NAME.getColName().toLowerCase())
+				ExtDataCols.TYPE_NAME.getColName()
+					.toLowerCase())
 			&& values[3].toLowerCase().equals(
-				ExtDataCols.POWER_NAME.getColName().toLowerCase())
+				ExtDataCols.POWER_NAME.getColName()
+					.toLowerCase())
 			&& values[4].toLowerCase().equals(
-				ExtDataCols.NOTES_NAME.getColName().toLowerCase())) {
+				ExtDataCols.NOTES_NAME.getColName()
+					.toLowerCase())) {
 
 		    String[] targetEntry;
 		    while ((line = reader.readLine()) != null) {
@@ -217,7 +220,7 @@ public class ExtTSVImporter extends Importer {
 			if (line.equals("")) {
 			    return;
 			}
-			if (values.length != 5) {
+			if (values.length < 5) {
 			    log.warn("Report:"
 				    + metaEntry[ExtMetaDataCols.DATE_NAME
 					    .ordinal()]
@@ -230,7 +233,8 @@ public class ExtTSVImporter extends Importer {
 			targetEntry[ExtDataCols.TARGET_NAME.ordinal()] = values[0];
 			log.debug(ExtDataCols.TARGET_NAME + "=" + values[0]);
 			targetEntry[ExtDataCols.CONSTELLATION_NAME.ordinal()] = values[1];
-			log.debug(ExtDataCols.CONSTELLATION_NAME + "=" + values[1]);
+			log.debug(ExtDataCols.CONSTELLATION_NAME + "="
+				+ values[1]);
 			targetEntry[ExtDataCols.TYPE_NAME.ordinal()] = values[2];
 			log.debug(ExtDataCols.TYPE_NAME + "=" + values[2]);
 			targetEntry[ExtDataCols.POWER_NAME.ordinal()] = values[3];
