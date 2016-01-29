@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator.basicgen;
+package org.astrojournal.generator.minigen;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -48,18 +48,18 @@ import org.astrojournal.utilities.filefilters.LaTeXFilter;
 
 /**
  * Exports an AstroJournal set of observations by target to Latex code. This is
- * a basic exporter which uses BasicMetaDataCols and BasicDataCols enum types
+ * an extended exporter which uses MiniMetaDataCols and MiniDataCols enum types
  * for column export.
  * 
  * @author Piero Dalle Pezze
  * @version 0.2
  * @since 22/07/2015
  */
-public class LatexExporterByTarget extends LatexExporter {
+public class MiniLatexExporterByTarget extends LatexExporter {
 
     /** The log associated to this class */
     private static Logger log = LogManager
-	    .getLogger(LatexExporterByTarget.class);
+	    .getLogger(MiniLatexExporterByTarget.class);
 
     /** A cache of the visited targets. */
     private HashSet<String> processedTargetCache = new HashSet<String>(1000);
@@ -81,7 +81,7 @@ public class LatexExporterByTarget extends LatexExporter {
     /**
      * Default constructor.
      */
-    public LatexExporterByTarget() {
+    public MiniLatexExporterByTarget() {
 	super();
     }
 
@@ -213,52 +213,9 @@ public class LatexExporterByTarget extends LatexExporter {
 					new File(filesLocation + File.separator
 						+ reportFolder, filenameOut
 						+ ".tex")), "utf-8"));
-			if (targetEntry[BasicDataCols.TYPE_NAME.ordinal()]
-				.toLowerCase().equals("planet")
-				|| targetEntry[BasicDataCols.TARGET_NAME
-					.ordinal()].toLowerCase()
-					.equals("moon")
-				|| targetEntry[BasicDataCols.TARGET_NAME
-					.ordinal()].toLowerCase().equals("sun")
-				|| targetEntry[BasicDataCols.TYPE_NAME
-					.ordinal()].toLowerCase().equals(
-					"asteroid")
-				|| targetEntry[BasicDataCols.TYPE_NAME
-					.ordinal()].toLowerCase().equals(
-					"comet")) {
-			    targetWriter.write("\\subsection{"
-				    + targetEntry[BasicDataCols.TARGET_NAME
-					    .ordinal()]);
-			} else if (targetEntry[BasicDataCols.TYPE_NAME
-				.ordinal()].toLowerCase().equals("star")
-				|| targetEntry[BasicDataCols.TYPE_NAME
-					.ordinal()].toLowerCase().equals(
-					"dbl star")
-				|| targetEntry[BasicDataCols.TYPE_NAME
-					.ordinal()].toLowerCase().equals(
-					"mlt star")) {
-			    targetWriter.write("\\subsection{"
-				    + targetEntry[BasicDataCols.TARGET_NAME
-					    .ordinal()]);
-			} else if (targetEntry[BasicDataCols.TYPE_NAME
-				.ordinal()].toLowerCase().equals("galaxy")
-				&& targetEntry[BasicDataCols.TARGET_NAME
-					.ordinal()].toLowerCase().equals(
-					"milky way")) {
-			    // Don't print the constellation if we are
-			    // processing the milky way!
-			    targetWriter.write("\\subsection{"
-				    + targetEntry[BasicDataCols.TARGET_NAME
-					    .ordinal()]);
-			} else {
-			    targetWriter.write("\\subsection{"
-				    + targetEntry[BasicDataCols.TARGET_NAME
-					    .ordinal()]);
-			}
-			targetWriter
-				.write(", "
-					+ targetEntry[BasicDataCols.TYPE_NAME
-						.ordinal()] + "}\n");
+			targetWriter.write("\\subsection{"
+				+ targetEntry[MiniDataCols.TARGET_NAME.ordinal()]
+				+ "}\n");
 			targetWriter.write("\\begin{itemize}\n");
 		    } else {
 			// if file was already created skip the previous two
@@ -272,22 +229,8 @@ public class LatexExporterByTarget extends LatexExporter {
 		    String[] metaData = report.getMetaData();
 		    targetWriter
 			    .write("\\item "
-				    + metaData[BasicMetaDataCols.DATE_NAME.ordinal()]
-				    + ". "
-				    + metaData[BasicMetaDataCols.SEEING_NAME
-					    .ordinal()]
-				    + ", "
-				    + metaData[BasicMetaDataCols.TRANSPARENCY_NAME
-					    .ordinal()]
-				    + ". "
-				    + metaData[BasicMetaDataCols.TELESCOPES_NAME
-					    .ordinal()]
-				    + ", "
-				    + targetEntry[BasicDataCols.POWER_NAME
-					    .ordinal()]
-				    + ". "
-				    + targetEntry[BasicDataCols.NOTES_NAME
-					    .ordinal()] + "\n");
+				    + metaData[MiniMetaDataCols.DATE_NAME.ordinal()]
+				    + "\n");
 
 		    // do not close the Latex 'itemize' block now because
 		    // nothing is known about other observations
@@ -390,41 +333,8 @@ public class LatexExporterByTarget extends LatexExporter {
      * @return the name of the file
      */
     private String computeFileName(String[] targetEntry) {
-	if (targetEntry[BasicDataCols.TYPE_NAME.ordinal()].toLowerCase()
-		.equals("planet")
-		|| targetEntry[BasicDataCols.TARGET_NAME.ordinal()]
-			.toLowerCase().equals("moon")
-		|| targetEntry[BasicDataCols.TARGET_NAME.ordinal()]
-			.toLowerCase().equals("sun")) {
-	    return targetEntry[BasicDataCols.TARGET_NAME.ordinal()].replaceAll(
-		    "\\s+", "").replaceAll("/", "-");
-	}
-	if (targetEntry[BasicDataCols.TYPE_NAME.ordinal()].toLowerCase()
-		.equals("asteroid")
-		|| targetEntry[BasicDataCols.TYPE_NAME.ordinal()].toLowerCase()
-			.equals("comet")) {
-	    return targetEntry[BasicDataCols.TYPE_NAME.ordinal()].replaceAll(
-		    "\\s+", "").replaceAll("/", "-");
-	}
-	if (targetEntry[BasicDataCols.TYPE_NAME.ordinal()].toLowerCase()
-		.equals("star")
-		|| targetEntry[BasicDataCols.TYPE_NAME.ordinal()].toLowerCase()
-			.equals("dbl star")
-		|| targetEntry[BasicDataCols.TYPE_NAME.ordinal()].toLowerCase()
-			.equals("mlt star")) {
-	    return targetEntry[BasicDataCols.TARGET_NAME.ordinal()].replaceAll(
-		    "\\s+", "").replaceAll("/", "-");
-	}
-	if (targetEntry[BasicDataCols.TYPE_NAME.ordinal()].toLowerCase()
-		.equals("galaxy")
-		&& targetEntry[BasicDataCols.TARGET_NAME.ordinal()]
-			.toLowerCase().equals("milky way")) {
-	    // Don't print the constellation if we are processing the milky way!
-	    return targetEntry[BasicDataCols.TARGET_NAME.ordinal()].replaceAll(
-		    "\\s+", "").replaceAll("/", "-");
-	}
-	return targetEntry[BasicDataCols.TARGET_NAME.ordinal()].replaceAll(
-		"\\s+", "").replaceAll("/", "-");
+	return targetEntry[MiniDataCols.TARGET_NAME.ordinal()].replaceAll("\\s+",
+		"").replaceAll("/", "-");
     }
 
     /**

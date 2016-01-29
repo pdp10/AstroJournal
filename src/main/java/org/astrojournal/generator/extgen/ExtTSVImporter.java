@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator.minigen;
+package org.astrojournal.generator.extgen;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -45,10 +45,10 @@ import org.astrojournal.utilities.filefilters.TSVRawReportFilter;
  * @version 0.4
  * @since 28/05/2015
  */
-public class MinimalTSVImporter extends Importer {
+public class ExtTSVImporter extends Importer {
 
     /** The log associated to this class */
-    private static Logger log = LogManager.getLogger(MinimalTSVImporter.class);
+    private static Logger log = LogManager.getLogger(ExtTSVImporter.class);
 
     /** The values contained in an imported string. */
     private String[] values = null;
@@ -59,7 +59,7 @@ public class MinimalTSVImporter extends Importer {
     /**
      * Default constructor
      */
-    public MinimalTSVImporter() {
+    public ExtTSVImporter() {
 	super();
     }
 
@@ -74,8 +74,7 @@ public class MinimalTSVImporter extends Importer {
     @Override
     public List<Report> importReports(File file) {
 	List<Report> reports = new ArrayList<Report>();
-	if (file.isFile()
-		&& new TSVRawReportFilter().accept(file)) {
+	if (file.isFile() && new TSVRawReportFilter().accept(file)) {
 
 	    // whether this is tsv or csv it does not matter as long as fields
 	    // are separated by a TAB character
@@ -100,7 +99,7 @@ public class MinimalTSVImporter extends Importer {
 			// comments or empty line. Skip
 
 		    } else if (line
-			    .indexOf(MiniMetaDataCols.DATE_NAME.getColName()) > -1) {
+			    .indexOf(ExtMetaDataCols.DATE_NAME.getColName()) > -1) {
 			Report report = new Report();
 			importReport(reader, report, line, delimiter);
 			// Add the new report to the list of reports
@@ -151,10 +150,10 @@ public class MinimalTSVImporter extends Importer {
 	values = line.split(delimiter);
 	// clean the field values if containing quotes at the beginning or end
 	cleanFields();
-	metaEntry = new String[MiniMetaDataCols.values().length];
+	metaEntry = new String[ExtMetaDataCols.values().length];
 	Arrays.fill(metaEntry, "");
 	if (values.length == 2) {
-	    setMetaData(MiniMetaDataCols.DATE_NAME);
+	    setMetaData(ExtMetaDataCols.DATE_NAME);
 	}
 	// Read the other lines for this observation
 	while ((line = reader.readLine()) != null) {
@@ -165,12 +164,48 @@ public class MinimalTSVImporter extends Importer {
 	    cleanFields();
 	    if (values.length == 0 || line.equals("")) {
 		return;
-	    } else if (values.length == 1) {
+	    }
+	    if (values.length == 1) {
+		// We also accept naked eye observations. Therefore, the only
+		// required value
+		// is the date.
+		values = (line + '\t' + " ").split(delimiter);
+	    }
+	    if (values.length == 2) {
+
+		if (setMetaData(ExtMetaDataCols.TIME_NAME)
+			|| setMetaData(ExtMetaDataCols.LOCATION_NAME)
+			|| setMetaData(ExtMetaDataCols.ALTITUDE_NAME)
+			|| setMetaData(ExtMetaDataCols.TEMPERATURE_NAME)
+			|| setMetaData(ExtMetaDataCols.SEEING_NAME)
+			|| setMetaData(ExtMetaDataCols.TRANSPARENCY_NAME)
+			|| setMetaData(ExtMetaDataCols.DARKNESS_NAME)
+			|| setMetaData(ExtMetaDataCols.TELESCOPES_NAME)
+			|| setMetaData(ExtMetaDataCols.EYEPIECES_NAME)
+			|| setMetaData(ExtMetaDataCols.FILTERS_NAME)) {
+		    // do nothing. || is faster than processing &&
+		} else {
+		    log.warn("Report:"
+			    + metaEntry[ExtMetaDataCols.DATE_NAME.ordinal()]
+			    + ". Unknown property [" + values[0] + ":"
+			    + values[1] + "]. Property discarded.");
+		}
+
+	    } else if (values.length == 5) {
 
 		report.addMetaData(metaEntry);
 
 		if (values[0].toLowerCase().equals(
-			MiniDataCols.TARGET_NAME.getColName().toLowerCase())) {
+			ExtDataCols.TARGET_NAME.getColName().toLowerCase())
+			&& values[1].toLowerCase().equals(
+				ExtDataCols.CONSTELLATION_NAME.getColName()
+					.toLowerCase())
+			&& values[2].toLowerCase().equals(
+				ExtDataCols.TYPE_NAME.getColName().toLowerCase())
+			&& values[3].toLowerCase().equals(
+				ExtDataCols.POWER_NAME.getColName().toLowerCase())
+			&& values[4].toLowerCase().equals(
+				ExtDataCols.NOTES_NAME.getColName().toLowerCase())) {
 
 		    String[] targetEntry;
 		    while ((line = reader.readLine()) != null) {
@@ -182,29 +217,39 @@ public class MinimalTSVImporter extends Importer {
 			if (line.equals("")) {
 			    return;
 			}
-			if (values.length != 1) {
+			if (values.length != 5) {
 			    log.warn("Report:"
-				    + metaEntry[MiniMetaDataCols.DATE_NAME
+				    + metaEntry[ExtMetaDataCols.DATE_NAME
 					    .ordinal()]
 				    + ". Malformed target [" + line
 				    + "]. Target discarded.");
 			    break;
 			}
-			targetEntry = new String[MiniDataCols.values().length];
+			targetEntry = new String[ExtDataCols.values().length];
 			Arrays.fill(targetEntry, "");
-			targetEntry[MiniDataCols.TARGET_NAME.ordinal()] = values[0];
-			log.debug(MiniDataCols.TARGET_NAME + "=" + values[0]);
+			targetEntry[ExtDataCols.TARGET_NAME.ordinal()] = values[0];
+			log.debug(ExtDataCols.TARGET_NAME + "=" + values[0]);
+			targetEntry[ExtDataCols.CONSTELLATION_NAME.ordinal()] = values[1];
+			log.debug(ExtDataCols.CONSTELLATION_NAME + "=" + values[1]);
+			targetEntry[ExtDataCols.TYPE_NAME.ordinal()] = values[2];
+			log.debug(ExtDataCols.TYPE_NAME + "=" + values[2]);
+			targetEntry[ExtDataCols.POWER_NAME.ordinal()] = values[3];
+			log.debug(ExtDataCols.POWER_NAME + "=" + values[3]);
+			targetEntry[ExtDataCols.NOTES_NAME.ordinal()] = values[4]
+				.replace("%", "\\%").replace("&", " and ");
+			log.debug(ExtDataCols.NOTES_NAME + "=" + values[4]);
+			report.addData(targetEntry);
 		    }
 		} else {
 		    log.warn("Report:"
-			    + metaEntry[MiniMetaDataCols.DATE_NAME.ordinal()]
+			    + metaEntry[ExtMetaDataCols.DATE_NAME.ordinal()]
 			    + ". Unknown property [" + values[0] + " "
 			    + values[1] + " " + values[2] + " " + values[3]
 			    + " " + values[4] + "]");
 		}
 	    } else {
 		log.warn("Report:"
-			+ metaEntry[MiniMetaDataCols.DATE_NAME.ordinal()]
+			+ metaEntry[ExtMetaDataCols.DATE_NAME.ordinal()]
 			+ ". Malformed property [" + line
 			+ "]. Property discarded.");
 	    }
@@ -212,7 +257,7 @@ public class MinimalTSVImporter extends Importer {
     }
 
     /** Set the meta data */
-    private boolean setMetaData(MiniMetaDataCols column) {
+    private boolean setMetaData(ExtMetaDataCols column) {
 	if (values[0].toLowerCase().equals(column.getColName().toLowerCase())) {
 	    metaEntry[column.ordinal()] = values[1];
 	    log.debug(column + "=" + values[1]);

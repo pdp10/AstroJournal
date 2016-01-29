@@ -54,11 +54,11 @@ import org.astrojournal.utilities.filefilters.LaTeXFilter;
  * @version 0.2
  * @since 28/05/2015
  */
-public class LatexExporterByConstellation extends LatexExporter {
+public class ExtLatexExporterByConst extends LatexExporter {
 
     /** The log associated to this class */
     private static Logger log = LogManager
-	    .getLogger(LatexExporterByConstellation.class);
+	    .getLogger(ExtLatexExporterByConst.class);
 
     private HashMap<String, HashSet<String>> constellations = new HashMap<String, HashSet<String>>();
 
@@ -78,7 +78,7 @@ public class LatexExporterByConstellation extends LatexExporter {
     /**
      * Default constructor.
      */
-    public LatexExporterByConstellation() {
+    public ExtLatexExporterByConst() {
 	super();
     }
 

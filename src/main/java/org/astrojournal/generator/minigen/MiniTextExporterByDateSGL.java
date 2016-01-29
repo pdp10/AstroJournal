@@ -50,16 +50,16 @@ import org.astrojournal.utilities.filefilters.TextFilter;
  * @version 0.1
  * @since 11/09/2015
  */
-public class TextExporterByDateSGL extends Exporter {
+public class MiniTextExporterByDateSGL extends Exporter {
 
     /** The log associated to this class */
     private static Logger log = LogManager
-	    .getLogger(TextExporterByDateSGL.class);
+	    .getLogger(MiniTextExporterByDateSGL.class);
 
     /**
      * Default constructor
      */
-    public TextExporterByDateSGL() {
+    public MiniTextExporterByDateSGL() {
 	super();
     }
 

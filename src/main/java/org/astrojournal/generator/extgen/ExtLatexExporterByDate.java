@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator.minigen;
+package org.astrojournal.generator.extgen;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -45,22 +45,22 @@ import org.astrojournal.utilities.filefilters.LaTeXFilter;
 
 /**
  * Exports an AstroJournal observation to LaTeX code. This is an extended
- * exporter which uses MiniMetaDataCols and MiniDataCols enum types for column
+ * exporter which uses ExtMetaDataCols and ExtDataCols enum types for column
  * export.
  * 
  * @author Piero Dalle Pezze
  * @version 0.2
  * @since 28/05/2015
  */
-public class LatexExporterByDate extends LatexExporter {
+public class ExtLatexExporterByDate extends LatexExporter {
 
     /** The log associated to this class */
-    private static Logger log = LogManager.getLogger(LatexExporterByDate.class);
+    private static Logger log = LogManager.getLogger(ExtLatexExporterByDate.class);
 
     /**
      * Default constructor.
      */
-    public LatexExporterByDate() {
+    public ExtLatexExporterByDate() {
 	super();
     }
 
@@ -144,7 +144,7 @@ public class LatexExporterByDate extends LatexExporter {
 	for (int i = 0; i < nReports; i++) {
 	    report = reports.get(i);
 	    metaData = report.getMetaData();
-	    String date = metaData[MiniMetaDataCols.DATE_NAME.ordinal()];
+	    String date = metaData[ExtMetaDataCols.DATE_NAME.ordinal()];
 	    log.debug("Report " + date);
 
 	    Writer table = null;
@@ -165,23 +165,96 @@ public class LatexExporterByDate extends LatexExporter {
 				+ filenameOut + ".tex")), "utf-8"));
 
 		table.write("% General observation data\n");
-		table.write("\\begin{tabular}{ p{0.7in} }\n");
-		table.write("{\\bf " + MiniMetaDataCols.DATE_NAME.getColName()
-			+ ":} & " + metaData[MiniMetaDataCols.DATE_NAME.ordinal()]
+		table.write("\\begin{tabular}{ p{0.7in} p{1.2in} p{1.1in} p{5.7in}}\n");
+		table.write("{\\bf " + ExtMetaDataCols.DATE_NAME.getColName()
+			+ ":} & " + metaData[ExtMetaDataCols.DATE_NAME.ordinal()]
+			+ " & {\\bf "
+			+ ExtMetaDataCols.TEMPERATURE_NAME.getColName() + ":} & "
+			+ metaData[ExtMetaDataCols.TEMPERATURE_NAME.ordinal()]
 			+ " \\\\ \n");
+		table.write("{\\bf " + ExtMetaDataCols.TIME_NAME.getColName()
+			+ ":} & " + metaData[ExtMetaDataCols.TIME_NAME.ordinal()]
+			+ " & {\\bf " + ExtMetaDataCols.SEEING_NAME.getColName()
+			+ ":} & "
+			+ metaData[ExtMetaDataCols.SEEING_NAME.ordinal()]
+			+ " \\\\ \n");
+		table.write("{\\bf " + ExtMetaDataCols.LOCATION_NAME.getColName()
+			+ ":} & "
+			+ metaData[ExtMetaDataCols.LOCATION_NAME.ordinal()]
+			+ " & {\\bf "
+			+ ExtMetaDataCols.TRANSPARENCY_NAME.getColName() + ":} & "
+			+ metaData[ExtMetaDataCols.TRANSPARENCY_NAME.ordinal()]
+			+ " \\\\ \n");
+
+		// Darkness requires a SQM-L sky quality meter reading. Not
+		// everyone has it
+		// or use it. At this stage, let's leave it as optional.
+		if (!metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()].equals("")) {
+		    table.write("{\\bf "
+			    + ExtMetaDataCols.ALTITUDE_NAME.getColName() + ":} & "
+			    + metaData[ExtMetaDataCols.ALTITUDE_NAME.ordinal()]
+			    + " & {\\bf "
+			    + ExtMetaDataCols.DARKNESS_NAME.getColName() + ":} & "
+			    + metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()]
+			    + " \\\\ \n");
+		    table.write("& & {\\bf "
+			    + ExtMetaDataCols.TELESCOPES_NAME.getColName()
+			    + ":} & "
+			    + metaData[ExtMetaDataCols.TELESCOPES_NAME.ordinal()]
+			    + " \\\\ \n");
+		} else {
+		    table.write("{\\bf "
+			    + ExtMetaDataCols.ALTITUDE_NAME.getColName() + ":} & "
+			    + metaData[ExtMetaDataCols.ALTITUDE_NAME.ordinal()]
+			    + " & {\\bf "
+			    + ExtMetaDataCols.TELESCOPES_NAME.getColName()
+			    + ":} & "
+			    + metaData[ExtMetaDataCols.TELESCOPES_NAME.ordinal()]
+			    + " \\\\ \n");
+		}
+
+		table.write("& & {\\bf "
+			+ ExtMetaDataCols.EYEPIECES_NAME.getColName() + ":} & "
+			+ metaData[ExtMetaDataCols.EYEPIECES_NAME.ordinal()]
+			+ " \\\\ \n");
+		table.write("& & {\\bf "
+			+ ExtMetaDataCols.FILTERS_NAME.getColName() + ":} & "
+			+ metaData[ExtMetaDataCols.FILTERS_NAME.ordinal()]
+			+ " \\\\ \n");
+
 		table.write("\\end{tabular}\n");
 
 		table.write("% Detailed observation data\n");
+		table.write("\\begin{longtable}{ p{0.7in}  p{0.3in}  p{0.6in}  p{0.9in}  p{5.8in} }\n");
+		table.write("\\hline \n");
+		table.write("{\\bf " + ExtDataCols.TARGET_NAME.getColName()
+			+ "} & {\\bf "
+			+ ExtDataCols.CONSTELLATION_NAME.getColName()
+			+ "} & {\\bf " + ExtDataCols.TYPE_NAME.getColName()
+			+ "} & {\\bf " + ExtDataCols.POWER_NAME.getColName()
+			+ "} & {\\bf " + ExtDataCols.NOTES_NAME.getColName()
+			+ "} \\\\ \n");
+
+		table.write("\\hline \n");
+
 		String[] targetEntry;
 		for (int j = 0; j < report.getDataRowNumber(); j++) {
 		    targetEntry = report.getData(j);
 		    log.debug("Target "
-			    + targetEntry[MiniDataCols.TARGET_NAME.ordinal()]);
+			    + targetEntry[ExtDataCols.TARGET_NAME.ordinal()]);
 
-		    table.write(targetEntry[MiniDataCols.TARGET_NAME.ordinal()]
-			    + ", ");
+		    table.write(targetEntry[ExtDataCols.TARGET_NAME.ordinal()]
+			    + " & "
+			    + targetEntry[ExtDataCols.CONSTELLATION_NAME.ordinal()]
+			    + " & " + targetEntry[ExtDataCols.TYPE_NAME.ordinal()]
+			    + " & "
+			    + targetEntry[ExtDataCols.POWER_NAME.ordinal()]
+			    + " & "
+			    + targetEntry[ExtDataCols.NOTES_NAME.ordinal()]
+			    + " \\\\ \n");
 		}
-		table.write("\n");
+		table.write("\\hline \n");
+		table.write("\\end{longtable} \n");
 		if (resourceBundle != null) {
 		    log.info("\tExported report " + date + " ("
 			    + report.getDataRowNumber() + " targets)");

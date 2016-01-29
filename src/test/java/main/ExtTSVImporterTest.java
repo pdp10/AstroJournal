@@ -35,7 +35,7 @@ import org.astrojournal.generator.Report;
 import org.astrojournal.generator.absgen.Importer;
 import org.astrojournal.generator.extgen.ExtDataCols;
 import org.astrojournal.generator.extgen.ExtMetaDataCols;
-import org.astrojournal.generator.extgen.ExtendedTSVImporter;
+import org.astrojournal.generator.extgen.ExtTSVImporter;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -73,7 +73,7 @@ public class ExtTSVImporterTest {
 	// Load the new properties
 	config.loadSystemProperties();
 
-	Importer importer = new ExtendedTSVImporter();
+	Importer importer = new ExtTSVImporter();
 
 	// TODO: TEMPORARY IMPLEMENTATION. WITH DEPENDENCY INJECTION, THESE
 	// PARAMETERS ARE PASSED BY THE INJECTOR
