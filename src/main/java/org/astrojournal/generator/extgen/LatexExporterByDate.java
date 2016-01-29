@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator.extendedgenerator;
+package org.astrojournal.generator.extgen;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -37,14 +37,16 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.generator.Report;
-import org.astrojournal.generator.abstractgenerator.LatexExporter;
-import org.astrojournal.generator.reportheadfoot.LatexFooter;
-import org.astrojournal.generator.reportheadfoot.LatexHeader;
+import org.astrojournal.generator.absgen.LatexExporter;
+import org.astrojournal.generator.headfoot.LatexFooter;
+import org.astrojournal.generator.headfoot.LatexHeader;
 import org.astrojournal.utilities.RunExternalCommand;
 import org.astrojournal.utilities.filefilters.LaTeXFilter;
 
 /**
- * Exports an AstroJournal observation to LaTeX code.
+ * Exports an AstroJournal observation to LaTeX code. This is an extended
+ * exporter which uses ExtMetaDataCols and ExtDataCols enum types for column
+ * export.
  * 
  * @author Piero Dalle Pezze
  * @version 0.2
@@ -142,7 +144,7 @@ public class LatexExporterByDate extends LatexExporter {
 	for (int i = 0; i < nReports; i++) {
 	    report = reports.get(i);
 	    metaData = report.getMetaData();
-	    String date = metaData[MetaDataCols.DATE_NAME.ordinal()];
+	    String date = metaData[ExtMetaDataCols.DATE_NAME.ordinal()];
 	    log.debug("Report " + date);
 
 	    Writer table = null;
@@ -164,60 +166,60 @@ public class LatexExporterByDate extends LatexExporter {
 
 		table.write("% General observation data\n");
 		table.write("\\begin{tabular}{ p{0.7in} p{1.2in} p{1.1in} p{5.7in}}\n");
-		table.write("{\\bf " + MetaDataCols.DATE_NAME.getColName()
-			+ ":} & " + metaData[MetaDataCols.DATE_NAME.ordinal()]
+		table.write("{\\bf " + ExtMetaDataCols.DATE_NAME.getColName()
+			+ ":} & " + metaData[ExtMetaDataCols.DATE_NAME.ordinal()]
 			+ " & {\\bf "
-			+ MetaDataCols.TEMPERATURE_NAME.getColName() + ":} & "
-			+ metaData[MetaDataCols.TEMPERATURE_NAME.ordinal()]
+			+ ExtMetaDataCols.TEMPERATURE_NAME.getColName() + ":} & "
+			+ metaData[ExtMetaDataCols.TEMPERATURE_NAME.ordinal()]
 			+ " \\\\ \n");
-		table.write("{\\bf " + MetaDataCols.TIME_NAME.getColName()
-			+ ":} & " + metaData[MetaDataCols.TIME_NAME.ordinal()]
-			+ " & {\\bf " + MetaDataCols.SEEING_NAME.getColName()
+		table.write("{\\bf " + ExtMetaDataCols.TIME_NAME.getColName()
+			+ ":} & " + metaData[ExtMetaDataCols.TIME_NAME.ordinal()]
+			+ " & {\\bf " + ExtMetaDataCols.SEEING_NAME.getColName()
 			+ ":} & "
-			+ metaData[MetaDataCols.SEEING_NAME.ordinal()]
+			+ metaData[ExtMetaDataCols.SEEING_NAME.ordinal()]
 			+ " \\\\ \n");
-		table.write("{\\bf " + MetaDataCols.LOCATION_NAME.getColName()
+		table.write("{\\bf " + ExtMetaDataCols.LOCATION_NAME.getColName()
 			+ ":} & "
-			+ metaData[MetaDataCols.LOCATION_NAME.ordinal()]
+			+ metaData[ExtMetaDataCols.LOCATION_NAME.ordinal()]
 			+ " & {\\bf "
-			+ MetaDataCols.TRANSPARENCY_NAME.getColName() + ":} & "
-			+ metaData[MetaDataCols.TRANSPARENCY_NAME.ordinal()]
+			+ ExtMetaDataCols.TRANSPARENCY_NAME.getColName() + ":} & "
+			+ metaData[ExtMetaDataCols.TRANSPARENCY_NAME.ordinal()]
 			+ " \\\\ \n");
 
 		// Darkness requires a SQM-L sky quality meter reading. Not
 		// everyone has it
 		// or use it. At this stage, let's leave it as optional.
-		if (!metaData[MetaDataCols.DARKNESS_NAME.ordinal()].equals("")) {
+		if (!metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()].equals("")) {
 		    table.write("{\\bf "
-			    + MetaDataCols.ALTITUDE_NAME.getColName() + ":} & "
-			    + metaData[MetaDataCols.ALTITUDE_NAME.ordinal()]
+			    + ExtMetaDataCols.ALTITUDE_NAME.getColName() + ":} & "
+			    + metaData[ExtMetaDataCols.ALTITUDE_NAME.ordinal()]
 			    + " & {\\bf "
-			    + MetaDataCols.DARKNESS_NAME.getColName() + ":} & "
-			    + metaData[MetaDataCols.DARKNESS_NAME.ordinal()]
+			    + ExtMetaDataCols.DARKNESS_NAME.getColName() + ":} & "
+			    + metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()]
 			    + " \\\\ \n");
 		    table.write("& & {\\bf "
-			    + MetaDataCols.TELESCOPES_NAME.getColName()
+			    + ExtMetaDataCols.TELESCOPES_NAME.getColName()
 			    + ":} & "
-			    + metaData[MetaDataCols.TELESCOPES_NAME.ordinal()]
+			    + metaData[ExtMetaDataCols.TELESCOPES_NAME.ordinal()]
 			    + " \\\\ \n");
 		} else {
 		    table.write("{\\bf "
-			    + MetaDataCols.ALTITUDE_NAME.getColName() + ":} & "
-			    + metaData[MetaDataCols.ALTITUDE_NAME.ordinal()]
+			    + ExtMetaDataCols.ALTITUDE_NAME.getColName() + ":} & "
+			    + metaData[ExtMetaDataCols.ALTITUDE_NAME.ordinal()]
 			    + " & {\\bf "
-			    + MetaDataCols.TELESCOPES_NAME.getColName()
+			    + ExtMetaDataCols.TELESCOPES_NAME.getColName()
 			    + ":} & "
-			    + metaData[MetaDataCols.TELESCOPES_NAME.ordinal()]
+			    + metaData[ExtMetaDataCols.TELESCOPES_NAME.ordinal()]
 			    + " \\\\ \n");
 		}
 
 		table.write("& & {\\bf "
-			+ MetaDataCols.EYEPIECES_NAME.getColName() + ":} & "
-			+ metaData[MetaDataCols.EYEPIECES_NAME.ordinal()]
+			+ ExtMetaDataCols.EYEPIECES_NAME.getColName() + ":} & "
+			+ metaData[ExtMetaDataCols.EYEPIECES_NAME.ordinal()]
 			+ " \\\\ \n");
 		table.write("& & {\\bf "
-			+ MetaDataCols.FILTERS_NAME.getColName() + ":} & "
-			+ metaData[MetaDataCols.FILTERS_NAME.ordinal()]
+			+ ExtMetaDataCols.FILTERS_NAME.getColName() + ":} & "
+			+ metaData[ExtMetaDataCols.FILTERS_NAME.ordinal()]
 			+ " \\\\ \n");
 
 		table.write("\\end{tabular}\n");
@@ -225,12 +227,12 @@ public class LatexExporterByDate extends LatexExporter {
 		table.write("% Detailed observation data\n");
 		table.write("\\begin{longtable}{ p{0.7in}  p{0.3in}  p{0.6in}  p{0.9in}  p{5.8in} }\n");
 		table.write("\\hline \n");
-		table.write("{\\bf " + DataCols.TARGET_NAME.getColName()
+		table.write("{\\bf " + ExtDataCols.TARGET_NAME.getColName()
 			+ "} & {\\bf "
-			+ DataCols.CONSTELLATION_NAME.getColName()
-			+ "} & {\\bf " + DataCols.TYPE_NAME.getColName()
-			+ "} & {\\bf " + DataCols.POWER_NAME.getColName()
-			+ "} & {\\bf " + DataCols.NOTES_NAME.getColName()
+			+ ExtDataCols.CONSTELLATION_NAME.getColName()
+			+ "} & {\\bf " + ExtDataCols.TYPE_NAME.getColName()
+			+ "} & {\\bf " + ExtDataCols.POWER_NAME.getColName()
+			+ "} & {\\bf " + ExtDataCols.NOTES_NAME.getColName()
 			+ "} \\\\ \n");
 
 		table.write("\\hline \n");
@@ -239,16 +241,16 @@ public class LatexExporterByDate extends LatexExporter {
 		for (int j = 0; j < report.getDataRowNumber(); j++) {
 		    targetEntry = report.getData(j);
 		    log.debug("Target "
-			    + targetEntry[DataCols.TARGET_NAME.ordinal()]);
+			    + targetEntry[ExtDataCols.TARGET_NAME.ordinal()]);
 
-		    table.write(targetEntry[DataCols.TARGET_NAME.ordinal()]
+		    table.write(targetEntry[ExtDataCols.TARGET_NAME.ordinal()]
 			    + " & "
-			    + targetEntry[DataCols.CONSTELLATION_NAME.ordinal()]
-			    + " & " + targetEntry[DataCols.TYPE_NAME.ordinal()]
+			    + targetEntry[ExtDataCols.CONSTELLATION_NAME.ordinal()]
+			    + " & " + targetEntry[ExtDataCols.TYPE_NAME.ordinal()]
 			    + " & "
-			    + targetEntry[DataCols.POWER_NAME.ordinal()]
+			    + targetEntry[ExtDataCols.POWER_NAME.ordinal()]
 			    + " & "
-			    + targetEntry[DataCols.NOTES_NAME.ordinal()]
+			    + targetEntry[ExtDataCols.NOTES_NAME.ordinal()]
 			    + " \\\\ \n");
 		}
 		table.write("\\hline \n");

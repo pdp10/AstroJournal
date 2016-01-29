@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator.extendedgenerator;
+package org.astrojournal.generator.extgen;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -40,14 +40,16 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.generator.Report;
-import org.astrojournal.generator.abstractgenerator.LatexExporter;
-import org.astrojournal.generator.reportheadfoot.LatexFooter;
-import org.astrojournal.generator.reportheadfoot.LatexHeader;
+import org.astrojournal.generator.absgen.LatexExporter;
+import org.astrojournal.generator.headfoot.LatexFooter;
+import org.astrojournal.generator.headfoot.LatexHeader;
 import org.astrojournal.utilities.RunExternalCommand;
 import org.astrojournal.utilities.filefilters.LaTeXFilter;
 
 /**
- * Exports an AstroJournal set of observations by target to Latex code.
+ * Exports an AstroJournal set of observations by target to Latex code. This is
+ * an extended exporter which uses ExtMetaDataCols and ExtDataCols enum types
+ * for column export.
  * 
  * @author Piero Dalle Pezze
  * @version 0.2
@@ -211,50 +213,50 @@ public class LatexExporterByTarget extends LatexExporter {
 					new File(filesLocation + File.separator
 						+ reportFolder, filenameOut
 						+ ".tex")), "utf-8"));
-			if (targetEntry[DataCols.TYPE_NAME.ordinal()]
+			if (targetEntry[ExtDataCols.TYPE_NAME.ordinal()]
 				.toLowerCase().equals("planet")
-				|| targetEntry[DataCols.TARGET_NAME.ordinal()]
+				|| targetEntry[ExtDataCols.TARGET_NAME.ordinal()]
 					.toLowerCase().equals("moon")
-				|| targetEntry[DataCols.TARGET_NAME.ordinal()]
+				|| targetEntry[ExtDataCols.TARGET_NAME.ordinal()]
 					.toLowerCase().equals("sun")
-				|| targetEntry[DataCols.TYPE_NAME.ordinal()]
+				|| targetEntry[ExtDataCols.TYPE_NAME.ordinal()]
 					.toLowerCase().equals("asteroid")
-				|| targetEntry[DataCols.TYPE_NAME.ordinal()]
+				|| targetEntry[ExtDataCols.TYPE_NAME.ordinal()]
 					.toLowerCase().equals("comet")) {
 			    targetWriter.write("\\subsection{"
-				    + targetEntry[DataCols.TARGET_NAME
+				    + targetEntry[ExtDataCols.TARGET_NAME
 					    .ordinal()]);
-			} else if (targetEntry[DataCols.TYPE_NAME.ordinal()]
+			} else if (targetEntry[ExtDataCols.TYPE_NAME.ordinal()]
 				.toLowerCase().equals("star")
-				|| targetEntry[DataCols.TYPE_NAME.ordinal()]
+				|| targetEntry[ExtDataCols.TYPE_NAME.ordinal()]
 					.toLowerCase().equals("dbl star")
-				|| targetEntry[DataCols.TYPE_NAME.ordinal()]
+				|| targetEntry[ExtDataCols.TYPE_NAME.ordinal()]
 					.toLowerCase().equals("mlt star")) {
 			    targetWriter.write("\\subsection{"
-				    + targetEntry[DataCols.CONSTELLATION_NAME
+				    + targetEntry[ExtDataCols.CONSTELLATION_NAME
 					    .ordinal()]);
 			    targetWriter.write(", "
-				    + targetEntry[DataCols.TARGET_NAME
+				    + targetEntry[ExtDataCols.TARGET_NAME
 					    .ordinal()]);
-			} else if (targetEntry[DataCols.TYPE_NAME.ordinal()]
+			} else if (targetEntry[ExtDataCols.TYPE_NAME.ordinal()]
 				.toLowerCase().equals("galaxy")
-				&& targetEntry[DataCols.TARGET_NAME.ordinal()]
+				&& targetEntry[ExtDataCols.TARGET_NAME.ordinal()]
 					.toLowerCase().equals("milky way")) {
 			    // Don't print the constellation if we are
 			    // processing the milky way!
 			    targetWriter.write("\\subsection{"
-				    + targetEntry[DataCols.TARGET_NAME
+				    + targetEntry[ExtDataCols.TARGET_NAME
 					    .ordinal()]);
 			} else {
 			    targetWriter.write("\\subsection{"
-				    + targetEntry[DataCols.TARGET_NAME
+				    + targetEntry[ExtDataCols.TARGET_NAME
 					    .ordinal()]);
 			    targetWriter.write(", "
-				    + targetEntry[DataCols.CONSTELLATION_NAME
+				    + targetEntry[ExtDataCols.CONSTELLATION_NAME
 					    .ordinal()]);
 			}
 			targetWriter.write(", "
-				+ targetEntry[DataCols.TYPE_NAME.ordinal()]
+				+ targetEntry[ExtDataCols.TYPE_NAME.ordinal()]
 				+ "}\n");
 			targetWriter.write("\\begin{itemize}\n");
 		    } else {
@@ -269,28 +271,28 @@ public class LatexExporterByTarget extends LatexExporter {
 		    String[] metaData = report.getMetaData();
 		    targetWriter
 			    .write("\\item "
-				    + metaData[MetaDataCols.DATE_NAME.ordinal()]
+				    + metaData[ExtMetaDataCols.DATE_NAME.ordinal()]
 				    + " "
-				    + metaData[MetaDataCols.TIME_NAME.ordinal()]
+				    + metaData[ExtMetaDataCols.TIME_NAME.ordinal()]
 				    + ", "
-				    + metaData[MetaDataCols.LOCATION_NAME
+				    + metaData[ExtMetaDataCols.LOCATION_NAME
 					    .ordinal()]
 				    + ". "
-				    + metaData[MetaDataCols.SEEING_NAME
+				    + metaData[ExtMetaDataCols.SEEING_NAME
 					    .ordinal()]
 				    + ", "
-				    + metaData[MetaDataCols.TRANSPARENCY_NAME
+				    + metaData[ExtMetaDataCols.TRANSPARENCY_NAME
 					    .ordinal()]
 				    + ", "
-				    + metaData[MetaDataCols.DARKNESS_NAME
+				    + metaData[ExtMetaDataCols.DARKNESS_NAME
 					    .ordinal()]
 				    + ". "
-				    + metaData[MetaDataCols.TELESCOPES_NAME
+				    + metaData[ExtMetaDataCols.TELESCOPES_NAME
 					    .ordinal()]
 				    + ", "
-				    + targetEntry[DataCols.POWER_NAME.ordinal()]
+				    + targetEntry[ExtDataCols.POWER_NAME.ordinal()]
 				    + ". "
-				    + targetEntry[DataCols.NOTES_NAME.ordinal()]
+				    + targetEntry[ExtDataCols.NOTES_NAME.ordinal()]
 				    + "\n");
 
 		    // do not close the Latex 'itemize' block now because
@@ -394,44 +396,44 @@ public class LatexExporterByTarget extends LatexExporter {
      * @return the name of the file
      */
     private String computeFileName(String[] targetEntry) {
-	if (targetEntry[DataCols.TYPE_NAME.ordinal()].toLowerCase().equals(
+	if (targetEntry[ExtDataCols.TYPE_NAME.ordinal()].toLowerCase().equals(
 		"planet")
-		|| targetEntry[DataCols.TARGET_NAME.ordinal()].toLowerCase()
+		|| targetEntry[ExtDataCols.TARGET_NAME.ordinal()].toLowerCase()
 			.equals("moon")
-		|| targetEntry[DataCols.TARGET_NAME.ordinal()].toLowerCase()
+		|| targetEntry[ExtDataCols.TARGET_NAME.ordinal()].toLowerCase()
 			.equals("sun")) {
-	    return targetEntry[DataCols.TARGET_NAME.ordinal()].replaceAll(
+	    return targetEntry[ExtDataCols.TARGET_NAME.ordinal()].replaceAll(
 		    "\\s+", "").replaceAll("/", "-");
 	}
-	if (targetEntry[DataCols.TYPE_NAME.ordinal()].toLowerCase().equals(
+	if (targetEntry[ExtDataCols.TYPE_NAME.ordinal()].toLowerCase().equals(
 		"asteroid")
-		|| targetEntry[DataCols.TYPE_NAME.ordinal()].toLowerCase()
+		|| targetEntry[ExtDataCols.TYPE_NAME.ordinal()].toLowerCase()
 			.equals("comet")) {
-	    return targetEntry[DataCols.TYPE_NAME.ordinal()].replaceAll("\\s+",
+	    return targetEntry[ExtDataCols.TYPE_NAME.ordinal()].replaceAll("\\s+",
 		    "").replaceAll("/", "-");
 	}
-	if (targetEntry[DataCols.TYPE_NAME.ordinal()].toLowerCase().equals(
+	if (targetEntry[ExtDataCols.TYPE_NAME.ordinal()].toLowerCase().equals(
 		"star")
-		|| targetEntry[DataCols.TYPE_NAME.ordinal()].toLowerCase()
+		|| targetEntry[ExtDataCols.TYPE_NAME.ordinal()].toLowerCase()
 			.equals("dbl star")
-		|| targetEntry[DataCols.TYPE_NAME.ordinal()].toLowerCase()
+		|| targetEntry[ExtDataCols.TYPE_NAME.ordinal()].toLowerCase()
 			.equals("mlt star")) {
-	    return targetEntry[DataCols.CONSTELLATION_NAME.ordinal()]
+	    return targetEntry[ExtDataCols.CONSTELLATION_NAME.ordinal()]
 		    + "_"
-		    + targetEntry[DataCols.TARGET_NAME.ordinal()].replaceAll(
+		    + targetEntry[ExtDataCols.TARGET_NAME.ordinal()].replaceAll(
 			    "\\s+", "").replaceAll("/", "-");
 	}
-	if (targetEntry[DataCols.TYPE_NAME.ordinal()].toLowerCase().equals(
+	if (targetEntry[ExtDataCols.TYPE_NAME.ordinal()].toLowerCase().equals(
 		"galaxy")
-		&& targetEntry[DataCols.TARGET_NAME.ordinal()].toLowerCase()
+		&& targetEntry[ExtDataCols.TARGET_NAME.ordinal()].toLowerCase()
 			.equals("milky way")) {
 	    // Don't print the constellation if we are processing the milky way!
-	    return targetEntry[DataCols.TARGET_NAME.ordinal()].replaceAll(
+	    return targetEntry[ExtDataCols.TARGET_NAME.ordinal()].replaceAll(
 		    "\\s+", "").replaceAll("/", "-");
 	}
-	return targetEntry[DataCols.TARGET_NAME.ordinal()].replaceAll("\\s+",
+	return targetEntry[ExtDataCols.TARGET_NAME.ordinal()].replaceAll("\\s+",
 		"").replaceAll("/", "-")
-		+ "_" + targetEntry[DataCols.CONSTELLATION_NAME.ordinal()];
+		+ "_" + targetEntry[ExtDataCols.CONSTELLATION_NAME.ordinal()];
     }
 
     /**

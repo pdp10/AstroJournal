@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator.extendedgenerator;
+package org.astrojournal.generator.extgen;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -34,8 +34,8 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.generator.Report;
-import org.astrojournal.generator.abstractgenerator.Importer;
-import org.astrojournal.utilities.filefilters.TabSeparatedValueRawReportFilter;
+import org.astrojournal.generator.absgen.Importer;
+import org.astrojournal.utilities.filefilters.TSVRawReportFilter;
 
 /**
  * The parser for AstroJournal. It imports tab separated value (tsv or csv)
@@ -74,8 +74,7 @@ public class ExtendedTSVImporter extends Importer {
     @Override
     public List<Report> importReports(File file) {
 	List<Report> reports = new ArrayList<Report>();
-	if (file.isFile()
-		&& new TabSeparatedValueRawReportFilter().accept(file)) {
+	if (file.isFile() && new TSVRawReportFilter().accept(file)) {
 
 	    // whether this is tsv or csv it does not matter as long as fields
 	    // are separated by a TAB character
@@ -100,7 +99,7 @@ public class ExtendedTSVImporter extends Importer {
 			// comments or empty line. Skip
 
 		    } else if (line
-			    .indexOf(MetaDataCols.DATE_NAME.getColName()) > -1) {
+			    .indexOf(ExtMetaDataCols.DATE_NAME.getColName()) > -1) {
 			Report report = new Report();
 			importReport(reader, report, line, delimiter);
 			// Add the new report to the list of reports
@@ -151,10 +150,10 @@ public class ExtendedTSVImporter extends Importer {
 	values = line.split(delimiter);
 	// clean the field values if containing quotes at the beginning or end
 	cleanFields();
-	metaEntry = new String[MetaDataCols.values().length];
+	metaEntry = new String[ExtMetaDataCols.values().length];
 	Arrays.fill(metaEntry, "");
 	if (values.length == 2) {
-	    setMetaData(MetaDataCols.DATE_NAME);
+	    setMetaData(ExtMetaDataCols.DATE_NAME);
 	}
 	// Read the other lines for this observation
 	while ((line = reader.readLine()) != null) {
@@ -174,20 +173,20 @@ public class ExtendedTSVImporter extends Importer {
 	    }
 	    if (values.length == 2) {
 
-		if (setMetaData(MetaDataCols.TIME_NAME)
-			|| setMetaData(MetaDataCols.LOCATION_NAME)
-			|| setMetaData(MetaDataCols.ALTITUDE_NAME)
-			|| setMetaData(MetaDataCols.TEMPERATURE_NAME)
-			|| setMetaData(MetaDataCols.SEEING_NAME)
-			|| setMetaData(MetaDataCols.TRANSPARENCY_NAME)
-			|| setMetaData(MetaDataCols.DARKNESS_NAME)
-			|| setMetaData(MetaDataCols.TELESCOPES_NAME)
-			|| setMetaData(MetaDataCols.EYEPIECES_NAME)
-			|| setMetaData(MetaDataCols.FILTERS_NAME)) {
+		if (setMetaData(ExtMetaDataCols.TIME_NAME)
+			|| setMetaData(ExtMetaDataCols.LOCATION_NAME)
+			|| setMetaData(ExtMetaDataCols.ALTITUDE_NAME)
+			|| setMetaData(ExtMetaDataCols.TEMPERATURE_NAME)
+			|| setMetaData(ExtMetaDataCols.SEEING_NAME)
+			|| setMetaData(ExtMetaDataCols.TRANSPARENCY_NAME)
+			|| setMetaData(ExtMetaDataCols.DARKNESS_NAME)
+			|| setMetaData(ExtMetaDataCols.TELESCOPES_NAME)
+			|| setMetaData(ExtMetaDataCols.EYEPIECES_NAME)
+			|| setMetaData(ExtMetaDataCols.FILTERS_NAME)) {
 		    // do nothing. || is faster than processing &&
 		} else {
 		    log.warn("Report:"
-			    + metaEntry[MetaDataCols.DATE_NAME.ordinal()]
+			    + metaEntry[ExtMetaDataCols.DATE_NAME.ordinal()]
 			    + ". Unknown property [" + values[0] + ":"
 			    + values[1] + "]. Property discarded.");
 		}
@@ -197,16 +196,16 @@ public class ExtendedTSVImporter extends Importer {
 		report.addMetaData(metaEntry);
 
 		if (values[0].toLowerCase().equals(
-			DataCols.TARGET_NAME.getColName().toLowerCase())
+			ExtDataCols.TARGET_NAME.getColName().toLowerCase())
 			&& values[1].toLowerCase().equals(
-				DataCols.CONSTELLATION_NAME.getColName()
+				ExtDataCols.CONSTELLATION_NAME.getColName()
 					.toLowerCase())
 			&& values[2].toLowerCase().equals(
-				DataCols.TYPE_NAME.getColName().toLowerCase())
+				ExtDataCols.TYPE_NAME.getColName().toLowerCase())
 			&& values[3].toLowerCase().equals(
-				DataCols.POWER_NAME.getColName().toLowerCase())
+				ExtDataCols.POWER_NAME.getColName().toLowerCase())
 			&& values[4].toLowerCase().equals(
-				DataCols.NOTES_NAME.getColName().toLowerCase())) {
+				ExtDataCols.NOTES_NAME.getColName().toLowerCase())) {
 
 		    String[] targetEntry;
 		    while ((line = reader.readLine()) != null) {
@@ -220,37 +219,37 @@ public class ExtendedTSVImporter extends Importer {
 			}
 			if (values.length != 5) {
 			    log.warn("Report:"
-				    + metaEntry[MetaDataCols.DATE_NAME
+				    + metaEntry[ExtMetaDataCols.DATE_NAME
 					    .ordinal()]
 				    + ". Malformed target [" + line
 				    + "]. Target discarded.");
 			    break;
 			}
-			targetEntry = new String[DataCols.values().length];
+			targetEntry = new String[ExtDataCols.values().length];
 			Arrays.fill(targetEntry, "");
-			targetEntry[DataCols.TARGET_NAME.ordinal()] = values[0];
-			log.debug(DataCols.TARGET_NAME + "=" + values[0]);
-			targetEntry[DataCols.CONSTELLATION_NAME.ordinal()] = values[1];
-			log.debug(DataCols.CONSTELLATION_NAME + "=" + values[1]);
-			targetEntry[DataCols.TYPE_NAME.ordinal()] = values[2];
-			log.debug(DataCols.TYPE_NAME + "=" + values[2]);
-			targetEntry[DataCols.POWER_NAME.ordinal()] = values[3];
-			log.debug(DataCols.POWER_NAME + "=" + values[3]);
-			targetEntry[DataCols.NOTES_NAME.ordinal()] = values[4]
+			targetEntry[ExtDataCols.TARGET_NAME.ordinal()] = values[0];
+			log.debug(ExtDataCols.TARGET_NAME + "=" + values[0]);
+			targetEntry[ExtDataCols.CONSTELLATION_NAME.ordinal()] = values[1];
+			log.debug(ExtDataCols.CONSTELLATION_NAME + "=" + values[1]);
+			targetEntry[ExtDataCols.TYPE_NAME.ordinal()] = values[2];
+			log.debug(ExtDataCols.TYPE_NAME + "=" + values[2]);
+			targetEntry[ExtDataCols.POWER_NAME.ordinal()] = values[3];
+			log.debug(ExtDataCols.POWER_NAME + "=" + values[3]);
+			targetEntry[ExtDataCols.NOTES_NAME.ordinal()] = values[4]
 				.replace("%", "\\%").replace("&", " and ");
-			log.debug(DataCols.NOTES_NAME + "=" + values[4]);
+			log.debug(ExtDataCols.NOTES_NAME + "=" + values[4]);
 			report.addData(targetEntry);
 		    }
 		} else {
 		    log.warn("Report:"
-			    + metaEntry[MetaDataCols.DATE_NAME.ordinal()]
+			    + metaEntry[ExtMetaDataCols.DATE_NAME.ordinal()]
 			    + ". Unknown property [" + values[0] + " "
 			    + values[1] + " " + values[2] + " " + values[3]
 			    + " " + values[4] + "]");
 		}
 	    } else {
 		log.warn("Report:"
-			+ metaEntry[MetaDataCols.DATE_NAME.ordinal()]
+			+ metaEntry[ExtMetaDataCols.DATE_NAME.ordinal()]
 			+ ". Malformed property [" + line
 			+ "]. Property discarded.");
 	    }
@@ -258,7 +257,7 @@ public class ExtendedTSVImporter extends Importer {
     }
 
     /** Set the meta data */
-    private boolean setMetaData(MetaDataCols column) {
+    private boolean setMetaData(ExtMetaDataCols column) {
 	if (values[0].toLowerCase().equals(column.getColName().toLowerCase())) {
 	    metaEntry[column.ordinal()] = values[1];
 	    log.debug(column + "=" + values[1]);

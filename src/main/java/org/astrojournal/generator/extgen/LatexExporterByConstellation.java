@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator.extendedgenerator;
+package org.astrojournal.generator.extgen;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -39,14 +39,16 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.generator.Report;
-import org.astrojournal.generator.abstractgenerator.LatexExporter;
-import org.astrojournal.generator.reportheadfoot.LatexFooter;
-import org.astrojournal.generator.reportheadfoot.LatexHeader;
+import org.astrojournal.generator.absgen.LatexExporter;
+import org.astrojournal.generator.headfoot.LatexFooter;
+import org.astrojournal.generator.headfoot.LatexHeader;
 import org.astrojournal.utilities.RunExternalCommand;
 import org.astrojournal.utilities.filefilters.LaTeXFilter;
 
 /**
- * Exports the observed targets by constellation to Latex code.
+ * Exports the observed targets by constellation to Latex code. This is an
+ * extended exporter which uses ExtMetaDataCols and ExtDataCols enum types for
+ * column export.
  * 
  * @author Piero Dalle Pezze
  * @version 0.2
@@ -220,31 +222,31 @@ public class LatexExporterByConstellation extends LatexExporter {
 	    for (int j = 0; j < targets.size(); j++) {
 		String[] targetEntry = targets.get(j);
 		// skip solar system targets. We only consider DSOs.
-		if (targetEntry[DataCols.TYPE_NAME.ordinal()].toLowerCase()
+		if (targetEntry[ExtDataCols.TYPE_NAME.ordinal()].toLowerCase()
 			.equals("planet")
-			|| targetEntry[DataCols.TARGET_NAME.ordinal()]
+			|| targetEntry[ExtDataCols.TARGET_NAME.ordinal()]
 				.toLowerCase().equals("sun")
-			|| targetEntry[DataCols.TARGET_NAME.ordinal()]
+			|| targetEntry[ExtDataCols.TARGET_NAME.ordinal()]
 				.toLowerCase().equals("moon")
-			|| targetEntry[DataCols.TARGET_NAME.ordinal()]
+			|| targetEntry[ExtDataCols.TARGET_NAME.ordinal()]
 				.toLowerCase().equals("milky way")) {
 		    continue;
 		}
 		if (!constellations
-			.containsKey(targetEntry[DataCols.CONSTELLATION_NAME
+			.containsKey(targetEntry[ExtDataCols.CONSTELLATION_NAME
 				.ordinal()])) {
 		    constellations.put(
-			    targetEntry[DataCols.CONSTELLATION_NAME.ordinal()],
+			    targetEntry[ExtDataCols.CONSTELLATION_NAME.ordinal()],
 			    new HashSet<String>());
 		}
-		log.debug(targetEntry[DataCols.CONSTELLATION_NAME.ordinal()]
-			+ " " + targetEntry[DataCols.TARGET_NAME.ordinal()]
-			+ " (" + targetEntry[DataCols.TYPE_NAME.ordinal()]
+		log.debug(targetEntry[ExtDataCols.CONSTELLATION_NAME.ordinal()]
+			+ " " + targetEntry[ExtDataCols.TARGET_NAME.ordinal()]
+			+ " (" + targetEntry[ExtDataCols.TYPE_NAME.ordinal()]
 			+ ")");
 		constellations.get(
-			targetEntry[DataCols.CONSTELLATION_NAME.ordinal()])
-			.add(targetEntry[DataCols.TARGET_NAME.ordinal()] + " ("
-				+ targetEntry[DataCols.TYPE_NAME.ordinal()]
+			targetEntry[ExtDataCols.CONSTELLATION_NAME.ordinal()])
+			.add(targetEntry[ExtDataCols.TARGET_NAME.ordinal()] + " ("
+				+ targetEntry[ExtDataCols.TYPE_NAME.ordinal()]
 				+ ")");
 	    }
 	}

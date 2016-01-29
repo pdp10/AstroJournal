@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator.extendedgenerator;
+package org.astrojournal.generator.extgen;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -38,11 +38,13 @@ import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.generator.Report;
-import org.astrojournal.generator.abstractgenerator.Exporter;
+import org.astrojournal.generator.absgen.Exporter;
 import org.astrojournal.utilities.filefilters.TextFilter;
 
 /**
  * Exports an AstroJournal observation to txt for Stargazers Lounge reports.
+ * This is an extended exporter which uses ExtMetaDataCols and ExtDataCols enum
+ * types for column export.
  * 
  * @author Piero Dalle Pezze
  * @version 0.1
@@ -139,15 +141,15 @@ public class TextExporterByDateSGL extends Exporter {
 
 	    Writer text = null;
 
-	    String filenameOut = metaData[MetaDataCols.DATE_NAME.ordinal()];
+	    String filenameOut = metaData[ExtMetaDataCols.DATE_NAME.ordinal()];
 	    filenameOut = filenameOut.substring(6, 10)
 		    + filenameOut.substring(3, 5) + filenameOut.substring(0, 2);
 	    // Add an additional char if this is present. This is the case in
 	    // which
 	    // more than one observation per day is done.
-	    if (metaData[MetaDataCols.DATE_NAME.ordinal()].length() == 11) {
+	    if (metaData[ExtMetaDataCols.DATE_NAME.ordinal()].length() == 11) {
 		filenameOut = filenameOut
-			+ metaData[MetaDataCols.DATE_NAME.ordinal()].charAt(10);
+			+ metaData[ExtMetaDataCols.DATE_NAME.ordinal()].charAt(10);
 	    }
 
 	    List<String[]> targets = report.getAllData();
@@ -157,52 +159,52 @@ public class TextExporterByDateSGL extends Exporter {
 				+ File.separator + reportFolder, "obs"
 				+ filenameOut + ".txt")), "utf-8"));
 
-		text.write(MetaDataCols.DATE_NAME + " "
-			+ metaData[MetaDataCols.DATE_NAME.ordinal()] + "\n");
-		text.write(MetaDataCols.TIME_NAME + " "
-			+ metaData[MetaDataCols.TIME_NAME.ordinal()] + "\n");
-		text.write(MetaDataCols.LOCATION_NAME + " "
-			+ metaData[MetaDataCols.LOCATION_NAME.ordinal()] + "\n");
-		text.write(MetaDataCols.ALTITUDE_NAME + " "
-			+ metaData[MetaDataCols.ALTITUDE_NAME.ordinal()] + "\n");
-		text.write(MetaDataCols.TEMPERATURE_NAME + " "
-			+ metaData[MetaDataCols.TEMPERATURE_NAME.ordinal()]
+		text.write(ExtMetaDataCols.DATE_NAME + " "
+			+ metaData[ExtMetaDataCols.DATE_NAME.ordinal()] + "\n");
+		text.write(ExtMetaDataCols.TIME_NAME + " "
+			+ metaData[ExtMetaDataCols.TIME_NAME.ordinal()] + "\n");
+		text.write(ExtMetaDataCols.LOCATION_NAME + " "
+			+ metaData[ExtMetaDataCols.LOCATION_NAME.ordinal()] + "\n");
+		text.write(ExtMetaDataCols.ALTITUDE_NAME + " "
+			+ metaData[ExtMetaDataCols.ALTITUDE_NAME.ordinal()] + "\n");
+		text.write(ExtMetaDataCols.TEMPERATURE_NAME + " "
+			+ metaData[ExtMetaDataCols.TEMPERATURE_NAME.ordinal()]
 			+ "\n");
-		text.write(MetaDataCols.SEEING_NAME + " "
-			+ metaData[MetaDataCols.SEEING_NAME.ordinal()] + "\n");
-		text.write(MetaDataCols.TRANSPARENCY_NAME + " "
-			+ metaData[MetaDataCols.TRANSPARENCY_NAME.ordinal()]
+		text.write(ExtMetaDataCols.SEEING_NAME + " "
+			+ metaData[ExtMetaDataCols.SEEING_NAME.ordinal()] + "\n");
+		text.write(ExtMetaDataCols.TRANSPARENCY_NAME + " "
+			+ metaData[ExtMetaDataCols.TRANSPARENCY_NAME.ordinal()]
 			+ "\n");
 		// This requires a SQM-L meter.
-		if (!metaData[MetaDataCols.DARKNESS_NAME.ordinal()].equals("")) {
-		    text.write(MetaDataCols.DARKNESS_NAME + " "
-			    + metaData[MetaDataCols.DARKNESS_NAME.ordinal()]
+		if (!metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()].equals("")) {
+		    text.write(ExtMetaDataCols.DARKNESS_NAME + " "
+			    + metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()]
 			    + "\n");
 		}
-		text.write(MetaDataCols.TELESCOPES_NAME + " "
-			+ metaData[MetaDataCols.TELESCOPES_NAME.ordinal()]
+		text.write(ExtMetaDataCols.TELESCOPES_NAME + " "
+			+ metaData[ExtMetaDataCols.TELESCOPES_NAME.ordinal()]
 			+ "\n");
-		text.write(MetaDataCols.EYEPIECES_NAME + " "
-			+ metaData[MetaDataCols.EYEPIECES_NAME.ordinal()]
+		text.write(ExtMetaDataCols.EYEPIECES_NAME + " "
+			+ metaData[ExtMetaDataCols.EYEPIECES_NAME.ordinal()]
 			+ "\n");
-		text.write(MetaDataCols.FILTERS_NAME + " "
-			+ metaData[MetaDataCols.FILTERS_NAME.ordinal()]
+		text.write(ExtMetaDataCols.FILTERS_NAME + " "
+			+ metaData[ExtMetaDataCols.FILTERS_NAME.ordinal()]
 			+ "\n\n");
 
 		for (String[] targetEntry : targets) {
 		    log.debug("Target "
-			    + targetEntry[DataCols.TARGET_NAME.ordinal()]);
-		    text.write(targetEntry[DataCols.TARGET_NAME.ordinal()]
+			    + targetEntry[ExtDataCols.TARGET_NAME.ordinal()]);
+		    text.write(targetEntry[ExtDataCols.TARGET_NAME.ordinal()]
 			    + " "
-			    + targetEntry[DataCols.CONSTELLATION_NAME.ordinal()]
-			    + " " + targetEntry[DataCols.TYPE_NAME.ordinal()]
-			    + " " + targetEntry[DataCols.POWER_NAME.ordinal()]
-			    + "\n" + targetEntry[DataCols.NOTES_NAME.ordinal()]
+			    + targetEntry[ExtDataCols.CONSTELLATION_NAME.ordinal()]
+			    + " " + targetEntry[ExtDataCols.TYPE_NAME.ordinal()]
+			    + " " + targetEntry[ExtDataCols.POWER_NAME.ordinal()]
+			    + "\n" + targetEntry[ExtDataCols.NOTES_NAME.ordinal()]
 			    + "\n\n");
 		}
 		if (resourceBundle != null) {
 		    log.info("\tExported report "
-			    + metaData[MetaDataCols.DATE_NAME.ordinal()] + " ("
+			    + metaData[ExtMetaDataCols.DATE_NAME.ordinal()] + " ("
 			    + targets.size() + " targets)");
 		}
 	    } catch (IOException ex) {

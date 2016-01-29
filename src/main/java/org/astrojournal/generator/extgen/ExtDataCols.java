@@ -1,12 +1,14 @@
-package org.astrojournal.generator.extendedgenerator;
+package org.astrojournal.generator.extgen;
 
 /**
+ * Target description for the extended generator.
+ * 
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
  * @date 28 Jan 2016
  */
-public enum DataCols {
+public enum ExtDataCols {
 
     /** A string containing the target name. */
     TARGET_NAME("Target"),
@@ -21,7 +23,7 @@ public enum DataCols {
 
     private String colName;
 
-    private DataCols(String colName) {
+    private ExtDataCols(String colName) {
 	this.colName = colName;
     }
 

@@ -1,13 +1,14 @@
-package org.astrojournal.generator.extendedgenerator;
+package org.astrojournal.generator.extgen;
 
 /**
+ * Report meta description for the extended generator.
  * 
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
  * @date 28 Jan 2016
  */
-public enum MetaDataCols {
+public enum ExtMetaDataCols {
 
     /** A string containing the date name. */
     DATE_NAME("Date"),
@@ -34,7 +35,7 @@ public enum MetaDataCols {
 
     private String colName;
 
-    private MetaDataCols(String colName) {
+    private ExtMetaDataCols(String colName) {
 	this.colName = colName;
     }
 
