@@ -5,6 +5,8 @@ Author: Piero Dalle Pezze
 
 Licence: GPL v3 (2015)
 
+Mailing list: astrojournal AT googlegroups.com
+
 
 ### Description
 This Java application imports files containing astronomy observations 
