@@ -1,4 +1,4 @@
-# Developer Guide for AstroJournal
+# Developer Guide
 
 Author: Piero Dalle Pezze
 
