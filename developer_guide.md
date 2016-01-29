@@ -8,7 +8,13 @@
 
 
 
-# Developer Guide
+# Developer Guide for AstroJournal
+
+Author: Piero Dalle Pezze
+
+Licence: GPL v3 (2015)
+
+Mailing list: astrojournal AT googlegroups.com
 
 
 ## Introduction
