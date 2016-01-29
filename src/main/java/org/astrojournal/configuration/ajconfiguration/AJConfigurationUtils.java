@@ -39,7 +39,7 @@ import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ConfigurationUtils;
 import org.astrojournal.utilities.filefilters.LaTeXFilter;
-import org.astrojournal.utilities.filefilters.TabSeparatedValueRawReportFilter;
+import org.astrojournal.utilities.filefilters.TSVRawReportFilter;
 
 /**
  * A collection of utilities used by AJConfiguration.
@@ -365,7 +365,7 @@ public class AJConfigurationUtils implements ConfigurationUtils {
 		+ config.getProperty(AJPropertyConstants.RAW_REPORTS_FOLDER
 			.getKey()));
 
-	FileFilter rawReportFilter = new TabSeparatedValueRawReportFilter();
+	FileFilter rawReportFilter = new TSVRawReportFilter();
 
 	// if the raw reports folder does not exist, let's copy the default one.
 	// This is convenient for testing.

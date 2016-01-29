@@ -34,7 +34,7 @@ import java.io.FileFilter;
  * @since 1.0
  * @date 20 Jan 2016
  */
-public class TabSeparatedValueRawReportFilter implements FileFilter {
+public class TSVRawReportFilter implements FileFilter {
     @Override
     public boolean accept(File arg0) {
 	return arg0.getName().endsWith(".csv")

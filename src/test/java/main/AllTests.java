@@ -34,7 +34,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * @date 11 Jan 2016
  */
 @RunWith(Suite.class)
-@SuiteClasses({ AJConfigurationTest.class, ExtendedTSVImporterTest.class,
-	ExtendedReportSystemTest.class })
+@SuiteClasses({ AJConfigurationTest.class, ExtTSVImporterTest.class,
+	ExtGenSystemTest.class })
 public class AllTests {
 }

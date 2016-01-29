@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator.abstractgenerator;
+package org.astrojournal.generator.absgen;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -34,7 +34,7 @@ import java.util.ResourceBundle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.generator.Report;
-import org.astrojournal.utilities.filefilters.TabSeparatedValueRawReportFilter;
+import org.astrojournal.utilities.filefilters.TSVRawReportFilter;
 
 /**
  * The parser for AstroJournal. It imports files containing the reports.
@@ -74,7 +74,7 @@ public abstract class Importer {
 	}
 	String rawReportPath = filesLocation + File.separator + rawReportFolder;
 	File[] files = new File(rawReportPath)
-		.listFiles(new TabSeparatedValueRawReportFilter());
+		.listFiles(new TSVRawReportFilter());
 	if (files == null) {
 	    log.error("Folder " + rawReportPath + " not found");
 	    return new ArrayList<Report>();

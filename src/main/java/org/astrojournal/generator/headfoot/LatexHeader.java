@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator.reportheadfoot;
+package org.astrojournal.generator.headfoot;
 
 import java.io.File;
 
