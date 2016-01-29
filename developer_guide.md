@@ -1,13 +1,3 @@
-<sup><sub>Author: Piero Dalle Pezze</sup></sub>
-
-<sup><sub>Version: 1.0</sup></sub>
-
-<sup><sub>Since: 1.0</sup></sub>
-
-<sup><sub>Date: 25/01/2016</sup></sub>
-
-
-
 # Developer Guide for AstroJournal
 
 Author: Piero Dalle Pezze
