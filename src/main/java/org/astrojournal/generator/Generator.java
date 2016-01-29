@@ -34,13 +34,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
-import org.astrojournal.generator.abstractgenerator.Exporter;
-import org.astrojournal.generator.abstractgenerator.Importer;
-import org.astrojournal.generator.abstractgenerator.LatexExporter;
-import org.astrojournal.generator.extendedgenerator.LatexExporterByConstellation;
-import org.astrojournal.generator.extendedgenerator.LatexExporterByDate;
-import org.astrojournal.generator.extendedgenerator.LatexExporterByTarget;
-import org.astrojournal.generator.extendedgenerator.TextExporterByDateSGL;
+import org.astrojournal.generator.absgen.Exporter;
+import org.astrojournal.generator.absgen.Importer;
+import org.astrojournal.generator.absgen.LatexExporter;
+import org.astrojournal.generator.extgen.LatexExporterByConstellation;
+import org.astrojournal.generator.extgen.LatexExporterByDate;
+import org.astrojournal.generator.extgen.LatexExporterByTarget;
+import org.astrojournal.generator.extgen.TextExporterByDateSGL;
 import org.astrojournal.utilities.ClassesInstanceOf;
 
 /**
@@ -171,9 +171,13 @@ public class Generator {
      */
     public boolean ajImport() {
 	boolean status = true;
+	// List<String> importerNames = ClassesInstanceOf
+	// .getClassFullNamesInstanceOf(this.getClass().getPackage()
+	// .getName(), Importer.class);
 	List<String> importerNames = ClassesInstanceOf
 		.getClassFullNamesInstanceOf(this.getClass().getPackage()
-			.getName(), Importer.class);
+			.getName()
+			+ ".extgen", Importer.class);
 	Collections.sort(importerNames);
 	for (String importerName : importerNames) {
 	    try {
@@ -241,7 +245,8 @@ public class Generator {
 	boolean status = true;
 	List<String> exporterNames = ClassesInstanceOf
 		.getClassFullNamesInstanceOf(this.getClass().getPackage()
-			.getName(), Exporter.class);
+			.getName()
+			+ ".extgen", Exporter.class);
 	Collections.sort(exporterNames);
 	for (String exporterName : exporterNames) {
 	    try {
