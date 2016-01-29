@@ -37,7 +37,10 @@ import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.generator.abstractgenerator.Exporter;
 import org.astrojournal.generator.abstractgenerator.Importer;
 import org.astrojournal.generator.abstractgenerator.LatexExporter;
+import org.astrojournal.generator.extendedgenerator.LatexExporterByConstellation;
 import org.astrojournal.generator.extendedgenerator.LatexExporterByDate;
+import org.astrojournal.generator.extendedgenerator.LatexExporterByTarget;
+import org.astrojournal.generator.extendedgenerator.TextExporterByDateSGL;
 import org.astrojournal.utilities.ClassesInstanceOf;
 
 /**
@@ -312,64 +315,62 @@ public class Generator {
 					    .getKey()));
 		}
 
-		// TODO TEMPORARILY COMMENTED until this is ported to newgen
-		// if (exporter instanceof AJLatexExporterByTarget) {
-		// ((AJLatexExporterByTarget) exporter)
-		// .setReportFolder(config
-		// .getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET
-		// .getKey()));
-		// ((AJLatexExporterByTarget) exporter)
-		// .setReportFilename(config
-		// .getProperty(AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
-		// .getKey()));
-		// ((AJLatexExporterByTarget) exporter)
-		// .setHeaderFooterFolder(config
-		// .getProperty(AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER
-		// .getKey()));
-		// ((AJLatexExporterByTarget) exporter)
-		// .setHeaderFilename(config
-		// .getProperty(AJPropertyConstants.LATEX_HEADER_BY_TARGET_FILENAME
-		// .getKey()));
-		// ((AJLatexExporterByTarget) exporter)
-		// .setFooterFilename(config
-		// .getProperty(AJPropertyConstants.LATEX_FOOTER_BY_TARGET_FILENAME
-		// .getKey()));
-		// }
-		// if (exporter instanceof AJLatexExporterByConstellation) {
-		// ((AJLatexExporterByConstellation) exporter)
-		// .setReportFolder(config
-		// .getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-		// .getKey()));
-		// ((AJLatexExporterByConstellation) exporter)
-		// .setReportFilename(config
-		// .getProperty(AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
-		// .getKey()));
-		// ((AJLatexExporterByConstellation) exporter)
-		// .setHeaderFooterFolder(config
-		// .getProperty(AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER
-		// .getKey()));
-		// ((AJLatexExporterByConstellation) exporter)
-		// .setHeaderFilename(config
-		// .getProperty(AJPropertyConstants.LATEX_HEADER_BY_CONSTELLATION_FILENAME
-		// .getKey()));
-		// ((AJLatexExporterByConstellation) exporter)
-		// .setFooterFilename(config
-		// .getProperty(AJPropertyConstants.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
-		// .getKey()));
-		// }
-		//
-		// } else {
-		// if (exporter instanceof AJTextExporterByDateSGL) {
-		// ((AJTextExporterByDateSGL) exporter)
-		// .setReportFolder(config
-		// .getProperty(AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE
-		// .getKey()));
-		// ((AJTextExporterByDateSGL) exporter)
-		// .setReportFilename(config
-		// .getProperty(AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME
-		// .getKey()));
-		// }
-		// TODO TEMPORARILY COMMENTED
+		if (exporter instanceof LatexExporterByTarget) {
+		    ((LatexExporterByTarget) exporter)
+			    .setReportFolder(config
+				    .getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET
+					    .getKey()));
+		    ((LatexExporterByTarget) exporter)
+			    .setReportFilename(config
+				    .getProperty(AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
+					    .getKey()));
+		    ((LatexExporterByTarget) exporter)
+			    .setHeaderFooterFolder(config
+				    .getProperty(AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER
+					    .getKey()));
+		    ((LatexExporterByTarget) exporter)
+			    .setHeaderFilename(config
+				    .getProperty(AJPropertyConstants.LATEX_HEADER_BY_TARGET_FILENAME
+					    .getKey()));
+		    ((LatexExporterByTarget) exporter)
+			    .setFooterFilename(config
+				    .getProperty(AJPropertyConstants.LATEX_FOOTER_BY_TARGET_FILENAME
+					    .getKey()));
+		}
+		if (exporter instanceof LatexExporterByConstellation) {
+		    ((LatexExporterByConstellation) exporter)
+			    .setReportFolder(config
+				    .getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+					    .getKey()));
+		    ((LatexExporterByConstellation) exporter)
+			    .setReportFilename(config
+				    .getProperty(AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
+					    .getKey()));
+		    ((LatexExporterByConstellation) exporter)
+			    .setHeaderFooterFolder(config
+				    .getProperty(AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER
+					    .getKey()));
+		    ((LatexExporterByConstellation) exporter)
+			    .setHeaderFilename(config
+				    .getProperty(AJPropertyConstants.LATEX_HEADER_BY_CONSTELLATION_FILENAME
+					    .getKey()));
+		    ((LatexExporterByConstellation) exporter)
+			    .setFooterFilename(config
+				    .getProperty(AJPropertyConstants.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
+					    .getKey()));
+		}
+
+	    } else {
+		if (exporter instanceof TextExporterByDateSGL) {
+		    ((TextExporterByDateSGL) exporter)
+			    .setReportFolder(config
+				    .getProperty(AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE
+					    .getKey()));
+		    ((TextExporterByDateSGL) exporter)
+			    .setReportFilename(config
+				    .getProperty(AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME
+					    .getKey()));
+		}
 	    }
 
 	    // TODO END

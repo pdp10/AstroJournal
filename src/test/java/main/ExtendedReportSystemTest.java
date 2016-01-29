@@ -51,10 +51,11 @@ import org.junit.Test;
  * @since 1.0
  * @date 15 Jan 2016
  */
-public class SystemTest {
+public class ExtendedReportSystemTest {
 
     /** The log associated to this class */
-    private static Logger log = LogManager.getLogger(SystemTest.class);
+    private static Logger log = LogManager
+	    .getLogger(ExtendedReportSystemTest.class);
 
     /** The configuration. */
     private static Configuration config;
@@ -67,7 +68,8 @@ public class SystemTest {
 	System.setProperty(AJPropertyConstants.FILES_LOCATION.getKey(),
 		System.getProperty("user.dir") + File.separator + "src"
 			+ File.separator + "test" + File.separator
-			+ "resources" + File.separator + "system_test");
+			+ "resources" + File.separator
+			+ "extended_report_system_test");
 
 	config = new AJConfiguration();
 
@@ -170,68 +172,67 @@ public class SystemTest {
 				.getProperty(AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME
 					.getKey())) + ".pdf").exists());
     }
-    // TODO TEMPORARILY COMMENTED
-    // /**
-    // * Test the generation of report by target.
-    // */
-    // @Test
-    // public void testGeneratedReportByTarget() {
-    // System.out.println("Running test " + this.getClass().getSimpleName()
-    // + "." + new Object() {
-    // }.getClass().getEnclosingMethod().getName());
-    //
-    // // tex + pdf
-    // assertTrue(new File(
-    // config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
-    // + File.separator
-    // + config.getProperty(AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
-    // .getKey())).exists());
-    // assertTrue(new File(
-    // config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
-    // + File.separator
-    // + FilenameUtils.removeExtension(config
-    // .getProperty(AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
-    // .getKey())) + ".pdf").exists());
-    // }
-    //
-    // /**
-    // * Test the generation of report by constellation.
-    // */
-    // @Test
-    // public void testGeneratedReportByConstellation() {
-    // System.out.println("Running test " + this.getClass().getSimpleName()
-    // + "." + new Object() {
-    // }.getClass().getEnclosingMethod().getName());
-    //
-    // // tex + pdf
-    // assertTrue(new File(
-    // config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
-    // + File.separator
-    // +
-    // config.getProperty(AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
-    // .getKey())).exists());
-    // assertTrue(new File(
-    // config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
-    // + File.separator
-    // + FilenameUtils.removeExtension(config
-    // .getProperty(AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
-    // .getKey())) + ".pdf").exists());
-    // }
-    //
-    // /**
-    // * Test the generation of SGL report by date.
-    // */
-    // @Test
-    // public void testGeneratedSGLReportByDate() {
-    // System.out.println("Running test " + this.getClass().getSimpleName()
-    // + "." + new Object() {
-    // }.getClass().getEnclosingMethod().getName());
-    //
-    // // txt
-    // assertTrue(new File(
-    // config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
-    // + File.separator
-    // + config.getProperty(AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME
-    // .getKey())).exists());
-    // }
+
+    /**
+     * Test the generation of report by target.
+     */
+    @Test
+    public void testGeneratedReportByTarget() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
+	// tex + pdf
+	assertTrue(new File(
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
+			+ File.separator
+			+ config.getProperty(AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
+				.getKey())).exists());
+	assertTrue(new File(
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
+			+ File.separator
+			+ FilenameUtils.removeExtension(config
+				.getProperty(AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
+					.getKey())) + ".pdf").exists());
+    }
+
+    /**
+     * Test the generation of report by constellation.
+     */
+    @Test
+    public void testGeneratedReportByConstellation() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
+	// tex + pdf
+	assertTrue(new File(
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
+			+ File.separator
+			+ config.getProperty(AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
+				.getKey())).exists());
+	assertTrue(new File(
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
+			+ File.separator
+			+ FilenameUtils.removeExtension(config
+				.getProperty(AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
+					.getKey())) + ".pdf").exists());
+    }
+
+    /**
+     * Test the generation of SGL report by date.
+     */
+    @Test
+    public void testGeneratedSGLReportByDate() {
+	System.out.println("Running test " + this.getClass().getSimpleName()
+		+ "." + new Object() {
+		}.getClass().getEnclosingMethod().getName());
+
+	// txt
+	assertTrue(new File(
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
+			+ File.separator
+			+ config.getProperty(AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME
+				.getKey())).exists());
+    }
 }

@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator.DEPRECajexporter;
+package org.astrojournal.generator.extendedgenerator;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -29,19 +29,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.generator.DEPRECobservation.AJObservation;
-import org.astrojournal.generator.DEPRECobservation.AJObservationItem;
-import org.astrojournal.generator.reportheadfoot.AJLatexFooter;
-import org.astrojournal.generator.reportheadfoot.AJLatexHeader;
+import org.astrojournal.generator.Report;
+import org.astrojournal.generator.abstractgenerator.LatexExporter;
+import org.astrojournal.generator.reportheadfoot.LatexFooter;
+import org.astrojournal.generator.reportheadfoot.LatexHeader;
 import org.astrojournal.utilities.RunExternalCommand;
 import org.astrojournal.utilities.filefilters.LaTeXFilter;
 
@@ -52,11 +52,11 @@ import org.astrojournal.utilities.filefilters.LaTeXFilter;
  * @version 0.2
  * @since 28/05/2015
  */
-public class AJLatexExporterByConstellation extends LatexExporter {
+public class LatexExporterByConstellation extends LatexExporter {
 
     /** The log associated to this class */
     private static Logger log = LogManager
-	    .getLogger(AJLatexExporterByConstellation.class);
+	    .getLogger(LatexExporterByConstellation.class);
 
     private HashMap<String, HashSet<String>> constellations = new HashMap<String, HashSet<String>>();
 
@@ -76,7 +76,7 @@ public class AJLatexExporterByConstellation extends LatexExporter {
     /**
      * Default constructor.
      */
-    public AJLatexExporterByConstellation() {
+    public LatexExporterByConstellation() {
 	super();
     }
 
@@ -85,9 +85,9 @@ public class AJLatexExporterByConstellation extends LatexExporter {
      */
     @Override
     public boolean generateJournal() {
-	AJLatexHeader ajLatexHeaderByConst = new AJLatexHeader(filesLocation,
+	LatexHeader latexHeader = new LatexHeader(filesLocation,
 		headerFooterFolder, headerFilename);
-	AJLatexFooter ajLatexFooterByConst = new AJLatexFooter(filesLocation,
+	LatexFooter latexFooter = new LatexFooter(filesLocation,
 		headerFooterFolder, footerFilename);
 	Writer writerByConst = null;
 	try {
@@ -95,7 +95,7 @@ public class AJLatexExporterByConstellation extends LatexExporter {
 		    new FileOutputStream(filesLocation + File.separator
 			    + reportFilename), "utf-8"));
 	    // write the Latex Header
-	    writerByConst.write(ajLatexHeaderByConst.getHeader());
+	    writerByConst.write(latexHeader.getHeader());
 
 	    // write the Latex Body
 	    // parse each file in the latex obs folder
@@ -130,7 +130,7 @@ public class AJLatexExporterByConstellation extends LatexExporter {
 	    }
 
 	    // write the Latex Footer
-	    writerByConst.write(ajLatexFooterByConst.getFooter());
+	    writerByConst.write(latexFooter.getFooter());
 
 	} catch (IOException ex) {
 	    log.error("Error when opening the file " + filesLocation
@@ -152,14 +152,14 @@ public class AJLatexExporterByConstellation extends LatexExporter {
     }
 
     @Override
-    public boolean exportObservations(ArrayList<AJObservation> observations) {
+    public boolean exportReports(List<Report> reports) {
 	if (resourceBundle != null) {
 	    log.info("");
 	    log.info("Exporting observations by constellation:");
 	}
 	boolean result = true;
 	if (constellations.size() == 0) {
-	    organiseTargetsByConstellation(observations);
+	    organiseTargetsByConstellation(reports);
 	}
 	String[] keys = constellations.keySet().toArray(new String[0]);
 	for (int i = 0; i < keys.length; i++) {
@@ -208,33 +208,44 @@ public class AJLatexExporterByConstellation extends LatexExporter {
     /**
      * Organise the targets by constellation in a suitable data structure.
      * 
-     * @param observations
+     * @param reports
      *            the list of observations to exportObservation
      */
-    private void organiseTargetsByConstellation(
-	    ArrayList<AJObservation> observations) {
-	AJObservation obs = null;
-	int nObservations = observations.size();
-	for (int i = 0; i < nObservations; i++) {
-	    obs = observations.get(i);
-	    ArrayList<AJObservationItem> items = obs.getObservationItems();
-	    for (int j = 0; j < items.size(); j++) {
-		AJObservationItem item = items.get(j);
+    private void organiseTargetsByConstellation(List<Report> reports) {
+	Report report = null;
+	int nReports = reports.size();
+	for (int i = 0; i < nReports; i++) {
+	    report = reports.get(i);
+	    List<String[]> targets = report.getAllData();
+	    for (int j = 0; j < targets.size(); j++) {
+		String[] targetEntry = targets.get(j);
 		// skip solar system targets. We only consider DSOs.
-		if (item.getType().toLowerCase().equals("planet")
-			|| item.getTarget().toLowerCase().equals("sun")
-			|| item.getTarget().toLowerCase().equals("moon")
-			|| item.getTarget().toLowerCase().equals("milky way")) {
+		if (targetEntry[DataCols.TYPE_NAME.ordinal()].toLowerCase()
+			.equals("planet")
+			|| targetEntry[DataCols.TARGET_NAME.ordinal()]
+				.toLowerCase().equals("sun")
+			|| targetEntry[DataCols.TARGET_NAME.ordinal()]
+				.toLowerCase().equals("moon")
+			|| targetEntry[DataCols.TARGET_NAME.ordinal()]
+				.toLowerCase().equals("milky way")) {
 		    continue;
 		}
-		if (!constellations.containsKey(item.getConstellation())) {
-		    constellations.put(item.getConstellation(),
+		if (!constellations
+			.containsKey(targetEntry[DataCols.CONSTELLATION_NAME
+				.ordinal()])) {
+		    constellations.put(
+			    targetEntry[DataCols.CONSTELLATION_NAME.ordinal()],
 			    new HashSet<String>());
 		}
-		log.debug(item.getConstellation() + " " + item.getTarget()
-			+ " (" + item.getType() + ")");
-		constellations.get(item.getConstellation()).add(
-			item.getTarget() + " (" + item.getType() + ")");
+		log.debug(targetEntry[DataCols.CONSTELLATION_NAME.ordinal()]
+			+ " " + targetEntry[DataCols.TARGET_NAME.ordinal()]
+			+ " (" + targetEntry[DataCols.TYPE_NAME.ordinal()]
+			+ ")");
+		constellations.get(
+			targetEntry[DataCols.CONSTELLATION_NAME.ordinal()])
+			.add(targetEntry[DataCols.TARGET_NAME.ordinal()] + " ("
+				+ targetEntry[DataCols.TYPE_NAME.ordinal()]
+				+ ")");
 	    }
 	}
     }

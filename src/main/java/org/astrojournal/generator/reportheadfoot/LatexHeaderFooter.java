@@ -39,16 +39,16 @@ import org.apache.logging.log4j.Logger;
  * @version 0.2
  * @since 28/05/2015
  */
-public abstract class AJLatexHeaderFooter {
+public abstract class LatexHeaderFooter {
 
     /** The log associated to this class */
-    private static Logger log = LogManager.getLogger(AJLatexHeaderFooter.class);
+    private static Logger log = LogManager.getLogger(LatexHeaderFooter.class);
 
     /** The resource bundle. */
     protected ResourceBundle resourceBundle = null;
 
     /** Default constructor. It initialises default header and footer. */
-    public AJLatexHeaderFooter() {
+    public LatexHeaderFooter() {
     }
 
     /**

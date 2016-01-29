@@ -26,19 +26,32 @@ package org.astrojournal.generator.reportheadfoot;
 import java.io.File;
 
 /**
- * The footer of the Latex main file.
+ * The header of the LaTeX main file.
  * 
  * @author Piero Dalle Pezze
  * @version 0.2
  * @since 28/05/2015
  */
-public class AJLatexFooter extends AJLatexHeaderFooter {
+public class LatexHeader extends LatexHeaderFooter {
 
-    /** The footer of the Latex document. */
-    private String footer = "\\end{document}\n";
+    /** The header of the Latex main file. */
+    private String header = "\\documentclass[10pt,twoside,a4paper]{report}\n"
+	    + "\\usepackage[a4paper,margin=1in,landscape]{geometry}\n"
+	    + "\\usepackage[colorlinks=true,linkcolor={black},urlcolor={black}]{hyperref}\n"
+	    + "\\usepackage{longtable}\n"
+	    + "\\usepackage{pdflscape}\n"
+	    + "\\title{Astronomy Observation Journal}\n"
+	    + "\\author{Piero Dalle Pezze}\n"
+	    + "\\date{\\today}\n"
+	    + "\\begin{document}\n"
+	    + "\\let\\thefootnote\\relax\\footnotetext{This document was generated using Java software tool {\\it AstroJournal} "
+	    + "(\\href{http://pdp10.github.io/AstroJournal/}{http://pdp10.github.io/AstroJournal/}) "
+	    + "and {\\it pdflatex} (\\href{http://www.tug.org/texlive/}{http://www.tug.org/texlive/}).} \n"
+	    + "\\maketitle\n" + "\\footnotesize\n\n" + "\\noindent \n"
+	    + "\\newpage\n\n";
 
     /** Default constructor. It initialises default header and footer. */
-    public AJLatexFooter() {
+    public LatexHeader() {
 	super();
     }
 
@@ -49,22 +62,22 @@ public class AJLatexFooter extends AJLatexHeaderFooter {
      *            The path to the file
      * @param folder
      *            The folder containing the LaTeX header file, if any
-     * @param latexFooter
-     *            The Latex footer file
+     * @param latexHeader
+     *            The LaTeX header file
      */
-    public AJLatexFooter(String path, String folder, String latexFooter) {
+    public LatexHeader(String path, String folder, String latexHeader) {
 	super();
-	String fileString = buildPath(path, folder, latexFooter);
-	footer = importLatex(new File(fileString));
+	String fileString = buildPath(path, folder, latexHeader);
+	header = importLatex(new File(fileString));
     }
 
     /**
-     * Returns the footer of the document.
+     * Returns the header of the document.
      * 
-     * @return footer;
+     * @return header;
      */
-    public String getFooter() {
-	return footer;
+    public String getHeader() {
+	return header;
     }
 
 }

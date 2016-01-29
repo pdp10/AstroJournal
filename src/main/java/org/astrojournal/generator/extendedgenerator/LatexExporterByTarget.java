@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator.DEPRECajexporter;
+package org.astrojournal.generator.extendedgenerator;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -39,10 +39,10 @@ import java.util.List;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.generator.DEPRECobservation.AJObservation;
-import org.astrojournal.generator.DEPRECobservation.AJObservationItem;
-import org.astrojournal.generator.reportheadfoot.AJLatexFooter;
-import org.astrojournal.generator.reportheadfoot.AJLatexHeader;
+import org.astrojournal.generator.Report;
+import org.astrojournal.generator.abstractgenerator.LatexExporter;
+import org.astrojournal.generator.reportheadfoot.LatexFooter;
+import org.astrojournal.generator.reportheadfoot.LatexHeader;
 import org.astrojournal.utilities.RunExternalCommand;
 import org.astrojournal.utilities.filefilters.LaTeXFilter;
 
@@ -53,11 +53,11 @@ import org.astrojournal.utilities.filefilters.LaTeXFilter;
  * @version 0.2
  * @since 22/07/2015
  */
-public class AJLatexExporterByTarget extends LatexExporter {
+public class LatexExporterByTarget extends LatexExporter {
 
     /** The log associated to this class */
     private static Logger log = LogManager
-	    .getLogger(AJLatexExporterByTarget.class);
+	    .getLogger(LatexExporterByTarget.class);
 
     /** A cache of the visited targets. */
     private HashSet<String> processedTargetCache = new HashSet<String>(1000);
@@ -79,7 +79,7 @@ public class AJLatexExporterByTarget extends LatexExporter {
     /**
      * Default constructor.
      */
-    public AJLatexExporterByTarget() {
+    public LatexExporterByTarget() {
 	super();
     }
 
@@ -88,9 +88,9 @@ public class AJLatexExporterByTarget extends LatexExporter {
      */
     @Override
     public boolean generateJournal() {
-	AJLatexHeader ajLatexHeaderByTarget = new AJLatexHeader(filesLocation,
+	LatexHeader latexHeader = new LatexHeader(filesLocation,
 		headerFooterFolder, headerFilename);
-	AJLatexFooter ajLatexFooterByTarget = new AJLatexFooter(filesLocation,
+	LatexFooter latexFooter = new LatexFooter(filesLocation,
 		headerFooterFolder, footerFilename);
 	Writer writer = null;
 	try {
@@ -98,7 +98,7 @@ public class AJLatexExporterByTarget extends LatexExporter {
 		    new FileOutputStream(filesLocation + File.separator
 			    + reportFilename), "utf-8"));
 	    // write the Latex Header
-	    writer.write(ajLatexHeaderByTarget.getHeader());
+	    writer.write(latexHeader.getHeader());
 	    // write the Latex Body
 	    // Write the observation reports
 	    // parse each file in the latex obs folder (sorted by observation
@@ -169,7 +169,7 @@ public class AJLatexExporterByTarget extends LatexExporter {
 		}
 	    }
 	    // write the Latex Footer
-	    writer.write(ajLatexFooterByTarget.getFooter());
+	    writer.write(latexFooter.getFooter());
 	} catch (IOException ex) {
 	    log.warn("Error when opening the file " + filesLocation
 		    + File.separator + reportFilename, ex);
@@ -190,19 +190,18 @@ public class AJLatexExporterByTarget extends LatexExporter {
     }
 
     @Override
-    public boolean exportObservations(ArrayList<AJObservation> observations) {
+    public boolean exportReports(List<Report> reports) {
 	if (resourceBundle != null) {
 	    log.info("");
 	    log.info("Exporting observations by target:");
 	}
 	processedTargetCache.clear();
-	for (int i = 0; i < observations.size(); i++) {
-	    AJObservation obs = observations.get(i);
-	    ArrayList<AJObservationItem> observationItems = obs
-		    .getObservationItems();
-	    for (int j = 0; j < observationItems.size(); j++) {
-		AJObservationItem obsItem = observationItems.get(j);
-		String filenameOut = computeFileName(obsItem);
+	for (int i = 0; i < reports.size(); i++) {
+	    Report report = reports.get(i);
+	    List<String[]> targets = report.getAllData();
+	    for (int j = 0; j < targets.size(); j++) {
+		String[] targetEntry = targets.get(j);
+		String filenameOut = computeFileName(targetEntry);
 		Writer targetWriter = null;
 		try {
 		    if (!processedTargetCache.contains(filenameOut)) {
@@ -212,41 +211,51 @@ public class AJLatexExporterByTarget extends LatexExporter {
 					new File(filesLocation + File.separator
 						+ reportFolder, filenameOut
 						+ ".tex")), "utf-8"));
-			if (obsItem.getType().toLowerCase().equals("planet")
-				|| obsItem.getTarget().toLowerCase()
-					.equals("moon")
-				|| obsItem.getTarget().toLowerCase()
-					.equals("sun")
-				|| obsItem.getType().toLowerCase()
-					.equals("asteroid")
-				|| obsItem.getType().toLowerCase()
-					.equals("comet")) {
+			if (targetEntry[DataCols.TYPE_NAME.ordinal()]
+				.toLowerCase().equals("planet")
+				|| targetEntry[DataCols.TARGET_NAME.ordinal()]
+					.toLowerCase().equals("moon")
+				|| targetEntry[DataCols.TARGET_NAME.ordinal()]
+					.toLowerCase().equals("sun")
+				|| targetEntry[DataCols.TYPE_NAME.ordinal()]
+					.toLowerCase().equals("asteroid")
+				|| targetEntry[DataCols.TYPE_NAME.ordinal()]
+					.toLowerCase().equals("comet")) {
 			    targetWriter.write("\\subsection{"
-				    + obsItem.getTarget());
-			} else if (obsItem.getType().toLowerCase()
-				.equals("star")
-				|| obsItem.getType().toLowerCase()
-					.equals("dbl star")
-				|| obsItem.getType().toLowerCase()
-					.equals("mlt star")) {
+				    + targetEntry[DataCols.TARGET_NAME
+					    .ordinal()]);
+			} else if (targetEntry[DataCols.TYPE_NAME.ordinal()]
+				.toLowerCase().equals("star")
+				|| targetEntry[DataCols.TYPE_NAME.ordinal()]
+					.toLowerCase().equals("dbl star")
+				|| targetEntry[DataCols.TYPE_NAME.ordinal()]
+					.toLowerCase().equals("mlt star")) {
 			    targetWriter.write("\\subsection{"
-				    + obsItem.getConstellation());
-			    targetWriter.write(", " + obsItem.getTarget());
-			} else if (obsItem.getType().toLowerCase()
-				.equals("galaxy")
-				&& obsItem.getTarget().toLowerCase()
-					.equals("milky way")) {
+				    + targetEntry[DataCols.CONSTELLATION_NAME
+					    .ordinal()]);
+			    targetWriter.write(", "
+				    + targetEntry[DataCols.TARGET_NAME
+					    .ordinal()]);
+			} else if (targetEntry[DataCols.TYPE_NAME.ordinal()]
+				.toLowerCase().equals("galaxy")
+				&& targetEntry[DataCols.TARGET_NAME.ordinal()]
+					.toLowerCase().equals("milky way")) {
 			    // Don't print the constellation if we are
 			    // processing the milky way!
 			    targetWriter.write("\\subsection{"
-				    + obsItem.getTarget());
+				    + targetEntry[DataCols.TARGET_NAME
+					    .ordinal()]);
 			} else {
 			    targetWriter.write("\\subsection{"
-				    + obsItem.getTarget());
+				    + targetEntry[DataCols.TARGET_NAME
+					    .ordinal()]);
 			    targetWriter.write(", "
-				    + obsItem.getConstellation());
+				    + targetEntry[DataCols.CONSTELLATION_NAME
+					    .ordinal()]);
 			}
-			targetWriter.write(", " + obsItem.getType() + "}\n");
+			targetWriter.write(", "
+				+ targetEntry[DataCols.TYPE_NAME.ordinal()]
+				+ "}\n");
 			targetWriter.write("\\begin{itemize}\n");
 		    } else {
 			// if file was already created skip the previous two
@@ -257,12 +266,32 @@ public class AJLatexExporterByTarget extends LatexExporter {
 						+ reportFolder, filenameOut
 						+ ".tex"), true), "utf-8"));
 		    }
-		    targetWriter.write("\\item " + obs.getDate() + " "
-			    + obs.getTime() + ", " + obs.getLocation() + ". "
-			    + obs.getSeeing() + ", " + obs.getTransparency()
-			    + ", " + obs.getDarkness() + ". "
-			    + obs.getTelescopes() + ", " + obsItem.getPower()
-			    + ". " + obsItem.getNotes() + "\n");
+		    String[] metaData = report.getMetaData();
+		    targetWriter
+			    .write("\\item "
+				    + metaData[MetaDataCols.DATE_NAME.ordinal()]
+				    + " "
+				    + metaData[MetaDataCols.TIME_NAME.ordinal()]
+				    + ", "
+				    + metaData[MetaDataCols.LOCATION_NAME
+					    .ordinal()]
+				    + ". "
+				    + metaData[MetaDataCols.SEEING_NAME
+					    .ordinal()]
+				    + ", "
+				    + metaData[MetaDataCols.TRANSPARENCY_NAME
+					    .ordinal()]
+				    + ", "
+				    + metaData[MetaDataCols.DARKNESS_NAME
+					    .ordinal()]
+				    + ". "
+				    + metaData[MetaDataCols.TELESCOPES_NAME
+					    .ordinal()]
+				    + ", "
+				    + targetEntry[DataCols.POWER_NAME.ordinal()]
+				    + ". "
+				    + targetEntry[DataCols.NOTES_NAME.ordinal()]
+				    + "\n");
 
 		    // do not close the Latex 'itemize' block now because
 		    // nothing is known about other observations
@@ -286,7 +315,7 @@ public class AJLatexExporterByTarget extends LatexExporter {
 		}
 	    }
 	}
-	return closeLists(observations);
+	return closeLists(reports);
     }
 
     /**
@@ -310,19 +339,18 @@ public class AJLatexExporterByTarget extends LatexExporter {
     /**
      * It closes the latex lists opened by the function exportObservations
      * 
-     * @param observations
+     * @param reports
      *            the list of observations to exportObservation
      * @return true if the lists are closed
      */
-    private boolean closeLists(ArrayList<AJObservation> observations) {
+    private boolean closeLists(List<Report> reports) {
 	processedTargetCache.clear();
-	for (int i = 0; i < observations.size(); i++) {
-	    AJObservation obs = observations.get(i);
-	    ArrayList<AJObservationItem> observationItems = obs
-		    .getObservationItems();
-	    for (int j = 0; j < observationItems.size(); j++) {
-		AJObservationItem obsItem = observationItems.get(j);
-		String filenameOut = computeFileName(obsItem);
+	for (int i = 0; i < reports.size(); i++) {
+	    Report report = reports.get(i);
+	    List<String[]> targets = report.getAllData();
+	    for (int j = 0; j < targets.size(); j++) {
+		String[] targetEntry = targets.get(j);
+		String filenameOut = computeFileName(targetEntry);
 		Writer targetWriter = null;
 		try {
 		    if (!processedTargetCache.contains(filenameOut)) {
@@ -365,34 +393,45 @@ public class AJLatexExporterByTarget extends LatexExporter {
      * 
      * @return the name of the file
      */
-    private String computeFileName(AJObservationItem obsItem) {
-	if (obsItem.getType().toLowerCase().equals("planet")
-		|| obsItem.getTarget().toLowerCase().equals("moon")
-		|| obsItem.getTarget().toLowerCase().equals("sun")) {
-	    return obsItem.getTarget().replaceAll("\\s+", "")
-		    .replaceAll("/", "-");
+    private String computeFileName(String[] targetEntry) {
+	if (targetEntry[DataCols.TYPE_NAME.ordinal()].toLowerCase().equals(
+		"planet")
+		|| targetEntry[DataCols.TARGET_NAME.ordinal()].toLowerCase()
+			.equals("moon")
+		|| targetEntry[DataCols.TARGET_NAME.ordinal()].toLowerCase()
+			.equals("sun")) {
+	    return targetEntry[DataCols.TARGET_NAME.ordinal()].replaceAll(
+		    "\\s+", "").replaceAll("/", "-");
 	}
-	if (obsItem.getType().toLowerCase().equals("asteroid")
-		|| obsItem.getType().toLowerCase().equals("comet")) {
-	    return obsItem.getType().replaceAll("\\s+", "")
-		    .replaceAll("/", "-");
+	if (targetEntry[DataCols.TYPE_NAME.ordinal()].toLowerCase().equals(
+		"asteroid")
+		|| targetEntry[DataCols.TYPE_NAME.ordinal()].toLowerCase()
+			.equals("comet")) {
+	    return targetEntry[DataCols.TYPE_NAME.ordinal()].replaceAll("\\s+",
+		    "").replaceAll("/", "-");
 	}
-	if (obsItem.getType().toLowerCase().equals("star")
-		|| obsItem.getType().toLowerCase().equals("dbl star")
-		|| obsItem.getType().toLowerCase().equals("mlt star")) {
-	    return obsItem.getConstellation()
+	if (targetEntry[DataCols.TYPE_NAME.ordinal()].toLowerCase().equals(
+		"star")
+		|| targetEntry[DataCols.TYPE_NAME.ordinal()].toLowerCase()
+			.equals("dbl star")
+		|| targetEntry[DataCols.TYPE_NAME.ordinal()].toLowerCase()
+			.equals("mlt star")) {
+	    return targetEntry[DataCols.CONSTELLATION_NAME.ordinal()]
 		    + "_"
-		    + obsItem.getTarget().replaceAll("\\s+", "")
-			    .replaceAll("/", "-");
+		    + targetEntry[DataCols.TARGET_NAME.ordinal()].replaceAll(
+			    "\\s+", "").replaceAll("/", "-");
 	}
-	if (obsItem.getType().toLowerCase().equals("galaxy")
-		&& obsItem.getTarget().toLowerCase().equals("milky way")) {
+	if (targetEntry[DataCols.TYPE_NAME.ordinal()].toLowerCase().equals(
+		"galaxy")
+		&& targetEntry[DataCols.TARGET_NAME.ordinal()].toLowerCase()
+			.equals("milky way")) {
 	    // Don't print the constellation if we are processing the milky way!
-	    return obsItem.getTarget().replaceAll("\\s+", "")
-		    .replaceAll("/", "-");
+	    return targetEntry[DataCols.TARGET_NAME.ordinal()].replaceAll(
+		    "\\s+", "").replaceAll("/", "-");
 	}
-	return obsItem.getTarget().replaceAll("\\s+", "").replaceAll("/", "-")
-		+ "_" + obsItem.getConstellation();
+	return targetEntry[DataCols.TARGET_NAME.ordinal()].replaceAll("\\s+",
+		"").replaceAll("/", "-")
+		+ "_" + targetEntry[DataCols.CONSTELLATION_NAME.ordinal()];
     }
 
     /**

@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.generator.DEPRECajexporter;
+package org.astrojournal.generator.extendedgenerator;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -29,16 +29,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.generator.DEPRECobservation.AJObservation;
-import org.astrojournal.generator.DEPRECobservation.AJObservationItem;
+import org.astrojournal.generator.Report;
+import org.astrojournal.generator.abstractgenerator.Exporter;
 import org.astrojournal.utilities.filefilters.TextFilter;
 
 /**
@@ -48,16 +48,16 @@ import org.astrojournal.utilities.filefilters.TextFilter;
  * @version 0.1
  * @since 11/09/2015
  */
-public class AJTextExporterByDateSGL extends AJExporter {
+public class TextExporterByDateSGL extends Exporter {
 
     /** The log associated to this class */
     private static Logger log = LogManager
-	    .getLogger(AJTextExporterByDateSGL.class);
+	    .getLogger(TextExporterByDateSGL.class);
 
     /**
      * Default constructor
      */
-    public AJTextExporterByDateSGL() {
+    public TextExporterByDateSGL() {
 	super();
     }
 
@@ -124,71 +124,86 @@ public class AJTextExporterByDateSGL extends AJExporter {
     }
 
     @Override
-    public boolean exportObservations(ArrayList<AJObservation> observations) {
+    public boolean exportReports(List<Report> reports) {
 	if (resourceBundle != null) {
 	    log.info("");
-	    log.info("Exporting observations by date for SGL:");
+	    log.info("Exporting reports by date for SGL:");
 	}
-	AJObservation obs = null;
-	int nObservations = observations.size();
+	Report report = null;
+	int nReports = reports.size();
 	boolean result = true;
 
-	for (int i = 0; i < nObservations; i++) {
-	    obs = observations.get(i);
+	for (int i = 0; i < nReports; i++) {
+	    report = reports.get(i);
+	    String[] metaData = report.getMetaData();
 
 	    Writer text = null;
 
-	    String filenameOut = obs.getDate();
+	    String filenameOut = metaData[MetaDataCols.DATE_NAME.ordinal()];
 	    filenameOut = filenameOut.substring(6, 10)
 		    + filenameOut.substring(3, 5) + filenameOut.substring(0, 2);
 	    // Add an additional char if this is present. This is the case in
 	    // which
 	    // more than one observation per day is done.
-	    if (obs.getDate().length() == 11) {
-		filenameOut = filenameOut + obs.getDate().charAt(10);
+	    if (metaData[MetaDataCols.DATE_NAME.ordinal()].length() == 11) {
+		filenameOut = filenameOut
+			+ metaData[MetaDataCols.DATE_NAME.ordinal()].charAt(10);
 	    }
 
-	    ArrayList<AJObservationItem> observationItems = obs
-		    .getObservationItems();
+	    List<String[]> targets = report.getAllData();
 	    try {
 		text = new BufferedWriter(new OutputStreamWriter(
 			new FileOutputStream(new File(filesLocation
 				+ File.separator + reportFolder, "obs"
 				+ filenameOut + ".txt")), "utf-8"));
 
-		text.write(AJObservation.DATE_NAME + " " + obs.getDate() + "\n");
-		text.write(AJObservation.TIME_NAME + " " + obs.getTime() + "\n");
-		text.write(AJObservation.LOCATION_NAME + " "
-			+ obs.getLocation() + "\n");
-		text.write(AJObservation.ALTITUDE_NAME + " "
-			+ obs.getAltitude() + "\n");
-		text.write(AJObservation.TEMPERATURE_NAME + " "
-			+ obs.getTemperature() + "\n");
-		text.write(AJObservation.SEEING_NAME + " " + obs.getSeeing()
+		text.write(MetaDataCols.DATE_NAME + " "
+			+ metaData[MetaDataCols.DATE_NAME.ordinal()] + "\n");
+		text.write(MetaDataCols.TIME_NAME + " "
+			+ metaData[MetaDataCols.TIME_NAME.ordinal()] + "\n");
+		text.write(MetaDataCols.LOCATION_NAME + " "
+			+ metaData[MetaDataCols.LOCATION_NAME.ordinal()] + "\n");
+		text.write(MetaDataCols.ALTITUDE_NAME + " "
+			+ metaData[MetaDataCols.ALTITUDE_NAME.ordinal()] + "\n");
+		text.write(MetaDataCols.TEMPERATURE_NAME + " "
+			+ metaData[MetaDataCols.TEMPERATURE_NAME.ordinal()]
 			+ "\n");
-		text.write(AJObservation.TRANSPARENCY_NAME + " "
-			+ obs.getTransparency() + "\n");
+		text.write(MetaDataCols.SEEING_NAME + " "
+			+ metaData[MetaDataCols.SEEING_NAME.ordinal()] + "\n");
+		text.write(MetaDataCols.TRANSPARENCY_NAME + " "
+			+ metaData[MetaDataCols.TRANSPARENCY_NAME.ordinal()]
+			+ "\n");
 		// This requires a SQM-L meter.
-		if (!obs.getDarkness().equals("")) {
-		    text.write(AJObservation.DARKNESS_NAME + " "
-			    + obs.getDarkness() + "\n");
+		if (!metaData[MetaDataCols.DARKNESS_NAME.ordinal()].equals("")) {
+		    text.write(MetaDataCols.DARKNESS_NAME + " "
+			    + metaData[MetaDataCols.DARKNESS_NAME.ordinal()]
+			    + "\n");
 		}
-		text.write(AJObservation.TELESCOPES_NAME + " "
-			+ obs.getTelescopes() + "\n");
-		text.write(AJObservation.EYEPIECES_NAME + " "
-			+ obs.getEyepieces() + "\n");
-		text.write(AJObservation.FILTERS_NAME + " " + obs.getFilters()
+		text.write(MetaDataCols.TELESCOPES_NAME + " "
+			+ metaData[MetaDataCols.TELESCOPES_NAME.ordinal()]
+			+ "\n");
+		text.write(MetaDataCols.EYEPIECES_NAME + " "
+			+ metaData[MetaDataCols.EYEPIECES_NAME.ordinal()]
+			+ "\n");
+		text.write(MetaDataCols.FILTERS_NAME + " "
+			+ metaData[MetaDataCols.FILTERS_NAME.ordinal()]
 			+ "\n\n");
 
-		for (AJObservationItem item : observationItems) {
-		    log.debug("Target " + item.getTarget());
-		    text.write(item.getTarget() + " " + item.getConstellation()
-			    + " " + item.getType() + " " + item.getPower()
-			    + "\n" + item.getNotes() + "\n\n");
+		for (String[] targetEntry : targets) {
+		    log.debug("Target "
+			    + targetEntry[DataCols.TARGET_NAME.ordinal()]);
+		    text.write(targetEntry[DataCols.TARGET_NAME.ordinal()]
+			    + " "
+			    + targetEntry[DataCols.CONSTELLATION_NAME.ordinal()]
+			    + " " + targetEntry[DataCols.TYPE_NAME.ordinal()]
+			    + " " + targetEntry[DataCols.POWER_NAME.ordinal()]
+			    + "\n" + targetEntry[DataCols.NOTES_NAME.ordinal()]
+			    + "\n\n");
 		}
 		if (resourceBundle != null) {
-		    log.info("\tExported report " + obs.getDate() + " ("
-			    + observationItems.size() + " targets)");
+		    log.info("\tExported report "
+			    + metaData[MetaDataCols.DATE_NAME.ordinal()] + " ("
+			    + targets.size() + " targets)");
 		}
 	    } catch (IOException ex) {
 		log.error("Error when opening the file " + filesLocation

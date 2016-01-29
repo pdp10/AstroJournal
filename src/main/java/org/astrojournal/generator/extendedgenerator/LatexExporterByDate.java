@@ -38,8 +38,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.generator.Report;
 import org.astrojournal.generator.abstractgenerator.LatexExporter;
-import org.astrojournal.generator.reportheadfoot.AJLatexFooter;
-import org.astrojournal.generator.reportheadfoot.AJLatexHeader;
+import org.astrojournal.generator.reportheadfoot.LatexFooter;
+import org.astrojournal.generator.reportheadfoot.LatexHeader;
 import org.astrojournal.utilities.RunExternalCommand;
 import org.astrojournal.utilities.filefilters.LaTeXFilter;
 
@@ -67,9 +67,9 @@ public class LatexExporterByDate extends LatexExporter {
      */
     @Override
     public boolean generateJournal() {
-	AJLatexHeader ajLatexHeaderByDate = new AJLatexHeader(filesLocation,
+	LatexHeader ajLatexHeaderByDate = new LatexHeader(filesLocation,
 		headerFooterFolder, headerFilename);
-	AJLatexFooter ajLatexFooterByDate = new AJLatexFooter(filesLocation,
+	LatexFooter ajLatexFooterByDate = new LatexFooter(filesLocation,
 		headerFooterFolder, footerFilename);
 	Writer writerByDate = null;
 	try {
