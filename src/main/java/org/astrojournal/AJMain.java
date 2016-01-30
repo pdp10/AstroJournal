@@ -97,16 +97,12 @@ public class AJMain {
 		startAJMainGUI(config);
 	    } else if (args[0].equals("-f") || args[0].equals("--config")) {
 		log.info(configUtils.printConfiguration(config));
-		System.exit(0);
 	    } else if (args[0].equals("-c") || args[0].equals("--console")) {
 		AJMainConsole.main(args);
-		System.exit(0);
 	    } else if (args[0].equals("-h") || args[0].equals("--help")) {
 		log.info(AJMainConsole.printHelp());
-		System.exit(0);
 	    } else if (args[0].equals("--license")) {
 		log.info(AJMetaInfo.SHORT_LICENSE.getInfo());
-		System.exit(0);
 	    } else if (args[0].equals("-t") || args[0].equals("--test-latex")) {
 		if (configUtils instanceof AJConfigurationUtils) {
 		    log.info(((AJConfigurationUtils) configUtils)
@@ -114,10 +110,8 @@ public class AJMain {
 		} else {
 		    log.fatal("Cannot test LaTeX with this configuration.");
 		}
-		System.exit(0);
 	    } else {
 		log.fatal("Unrecognised option. Please, run AstroJournal with the option -h [--help] for suggestions.");
-		System.exit(0);
 	    }
 	} catch (Exception ex) {
 	    log.error(ex, ex);
