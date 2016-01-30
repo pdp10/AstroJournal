@@ -35,6 +35,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.generator.Report;
 import org.astrojournal.generator.absgen.LatexExporterByTarget;
+import org.astrojournal.generator.headfoot.LatexFooter;
+import org.astrojournal.generator.headfoot.LatexHeader;
 
 /**
  * Exports an AstroJournal set of observations by target to Latex code. This is
@@ -56,6 +58,42 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
      */
     public MiniLatexExporterByTarget() {
 	super();
+    }
+
+    @Override
+    public boolean generateJournal() {
+	LatexHeader latexHeader = new LatexHeader();
+	LatexFooter latexFooter = new LatexFooter();
+	Writer writer = null;
+	try {
+	    writer = new BufferedWriter(new OutputStreamWriter(
+		    new FileOutputStream(filesLocation + File.separator
+			    + reportFilename), "utf-8"));
+	    writeLatexMain(writer, latexHeader, latexFooter);
+
+	} catch (IOException ex) {
+	    log.warn("Error when opening the file " + filesLocation
+		    + File.separator + reportFolder + File.separator
+		    + reportFilename);
+	    log.debug("Error when opening the file " + filesLocation
+		    + File.separator + reportFolder + File.separator
+		    + reportFilename, ex);
+	    return false;
+	} catch (Exception e) {
+	    log.debug(e);
+	    log.error(e, e);
+	    return false;
+	} finally {
+	    try {
+		if (writer != null)
+		    writer.close();
+	    } catch (Exception e) {
+		log.debug(e);
+		log.error(e, e);
+		return false;
+	    }
+	}
+	return true;
     }
 
     @Override

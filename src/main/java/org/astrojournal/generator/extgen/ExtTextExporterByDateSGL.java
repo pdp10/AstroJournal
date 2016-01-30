@@ -59,30 +59,30 @@ public class ExtTextExporterByDateSGL extends TextExporterByDateSGL {
 	    throws IOException {
 	String[] metaData = report.getMetaData();
 	List<String[]> targets = report.getAllData();
-	writer.write(ExtMetaDataCols.DATE_NAME + " "
+	writer.write(ExtMetaDataCols.DATE_NAME.getColName() + " "
 		+ metaData[ExtMetaDataCols.DATE_NAME.ordinal()] + "\n");
-	writer.write(ExtMetaDataCols.TIME_NAME + " "
+	writer.write(ExtMetaDataCols.TIME_NAME.getColName() + " "
 		+ metaData[ExtMetaDataCols.TIME_NAME.ordinal()] + "\n");
-	writer.write(ExtMetaDataCols.LOCATION_NAME + " "
+	writer.write(ExtMetaDataCols.LOCATION_NAME.getColName() + " "
 		+ metaData[ExtMetaDataCols.LOCATION_NAME.ordinal()] + "\n");
-	writer.write(ExtMetaDataCols.ALTITUDE_NAME + " "
+	writer.write(ExtMetaDataCols.ALTITUDE_NAME.getColName() + " "
 		+ metaData[ExtMetaDataCols.ALTITUDE_NAME.ordinal()] + "\n");
-	writer.write(ExtMetaDataCols.TEMPERATURE_NAME + " "
+	writer.write(ExtMetaDataCols.TEMPERATURE_NAME.getColName() + " "
 		+ metaData[ExtMetaDataCols.TEMPERATURE_NAME.ordinal()] + "\n");
-	writer.write(ExtMetaDataCols.SEEING_NAME + " "
+	writer.write(ExtMetaDataCols.SEEING_NAME.getColName() + " "
 		+ metaData[ExtMetaDataCols.SEEING_NAME.ordinal()] + "\n");
-	writer.write(ExtMetaDataCols.TRANSPARENCY_NAME + " "
+	writer.write(ExtMetaDataCols.TRANSPARENCY_NAME.getColName() + " "
 		+ metaData[ExtMetaDataCols.TRANSPARENCY_NAME.ordinal()] + "\n");
 	// This requires a SQM-L meter.
 	if (!metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()].equals("")) {
-	    writer.write(ExtMetaDataCols.DARKNESS_NAME + " "
+	    writer.write(ExtMetaDataCols.DARKNESS_NAME.getColName() + " "
 		    + metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()] + "\n");
 	}
-	writer.write(ExtMetaDataCols.TELESCOPES_NAME + " "
+	writer.write(ExtMetaDataCols.TELESCOPES_NAME.getColName() + " "
 		+ metaData[ExtMetaDataCols.TELESCOPES_NAME.ordinal()] + "\n");
-	writer.write(ExtMetaDataCols.EYEPIECES_NAME + " "
+	writer.write(ExtMetaDataCols.EYEPIECES_NAME.getColName() + " "
 		+ metaData[ExtMetaDataCols.EYEPIECES_NAME.ordinal()] + "\n");
-	writer.write(ExtMetaDataCols.FILTERS_NAME + " "
+	writer.write(ExtMetaDataCols.FILTERS_NAME.getColName() + " "
 		+ metaData[ExtMetaDataCols.FILTERS_NAME.ordinal()] + "\n\n");
 
 	for (String[] targetEntry : targets) {

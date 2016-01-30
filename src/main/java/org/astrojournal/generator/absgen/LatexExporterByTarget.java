@@ -84,8 +84,10 @@ public abstract class LatexExporterByTarget extends LatexExporter {
 
     @Override
     public boolean generateJournal() {
-	LatexHeader latexHeader = new LatexHeader();
-	LatexFooter latexFooter = new LatexFooter();
+	LatexHeader latexHeader = new LatexHeader(filesLocation,
+		headerFooterFolder, headerFilename);
+	LatexFooter latexFooter = new LatexFooter(filesLocation,
+		headerFooterFolder, footerFilename);
 	Writer writer = null;
 	try {
 	    writer = new BufferedWriter(new OutputStreamWriter(
