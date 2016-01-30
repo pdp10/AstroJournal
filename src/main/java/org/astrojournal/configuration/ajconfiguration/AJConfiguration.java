@@ -159,16 +159,19 @@ public class AJConfiguration implements Configuration {
 	    log.error(resourceBundle
 		    .getString("AJ.errDefaultConfigFailed.text"));
 	}
+	adjustFileSeparatorForLatex();
 
 	Properties userProperties = loadUserConfigurationFileProperties();
 	if (userProperties.isEmpty()) {
 	    saveProperties();
 	    log.info(resourceBundle.getString("AJ.lblUserConfigSaved.text"));
 	} else if (!validate(userProperties)) {
+	    adjustFileSeparatorForLatex();
 	    log.warn(resourceBundle.getString("AJ.errUserConfig.text"));
 	    saveProperties();
 	    log.info(resourceBundle.getString("AJ.lblUserConfigRestored.text"));
 	} else if (applicationProperties.size() > userProperties.size()) {
+	    adjustFileSeparatorForLatex();
 	    saveProperties();
 	    log.info(resourceBundle.getString("AJ.lblUserConfigUpdated.text"));
 	}
@@ -177,6 +180,7 @@ public class AJConfiguration implements Configuration {
 	// done automatically and there is no need to offer the validation
 	// method to the client.
 	loadSystemProperties();
+	adjustFileSeparatorForLatex();
 
 	// Don't save the application properties now, as at this stage system
 	// properties can be passed as input parameters and they are only
@@ -448,42 +452,33 @@ public class AJConfiguration implements Configuration {
      * this is the default file separator in LaTeX. Therefore, let's replace '\'
      * with '/'.
      */
-    private void adjustFileSeparator() {
-	applicationProperties.setProperty(
-		AJPropertyConstants.RAW_REPORTS_FOLDER.getKey(),
-		applicationProperties.getProperty(
-			AJPropertyConstants.RAW_REPORTS_FOLDER.getKey())
-			.replace("\\", "/"));
-	applicationProperties.setProperty(
-		AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER.getKey(),
-		applicationProperties
-			.getProperty(
-				AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER
-					.getKey()).replace("\\", "/"));
-	applicationProperties.setProperty(
-		AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE.getKey(),
-		applicationProperties.getProperty(
-			AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE
-				.getKey()).replace("\\", "/"));
-	applicationProperties.setProperty(
-		AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET.getKey(),
-		applicationProperties.getProperty(
-			AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET
-				.getKey()).replace("\\", "/"));
-	applicationProperties
-		.setProperty(
-			AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-				.getKey(),
-			applicationProperties
-				.getProperty(
-					AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-						.getKey()).replace("\\", "/"));
-	applicationProperties.setProperty(
-		AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE.getKey(),
-		applicationProperties
-			.getProperty(
-				AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE
-					.getKey()).replace("\\", "/"));
-    }
+    private void adjustFileSeparatorForLatex() {
 
+	String[] propertiesToAdjust = new String[] {
+		AJPropertyConstants.RAW_REPORTS_FOLDER.getKey(),
+		AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER.getKey(),
+		AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE.getKey(),
+		AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME.getKey(),
+		AJPropertyConstants.LATEX_HEADER_BY_DATE_FILENAME.getKey(),
+		AJPropertyConstants.LATEX_FOOTER_BY_DATE_FILENAME.getKey(),
+
+		AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET.getKey(),
+		AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME.getKey(),
+		AJPropertyConstants.LATEX_HEADER_BY_TARGET_FILENAME.getKey(),
+		AJPropertyConstants.LATEX_FOOTER_BY_TARGET_FILENAME.getKey(),
+
+		AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+			.getKey(),
+		AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
+			.getKey(),
+		AJPropertyConstants.LATEX_HEADER_BY_CONSTELLATION_FILENAME
+			.getKey(),
+		AJPropertyConstants.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
+			.getKey() };
+
+	for (String key : propertiesToAdjust) {
+	    applicationProperties.setProperty(key, applicationProperties
+		    .getProperty(key).replace("\\", "/"));
+	}
+    }
 }
