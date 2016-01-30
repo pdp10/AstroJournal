@@ -23,9 +23,20 @@
  */
 package org.astrojournal.generator.absgen;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.SystemUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.astrojournal.generator.Report;
+import org.astrojournal.generator.headfoot.LatexFooter;
+import org.astrojournal.generator.headfoot.LatexHeader;
 import org.astrojournal.utilities.RunExternalCommand;
 
 /**
@@ -38,6 +49,9 @@ import org.astrojournal.utilities.RunExternalCommand;
  */
 public abstract class LatexExporter extends Exporter {
 
+    /** The log associated to this class */
+    private static Logger log = LogManager.getLogger(LatexExporter.class);
+
     /** The command to post-process the LaTeX code. */
     protected String command = "pdflatex -halt-on-error";
 
@@ -49,6 +63,115 @@ public abstract class LatexExporter extends Exporter {
      */
     public LatexExporter() {
 	super();
+    }
+
+    /**
+     * Get true if the latex output is printed.
+     * 
+     * @return the latexOutput
+     */
+    public boolean isLatexOutput() {
+	return latexOutput;
+    }
+
+    /**
+     * Set true to print the latex output.
+     * 
+     * @param latexOutput
+     *            the latexOutput to set
+     */
+    public void setLatexOutput(boolean latexOutput) {
+	this.latexOutput = latexOutput;
+    }
+
+    /**
+     * Generate the LaTeX document sorting the observation by decreasing date.
+     */
+    @Override
+    public boolean generateJournal() {
+	LatexHeader latexHeader = new LatexHeader(filesLocation,
+		headerFooterFolder, headerFilename);
+	LatexFooter latexFooter = new LatexFooter(filesLocation,
+		headerFooterFolder, footerFilename);
+	Writer writerByDate = null;
+	try {
+
+	    writerByDate = new BufferedWriter(new OutputStreamWriter(
+		    new FileOutputStream(filesLocation + File.separator
+			    + reportFilename), "utf-8"));
+	    writeLatexMain(writerByDate, latexHeader, latexFooter);
+
+	} catch (IOException ex) {
+	    log.warn("Error when opening the file " + filesLocation
+		    + File.separator + reportFolder + File.separator
+		    + reportFilename);
+	    log.debug("Error when opening the file " + filesLocation
+		    + File.separator + reportFolder + File.separator
+		    + reportFilename, ex);
+	    return false;
+	} catch (Exception e) {
+	    log.debug(e);
+	    log.error(e, e);
+	    return false;
+	} finally {
+	    try {
+		if (writerByDate != null)
+		    writerByDate.close();
+	    } catch (Exception e) {
+		log.debug(e);
+		log.error(e, e);
+		return false;
+	    }
+	}
+	return true;
+    }
+
+    /**
+     * This method contains the LaTeX code for the main file.
+     * 
+     * @param writer
+     * @param latexHeader
+     * @param latexFooter
+     * @throws Exception
+     */
+    public abstract void writeLatexMain(Writer writer, LatexHeader latexHeader,
+	    LatexFooter latexFooter) throws Exception;
+
+    /**
+     * This method contains the LaTeX code for the document content.
+     * 
+     * @param writer
+     * @param report
+     * @throws IOException
+     */
+    public abstract void writeLatexContent(Writer writer, Report report)
+	    throws IOException;
+
+    @Override
+    public void postProcessing() throws IOException {
+	// The pdflatex command must be called two times in order to
+	// generate the list of contents correctly.
+	String commandOutput;
+	RunExternalCommand extCommand = new RunExternalCommand(filesLocation,
+		resourceBundle);
+	commandOutput = extCommand.runCommand(command + " " + reportFilename);
+	if (!quiet && latexOutput && resourceBundle != null) {
+	    log.info(commandOutput + "\n");
+	}
+
+	// A second execution is required for building the document index.
+	commandOutput = extCommand.runCommand(command + " " + reportFilename);
+	// if (!quiet && latexOutput && resourceBundle != null) {
+	// log.info(commandOutput + "\n");
+	// }
+
+	// Add this at the end to avoid mixing with the latex command
+	// output.
+	if (resourceBundle != null) {
+	    log.info("\t" + filesLocation + File.separator
+		    + FilenameUtils.removeExtension(reportFilename) + ".pdf");
+	}
+	cleanPDFLatexOutput();
     }
 
     /**
@@ -72,24 +195,5 @@ public abstract class LatexExporter extends Exporter {
 				    + " && cd -" });
 	}
 
-    }
-
-    /**
-     * Get true if the latex output is printed.
-     * 
-     * @return the latexOutput
-     */
-    public boolean isLatexOutput() {
-	return latexOutput;
-    }
-
-    /**
-     * Set true to print the latex output.
-     * 
-     * @param latexOutput
-     *            the latexOutput to set
-     */
-    public void setLatexOutput(boolean latexOutput) {
-	this.latexOutput = latexOutput;
     }
 }
