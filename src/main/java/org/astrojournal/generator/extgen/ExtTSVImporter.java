@@ -24,18 +24,13 @@
 package org.astrojournal.generator.extgen;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.generator.Report;
-import org.astrojournal.generator.absgen.Importer;
-import org.astrojournal.utilities.filefilters.TSVRawReportFilter;
+import org.astrojournal.generator.absgen.TSVImporter;
 
 /**
  * The parser for AstroJournal. It imports tab separated value (tsv or csv)
@@ -45,86 +40,16 @@ import org.astrojournal.utilities.filefilters.TSVRawReportFilter;
  * @version 0.4
  * @since 28/05/2015
  */
-public class ExtTSVImporter extends Importer {
+public class ExtTSVImporter extends TSVImporter {
 
     /** The log associated to this class */
     private static Logger log = LogManager.getLogger(ExtTSVImporter.class);
-
-    /** The values contained in an imported string. */
-    private String[] values = null;
-
-    /** The meta data for the current report. */
-    private String[] metaEntry = null;
 
     /**
      * Default constructor
      */
     public ExtTSVImporter() {
 	super();
-    }
-
-    /**
-     * Imports the report data stored in a file.
-     * 
-     * @param file
-     *            The file to parse (either CSV or TSV file, separated by TAB
-     *            delimiter).
-     * @return a list of Report objects
-     */
-    @Override
-    public List<Report> importReports(File file) {
-	List<Report> reports = new ArrayList<Report>();
-	if (file.isFile() && new TSVRawReportFilter().accept(file)) {
-
-	    // whether this is tsv or csv it does not matter as long as fields
-	    // are separated by a TAB character
-	    String delimiter = "\t";
-
-	    // Get the current file name.
-	    String rawFilename = file.getName();
-	    if (resourceBundle != null) {
-		log.info("\t" + rawFilename);
-	    }
-	    // Create a buffered reader to read the file
-	    BufferedReader reader = null;
-	    try {
-		reader = new BufferedReader(new FileReader(file));
-		String line;
-		// Read all lines
-		boolean foundWrongDate = false;
-		while ((line = reader.readLine()) != null) {
-		    line = line.trim();
-		    // log.debug(line);
-		    if (line.equals("") || line.startsWith("#")) {
-			// comments or empty line. Skip
-
-		    } else if (line.indexOf(ExtMetaDataCols.DATE_NAME
-			    .getColName()) > -1) {
-			Report report = new Report();
-			importReport(reader, report, line, delimiter);
-			// Add the new report to the list of reports
-			reports.add(report);
-			foundWrongDate = false;
-		    } else {
-			if (!foundWrongDate) {
-			    foundWrongDate = true;
-			    log.warn("Expected 'Date' but found unknown property ["
-				    + line + "]. Report discarded.");
-			}
-		    }
-		}
-	    } catch (IOException ex) {
-		log.error(ex, ex);
-	    } finally {
-		try {
-		    if (reader != null)
-			reader.close();
-		} catch (IOException ex) {
-		    log.error(ex, ex);
-		}
-	    }
-	}
-	return reports;
     }
 
     /**
@@ -269,21 +194,4 @@ public class ExtTSVImporter extends Importer {
 	}
 	return false;
     }
-
-    /**
-     * Removes single or double quotes at the beginning and at the end of each
-     * field if these are present. This can be the case for .csv files.
-     */
-    private void cleanFields() {
-	for (int i = 0; i < values.length; i++) {
-	    if (values[i].startsWith("\"") || values[i].startsWith("\'")) {
-		values[i] = values[i].substring(1);
-	    }
-	    if (values[i].endsWith("\"") || values[i].endsWith("\'")) {
-		values[i] = values[i].substring(0, values[i].length() - 1);
-	    }
-	    values[i] = values[i].trim();
-	}
-    }
-
 }
