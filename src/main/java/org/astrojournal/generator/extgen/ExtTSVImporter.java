@@ -31,6 +31,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.generator.Report;
 import org.astrojournal.generator.absgen.TSVImporter;
+import org.astrojournal.generator.basicgen.BasicMetaDataCols;
 
 /**
  * The parser for AstroJournal. It imports tab separated value (tsv or csv)
@@ -178,9 +179,8 @@ public class ExtTSVImporter extends TSVImporter {
 		}
 	    } else {
 		log.warn("Report:"
-			+ metaEntry[ExtMetaDataCols.DATE_NAME.ordinal()]
-			+ ". Malformed property [" + line
-			+ "]. Property discarded.");
+			+ metaEntry[BasicMetaDataCols.DATE_NAME.ordinal()]
+			+ ". Discarding line [" + line + "].");
 	    }
 	}
     }
