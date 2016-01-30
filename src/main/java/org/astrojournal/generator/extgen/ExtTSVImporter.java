@@ -114,7 +114,7 @@ public class ExtTSVImporter extends TSVImporter {
 		    log.warn("Report:"
 			    + metaEntry[ExtMetaDataCols.DATE_NAME.ordinal()]
 			    + ". Unknown property [" + values[0] + ":"
-			    + values[1] + "]. Property discarded.");
+			    + values[1] + "].");
 		}
 
 	    } else if (values.length >= 5) {

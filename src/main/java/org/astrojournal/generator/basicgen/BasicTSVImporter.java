@@ -107,7 +107,7 @@ public class BasicTSVImporter extends TSVImporter {
 		    log.warn("Report:"
 			    + metaEntry[BasicMetaDataCols.DATE_NAME.ordinal()]
 			    + ". Unknown property [" + values[0] + ":"
-			    + values[1] + "]. Property discarded.");
+			    + values[1] + "].");
 		}
 
 	    } else if (values.length >= 4) {
