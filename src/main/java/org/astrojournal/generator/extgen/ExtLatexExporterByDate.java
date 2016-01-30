@@ -55,7 +55,8 @@ import org.astrojournal.utilities.filefilters.LaTeXFilter;
 public class ExtLatexExporterByDate extends LatexExporter {
 
     /** The log associated to this class */
-    private static Logger log = LogManager.getLogger(ExtLatexExporterByDate.class);
+    private static Logger log = LogManager
+	    .getLogger(ExtLatexExporterByDate.class);
 
     /**
      * Default constructor.
@@ -113,9 +114,12 @@ public class ExtLatexExporterByDate extends LatexExporter {
 
 	} catch (IOException ex) {
 	    log.warn("Error when opening the file " + filesLocation
+		    + File.separator + reportFilename);
+	    log.debug("Error when opening the file " + filesLocation
 		    + File.separator + reportFilename, ex);
 	    return false;
 	} catch (Exception ex) {
+	    log.debug(ex);
 	    log.error(ex, ex);
 	    return false;
 	} finally {
@@ -123,6 +127,7 @@ public class ExtLatexExporterByDate extends LatexExporter {
 		if (writerByDate != null)
 		    writerByDate.close();
 	    } catch (Exception ex) {
+		log.debug(ex);
 		log.error(ex, ex);
 		return false;
 	    }
@@ -167,50 +172,58 @@ public class ExtLatexExporterByDate extends LatexExporter {
 		table.write("% General observation data\n");
 		table.write("\\begin{tabular}{ p{0.7in} p{1.2in} p{1.1in} p{5.7in}}\n");
 		table.write("{\\bf " + ExtMetaDataCols.DATE_NAME.getColName()
-			+ ":} & " + metaData[ExtMetaDataCols.DATE_NAME.ordinal()]
+			+ ":} & "
+			+ metaData[ExtMetaDataCols.DATE_NAME.ordinal()]
 			+ " & {\\bf "
-			+ ExtMetaDataCols.TEMPERATURE_NAME.getColName() + ":} & "
+			+ ExtMetaDataCols.TEMPERATURE_NAME.getColName()
+			+ ":} & "
 			+ metaData[ExtMetaDataCols.TEMPERATURE_NAME.ordinal()]
 			+ " \\\\ \n");
 		table.write("{\\bf " + ExtMetaDataCols.TIME_NAME.getColName()
-			+ ":} & " + metaData[ExtMetaDataCols.TIME_NAME.ordinal()]
-			+ " & {\\bf " + ExtMetaDataCols.SEEING_NAME.getColName()
 			+ ":} & "
+			+ metaData[ExtMetaDataCols.TIME_NAME.ordinal()]
+			+ " & {\\bf "
+			+ ExtMetaDataCols.SEEING_NAME.getColName() + ":} & "
 			+ metaData[ExtMetaDataCols.SEEING_NAME.ordinal()]
 			+ " \\\\ \n");
-		table.write("{\\bf " + ExtMetaDataCols.LOCATION_NAME.getColName()
-			+ ":} & "
+		table.write("{\\bf "
+			+ ExtMetaDataCols.LOCATION_NAME.getColName() + ":} & "
 			+ metaData[ExtMetaDataCols.LOCATION_NAME.ordinal()]
 			+ " & {\\bf "
-			+ ExtMetaDataCols.TRANSPARENCY_NAME.getColName() + ":} & "
+			+ ExtMetaDataCols.TRANSPARENCY_NAME.getColName()
+			+ ":} & "
 			+ metaData[ExtMetaDataCols.TRANSPARENCY_NAME.ordinal()]
 			+ " \\\\ \n");
 
 		// Darkness requires a SQM-L sky quality meter reading. Not
 		// everyone has it
 		// or use it. At this stage, let's leave it as optional.
-		if (!metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()].equals("")) {
+		if (!metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()]
+			.equals("")) {
 		    table.write("{\\bf "
-			    + ExtMetaDataCols.ALTITUDE_NAME.getColName() + ":} & "
+			    + ExtMetaDataCols.ALTITUDE_NAME.getColName()
+			    + ":} & "
 			    + metaData[ExtMetaDataCols.ALTITUDE_NAME.ordinal()]
 			    + " & {\\bf "
-			    + ExtMetaDataCols.DARKNESS_NAME.getColName() + ":} & "
+			    + ExtMetaDataCols.DARKNESS_NAME.getColName()
+			    + ":} & "
 			    + metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()]
 			    + " \\\\ \n");
 		    table.write("& & {\\bf "
 			    + ExtMetaDataCols.TELESCOPES_NAME.getColName()
 			    + ":} & "
-			    + metaData[ExtMetaDataCols.TELESCOPES_NAME.ordinal()]
-			    + " \\\\ \n");
+			    + metaData[ExtMetaDataCols.TELESCOPES_NAME
+				    .ordinal()] + " \\\\ \n");
 		} else {
 		    table.write("{\\bf "
-			    + ExtMetaDataCols.ALTITUDE_NAME.getColName() + ":} & "
+			    + ExtMetaDataCols.ALTITUDE_NAME.getColName()
+			    + ":} & "
 			    + metaData[ExtMetaDataCols.ALTITUDE_NAME.ordinal()]
 			    + " & {\\bf "
 			    + ExtMetaDataCols.TELESCOPES_NAME.getColName()
 			    + ":} & "
-			    + metaData[ExtMetaDataCols.TELESCOPES_NAME.ordinal()]
-			    + " \\\\ \n");
+			    + metaData[ExtMetaDataCols.TELESCOPES_NAME
+				    .ordinal()] + " \\\\ \n");
 		}
 
 		table.write("& & {\\bf "
@@ -245,8 +258,9 @@ public class ExtLatexExporterByDate extends LatexExporter {
 
 		    table.write(targetEntry[ExtDataCols.TARGET_NAME.ordinal()]
 			    + " & "
-			    + targetEntry[ExtDataCols.CONSTELLATION_NAME.ordinal()]
-			    + " & " + targetEntry[ExtDataCols.TYPE_NAME.ordinal()]
+			    + targetEntry[ExtDataCols.CONSTELLATION_NAME
+				    .ordinal()] + " & "
+			    + targetEntry[ExtDataCols.TYPE_NAME.ordinal()]
 			    + " & "
 			    + targetEntry[ExtDataCols.POWER_NAME.ordinal()]
 			    + " & "
@@ -261,9 +275,12 @@ public class ExtLatexExporterByDate extends LatexExporter {
 		}
 	    } catch (IOException ex) {
 		log.error("Error when opening the file " + filesLocation
+			+ File.separator + filenameOut);
+		log.debug("Error when opening the file " + filesLocation
 			+ File.separator + filenameOut, ex);
 		result = false;
 	    } catch (Exception ex) {
+		log.debug(ex);
 		log.error(ex, ex);
 		result = false;
 	    } finally {
@@ -271,6 +288,7 @@ public class ExtLatexExporterByDate extends LatexExporter {
 		    if (table != null)
 			table.close();
 		} catch (Exception ex) {
+		    log.debug(ex);
 		    log.error(ex, ex);
 		    return false;
 		}

@@ -29,6 +29,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.astrojournal.generator.absgen.Importer;
 
 /**
  * This class retrieves the name list of available classes which are instances
@@ -155,25 +156,26 @@ public class ClassesInstanceOf {
      * @param args
      */
     public static void main(String[] args) {
-	ArrayList<String> exporterNames = getClassNamesInstanceOf(
-		"org.astrojournal", Object.class);
-	for (int i = 0; i < exporterNames.size(); i++) {
-	    System.out.println(exporterNames.get(i));
-	    log.info(exporterNames.get(i));
+
+	ArrayList<String> classNames = getClassNamesInstanceOf(
+		"org.astrojournal.generator", Importer.class);
+	for (int i = 0; i < classNames.size(); i++) {
+	    System.out.println(classNames.get(i));
+	    log.info(classNames.get(i));
 	}
 
-	ArrayList<String> exporterFullNames = getClassFullNamesInstanceOf(
-		"org.astrojournal", Object.class);
-	for (int i = 0; i < exporterFullNames.size(); i++) {
-	    System.out.println(exporterFullNames.get(i));
-	    log.info(exporterFullNames.get(i));
+	ArrayList<String> classFullNames = getClassFullNamesInstanceOf(
+		"org.astrojournal.generator", Importer.class);
+	for (int i = 0; i < classFullNames.size(); i++) {
+	    System.out.println(classFullNames.get(i));
+	    log.info(classFullNames.get(i));
 	}
 
-	ArrayList<String> exporterPackageNames = getClassPackageInstanceOf(
-		"org.astrojournal", Object.class);
-	for (int i = 0; i < exporterPackageNames.size(); i++) {
-	    System.out.println(exporterPackageNames.get(i));
-	    log.info(exporterPackageNames.get(i));
+	ArrayList<String> packageNames = getClassPackageInstanceOf(
+		"org.astrojournal.generator", Importer.class);
+	for (int i = 0; i < packageNames.size(); i++) {
+	    System.out.println(packageNames.get(i));
+	    log.info(packageNames.get(i));
 	}
 
     }

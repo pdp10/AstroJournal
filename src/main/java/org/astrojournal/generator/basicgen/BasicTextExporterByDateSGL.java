@@ -98,7 +98,8 @@ public class BasicTextExporterByDateSGL extends Exporter {
 			scanner.close();
 			writerByDate.write(text);
 		    } catch (NoSuchElementException e) {
-			log.warn(e, e);
+			log.error(e);
+			log.debug(e, e);
 		    }
 		    writerByDate.write("\n\n\n\n");
 		}
@@ -108,17 +109,21 @@ public class BasicTextExporterByDateSGL extends Exporter {
 
 	} catch (IOException ex) {
 	    log.warn("Error when opening the file " + filesLocation
+		    + File.separator + reportFilename);
+	    log.debug("Error when opening the file " + filesLocation
 		    + File.separator + reportFilename, ex);
 	    return false;
 	} catch (Exception ex) {
-	    log.error(ex, ex);
+	    log.error(ex);
+	    log.debug(ex, ex);
 	    return false;
 	} finally {
 	    try {
 		if (writerByDate != null)
 		    writerByDate.close();
 	    } catch (Exception ex) {
-		log.error(ex, ex);
+		log.error(ex);
+		log.debug(ex, ex);
 		return false;
 	    }
 	}
@@ -149,7 +154,8 @@ public class BasicTextExporterByDateSGL extends Exporter {
 	    // more than one observation per day is done.
 	    if (metaData[BasicMetaDataCols.DATE_NAME.ordinal()].length() == 11) {
 		filenameOut = filenameOut
-			+ metaData[BasicMetaDataCols.DATE_NAME.ordinal()].charAt(10);
+			+ metaData[BasicMetaDataCols.DATE_NAME.ordinal()]
+				.charAt(10);
 	    }
 
 	    List<String[]> targets = report.getAllData();
@@ -159,14 +165,18 @@ public class BasicTextExporterByDateSGL extends Exporter {
 				+ File.separator + reportFolder, "obs"
 				+ filenameOut + ".txt")), "utf-8"));
 
-		text.write(BasicMetaDataCols.DATE_NAME + " "
-			+ metaData[BasicMetaDataCols.DATE_NAME.ordinal()] + "\n");
-		text.write(BasicMetaDataCols.SEEING_NAME + " "
-			+ metaData[BasicMetaDataCols.SEEING_NAME.ordinal()] + "\n");
-		text.write(BasicMetaDataCols.TRANSPARENCY_NAME + " "
-			+ metaData[BasicMetaDataCols.TRANSPARENCY_NAME.ordinal()]
+		text.write(BasicMetaDataCols.DATE_NAME.getColName() + ": "
+			+ metaData[BasicMetaDataCols.DATE_NAME.ordinal()]
 			+ "\n");
-		text.write(BasicMetaDataCols.TELESCOPES_NAME + " "
+		text.write(BasicMetaDataCols.SEEING_NAME.getColName() + ": "
+			+ metaData[BasicMetaDataCols.SEEING_NAME.ordinal()]
+			+ "\n");
+		text.write(BasicMetaDataCols.TRANSPARENCY_NAME.getColName()
+			+ ": "
+			+ metaData[BasicMetaDataCols.TRANSPARENCY_NAME
+				.ordinal()] + "\n");
+		text.write(BasicMetaDataCols.TELESCOPES_NAME.getColName()
+			+ ": "
 			+ metaData[BasicMetaDataCols.TELESCOPES_NAME.ordinal()]
 			+ "\n\n");
 		for (String[] targetEntry : targets) {
@@ -174,31 +184,35 @@ public class BasicTextExporterByDateSGL extends Exporter {
 			    + targetEntry[BasicDataCols.TARGET_NAME.ordinal()]);
 		    text.write(targetEntry[BasicDataCols.TARGET_NAME.ordinal()]
 			    + " "
+			    + targetEntry[BasicDataCols.CONSTELLATION_NAME
+				    .ordinal()] + " "
 			    + targetEntry[BasicDataCols.TYPE_NAME.ordinal()]
 			    + " "
 			    + targetEntry[BasicDataCols.POWER_NAME.ordinal()]
-			    + "\n"
-			    + targetEntry[BasicDataCols.NOTES_NAME.ordinal()]
-			    + "\n\n");
+			    + "\n");
 		}
 		if (resourceBundle != null) {
 		    log.info("\tExported report "
-			    + metaData[BasicMetaDataCols.DATE_NAME.ordinal()] + " ("
-			    + targets.size() + " targets)");
+			    + metaData[BasicMetaDataCols.DATE_NAME.ordinal()]
+			    + " (" + targets.size() + " targets)");
 		}
 	    } catch (IOException ex) {
+		log.debug("Error when opening the file " + filesLocation
+			+ File.separator + filenameOut);
 		log.error("Error when opening the file " + filesLocation
 			+ File.separator + filenameOut, ex);
 		result = false;
 	    } catch (Exception ex) {
-		log.error(ex, ex);
+		log.error(ex);
+		log.debug(ex, ex);
 		result = false;
 	    } finally {
 		try {
 		    if (text != null)
 			text.close();
 		} catch (Exception ex) {
-		    log.error(ex, ex);
+		    log.error(ex);
+		    log.debug(ex, ex);
 		    result = false;
 		}
 	    }

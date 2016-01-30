@@ -55,7 +55,8 @@ import org.astrojournal.utilities.filefilters.LaTeXFilter;
 public class MiniLatexExporterByDate extends LatexExporter {
 
     /** The log associated to this class */
-    private static Logger log = LogManager.getLogger(MiniLatexExporterByDate.class);
+    private static Logger log = LogManager
+	    .getLogger(MiniLatexExporterByDate.class);
 
     /**
      * Default constructor.
@@ -104,18 +105,21 @@ public class MiniLatexExporterByDate extends LatexExporter {
 		    writerByDate.write("\\input{" + reportFolder + "/"
 			    + file.getName().replaceFirst("[.][^.]+$", "")
 			    + "}\n");
-		    writerByDate.write("\\clearpage \n");
 		}
 	    }
 
+	    writerByDate.write("\\clearpage \n");
 	    // write the Latex Footer
 	    writerByDate.write(ajLatexFooterByDate.getFooter());
 
 	} catch (IOException ex) {
 	    log.warn("Error when opening the file " + filesLocation
+		    + File.separator + reportFilename);
+	    log.debug("Error when opening the file " + filesLocation
 		    + File.separator + reportFilename, ex);
 	    return false;
 	} catch (Exception ex) {
+	    log.debug(ex);
 	    log.error(ex, ex);
 	    return false;
 	} finally {
@@ -123,6 +127,7 @@ public class MiniLatexExporterByDate extends LatexExporter {
 		if (writerByDate != null)
 		    writerByDate.close();
 	    } catch (Exception ex) {
+		log.debug(ex);
 		log.error(ex, ex);
 		return false;
 	    }
@@ -165,11 +170,10 @@ public class MiniLatexExporterByDate extends LatexExporter {
 				+ filenameOut + ".tex")), "utf-8"));
 
 		table.write("% General observation data\n");
-		table.write("\\begin{tabular}{ p{0.7in} }\n");
-		table.write("{\\bf " + MiniMetaDataCols.DATE_NAME.getColName()
-			+ ":} & " + metaData[MiniMetaDataCols.DATE_NAME.ordinal()]
-			+ " \\\\ \n");
-		table.write("\\end{tabular}\n");
+		table.write("\\par");
+		table.write("{\\bf "
+			+ metaData[MiniMetaDataCols.DATE_NAME.ordinal()]
+			+ " :} ");
 
 		table.write("% Detailed observation data\n");
 		String[] targetEntry;
@@ -178,8 +182,13 @@ public class MiniLatexExporterByDate extends LatexExporter {
 		    log.debug("Target "
 			    + targetEntry[MiniDataCols.TARGET_NAME.ordinal()]);
 
-		    table.write(targetEntry[MiniDataCols.TARGET_NAME.ordinal()]
-			    + ", ");
+		    table.write(targetEntry[MiniDataCols.TARGET_NAME.ordinal()]);
+
+		    if (j < report.getDataRowNumber() - 1) {
+			table.write(", ");
+		    } else {
+			table.write(".\n");
+		    }
 		}
 		table.write("\n");
 		if (resourceBundle != null) {
@@ -188,9 +197,12 @@ public class MiniLatexExporterByDate extends LatexExporter {
 		}
 	    } catch (IOException ex) {
 		log.error("Error when opening the file " + filesLocation
+			+ File.separator + filenameOut);
+		log.debug("Error when opening the file " + filesLocation
 			+ File.separator + filenameOut, ex);
 		result = false;
 	    } catch (Exception ex) {
+		log.debug(ex);
 		log.error(ex, ex);
 		result = false;
 	    } finally {
@@ -198,6 +210,7 @@ public class MiniLatexExporterByDate extends LatexExporter {
 		    if (table != null)
 			table.close();
 		} catch (Exception ex) {
+		    log.debug(ex);
 		    log.error(ex, ex);
 		    return false;
 		}

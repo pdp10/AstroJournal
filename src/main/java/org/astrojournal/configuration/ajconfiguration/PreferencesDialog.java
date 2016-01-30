@@ -31,11 +31,13 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -46,8 +48,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ConfigurationUtils;
+import org.astrojournal.generator.absgen.Importer;
 import org.astrojournal.gui.AJGUIActions;
 import org.astrojournal.gui.AJMainGUI;
+import org.astrojournal.utilities.ClassesInstanceOf;
 
 /**
  * A Dialog to allow the viewing and editing of all AstroJournal preferences.
@@ -75,6 +79,9 @@ public class PreferencesDialog extends JDialog implements ActionListener {
      * The AstroJournal files location (the path).
      */
     private JTextField ajFilesLocation = new JTextField();
+
+    /** The generator to be used. */
+    private JComboBox<String> generator = new JComboBox<String>();
 
     /**
      * The relative path containing the raw files (observation input folder).
@@ -193,12 +200,37 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	panel.setLayout(new GridBagLayout());
 	GridBagConstraints constraints = new GridBagConstraints();
 
-	// Start text fields
+	// start combo box
 	constraints.gridx = 0;
 	constraints.gridy = 0;
 	constraints.weightx = 0.1;
 	constraints.weighty = 0.5;
 	constraints.fill = GridBagConstraints.HORIZONTAL;
+	JLabel lbl = new JLabel(
+		resourceBundle.getString("AJ.cbxGenerator.text"));
+	lbl.setToolTipText(resourceBundle
+		.getString("AJ.cbxGenerator.toolTipText"));
+	panel.add(lbl, constraints);
+	constraints.gridx = 1;
+	constraints.weightx = 0.5;
+	ArrayList<String> packageNames = ClassesInstanceOf
+		.getClassPackageInstanceOf("org.astrojournal.generator",
+			Importer.class);
+	for (String item : packageNames) {
+	    String[] packageHierachy = item.split("\\.");
+	    generator.addItem(packageHierachy[packageHierachy.length - 1]);
+	}
+	generator.setSelectedItem(config
+		.getProperty(AJPropertyConstants.GENERATOR_NAME.getKey()));
+	panel.add(generator, constraints);
+	constraints.gridx = 2;
+	constraints.weightx = 0.1;
+	// end combo box
+
+	// Start text fields
+	constraints.gridx = 0;
+	constraints.gridy++;
+	constraints.weightx = 0.1;
 	JLabel ajFilesLocationLBL = new JLabel(
 		resourceBundle.getString("AJ.lblAJFilesLocation.text"));
 	ajFilesLocationLBL.setToolTipText(resourceBundle
@@ -218,6 +250,7 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 		.name());
 	btnBrowerFilesLocation.addActionListener(this);
 	panel.add(btnBrowerFilesLocation, constraints);
+	// end files location
 
 	// start text fields
 	makeTextFields(panel, constraints);
@@ -289,6 +322,8 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	    // text fields
 	    System.setProperty(AJPropertyConstants.FILES_LOCATION.getKey(),
 		    ajFilesLocationFile.getAbsolutePath());
+	    System.setProperty(AJPropertyConstants.GENERATOR_NAME.getKey(),
+		    (String) generator.getSelectedItem());
 	    System.setProperty(AJPropertyConstants.RAW_REPORTS_FOLDER.getKey(),
 		    rawReportsFolder.getText());
 	    System.setProperty(

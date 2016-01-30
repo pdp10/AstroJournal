@@ -98,7 +98,8 @@ public class ExtTextExporterByDateSGL extends Exporter {
 			scanner.close();
 			writerByDate.write(text);
 		    } catch (NoSuchElementException e) {
-			log.warn(e, e);
+			log.warn(e);
+			log.debug(e, e);
 		    }
 		    writerByDate.write("\n\n\n\n");
 		}
@@ -108,9 +109,12 @@ public class ExtTextExporterByDateSGL extends Exporter {
 
 	} catch (IOException ex) {
 	    log.warn("Error when opening the file " + filesLocation
+		    + File.separator + reportFilename);
+	    log.debug("Error when opening the file " + filesLocation
 		    + File.separator + reportFilename, ex);
 	    return false;
 	} catch (Exception ex) {
+	    log.debug(ex);
 	    log.error(ex, ex);
 	    return false;
 	} finally {
@@ -118,6 +122,7 @@ public class ExtTextExporterByDateSGL extends Exporter {
 		if (writerByDate != null)
 		    writerByDate.close();
 	    } catch (Exception ex) {
+		log.debug(ex);
 		log.error(ex, ex);
 		return false;
 	    }
@@ -149,7 +154,8 @@ public class ExtTextExporterByDateSGL extends Exporter {
 	    // more than one observation per day is done.
 	    if (metaData[ExtMetaDataCols.DATE_NAME.ordinal()].length() == 11) {
 		filenameOut = filenameOut
-			+ metaData[ExtMetaDataCols.DATE_NAME.ordinal()].charAt(10);
+			+ metaData[ExtMetaDataCols.DATE_NAME.ordinal()]
+				.charAt(10);
 	    }
 
 	    List<String[]> targets = report.getAllData();
@@ -164,19 +170,23 @@ public class ExtTextExporterByDateSGL extends Exporter {
 		text.write(ExtMetaDataCols.TIME_NAME + " "
 			+ metaData[ExtMetaDataCols.TIME_NAME.ordinal()] + "\n");
 		text.write(ExtMetaDataCols.LOCATION_NAME + " "
-			+ metaData[ExtMetaDataCols.LOCATION_NAME.ordinal()] + "\n");
+			+ metaData[ExtMetaDataCols.LOCATION_NAME.ordinal()]
+			+ "\n");
 		text.write(ExtMetaDataCols.ALTITUDE_NAME + " "
-			+ metaData[ExtMetaDataCols.ALTITUDE_NAME.ordinal()] + "\n");
+			+ metaData[ExtMetaDataCols.ALTITUDE_NAME.ordinal()]
+			+ "\n");
 		text.write(ExtMetaDataCols.TEMPERATURE_NAME + " "
 			+ metaData[ExtMetaDataCols.TEMPERATURE_NAME.ordinal()]
 			+ "\n");
 		text.write(ExtMetaDataCols.SEEING_NAME + " "
-			+ metaData[ExtMetaDataCols.SEEING_NAME.ordinal()] + "\n");
+			+ metaData[ExtMetaDataCols.SEEING_NAME.ordinal()]
+			+ "\n");
 		text.write(ExtMetaDataCols.TRANSPARENCY_NAME + " "
 			+ metaData[ExtMetaDataCols.TRANSPARENCY_NAME.ordinal()]
 			+ "\n");
 		// This requires a SQM-L meter.
-		if (!metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()].equals("")) {
+		if (!metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()]
+			.equals("")) {
 		    text.write(ExtMetaDataCols.DARKNESS_NAME + " "
 			    + metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()]
 			    + "\n");
@@ -196,22 +206,28 @@ public class ExtTextExporterByDateSGL extends Exporter {
 			    + targetEntry[ExtDataCols.TARGET_NAME.ordinal()]);
 		    text.write(targetEntry[ExtDataCols.TARGET_NAME.ordinal()]
 			    + " "
-			    + targetEntry[ExtDataCols.CONSTELLATION_NAME.ordinal()]
-			    + " " + targetEntry[ExtDataCols.TYPE_NAME.ordinal()]
-			    + " " + targetEntry[ExtDataCols.POWER_NAME.ordinal()]
-			    + "\n" + targetEntry[ExtDataCols.NOTES_NAME.ordinal()]
+			    + targetEntry[ExtDataCols.CONSTELLATION_NAME
+				    .ordinal()] + " "
+			    + targetEntry[ExtDataCols.TYPE_NAME.ordinal()]
+			    + " "
+			    + targetEntry[ExtDataCols.POWER_NAME.ordinal()]
+			    + "\n"
+			    + targetEntry[ExtDataCols.NOTES_NAME.ordinal()]
 			    + "\n\n");
 		}
 		if (resourceBundle != null) {
 		    log.info("\tExported report "
-			    + metaData[ExtMetaDataCols.DATE_NAME.ordinal()] + " ("
-			    + targets.size() + " targets)");
+			    + metaData[ExtMetaDataCols.DATE_NAME.ordinal()]
+			    + " (" + targets.size() + " targets)");
 		}
 	    } catch (IOException ex) {
 		log.error("Error when opening the file " + filesLocation
+			+ File.separator + filenameOut);
+		log.debug("Error when opening the file " + filesLocation
 			+ File.separator + filenameOut, ex);
 		result = false;
 	    } catch (Exception ex) {
+		log.debug(ex);
 		log.error(ex, ex);
 		result = false;
 	    } finally {
@@ -219,6 +235,7 @@ public class ExtTextExporterByDateSGL extends Exporter {
 		    if (text != null)
 			text.close();
 		} catch (Exception ex) {
+		    log.debug(ex);
 		    log.error(ex, ex);
 		    result = false;
 		}

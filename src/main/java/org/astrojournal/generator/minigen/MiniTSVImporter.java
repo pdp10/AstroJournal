@@ -193,6 +193,7 @@ public class MiniTSVImporter extends Importer {
 			Arrays.fill(targetEntry, "");
 			targetEntry[MiniDataCols.TARGET_NAME.ordinal()] = values[0];
 			log.debug(MiniDataCols.TARGET_NAME + "=" + values[0]);
+			report.addData(targetEntry);
 		    }
 		} else {
 		    log.warn("Report:"

@@ -37,10 +37,6 @@ import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.generator.absgen.Exporter;
 import org.astrojournal.generator.absgen.Importer;
 import org.astrojournal.generator.absgen.LatexExporter;
-import org.astrojournal.generator.extgen.ExtLatexExporterByConst;
-import org.astrojournal.generator.extgen.ExtLatexExporterByDate;
-import org.astrojournal.generator.extgen.ExtLatexExporterByTarget;
-import org.astrojournal.generator.extgen.ExtTextExporterByDateSGL;
 import org.astrojournal.utilities.ClassesInstanceOf;
 
 /**
@@ -171,12 +167,12 @@ public class Generator {
      */
     public boolean ajImport() {
 	boolean status = true;
-	// List<String> importerNames = ClassesInstanceOf
-	// .getClassFullNamesInstanceOf(this.getClass().getPackage()
-	// .getName(), Importer.class);
 	List<String> importerNames = ClassesInstanceOf
-		.getClassFullNamesInstanceOf(this.getClass().getPackage()
-			.getName(), Importer.class);
+		.getClassFullNamesInstanceOf(
+			this.getClass().getPackage().getName()
+				+ "."
+				+ config.getProperty(AJPropertyConstants.GENERATOR_NAME
+					.getKey()), Importer.class);
 	Collections.sort(importerNames);
 	for (String importerName : importerNames) {
 	    try {
@@ -243,9 +239,11 @@ public class Generator {
     public boolean ajExport() {
 	boolean status = true;
 	List<String> exporterNames = ClassesInstanceOf
-		.getClassFullNamesInstanceOf(this.getClass().getPackage()
-			.getName()
-			+ ".extgen", Exporter.class);
+		.getClassFullNamesInstanceOf(
+			this.getClass().getPackage().getName()
+				+ "."
+				+ config.getProperty(AJPropertyConstants.GENERATOR_NAME
+					.getKey()), Exporter.class);
 	Collections.sort(exporterNames);
 	for (String exporterName : exporterNames) {
 	    try {
@@ -291,89 +289,67 @@ public class Generator {
 	    exporter.setQuiet(Boolean.parseBoolean(config
 		    .getProperty(AJPropertyConstants.QUIET.getKey())));
 	    exporter.setResourceBundle(config.getResourceBundle());
+	    exporter.setHeaderFooterFolder(config
+		    .getProperty(AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER
+			    .getKey()));
 	    if (exporter instanceof LatexExporter) {
 		((LatexExporter) exporter)
 			.setLatexOutput(Boolean.parseBoolean(config
 				.getProperty(AJPropertyConstants.SHOW_LATEX_OUTPUT
 					.getKey())));
-		if (exporter instanceof ExtLatexExporterByDate) {
-		    ((ExtLatexExporterByDate) exporter)
-			    .setReportFolder(config
-				    .getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE
-					    .getKey()));
-		    ((ExtLatexExporterByDate) exporter)
-			    .setReportFilename(config
-				    .getProperty(AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME
-					    .getKey()));
-		    ((ExtLatexExporterByDate) exporter)
-			    .setHeaderFooterFolder(config
-				    .getProperty(AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER
-					    .getKey()));
-		    ((ExtLatexExporterByDate) exporter)
-			    .setHeaderFilename(config
-				    .getProperty(AJPropertyConstants.LATEX_HEADER_BY_DATE_FILENAME
-					    .getKey()));
-		    ((ExtLatexExporterByDate) exporter)
-			    .setFooterFilename(config
-				    .getProperty(AJPropertyConstants.LATEX_FOOTER_BY_DATE_FILENAME
-					    .getKey()));
+
+		if (exporter.getClass().getName().endsWith("ByDate")) {
+		    exporter.setReportFolder(config
+			    .getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE
+				    .getKey()));
+		    exporter.setReportFilename(config
+			    .getProperty(AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME
+				    .getKey()));
+		    exporter.setHeaderFilename(config
+			    .getProperty(AJPropertyConstants.LATEX_HEADER_BY_DATE_FILENAME
+				    .getKey()));
+		    exporter.setFooterFilename(config
+			    .getProperty(AJPropertyConstants.LATEX_FOOTER_BY_DATE_FILENAME
+				    .getKey()));
 		}
 
-		if (exporter instanceof ExtLatexExporterByTarget) {
-		    ((ExtLatexExporterByTarget) exporter)
-			    .setReportFolder(config
-				    .getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET
-					    .getKey()));
-		    ((ExtLatexExporterByTarget) exporter)
-			    .setReportFilename(config
-				    .getProperty(AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
-					    .getKey()));
-		    ((ExtLatexExporterByTarget) exporter)
-			    .setHeaderFooterFolder(config
-				    .getProperty(AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER
-					    .getKey()));
-		    ((ExtLatexExporterByTarget) exporter)
-			    .setHeaderFilename(config
-				    .getProperty(AJPropertyConstants.LATEX_HEADER_BY_TARGET_FILENAME
-					    .getKey()));
-		    ((ExtLatexExporterByTarget) exporter)
-			    .setFooterFilename(config
-				    .getProperty(AJPropertyConstants.LATEX_FOOTER_BY_TARGET_FILENAME
-					    .getKey()));
+		if (exporter.getClass().getName().endsWith("ByTarget")) {
+		    exporter.setReportFolder(config
+			    .getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET
+				    .getKey()));
+		    exporter.setReportFilename(config
+			    .getProperty(AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
+				    .getKey()));
+		    exporter.setHeaderFilename(config
+			    .getProperty(AJPropertyConstants.LATEX_HEADER_BY_TARGET_FILENAME
+				    .getKey()));
+		    exporter.setFooterFilename(config
+			    .getProperty(AJPropertyConstants.LATEX_FOOTER_BY_TARGET_FILENAME
+				    .getKey()));
 		}
-		if (exporter instanceof ExtLatexExporterByConst) {
-		    ((ExtLatexExporterByConst) exporter)
-			    .setReportFolder(config
-				    .getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-					    .getKey()));
-		    ((ExtLatexExporterByConst) exporter)
-			    .setReportFilename(config
-				    .getProperty(AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
-					    .getKey()));
-		    ((ExtLatexExporterByConst) exporter)
-			    .setHeaderFooterFolder(config
-				    .getProperty(AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER
-					    .getKey()));
-		    ((ExtLatexExporterByConst) exporter)
-			    .setHeaderFilename(config
-				    .getProperty(AJPropertyConstants.LATEX_HEADER_BY_CONSTELLATION_FILENAME
-					    .getKey()));
-		    ((ExtLatexExporterByConst) exporter)
-			    .setFooterFilename(config
-				    .getProperty(AJPropertyConstants.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
-					    .getKey()));
+		if (exporter.getClass().getName().endsWith("ByConst")) {
+		    exporter.setReportFolder(config
+			    .getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
+				    .getKey()));
+		    exporter.setReportFilename(config
+			    .getProperty(AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
+				    .getKey()));
+		    exporter.setHeaderFilename(config
+			    .getProperty(AJPropertyConstants.LATEX_HEADER_BY_CONSTELLATION_FILENAME
+				    .getKey()));
+		    exporter.setFooterFilename(config
+			    .getProperty(AJPropertyConstants.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
+				    .getKey()));
 		}
 
 	    } else {
-		if (exporter instanceof ExtTextExporterByDateSGL) {
-		    ((ExtTextExporterByDateSGL) exporter)
-			    .setReportFolder(config
-				    .getProperty(AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE
-					    .getKey()));
-		    ((ExtTextExporterByDateSGL) exporter)
-			    .setReportFilename(config
-				    .getProperty(AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME
-					    .getKey()));
+		if (exporter.getClass().getName().endsWith("ByDateSGL")) {
+		    exporter.setReportFolder(config
+			    .getProperty(AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE
+				    .getKey()));
+		    exporter.setReportFilename(config
+			    .getProperty(AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME
+				    .getKey()));
 		}
 	    }
 

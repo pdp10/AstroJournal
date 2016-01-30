@@ -192,13 +192,13 @@ public class BasicTSVImporter extends Importer {
 		if (values[0].toLowerCase().equals(
 			BasicDataCols.TARGET_NAME.getColName().toLowerCase())
 			&& values[1].toLowerCase().equals(
-				BasicDataCols.TYPE_NAME.getColName()
+				BasicDataCols.CONSTELLATION_NAME.getColName()
 					.toLowerCase())
 			&& values[2].toLowerCase().equals(
-				BasicDataCols.POWER_NAME.getColName()
+				BasicDataCols.TYPE_NAME.getColName()
 					.toLowerCase())
 			&& values[3].toLowerCase().equals(
-				BasicDataCols.NOTES_NAME.getColName()
+				BasicDataCols.POWER_NAME.getColName()
 					.toLowerCase())) {
 
 		    String[] targetEntry;
@@ -223,13 +223,13 @@ public class BasicTSVImporter extends Importer {
 			Arrays.fill(targetEntry, "");
 			targetEntry[BasicDataCols.TARGET_NAME.ordinal()] = values[0];
 			log.debug(BasicDataCols.TARGET_NAME + "=" + values[0]);
-			targetEntry[BasicDataCols.TYPE_NAME.ordinal()] = values[1];
-			log.debug(BasicDataCols.TYPE_NAME + "=" + values[1]);
-			targetEntry[BasicDataCols.POWER_NAME.ordinal()] = values[2];
-			log.debug(BasicDataCols.POWER_NAME + "=" + values[2]);
-			targetEntry[BasicDataCols.NOTES_NAME.ordinal()] = values[3]
-				.replace("%", "\\%").replace("&", " and ");
-			log.debug(BasicDataCols.NOTES_NAME + "=" + values[3]);
+			targetEntry[BasicDataCols.CONSTELLATION_NAME.ordinal()] = values[1];
+			log.debug(BasicDataCols.CONSTELLATION_NAME + "="
+				+ values[1]);
+			targetEntry[BasicDataCols.TYPE_NAME.ordinal()] = values[2];
+			log.debug(BasicDataCols.TYPE_NAME + "=" + values[2]);
+			targetEntry[BasicDataCols.POWER_NAME.ordinal()] = values[3];
+			log.debug(BasicDataCols.POWER_NAME + "=" + values[3]);
 			report.addData(targetEntry);
 		    }
 		} else {

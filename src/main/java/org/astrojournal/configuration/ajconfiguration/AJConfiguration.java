@@ -25,6 +25,7 @@ package org.astrojournal.configuration.ajconfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -32,6 +33,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ConfigurationUtils;
+import org.astrojournal.generator.absgen.Importer;
+import org.astrojournal.utilities.ClassesInstanceOf;
 import org.astrojournal.utilities.PropertiesManager;
 import org.astrojournal.utilities.ReadFromJar;
 
@@ -136,10 +139,11 @@ public class AJConfiguration implements Configuration {
 
 	applicationProperties = new Properties();
 	initialiseApplicationProperties();
-	log.debug("Locale:"
-		+ applicationProperties.getProperty(AJPropertyConstants.LOCALE
-			.getKey()));
-	log.debug(getConfigurationUtils().printConfiguration(this));
+	log.debug(AJPropertyConstants.printAllProperties());
+	// log.debug("Locale:"
+	// + applicationProperties.getProperty(AJPropertyConstants.LOCALE
+	// .getKey()));
+	// log.debug(getConfigurationUtils().printConfiguration(this));
 
 	Properties defaultProperties = loadDefaultConfigurationFileProperties();
 	if (!validate(defaultProperties)) {
@@ -284,6 +288,8 @@ public class AJConfiguration implements Configuration {
 		status = status && localeValidation(properties, key);
 	    } else if (key.equals(AJPropertyConstants.FILES_LOCATION.getKey())) {
 		status = status && filepathValidation(properties, key);
+	    } else if (key.equals(AJPropertyConstants.GENERATOR_NAME.getKey())) {
+		status = status && generatorValidation(properties, key);
 	    } else {
 		status = status && genericValidation(properties, key);
 	    }
@@ -360,6 +366,41 @@ public class AJConfiguration implements Configuration {
 	}
 	if (created) {
 	    file.delete();
+	}
+	log.debug("Using " + key + ":" + applicationProperties.getProperty(key));
+	return status;
+    }
+
+    /**
+     * Validate the generator name.
+     * 
+     * @param properties
+     * @param key
+     * @return true if the validation for this property is valid.
+     */
+    private boolean generatorValidation(Properties properties, String key) {
+	boolean status = true;
+	String value = properties.getProperty(key);
+	if (value == null || value.equals("")) {
+	    status = false;
+	    log.warn("Property not valid: " + key);
+	} else {
+	    // retrieve generator names
+	    ArrayList<String> packageNames = ClassesInstanceOf
+		    .getClassPackageInstanceOf("org.astrojournal.generator",
+			    Importer.class);
+	    boolean found = false;
+	    for (int i = 0; i < packageNames.size() && !found; i++) {
+		String[] packageHierachy = packageNames.get(i).split("\\.");
+		if (packageHierachy[packageHierachy.length - 1].equals(value)) {
+		    applicationProperties.setProperty(key, value);
+		    found = true;
+		}
+	    }
+	    if (!found) {
+		status = false;
+		log.warn("Property not valid: " + key + ":=" + value);
+	    }
 	}
 	log.debug("Using " + key + ":" + applicationProperties.getProperty(key));
 	return status;

@@ -48,7 +48,7 @@ import org.astrojournal.utilities.filefilters.LaTeXFilter;
 
 /**
  * Exports an AstroJournal set of observations by target to Latex code. This is
- * a basic exporter which uses BasicMetaDataCols and BasicDataCols enum types
+ * an basic exporter which uses BasicMetaDataCols and BasicDataCols enum types
  * for column export.
  * 
  * @author Piero Dalle Pezze
@@ -122,46 +122,48 @@ public class BasicLatexExporterByTarget extends LatexExporter {
 		if (file.isFile()) {
 		    if (target
 			    .matches("^(sun|moon|mercury|venus|mars|asteroid|jupiter|saturn|uranus|neptune|pluto|comet|Sun|Moon|Mercury|Venus|Mars|Asteroid|Jupiter|Saturn|Uranus|Neptune|Pluto|Comet).*$")) {
-			writeSectionName(writer, target, type, "Solar System");
+			type = writeSectionName(writer, target, type,
+				"Solar System");
 		    } else if (target
 			    .matches("^(milkyway|MilkyWay|MILKYWAY).*$")) {
-			writeSectionName(writer, target, type, "Milky Way");
+			type = writeSectionName(writer, target, type,
+				"Milky Way");
 		    } else if (target.matches("^(m|M)[0-9].*$")) {
-			writeSectionName(writer, target, type,
+			type = writeSectionName(writer, target, type,
 				"Messier Catalogue");
 		    } else if (target.matches("^(ngc|NGC)[0-9].*$")) {
-			writeSectionName(writer, target, type,
+			type = writeSectionName(writer, target, type,
 				"New General Catalogue (NGC)");
 		    } else if (target.matches("^(ic|IC)[0-9].*$")) {
-			writeSectionName(writer, target, type,
+			type = writeSectionName(writer, target, type,
 				"Index Catalogue (IC)");
 		    } else if (target.matches("^(stock|Stock|STOCK)[0-9].*$")) {
-			writeSectionName(writer, target, type,
+			type = writeSectionName(writer, target, type,
 				"Stock Catalogue");
 		    } else if (target.matches("^(mel|Mel|MEL)[0-9].*$")) {
-			writeSectionName(writer, target, type,
+			type = writeSectionName(writer, target, type,
 				"Melotte Catalogue");
 		    } else if (target.matches("^(cr|Cr|CR)[0-9].*$")) {
-			writeSectionName(writer, target, type,
+			type = writeSectionName(writer, target, type,
 				"Collider Catalogue");
 		    } else if (target.matches("^(pk|PK)[0-9].*$")) {
-			writeSectionName(writer, target, type,
+			type = writeSectionName(writer, target, type,
 				"Perek-Kohoutex Catalogue");
 		    } else if (target.matches("^(b|B|Barnard|BARNARD)[0-9].*$")) {
-			writeSectionName(writer, target, type,
+			type = writeSectionName(writer, target, type,
 				"Barnard Catalogue");
 		    } else if (target
 			    .matches("^(hcg|HCG|Hickson Compact Group)[0-9].*$")) {
-			writeSectionName(writer, target, type,
+			type = writeSectionName(writer, target, type,
 				"Hickson Compact Group Catalogue");
 		    } else if (target.matches("^(ugc|UGC)[0-9].*$")) {
-			writeSectionName(writer, target, type,
+			type = writeSectionName(writer, target, type,
 				"Uppsala General Catalogue");
 		    } else if (target.matches("^(Steph)[0-9].*$")) {
-			writeSectionName(writer, target, type,
+			type = writeSectionName(writer, target, type,
 				"Steph Catalogue");
 		    } else {
-			writeSectionName(writer, target, type,
+			type = writeSectionName(writer, target, type,
 				"Stars and unclassified targets");
 		    }
 		    // include the file removing the extension .tex
@@ -174,9 +176,12 @@ public class BasicLatexExporterByTarget extends LatexExporter {
 	    writer.write(latexFooter.getFooter());
 	} catch (IOException ex) {
 	    log.warn("Error when opening the file " + filesLocation
+		    + File.separator + reportFilename);
+	    log.debug("Error when opening the file " + filesLocation
 		    + File.separator + reportFilename, ex);
 	    return false;
 	} catch (Exception ex) {
+	    log.debug(ex);
 	    log.error(ex, ex);
 	    return false;
 	} finally {
@@ -184,6 +189,7 @@ public class BasicLatexExporterByTarget extends LatexExporter {
 		if (writer != null)
 		    writer.close();
 	    } catch (Exception ex) {
+		log.debug(ex);
 		log.error(ex, ex);
 		return false;
 	    }
@@ -237,7 +243,11 @@ public class BasicLatexExporterByTarget extends LatexExporter {
 				|| targetEntry[BasicDataCols.TYPE_NAME
 					.ordinal()].toLowerCase().equals(
 					"mlt star")) {
-			    targetWriter.write("\\subsection{"
+			    targetWriter
+				    .write("\\subsection{"
+					    + targetEntry[BasicDataCols.CONSTELLATION_NAME
+						    .ordinal()]);
+			    targetWriter.write(", "
 				    + targetEntry[BasicDataCols.TARGET_NAME
 					    .ordinal()]);
 			} else if (targetEntry[BasicDataCols.TYPE_NAME
@@ -254,6 +264,10 @@ public class BasicLatexExporterByTarget extends LatexExporter {
 			    targetWriter.write("\\subsection{"
 				    + targetEntry[BasicDataCols.TARGET_NAME
 					    .ordinal()]);
+			    targetWriter
+				    .write(", "
+					    + targetEntry[BasicDataCols.CONSTELLATION_NAME
+						    .ordinal()]);
 			}
 			targetWriter
 				.write(", "
@@ -270,24 +284,18 @@ public class BasicLatexExporterByTarget extends LatexExporter {
 						+ ".tex"), true), "utf-8"));
 		    }
 		    String[] metaData = report.getMetaData();
-		    targetWriter
-			    .write("\\item "
-				    + metaData[BasicMetaDataCols.DATE_NAME.ordinal()]
-				    + ". "
-				    + metaData[BasicMetaDataCols.SEEING_NAME
-					    .ordinal()]
-				    + ", "
-				    + metaData[BasicMetaDataCols.TRANSPARENCY_NAME
-					    .ordinal()]
-				    + ". "
-				    + metaData[BasicMetaDataCols.TELESCOPES_NAME
-					    .ordinal()]
-				    + ", "
-				    + targetEntry[BasicDataCols.POWER_NAME
-					    .ordinal()]
-				    + ". "
-				    + targetEntry[BasicDataCols.NOTES_NAME
-					    .ordinal()] + "\n");
+		    targetWriter.write("\\item "
+			    + metaData[BasicMetaDataCols.DATE_NAME.ordinal()]
+			    + ". "
+			    + metaData[BasicMetaDataCols.SEEING_NAME.ordinal()]
+			    + ", "
+			    + metaData[BasicMetaDataCols.TRANSPARENCY_NAME
+				    .ordinal()]
+			    + ". "
+			    + metaData[BasicMetaDataCols.TELESCOPES_NAME
+				    .ordinal()] + ", "
+			    + targetEntry[BasicDataCols.POWER_NAME.ordinal()]
+			    + ". " + "\n");
 
 		    // do not close the Latex 'itemize' block now because
 		    // nothing is known about other observations
@@ -295,9 +303,12 @@ public class BasicLatexExporterByTarget extends LatexExporter {
 
 		} catch (IOException ex) {
 		    log.warn("Error when opening the file " + filesLocation
+			    + File.separator + filenameOut);
+		    log.debug("Error when opening the file " + filesLocation
 			    + File.separator + filenameOut, ex);
 		    return false;
 		} catch (Exception ex) {
+		    log.debug(ex);
 		    log.error(ex, ex);
 		    return false;
 		} finally {
@@ -305,6 +316,7 @@ public class BasicLatexExporterByTarget extends LatexExporter {
 			if (targetWriter != null)
 			    targetWriter.close();
 		    } catch (Exception ex) {
+			log.debug(ex);
 			log.error(ex, ex);
 			return false;
 		    }
@@ -321,15 +333,17 @@ public class BasicLatexExporterByTarget extends LatexExporter {
      * @param target
      * @param type
      * @param catName
+     * @return type
      * @throws IOException
      */
-    private void writeSectionName(Writer writer, String target, String type,
+    private String writeSectionName(Writer writer, String target, String type,
 	    String catName) throws IOException {
 	if (!type.equals(catName)) {
 	    type = catName;
 	    writer.write("\\clearpage\n");
 	    writer.write("\\section{" + type + "}\n");
 	}
+	return type;
     }
 
     /**
@@ -364,9 +378,12 @@ public class BasicLatexExporterByTarget extends LatexExporter {
 
 		} catch (IOException ex) {
 		    log.warn("Error when opening the file " + filesLocation
+			    + File.separator + filenameOut);
+		    log.debug("Error when opening the file " + filesLocation
 			    + File.separator + filenameOut, ex);
 		    return false;
 		} catch (Exception ex) {
+		    log.debug(ex);
 		    log.error(ex, ex);
 		    return false;
 		} finally {
@@ -374,6 +391,7 @@ public class BasicLatexExporterByTarget extends LatexExporter {
 			if (targetWriter != null)
 			    targetWriter.close();
 		    } catch (Exception ex) {
+			log.debug(ex);
 			log.error(ex, ex);
 			return false;
 		    }
@@ -412,8 +430,10 @@ public class BasicLatexExporterByTarget extends LatexExporter {
 			.equals("dbl star")
 		|| targetEntry[BasicDataCols.TYPE_NAME.ordinal()].toLowerCase()
 			.equals("mlt star")) {
-	    return targetEntry[BasicDataCols.TARGET_NAME.ordinal()].replaceAll(
-		    "\\s+", "").replaceAll("/", "-");
+	    return targetEntry[BasicDataCols.CONSTELLATION_NAME.ordinal()]
+		    + "_"
+		    + targetEntry[BasicDataCols.TARGET_NAME.ordinal()]
+			    .replaceAll("\\s+", "").replaceAll("/", "-");
 	}
 	if (targetEntry[BasicDataCols.TYPE_NAME.ordinal()].toLowerCase()
 		.equals("galaxy")
@@ -424,7 +444,8 @@ public class BasicLatexExporterByTarget extends LatexExporter {
 		    "\\s+", "").replaceAll("/", "-");
 	}
 	return targetEntry[BasicDataCols.TARGET_NAME.ordinal()].replaceAll(
-		"\\s+", "").replaceAll("/", "-");
+		"\\s+", "").replaceAll("/", "-")
+		+ "_" + targetEntry[BasicDataCols.CONSTELLATION_NAME.ordinal()];
     }
 
     /**

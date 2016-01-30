@@ -111,19 +111,23 @@ public class BasicLatexExporterByDate extends LatexExporter {
 	    // write the Latex Footer
 	    writerByDate.write(ajLatexFooterByDate.getFooter());
 
-	} catch (IOException ex) {
+	} catch (IOException e) {
 	    log.warn("Error when opening the file " + filesLocation
-		    + File.separator + reportFilename, ex);
+		    + File.separator + reportFilename);
+	    log.debug("Error when opening the file " + filesLocation
+		    + File.separator + reportFilename, e);
 	    return false;
-	} catch (Exception ex) {
-	    log.error(ex, ex);
+	} catch (Exception e) {
+	    log.error(e);
+	    log.debug(e, e);
 	    return false;
 	} finally {
 	    try {
 		if (writerByDate != null)
 		    writerByDate.close();
-	    } catch (Exception ex) {
-		log.error(ex, ex);
+	    } catch (Exception e) {
+		log.error(e);
+		log.debug(e, e);
 		return false;
 	    }
 	}
@@ -167,27 +171,32 @@ public class BasicLatexExporterByDate extends LatexExporter {
 		table.write("% General observation data\n");
 		table.write("\\begin{tabular}{ p{0.7in} p{1.2in} p{1.1in} p{5.7in}}\n");
 		table.write("{\\bf " + BasicMetaDataCols.DATE_NAME.getColName()
-			+ ":} & " + metaData[BasicMetaDataCols.DATE_NAME.ordinal()]
-			+ " & {\\bf " + BasicMetaDataCols.SEEING_NAME.getColName()
 			+ ":} & "
+			+ metaData[BasicMetaDataCols.DATE_NAME.ordinal()]
+			+ " & {\\bf "
+			+ BasicMetaDataCols.SEEING_NAME.getColName() + ":} & "
 			+ metaData[BasicMetaDataCols.SEEING_NAME.ordinal()]
 			+ " \\\\ \n");
 		table.write("{\\bf "
-			+ BasicMetaDataCols.TRANSPARENCY_NAME.getColName() + ":} & "
-			+ metaData[BasicMetaDataCols.TRANSPARENCY_NAME.ordinal()]
+			+ BasicMetaDataCols.TELESCOPES_NAME.getColName()
 			+ ":} & "
 			+ metaData[BasicMetaDataCols.TELESCOPES_NAME.ordinal()]
-			+ " \\\\ \n");
+			+ " & {\\bf "
+			+ BasicMetaDataCols.TRANSPARENCY_NAME.getColName()
+			+ ":} & "
+			+ metaData[BasicMetaDataCols.TRANSPARENCY_NAME
+				.ordinal()] + " \\\\ \n");
 
 		table.write("\\end{tabular}\n");
 
 		table.write("% Detailed observation data\n");
-		table.write("\\begin{longtable}{ p{0.7in}  p{0.6in}  p{0.9in}  p{5.8in} }\n");
+		table.write("\\begin{longtable}{ p{0.7in}  p{0.3in}  p{0.6in}  p{0.9in} }\n");
 		table.write("\\hline \n");
 		table.write("{\\bf " + BasicDataCols.TARGET_NAME.getColName()
+			+ "} & {\\bf "
+			+ BasicDataCols.CONSTELLATION_NAME.getColName()
 			+ "} & {\\bf " + BasicDataCols.TYPE_NAME.getColName()
 			+ "} & {\\bf " + BasicDataCols.POWER_NAME.getColName()
-			+ "} & {\\bf " + BasicDataCols.NOTES_NAME.getColName()
 			+ "} \\\\ \n");
 
 		table.write("\\hline \n");
@@ -200,11 +209,12 @@ public class BasicLatexExporterByDate extends LatexExporter {
 
 		    table.write(targetEntry[BasicDataCols.TARGET_NAME.ordinal()]
 			    + " & "
+			    + targetEntry[BasicDataCols.CONSTELLATION_NAME
+				    .ordinal()]
+			    + " & "
 			    + targetEntry[BasicDataCols.TYPE_NAME.ordinal()]
 			    + " & "
 			    + targetEntry[BasicDataCols.POWER_NAME.ordinal()]
-			    + " & "
-			    + targetEntry[BasicDataCols.NOTES_NAME.ordinal()]
 			    + " \\\\ \n");
 		}
 		table.write("\\hline \n");
@@ -215,17 +225,21 @@ public class BasicLatexExporterByDate extends LatexExporter {
 		}
 	    } catch (IOException ex) {
 		log.error("Error when opening the file " + filesLocation
+			+ File.separator + filenameOut);
+		log.debug("Error when opening the file " + filesLocation
 			+ File.separator + filenameOut, ex);
 		result = false;
 	    } catch (Exception ex) {
-		log.error(ex, ex);
+		log.error(ex);
+		log.debug(ex, ex);
 		result = false;
 	    } finally {
 		try {
 		    if (table != null)
 			table.close();
 		} catch (Exception ex) {
-		    log.error(ex, ex);
+		    log.error(ex);
+		    log.debug(ex, ex);
 		    return false;
 		}
 	    }

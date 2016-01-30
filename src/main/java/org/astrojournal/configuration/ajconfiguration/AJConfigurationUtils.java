@@ -172,6 +172,11 @@ public class AJConfigurationUtils implements ConfigurationUtils {
     public String printConfiguration(Configuration config) {
 	ResourceBundle resourceBundle = config.getResourceBundle();
 	String configuration = "AstroJournal current configuration:\n" + "\t"
+		+ resourceBundle.getString("AJ.cbxGenerator.text")
+		+ " "
+		+ config.getProperty(AJPropertyConstants.GENERATOR_NAME
+			.getKey())
+		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblAJFilesLocation.text")
 		+ " "
 		+ config.getProperty(AJPropertyConstants.FILES_LOCATION

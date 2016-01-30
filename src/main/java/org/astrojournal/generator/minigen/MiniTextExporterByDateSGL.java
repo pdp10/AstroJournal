@@ -98,9 +98,10 @@ public class MiniTextExporterByDateSGL extends Exporter {
 			scanner.close();
 			writerByDate.write(text);
 		    } catch (NoSuchElementException e) {
-			log.warn(e, e);
+			log.debug(e, e);
+			log.warn(e);
 		    }
-		    writerByDate.write("\n\n\n\n");
+		    writerByDate.write("\n\n");
 		}
 	    }
 
@@ -108,17 +109,21 @@ public class MiniTextExporterByDateSGL extends Exporter {
 
 	} catch (IOException ex) {
 	    log.warn("Error when opening the file " + filesLocation
+		    + File.separator + reportFilename);
+	    log.debug("Error when opening the file " + filesLocation
 		    + File.separator + reportFilename, ex);
 	    return false;
 	} catch (Exception ex) {
-	    log.error(ex, ex);
+	    log.error(ex);
+	    log.debug(ex, ex);
 	    return false;
 	} finally {
 	    try {
 		if (writerByDate != null)
 		    writerByDate.close();
 	    } catch (Exception ex) {
-		log.error(ex, ex);
+		log.error(ex);
+		log.debug(ex, ex);
 		return false;
 	    }
 	}
@@ -149,7 +154,8 @@ public class MiniTextExporterByDateSGL extends Exporter {
 	    // more than one observation per day is done.
 	    if (metaData[MiniMetaDataCols.DATE_NAME.ordinal()].length() == 11) {
 		filenameOut = filenameOut
-			+ metaData[MiniMetaDataCols.DATE_NAME.ordinal()].charAt(10);
+			+ metaData[MiniMetaDataCols.DATE_NAME.ordinal()]
+				.charAt(10);
 	    }
 
 	    List<String[]> targets = report.getAllData();
@@ -159,33 +165,42 @@ public class MiniTextExporterByDateSGL extends Exporter {
 				+ File.separator + reportFolder, "obs"
 				+ filenameOut + ".txt")), "utf-8"));
 
-		text.write(MiniMetaDataCols.DATE_NAME + " "
-			+ metaData[MiniMetaDataCols.DATE_NAME.ordinal()] + "\n\n");
+		text.write(metaData[MiniMetaDataCols.DATE_NAME.ordinal()]
+			+ " : ");
 
-		for (String[] targetEntry : targets) {
+		for (int j = 0; j < targets.size(); j++) {
+		    String[] targetEntry = targets.get(j);
 		    log.debug("Target "
 			    + targetEntry[MiniDataCols.TARGET_NAME.ordinal()]);
-		    text.write(targetEntry[MiniDataCols.TARGET_NAME.ordinal()]
-			    + "\n\n");
+		    text.write(targetEntry[MiniDataCols.TARGET_NAME.ordinal()]);
+		    if (j < targets.size() - 1) {
+			text.write(", ");
+		    } else {
+			text.write(". ");
+		    }
 		}
 		if (resourceBundle != null) {
 		    log.info("\tExported report "
-			    + metaData[MiniMetaDataCols.DATE_NAME.ordinal()] + " ("
-			    + targets.size() + " targets)");
+			    + metaData[MiniMetaDataCols.DATE_NAME.ordinal()]
+			    + " (" + targets.size() + " targets)");
 		}
 	    } catch (IOException ex) {
 		log.error("Error when opening the file " + filesLocation
+			+ File.separator + filenameOut);
+		log.debug("Error when opening the file " + filesLocation
 			+ File.separator + filenameOut, ex);
 		result = false;
 	    } catch (Exception ex) {
-		log.error(ex, ex);
+		log.error(ex);
+		log.debug(ex, ex);
 		result = false;
 	    } finally {
 		try {
 		    if (text != null)
 			text.close();
 		} catch (Exception ex) {
-		    log.error(ex, ex);
+		    log.error(ex);
+		    log.debug(ex, ex);
 		    result = false;
 		}
 	    }
