@@ -31,7 +31,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
@@ -48,10 +48,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ConfigurationUtils;
-import org.astrojournal.generator.absgen.Importer;
 import org.astrojournal.gui.AJGUIActions;
 import org.astrojournal.gui.AJMainGUI;
-import org.astrojournal.utilities.ClassesInstanceOf;
 
 /**
  * A Dialog to allow the viewing and editing of all AstroJournal preferences.
@@ -213,12 +211,9 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 	panel.add(lbl, constraints);
 	constraints.gridx = 1;
 	constraints.weightx = 0.5;
-	ArrayList<String> packageNames = ClassesInstanceOf
-		.getClassPackageInstanceOf("org.astrojournal.generator",
-			Importer.class);
-	for (String item : packageNames) {
-	    String[] packageHierachy = item.split("\\.");
-	    generator.addItem(packageHierachy[packageHierachy.length - 1]);
+	List<String> generatorNames = config.getGeneratorNames();
+	for (String name : generatorNames) {
+	    generator.addItem(name);
 	}
 	generator.setSelectedItem(config
 		.getProperty(AJPropertyConstants.GENERATOR_NAME.getKey()));
