@@ -153,7 +153,6 @@ public abstract class LatexExporterByDate extends LatexExporter {
 		// include the file removing the extension .tex
 		writer.write("\\input{" + reportFolder + "/"
 			+ file.getName().replaceFirst("[.][^.]+$", "") + "}\n");
-		writer.write("\\clearpage \n");
 	    }
 	}
 

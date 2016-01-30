@@ -89,12 +89,20 @@ public class MiniTSVImporter extends TSVImporter {
 	    cleanFields();
 	    if (values.length == 0 || line.equals("")) {
 		return;
-	    } else if (values.length >= 1) {
+	    }
+
+	    if (values.length >= 3) {
 
 		report.addMetaData(metaEntry);
 
 		if (values[0].toLowerCase().equals(
-			MiniDataCols.TARGET_NAME.getColName().toLowerCase())) {
+			MiniDataCols.TARGET_NAME.getColName().toLowerCase())
+			&& values[1].toLowerCase().equals(
+				MiniDataCols.CONSTELLATION_NAME.getColName()
+					.toLowerCase())
+			&& values[2].toLowerCase().equals(
+				MiniDataCols.TYPE_NAME.getColName()
+					.toLowerCase())) {
 
 		    String[] targetEntry;
 		    while ((line = reader.readLine()) != null) {
@@ -106,7 +114,7 @@ public class MiniTSVImporter extends TSVImporter {
 			if (line.equals("")) {
 			    return;
 			}
-			if (values.length < 1) { // Does this happen? :)
+			if (values.length < 3) {
 			    log.warn("Report:"
 				    + metaEntry[MiniMetaDataCols.DATE_NAME
 					    .ordinal()]
@@ -118,6 +126,11 @@ public class MiniTSVImporter extends TSVImporter {
 			Arrays.fill(targetEntry, "");
 			targetEntry[MiniDataCols.TARGET_NAME.ordinal()] = values[0];
 			log.debug(MiniDataCols.TARGET_NAME + "=" + values[0]);
+			targetEntry[MiniDataCols.CONSTELLATION_NAME.ordinal()] = values[1];
+			log.debug(MiniDataCols.CONSTELLATION_NAME + "="
+				+ values[1]);
+			targetEntry[MiniDataCols.TYPE_NAME.ordinal()] = values[2];
+			log.debug(MiniDataCols.TYPE_NAME + "=" + values[2]);
 			report.addData(targetEntry);
 		    }
 		} else {

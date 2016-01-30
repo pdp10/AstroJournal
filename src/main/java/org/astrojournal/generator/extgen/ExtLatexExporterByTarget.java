@@ -62,7 +62,7 @@ public class ExtLatexExporterByTarget extends LatexExporterByTarget {
     public boolean exportReports(List<Report> reports) {
 	if (resourceBundle != null) {
 	    log.info("");
-	    log.info("Exporting observations by target:");
+	    log.info("Exporting reports by target:");
 	}
 	processedTargetCache.clear();
 	for (int i = 0; i < reports.size(); i++) {

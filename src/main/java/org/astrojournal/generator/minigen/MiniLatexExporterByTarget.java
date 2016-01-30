@@ -38,11 +38,11 @@ import org.astrojournal.generator.absgen.LatexExporterByTarget;
 
 /**
  * Exports an AstroJournal set of observations by target to Latex code. This is
- * an extended exporter which uses MiniMetaDataCols and MiniDataCols enum types
- * for column export.
+ * an basic exporter which uses MiniMetaDataCols and MiniDataCols enum types for
+ * column export.
  * 
  * @author Piero Dalle Pezze
- * @version 0.2
+ * @version 0.3
  * @since 22/07/2015
  */
 public class MiniLatexExporterByTarget extends LatexExporterByTarget {
@@ -62,7 +62,7 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
     public boolean exportReports(List<Report> reports) {
 	if (resourceBundle != null) {
 	    log.info("");
-	    log.info("Exporting observations by target:");
+	    log.info("Exporting reports by target:");
 	}
 	processedTargetCache.clear();
 	for (int i = 0; i < reports.size(); i++) {
@@ -80,10 +80,54 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
 				new FileOutputStream(new File(filesLocation
 					+ File.separator + reportFolder,
 					filenameOut + ".tex")), "utf-8"));
-			writer.write("\\subsection{"
-				+ targetEntry[MiniDataCols.TARGET_NAME
-					.ordinal()] + "}\n");
-			writer.write("\\begin{itemize}\n");
+			if (targetEntry[MiniDataCols.TYPE_NAME.ordinal()]
+				.toLowerCase().equals("planet")
+				|| targetEntry[MiniDataCols.TARGET_NAME
+					.ordinal()].toLowerCase()
+					.equals("moon")
+				|| targetEntry[MiniDataCols.TARGET_NAME
+					.ordinal()].toLowerCase().equals("sun")
+				|| targetEntry[MiniDataCols.TYPE_NAME.ordinal()]
+					.toLowerCase().equals("asteroid")
+				|| targetEntry[MiniDataCols.TYPE_NAME.ordinal()]
+					.toLowerCase().equals("comet")) {
+			    writer.write("\\subsection*{"
+				    + targetEntry[MiniDataCols.TARGET_NAME
+					    .ordinal()]);
+			} else if (targetEntry[MiniDataCols.TYPE_NAME.ordinal()]
+				.toLowerCase().equals("star")
+				|| targetEntry[MiniDataCols.TYPE_NAME.ordinal()]
+					.toLowerCase().equals("dbl star")
+				|| targetEntry[MiniDataCols.TYPE_NAME.ordinal()]
+					.toLowerCase().equals("mlt star")) {
+			    writer.write("\\subsection*{"
+				    + targetEntry[MiniDataCols.CONSTELLATION_NAME
+					    .ordinal()]);
+			    writer.write(", "
+				    + targetEntry[MiniDataCols.TARGET_NAME
+					    .ordinal()]);
+			} else if (targetEntry[MiniDataCols.TYPE_NAME.ordinal()]
+				.toLowerCase().equals("galaxy")
+				&& targetEntry[MiniDataCols.TARGET_NAME
+					.ordinal()].toLowerCase().equals(
+					"milky way")) {
+			    // Don't print the constellation if we are
+			    // processing the milky way!
+			    writer.write("\\subsection*{"
+				    + targetEntry[MiniDataCols.TARGET_NAME
+					    .ordinal()]);
+			} else {
+			    writer.write("\\subsection*{"
+				    + targetEntry[MiniDataCols.TARGET_NAME
+					    .ordinal()]);
+			    writer.write(", "
+				    + targetEntry[MiniDataCols.CONSTELLATION_NAME
+					    .ordinal()]);
+			}
+			writer.write(", "
+				+ targetEntry[MiniDataCols.TYPE_NAME.ordinal()]
+				+ "}\n");
+			writer.write("\\par\n");
 		    } else {
 			// if file was already created skip the previous two
 			// lines and continue appending text (NOTE: true)
@@ -93,13 +137,9 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
 					filenameOut + ".tex"), true), "utf-8"));
 		    }
 		    String[] metaData = report.getMetaData();
-		    writer.write("\\item "
+		    writer.write("("
 			    + metaData[MiniMetaDataCols.DATE_NAME.ordinal()]
-			    + "\n");
-
-		    // do not close the Latex 'itemize' block now because
-		    // nothing is known about other observations
-		    // for this target.
+			    + ") \n");
 
 		} catch (IOException ex) {
 		    log.warn("Error when opening the file " + filesLocation
@@ -120,10 +160,13 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
 			log.error(ex, ex);
 			return false;
 		    }
+		    if (resourceBundle != null) {
+			log.info("\tExported target " + filenameOut);
+		    }
 		}
 	    }
 	}
-	return closeLists(reports);
+	return true;
     }
 
     @Override

@@ -36,12 +36,12 @@ public class LatexHeader extends LatexHeaderFooter {
 
     /** The header of the Latex main file. */
     private String header = "\\documentclass[10pt,twoside,a4paper]{report}\n"
-	    + "\\usepackage[a4paper,margin=1in,landscape]{geometry}\n"
+	    + "\\usepackage[a4paper,margin=1in,portrait]{geometry}\n"
 	    + "\\usepackage[colorlinks=true,linkcolor={black},urlcolor={black}]{hyperref}\n"
 	    + "\\usepackage{longtable}\n"
 	    + "\\usepackage{pdflscape}\n"
 	    + "\\title{Astronomy Observation Journal}\n"
-	    + "\\author{Piero Dalle Pezze}\n"
+	    + "\\author{}\n"
 	    + "\\date{\\today}\n"
 	    + "\\begin{document}\n"
 	    + "\\let\\thefootnote\\relax\\footnotetext{This document was generated using Java software tool {\\it AstroJournal} "

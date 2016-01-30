@@ -23,20 +23,7 @@
  */
 package org.astrojournal.generator.basicgen;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.Writer;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.astrojournal.generator.Report;
-import org.astrojournal.generator.absgen.LatexExporterByConst;
-import org.astrojournal.generator.headfoot.LatexFooter;
-import org.astrojournal.generator.headfoot.LatexHeader;
-import org.astrojournal.utilities.filefilters.LaTeXFilter;
+import org.astrojournal.generator.minigen.MiniLatexExporterByConst;
 
 /**
  * Exports the observed targets by constellation to Latex code. This is an basic
@@ -47,107 +34,6 @@ import org.astrojournal.utilities.filefilters.LaTeXFilter;
  * @version 0.2
  * @since 28/05/2015
  */
-public class BasicLatexExporterByConst extends LatexExporterByConst {
-
-    /** The log associated to this class */
-    private static Logger log = LogManager
-	    .getLogger(BasicLatexExporterByConst.class);
-
-    /**
-     * Default constructor.
-     */
-    public BasicLatexExporterByConst() {
-	super();
-    }
-
-    @Override
-    public void writeLatexMain(Writer writer, LatexHeader latexHeader,
-	    LatexFooter latexFooter) throws Exception {
-	// write the Latex Header
-	writer.write(latexHeader.getHeader());
-
-	// write the Latex Body
-	// parse each file in the latex obs folder
-	File[] files = new File(filesLocation + File.separator + reportFolder)
-		.listFiles(new LaTeXFilter());
-	if (files == null) {
-	    throw new Exception("Folder " + filesLocation + File.separator
-		    + reportFolder + " not found");
-	}
-	// sort the constellations when we parse the files
-	Arrays.sort(files);
-
-	String currConst = "", filename = "";
-	// If this pathname does not denote a directory, then listFiles()
-	// returns null.
-	for (File file : files) {
-	    filename = file.getName();
-	    if (file.isFile()) {
-		if (!currConst.equals(filename.substring(
-			filename.indexOf("_") + 1, filename.indexOf(".")))) {
-		    currConst = filename.substring(filename.indexOf("_") + 1,
-			    filename.indexOf("."));
-		    writer.write("\\section{" + currConst + "}\n");
-		}
-		// include the file removing the extension .tex
-		writer.write("\\input{" + reportFolder + "/"
-			+ filename.replaceFirst("[.][^.]+$", "") + "}\n");
-		// writerByConst.write("\\clearpage \n");
-	    }
-	}
-
-	// write the Latex Footer
-	writer.write(latexFooter.getFooter());
-    }
-
-    @Override
-    public void writeLatexContent(Writer writer, Report report)
-	    throws IOException {
-    }
-
-    @Override
-    protected void organiseTargetsByConstellation(List<Report> reports) {
-	Report report = null;
-	int nReports = reports.size();
-	for (int i = 0; i < nReports; i++) {
-	    report = reports.get(i);
-	    List<String[]> targets = report.getAllData();
-	    for (int j = 0; j < targets.size(); j++) {
-		String[] targetEntry = targets.get(j);
-		// skip solar system targets. We only consider DSOs.
-		if (targetEntry[BasicDataCols.TYPE_NAME.ordinal()]
-			.toLowerCase().equals("planet")
-			|| targetEntry[BasicDataCols.TARGET_NAME.ordinal()]
-				.toLowerCase().equals("sun")
-			|| targetEntry[BasicDataCols.TARGET_NAME.ordinal()]
-				.toLowerCase().equals("moon")
-			|| targetEntry[BasicDataCols.TARGET_NAME.ordinal()]
-				.toLowerCase().equals("milky way")) {
-		    continue;
-		}
-		if (!constellations
-			.containsKey(targetEntry[BasicDataCols.CONSTELLATION_NAME
-				.ordinal()])) {
-		    constellations.put(
-			    targetEntry[BasicDataCols.CONSTELLATION_NAME
-				    .ordinal()], new HashSet<String>());
-		}
-		log.debug(targetEntry[BasicDataCols.CONSTELLATION_NAME
-			.ordinal()]
-			+ " "
-			+ targetEntry[BasicDataCols.TARGET_NAME.ordinal()]
-			+ " ("
-			+ targetEntry[BasicDataCols.TYPE_NAME.ordinal()]
-			+ ")");
-		constellations
-			.get(targetEntry[BasicDataCols.CONSTELLATION_NAME
-				.ordinal()])
-			.add(targetEntry[BasicDataCols.TARGET_NAME.ordinal()]
-				+ " ("
-				+ targetEntry[BasicDataCols.TYPE_NAME.ordinal()]
-				+ ")");
-	    }
-	}
-    }
+public class BasicLatexExporterByConst extends MiniLatexExporterByConst {
 
 }

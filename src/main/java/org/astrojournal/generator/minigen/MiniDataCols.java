@@ -11,7 +11,11 @@ package org.astrojournal.generator.minigen;
 public enum MiniDataCols {
 
     /** A string containing the target name. */
-    TARGET_NAME("Target");
+    TARGET_NAME("Target"),
+    /** A string containing the constellation name. */
+    CONSTELLATION_NAME("Cons"),
+    /** A string containing the type name. */
+    TYPE_NAME("Type");
 
     private String colName;
 

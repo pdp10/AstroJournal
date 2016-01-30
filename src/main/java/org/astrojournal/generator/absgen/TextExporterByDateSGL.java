@@ -53,7 +53,8 @@ import org.astrojournal.utilities.filefilters.TextFilter;
 public abstract class TextExporterByDateSGL extends Exporter {
 
     /** The log associated to this class */
-    private static Logger log = LogManager.getLogger(TextExporterByDateSGL.class);
+    private static Logger log = LogManager
+	    .getLogger(TextExporterByDateSGL.class);
 
     /**
      * Default constructor.
@@ -94,8 +95,8 @@ public abstract class TextExporterByDateSGL extends Exporter {
 	    try {
 		writer = new BufferedWriter(new OutputStreamWriter(
 			new FileOutputStream(new File(filesLocation
-				+ File.separator + reportFolder, "obs"
-				+ filenameOut + ".txt")), "utf-8"));
+				+ File.separator + reportFolder, filenameOut
+				+ ".txt")), "utf-8"));
 
 		writeTextContent(writer, report);
 
