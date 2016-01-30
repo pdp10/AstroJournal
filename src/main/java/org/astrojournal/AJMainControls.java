@@ -121,9 +121,9 @@ public abstract class AJMainControls {
 	try {
 	    configUtils.cleanFolder(config);
 	} catch (IOException e) {
-	    log.error(
-		    config.getResourceBundle().getString(
-			    "AJ.errUnconfiguredPreferences.text"), e);
+	    log.error(config.getResourceBundle().getString(
+		    "AJ.errUnconfiguredPreferences.text"));
+	    log.debug(e, e);
 	    return false;
 	}
 	log.debug("Pre-processing was SUCCESSFUL");
