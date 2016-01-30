@@ -170,6 +170,16 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
     }
 
     @Override
+    protected String writeSectionName(Writer writer, String target,
+	    String type, String catName) throws IOException {
+	if (!type.equals(catName)) {
+	    type = catName;
+	    writer.write("\\section*{" + type + "}\n");
+	}
+	return type;
+    }
+
+    @Override
     public void writeLatexContent(Writer writer, Report report)
 	    throws IOException {
 	// TODO Auto-generated method stub
