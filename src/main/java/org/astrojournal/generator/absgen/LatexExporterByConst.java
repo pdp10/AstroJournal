@@ -79,7 +79,7 @@ public abstract class LatexExporterByConst extends LatexExporter {
     public boolean exportReports(List<Report> reports) {
 	if (resourceBundle != null) {
 	    log.info("");
-	    log.info("Exporting observations by constellation:");
+	    log.info("Exporting reports by constellation:");
 	}
 	boolean result = true;
 	if (constellations.size() == 0) {
