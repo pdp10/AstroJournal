@@ -140,17 +140,17 @@ public class JTextPaneAppender extends AbstractAppender {
 	styleItalic = doc.addStyle("italic", styleRegular);
 	StyleConstants.setItalic(styleItalic, true);
 
-	styleRed = doc.addStyle("red", styleBold);
-	StyleConstants.setForeground(styleRed, Color.RED);
-
-	styleBlue = doc.addStyle("blue", styleBold);
-	StyleConstants.setForeground(styleBlue, Color.BLUE);
-
 	styleSmall = doc.addStyle("small", styleRegular);
 	StyleConstants.setFontSize(styleSmall, 11);
 
 	styleSmallItalic = doc.addStyle("smallItalic", styleSmall);
 	StyleConstants.setItalic(styleSmallItalic, true);
+
+	styleRed = doc.addStyle("red", styleBold);
+	StyleConstants.setForeground(styleRed, Color.RED);
+
+	styleBlue = doc.addStyle("blue", styleSmall);
+	StyleConstants.setForeground(styleBlue, Color.BLUE);
 
 	// Remove the Appender Console as the GUI is being initialised and
 	// therefore having this information twice is not desirable.
@@ -207,10 +207,10 @@ public class JTextPaneAppender extends AbstractAppender {
 				    }
 				} else if (event.getLevel().equals(Level.WARN)) {
 				    doc.insertString(doc.getLength(), message,
-					    styleRed);
+					    styleBlue);
 				} else {
 				    doc.insertString(doc.getLength(), message,
-					    styleBlue);
+					    styleRed);
 				}
 			    } catch (BadLocationException e) {
 				LOGGER.error(e, e);

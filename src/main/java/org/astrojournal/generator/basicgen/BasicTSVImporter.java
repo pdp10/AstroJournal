@@ -167,8 +167,7 @@ public class BasicTSVImporter extends TSVImporter {
 	    } else {
 		log.warn("Report:"
 			+ metaEntry[BasicMetaDataCols.DATE_NAME.ordinal()]
-			+ ". Malformed property [" + line
-			+ "]. Property discarded.");
+			+ ". Discarding line [" + line + "].");
 	    }
 	}
     }

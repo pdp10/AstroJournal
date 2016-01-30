@@ -25,7 +25,7 @@ package org.astrojournal.configuration.ajconfiguration;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -67,6 +67,9 @@ public class AJConfiguration implements Configuration {
     private ResourceBundle resourceBundle = ResourceBundle
 	    .getBundle(localePrefix + AJPropertyConstants.LOCALE.getValue());
 
+    /** The list of generators */
+    private List<String> generatorNames = null;
+
     /**
      * The Properties for this application.
      */
@@ -100,6 +103,11 @@ public class AJConfiguration implements Configuration {
     @Override
     public ResourceBundle getResourceBundle() {
 	return resourceBundle;
+    }
+
+    @Override
+    public List<String> getGeneratorNames() {
+	return generatorNames;
     }
 
     @Override
@@ -144,6 +152,7 @@ public class AJConfiguration implements Configuration {
 	// + applicationProperties.getProperty(AJPropertyConstants.LOCALE
 	// .getKey()));
 	// log.debug(getConfigurationUtils().printConfiguration(this));
+	initialiseGenerators();
 
 	Properties defaultProperties = loadDefaultConfigurationFileProperties();
 	if (!validate(defaultProperties)) {
@@ -173,6 +182,17 @@ public class AJConfiguration implements Configuration {
 	// properties can be passed as input parameters and they are only
 	// temporary.
 
+    }
+
+    /** Retrieve the available generators by retrieving their package names. */
+    private void initialiseGenerators() {
+	// retrieve generator names
+	generatorNames = ClassesInstanceOf.getClassPackageInstanceOf(
+		"org.astrojournal.generator", Importer.class);
+	for (int i = 0; i < generatorNames.size(); i++) {
+	    String[] packageHierachy = generatorNames.get(i).split("\\.");
+	    generatorNames.set(i, packageHierachy[packageHierachy.length - 1]);
+	}
     }
 
     /**
@@ -385,14 +405,9 @@ public class AJConfiguration implements Configuration {
 	    status = false;
 	    log.warn("Property not valid: " + key);
 	} else {
-	    // retrieve generator names
-	    ArrayList<String> packageNames = ClassesInstanceOf
-		    .getClassPackageInstanceOf("org.astrojournal.generator",
-			    Importer.class);
 	    boolean found = false;
-	    for (int i = 0; i < packageNames.size() && !found; i++) {
-		String[] packageHierachy = packageNames.get(i).split("\\.");
-		if (packageHierachy[packageHierachy.length - 1].equals(value)) {
+	    for (int i = 0; i < generatorNames.size() && !found; i++) {
+		if (generatorNames.get(i).equals(value)) {
 		    applicationProperties.setProperty(key, value);
 		    found = true;
 		}

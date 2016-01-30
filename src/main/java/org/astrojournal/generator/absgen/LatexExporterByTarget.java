@@ -83,6 +83,42 @@ public abstract class LatexExporterByTarget extends LatexExporter {
     }
 
     @Override
+    public boolean generateJournal() {
+	LatexHeader latexHeader = new LatexHeader();
+	LatexFooter latexFooter = new LatexFooter();
+	Writer writer = null;
+	try {
+	    writer = new BufferedWriter(new OutputStreamWriter(
+		    new FileOutputStream(filesLocation + File.separator
+			    + reportFilename), "utf-8"));
+	    writeLatexMain(writer, latexHeader, latexFooter);
+
+	} catch (IOException ex) {
+	    log.warn("Error when opening the file " + filesLocation
+		    + File.separator + reportFolder + File.separator
+		    + reportFilename);
+	    log.debug("Error when opening the file " + filesLocation
+		    + File.separator + reportFolder + File.separator
+		    + reportFilename, ex);
+	    return false;
+	} catch (Exception e) {
+	    log.debug(e);
+	    log.error(e, e);
+	    return false;
+	} finally {
+	    try {
+		if (writer != null)
+		    writer.close();
+	    } catch (Exception e) {
+		log.debug(e);
+		log.error(e, e);
+		return false;
+	    }
+	}
+	return true;
+    }
+
+    @Override
     public void writeLatexMain(Writer writer, LatexHeader latexHeader,
 	    LatexFooter latexFooter) throws Exception {
 	// write the Latex Header
@@ -241,8 +277,45 @@ public abstract class LatexExporterByTarget extends LatexExporter {
      * @return the name of the file
      */
     protected String computeFileName(String[] targetEntry) {
+
+	if (targetEntry[MiniDataCols.TYPE_NAME.ordinal()].toLowerCase().equals(
+		"planet")
+		|| targetEntry[MiniDataCols.TARGET_NAME.ordinal()]
+			.toLowerCase().equals("moon")
+		|| targetEntry[MiniDataCols.TARGET_NAME.ordinal()]
+			.toLowerCase().equals("sun")) {
+	    return targetEntry[MiniDataCols.TARGET_NAME.ordinal()].replaceAll(
+		    "\\s+", "").replaceAll("/", "-");
+	}
+	if (targetEntry[MiniDataCols.TYPE_NAME.ordinal()].toLowerCase().equals(
+		"asteroid")
+		|| targetEntry[MiniDataCols.TYPE_NAME.ordinal()].toLowerCase()
+			.equals("comet")) {
+	    return targetEntry[MiniDataCols.TYPE_NAME.ordinal()].replaceAll(
+		    "\\s+", "").replaceAll("/", "-");
+	}
+	if (targetEntry[MiniDataCols.TYPE_NAME.ordinal()].toLowerCase().equals(
+		"star")
+		|| targetEntry[MiniDataCols.TYPE_NAME.ordinal()].toLowerCase()
+			.equals("dbl star")
+		|| targetEntry[MiniDataCols.TYPE_NAME.ordinal()].toLowerCase()
+			.equals("mlt star")) {
+	    return targetEntry[MiniDataCols.CONSTELLATION_NAME.ordinal()]
+		    + "_"
+		    + targetEntry[MiniDataCols.TARGET_NAME.ordinal()]
+			    .replaceAll("\\s+", "").replaceAll("/", "-");
+	}
+	if (targetEntry[MiniDataCols.TYPE_NAME.ordinal()].toLowerCase().equals(
+		"galaxy")
+		&& targetEntry[MiniDataCols.TARGET_NAME.ordinal()]
+			.toLowerCase().equals("milky way")) {
+	    // Don't print the constellation if we are processing the milky way!
+	    return targetEntry[MiniDataCols.TARGET_NAME.ordinal()].replaceAll(
+		    "\\s+", "").replaceAll("/", "-");
+	}
 	return targetEntry[MiniDataCols.TARGET_NAME.ordinal()].replaceAll(
-		"\\s+", "").replaceAll("/", "-");
+		"\\s+", "").replaceAll("/", "-")
+		+ "_" + targetEntry[MiniDataCols.CONSTELLATION_NAME.ordinal()];
     }
 
     /**

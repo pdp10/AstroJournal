@@ -23,6 +23,7 @@
  */
 package org.astrojournal.configuration;
 
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -65,5 +66,12 @@ public interface Configuration {
      * @return ConfigurationUtils
      */
     public ConfigurationUtils getConfigurationUtils();
+
+    /**
+     * Return the list of available generators
+     * 
+     * @return the list of generators
+     */
+    public List<String> getGeneratorNames();
 
 }

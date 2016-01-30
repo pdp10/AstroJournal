@@ -99,5 +99,6 @@ public class BasicLatexExporterByDate extends LatexExporterByDate {
 	}
 	writer.write("\\hline \n");
 	writer.write("\\end{longtable} \n");
+	writer.write("\\clearpage \n");
     }
 }

@@ -93,13 +93,13 @@ public abstract class LatexExporter extends Exporter {
 		headerFooterFolder, headerFilename);
 	LatexFooter latexFooter = new LatexFooter(filesLocation,
 		headerFooterFolder, footerFilename);
-	Writer writerByDate = null;
+	Writer writer = null;
 	try {
 
-	    writerByDate = new BufferedWriter(new OutputStreamWriter(
+	    writer = new BufferedWriter(new OutputStreamWriter(
 		    new FileOutputStream(filesLocation + File.separator
 			    + reportFilename), "utf-8"));
-	    writeLatexMain(writerByDate, latexHeader, latexFooter);
+	    writeLatexMain(writer, latexHeader, latexFooter);
 
 	} catch (IOException ex) {
 	    log.warn("Error when opening the file " + filesLocation
@@ -115,8 +115,8 @@ public abstract class LatexExporter extends Exporter {
 	    return false;
 	} finally {
 	    try {
-		if (writerByDate != null)
-		    writerByDate.close();
+		if (writer != null)
+		    writer.close();
 	    } catch (Exception e) {
 		log.debug(e);
 		log.error(e, e);
