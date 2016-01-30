@@ -72,7 +72,7 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
 	    writeLatexMain(writer, latexHeader, latexFooter);
 
 	} catch (IOException ex) {
-	    log.warn("Error when opening the file " + filesLocation
+	    log.error("Error when opening the file " + filesLocation
 		    + File.separator + reportFolder + File.separator
 		    + reportFilename);
 	    log.debug("Error when opening the file " + filesLocation
@@ -180,7 +180,7 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
 			    + ") \n");
 
 		} catch (IOException ex) {
-		    log.warn("Error when opening the file " + filesLocation
+		    log.error("Error when opening the file " + filesLocation
 			    + File.separator + filenameOut);
 		    log.debug("Error when opening the file " + filesLocation
 			    + File.separator + filenameOut, ex);

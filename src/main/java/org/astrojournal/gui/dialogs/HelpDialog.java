@@ -115,7 +115,7 @@ public class HelpDialog {
 	try {
 	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 	} catch (Exception ex) {
-	    log.warn(ex, ex);
+	    log.error(ex, ex);
 	}
 
 	java.awt.EventQueue.invokeLater(new Runnable() {

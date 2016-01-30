@@ -95,10 +95,10 @@ public class Generator {
 				.getKey()));
 		return false;
 	    }
-	    log.warn(resourceBundle.getString("AJ.errSomeImporterFailed.text"));
+	    log.error(resourceBundle.getString("AJ.errSomeImporterFailed.text"));
 	}
 	if (!ajExport()) {
-	    log.warn(resourceBundle.getString("AJ.errSomeExporterFailed.text"));
+	    log.error(resourceBundle.getString("AJ.errSomeExporterFailed.text"));
 	    return false;
 	}
 	return true;

@@ -163,7 +163,7 @@ public class ExtLatexExporterByTarget extends LatexExporterByTarget {
 		    // for this target.
 
 		} catch (IOException ex) {
-		    log.warn("Error when opening the file " + filesLocation
+		    log.error("Error when opening the file " + filesLocation
 			    + File.separator + filenameOut);
 		    log.debug("Error when opening the file " + filesLocation
 			    + File.separator + filenameOut, ex);

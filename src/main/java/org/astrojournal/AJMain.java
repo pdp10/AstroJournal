@@ -60,7 +60,7 @@ public class AJMain {
 	try {
 	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 	} catch (Exception ex) {
-	    log.warn(ex, ex);
+	    log.error(ex, ex);
 	}
 
 	// enable anti-aliased text:
@@ -112,11 +112,11 @@ public class AJMain {
 		    log.info(((AJConfigurationUtils) configUtils)
 			    .printPDFLatexVersion(config));
 		} else {
-		    log.error("Cannot test LaTeX with this configuration.");
+		    log.fatal("Cannot test LaTeX with this configuration.");
 		}
 		System.exit(0);
 	    } else {
-		log.error("Unrecognised option. Please, run AstroJournal with the option -h [--help] for suggestions.");
+		log.fatal("Unrecognised option. Please, run AstroJournal with the option -h [--help] for suggestions.");
 		System.exit(0);
 	    }
 	} catch (Exception ex) {

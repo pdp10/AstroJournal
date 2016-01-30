@@ -74,7 +74,7 @@ public class MiniLatexExporterByDate extends LatexExporterByDate {
 	    writeLatexMain(writer, latexHeader, latexFooter);
 
 	} catch (IOException ex) {
-	    log.warn("Error when opening the file " + filesLocation
+	    log.error("Error when opening the file " + filesLocation
 		    + File.separator + reportFolder + File.separator
 		    + reportFilename);
 	    log.debug("Error when opening the file " + filesLocation

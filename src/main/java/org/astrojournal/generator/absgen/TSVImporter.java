@@ -105,7 +105,7 @@ public abstract class TSVImporter extends Importer {
 		    } else {
 			if (!foundWrongDate) {
 			    foundWrongDate = true;
-			    log.warn("Expected 'Date' but found unknown property ["
+			    log.error("Expected 'Date' but found unknown property ["
 				    + line + "]. Report discarded.");
 			}
 		    }

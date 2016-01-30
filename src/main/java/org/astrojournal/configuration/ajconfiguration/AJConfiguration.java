@@ -167,7 +167,7 @@ public class AJConfiguration implements Configuration {
 	    log.info(resourceBundle.getString("AJ.lblUserConfigSaved.text"));
 	} else if (!validate(userProperties)) {
 	    adjustFileSeparatorForLatex();
-	    log.warn(resourceBundle.getString("AJ.errUserConfig.text"));
+	    log.error(resourceBundle.getString("AJ.errUserConfig.text"));
 	    saveProperties();
 	    log.info(resourceBundle.getString("AJ.lblUserConfigRestored.text"));
 	} else if (applicationProperties.size() > userProperties.size()) {
@@ -285,7 +285,7 @@ public class AJConfiguration implements Configuration {
 		userProperties = PropertiesManager.loadFromXML(userProperties,
 			configFile.getAbsolutePath());
 	    } catch (IOException e) {
-		log.warn(resourceBundle
+		log.error(resourceBundle
 			.getString("AJ.errReadingUserConfig.text"));
 		return userProperties;
 	    }
@@ -335,7 +335,7 @@ public class AJConfiguration implements Configuration {
 	if (value == null || value.equals("")) {
 	    // Check the key exists.
 	    status = false;
-	    log.warn("Property not valid: " + key);
+	    log.error("Property not valid: " + key);
 	} else {
 	    // Check that the file exists and is not empty
 	    String localeFile = localePrefix.replace('.', '/') + value
@@ -348,7 +348,7 @@ public class AJConfiguration implements Configuration {
 		log.debug("Locale file " + localeFile + " is loaded.");
 		if (bundleString == null || bundleString.isEmpty()) {
 		    status = false;
-		    log.warn("The locale file for the property : " + key
+		    log.error("The locale file for the property : " + key
 			    + " is not valid.");
 		} else {
 		    resourceBundle = ResourceBundle.getBundle(localePrefix
@@ -358,7 +358,7 @@ public class AJConfiguration implements Configuration {
 	    } catch (IOException e) {
 		status = false;
 		log.debug(e);
-		log.warn("The locale : " + value
+		log.error("The locale : " + value
 			+ " does not exist. Using previous locale setting.");
 	    }
 	}
@@ -384,7 +384,7 @@ public class AJConfiguration implements Configuration {
 	}
 	if (file == null || !file.exists() || !file.canWrite()) {
 	    status = false;
-	    log.warn("Property not valid: " + key);
+	    log.error("Property not valid: " + key);
 	} else {
 	    applicationProperties.setProperty(key, value);
 	}
@@ -407,7 +407,7 @@ public class AJConfiguration implements Configuration {
 	String value = properties.getProperty(key);
 	if (value == null || value.equals("")) {
 	    status = false;
-	    log.warn("Property not valid: " + key);
+	    log.error("Property not valid: " + key);
 	} else {
 	    boolean found = false;
 	    for (int i = 0; i < generatorNames.size() && !found; i++) {
@@ -418,7 +418,7 @@ public class AJConfiguration implements Configuration {
 	    }
 	    if (!found) {
 		status = false;
-		log.warn("Property not valid: " + key + ":=" + value);
+		log.error("Property not valid: " + key + ":=" + value);
 	    }
 	}
 	log.debug("Using " + key + ":" + applicationProperties.getProperty(key));
@@ -438,7 +438,7 @@ public class AJConfiguration implements Configuration {
 	String value = properties.getProperty(key);
 	if (value == null || value.equals("")) {
 	    status = false;
-	    log.warn("Property not valid: " + key);
+	    log.error("Property not valid: " + key);
 	} else {
 	    applicationProperties.setProperty(key, value);
 	}

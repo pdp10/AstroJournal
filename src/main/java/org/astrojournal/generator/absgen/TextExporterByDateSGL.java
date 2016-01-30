@@ -153,7 +153,7 @@ public abstract class TextExporterByDateSGL extends Exporter {
 	    writeTextMain(writer, "", "");
 
 	} catch (IOException ex) {
-	    log.warn("Error when opening the file " + filesLocation
+	    log.error("Error when opening the file " + filesLocation
 		    + File.separator + reportFilename);
 	    log.debug("Error when opening the file " + filesLocation
 		    + File.separator + reportFilename, ex);
@@ -210,7 +210,7 @@ public abstract class TextExporterByDateSGL extends Exporter {
 		    writer.write(text);
 		} catch (NoSuchElementException e) {
 		    log.debug(e, e);
-		    log.warn(e);
+		    log.error(e);
 		}
 		writer.write("\n\n");
 	    }
