@@ -21,47 +21,19 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.console;
+package org.astrojournal.generator.extgen;
 
-import org.astrojournal.AJMainControls;
-import org.astrojournal.configuration.Configuration;
-import org.astrojournal.generator.Generator;
+import org.astrojournal.generator.basicgen.BasicLatexExporterByConst;
 
 /**
- * A simple class containing the commands for AJMainConsole.
+ * Exports the observed targets by constellation to Latex code. This is an
+ * extended exporter which uses ExtMetaDataCols and ExtDataCols enum types for
+ * column export.
  * 
  * @author Piero Dalle Pezze
- * @version $Rev$
- * @since 1.0
- * @date 22 Dec 2015
+ * @version 0.2
+ * @since 28/05/2015
  */
-public class AJMainConsoleControls extends AJMainControls {
+public class ExtLatexExporterByConst extends BasicLatexExporterByConst {
 
-    /**
-     * Constructor
-     * 
-     * @param config
-     *            The configuration
-     */
-    public AJMainConsoleControls(Configuration config) {
-	super(config);
-    }
-
-    @Override
-    public boolean createJournal() {
-	Generator generator = new Generator(config);
-	if (!preProcessing()) {
-	    return false;
-	}
-
-	if (!processing(generator)) {
-	    return false;
-	}
-
-	if (!postProcessing(generator)) {
-	    return false;
-	}
-
-	return true;
-    }
 }

@@ -55,6 +55,10 @@ public enum AJPropertyConstants {
     /** The absolute path containing AstroJournal input and output folders. */
     FILES_LOCATION("aj.files_location", "AstroJournal_files"),
 
+    // GENERATOR
+    /** The generator name. */
+    GENERATOR_NAME("aj.generator", "extgen"),
+
     // INPUT FOLDER
     /** The relative path containing the raw files (observation input folder). */
     RAW_REPORTS_FOLDER("aj.raw_reports_folder", "raw_reports"),
@@ -177,6 +181,20 @@ public enum AJPropertyConstants {
      */
     public String getValue() {
 	return this.value;
+    }
+
+    /**
+     * Return a string containing a list of properties.
+     * 
+     * @return the list or properties.
+     */
+    public static String printAllProperties() {
+	AJPropertyConstants[] properties = values();
+	StringBuilder sb = new StringBuilder();
+	for (AJPropertyConstants property : properties) {
+	    sb.append(property.getKey() + "=" + property.getValue() + "\n");
+	}
+	return sb.toString();
     }
 
 }

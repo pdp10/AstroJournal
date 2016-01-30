@@ -25,7 +25,7 @@ package org.astrojournal.gui;
 
 import org.astrojournal.AJMainControls;
 import org.astrojournal.configuration.Configuration;
-import org.astrojournal.generator.AJGenerator;
+import org.astrojournal.generator.Generator;
 
 /**
  * A simple class containing the commands for AJMainGUI.
@@ -57,7 +57,7 @@ public class AJMainGUIControls extends AJMainControls {
 
     @Override
     public boolean createJournal() {
-	AJGenerator generator = new AJGenerator(config);
+	Generator generator = new Generator(config);
 	if (!preProcessing()) {
 	    ajMainGUI.setStatusPanelText(config.getResourceBundle().getString(
 		    "AJ.errUnconfiguredPreferences.text"));

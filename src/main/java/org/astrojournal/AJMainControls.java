@@ -32,7 +32,7 @@ import org.astrojournal.configuration.ConfigurationUtils;
 import org.astrojournal.configuration.ajconfiguration.AJConfigurationUtils;
 import org.astrojournal.configuration.ajconfiguration.AJMetaInfo;
 import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
-import org.astrojournal.generator.AJGenerator;
+import org.astrojournal.generator.Generator;
 
 /**
  * A generic class containing the commands running the logic of the application.
@@ -137,7 +137,7 @@ public abstract class AJMainControls {
      *            the generator
      * @return true if the processing phase succeeded.
      */
-    protected boolean processing(AJGenerator generator) {
+    protected boolean processing(Generator generator) {
 	log.debug("Starting processing");
 	if (config.getProperty(AJPropertyConstants.QUIET.getKey()).equals(
 		"false")
@@ -178,7 +178,7 @@ public abstract class AJMainControls {
      *            the generator
      * @return true if the post-processing phase succeeded.
      */
-    protected boolean postProcessing(AJGenerator generator) {
+    protected boolean postProcessing(Generator generator) {
 	log.debug("Starting post-processing");
 	log.info("");
 	log.info(config.getResourceBundle().getString(

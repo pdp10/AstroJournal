@@ -21,47 +21,23 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.console;
+package org.astrojournal.utilities.filefilters;
 
-import org.astrojournal.AJMainControls;
-import org.astrojournal.configuration.Configuration;
-import org.astrojournal.generator.Generator;
+import java.io.File;
+import java.io.FileFilter;
 
 /**
- * A simple class containing the commands for AJMainConsole.
+ * A filter for tab separated value (tsv, csv) files.
  * 
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
- * @date 22 Dec 2015
+ * @date 20 Jan 2016
  */
-public class AJMainConsoleControls extends AJMainControls {
-
-    /**
-     * Constructor
-     * 
-     * @param config
-     *            The configuration
-     */
-    public AJMainConsoleControls(Configuration config) {
-	super(config);
-    }
-
+public class TSVRawReportFilter implements FileFilter {
     @Override
-    public boolean createJournal() {
-	Generator generator = new Generator(config);
-	if (!preProcessing()) {
-	    return false;
-	}
-
-	if (!processing(generator)) {
-	    return false;
-	}
-
-	if (!postProcessing(generator)) {
-	    return false;
-	}
-
-	return true;
+    public boolean accept(File arg0) {
+	return arg0.getName().endsWith(".csv")
+		|| arg0.getName().endsWith(".tsv");
     }
 }
