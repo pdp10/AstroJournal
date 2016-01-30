@@ -25,6 +25,7 @@ package org.astrojournal.generator.absgen;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -168,8 +169,14 @@ public abstract class LatexExporter extends Exporter {
 	// Add this at the end to avoid mixing with the latex command
 	// output.
 	if (resourceBundle != null) {
-	    log.info("\t" + filesLocation + File.separator
-		    + FilenameUtils.removeExtension(reportFilename) + ".pdf");
+	    String pdfFile = filesLocation + File.separator
+		    + FilenameUtils.removeExtension(reportFilename) + ".pdf";
+	    if (new File(pdfFile).exists())
+		log.info("\t" + pdfFile);
+	    else {
+		log.error("\t" + pdfFile + " FAILED");
+		throw new FileNotFoundException("Error: File not created!");
+	    }
 	}
 	cleanPDFLatexOutput();
     }
