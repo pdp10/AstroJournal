@@ -159,19 +159,16 @@ public class AJConfiguration implements Configuration {
 	    log.error(resourceBundle
 		    .getString("AJ.errDefaultConfigFailed.text"));
 	}
-	adjustFileSeparatorForLatex();
 
 	Properties userProperties = loadUserConfigurationFileProperties();
 	if (userProperties.isEmpty()) {
 	    saveProperties();
 	    log.info(resourceBundle.getString("AJ.lblUserConfigSaved.text"));
 	} else if (!validate(userProperties)) {
-	    adjustFileSeparatorForLatex();
 	    log.error(resourceBundle.getString("AJ.errUserConfig.text"));
 	    saveProperties();
 	    log.info(resourceBundle.getString("AJ.lblUserConfigRestored.text"));
 	} else if (applicationProperties.size() > userProperties.size()) {
-	    adjustFileSeparatorForLatex();
 	    saveProperties();
 	    log.info(resourceBundle.getString("AJ.lblUserConfigUpdated.text"));
 	}
@@ -180,7 +177,6 @@ public class AJConfiguration implements Configuration {
 	// done automatically and there is no need to offer the validation
 	// method to the client.
 	loadSystemProperties();
-	adjustFileSeparatorForLatex();
 
 	// Don't save the application properties now, as at this stage system
 	// properties can be passed as input parameters and they are only
@@ -304,6 +300,10 @@ public class AJConfiguration implements Configuration {
      */
     private boolean validate(Properties properties) {
 	log.debug("Validating properties");
+
+	// Check the file separator. For LaTeX this must be a slash, even on
+	// windows.
+	adjustFileSeparatorForLatex(properties);
 	boolean status = true;
 	String[] keys = properties.keySet().toArray(new String[0]);
 	for (String key : keys) {
@@ -446,13 +446,14 @@ public class AJConfiguration implements Configuration {
 	return status;
     }
 
-    // TODO REVISIT THIS
     /**
      * Adjust the file separator if needed. The file separator must be '/' as
      * this is the default file separator in LaTeX. Therefore, let's replace '\'
      * with '/'.
+     * 
+     * @param newProperties
      */
-    private void adjustFileSeparatorForLatex() {
+    private void adjustFileSeparatorForLatex(Properties newProperties) {
 
 	String[] propertiesToAdjust = new String[] {
 		AJPropertyConstants.RAW_REPORTS_FOLDER.getKey(),
@@ -477,8 +478,14 @@ public class AJConfiguration implements Configuration {
 			.getKey() };
 
 	for (String key : propertiesToAdjust) {
-	    applicationProperties.setProperty(key, applicationProperties
-		    .getProperty(key).replace("\\", "/"));
+	    String value = newProperties.getProperty(key);
+	    if (value != null) {
+		while (value.length() > 0
+			&& (value.startsWith("\\") || value.startsWith("/"))) {
+		    value = value.substring(1);
+		}
+		newProperties.setProperty(key, value.replace("\\", "/"));
+	    }
 	}
     }
 }

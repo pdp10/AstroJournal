@@ -302,6 +302,7 @@ public class AJConfigurationUtils implements ConfigurationUtils {
 	// Create the folders if these do not exist.
 	File filesLocation = new File(
 		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey()));
+	filesLocation.getParentFile().mkdirs();
 	filesLocation.mkdir();
 
 	prepareAJHeaderFooter(config, filesLocation);
@@ -321,10 +322,14 @@ public class AJConfigurationUtils implements ConfigurationUtils {
      */
     private void prepareAJHeaderFooter(Configuration config, File filesLocation) {
 	// AJ header footer folder
-	File ajHeaderFooterDir = new File(
+	File file = new File(
 		config.getProperty(AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER
 			.getKey()));
-	ajHeaderFooterDir.mkdir();
+	if (file.getParentFile() != null) {
+	    file.getParentFile().mkdirs();
+	}
+	file.mkdir();
+
 	// Create a local folder for header_footer and copy the content from
 	// the AJ folder to here
 	File userHeaderFooterDir = new File(
@@ -340,8 +345,7 @@ public class AJConfigurationUtils implements ConfigurationUtils {
 	if (!userHeaderFooterDir.exists()
 		|| userHeaderFooterDir.listFiles(latexFilter).length < 1) {
 	    try {
-		FileUtils.copyDirectory(ajHeaderFooterDir, userHeaderFooterDir,
-			true);
+		FileUtils.copyDirectory(file, userHeaderFooterDir, true);
 	    } catch (IOException e) {
 		log.error(config.getResourceBundle().getString(
 			"AJ.errCannotPrepareHeaderFooterFolder.text"));
@@ -359,10 +363,13 @@ public class AJConfigurationUtils implements ConfigurationUtils {
     private void prepareRawReportsDir(Configuration config, File filesLocation) {
 	// Let's do the same for the raw_reports folder
 	// AJ raw reports folder
-	File ajRawReportsDir = new File(
+	File file = new File(
 		config.getProperty(AJPropertyConstants.RAW_REPORTS_FOLDER
 			.getKey()));
-	ajRawReportsDir.mkdir();
+	if (file.getParentFile() != null) {
+	    file.getParentFile().mkdirs();
+	}
+	file.mkdir();
 	// Create a local folder for ajRawReports and copy the content from
 	// the AJ folder to here
 	File userRawReportsDir = new File(filesLocation.getAbsolutePath()
@@ -377,8 +384,7 @@ public class AJConfigurationUtils implements ConfigurationUtils {
 	if (!userRawReportsDir.exists()
 		|| userRawReportsDir.listFiles(rawReportFilter).length < 1) {
 	    try {
-		FileUtils.copyDirectory(ajRawReportsDir, userRawReportsDir,
-			true);
+		FileUtils.copyDirectory(file, userRawReportsDir, true);
 	    } catch (IOException e) {
 		log.error(config.getResourceBundle().getString(
 			"AJ.errCannotPrepareRawReportsFolder.text"));
@@ -395,26 +401,45 @@ public class AJConfigurationUtils implements ConfigurationUtils {
      */
     private void prepareOutputReportsDir(Configuration config,
 	    File filesLocation) {
-	new File(
+	File file = new File(
 		filesLocation.getAbsolutePath()
 			+ File.separator
 			+ config.getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE
-				.getKey())).mkdir();
-	new File(
+				.getKey()));
+	if (file.getParentFile() != null) {
+	    file.getParentFile().mkdirs();
+	}
+	file.mkdir();
+
+	file = new File(
 		filesLocation.getAbsolutePath()
 			+ File.separator
 			+ config.getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET
-				.getKey())).mkdir();
-	new File(
+				.getKey()));
+	if (file.getParentFile() != null) {
+	    file.getParentFile().mkdirs();
+	}
+	file.mkdir();
+
+	file = new File(
 		filesLocation.getAbsolutePath()
 			+ File.separator
 			+ config.getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-				.getKey())).mkdir();
-	new File(
+				.getKey()));
+	if (file.getParentFile() != null) {
+	    file.getParentFile().mkdirs();
+	}
+	file.mkdir();
+
+	file = new File(
 		filesLocation.getAbsolutePath()
 			+ File.separator
 			+ config.getProperty(AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE
-				.getKey())).mkdir();
+				.getKey()));
+	if (file.getParentFile() != null) {
+	    file.getParentFile().mkdirs();
+	}
+	file.mkdir();
     }
 
     /**
