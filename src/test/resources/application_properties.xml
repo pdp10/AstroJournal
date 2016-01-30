@@ -9,6 +9,7 @@
 <entry key="aj.show_pdflatex_version_at_start">true</entry>
 <entry key="aj.show_configuration_at_start">true</entry>
 <entry key="aj.files_location">AstroJournal_files</entry>
+<entry key="aj.generator">extgen</entry>
 <entry key="aj.raw_reports_folder">raw_reports</entry>
 <entry key="aj.latex_header_footer_folder">latex_header_footer</entry>
 <entry key="aj.latex_reports_folder_by_date">latex_reports_by_date</entry>

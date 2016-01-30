@@ -51,10 +51,10 @@ import org.junit.Test;
  * @since 1.0
  * @date 15 Jan 2016
  */
-public class ExtGenSystemTest {
+public class MiniGenSystemTest {
 
     /** The log associated to this class */
-    private static Logger log = LogManager.getLogger(ExtGenSystemTest.class);
+    private static Logger log = LogManager.getLogger(MiniGenSystemTest.class);
 
     /** The configuration. */
     private static Configuration config;
@@ -68,10 +68,10 @@ public class ExtGenSystemTest {
 		System.getProperty("user.dir") + File.separator + "src"
 			+ File.separator + "test" + File.separator
 			+ "resources" + File.separator
-			+ "ext_report_system_test");
+			+ "mini_report_system_test");
 
 	System.setProperty(AJPropertyConstants.GENERATOR_NAME.getKey(),
-		"extgen");
+		"minigen");
 	config = new AJConfiguration();
 
 	String[] args = new String[] { "--console" };
@@ -194,29 +194,6 @@ public class ExtGenSystemTest {
 			+ File.separator
 			+ FilenameUtils.removeExtension(config
 				.getProperty(AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
-					.getKey())) + ".pdf").exists());
-    }
-
-    /**
-     * Test the generation of report by constellation.
-     */
-    @Test
-    public void testGeneratedReportByConstellation() {
-	System.out.println("Running test " + this.getClass().getSimpleName()
-		+ "." + new Object() {
-		}.getClass().getEnclosingMethod().getName());
-
-	// tex + pdf
-	assertTrue(new File(
-		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
-			+ File.separator
-			+ config.getProperty(AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
-				.getKey())).exists());
-	assertTrue(new File(
-		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
-			+ File.separator
-			+ FilenameUtils.removeExtension(config
-				.getProperty(AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
 					.getKey())) + ".pdf").exists());
     }
 

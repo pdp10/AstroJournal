@@ -51,10 +51,10 @@ import org.junit.Test;
  * @since 1.0
  * @date 15 Jan 2016
  */
-public class ExtGenSystemTest {
+public class BasicGenSystemTest {
 
     /** The log associated to this class */
-    private static Logger log = LogManager.getLogger(ExtGenSystemTest.class);
+    private static Logger log = LogManager.getLogger(BasicGenSystemTest.class);
 
     /** The configuration. */
     private static Configuration config;
@@ -68,10 +68,10 @@ public class ExtGenSystemTest {
 		System.getProperty("user.dir") + File.separator + "src"
 			+ File.separator + "test" + File.separator
 			+ "resources" + File.separator
-			+ "ext_report_system_test");
+			+ "basic_report_system_test");
 
 	System.setProperty(AJPropertyConstants.GENERATOR_NAME.getKey(),
-		"extgen");
+		"basicgen");
 	config = new AJConfiguration();
 
 	String[] args = new String[] { "--console" };
