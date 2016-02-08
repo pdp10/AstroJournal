@@ -37,7 +37,7 @@ public enum AJMetaInfo {
     NAME("AstroJournal"),
 
     /** The version. */
-    VERSION("(devel)"),
+    VERSION("2.0.0"),
 
     /** The website. */
     WEBSITE("http://pdp10.github.io/AstroJournal/"),
