@@ -28,7 +28,11 @@ import javax.swing.UIManager;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.Configuration;
+import org.astrojournal.configuration.ConfigurationUtils;
+import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
+import org.astrojournal.configuration.ajconfiguration.AJConfigurationUtils;
+import org.astrojournal.configuration.ajconfiguration.AJMetaInfo;
 import org.astrojournal.console.AJMainConsole;
 import org.astrojournal.gui.AJMainGUI;
 
@@ -46,14 +50,17 @@ public class AJMain {
 
     /**
      * Start AJMiniGUI.
+     * 
+     * @param config
+     *            The configuration
      */
-    private static void startAJMainGUI() {
+    private static void startAJMainGUI(final Configuration config) {
 	// Note Nimbus does not seem to show the vertical scroll bar if there is
 	// too much text..
 	try {
 	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 	} catch (Exception ex) {
-	    log.warn(ex, ex);
+	    log.error(ex, ex);
 	}
 
 	// enable anti-aliased text:
@@ -62,7 +69,7 @@ public class AJMain {
 	java.awt.EventQueue.invokeLater(new Runnable() {
 	    @Override
 	    public void run() {
-		new AJMainGUI().setVisible(true);
+		new AJMainGUI(config).setVisible(true);
 	    }
 	});
     }
@@ -74,36 +81,37 @@ public class AJMain {
      * @param args
      */
     public static void main(String[] args) {
-
 	// Get some information for debugging
-	log.debug("Application: " + AJConfig.APPLICATION_NAME + " "
-		+ AJConfig.APPLICATION_VERSION);
+	log.debug("Application: " + AJMetaInfo.NAME.getInfo() + " "
+		+ AJMetaInfo.VERSION.getInfo());
 	log.debug("Operating System: " + SystemUtils.OS_ARCH + " "
 		+ SystemUtils.OS_NAME + " " + SystemUtils.OS_VERSION);
 	log.debug("Java: " + SystemUtils.JAVA_VENDOR + " "
 		+ SystemUtils.JAVA_VERSION);
 
+	Configuration config = new AJConfiguration();
+	ConfigurationUtils configUtils = config.getConfigurationUtils();
+
 	try {
 	    if (args.length == 0) {
-		startAJMainGUI();
+		startAJMainGUI(config);
 	    } else if (args[0].equals("-f") || args[0].equals("--config")) {
-		log.info(AJConfig.getInstance().printConfiguration());
-		System.exit(0);
+		log.info(configUtils.printConfiguration(config));
 	    } else if (args[0].equals("-c") || args[0].equals("--console")) {
 		AJMainConsole.main(args);
-		System.exit(0);
 	    } else if (args[0].equals("-h") || args[0].equals("--help")) {
 		log.info(AJMainConsole.printHelp());
-		System.exit(0);
 	    } else if (args[0].equals("--license")) {
-		log.info(AJConfig.getInstance().printLicense());
-		System.exit(0);
+		log.info(AJMetaInfo.SHORT_LICENSE.getInfo());
 	    } else if (args[0].equals("-t") || args[0].equals("--test-latex")) {
-		log.info(AJConfig.getInstance().printPDFLatexVersion());
-		System.exit(0);
+		if (configUtils instanceof AJConfigurationUtils) {
+		    log.info(((AJConfigurationUtils) configUtils)
+			    .printPDFLatexVersion(config));
+		} else {
+		    log.fatal("Cannot test LaTeX with this configuration.");
+		}
 	    } else {
-		log.error("Unrecognised option. Please, run AstroJournal with the option -h [--help] for suggestions.");
-		System.exit(0);
+		log.fatal("Unrecognised option. Please, run AstroJournal with the option -h [--help] for suggestions.");
 	    }
 	} catch (Exception ex) {
 	    log.error(ex, ex);

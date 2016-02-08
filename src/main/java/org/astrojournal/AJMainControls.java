@@ -27,11 +27,15 @@ import java.io.IOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.AJConfig;
-import org.astrojournal.generator.AJGenerator;
+import org.astrojournal.configuration.Configuration;
+import org.astrojournal.configuration.ConfigurationUtils;
+import org.astrojournal.configuration.ajconfiguration.AJConfigurationUtils;
+import org.astrojournal.configuration.ajconfiguration.AJMetaInfo;
+import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
+import org.astrojournal.generator.Generator;
 
 /**
- * A simple class containing the commands for AJMain*Control classes.
+ * A generic class containing the commands running the logic of the application.
  * 
  * @author Piero Dalle Pezze
  * @version $Rev$
@@ -42,15 +46,21 @@ public abstract class AJMainControls {
 
     private static Logger log = LogManager.getLogger(AJMainControls.class);
 
-    /**
-     * A reference to AJ Generator.
-     */
-    protected AJGenerator ajGenerator = new AJGenerator();
+    /** The application configuration. */
+    protected Configuration config;
+
+    /** The application configuration utilities. */
+    private ConfigurationUtils configUtils;
 
     /**
      * Constructor
+     * 
+     * @param config
+     *            The configuration
      */
-    public AJMainControls() {
+    public AJMainControls(Configuration config) {
+	this.config = config;
+	configUtils = this.config.getConfigurationUtils();
     }
 
     /**
@@ -61,23 +71,59 @@ public abstract class AJMainControls {
     public abstract boolean createJournal();
 
     /**
+     * Print the license for AstroJournal.
+     */
+    public void showLicense() {
+	log.info(AJMetaInfo.SHORT_LICENSE.getInfo());
+    }
+
+    /**
+     * Print the version of pdflatex.
+     * 
+     * @return true if pdflatex is installed, false otherwise
+     */
+    public boolean showPDFLatexVersion() {
+	String pdfLatexVersion = "";
+	if (configUtils instanceof AJConfigurationUtils) {
+	    pdfLatexVersion = ((AJConfigurationUtils) configUtils)
+		    .printPDFLatexVersion(config);
+	}
+	if (pdfLatexVersion.isEmpty()) {
+	    return false;
+	}
+	log.info(pdfLatexVersion);
+	return true;
+    }
+
+    /**
+     * Print the configuration for AstroJournal.
+     */
+    public void showConfiguration() {
+	String[] conf = configUtils.printConfiguration(config).split("\n");
+	for (String str : conf) {
+	    log.info(str);
+	}
+	log.info(System.getProperty("line.separator"));
+    }
+
+    /**
      * Initialise the folders.
      * 
      * @return true if the pre-processing phase succeeded.
      */
     protected boolean preProcessing() {
 	log.debug("Starting pre-processing");
-	AJConfig ajConfig = AJConfig.getInstance();
 
 	// prepare the folders for AJ.
-	ajConfig.prepareAJFolders();
+	configUtils.prepareFolders(config);
 
 	// Delete previous content if present
 	try {
-	    ajConfig.cleanAJFolder();
+	    configUtils.cleanFolder(config);
 	} catch (IOException e) {
-	    log.error(AJConfig.BUNDLE
-		    .getString("AJ.errUnconfiguredPreferences.text"), e);
+	    log.error(config.getResourceBundle().getString(
+		    "AJ.errUnconfiguredPreferences.text"));
+	    log.debug(e, e);
 	    return false;
 	}
 	log.debug("Pre-processing was SUCCESSFUL");
@@ -87,13 +133,38 @@ public abstract class AJMainControls {
     /**
      * Generate the journals.
      * 
+     * @param generator
+     *            the generator
      * @return true if the processing phase succeeded.
      */
-    protected boolean processing() {
+    protected boolean processing(Generator generator) {
 	log.debug("Starting processing");
-	if (!ajGenerator.generateJournals()) {
-	    log.error(AJConfig.BUNDLE
-		    .getString("AJ.errJournalNotExported.text"));
+	if (config.getProperty(AJPropertyConstants.QUIET.getKey()).equals(
+		"false")
+		&& config.getProperty(
+			AJPropertyConstants.SHOW_LICENSE_AT_START.getKey())
+			.equals("true")) {
+	    showLicense();
+	}
+	if (config.getProperty(AJPropertyConstants.QUIET.getKey()).equals(
+		"false")
+		&& config.getProperty(
+			AJPropertyConstants.SHOW_PDFLATEX_VERSION_AT_START
+				.getKey()).equals("true")) {
+	    if (!showPDFLatexVersion()) {
+		return false;
+	    }
+	}
+	if (config.getProperty(AJPropertyConstants.QUIET.getKey()).equals(
+		"false")
+		&& config.getProperty(
+			AJPropertyConstants.SHOW_CONFIGURATION_AT_START
+				.getKey()).equals("true")) {
+	    showConfiguration();
+	}
+	if (!generator.generateJournals()) {
+	    log.error(config.getResourceBundle().getString(
+		    "AJ.errJournalNotExported.text"));
 	    return false;
 	}
 	log.debug("Processing was SUCCESSFUL");
@@ -103,14 +174,18 @@ public abstract class AJMainControls {
     /**
      * Run post processing commands after the generation of the journals.
      * 
+     * @param generator
+     *            the generator
      * @return true if the post-processing phase succeeded.
      */
-    protected boolean postProcessing() {
+    protected boolean postProcessing(Generator generator) {
 	log.debug("Starting post-processing");
 	log.info("");
-	log.info(AJConfig.BUNDLE.getString("AJ.lblCreatingReports.text"));
-	if (!ajGenerator.postProcessing()) {
-	    log.error(AJConfig.BUNDLE.getString("AJ.errPDFLatex.text"));
+	log.info(config.getResourceBundle().getString(
+		"AJ.lblCreatingReports.text"));
+	if (!generator.postProcessing()) {
+	    log.error(config.getResourceBundle().getString(
+		    "AJ.errPDFLatex.text"));
 	    return false;
 	}
 	log.debug("Post-processing was SUCCESSFUL");

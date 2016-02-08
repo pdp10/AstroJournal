@@ -24,6 +24,8 @@
 package org.astrojournal.console;
 
 import org.astrojournal.AJMainControls;
+import org.astrojournal.configuration.Configuration;
+import org.astrojournal.generator.Generator;
 
 /**
  * A simple class containing the commands for AJMainConsole.
@@ -37,21 +39,26 @@ public class AJMainConsoleControls extends AJMainControls {
 
     /**
      * Constructor
+     * 
+     * @param config
+     *            The configuration
      */
-    public AJMainConsoleControls() {
+    public AJMainConsoleControls(Configuration config) {
+	super(config);
     }
 
     @Override
     public boolean createJournal() {
+	Generator generator = new Generator(config);
 	if (!preProcessing()) {
 	    return false;
 	}
 
-	if (!processing()) {
+	if (!processing(generator)) {
 	    return false;
 	}
 
-	if (!postProcessing()) {
+	if (!postProcessing(generator)) {
 	    return false;
 	}
 

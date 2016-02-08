@@ -23,7 +23,11 @@
  */
 package org.astrojournal.console;
 
-import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.AJMainControls;
+import org.astrojournal.configuration.Configuration;
+import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
+import org.astrojournal.configuration.ajconfiguration.AJMetaInfo;
+import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 
 /**
  * A class for running AstroJournal via command line.
@@ -34,13 +38,16 @@ import org.astrojournal.configuration.AJConfig;
  */
 public class AJMainConsole {
 
-    private AJMainConsoleControls commandRunner;
+    private AJMainControls commandRunner;
 
     /**
      * Creates new form NewJFrame
+     * 
+     * @param config
+     *            The configuration
      */
-    public AJMainConsole() {
-	initComponents();
+    public AJMainConsole(Configuration config) {
+	initComponents(config);
     }
 
     /**
@@ -50,9 +57,9 @@ public class AJMainConsole {
      */
     public static String printHelp() {
 	String help = new String(
-		AJConfig.APPLICATION_NAME
+		AJMetaInfo.NAME.getInfo()
 			+ " "
-			+ AJConfig.APPLICATION_VERSION
+			+ AJMetaInfo.VERSION.getInfo()
 			+ "\n"
 			+ "USAGE: run_astrojournal.sh [options]\n"
 			+ "Options are:\n"
@@ -77,9 +84,12 @@ public class AJMainConsole {
 
     /**
      * This method is called from within the constructor to initialise the form.
+     * 
+     * @param config
+     *            The configuration
      */
-    private void initComponents() {
-	commandRunner = new AJMainConsoleControls();
+    private void initComponents(Configuration config) {
+	commandRunner = new AJMainConsoleControls(config);
     }
 
     /**
@@ -89,24 +99,32 @@ public class AJMainConsole {
      *            The command line arguments
      */
     public static void main(String args[]) {
-	AJConfig ajConfig = AJConfig.getInstance();
-	AJMainConsole ajMainConsole = new AJMainConsole();
+	Configuration config = new AJConfiguration();
+	AJMainConsole ajMainConsole = new AJMainConsole(config);
 	if (args.length > 1
 		&& (args[1].equals("-l") || args[1].equals("--latex-output"))) {
-	    if (ajConfig.isQuiet()) {
+	    if (config.getProperty(AJPropertyConstants.QUIET.getKey()).equals(
+		    "true")) {
 		// If the configuration was quiet, we switch every thing off,
 		// except for LATEX_OUTPUT_PROP
-		System.setProperty(AJConfig.QUIET_PROP, "false");
-		System.setProperty(AJConfig.SHOW_LICENSE_AT_START_PROP, "false");
-		System.setProperty(AJConfig.SHOW_PDFLATEX_VERSION_AT_START_PROP, "false");
-		System.setProperty(AJConfig.SHOW_CONFIGURATION_AT_START_PROP,
+		System.setProperty(AJPropertyConstants.QUIET.getKey(), "false");
+		System.setProperty(
+			AJPropertyConstants.SHOW_LICENSE_AT_START.getKey(),
 			"false");
+		System.setProperty(
+			AJPropertyConstants.SHOW_PDFLATEX_VERSION_AT_START
+				.getKey(), "false");
+		System.setProperty(
+			AJPropertyConstants.SHOW_CONFIGURATION_AT_START
+				.getKey(), "false");
 	    }
-	    System.setProperty(AJConfig.SHOW_LATEX_OUTPUT_PROP, "true");
+	    System.setProperty(AJPropertyConstants.SHOW_LATEX_OUTPUT.getKey(),
+		    "true");
 	} else {
-	    System.setProperty(AJConfig.SHOW_LATEX_OUTPUT_PROP, "false");
+	    System.setProperty(AJPropertyConstants.SHOW_LATEX_OUTPUT.getKey(),
+		    "false");
 	}
-	ajConfig.loadSystemProperties();
+	config.loadSystemProperties();
 	if (!ajMainConsole.createJournals()) {
 	    System.exit(1);
 	}

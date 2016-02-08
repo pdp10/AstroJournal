@@ -49,7 +49,7 @@ public class StatusPanel extends JPanel {
     }
 
     /**
-     * This method is called from within the constructor to initialize the form.
+     * This method is called from within the constructor to initialise the form.
      */
     private void initComponents() {
 	setLayout(new BorderLayout());

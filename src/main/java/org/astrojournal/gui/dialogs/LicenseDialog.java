@@ -31,6 +31,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -38,7 +39,7 @@ import javax.swing.JEditorPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.ajconfiguration.AJMetaInfo;
 import org.astrojournal.gui.AJMainGUI;
 import org.astrojournal.utilities.ReadFromJar;
 
@@ -68,6 +69,8 @@ public class LicenseDialog extends JDialog {
      * 
      * @param application
      *            the application
+     * @param resourceBundle
+     *            the resource bundle
      * @param license
      *            the license file
      * @throws FileNotFoundException
@@ -75,24 +78,31 @@ public class LicenseDialog extends JDialog {
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    public LicenseDialog(AJMainGUI application, String license)
-	    throws FileNotFoundException, IOException {
+    public LicenseDialog(AJMainGUI application, ResourceBundle resourceBundle,
+	    String license) throws FileNotFoundException, IOException {
 	super(application);
-	initComponents(application, license);
+	initComponents(application, resourceBundle, license);
     }
 
     /**
      * This method is called from within the constructor to initialise the form.
      * 
+     * @param application
+     *            the application
+     * @param resourceBundle
+     *            the resource bundle
+     * @param license
+     *            the license file
      * @throws FileNotFoundException
      *             if the license file does not exist.
      * @throws IOException
      */
-    private void initComponents(AJMainGUI application, String license)
+    private void initComponents(AJMainGUI application,
+	    ResourceBundle resourceBundle, String license)
 	    throws FileNotFoundException, IOException {
 
-	setTitle(AJConfig.APPLICATION_NAME + " "
-		+ AJConfig.BUNDLE.getString("AJ.lblLicense.text"));
+	setTitle(AJMetaInfo.NAME.getInfo() + " "
+		+ resourceBundle.getString("AJ.lblLicense.text"));
 	setLayout(new BorderLayout());
 
 	if (tempLicense == null) {
@@ -117,7 +127,7 @@ public class LicenseDialog extends JDialog {
 
 	JPanel buttonPanel = new JPanel();
 	JButton btnClose = new JButton(
-		AJConfig.BUNDLE.getString("AJ.cmdClose.text"));
+		resourceBundle.getString("AJ.cmdClose.text"));
 	getRootPane().setDefaultButton(btnClose);
 	btnClose.addActionListener(new ActionListener() {
 	    @Override

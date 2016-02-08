@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>Default application configuration.</comment>
+<entry key="aj.locale">en_GB</entry>
+<entry key="aj.quiet">false</entry>
+<entry key="aj.show_latex_output">false</entry>
+<entry key="aj.show_license_at_start">true</entry>
+<entry key="aj.show_pdflatex_version_at_start">true</entry>
+<entry key="aj.show_configuration_at_start">true</entry>
+<entry key="aj.files_location">AstroJournal_files</entry>
+<entry key="aj.generator">extgen</entry>
+<entry key="aj.raw_reports_folder">raw_reports</entry>
+<entry key="aj.latex_header_footer_folder">latex_header_footer</entry>
+<entry key="aj.latex_reports_folder_by_date">latex_reports_by_date</entry>
+<entry key="aj.latex_report_by_date_filename">astrojournal_by_date.tex</entry>
+<entry key="aj.latex_header_by_date_filename">header_by_date.tex</entry>
+<entry key="aj.latex_footer_by_date_filename">footer_by_date.tex</entry>
+<entry key="aj.latex_reports_folder_by_target">latex_reports_by_target</entry>
+<entry key="aj.latex_report_by_target_filename">astrojournal_by_target.tex</entry>
+<entry key="aj.latex_header_by_target_filename">header_by_target.tex</entry>
+<entry key="aj.latex_footer_by_target_filename">footer_by_target.tex</entry>
+<entry key="aj.latex_reports_folder_by_constellation">latex_reports_by_constellation</entry>
+<entry key="aj.latex_report_by_constellation_filename">astrojournal_by_constellation.tex</entry>
+<entry key="aj.latex_header_by_constellation_filename">header_by_constellation.tex</entry>
+<entry key="aj.latex_footer_by_constellation_filename">footer_by_constellation.tex</entry>
+<entry key="aj.sgl_reports_folder_by_date">sgl_reports_by_date</entry>
+<entry key="aj.sgl_report_by_date_filename">astrojournal_by_date_sgl.txt</entry>
+</properties>

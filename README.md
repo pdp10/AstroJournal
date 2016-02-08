@@ -5,6 +5,8 @@ Author: Piero Dalle Pezze
 
 Licence: GPL v3 (2015)
 
+Mailing list: astrojournal AT googlegroups.com
+
 
 ### Description
 This Java application imports files containing astronomy observations 
@@ -24,10 +26,11 @@ by a TAB delimiter. Fields can have single or double quotes.
 - Generation of a PDF document containing all user observation reports collected by decreasing date. This is useful for visualising one’s observations by session.
 - Generation of a PDF document containing the targets observed by constellation. This is useful for checking observed and unobserved targets by constellation.
 - Generation of a TXT document containing all user observation reports collected by decreasing date. This is for creating observation reports to be published in an astronomy forum (e.g. Stargazers Lounge).
+- Although the program requires some form of structured input file, this is intentionally minimal in order to not distract the user who wants to insert his / her data rather than thinking of how to format this data.
+- Summary reports are also available by choosing a different generator in the Preferences Menu.
+- Possibility to edit the document header and the footer according to one’s need. This must be done in LaTeX to maintain the format controls in the final output file.
 - Complete lists of Messier objects and Caldwell selection of NGC targets are included at the end of the generated PDF documents.
-- Although the program requires some form of structured input file, this is intentionally minimal in order to not distract the user who wants to insert his / her data rather than thinking of how to format this data. All input data is treated as a string and therefore is not parsed for controls. This leaves the freedom to the user to introduce the data content as s/he wish. For instance, although in each document header I use the Antoniadi Scale for Seeing, this can be trivially overridden with a customised one. The inserted value for the seeing is not controlled according to a specific scale. 
-- Possibility to edit the document header and the footer according to one’s need. This must be done in LaTex for preserving the format controls in the final output file.
- 
+
 
 ### Requirements
 To use AstroJournal you need to install:
@@ -109,71 +112,3 @@ Here are some guidelines for using AstroJournal:
 3. Put this file in the folder raw_reports.
 
 4. In the main astrojournal folder type the command above ./astrojournal.sh or astrojournal.exe .
-
-
-
-# Develop AstroJournal
-
-### Requirements
-To compile AstroJournal you need to install:
-
-- [Git](https://git-scm.com/downloads)
-
-- [Java 1.7+](https://java.com/en/download/)
-
-- [Maven](http://maven.apache.org/)
-
-- [TeX Live](http://www.tug.org/texlive/) (for Linux Users) or [MikTeX](http://miktex.org/download) (for Windows Users) (pdflatex must be installed)
-
-On GNU/Linux Debian/Ubuntu 14.04+, users can install the LaTeX dependencies required by AstroJournal with the following command:
-```
-sudo apt-get --no-install-recommends install texlive-latex-base texlive-latex-recommended
-``` 
-On Windows, users should install MikTeX and then the LaTeX packages *url* and *mptopdf* using MikTeX Manager.
-
-
-### Clone & Compile
-To clone AstroJournal repository:
-```
-git clone https://github.com/pdp10/AstroJournal.git
-```
-
-To test maven type:
-```
-mvn --version
-```
-
-To add dependencies using Eclipse type:
-```
-mvn eclipse:eclipse
-```
-
-To simply test AstroJournal type:
-```
-mvn test
-```
-
-To create a jar file for AstroJournal type:
-```
-mvn package
-```
-
-To read the source code documentation type:
-```
-mvn javadoc:javadoc
-```
-
-To clean:
-```
-mvn clean
-```
-
-To test AstroJournal on GNU/Linux type:
-```
-./astrojournal.sh
-```
-
-### Integration Tests
-A .travis.yml script is included with this project in order to perform continuous integration tests at each push.
-To use travis-ci, an account on github.com is required as now and [this guide](https://docs.travis-ci.com/user/getting-started/) 
-is suggested. Information on how to fork AstroJournal can be found [here](https://help.github.com/articles/fork-a-repo/).

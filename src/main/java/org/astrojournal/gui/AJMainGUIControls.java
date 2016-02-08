@@ -24,10 +24,11 @@
 package org.astrojournal.gui;
 
 import org.astrojournal.AJMainControls;
-import org.astrojournal.configuration.AJConfig;
+import org.astrojournal.configuration.Configuration;
+import org.astrojournal.generator.Generator;
 
 /**
- * A simple class containing the commands for AJMiniGUI.
+ * A simple class containing the commands for AJMainGUI.
  * 
  * @author Piero Dalle Pezze
  * @version $Rev$
@@ -45,33 +46,38 @@ public class AJMainGUIControls extends AJMainControls {
      * Constructor
      * 
      * @param ajMainGUI
+     *            The GUI
+     * @param config
+     *            The configuration
      */
-    public AJMainGUIControls(AJMainGUI ajMainGUI) {
+    public AJMainGUIControls(AJMainGUI ajMainGUI, Configuration config) {
+	super(config);
 	this.ajMainGUI = ajMainGUI;
     }
 
     @Override
     public boolean createJournal() {
+	Generator generator = new Generator(config);
 	if (!preProcessing()) {
-	    ajMainGUI.setStatusPanelText(AJConfig.BUNDLE
-		    .getString("AJ.errUnconfiguredPreferences.text"));
+	    ajMainGUI.setStatusPanelText(config.getResourceBundle().getString(
+		    "AJ.errUnconfiguredPreferences.text"));
 	    return false;
 	}
 
-	if (!processing()) {
-	    ajMainGUI.setStatusPanelText(AJConfig.BUNDLE
-		    .getString("AJ.errJournalNotExportedShort.text"));
+	if (!processing(generator)) {
+	    ajMainGUI.setStatusPanelText(config.getResourceBundle().getString(
+		    "AJ.errJournalNotExportedShort.text"));
 	    return false;
 	}
 
-	if (!postProcessing()) {
-	    ajMainGUI.setStatusPanelText(AJConfig.BUNDLE
-		    .getString("AJ.errPDFLatexShort.text"));
+	if (!postProcessing(generator)) {
+	    ajMainGUI.setStatusPanelText(config.getResourceBundle().getString(
+		    "AJ.errPDFLatexShort.text"));
 	    return false;
 	}
 
-	ajMainGUI.setStatusPanelText(AJConfig.BUNDLE
-		.getString("AJ.lblCreatedReportsLong.text"));
+	ajMainGUI.setStatusPanelText(config.getResourceBundle().getString(
+		"AJ.lblCreatedReportsLong.text"));
 	return true;
     }
 }
