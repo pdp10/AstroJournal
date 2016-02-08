@@ -38,6 +38,8 @@
 
 <p>Licence: GPL v3 (2015)</p>
 
+<p>Mailing list: astrojournal AT googlegroups.com</p>
+
 <h3>
 <a id="description" class="anchor" href="#description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Description</h3>
 
@@ -59,9 +61,10 @@ by a TAB delimiter. Fields can have single or double quotes.</p>
 <li>Generation of a PDF document containing all user observation reports collected by decreasing date. This is useful for visualising one’s observations by session.</li>
 <li>Generation of a PDF document containing the targets observed by constellation. This is useful for checking observed and unobserved targets by constellation.</li>
 <li>Generation of a TXT document containing all user observation reports collected by decreasing date. This is for creating observation reports to be published in an astronomy forum (e.g. Stargazers Lounge).</li>
+<li>Although the program requires some form of structured input file, this is intentionally minimal in order to not distract the user who wants to insert his / her data rather than thinking of how to format this data.</li>
+<li>Summary reports are also available by choosing a different generator in the Preferences Menu.</li>
+<li>Possibility to edit the document header and the footer according to one’s need. This must be done in LaTeX to maintain the format controls in the final output file.</li>
 <li>Complete lists of Messier objects and Caldwell selection of NGC targets are included at the end of the generated PDF documents.</li>
-<li>Although the program requires some form of structured input file, this is intentionally minimal in order to not distract the user who wants to insert his / her data rather than thinking of how to format this data. All input data is treated as a string and therefore is not parsed for controls. This leaves the freedom to the user to introduce the data content as s/he wish. For instance, although in each document header I use the Antoniadi Scale for Seeing, this can be trivially overridden with a customised one. The inserted value for the seeing is not controlled according to a specific scale. </li>
-<li>Possibility to edit the document header and the footer according to one’s need. This must be done in LaTex for preserving the format controls in the final output file.</li>
 </ul>
 
 <h3>
@@ -154,78 +157,6 @@ editor.</p>
 <li><p>Put this file in the folder raw_reports.</p></li>
 <li><p>In the main astrojournal folder type the command above ./astrojournal.sh or astrojournal.exe .</p></li>
 </ol>
-
-<h1>
-<a id="develop-astrojournal" class="anchor" href="#develop-astrojournal" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Develop AstroJournal</h1>
-
-<h3>
-<a id="requirements-1" class="anchor" href="#requirements-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements</h3>
-
-<p>To compile AstroJournal you need to install:</p>
-
-<ul>
-<li><p><a href="https://git-scm.com/downloads">Git</a></p></li>
-<li><p><a href="https://java.com/en/download/">Java 1.7+</a></p></li>
-<li><p><a href="http://maven.apache.org/">Maven</a></p></li>
-<li><p><a href="http://www.tug.org/texlive/">TeX Live</a> (for Linux Users) or <a href="http://miktex.org/download">MikTeX</a> (for Windows Users) (pdflatex must be installed)</p></li>
-</ul>
-
-<p>On GNU/Linux Debian/Ubuntu 14.04+, users can install the LaTeX dependencies required by AstroJournal with the following command:</p>
-
-<pre><code>sudo apt-get --no-install-recommends install texlive-latex-base texlive-latex-recommended
-</code></pre>
-
-<p>On Windows, users should install MikTeX and then the LaTeX packages <em>url</em> and <em>mptopdf</em> using MikTeX Manager.</p>
-
-<h3>
-<a id="clone--compile" class="anchor" href="#clone--compile" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Clone &amp; Compile</h3>
-
-<p>To clone AstroJournal repository:</p>
-
-<pre><code>git clone https://github.com/pdp10/AstroJournal.git
-</code></pre>
-
-<p>To test maven type:</p>
-
-<pre><code>mvn --version
-</code></pre>
-
-<p>To add dependencies using Eclipse type:</p>
-
-<pre><code>mvn eclipse:eclipse
-</code></pre>
-
-<p>To simply test AstroJournal type:</p>
-
-<pre><code>mvn test
-</code></pre>
-
-<p>To create a jar file for AstroJournal type:</p>
-
-<pre><code>mvn package
-</code></pre>
-
-<p>To read the source code documentation type:</p>
-
-<pre><code>mvn javadoc:javadoc
-</code></pre>
-
-<p>To clean:</p>
-
-<pre><code>mvn clean
-</code></pre>
-
-<p>To test AstroJournal on GNU/Linux type:</p>
-
-<pre><code>./astrojournal.sh
-</code></pre>
-
-<h3>
-<a id="integration-tests" class="anchor" href="#integration-tests" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Integration Tests</h3>
-
-<p>A .travis.yml script is included with this project in order to perform continuous integration tests at each push.
-To use travis-ci, an account on github.com is required as now and <a href="https://docs.travis-ci.com/user/getting-started/">this guide</a> 
-is suggested. Information on how to fork AstroJournal can be found <a href="https://help.github.com/articles/fork-a-repo/">here</a>.</p>
         </section>
 
         <footer>
