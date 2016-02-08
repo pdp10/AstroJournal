@@ -1,4 +1,5 @@
 AstroJournal (GNU General Public License v3)
+
 Copyright 2015-2016 Piero Dalle Pezze
 
 Website: http://pdp10.github.io/AstroJournal/
@@ -13,12 +14,12 @@ Future
 
 v2.0.0
 
-After realising the first prototype this release focused more on refactoring internal components of AstroJournal than introducing new features. This redesign allows easier extensibility and coding in the future, reduces module coupling and increases flexibility. If desired, dependency injection (DI) can be introduced in the code. A new more structured developing model is now adopted. 
+After the first prototype this release is more about refactoring internal components of AstroJournal than introducing new features. This redesign allows for easier extensibility in the long term, reduces module coupling and increases flexibility. If desired, dependency injection (DI) can be introduced in the code. A new more structured developing model is now adopted. 
 
 A summary describing the work applied for this releases is provided below.
 
-- Redesign of the configuration package. This now has a clear pipeline of tasks to do at initialisation. The singleton pattern was replaced by a normal class. This changes the way the modules communicate with each other and increases flux control and safety. The configuration parameters are now stored as Java properties. Configuration files are saved in xml. Modularisation of program constants.
-- Redesign of the generator package. Here a generator includes a specific set of importers and exporters. Importers and Exporters now communicate with a better and simpler data structure which allows importer and exporter extensions. Two simpler types of generators are introduced in order to import and export less data and show compact reports. These can be useful for giving a quick overview via shorter documents. Importers and exporters now are much more extensible and flexible.
+- Re-design of the configuration package. This now has a clear pipeline of tasks to do at initialisation. The singleton pattern was replaced by a normal class. This changes the way that modules communicate with each other, and increases flux control and safety. The configuration parameters are now stored as Java properties. Configuration files are saved in xml. Modularisation of program constants.
+- Re-design of the generator package. Here a generator includes a specific set of importers and exporters. Importers and Exporters now communicate with a better and simpler data structure which allows importer and exporter extensions. Two new simpler types of generators are introduced in order to import and export less data and show compact reports. These can be useful for giving a quick overview via shorter documents. Importers and exporters now are much more extensible and flexible.
 - Exporters and importers are dynamically loaded.
 - Increased number of configuration parameters.
 - Constants are now stored in enum types.
