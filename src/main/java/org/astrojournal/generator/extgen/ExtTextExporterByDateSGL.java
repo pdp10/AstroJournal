@@ -67,6 +67,8 @@ public class ExtTextExporterByDateSGL extends TextExporterByDateSGL {
 		+ metaData[ExtMetaDataCols.LOCATION_NAME.ordinal()] + "\n");
 	writer.write(ExtMetaDataCols.ALTITUDE_NAME.getColName() + " "
 		+ metaData[ExtMetaDataCols.ALTITUDE_NAME.ordinal()] + "\n");
+	writer.write(ExtMetaDataCols.LUNAR_PHASE_NAME.getColName() + " "
+		+ metaData[ExtMetaDataCols.LUNAR_PHASE_NAME.ordinal()] + "\n");
 	writer.write(ExtMetaDataCols.TEMPERATURE_NAME.getColName() + " "
 		+ metaData[ExtMetaDataCols.TEMPERATURE_NAME.ordinal()] + "\n");
 	writer.write(ExtMetaDataCols.SEEING_NAME.getColName() + " "

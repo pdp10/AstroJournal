@@ -18,6 +18,8 @@ public enum ExtMetaDataCols {
     LOCATION_NAME("Location"),
     /** A string containing the altitude name. */
     ALTITUDE_NAME("Altitude"),
+    /** A string containing the lunar phase. */
+    LUNAR_PHASE_NAME("Lunar Phase"),
     /** A string containing the temperature name. */
     TEMPERATURE_NAME("Temperature"),
     /** A string containing the seeing name. */

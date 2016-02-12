@@ -142,15 +142,33 @@ public class ExtLatexExporterByTarget extends LatexExporterByTarget {
 			    + " "
 			    + metaData[ExtMetaDataCols.TIME_NAME.ordinal()]
 			    + ", "
-			    + metaData[ExtMetaDataCols.LOCATION_NAME.ordinal()]
-			    + ". "
+			    + metaData[ExtMetaDataCols.LOCATION_NAME.ordinal()]);
+		    if (!metaData[ExtMetaDataCols.LUNAR_PHASE_NAME.ordinal()]
+			    .isEmpty()) {
+			writer.write(", "
+				+ ExtMetaDataCols.LUNAR_PHASE_NAME.getColName()
+				+ ": "
+				+ metaData[ExtMetaDataCols.LUNAR_PHASE_NAME
+					.ordinal()].replace("%", "\\%"));
+		    }
+		    writer.write(". "
+			    + ExtMetaDataCols.SEEING_NAME.getColName()
+			    + ": "
 			    + metaData[ExtMetaDataCols.SEEING_NAME.ordinal()]
 			    + ", "
+			    + ExtMetaDataCols.TRANSPARENCY_NAME.getColName()
+			    + ": "
 			    + metaData[ExtMetaDataCols.TRANSPARENCY_NAME
-				    .ordinal()]
-			    + ", "
-			    + metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()]
-			    + ". "
+				    .ordinal()]);
+		    if (!metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()]
+			    .isEmpty()) {
+			writer.write(", "
+				+ ExtMetaDataCols.DARKNESS_NAME.getColName()
+				+ ": "
+				+ metaData[ExtMetaDataCols.DARKNESS_NAME
+					.ordinal()]);
+		    }
+		    writer.write(". "
 			    + metaData[ExtMetaDataCols.TELESCOPES_NAME
 				    .ordinal()] + ", "
 			    + targetEntry[ExtDataCols.POWER_NAME.ordinal()]
