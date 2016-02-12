@@ -12,6 +12,10 @@ Future
 - Replace Java Swing with Java FX
 - Adopt Spring dependency injection for the modules which would benefit from this.
 
+v2.0.1
+
+- Added lunar phase in the meta information for the extended generator.
+
 v2.0.0
 
 After the first prototype this release is more about refactoring internal components of AstroJournal than introducing new features. This redesign allows for easier extensibility in the long term, reduces module coupling and increases flexibility. If desired, dependency injection (DI) can be introduced in the code. A new more structured developing model is now adopted. 

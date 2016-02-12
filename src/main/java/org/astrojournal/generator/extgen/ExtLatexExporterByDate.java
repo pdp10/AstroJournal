@@ -58,7 +58,7 @@ public class ExtLatexExporterByDate extends LatexExporterByDate {
 	    throws IOException {
 	String[] metaData = report.getMetaData();
 	writer.write("% General observation data\n");
-	writer.write("\\begin{tabular}{ p{0.7in} p{1.2in} p{1.1in} p{5.7in}}\n");
+	writer.write("\\begin{tabular}{ p{1.2in} p{1.7in} p{1.1in} p{5.7in}}\n");
 	writer.write("{\\bf " + ExtMetaDataCols.DATE_NAME.getColName()
 		+ ":} & " + metaData[ExtMetaDataCols.DATE_NAME.ordinal()]
 		+ " & {\\bf " + ExtMetaDataCols.TEMPERATURE_NAME.getColName()
@@ -88,7 +88,11 @@ public class ExtLatexExporterByDate extends LatexExporterByDate {
 		    + ":} & "
 		    + metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()]
 		    + " \\\\ \n");
-	    writer.write("& & {\\bf "
+	    writer.write("{\\bf "
+		    + ExtMetaDataCols.LUNAR_PHASE_NAME.getColName()
+		    + ":} & "
+		    + metaData[ExtMetaDataCols.LUNAR_PHASE_NAME.ordinal()]
+			    .replace("%", "\\%") + " & {\\bf "
 		    + ExtMetaDataCols.TELESCOPES_NAME.getColName() + ":} & "
 		    + metaData[ExtMetaDataCols.TELESCOPES_NAME.ordinal()]
 		    + " \\\\ \n");
@@ -140,5 +144,4 @@ public class ExtLatexExporterByDate extends LatexExporterByDate {
 	writer.write("\\end{longtable} \n");
 	writer.write("\\clearpage \n");
     }
-
 }

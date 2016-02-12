@@ -102,6 +102,7 @@ public class ExtTSVImporter extends TSVImporter {
 		if (setMetaData(ExtMetaDataCols.TIME_NAME)
 			|| setMetaData(ExtMetaDataCols.LOCATION_NAME)
 			|| setMetaData(ExtMetaDataCols.ALTITUDE_NAME)
+			|| setMetaData(ExtMetaDataCols.LUNAR_PHASE_NAME)
 			|| setMetaData(ExtMetaDataCols.TEMPERATURE_NAME)
 			|| setMetaData(ExtMetaDataCols.SEEING_NAME)
 			|| setMetaData(ExtMetaDataCols.TRANSPARENCY_NAME)
