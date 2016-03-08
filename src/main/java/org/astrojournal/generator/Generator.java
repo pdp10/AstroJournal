@@ -228,6 +228,10 @@ public class Generator {
 	    log.debug(importer.getName() + " imported " + obs.size()
 		    + " reports");
 	}
+
+	// reverse the reports so that the most recent is the first.
+	Collections.reverse(reports);
+
 	return status;
     }
 
