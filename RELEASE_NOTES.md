@@ -12,6 +12,10 @@ Future
 - Replace Java Swing with Java FX
 - Adopt Spring dependency injection for the modules which would benefit from this.
 
+v2.0.2
+
+- Reports by target are now sorted by date decreasing.
+
 v2.0.1
 
 - Added lunar phase in the meta information for the extended generator.
