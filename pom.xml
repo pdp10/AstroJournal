@@ -239,11 +239,13 @@
                     <path>raw_reports/test_report2.csv</path>
                   </paths>
                   <dst>/usr/lib/${project.artifactId}/raw_reports</dst>
-                </data>  
+                </data>
                 <data>
                   <type>files</type>
                   <paths>
+                    <!--
                     <path>logs/main.log</path>
+                    -->                    
                     <path>logs/test.log</path>
                   </paths>
                   <dst>/usr/lib/${project.artifactId}/logs</dst>
