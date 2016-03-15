@@ -15,6 +15,7 @@ Future
 v2.0.2
 
 - Reports by target are now sorted by date decreasing.
+- Created deb package for GNU/Linux Debian. This is automatically created with maven.  
 
 v2.0.1
 

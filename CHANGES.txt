@@ -1,0 +1,2 @@
+release date=19:02 15.03.2016,version=2.0.2,urgency=low,by=Piero Dalle Pezze <piero.dallepezze@gmail.com>,distribution=ldstack-nightly
+ * First Debian package for AstronJournal

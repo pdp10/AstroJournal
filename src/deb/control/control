@@ -1,0 +1,11 @@
+Package: AstroJournal
+Version: 2.0.2
+Section: misc
+Priority: optional
+Architecture: all
+Depends: openjdk-7-jre
+Maintainer: Piero Dalle Pezze <piero.dallepezze@gmail.com>
+Distribution: ldstack-nightly
+Homepage: http://pdp10.github.io/AstroJournal/
+Description: An application for reporting astronomical observations
+	     
