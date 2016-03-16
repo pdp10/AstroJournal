@@ -1,3 +1,17 @@
+This file lists the licenses for the software AstroJournal and its third-party software dependencies.
+
+
+            		AstroJournal distribution
+                
+AstroJournal 2.0.2 -- https://github.com/pdp10/AstroJournal
+  [checked 2016-03-16]
+  Copyright (C) Piero Dalle Pezze
+  Distributed under the GPL 3.0.
+
+
+
+
+
             Third-party software incorporated into
                 the AstroJournal distribution
 

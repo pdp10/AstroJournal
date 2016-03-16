@@ -177,16 +177,6 @@
      		 
      		   <deb>${project.build.directory}/${project.artifactId}_${project.version}_all.deb</deb>
       		  <changesOut>${project.build.directory}/_all.changes</changesOut>
-      		  <signPackage>false</signPackage>
-
-    		    <!--      		  
-     		   <signMethod>dpkg-sig</signMethod>
-     		   <signRole>builder</signRole>
-     		   <keyring>/home/pdp/.gnupg/secring.gpg</keyring>
-    		    <key>8867476B</key>
-    		    <passphrase>abcdef</passphrase>
-    		    -->
-
     		    <dataSet>
   		          	    
                 <data>
@@ -265,6 +255,7 @@
   		</execution>
 		</executions>
 	</plugin>
+	
     </plugins>
   </build>
 </project>
