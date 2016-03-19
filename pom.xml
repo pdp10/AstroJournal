@@ -13,7 +13,7 @@
   <!-- Output to jar format -->
   <packaging>jar</packaging>
   <version>2.1.0</version>
-  <name>AstroJournal</name>
+  <name>jstrojournal</name>
   <description>AstroJournal is a tool for generating astronomy observation reports in LaTeX.</description>
   <url>https://github.com/pdp10/AstroJournal</url>
   <inceptionYear>2015</inceptionYear>
@@ -44,7 +44,7 @@
 
   <issueManagement>
     <system>github</system>
-    <url>https://github.com/pdp10/astrojournal/issues</url>
+    <url>https://github.com/pdp10/AstroJournal/issues</url>
   </issueManagement>
 
   <dependencies>
@@ -179,7 +179,7 @@
                 <copyright>Copyright (C) 2015-2016 Piero Dalle Pezze (GPL v3 License)</copyright>
                 <productVersion>${project.version}.0</productVersion>
                 <txtProductVersion>${project.version}.0</txtProductVersion>
-                <productName>AstroJournal</productName>
+                <productName>astrojournal</productName>
                 <internalName>AstroJournal</internalName>
                 <originalFilename>astrojournal.exe</originalFilename>
               </versionInfo>
@@ -192,7 +192,7 @@
 	  <plugin>
   		<artifactId>jdeb</artifactId>
   		<groupId>org.vafer</groupId>
-  		<version>1.3</version>
+  		<version>1.5</version>
   		<executions>
     		<execution>
       		<phase>package</phase>
@@ -210,24 +210,34 @@
                   <type>file</type>
                   <mapper>
                     <type>perm</type>
-                    <prefix>/usr/lib/${project.artifactId}/target</prefix>
+                    <prefix>/usr/share/${project.artifactId}/${project.version}/target</prefix>
                   </mapper>
-                </data>              	
+                </data>   
+                                
+                <data>
+                  <src>copyright</src>
+                  <type>file</type>
+                  <mapper>
+                    <type>perm</type>
+                    <prefix>/usr/share/doc/pkg</prefix>
+                  </mapper>
+                </data>   
+                <data>
+                  <src>changelog</src>
+                  <type>file</type>
+                  <mapper>
+                    <type>perm</type>
+                    <prefix>/usr/share/doc/pkg</prefix>
+                  </mapper>
+                </data>                                             	
 
-                <!-- Copy multiple files example -->
+                <!-- Copy multiple files example -->             
                 <data>
                   <type>files</type>
                   <paths>
                     <path>${project.artifactId}.sh</path>
                   </paths>
-                  <dst>/usr/lib/${project.artifactId}</dst>
-                </data>                
-                <data>
-                  <type>files</type>
-                  <paths>
-                    <path>${project.artifactId}.sh</path>
-                  </paths>
-                  <dst>/usr/lib/${project.artifactId}</dst>
+                  <dst>/usr/share/${project.artifactId}/${project.version}</dst>
 				  <mapper>
                     <type>perm</type>				  
                     <filemode>755</filemode>
@@ -245,7 +255,7 @@
                     <path>latex_header_footer/header_by_target.tex</path>
                     <path>latex_header_footer/legend.tex</path>
                   </paths>
-                  <dst>/usr/lib/${project.artifactId}/latex_header_footer</dst>
+                  <dst>/usr/share/${project.artifactId}/${project.version}/latex_header_footer</dst>
                 </data>               
                                            
                 <data>
@@ -254,7 +264,7 @@
                     <path>raw_reports/test_report1.csv</path>
                     <path>raw_reports/test_report2.csv</path>
                   </paths>
-                  <dst>/usr/lib/${project.artifactId}/raw_reports</dst>
+                  <dst>/usr/share/${project.artifactId}/${project.version}/raw_reports</dst>
                 </data>
                 <data>
                   <type>files</type>
@@ -264,14 +274,14 @@
                     -->                    
                     <path>logs/test.log</path>
                   </paths>
-                  <dst>/usr/lib/${project.artifactId}/logs</dst>
+                  <dst>/usr/share/${project.artifactId}/${project.version}/logs</dst>
                 </data>
                 
                 <!-- Symbolic link example -->
                 <data>
                   <type>link</type>
                   <linkName>/usr/bin/${project.artifactId}</linkName>
-                  <linkTarget>/usr/lib/${project.artifactId}/${project.artifactId}.sh</linkTarget>
+                  <linkTarget>/usr/share/${project.artifactId}/${project.version}/${project.artifactId}.sh</linkTarget>
                   <symlink>true</symlink>
                 </data>  
                 
