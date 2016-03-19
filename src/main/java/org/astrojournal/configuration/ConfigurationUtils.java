@@ -52,6 +52,15 @@ public interface ConfigurationUtils {
     public String printConfiguration(Configuration config);
 
     /**
+     * Create a string containing the output of the command `pdflatex -version`.
+     * 
+     * @param config
+     *            The configuration.
+     * @return the current configuration
+     */
+    public String printPDFLatexVersion(Configuration config);
+
+    /**
      * Prepare input and output folders for AstroJournal if these do not exist.
      * 
      * @param config
@@ -68,4 +77,5 @@ public interface ConfigurationUtils {
      *             if the folder could not be cleaned.
      */
     public void cleanFolder(Configuration config) throws IOException;
+
 }

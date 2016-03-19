@@ -24,7 +24,6 @@
 package org.astrojournal.gui;
 
 import org.astrojournal.AJMainControls;
-import org.astrojournal.configuration.Configuration;
 import org.astrojournal.generator.Generator;
 
 /**
@@ -47,30 +46,29 @@ public class AJMainGUIControls extends AJMainControls {
      * 
      * @param ajMainGUI
      *            The GUI
-     * @param config
-     *            The configuration
+     * @param generator
+     *            The generator
      */
-    public AJMainGUIControls(AJMainGUI ajMainGUI, Configuration config) {
-	super(config);
+    public AJMainGUIControls(AJMainGUI ajMainGUI, Generator generator) {
+	super(generator);
 	this.ajMainGUI = ajMainGUI;
     }
 
     @Override
     public boolean createJournal() {
-	Generator generator = new Generator(config);
 	if (!preProcessing()) {
 	    ajMainGUI.setStatusPanelText(config.getResourceBundle().getString(
 		    "AJ.errUnconfiguredPreferences.text"));
 	    return false;
 	}
 
-	if (!processing(generator)) {
+	if (!processing()) {
 	    ajMainGUI.setStatusPanelText(config.getResourceBundle().getString(
 		    "AJ.errJournalNotExportedShort.text"));
 	    return false;
 	}
 
-	if (!postProcessing(generator)) {
+	if (!postProcessing()) {
 	    ajMainGUI.setStatusPanelText(config.getResourceBundle().getString(
 		    "AJ.errPDFLatexShort.text"));
 	    return false;
