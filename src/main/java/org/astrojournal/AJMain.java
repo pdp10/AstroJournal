@@ -30,11 +30,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ConfigurationUtils;
-import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
-import org.astrojournal.configuration.ajconfiguration.AJConfigurationUtils;
 import org.astrojournal.configuration.ajconfiguration.AJMetaInfo;
 import org.astrojournal.console.AJMainConsole;
+import org.astrojournal.generator.Generator;
 import org.astrojournal.gui.AJMainGUI;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * This class automatically generates the Latex code for the AstroJournal.
@@ -54,7 +56,8 @@ public class AJMain {
      * @param config
      *            The configuration
      */
-    private static void startAJMainGUI(final Configuration config) {
+    private static void startAJMainGUI(final Generator generator,
+	    final Configuration config) {
 	// Note Nimbus does not seem to show the vertical scroll bar if there is
 	// too much text..
 	try {
@@ -69,7 +72,7 @@ public class AJMain {
 	java.awt.EventQueue.invokeLater(new Runnable() {
 	    @Override
 	    public void run() {
-		new AJMainGUI(config).setVisible(true);
+		new AJMainGUI(generator, config).setVisible(true);
 	    }
 	});
     }
@@ -89,12 +92,18 @@ public class AJMain {
 	log.debug("Java: " + SystemUtils.JAVA_VENDOR + " "
 		+ SystemUtils.JAVA_VERSION);
 
-	Configuration config = new AJConfiguration();
+	// Initialise dependency injection with Spring
+	ApplicationContext context = new ClassPathXmlApplicationContext(
+		"META-INF/beans.xml");
+	BeanFactory factory = context;
+	Configuration config = (Configuration) factory.getBean("configuration");
+	Generator generator = (Generator) factory.getBean("generator");
+
 	ConfigurationUtils configUtils = config.getConfigurationUtils();
 
 	try {
 	    if (args.length == 0) {
-		startAJMainGUI(config);
+		startAJMainGUI(generator, config);
 	    } else if (args[0].equals("-f") || args[0].equals("--config")) {
 		log.info(configUtils.printConfiguration(config));
 	    } else if (args[0].equals("-c") || args[0].equals("--console")) {
@@ -104,12 +113,7 @@ public class AJMain {
 	    } else if (args[0].equals("--license")) {
 		log.info(AJMetaInfo.SHORT_LICENSE.getInfo());
 	    } else if (args[0].equals("-t") || args[0].equals("--test-latex")) {
-		if (configUtils instanceof AJConfigurationUtils) {
-		    log.info(((AJConfigurationUtils) configUtils)
-			    .printPDFLatexVersion(config));
-		} else {
-		    log.fatal("Cannot test LaTeX with this configuration.");
-		}
+		log.info(configUtils.printPDFLatexVersion(config));
 	    } else {
 		log.fatal("Unrecognised option. Please, run AstroJournal with the option -h [--help] for suggestions.");
 	    }

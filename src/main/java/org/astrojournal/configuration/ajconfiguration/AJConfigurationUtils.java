@@ -95,23 +95,12 @@ public class AJConfigurationUtils implements ConfigurationUtils {
 	return configFile;
     }
 
-    /**
-     * Create a string containing the license for AstroJournal.
-     * 
-     * @return a string
-     */
     @Override
     public final String printLicense() {
 	return AJMetaInfo.SHORT_LICENSE.getInfo();
     }
 
-    /**
-     * Create a string containing the output of the command `pdflatex -version`.
-     * 
-     * @param config
-     *            The configuration.
-     * @return the current configuration
-     */
+    @Override
     public String printPDFLatexVersion(Configuration config) {
 	StringBuilder sb = new StringBuilder();
 	String command = "pdflatex";
