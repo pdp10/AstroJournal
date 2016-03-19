@@ -25,9 +25,12 @@ package org.astrojournal.console;
 
 import org.astrojournal.AJMainControls;
 import org.astrojournal.configuration.Configuration;
-import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
 import org.astrojournal.configuration.ajconfiguration.AJMetaInfo;
 import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
+import org.astrojournal.generator.Generator;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * A class for running AstroJournal via command line.
@@ -41,13 +44,17 @@ public class AJMainConsole {
     private AJMainControls commandRunner;
 
     /**
-     * Creates new form NewJFrame
+     * Constructor.
+     * 
+     * @param generator
+     *            The generator
      * 
      * @param config
      *            The configuration
      */
-    public AJMainConsole(Configuration config) {
-	initComponents(config);
+    public AJMainConsole(Generator generator, Configuration config) {
+	generator.setConfiguration(config);
+	initComponents(generator);
     }
 
     /**
@@ -83,13 +90,13 @@ public class AJMainConsole {
     }
 
     /**
-     * This method is called from within the constructor to initialise the form.
+     * Initialise other fields.
      * 
-     * @param config
-     *            The configuration
+     * @param generator
+     *            The generator
      */
-    private void initComponents(Configuration config) {
-	commandRunner = new AJMainConsoleControls(config);
+    private void initComponents(Generator generator) {
+	commandRunner = new AJMainConsoleControls(generator);
     }
 
     /**
@@ -99,8 +106,14 @@ public class AJMainConsole {
      *            The command line arguments
      */
     public static void main(String args[]) {
-	Configuration config = new AJConfiguration();
-	AJMainConsole ajMainConsole = new AJMainConsole(config);
+	// Initialise dependency injection with Spring
+	ApplicationContext context = new ClassPathXmlApplicationContext(
+		"META-INF/beans.xml");
+	BeanFactory factory = context;
+	Configuration config = (Configuration) factory.getBean("configuration");
+	Generator generator = (Generator) factory.getBean("generator");
+
+	AJMainConsole ajMainConsole = new AJMainConsole(generator, config);
 	if (args.length > 1
 		&& (args[1].equals("-l") || args[1].equals("--latex-output"))) {
 	    if (config.getProperty(AJPropertyConstants.QUIET.getKey()).equals(

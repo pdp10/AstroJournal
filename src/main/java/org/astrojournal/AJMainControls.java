@@ -29,7 +29,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ConfigurationUtils;
-import org.astrojournal.configuration.ajconfiguration.AJConfigurationUtils;
 import org.astrojournal.configuration.ajconfiguration.AJMetaInfo;
 import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.generator.Generator;
@@ -49,17 +48,21 @@ public abstract class AJMainControls {
     /** The application configuration. */
     protected Configuration config;
 
+    /** The generator */
+    protected Generator generator;
+
     /** The application configuration utilities. */
     private ConfigurationUtils configUtils;
 
     /**
      * Constructor
      * 
-     * @param config
-     *            The configuration
+     * @param generator
+     *            The generator
      */
-    public AJMainControls(Configuration config) {
-	this.config = config;
+    public AJMainControls(Generator generator) {
+	this.generator = generator;
+	this.config = this.generator.getConfiguration();
 	configUtils = this.config.getConfigurationUtils();
     }
 
@@ -83,11 +86,7 @@ public abstract class AJMainControls {
      * @return true if pdflatex is installed, false otherwise
      */
     public boolean showPDFLatexVersion() {
-	String pdfLatexVersion = "";
-	if (configUtils instanceof AJConfigurationUtils) {
-	    pdfLatexVersion = ((AJConfigurationUtils) configUtils)
-		    .printPDFLatexVersion(config);
-	}
+	String pdfLatexVersion = configUtils.printPDFLatexVersion(config);
 	if (pdfLatexVersion.isEmpty()) {
 	    return false;
 	}
@@ -133,11 +132,9 @@ public abstract class AJMainControls {
     /**
      * Generate the journals.
      * 
-     * @param generator
-     *            the generator
      * @return true if the processing phase succeeded.
      */
-    protected boolean processing(Generator generator) {
+    protected boolean processing() {
 	log.debug("Starting processing");
 	if (config.getProperty(AJPropertyConstants.QUIET.getKey()).equals(
 		"false")
@@ -174,11 +171,9 @@ public abstract class AJMainControls {
     /**
      * Run post processing commands after the generation of the journals.
      * 
-     * @param generator
-     *            the generator
      * @return true if the post-processing phase succeeded.
      */
-    protected boolean postProcessing(Generator generator) {
+    protected boolean postProcessing() {
 	log.debug("Starting post-processing");
 	log.info("");
 	log.info(config.getResourceBundle().getString(
