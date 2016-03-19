@@ -115,6 +115,7 @@ public class AJTitlePanel extends JPanel {
 			    + "the terms of the GNU General Public License (GNU GPL v3).\n\n"
 			    + "AstroJournal uses the following third-party software libraries:\n"
 			    + "Tango base icon theme \u00a9 Public Domain; "
+			    + "Spring (core, context) \u00a9 Pivotal Software, 2015; "
 			    + "Apache Commons (io, lang3) \u00a9 Apache Software Foundation, 2015; "
 			    + "Apache Logging Services (log4j2) \u00a9 Apache Software Foundation, 2014; "
 			    + "JUnit \u00a9 JUnit Team, 2015; "

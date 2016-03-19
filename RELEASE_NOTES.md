@@ -12,7 +12,7 @@ Future
 - Replace Java Swing with Java FX
 
 v2.1.0
-- Adopt Spring dependency injection for the modules which would benefit from this. So far Generator and Configuration.
+- Adopt Spring Framework for dependency injection. So far Generator and Configuration.
 
 v2.0.2
 
