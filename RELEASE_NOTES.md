@@ -10,7 +10,9 @@ Website: http://pdp10.github.io/AstroJournal/
 Future
 
 - Replace Java Swing with Java FX
-- Adopt Spring dependency injection for the modules which would benefit from this.
+
+v2.1.0
+- Adopt Spring dependency injection for the modules which would benefit from this. So far Generator and Configuration.
 
 v2.0.2
 
