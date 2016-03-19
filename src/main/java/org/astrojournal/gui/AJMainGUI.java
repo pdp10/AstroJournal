@@ -206,7 +206,7 @@ public class AJMainGUI extends JFrame implements ActionListener {
     /**
      * Set AstroJournal jTextPane. This is the output panel.
      * 
-     * @return the jScrolPane containing jTextPane.
+     * @return the jScrollPane containing jTextPane.
      */
     private JScrollPane setJTextPane() {
 	// Create the text area containing the program text output
