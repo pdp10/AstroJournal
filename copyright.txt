@@ -26,27 +26,37 @@ below.
   Copyright (C) FreeDesktop.org
   Distributed under Public Domain.
 
-2. Commons IO 2.4 -- https://commons.apache.org/proper/commons-io/
+2. Spring Core 4.2.5 -- http://projects.spring.io/spring-framework/
+  [checked 2016-03-19]
+  Copyright (C) Pivotal Software
+  Distributed under the Apache License 2.0.
+  
+3. Spring Context 4.2.5 -- http://projects.spring.io/spring-framework/
+  [checked 2016-03-19]
+  Copyright (C) Pivotal Software
+  Distributed under the Apache License 2.0.  
+  
+4. Commons IO 2.4 -- https://commons.apache.org/proper/commons-io/
   [checked 2016-01-08]
   Copyright (C) Apache Software Foundation
   Distributed under the Apache License 2.0.
   
-3. Commons Lang 3.4 -- http://commons.apache.org/proper/commons-lang/
+5. Commons Lang 3.4 -- http://commons.apache.org/proper/commons-lang/
   [checked 2016-01-08]
   Copyright (C) Apache Software Foundation
   Distributed under the Apache License 2.0.
 
-4. log4j 2.0.2 -- http://logging.apache.org/log4j/2.x/
+6. log4j 2.0.2 -- http://logging.apache.org/log4j/2.x/
   [checked 2016-01-08]
   Copyright (C) Apache Software Foundation
   Distributed under the Apache License 2.0.
 
-5. JUnit 4.12 -- http://junit.org/
+7. JUnit 4.12 -- http://junit.org/
   [checked 2016-01-08]
   Copyright (C) JUnit Team
   Distributed under the Eclipse Public License 1.0.  
   
-6. Hamcrest-junit 2.0.0.0 -- http://hamcrest.org/
+8. Hamcrest-junit 2.0.0.0 -- http://hamcrest.org/
   [checked 2016-01-15]
   Copyright (C) Hamcrest
   Distributed under the BSD 3-Clause License.
@@ -58,5 +68,5 @@ from the following open source software:
 
 1. BamQC 0.1 -- https://github.com/s-andrews/BamQC
   [checked 2016-01-08]
-  Copyright (C) Simon Andrews
+  Copyright (C) The Babraham Institute, Cambridge, UK
   Distributed under the GPL 3.0.

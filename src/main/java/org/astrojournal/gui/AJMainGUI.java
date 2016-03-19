@@ -329,7 +329,7 @@ public class AJMainGUI extends JFrame implements ActionListener {
 
 	// Initialise dependency injection with Spring
 	ApplicationContext context = new ClassPathXmlApplicationContext(
-		"META-INF/beans.xml");
+		"META-INF/aj_spring_default_context.xml");
 	BeanFactory factory = context;
 	final Configuration config = (Configuration) factory
 		.getBean("configuration");

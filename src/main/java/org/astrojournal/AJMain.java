@@ -94,7 +94,7 @@ public class AJMain {
 
 	// Initialise dependency injection with Spring
 	ApplicationContext context = new ClassPathXmlApplicationContext(
-		"META-INF/beans.xml");
+		"META-INF/aj_spring_default_context.xml");
 	BeanFactory factory = context;
 	Configuration config = (Configuration) factory.getBean("configuration");
 	Generator generator = (Generator) factory.getBean("generator");
