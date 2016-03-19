@@ -1,8 +1,0 @@
-#List of dependencies for astrojournal, generated for use by debian/control
-maven.CompileDepends=
-maven.UpstreamPackageVersion=2.0.2
-maven.Depends=
-maven.OptionalDepends=
-maven.TestDepends=
-maven.DocDepends=default-jdk-doc
-maven.DocOptionalDepends=

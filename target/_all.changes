@@ -1,0 +1,20 @@
+Format: 1.8
+Date: Sat, 19 Mar 2016 20:43:22 +0000
+Source: astrojournal
+Binary: astrojournal
+Architecture: all
+Version: 2.1.0
+Distribution: unstable
+Urgency: low
+Maintainer: Piero Dalle Pezze <piero.dallepezze@gmail.com>
+Changed-By: Piero Dalle Pezze <piero.dallepezze@gmail.com>
+Description:
+ astrojournal - Generator of astronomy observation reports in LaTeX
+Changes:
+ astrojournal (2.1.0) unstable; urgency=low
+Checksums-Sha1:
+ 6cc9c71c905b31790cd966f3ce608d1ac7081f10 6022624 astrojournal_2.1.0_all.deb
+Checksums-Sha256:
+ f2b7d95b2c43c80e097d22fdd17e1e65ee1ceb75df060a2ac682bb05c8d06901 6022624 astrojournal_2.1.0_all.deb
+Files:
+ 3b8ba39c225bae985b416acee3deeb97 6022624 misc optional astrojournal_2.1.0_all.deb
