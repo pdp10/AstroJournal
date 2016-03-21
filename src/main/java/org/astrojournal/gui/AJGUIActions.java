@@ -43,8 +43,6 @@ public enum AJGUIActions {
     FILES_LOCATION,
     /** Event: Show a summary for this application */
     HELP_ABOUT,
-    /** Event: Show the application help contents */
-    HELP_CONTENTS,
     /** Event: Show the application license */
     HELP_LICENSE,
     // /** Event: Approve a choice */
