@@ -34,6 +34,8 @@ To use AstroJournal you need to install:
 
 
 ### Download
+The user manual for the software AstroJournal can be downloaded [here](https://github.com/pdp10/AstroJournal/blob/develop/doc/user_manual.pdf)
+
 The latest stable version of this software application can be downloaded here:
 
 [https://github.com/pdp10/AstroJournal/zipball/master](https://github.com/pdp10/AstroJournal/zipball/master)
@@ -50,10 +52,9 @@ astrojournal.exe
 ```
 This will start a simple graphical user interface to generate the journals.
 
-The user manual for the software AstroJournal can be downloaded [here](https://github.com/pdp10/AstroJournal/blob/develop/doc/user_manual.pdf)
 
 
-#### Additional notes for installing AstroJournal dependencies:
+### Additional notes for installing AstroJournal dependencies:
 
 On GNU/Linux Debian/Ubuntu 14.04+, users can install the LaTeX dependencies required by AstroJournal with the following command:
 ```
