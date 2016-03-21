@@ -43,7 +43,6 @@ import org.apache.logging.log4j.Logger;
 import org.astrojournal.gui.AJGUIActions;
 import org.astrojournal.gui.AJMainGUI;
 import org.astrojournal.gui.dialogs.AboutDialog;
-import org.astrojournal.gui.dialogs.HelpDialog;
 import org.astrojournal.gui.dialogs.LicenseDialog;
 
 /**
@@ -74,7 +73,6 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
     private JMenuItem editPreferences;
 
     private JMenu helpMenu;
-    private JMenuItem helpContents;
     private JMenuItem helpLicense;
     private JMenuItem helpAbout;
 
@@ -142,17 +140,6 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	helpMenu = new JMenu(resourceBundle.getString("AJ.mnuHelp.text"));
 	helpMenu.setMnemonic(KeyEvent.VK_H);
 
-	helpContents = new JMenuItem(
-		resourceBundle.getString("AJ.mnuHelpContents.text"));
-	helpContents.setIcon(new ImageIcon(ClassLoader
-		.getSystemResource("graphics/icons/help_16.png")));
-	helpContents.setActionCommand(AJGUIActions.HELP_CONTENTS.name());
-	helpContents.setMnemonic(KeyEvent.VK_T);
-	helpContents.setAccelerator(KeyStroke.getKeyStroke('T', Toolkit
-		.getDefaultToolkit().getMenuShortcutKeyMask()));
-	helpContents.addActionListener(this);
-	helpMenu.add(helpContents);
-
 	helpLicense = new JMenuItem(
 		resourceBundle.getString("AJ.mnuLicense.text"));
 	helpLicense.setIcon(new ImageIcon(ClassLoader
@@ -194,9 +181,6 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 
 	} else if (action.equals(AJGUIActions.EDIT_PREFERENCES.name())) {
 	    application.configure();
-
-	} else if (action.equals(AJGUIActions.HELP_CONTENTS.name())) {
-	    HelpDialog helpDialog = new HelpDialog(application, resourceBundle);
 
 	} else if (action.equals(AJGUIActions.HELP_LICENSE.name())) {
 	    String license = "LICENSE.txt";

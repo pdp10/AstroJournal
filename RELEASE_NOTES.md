@@ -13,6 +13,7 @@ Future
 
 v2.1.0
 - Adopt Spring Framework for dependency injection. So far Generator and Configuration.
+- Replaced Help Contents with a user manual
 
 v2.0.2
 

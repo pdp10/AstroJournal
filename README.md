@@ -3,7 +3,7 @@
 
 Author: Piero Dalle Pezze
 
-Licence: GPL v3 (2015)
+Licence: GPL v3 (2015-16)
 
 Mailing list: astrojournal AT googlegroups.com
 

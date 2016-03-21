@@ -1,0 +1,52 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[UKenglish]{babel}
+%\usepackage{fullpage}
+\usepackage{listings}
+\lstset{language=sh,basicstyle=\footnotesize,showspaces=false,
+showstringspaces=false,showtabs=false,frame=single,breaklines=true,
+breakatwhitespace=false,title=\lstname}
+
+
+\usepackage{color}
+\usepackage[colorlinks=true,linkcolor={black},urlcolor={blue}]{hyperref}
+\usepackage{graphicx}
+
+
+\begin{document}
+
+\hypersetup{pageanchor=false}
+\begin{titlepage}
+	\centering
+	\includegraphics[width=0.2\textwidth]{../src/main/resources/graphics/logo/aj_icon_256}\par\vspace{1cm}
+	{\Huge\bfseries AstroJournal\par}
+	\vspace{1cm}	
+	{\Large\itshape distributed under \\
+	The GNU General Public License version 3 \\
+	(GPL v3)\par}
+	
+	\vspace{2cm}
+	{\huge\itshape User Manual\par}
+	\vfill
+	{\Large by the Piero Dalle Pezze\par}
+	\vfill
+	{\Large \today\par}
+\end{titlepage}
+\hypersetup{pageanchor=true}
+
+
+\clearpage
+\thispagestyle{empty}
+
+\pagenumbering{Roman}
+\tableofcontents
+\listoffigures
+\newpage
+\pagenumbering{arabic}
+
+\input{user_manual/introduction}
+\input{user_manual/use_case}
+\input{user_manual/preferences}
+\input{user_manual/bugs}
+
+
+\end{document}
