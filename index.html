@@ -19,7 +19,7 @@
 
         <header>
           <h1>AstroJournal</h1>
-          <h2>A LaTeX report generator of astronomy observations</h2>
+          <h2>LaTeX report generator of astronomy observations</h2>
         </header>
 
         <section id="downloads" class="clearfix">
@@ -36,35 +36,25 @@
 
 <p>Author: Piero Dalle Pezze</p>
 
-<p>Licence: GPL v3 (2015)</p>
+<p>Licence: GPL v3 (2015-16)</p>
 
 <p>Mailing list: astrojournal AT googlegroups.com</p>
 
 <h3>
 <a id="description" class="anchor" href="#description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Description</h3>
 
-<p>This Java application imports files containing astronomy observations 
-and generates an integrated journal document in PDF format using LaTeX. 
-Observation files can be edited using a common Spreadsheet software 
-(e.g. Google Spreadsheet, LibreOffice Calc, Office Excel) or any common 
-text editor (e.g. MS Wordpad, Emacs, Kate, or GEdit) and must be saved 
-either as .tsv or .csv. To be recognised, fields MUST be separated 
-by a TAB delimiter. Fields can have single or double quotes.</p>
+<p>The idea behind this software utility is to generate structured documents 
+from astronomy observation reports created as basic tables. These tables 
+are saved in .tsv or .csv format files and imported by AstroJournal. Once imported, the program will export this information by category (reports by date, by target, by constellation) in PDF format using LaTeX.</p>
 
 <h3>
-<a id="features" class="anchor" href="#features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Features</h3>
+<a id="main-features" class="anchor" href="#main-features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Main Features</h3>
 
 <ul>
-<li>Support for GNU/Linux and Windows users.</li>
-<li>A simple graphical interface for running the program is provided. </li>
-<li>Generation of a PDF document containing all user observation records collected by increasing target catalogue number. This is useful for comparing targets observed over time.</li>
+<li>Generation of a PDF document containing all user observation reports collected by increasing target catalogue number. This is useful for comparing targets observed over time.</li>
 <li>Generation of a PDF document containing all user observation reports collected by decreasing date. This is useful for visualising one’s observations by session.</li>
 <li>Generation of a PDF document containing the targets observed by constellation. This is useful for checking observed and unobserved targets by constellation.</li>
 <li>Generation of a TXT document containing all user observation reports collected by decreasing date. This is for creating observation reports to be published in an astronomy forum (e.g. Stargazers Lounge).</li>
-<li>Although the program requires some form of structured input file, this is intentionally minimal in order to not distract the user who wants to insert his / her data rather than thinking of how to format this data.</li>
-<li>Summary reports are also available by choosing a different generator in the Preferences Menu.</li>
-<li>Possibility to edit the document header and the footer according to one’s need. This must be done in LaTeX to maintain the format controls in the final output file.</li>
-<li>Complete lists of Messier objects and Caldwell selection of NGC targets are included at the end of the generated PDF documents.</li>
 </ul>
 
 <h3>
@@ -74,10 +64,36 @@ by a TAB delimiter. Fields can have single or double quotes.</p>
 
 <ul>
 <li><p><a href="https://java.com/en/download/">Java 1.7+</a></p></li>
-<li><p><a href="http://www.tug.org/texlive/">TeX Live</a> (for Linux Users) or <a href="http://miktex.org/download">MikTeX</a> (for Windows Users) or <a href="https://tug.org/mactex/">MacTeX</a> (pdflatex must be installed)</p></li>
+<li><p><a href="http://www.tug.org/texlive/">TeX Live</a> (for GNU/Linux users only)</p></li>
+<li><p><a href="http://miktex.org/download">MikTeX</a> (for Windows users only)</p></li>
+<li><p><a href="https://tug.org/mactex/">MacTeX</a> (for Mac OS X users only)</p></li>
 </ul>
 
-<p>Notes:</p>
+<h3>
+<a id="download" class="anchor" href="#download" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Download</h3>
+
+<p>The latest stable version of this software application can be downloaded here:</p>
+
+<p><a href="https://github.com/pdp10/AstroJournal/zipball/master">https://github.com/pdp10/AstroJournal/zipball/master</a></p>
+
+<p>After downloading and uncompressing the file, run AstroJournal by typing:</p>
+
+<pre><code># On GNU/Linux or Mac OS X run AstroJournal typing (or clicking):
+./astrojournal.sh
+</code></pre>
+
+<p>or </p>
+
+<pre><code># On Windows, click:
+astrojournal.exe
+</code></pre>
+
+<p>This will start a simple graphical user interface to generate the journals.</p>
+
+<p>The user manual for the software AstroJournal can be downloaded <a href="https://github.com/pdp10/AstroJournal/blob/develop/doc/user_manual.pdf">here</a></p>
+
+<h4>
+<a id="additional-notes-for-installing-astrojournal-dependencies" class="anchor" href="#additional-notes-for-installing-astrojournal-dependencies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Additional notes for installing AstroJournal dependencies:</h4>
 
 <p>On GNU/Linux Debian/Ubuntu 14.04+, users can install the LaTeX dependencies required by AstroJournal with the following command:</p>
 
@@ -101,62 +117,6 @@ To correct this, 1) open the application Terminal; 2) type <em>nano ~/.bash_prof
 <li>Mac OS X will ask for permissions to execute the file. Answer <em>Yes</em>. This may require the user to disable special controls in Mac OS X in <em>System Preference &gt; Security &amp; Privacy</em>. In particular at least the radio box <em>Mac App Store and identified developers</em> should be selected. </li>
 <li>AstroJournal should start correctly now. </li>
 </ul>
-
-<h3>
-<a id="download" class="anchor" href="#download" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Download</h3>
-
-<p>You can download the latest version of this software application here:</p>
-
-<p><a href="https://github.com/pdp10/AstroJournal/zipball/master">https://github.com/pdp10/AstroJournal/zipball/master</a></p>
-
-<p>After downloading and uncompressing the file, you can run AstroJournal by typing:</p>
-
-<pre><code># On GNU/Linux run AstroJournal typing (or clicking the icon):
-./astrojournal.sh
-</code></pre>
-
-<p>or </p>
-
-<pre><code># On Windows, click on the icon:
-astrojournal.exe
-</code></pre>
-
-<p>This will start a simple graphical user interface to generate the journals.</p>
-
-<h3>
-<a id="create-an-observation-record" class="anchor" href="#create-an-observation-record" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create an observation record</h3>
-
-<p>As currently implemented, the format of the observation tables is 
-specific. </p>
-
-<p>The titles (Date, Time, Location, Altitude, Temperature, Seeing, 
-Transparency, Darkness, Telescopes, Eyepieces, Filters, Target, Cons, Type, Power, 
-and Notes) cannot be changed as these are used by AstroJournal to 
-retrieve the data. All fields are separated by a tab character (TAB) 
-explicitly shown in this example with a text when this must be included.</p>
-
-<p>You can find samples of these files in the folder <a href="https://github.com/pdp10/AstroJournal/tree/master/raw_reports/?at=master">raw_reports</a>, which is AstroJournal input folder.</p>
-
-<p>These files can be edited with any spreadsheet (e.g. Google SpreadSheet, 
-MS Excel, LibreOffice SpreadSheet) or a common text editor 
-(e.g. MS Wordpad, Emacs, Kate, or GEdit). </p>
-
-<p>To customise the document header and footer, please look at the 
-folder latex_header_footer to find the LaTeX files for the header 
-and footer. Also these files can be edited with any common text 
-editor.</p>
-
-<h3>
-<a id="use-case" class="anchor" href="#use-case" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Use case</h3>
-
-<p>Here are some guidelines for using AstroJournal:</p>
-
-<ol>
-<li><p>Report your observations (with the structure of my tsv or csv file) using a spreadsheet program, such as MS Excel, Libreoffice Spreadsheet, or Google Spreadsheet. Alternatively you can use a common text editor (e.g. Wordpad, GNU Emacs, Kate, etc.) as long as the fields are the same as in the samples provided in the raw_report and that each field is separated using a TAB character.</p></li>
-<li><p>Export your file as tsv (if using Google Spreadsheet) or csv. In the latter case, when asked, select tab as field delimiter and no quotes as text delimiter.</p></li>
-<li><p>Put this file in the folder raw_reports.</p></li>
-<li><p>In the main astrojournal folder type the command above ./astrojournal.sh or astrojournal.exe .</p></li>
-</ol>
         </section>
 
         <footer>
