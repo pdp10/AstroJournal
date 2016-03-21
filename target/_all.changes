@@ -1,5 +1,5 @@
 Format: 1.8
-Date: Sat, 19 Mar 2016 20:43:22 +0000
+Date: Mon, 21 Mar 2016 23:34:46 +0000
 Source: astrojournal
 Binary: astrojournal
 Architecture: all
@@ -13,8 +13,8 @@ Description:
 Changes:
  astrojournal (2.1.0) unstable; urgency=low
 Checksums-Sha1:
- 6cc9c71c905b31790cd966f3ce608d1ac7081f10 6022624 astrojournal_2.1.0_all.deb
+ 7f93ae95d8696b2b4966fa05d9d36ddfa56cfaba 5840394 astrojournal_2.1.0_all.deb
 Checksums-Sha256:
- f2b7d95b2c43c80e097d22fdd17e1e65ee1ceb75df060a2ac682bb05c8d06901 6022624 astrojournal_2.1.0_all.deb
+ f6abe2859be2f3374aba3c69dc880b664935a11d18a77caff3d2602cab4cc4b0 5840394 astrojournal_2.1.0_all.deb
 Files:
- 3b8ba39c225bae985b416acee3deeb97 6022624 misc optional astrojournal_2.1.0_all.deb
+ 1d53e1b86e3ce36f33591825bddffe2c 5840394 misc optional astrojournal_2.1.0_all.deb
