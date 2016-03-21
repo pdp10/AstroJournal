@@ -252,6 +252,14 @@
                   </paths>
                   <dst>/usr/share/${project.artifactId}/${project.version}/latex_header_footer</dst>
                 </data>               
+
+              	<data>
+                  <type>files</type>
+                  <paths>
+                    <path>doc/user_manual.pdf</path>
+                  </paths>
+                  <dst>/usr/share/${project.artifactId}/${project.version}/doc</dst>
+                </data> 
                                            
                 <data>
                   <type>files</type>

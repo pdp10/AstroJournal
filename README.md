@@ -14,9 +14,7 @@ and generates an integrated journal document in PDF format using LaTeX.
 Observation files can be edited using a common Spreadsheet software 
 (e.g. Google Spreadsheet, LibreOffice Calc, Office Excel) or any common 
 text editor (e.g. MS Wordpad, Emacs, Kate, or GEdit) and must be saved 
-either as .tsv or .csv. To be recognised, fields MUST be separated 
-by a TAB delimiter. Fields can have single or double quotes.
-
+either as .tsv or .csv.
 
 
 ### Features
@@ -61,22 +59,24 @@ To correct this, 1) open the application Terminal; 2) type *nano ~/.bash_profile
 
 
 ### Download
-You can download the latest version of this software application here:
+The latest stable version of this software application can be downloaded here:
 
 [https://github.com/pdp10/AstroJournal/zipball/master](https://github.com/pdp10/AstroJournal/zipball/master)
 
-After downloading and uncompressing the file, you can run AstroJournal by typing:
+After downloading and uncompressing the file, run AstroJournal by typing:
 ```
-# On GNU/Linux run AstroJournal typing (or clicking the icon):
+# On GNU/Linux or Mac OS X run AstroJournal typing (or clicking):
 ./astrojournal.sh
 ```
 or 
 ```
-# On Windows, click on the icon:
+# On Windows, click:
 astrojournal.exe
 ```
-
 This will start a simple graphical user interface to generate the journals.
+
+The user manual for the software astroJournal can be downloaded [here](https://github.com/pdp10/AstroJournal/blob/develop/doc/user_manual.pdf)
+
 
 
 ### Create an observation record
