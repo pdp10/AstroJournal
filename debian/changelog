@@ -1,3 +1,4 @@
 release date=19:24 19.03.2016,version=2.1.0,urgency=low,by=Piero Dalle Pezze <piero.dallepezze@gmail.com>,distribution=unstable
+ * Replaced Help Contents with a user manual
  * Adoption of Spring Framework
  * First Debian package for AstroJournal
