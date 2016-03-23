@@ -9,9 +9,7 @@ Mailing list: astrojournal AT googlegroups.com
 
 
 ### Description
-The idea behind this software utility is to generate structured documents 
-from astronomy observation reports created as basic tables. These tables 
-are saved in .tsv or .csv format files and imported by AstroJournal. Once imported, the program will export this information by category (reports by date, by target, by constellation) in PDF format using LaTeX.
+This software utility aims to generate structured documents from astronomy observation reports created as basic tables. These tables are saved as .tsv or .csv format files and imported by AstroJournal. Once imported, the program will export this information by category (reports by date, by target, by constellation) in PDF format using LaTeX.
 
 
 ### Main Features
