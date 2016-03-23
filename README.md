@@ -32,17 +32,19 @@ To use AstroJournal you need to install:
 
 - [MacTeX](https://tug.org/mactex/) (for Mac OS X users only)
 
+Please, see the last section for further details.
+
 
 ### Download
-The user manual for the software AstroJournal can be downloaded [here](https://github.com/pdp10/AstroJournal/blob/develop/doc/user_manual.pdf)
+The AstroJournal user manual can be downloaded from this [link](https://github.com/pdp10/AstroJournal/blob/develop/doc/user_manual.pdf). A copy of it is also provided in the folder doc/ of this software application.
 
-The latest stable version of this software application can be downloaded here:
+The latest stable version of AstroJournal can be downloaded here:
 
 [https://github.com/pdp10/AstroJournal/zipball/master](https://github.com/pdp10/AstroJournal/zipball/master)
 
-After downloading and uncompressing the file, run AstroJournal by typing:
+After downloading and uncompressing the file, once in the folder, run AstroJournal as follows:
 ```
-# On GNU/Linux or Mac OS X run AstroJournal typing (or clicking):
+# On GNU/Linux or Mac OS X type or click:
 ./astrojournal.sh
 ```
 or 
@@ -50,19 +52,28 @@ or
 # On Windows, click:
 astrojournal.exe
 ```
-This will start a simple graphical user interface to generate the journals.
-
+This will start a simple graphical user interface to generate the journals. To run AstroJournal via command line, 
+```
+# On GNU/Linux or Mac OS X type:
+./astrojournal.sh -c
+```
+Please use the option -h (--help) to see the available options.
 
 
 ### Additional notes for installing AstroJournal dependencies:
 
-On GNU/Linux Debian/Ubuntu 14.04+, users can install the LaTeX dependencies required by AstroJournal with the following command:
+##### GNU/Linux Debian/Ubuntu 14.04+
+Users can install the LaTeX dependencies required by AstroJournal with the following command:
 ```
 sudo apt-get --no-install-recommends install texlive-latex-base texlive-latex-recommended
 ```
-On Windows, users should install MikTeX and then the LaTeX packages *url* and *mptopdf* using MikTeX Manager.
+The creation of a deb package is currently in progress.
 
-On Mac OS X, users should install MacTeX. I have not tested this directly. If the command *pdflatex* is not available, I think it should be possible to create a link called *pdflatex* to the corresponding program used by MacTeX to compile LaTeX code.
+##### Windows
+Users should install MikTeX and then the LaTeX packages *url* and *mptopdf* using MikTeX Manager.
+
+##### Mac OS X
+Users should install MacTeX. I have not tested this directly. If the command *pdflatex* is not available, I think it should be possible to create a link called *pdflatex* to the corresponding program used by MacTeX to compile LaTeX code.
 In addition, to run AstroJournal on a MAC OS X platform, some steps are required since Mac OS X still uses Java 1.6 while AstroJournal requires Java 1.7+: 
 - Download the latest Java from [https://java.com/en/download/mac_download.jsp](https://java.com/en/download/mac_download.jsp);
 - Follow the procedure for installing the package.
