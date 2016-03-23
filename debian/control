@@ -1,17 +1,15 @@
-Package: AstroJournal
-Version: 2.0.2
-Section: main
+Package: astrojournal
+Version: 2.1.5
+Section: misc
 Priority: optional
 Architecture: all
 Depends: openjdk-7-jre, texlive-latex-base, texlive-latex-recommended
 Maintainer: Piero Dalle Pezze <piero.dallepezze@gmail.com>
 Distribution: unstable
 Homepage: http://pdp10.github.io/AstroJournal/
-Description: An application for reporting astronomical observations
- This Java application imports files containing astronomy observations 
- and generates an integrated journal document in PDF format using LaTeX. 
- Observation files can be edited using a common Spreadsheet software (e.g. 
- Google Spreadsheet, LibreOffice Calc, Office Excel) or any common text 
- editor (e.g. MS Wordpad, Emacs, Kate, or GEdit) and must be saved either 
- as .tsv or .csv. To be recognised, fields MUST be separated by a TAB 
- delimiter. Fields can have single or double quotes.
+Description: Generator of astronomy observation reports in LaTeX
+ This software utility aims to generate structured documents from astronomy 
+ observation reports created as basic tables. These tables are saved as .tsv 
+ or .csv format files and imported by AstroJournal. Once imported, the program 
+ will export this information by category (reports by date, by target, by 
+ constellation) in PDF format using LaTeX.
