@@ -1,7 +1,4 @@
-This file lists the licenses for the software AstroJournal and its third-party software dependencies.
-
-
-            		AstroJournal distribution
+AstroJournal distribution:
                 
 AstroJournal 2.0.2 -- https://github.com/pdp10/AstroJournal
   [checked 2016-03-16]
@@ -11,15 +8,12 @@ AstroJournal 2.0.2 -- https://github.com/pdp10/AstroJournal
 
 
 
-
-            Third-party software incorporated into
-                the AstroJournal distribution
+Third-party software incorporated into the AstroJournal distribution:
 
 AstroJournal uses the following third-party software libraries; these
 are distributed along with AstroJournal and placed in the source code
-repository.  The license statements for these third-party
-software libraries can be found at the web addresses noted
-below.
+repository.  The license statements for these third-party software 
+libraries can be found at the web addresses noted below.
 
 1. Tango base icon theme 0.8.90 -- http://tango.freedesktop.org/Tango_Icon_Library
   [checked 2016-01-08]
@@ -63,10 +57,15 @@ below.
   
 
 
-Part of the code used for AstroJournal GUI was taken 
-from the following open source software:
+The following source code was taken and modified from 
+the open source software:
 
 1. BamQC 0.1 -- https://github.com/s-andrews/BamQC
   [checked 2016-01-08]
   Copyright (C) The Babraham Institute, Cambridge, UK
   Distributed under the GPL 3.0.
+  
+Files:
+ src/org/astrojournal/gui/dialogs/LicenseDialog.java
+ src/org/astrojournal/gui/dialogs/StatusPanel.java
+ src/org/astrojournal/gui/dialogs/WelcomePanel.java
