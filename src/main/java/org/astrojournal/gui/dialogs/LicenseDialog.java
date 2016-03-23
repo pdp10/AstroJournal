@@ -39,7 +39,7 @@ import javax.swing.JEditorPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import org.astrojournal.configuration.ajconfiguration.AJMetaInfo;
+import org.astrojournal.AJMetaInfo;
 import org.astrojournal.gui.AJMainGUI;
 import org.astrojournal.utilities.ReadFromJar;
 

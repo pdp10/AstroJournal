@@ -24,8 +24,8 @@
 package org.astrojournal.console;
 
 import org.astrojournal.AJMainControls;
+import org.astrojournal.AJMetaInfo;
 import org.astrojournal.configuration.Configuration;
-import org.astrojournal.configuration.ajconfiguration.AJMetaInfo;
 import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.generator.Generator;
 import org.springframework.beans.factory.BeanFactory;
