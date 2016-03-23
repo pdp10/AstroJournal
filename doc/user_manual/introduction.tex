@@ -1,8 +1,6 @@
 \section{Introduction}
 \label{sec:Introduction}
-The idea behind this software utility is to generate structured documents 
-from astronomy observation reports created as basic tables. These tables 
-are saved in .tsv or .csv format files and imported by AstroJournal. Once imported, the program will export this information by category (reports by date, by target, by constellation) in PDF format using LaTeX.
+This software utility aims to generate structured documents from astronomy observation reports created as basic tables. These tables are saved as .tsv or .csv format files and imported by AstroJournal. Once imported, the program will export this information by category (reports by date, by target, by constellation) in PDF format using LaTeX.
 
 
 \subsection{Main Features}
@@ -58,13 +56,15 @@ Unfortunately, Mac OS X installs this version of Java as Plugin, and this is not
 
 \subsection{Download}
 \label{subsec:Download}
+The user manual for the software astroJournal can be downloaded:\\ \href{https://github.com/pdp10/AstroJournal/blob/develop/doc/user\_manual.pdf?format=raw}{https://github.com/pdp10/AstroJournal/blob/develop/doc/user\_manual.pdf?format=raw}.\\
+
 The latest stable version of this software application can be downloaded here:\\
 \href{https://github.com/pdp10/AstroJournal/zipball/master}{https://github.com/pdp10/AstroJournal/zipball/master}.\\
 
-After downloading and uncompressing the file:
+After downloading and uncompressing the file, once in the folder, run AstroJournal as follows:
 \begin{itemize}
- \item On GNU/Linux or Mac OS X, run AstroJournal typing (or clicking): ``./astrojournal.sh'' .
+ \item On GNU/Linux or Mac OS X, type or click: ``./astrojournal.sh'' .
  \item On Windows, click: ``astrojournal.exe'' .
 \end{itemize}
 This will start a basic graphical user interface to generate the journals.\\
-The user manual for the software astroJournal can be downloaded:\\ \href{https://github.com/pdp10/AstroJournal/blob/develop/doc/user\_manual.pdf}{https://github.com/pdp10/AstroJournal/blob/develop/doc/user\_manual.pdf}
+To run AstroJournal via command line, type ``./astrojournal.sh -c''. Please use the option -h (--help) to see the available options.
