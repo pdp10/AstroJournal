@@ -110,16 +110,13 @@ public class AJTitlePanel extends JPanel {
 	    StyleConstants.setFontSize(style, 12);
 	    doc.insertString(
 		    doc.getLength(),
-		    "\n\n\u00a9 Piero Dalle Pezze, 2015-16\n\n"
+		    "\n\n\u00a9 Piero Dalle Pezze, 2015-2016\n\n"
 			    + "AstroJournal is a free software distributed under "
 			    + "the terms of the GNU General Public License (GNU GPL v3).\n\n"
 			    + "AstroJournal uses the following third-party software libraries:\n"
-			    + "Tango base icon theme \u00a9 Public Domain; "
-			    + "Spring (core, context) \u00a9 Pivotal Software, 2015; "
-			    + "Apache Commons (io, lang3) \u00a9 Apache Software Foundation, 2015; "
-			    + "Apache Logging Services (log4j2) \u00a9 Apache Software Foundation, 2014; "
-			    + "JUnit \u00a9 JUnit Team, 2015; "
-			    + "Hamcrest (hamcrest-junit) \u00a9 BSD 3-Clause License, 2015.",
+			    + "Tango base icon theme \u00a9 2005-2016 FreeDesktop.org; "
+			    + "Spring (core, context) \u00a9 2002-2016 Pivotal Software; "
+			    + "Apache Commons (io, lang3, log4j2) \u00a9 2004-2016 Apache Software Foundation.",
 		    style);
 
 	} catch (BadLocationException e) {
