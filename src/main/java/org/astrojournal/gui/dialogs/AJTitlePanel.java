@@ -41,7 +41,7 @@ import javax.swing.text.StyleConstants;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.astrojournal.configuration.ajconfiguration.AJMetaInfo;
+import org.astrojournal.AJMetaInfo;
 import org.astrojournal.utilities.DesktopBrowse;
 
 /**

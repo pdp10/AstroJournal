@@ -31,6 +31,7 @@ import java.util.ResourceBundle;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.astrojournal.AJMetaInfo;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ConfigurationUtils;
 import org.astrojournal.generator.absgen.Importer;

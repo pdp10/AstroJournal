@@ -30,7 +30,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ConfigurationUtils;
-import org.astrojournal.configuration.ajconfiguration.AJMetaInfo;
 import org.astrojournal.console.AJMainConsole;
 import org.astrojournal.generator.Generator;
 import org.astrojournal.gui.AJMainGUI;
