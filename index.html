@@ -43,9 +43,7 @@
 <h3>
 <a id="description" class="anchor" href="#description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Description</h3>
 
-<p>The idea behind this software utility is to generate structured documents 
-from astronomy observation reports created as basic tables. These tables 
-are saved in .tsv or .csv format files and imported by AstroJournal. Once imported, the program will export this information by category (reports by date, by target, by constellation) in PDF format using LaTeX.</p>
+<p>This software utility aims to generate structured documents from astronomy observation reports created as basic tables. These tables are saved as .tsv or .csv format files and imported by AstroJournal. Once imported, the program will export this information by category (reports by date, by target, by constellation) in PDF format using LaTeX.</p>
 
 <h3>
 <a id="main-features" class="anchor" href="#main-features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Main Features</h3>
@@ -69,18 +67,20 @@ are saved in .tsv or .csv format files and imported by AstroJournal. Once import
 <li><p><a href="https://tug.org/mactex/">MacTeX</a> (for Mac OS X users only)</p></li>
 </ul>
 
+<p>Please, see the last section for further details.</p>
+
 <h3>
 <a id="download" class="anchor" href="#download" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Download</h3>
 
-<p>The user manual for the software AstroJournal can be downloaded <a href="https://github.com/pdp10/AstroJournal/blob/develop/doc/user_manual.pdf">here</a></p>
+<p>The AstroJournal user manual can be downloaded from this <a href="https://github.com/pdp10/AstroJournal/blob/develop/doc/user_manual.pdf">link</a>. A copy of it is also provided in the folder doc/ of this software application.</p>
 
-<p>The latest stable version of this software application can be downloaded here:</p>
+<p>The latest stable version of AstroJournal can be downloaded here:</p>
 
 <p><a href="https://github.com/pdp10/AstroJournal/zipball/master">https://github.com/pdp10/AstroJournal/zipball/master</a></p>
 
-<p>After downloading and uncompressing the file, run AstroJournal by typing:</p>
+<p>After downloading and uncompressing the file, once in the folder, run AstroJournal as follows:</p>
 
-<pre><code># On GNU/Linux or Mac OS X run AstroJournal typing (or clicking):
+<pre><code># On GNU/Linux or Mac OS X type or click:
 ./astrojournal.sh
 </code></pre>
 
@@ -90,19 +90,36 @@ are saved in .tsv or .csv format files and imported by AstroJournal. Once import
 astrojournal.exe
 </code></pre>
 
-<p>This will start a simple graphical user interface to generate the journals.</p>
+<p>This will start a simple graphical user interface to generate the journals. To run AstroJournal via command line, </p>
+
+<pre><code># On GNU/Linux or Mac OS X type:
+./astrojournal.sh -c
+</code></pre>
+
+<p>Please use the option -h (--help) to see the available options.</p>
 
 <h3>
 <a id="additional-notes-for-installing-astrojournal-dependencies" class="anchor" href="#additional-notes-for-installing-astrojournal-dependencies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Additional notes for installing AstroJournal dependencies:</h3>
 
-<p>On GNU/Linux Debian/Ubuntu 14.04+, users can install the LaTeX dependencies required by AstroJournal with the following command:</p>
+<h5>
+<a id="gnulinux-debianubuntu-1404" class="anchor" href="#gnulinux-debianubuntu-1404" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>GNU/Linux Debian/Ubuntu 14.04+</h5>
+
+<p>Users can install the LaTeX dependencies required by AstroJournal with the following command:</p>
 
 <pre><code>sudo apt-get --no-install-recommends install texlive-latex-base texlive-latex-recommended
 </code></pre>
 
-<p>On Windows, users should install MikTeX and then the LaTeX packages <em>url</em> and <em>mptopdf</em> using MikTeX Manager.</p>
+<p>The creation of a deb package is currently in progress.</p>
 
-<p>On Mac OS X, users should install MacTeX. I have not tested this directly. If the command <em>pdflatex</em> is not available, I think it should be possible to create a link called <em>pdflatex</em> to the corresponding program used by MacTeX to compile LaTeX code.
+<h5>
+<a id="windows" class="anchor" href="#windows" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Windows</h5>
+
+<p>Users should install MikTeX and then the LaTeX packages <em>url</em> and <em>mptopdf</em> using MikTeX Manager.</p>
+
+<h5>
+<a id="mac-os-x" class="anchor" href="#mac-os-x" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Mac OS X</h5>
+
+<p>Users should install MacTeX. I have not tested this directly. If the command <em>pdflatex</em> is not available, I think it should be possible to create a link called <em>pdflatex</em> to the corresponding program used by MacTeX to compile LaTeX code.
 In addition, to run AstroJournal on a MAC OS X platform, some steps are required since Mac OS X still uses Java 1.6 while AstroJournal requires Java 1.7+: </p>
 
 <ul>
