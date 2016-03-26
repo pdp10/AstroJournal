@@ -7,6 +7,8 @@ Licence: GPL v3 (2015-16)
 
 Mailing list: astrojournal AT googlegroups.com
 
+Travis status: https://travis-ci.org/pdp10/AstroJournal.svg?branch=master
+
 
 ### Description
 This software utility aims to generate structured documents from astronomy observation reports created as basic tables. These tables are saved as .tsv or .csv format files and imported by AstroJournal. Once imported, the program will export this information by category (reports by date, by target, by constellation) in PDF format using LaTeX.
