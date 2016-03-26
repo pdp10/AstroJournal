@@ -33,6 +33,8 @@ import java.util.ResourceBundle;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.astrojournal.configuration.Configuration;
+import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.generator.Report;
 import org.astrojournal.utilities.filefilters.TSVRawReportFilter;
 
@@ -61,6 +63,20 @@ public abstract class Importer {
      * Default constructor
      */
     public Importer() {
+    }
+
+    /**
+     * Configure the importer using a Configuration object
+     * 
+     * @param config
+     *            The configuration
+     */
+    public void setConfiguration(Configuration config) {
+	setResourceBundle(config.getResourceBundle());
+	setFilesLocation(config.getProperty(AJPropertyConstants.FILES_LOCATION
+		.getKey()));
+	setRawReportFolder(config
+		.getProperty(AJPropertyConstants.RAW_REPORTS_FOLDER.getKey()));
     }
 
     /**
