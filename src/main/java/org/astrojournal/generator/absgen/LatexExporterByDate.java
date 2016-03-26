@@ -35,6 +35,8 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.astrojournal.configuration.Configuration;
+import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.generator.Report;
 import org.astrojournal.generator.basicgen.BasicMetaDataCols;
 import org.astrojournal.generator.headfoot.LatexFooter;
@@ -59,6 +61,23 @@ public abstract class LatexExporterByDate extends LatexExporter {
      */
     public LatexExporterByDate() {
 	super();
+    }
+
+    @Override
+    public void setConfiguration(Configuration config) {
+	super.setConfiguration(config);
+	setReportFolder(config
+		.getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE
+			.getKey()));
+	setReportFilename(config
+		.getProperty(AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME
+			.getKey()));
+	setHeaderFilename(config
+		.getProperty(AJPropertyConstants.LATEX_HEADER_BY_DATE_FILENAME
+			.getKey()));
+	setFooterFilename(config
+		.getProperty(AJPropertyConstants.LATEX_FOOTER_BY_DATE_FILENAME
+			.getKey()));
     }
 
     @Override

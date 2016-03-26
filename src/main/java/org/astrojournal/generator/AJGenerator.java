@@ -36,7 +36,6 @@ import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.generator.absgen.Exporter;
 import org.astrojournal.generator.absgen.Importer;
-import org.astrojournal.generator.absgen.LatexExporter;
 import org.astrojournal.utilities.ClassesInstanceOf;
 
 /**
@@ -369,88 +368,14 @@ public class AJGenerator implements Generator {
     /** Configure the importers. */
     private void configureImporters() {
 	for (Importer importer : importers) {
-
-	    importer.setFilesLocation(config
-		    .getProperty(AJPropertyConstants.FILES_LOCATION.getKey()));
-	    importer.setRawReportFolder(config
-		    .getProperty(AJPropertyConstants.RAW_REPORTS_FOLDER
-			    .getKey()));
-	    importer.setResourceBundle(config.getResourceBundle());
+	    importer.setConfiguration(config);
 	}
     }
 
     /** Configure the exporters. */
     private void configureExporters() {
 	for (Exporter exporter : exporters) {
-
-	    exporter.setFilesLocation(config
-		    .getProperty(AJPropertyConstants.FILES_LOCATION.getKey()));
-	    exporter.setQuiet(Boolean.parseBoolean(config
-		    .getProperty(AJPropertyConstants.QUIET.getKey())));
-	    exporter.setResourceBundle(config.getResourceBundle());
-	    exporter.setHeaderFooterFolder(config
-		    .getProperty(AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER
-			    .getKey()));
-	    if (exporter instanceof LatexExporter) {
-		((LatexExporter) exporter)
-			.setLatexOutput(Boolean.parseBoolean(config
-				.getProperty(AJPropertyConstants.SHOW_LATEX_OUTPUT
-					.getKey())));
-
-		if (exporter.getClass().getName().endsWith("ByDate")) {
-		    exporter.setReportFolder(config
-			    .getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE
-				    .getKey()));
-		    exporter.setReportFilename(config
-			    .getProperty(AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME
-				    .getKey()));
-		    exporter.setHeaderFilename(config
-			    .getProperty(AJPropertyConstants.LATEX_HEADER_BY_DATE_FILENAME
-				    .getKey()));
-		    exporter.setFooterFilename(config
-			    .getProperty(AJPropertyConstants.LATEX_FOOTER_BY_DATE_FILENAME
-				    .getKey()));
-		}
-
-		if (exporter.getClass().getName().endsWith("ByTarget")) {
-		    exporter.setReportFolder(config
-			    .getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET
-				    .getKey()));
-		    exporter.setReportFilename(config
-			    .getProperty(AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
-				    .getKey()));
-		    exporter.setHeaderFilename(config
-			    .getProperty(AJPropertyConstants.LATEX_HEADER_BY_TARGET_FILENAME
-				    .getKey()));
-		    exporter.setFooterFilename(config
-			    .getProperty(AJPropertyConstants.LATEX_FOOTER_BY_TARGET_FILENAME
-				    .getKey()));
-		}
-		if (exporter.getClass().getName().endsWith("ByConst")) {
-		    exporter.setReportFolder(config
-			    .getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-				    .getKey()));
-		    exporter.setReportFilename(config
-			    .getProperty(AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
-				    .getKey()));
-		    exporter.setHeaderFilename(config
-			    .getProperty(AJPropertyConstants.LATEX_HEADER_BY_CONSTELLATION_FILENAME
-				    .getKey()));
-		    exporter.setFooterFilename(config
-			    .getProperty(AJPropertyConstants.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
-				    .getKey()));
-		}
-
-	    } else {
-		if (exporter.getClass().getName().endsWith("ByDateSGL")) {
-		    exporter.setReportFolder(config
-			    .getProperty(AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE
-				    .getKey()));
-		    exporter.setReportFilename(config
-			    .getProperty(AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME
-				    .getKey()));
-		}
-	    }
+	    exporter.setConfiguration(config);
 	}
     }
 

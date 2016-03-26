@@ -37,6 +37,8 @@ import java.util.Scanner;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.astrojournal.configuration.Configuration;
+import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.generator.Report;
 import org.astrojournal.generator.extgen.ExtMetaDataCols;
 import org.astrojournal.generator.minigen.MiniMetaDataCols;
@@ -61,6 +63,17 @@ public abstract class TextExporterByDateSGL extends Exporter {
      */
     public TextExporterByDateSGL() {
 	super();
+    }
+
+    @Override
+    public void setConfiguration(Configuration config) {
+	super.setConfiguration(config);
+	setReportFolder(config
+		.getProperty(AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE
+			.getKey()));
+	setReportFilename(config
+		.getProperty(AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME
+			.getKey()));
     }
 
     @Override
