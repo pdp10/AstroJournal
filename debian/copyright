@@ -30,26 +30,8 @@ from <https://github.com/pdp10/AstroJournal.git>.
     Copyright (C) 2005-2016 FreeDesktop.org
     
 	Creative Commons Attribution-ShareAlike 2.5 Generic (CC BY-SA 2.5)
-	This is a human-readable summary of (and not a substitute for) the license.
-	
-	This license is acceptable for Free Cultural Works. You are free to:
-	Share - copy and redistribute the material in any medium or format
-	Adapt - remix, transform, and build upon the material for any purpose, 
-	even commercially.
-	
-	The licensor cannot revoke these freedoms as long as you follow the license terms.
-
-	Under the following terms:
-	Attribution - You must give appropriate credit, provide a link to the license, 
-	and indicate if changes were made. You may do so in any reasonable manner, 
-	but not in any way that suggests the licensor endorses you or your use.
-	ShareAlike - If you remix, transform, or build upon the material, you must 
-	distribute your contributions under the same license as the original.
-	
-	No additional restrictions - You may not apply legal terms or technological 
-	measures that legally restrict others from doing anything the license permits.
-
-  See: http://tango.freedesktop.org/Tango_Icon_Library
+	License Link: http://creativecommons.org/licenses/by/2.5/
+    See: http://tango.freedesktop.org/Tango_Icon_Library
 
 * Spring Core 4.2.5 and Spring Context 4.2.5 (http://projects.spring.io/spring-framework/) 
 are under the following copyright:
@@ -92,4 +74,29 @@ are under the following copyright:
 	limitations under the License.
 	
   On Debian systems, the complete text of the GNU Library
-  General Public License can be found in `/usr/share/common-licenses/Apache-2.0'.		
+  General Public License can be found in `/usr/share/common-licenses/Apache-2.0'.
+  
+* File org.astrojournal.utilities.ClassSearchUtils.java was adapted by Piero Dalle Pezze.  
+Source: http://www.java2s.com/Tutorial/Java/0180__File/SearchclassinclasspathandJarfiles.htm
+File released under the following copyright: 
+
+    Copyright 2009 Sun Microsystems, Inc., 4150 Network Circle,
+    Santa Clara, California 95054, U.S.A. All rights reserved.
+
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+	
+  On Debian systems, the complete text of the GNU Library
+  General Public License can be found in `/usr/share/common-licenses/LGPL-2.1'.
