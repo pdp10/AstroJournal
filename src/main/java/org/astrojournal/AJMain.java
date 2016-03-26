@@ -50,8 +50,10 @@ public class AJMain {
     private static Logger log = LogManager.getLogger(AJMain.class);
 
     /**
-     * Start AJMiniGUI.
+     * Start AJMainGUI.
      * 
+     * @param generator
+     *            The generator
      * @param config
      *            The configuration
      */
@@ -96,12 +98,11 @@ public class AJMain {
 		"META-INF/aj_spring_default_context.xml");
 	BeanFactory factory = context;
 	Configuration config = (Configuration) factory.getBean("configuration");
-	Generator generator = (Generator) factory.getBean("generator");
-
 	ConfigurationUtils configUtils = config.getConfigurationUtils();
 
 	try {
 	    if (args.length == 0) {
+		Generator generator = (Generator) factory.getBean("generator");
 		startAJMainGUI(generator, config);
 	    } else if (args[0].equals("-f") || args[0].equals("--config")) {
 		log.info(configUtils.printConfiguration(config));

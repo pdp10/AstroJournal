@@ -41,7 +41,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class AJMainConsole {
 
-    private AJMainControls commandRunner;
+    private AJMainControls ajMainControls;
 
     /**
      * Constructor.
@@ -86,7 +86,7 @@ public class AJMainConsole {
      *         exported to Latex correctly
      */
     public boolean createJournals() {
-	return commandRunner.createJournal();
+	return ajMainControls.createJournal();
     }
 
     /**
@@ -96,7 +96,7 @@ public class AJMainConsole {
      *            The generator
      */
     private void initComponents(Generator generator) {
-	commandRunner = new AJMainConsoleControls(generator);
+	ajMainControls = new AJMainConsoleControls(generator);
     }
 
     /**

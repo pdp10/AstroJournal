@@ -44,6 +44,7 @@ import javax.swing.text.DefaultCaret;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.astrojournal.AJMainControls;
 import org.astrojournal.AJMetaInfo;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ajconfiguration.PreferencesDialog;
@@ -91,14 +92,13 @@ public class AJMainGUI extends JFrame implements ActionListener {
     private AJMenuBar menu = null;
 
     /** The controller for this application */
-    private AJMainGUIControls commandRunner;
+    private AJMainControls ajMainControls;
 
     /**
-     * Creates new form new JFrame
+     * Starts a GUI for AstroJournal.
      * 
      * @param generator
      *            The generator.
-     * 
      * @param config
      *            The application configuration.
      */
@@ -107,7 +107,7 @@ public class AJMainGUI extends JFrame implements ActionListener {
 	this.config = config;
 	this.resourceBundle = config.getResourceBundle();
 	this.generator.setConfiguration(this.config);
-	commandRunner = new AJMainGUIControls(this, generator);
+	ajMainControls = new AJMainGUIControls(this, generator);
 	initComponents();
     }
 
@@ -154,7 +154,7 @@ public class AJMainGUI extends JFrame implements ActionListener {
 		btnCreateJournal.setEnabled(false);
 		menu.setEnabled(AJGUIActions.CREATE_JOURNAL.name(), false);
 		menu.setEnabled(AJGUIActions.EDIT_PREFERENCES.name(), false);
-		if (!commandRunner.createJournal()) {
+		if (!ajMainControls.createJournal()) {
 		    setStatusPanelText(resourceBundle
 			    .getString("AJ.errPDFLatexShort.text"));
 		}
@@ -184,7 +184,7 @@ public class AJMainGUI extends JFrame implements ActionListener {
 		config);
 	config = preferencesDialog.getConfiguration();
 	generator.setConfiguration(config);
-	commandRunner = new AJMainGUIControls(this, generator);
+	ajMainControls = new AJMainGUIControls(this, generator);
     }
 
     /**
