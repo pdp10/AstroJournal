@@ -35,6 +35,8 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.astrojournal.configuration.Configuration;
+import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.generator.Report;
 import org.astrojournal.generator.headfoot.LatexFooter;
 import org.astrojournal.generator.headfoot.LatexHeader;
@@ -64,6 +66,13 @@ public abstract class LatexExporter extends Exporter {
      */
     public LatexExporter() {
 	super();
+    }
+
+    @Override
+    public void setConfiguration(Configuration config) {
+	super.setConfiguration(config);
+	setLatexOutput(Boolean.parseBoolean(config
+		.getProperty(AJPropertyConstants.SHOW_LATEX_OUTPUT.getKey())));
     }
 
     /**
