@@ -29,7 +29,6 @@ import java.io.File;
 import java.util.List;
 
 import org.astrojournal.configuration.Configuration;
-import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
 import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.generator.Report;
 import org.astrojournal.generator.absgen.Importer;
@@ -41,6 +40,9 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Import a set of correct observations.
@@ -68,21 +70,21 @@ public class MiniTSVImporterTest {
 			+ "resources" + File.separator
 			+ "mini_tsv_importer_test");
 
-	Configuration config = new AJConfiguration();
+	// Initialise dependency injection with Spring
+	ApplicationContext context = new ClassPathXmlApplicationContext(
+		"META-INF/aj_spring_test_context.xml");
+	BeanFactory factory = context;
+	Configuration config = (Configuration) factory.getBean("configuration");
 
 	// Load the new properties
 	config.loadSystemProperties();
 
 	Importer importer = new MiniTSVImporter();
 
-	// TODO: TEMPORARY IMPLEMENTATION. WITH DEPENDENCY INJECTION, THESE
-	// PARAMETERS ARE PASSED BY THE INJECTOR
-	// THEREFORE, THERE IS NO NEED TO SET THEM HERE!! :)
 	importer.setFilesLocation(config
 		.getProperty(AJPropertyConstants.FILES_LOCATION.getKey()));
 	importer.setRawReportFolder(config
 		.getProperty(AJPropertyConstants.RAW_REPORTS_FOLDER.getKey()));
-	// TODO: END
 
 	reports = importer.importReports();
 

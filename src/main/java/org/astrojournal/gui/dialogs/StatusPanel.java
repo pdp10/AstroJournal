@@ -19,8 +19,7 @@
  */
 /*
  * Changelog:
- * - Piero Dalle Pezze: Code taken from the classes StatusPanel.java in 
- * the software BamQC (GPL v3). Code adapted for AstroJournal.
+ * - Piero Dalle Pezze: Class creation.
  */
 package org.astrojournal.gui.dialogs;
 

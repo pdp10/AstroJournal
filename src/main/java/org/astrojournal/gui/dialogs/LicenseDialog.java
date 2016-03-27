@@ -19,8 +19,7 @@
  */
 /*
  * Changelog:
- * - Piero Dalle Pezze: Code taken from the class LicenseDialog.java in 
- * the software BamQC (GPL v3). Code merged and adapted for AstroJournal. Added internationalisation and close button.
+ * - Piero Dalle Pezze: Class creation
  */
 package org.astrojournal.gui.dialogs;
 
@@ -39,7 +38,7 @@ import javax.swing.JEditorPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import org.astrojournal.configuration.ajconfiguration.AJMetaInfo;
+import org.astrojournal.AJMetaInfo;
 import org.astrojournal.gui.AJMainGUI;
 import org.astrojournal.utilities.ReadFromJar;
 

@@ -33,7 +33,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ConfigurationUtils;
-import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
 import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.console.AJMainConsole;
 import org.junit.After;
@@ -41,6 +40,9 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * This test executes astrojournal via command line on a simple sample set of
@@ -72,7 +74,12 @@ public class BasicGenSystemTest {
 
 	System.setProperty(AJPropertyConstants.GENERATOR_NAME.getKey(),
 		"basicgen");
-	config = new AJConfiguration();
+
+	// Initialise dependency injection with Spring
+	ApplicationContext context = new ClassPathXmlApplicationContext(
+		"META-INF/aj_spring_test_context.xml");
+	BeanFactory factory = context;
+	config = (Configuration) factory.getBean("configuration");
 
 	String[] args = new String[] { "--console" };
 	AJMainConsole.main(args);

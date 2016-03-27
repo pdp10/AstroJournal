@@ -23,371 +23,96 @@
  */
 package org.astrojournal.generator;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.ResourceBundle;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.Configuration;
-import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.generator.absgen.Exporter;
 import org.astrojournal.generator.absgen.Importer;
-import org.astrojournal.generator.absgen.LatexExporter;
-import org.astrojournal.utilities.ClassesInstanceOf;
 
 /**
- * This class automatically generates astro journal documents.
+ * Interface of a generator.
  * 
  * @author Piero Dalle Pezze
- * @version 0.11
- * @since 12/04/2015
+ * @version 0.1
+ * @since 19/03/2016
  */
-public class Generator {
-
-    /** The log associated to this class */
-    private static Logger log = LogManager.getLogger(Generator.class);
-
-    /** The configuration. */
-    private Configuration config;
-
-    /** The resource bundle. */
-    private ResourceBundle resourceBundle = null;
-
-    /** The list of reports. */
-    private List<Report> reports = new ArrayList<Report>();
-
-    /** The list of Importer objects. */
-    private List<Importer> importers = new ArrayList<Importer>();
-
-    /** The list of Exporter objects. */
-    private List<Exporter> exporters = new ArrayList<Exporter>();
+public interface Generator {
 
     /**
-     * Default constructor
+     * Return the configuration.
+     * 
+     * @return config
+     */
+    public Configuration getConfiguration();
+
+    /**
+     * Set a new configuration
      * 
      * @param config
      */
-    public Generator(Configuration config) {
-	this.config = config;
-	this.resourceBundle = config.getResourceBundle();
-    }
+    public void setConfiguration(Configuration config);
 
     /**
      * It generates the files for AstroJournal.
      * 
-     * @return true if the reports sorted by date and by target have been
-     *         exported correctly
+     * @return true if the journals have been generated.
      */
-    public boolean generateJournals() {
-	if (!ajImport()) {
-	    if (reports.isEmpty()) {
-		log.error(resourceBundle
-			.getString("AJ.errNoObservationFound.text")
-			+ " "
-			+ config.getProperty(AJPropertyConstants.FILES_LOCATION
-				.getKey())
-			+ File.separator
-			+ config.getProperty(AJPropertyConstants.RAW_REPORTS_FOLDER
-				.getKey()));
-		return false;
-	    }
-	    log.error(resourceBundle.getString("AJ.errSomeImporterFailed.text"));
-	}
-	if (!ajExport()) {
-	    log.error(resourceBundle.getString("AJ.errSomeExporterFailed.text"));
-	    return false;
-	}
-	return true;
-    }
+    public boolean generateJournals();
 
     /**
      * Returns the imported reports.
      * 
      * @return the reports
      */
-    public List<Report> getReports() {
-	return reports;
-    }
+    public List<Report> getReports();
 
     /**
      * Returns the list of Importer objects.
      * 
      * @return the Importers
      */
-    public List<Importer> getImporters() {
-	return importers;
-    }
+    public List<Importer> getImporters();
 
     /**
      * Returns the list of Exporter objects.
      * 
      * @return the Exporters
      */
-    public List<Exporter> getExporters() {
-	return exporters;
-    }
+    public List<Exporter> getExporters();
 
     /**
      * Reset the generator.
      */
-    public void reset() {
-	resetImporters();
-	resetExporters();
-    }
-
-    /**
-     * Reset the generator reports.
-     */
-    private void resetReports() {
-	reports = new ArrayList<Report>();
-    }
+    public void reset();
 
     /**
      * Reset the Importers.
      */
-    public void resetImporters() {
-	importers = new ArrayList<Importer>();
-    }
+    public void resetImporters();
 
     /**
      * Reset the Exporters.
      */
-    public void resetExporters() {
-	exporters = new ArrayList<Exporter>();
-    }
+    public void resetExporters();
 
     /**
      * Export the reports using the available Importers.
      * 
      * @return true if the reports have been imported.
      */
-    public boolean ajImport() {
-	boolean status = true;
-	List<String> importerNames = ClassesInstanceOf
-		.getClassFullNamesInstanceOf(
-			this.getClass().getPackage().getName()
-				+ "."
-				+ config.getProperty(AJPropertyConstants.GENERATOR_NAME
-					.getKey()), Importer.class);
-	Collections.sort(importerNames);
-	for (String importerName : importerNames) {
-	    try {
-		log.debug("Loading importer " + importerName);
-		Class<?> cls = Class.forName(importerName);
-		Object clsInstance = cls.newInstance();
-		Importer importer = (Importer) clsInstance;
-		if (!importers.contains(importer)) {
-		    importers.add(importer);
-		    log.debug("Importer " + importer.getName() + " is loaded");
-		} else {
-		    log.debug("Importer " + importer.getName()
-			    + " was already loaded");
-		}
-	    } catch (InstantiationException e) {
-		status = false;
-		log.debug(e);
-	    } catch (IllegalAccessException e) {
-		status = false;
-		log.debug(e);
-	    } catch (ClassNotFoundException e) {
-		status = false;
-		log.debug(e);
-	    } catch (IllegalArgumentException e) {
-		status = false;
-		log.debug(e);
-	    } catch (SecurityException e) {
-		status = false;
-		log.debug(e);
-	    }
-	}
-	if (importers.isEmpty()) {
-	    log.error(resourceBundle.getString("AJ.errNoDataImported.text"));
-	    return false;
-	}
-	resetReports();
-	for (Importer importer : importers) {
-
-	    // TODO: TEMPORARY IMPLEMENTATION. WITH DEPENDENCY INJECTION, THESE
-	    // PARAMETERS ARE PASSED BY THE INJECTOR
-	    // THEREFORE, THERE IS NO NEED TO SET THEM HERE!! :)
-	    importer.setFilesLocation(config
-		    .getProperty(AJPropertyConstants.FILES_LOCATION.getKey()));
-	    importer.setRawReportFolder(config
-		    .getProperty(AJPropertyConstants.RAW_REPORTS_FOLDER
-			    .getKey()));
-	    importer.setResourceBundle(config.getResourceBundle());
-	    // TODO: END
-
-	    log.debug(importer.getName() + " is importing reports");
-	    List<Report> obs = importer.importReports();
-	    reports.addAll(obs);
-	    log.debug(importer.getName() + " imported " + obs.size()
-		    + " reports");
-	}
-
-	// reverse the reports so that the most recent is the first.
-	Collections.reverse(reports);
-
-	return status;
-    }
+    public boolean ajImport();
 
     /**
      * Export the reports using the available Exporters.
      * 
      * @return true if the reports have been exported.
      */
-    public boolean ajExport() {
-	boolean status = true;
-	List<String> exporterNames = ClassesInstanceOf
-		.getClassFullNamesInstanceOf(
-			this.getClass().getPackage().getName()
-				+ "."
-				+ config.getProperty(AJPropertyConstants.GENERATOR_NAME
-					.getKey()), Exporter.class);
-	Collections.sort(exporterNames);
-	for (String exporterName : exporterNames) {
-	    try {
-		log.debug("Loading exporter " + exporterName);
-		Class<?> cls = Class.forName(exporterName);
-		Object clsInstance = cls.newInstance();
-		Exporter exporter = (Exporter) clsInstance;
-		if (!exporters.contains(exporter)) {
-		    exporters.add(exporter);
-		    log.debug("Exporter " + exporter.getName() + " is loaded");
-		} else {
-		    log.debug("Exporter " + exporter.getName()
-			    + " was already loaded");
-		}
-	    } catch (InstantiationException e) {
-		status = false;
-		log.debug(e);
-	    } catch (IllegalAccessException e) {
-		status = false;
-		log.debug(e);
-	    } catch (ClassNotFoundException e) {
-		status = false;
-		log.debug(e);
-	    } catch (IllegalArgumentException e) {
-		status = false;
-		log.debug(e);
-	    } catch (SecurityException e) {
-		status = false;
-		log.debug(e);
-	    }
-	}
-	if (exporters.isEmpty()) {
-	    log.error(resourceBundle.getString("AJ.errNoDataExported.text"));
-	    return false;
-	}
-	for (Exporter exporter : exporters) {
-
-	    // TODO: TEMPORARY IMPLEMENTATION. WITH DEPENDENCY INJECTION, THESE
-	    // PARAMETERS ARE PASSED BY THE INJECTOR
-	    // THEREFORE, THERE IS NO NEED TO SET THEM HERE!! :)
-	    exporter.setFilesLocation(config
-		    .getProperty(AJPropertyConstants.FILES_LOCATION.getKey()));
-	    exporter.setQuiet(Boolean.parseBoolean(config
-		    .getProperty(AJPropertyConstants.QUIET.getKey())));
-	    exporter.setResourceBundle(config.getResourceBundle());
-	    exporter.setHeaderFooterFolder(config
-		    .getProperty(AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER
-			    .getKey()));
-	    if (exporter instanceof LatexExporter) {
-		((LatexExporter) exporter)
-			.setLatexOutput(Boolean.parseBoolean(config
-				.getProperty(AJPropertyConstants.SHOW_LATEX_OUTPUT
-					.getKey())));
-
-		if (exporter.getClass().getName().endsWith("ByDate")) {
-		    exporter.setReportFolder(config
-			    .getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE
-				    .getKey()));
-		    exporter.setReportFilename(config
-			    .getProperty(AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME
-				    .getKey()));
-		    exporter.setHeaderFilename(config
-			    .getProperty(AJPropertyConstants.LATEX_HEADER_BY_DATE_FILENAME
-				    .getKey()));
-		    exporter.setFooterFilename(config
-			    .getProperty(AJPropertyConstants.LATEX_FOOTER_BY_DATE_FILENAME
-				    .getKey()));
-		}
-
-		if (exporter.getClass().getName().endsWith("ByTarget")) {
-		    exporter.setReportFolder(config
-			    .getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_TARGET
-				    .getKey()));
-		    exporter.setReportFilename(config
-			    .getProperty(AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
-				    .getKey()));
-		    exporter.setHeaderFilename(config
-			    .getProperty(AJPropertyConstants.LATEX_HEADER_BY_TARGET_FILENAME
-				    .getKey()));
-		    exporter.setFooterFilename(config
-			    .getProperty(AJPropertyConstants.LATEX_FOOTER_BY_TARGET_FILENAME
-				    .getKey()));
-		}
-		if (exporter.getClass().getName().endsWith("ByConst")) {
-		    exporter.setReportFolder(config
-			    .getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
-				    .getKey()));
-		    exporter.setReportFilename(config
-			    .getProperty(AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
-				    .getKey()));
-		    exporter.setHeaderFilename(config
-			    .getProperty(AJPropertyConstants.LATEX_HEADER_BY_CONSTELLATION_FILENAME
-				    .getKey()));
-		    exporter.setFooterFilename(config
-			    .getProperty(AJPropertyConstants.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
-				    .getKey()));
-		}
-
-	    } else {
-		if (exporter.getClass().getName().endsWith("ByDateSGL")) {
-		    exporter.setReportFolder(config
-			    .getProperty(AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE
-				    .getKey()));
-		    exporter.setReportFilename(config
-			    .getProperty(AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME
-				    .getKey()));
-		}
-	    }
-
-	    // TODO END
-
-	    log.debug(exporter.getName() + " is exporting reports");
-	    boolean result = exporter.exportReports(reports)
-		    && exporter.generateJournal();
-	    status = result && status;
-	    if (result) {
-		log.debug(exporter.getName() + " SUCCEEDED");
-	    } else {
-		log.debug(exporter.getName() + " FAILED");
-	    }
-	}
-	return status;
-    }
+    public boolean ajExport();
 
     /**
      * Runs the method postProcessing() for each available ajExporter.
      * 
      * @return true if the post processing succeeded.
      */
-    public boolean postProcessing() {
-	boolean status = true;
-	for (Exporter exporter : exporters) {
-	    try {
-		exporter.postProcessing();
-	    } catch (IOException e) {
-		log.debug(exporter.getName()
-			+ " failed the post processing phase.", e);
-		status = false;
-	    }
-	}
-	return status;
-    }
+    public boolean postProcessing();
 }

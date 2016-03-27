@@ -12,6 +12,6 @@
         <Root level="debug" additivity="false">
             <AppenderRef ref="Console" level="FATAL" />
             <AppenderRef ref="MyFile" level="DEBUG" />
-        </Root>
+        </Root>     
     </Loggers>
 </Configuration>

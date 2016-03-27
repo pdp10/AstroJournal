@@ -1,0 +1,102 @@
+This is the Debian packaged version of AstroJournal version 2.1.5.
+
+It was put together by Piero Dalle Pezze <piero.dallepezze@gmail.com>
+from <https://github.com/pdp10/AstroJournal.git>. 
+
+* Most of AstroJournal is under the following copyright:
+
+    Copyright (C) 2015,2016 Piero Dalle Pezze.
+
+    AstroJournal is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 3 of the License, or
+    (at your option) any later version.
+
+    AstroJournal is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with the GNU C Library; if not, write to the Free
+    Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+    02110-1301 USA
+
+  On Debian systems, the complete text of the GNU Library
+  General Public License can be found in `/usr/share/common-licenses/GPL-3'.
+
+* The Tango base icon theme 0.8.90 is under the following copyright:
+
+    Copyright (C) 2005-2016 FreeDesktop.org
+    
+	Creative Commons Attribution-ShareAlike 2.5 Generic (CC BY-SA 2.5)
+	License Link: http://creativecommons.org/licenses/by/2.5/
+    See: http://tango.freedesktop.org/Tango_Icon_Library
+
+* Spring Core 4.2.5 and Spring Context 4.2.5 (http://projects.spring.io/spring-framework/) 
+are under the following copyright:
+
+	Copyright (C) 2002-2016 Pivotal Software
+
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+	
+  On Debian systems, the complete text of the GNU Library
+  General Public License can be found in `/usr/share/common-licenses/Apache-2.0'.	
+
+* Commons IO 2.4, Commons Lang 3.4, log4j 2.0.2 
+(https://commons.apache.org/proper/commons-io/ , 
+http://commons.apache.org/proper/commons-lang/ , 
+http://logging.apache.org/log4j/2.x/) 
+are under the following copyright:
+
+	Copyright (C) 2004-2016 Apache Software Foundation
+
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+	
+  On Debian systems, the complete text of the GNU Library
+  General Public License can be found in `/usr/share/common-licenses/Apache-2.0'.
+  
+* File org.astrojournal.utilities.ClassSearchUtils.java was adapted by Piero Dalle Pezze.  
+Source: http://www.java2s.com/Tutorial/Java/0180__File/SearchclassinclasspathandJarfiles.htm
+File released under the following copyright: 
+
+    Copyright 2009 Sun Microsystems, Inc., 4150 Network Circle,
+    Santa Clara, California 95054, U.S.A. All rights reserved.
+
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+	
+  On Debian systems, the complete text of the GNU Library
+  General Public License can be found in `/usr/share/common-licenses/LGPL-2.1'.

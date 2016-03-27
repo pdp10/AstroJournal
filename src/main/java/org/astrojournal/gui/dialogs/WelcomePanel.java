@@ -19,8 +19,7 @@
  */
 /*
  * Changelog:
- * - Piero Dalle Pezze:  Code taken from the classes WelcomePanel.java in 
- * the software BamQC (GPL v3). Code merged and adapted for AstroJournal. Added internationalisation.
+ * - Piero Dalle Pezze: Class creation.
  */
 package org.astrojournal.gui.dialogs;
 

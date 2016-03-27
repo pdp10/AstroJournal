@@ -44,14 +44,18 @@ import javax.swing.text.DefaultCaret;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.astrojournal.AJMainControls;
+import org.astrojournal.AJMetaInfo;
 import org.astrojournal.configuration.Configuration;
-import org.astrojournal.configuration.ajconfiguration.AJConfiguration;
-import org.astrojournal.configuration.ajconfiguration.AJMetaInfo;
 import org.astrojournal.configuration.ajconfiguration.PreferencesDialog;
+import org.astrojournal.generator.Generator;
 import org.astrojournal.gui.dialogs.StatusPanel;
 import org.astrojournal.gui.dialogs.WelcomePanel;
 import org.astrojournal.gui.menu.AJMenuBar;
 import org.astrojournal.logging.JTextPaneAppender;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * A very minimal graphical user interface for running AstroJournal without
@@ -75,6 +79,7 @@ public class AJMainGUI extends JFrame implements ActionListener {
      */
     private Configuration config;
     private ResourceBundle resourceBundle;
+    private Generator generator;
 
     private JButton btnCreateJournal;
     private JButton btnQuit;
@@ -86,15 +91,23 @@ public class AJMainGUI extends JFrame implements ActionListener {
     private StatusPanel statusPanel;
     private AJMenuBar menu = null;
 
+    /** The controller for this application */
+    private AJMainControls ajMainControls;
+
     /**
-     * Creates new form NewJFrame
+     * Starts a GUI for AstroJournal.
      * 
+     * @param generator
+     *            The generator.
      * @param config
      *            The application configuration.
      */
-    public AJMainGUI(Configuration config) {
+    public AJMainGUI(Generator generator, Configuration config) {
+	this.generator = generator;
 	this.config = config;
 	this.resourceBundle = config.getResourceBundle();
+	this.generator.setConfiguration(this.config);
+	ajMainControls = new AJMainGUIControls(this, generator);
 	initComponents();
     }
 
@@ -129,9 +142,6 @@ public class AJMainGUI extends JFrame implements ActionListener {
 	    add(mainPanel);
 	}
 
-	final AJMainGUIControls commandRunner = new AJMainGUIControls(this,
-		config);
-
 	// define a SwingWorker to run in background
 	// In this way the output is printed gradually as it is
 	// generated.
@@ -144,7 +154,7 @@ public class AJMainGUI extends JFrame implements ActionListener {
 		btnCreateJournal.setEnabled(false);
 		menu.setEnabled(AJGUIActions.CREATE_JOURNAL.name(), false);
 		menu.setEnabled(AJGUIActions.EDIT_PREFERENCES.name(), false);
-		if (!commandRunner.createJournal()) {
+		if (!ajMainControls.createJournal()) {
 		    setStatusPanelText(resourceBundle
 			    .getString("AJ.errPDFLatexShort.text"));
 		}
@@ -173,6 +183,8 @@ public class AJMainGUI extends JFrame implements ActionListener {
 	PreferencesDialog preferencesDialog = new PreferencesDialog(this,
 		config);
 	config = preferencesDialog.getConfiguration();
+	generator.setConfiguration(config);
+	ajMainControls = new AJMainGUIControls(this, generator);
     }
 
     /**
@@ -194,7 +206,7 @@ public class AJMainGUI extends JFrame implements ActionListener {
     /**
      * Set AstroJournal jTextPane. This is the output panel.
      * 
-     * @return the jScrolPane containing jTextPane.
+     * @return the jScrollPane containing jTextPane.
      */
     private JScrollPane setJTextPane() {
 	// Create the text area containing the program text output
@@ -315,7 +327,13 @@ public class AJMainGUI extends JFrame implements ActionListener {
      */
     public static void main(String args[]) {
 
-	final Configuration config = new AJConfiguration();
+	// Initialise dependency injection with Spring
+	ApplicationContext context = new ClassPathXmlApplicationContext(
+		"META-INF/aj_spring_default_context.xml");
+	BeanFactory factory = context;
+	final Configuration config = (Configuration) factory
+		.getBean("configuration");
+	final Generator generator = (Generator) factory.getBean("generator");
 
 	// Note Nimbus does not seem to show the vertical scroll bar if there is
 	// too much text..
@@ -333,7 +351,7 @@ public class AJMainGUI extends JFrame implements ActionListener {
 	java.awt.EventQueue.invokeLater(new Runnable() {
 	    @Override
 	    public void run() {
-		new AJMainGUI(config).setVisible(true);
+		new AJMainGUI(generator, config).setVisible(true);
 	    }
 	});
 

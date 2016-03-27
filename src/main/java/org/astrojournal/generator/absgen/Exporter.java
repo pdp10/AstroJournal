@@ -27,6 +27,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.astrojournal.configuration.Configuration;
+import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.generator.Report;
 
 /**
@@ -66,6 +68,23 @@ public abstract class Exporter {
      * Default constructor.
      */
     public Exporter() {
+    }
+
+    /**
+     * Configure the exporter using a Configuration object
+     * 
+     * @param config
+     *            The configuration
+     */
+    public void setConfiguration(Configuration config) {
+	setResourceBundle(config.getResourceBundle());
+	setFilesLocation(config.getProperty(AJPropertyConstants.FILES_LOCATION
+		.getKey()));
+	setQuiet(Boolean.parseBoolean(config
+		.getProperty(AJPropertyConstants.QUIET.getKey())));
+	setHeaderFooterFolder(config
+		.getProperty(AJPropertyConstants.LATEX_HEADER_FOOTER_FOLDER
+			.getKey()));
     }
 
     /**
