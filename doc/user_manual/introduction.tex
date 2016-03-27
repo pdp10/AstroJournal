@@ -1,0 +1,70 @@
+\section{Introduction}
+\label{sec:Introduction}
+This software utility aims to generate structured documents from astronomy observation reports created as basic tables. These tables are saved as .tsv or .csv format files and imported by AstroJournal. Once imported, the program will export this information by category (reports by date, by target, by constellation) in PDF format using LaTeX.
+
+
+\subsection{Main Features}
+\label{subsec:Main Features}
+The following list shows the main features for the software AstroJournal:
+\begin{itemize}
+ \item Support for GNU/Linux, Mac OS X, and Windows users.
+ \item Runnable via Graphical User Interface (GUI) or command line.
+ \item Generation of a PDF document containing all user observation reports collected by increasing target catalogue number. This is useful for comparing targets observed over time.
+ \item Generation of a PDF document containing all user observation reports collected by decreasing date. This is useful for visualising one's observations by session.
+ \item Generation of a PDF document containing the targets observed by constellation. This is useful for checking observed and unobserved targets by constellation.
+ \item Generation of a txt document containing all user observation reports collected by decreasing date. This is for creating observation reports to be published in an astronomy forum (e.g. Stargazers Lounge).
+ \item Complete lists of Messier objects and Caldwell selection of NGC targets are included at the end of the generated PDF documents.
+ \item Although the program requires some form of structured input file, this is intentionally minimal in order to not distract the user who wants to insert his / her data rather than thinking of how to format this data. All input data is treated as a string and therefore is not parsed for controls. This leaves the freedom to the user to introduce the data content as s/he wish. For instance, although in each document header I use the Antoniadi Scale for Seeing, this can be trivially overridden with a customised one. The inserted value for the seeing is not controlled according to a specific scale.
+ \item Possibility to edit the document header and the footer according to one's need. This must be done in LaTex for preserving the format controls in the final output file.
+\end{itemize}
+
+
+\subsection{Requirements}
+\label{subsec:Requirements}
+To use AstroJournal you need to install:
+\begin{itemize}
+ \item Java 1.7+ \href{https://java.com/en/download/}{https://java.com/en/download/};
+ \item TeX Live \href{http://www.tug.org/texlive/}{http://www.tug.org/texlive/} (GNU/Linux users only);
+ \item MikTeX \href{http://miktex.org/download}{http://miktex.org/download} (Windows users only);
+ \item MacTeX \href{https://tug.org/mactex/}{https://tug.org/mactex/} (Mac OS X users only).
+\end{itemize}
+
+
+\subsubsection{Notes:}
+\label{subsubsec:Requirements Notes}
+
+\begin{itemize}
+ \item On GNU/Linux Debian/Ubuntu/Mint, a deb package is provided and is located in the folder \textit{target/}.
+ \item On Windows, users should install MikTeX and then the LaTeX packages \textit{url} and \textit{mptopdf} using MikTeX Manager.
+ \item On Mac OS X, users should install MacTeX. If the command \textit{pdflatex} is not available, I think it should be possible to create a link called \textit{pdflatex} to the corresponding program used by MacTeX to compile LaTeX code. In addition, to run AstroJournal on a MAC OS X platform, some steps are required since Mac OS X still uses Java 1.6 while AstroJournal requires Java 1.7+: 
+\begin{itemize}
+ \item Download the latest Java from\\ \href{https://java.com/en/download/mac\_download.jsp}{https://java.com/en/download/mac\_download.jsp}.
+ \item Follow the procedure for installing the package.
+\end{itemize}
+Unfortunately, Mac OS X installs this version of Java as Plugin, and this is not in the \$PATH\$ environment variable. To correct this, 1) open the application Terminal; 2) type \textit{nano $\sim$/.bash\_profile}; 3) write at the beginning of the file the following instruction: \textit{export PATH=/Library/Internet$\backslash$ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin/:\$PATH\$} (there is a SPACE after \textit{Internet$\backslash$}); 4) hold the button \textit{Control} while pressing the button \textit{x} ; 5) press the button \textit{y} (Yes) ; Press the button \textit{Enter} / \textit{Return} ; 5) close Terminal. To test: start Terminal and type \textit{java -version}. It should report a version above 1.6. As of the time this README was written, this command returned \textit{java version ``1.8.0\_66''}. This procedure is required for the first time only. 
+\begin{itemize}
+ \item Download AstroJournal, unzip the file, and enter the application folder.
+ \item Enter the folder \textit{target}.
+ \item Click \textit{astrojournal-x.x.x-jar-with-dependencies.jar}
+ \item Mac OS X will ask for permissions to execute the file. Answer \textit{Yes}. This may require the user to disable special controls in Mac OS X in \textit{System Preferences $\rightarrow$ Security \& Privacy}. In particular at least the radio box \textit{Mac App Store and identified developers} should be selected. 
+ \item AstroJournal should start correctly now.
+\end{itemize}
+
+\end{itemize}
+
+
+
+\subsection{Download}
+\label{subsec:Download}
+The user manual for the software astroJournal can be downloaded:\\ \href{https://github.com/pdp10/AstroJournal/blob/develop/doc/user\_manual.pdf?format=raw}{https://github.com/pdp10/AstroJournal/blob/develop/doc/user\_manual.pdf?format=raw}.\\
+
+The latest stable version of this software application can be downloaded here:\\
+\href{https://github.com/pdp10/AstroJournal/zipball/master}{https://github.com/pdp10/AstroJournal/zipball/master}.\\
+
+After downloading and uncompressing the file, once in the folder, run AstroJournal as follows:
+\begin{itemize}
+ \item On GNU/Linux or Mac OS X, type or click: ``./astrojournal.sh'' .
+ \item On Windows, click: ``astrojournal.exe'' .
+\end{itemize}
+This will start a basic graphical user interface to generate the journals.\\
+To run AstroJournal via command line, type ``./astrojournal.sh -c''. Please use the option -h (--help) to see the available options.

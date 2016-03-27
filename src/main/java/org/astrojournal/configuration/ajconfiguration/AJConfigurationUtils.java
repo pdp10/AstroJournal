@@ -36,6 +36,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.astrojournal.AJMetaInfo;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ConfigurationUtils;
 import org.astrojournal.utilities.filefilters.LaTeXFilter;
@@ -95,23 +96,12 @@ public class AJConfigurationUtils implements ConfigurationUtils {
 	return configFile;
     }
 
-    /**
-     * Create a string containing the license for AstroJournal.
-     * 
-     * @return a string
-     */
     @Override
     public final String printLicense() {
 	return AJMetaInfo.SHORT_LICENSE.getInfo();
     }
 
-    /**
-     * Create a string containing the output of the command `pdflatex -version`.
-     * 
-     * @param config
-     *            The configuration.
-     * @return the current configuration
-     */
+    @Override
     public String printPDFLatexVersion(Configuration config) {
 	StringBuilder sb = new StringBuilder();
 	String command = "pdflatex";

@@ -43,6 +43,6 @@ public class AJConfigurationTestUtils {
 	for (AJPropertyConstants key : keys) {
 	    System.clearProperty(key.getKey());
 	}
-
     }
+
 }

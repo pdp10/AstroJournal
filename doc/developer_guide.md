@@ -195,3 +195,21 @@ git fetch upstream
 git checkout develop
 git merge upstream/develop
 ```
+
+### Debian package 
+
+##### Man page
+A man page for astrojournal is debian/astrojournal.1 . To uncompress it, use 
+'''gunzip''', to compress it use '''gzip -9'''. Without the option '''-9''', 
+Lintian throws the exception: manpage-not-compressed-with-max-compression . 
+
+##### Changelog 
+This is debian/changelog and must also be compressed before running '''mvn package'''.
+
+##### Copyright
+This is debian/copyright. If new dependencies are required, edit this file too. Keep 
+synchronised the file copyright in the main directory too.
+
+##### Control 
+This is debian/control, but also src/deb/control. The two must be synchronised. 
+jdeb uses src/deb, but debian-helper-maven uses debian/ .

@@ -21,7 +21,7 @@
  * Changelog:
  * - Piero Dalle Pezze: class creation.
  */
-package org.astrojournal.configuration.ajconfiguration;
+package org.astrojournal;
 
 /**
  * The meta information for this application.
@@ -37,7 +37,7 @@ public enum AJMetaInfo {
     NAME("AstroJournal"),
 
     /** The version. */
-    VERSION("2.0.2"),
+    VERSION("2.1.5"),
 
     /** The website. */
     WEBSITE("http://pdp10.github.io/AstroJournal/"),
