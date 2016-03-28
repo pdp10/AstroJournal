@@ -61,14 +61,23 @@ public class BasicTextExporterByDateSGL extends TextExporterByDateSGL {
 	List<String[]> targets = report.getAllData();
 	writer.write(BasicMetaDataCols.DATE_NAME.getColName() + ": "
 		+ metaData[BasicMetaDataCols.DATE_NAME.ordinal()] + "\n");
-	writer.write(BasicMetaDataCols.SEEING_NAME.getColName() + ": "
-		+ metaData[BasicMetaDataCols.SEEING_NAME.ordinal()] + "\n");
-	writer.write(BasicMetaDataCols.TRANSPARENCY_NAME.getColName() + ": "
-		+ metaData[BasicMetaDataCols.TRANSPARENCY_NAME.ordinal()]
-		+ "\n");
-	writer.write(BasicMetaDataCols.TELESCOPES_NAME.getColName() + ": "
-		+ metaData[BasicMetaDataCols.TELESCOPES_NAME.ordinal()]
-		+ "\n\n");
+
+	if (!metaData[BasicMetaDataCols.SEEING_NAME.ordinal()].isEmpty()) {
+	    writer.write(BasicMetaDataCols.SEEING_NAME.getColName() + " "
+		    + metaData[BasicMetaDataCols.SEEING_NAME.ordinal()] + "\n");
+	}
+	if (!metaData[BasicMetaDataCols.TRANSPARENCY_NAME.ordinal()].isEmpty()) {
+	    writer.write(BasicMetaDataCols.TRANSPARENCY_NAME.getColName() + " "
+		    + metaData[BasicMetaDataCols.TRANSPARENCY_NAME.ordinal()]
+		    + "\n");
+	}
+	if (!metaData[BasicMetaDataCols.TELESCOPES_NAME.ordinal()].isEmpty()) {
+	    writer.write(BasicMetaDataCols.TELESCOPES_NAME.getColName() + " "
+		    + metaData[BasicMetaDataCols.TELESCOPES_NAME.ordinal()]
+		    + "\n");
+	}
+	writer.write("\n");
+
 	for (String[] targetEntry : targets) {
 	    log.debug("Target "
 		    + targetEntry[BasicDataCols.TARGET_NAME.ordinal()]);

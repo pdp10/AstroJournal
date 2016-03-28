@@ -34,7 +34,7 @@ Please, see the last section for further details.
 
 
 ### Download
-The AstroJournal user manual can be downloaded from this [link](https://github.com/pdp10/AstroJournal/blob/develop/doc/user_manual.pdf). A copy of it is also provided in the folder doc/ of this software application.
+The AstroJournal user manual can be downloaded from this [link](https://github.com/pdp10/AstroJournal/blob/master/doc/user_manual.pdf). A copy of it is also provided in the folder doc/ of this software application.
 
 The latest stable version of AstroJournal can be downloaded here:
 

@@ -37,7 +37,7 @@ import org.astrojournal.generator.absgen.LatexExporterByDate;
  * export.
  * 
  * @author Piero Dalle Pezze
- * @version 0.2
+ * @version 0.3
  * @since 28/05/2015
  */
 public class ExtLatexExporterByDate extends LatexExporterByDate {
@@ -57,62 +57,84 @@ public class ExtLatexExporterByDate extends LatexExporterByDate {
     public void writeLatexContent(Writer writer, Report report)
 	    throws IOException {
 	String[] metaData = report.getMetaData();
+
 	writer.write("% General observation data\n");
-	writer.write("\\begin{tabular}{ p{1.2in} p{1.7in} p{1.1in} p{5.7in}}\n");
+
+	// first metadata table
+	writer.write("\\begin{tabular}[t]{ll}\n");
 	writer.write("{\\bf " + ExtMetaDataCols.DATE_NAME.getColName()
 		+ ":} & " + metaData[ExtMetaDataCols.DATE_NAME.ordinal()]
-		+ " & {\\bf " + ExtMetaDataCols.TEMPERATURE_NAME.getColName()
-		+ ":} & "
-		+ metaData[ExtMetaDataCols.TEMPERATURE_NAME.ordinal()]
 		+ " \\\\ \n");
-	writer.write("{\\bf " + ExtMetaDataCols.TIME_NAME.getColName()
-		+ ":} & " + metaData[ExtMetaDataCols.TIME_NAME.ordinal()]
-		+ " & {\\bf " + ExtMetaDataCols.SEEING_NAME.getColName()
-		+ ":} & " + metaData[ExtMetaDataCols.SEEING_NAME.ordinal()]
-		+ " \\\\ \n");
-	writer.write("{\\bf " + ExtMetaDataCols.LOCATION_NAME.getColName()
-		+ ":} & " + metaData[ExtMetaDataCols.LOCATION_NAME.ordinal()]
-		+ " & {\\bf " + ExtMetaDataCols.TRANSPARENCY_NAME.getColName()
-		+ ":} & "
-		+ metaData[ExtMetaDataCols.TRANSPARENCY_NAME.ordinal()]
-		+ " \\\\ \n");
-
-	// Darkness requires a SQM-L sky quality meter reading. Not
-	// everyone has it
-	// or use it. At this stage, let's leave it as optional.
-	if (!metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()].equals("")) {
+	if (!metaData[ExtMetaDataCols.TIME_NAME.ordinal()].isEmpty()) {
+	    writer.write("{\\bf " + ExtMetaDataCols.TIME_NAME.getColName()
+		    + ":} & " + metaData[ExtMetaDataCols.TIME_NAME.ordinal()]
+		    + " \\\\ \n");
+	}
+	if (!metaData[ExtMetaDataCols.LOCATION_NAME.ordinal()].isEmpty()) {
+	    writer.write("{\\bf " + ExtMetaDataCols.LOCATION_NAME.getColName()
+		    + ":} & "
+		    + metaData[ExtMetaDataCols.LOCATION_NAME.ordinal()]
+		    + " \\\\ \n");
+	}
+	if (!metaData[ExtMetaDataCols.ALTITUDE_NAME.ordinal()].isEmpty()) {
 	    writer.write("{\\bf " + ExtMetaDataCols.ALTITUDE_NAME.getColName()
 		    + ":} & "
 		    + metaData[ExtMetaDataCols.ALTITUDE_NAME.ordinal()]
-		    + " & {\\bf " + ExtMetaDataCols.DARKNESS_NAME.getColName()
-		    + ":} & "
-		    + metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()]
 		    + " \\\\ \n");
+	}
+	if (!metaData[ExtMetaDataCols.LUNAR_PHASE_NAME.ordinal()].isEmpty()) {
 	    writer.write("{\\bf "
 		    + ExtMetaDataCols.LUNAR_PHASE_NAME.getColName()
 		    + ":} & "
 		    + metaData[ExtMetaDataCols.LUNAR_PHASE_NAME.ordinal()]
-			    .replace("%", "\\%") + " & {\\bf "
-		    + ExtMetaDataCols.TELESCOPES_NAME.getColName() + ":} & "
-		    + metaData[ExtMetaDataCols.TELESCOPES_NAME.ordinal()]
+			    .replace("%", "\\%") + " \\\\ \n");
+	}
+	writer.write("\\end{tabular}\n");
+	writer.write("\\quad\n");
+
+	// second metadata table
+	writer.write("\\begin{tabular}[t]{ll}\n");
+	if (!metaData[ExtMetaDataCols.TEMPERATURE_NAME.ordinal()].isEmpty()) {
+	    writer.write("{\\bf "
+		    + ExtMetaDataCols.TEMPERATURE_NAME.getColName() + ":} & "
+		    + metaData[ExtMetaDataCols.TEMPERATURE_NAME.ordinal()]
 		    + " \\\\ \n");
-	} else {
-	    writer.write("{\\bf " + ExtMetaDataCols.ALTITUDE_NAME.getColName()
+	}
+	if (!metaData[ExtMetaDataCols.SEEING_NAME.ordinal()].isEmpty()) {
+	    writer.write("{\\bf " + ExtMetaDataCols.SEEING_NAME.getColName()
+		    + ":} & " + metaData[ExtMetaDataCols.SEEING_NAME.ordinal()]
+		    + " \\\\ \n");
+	}
+	if (!metaData[ExtMetaDataCols.TRANSPARENCY_NAME.ordinal()].isEmpty()) {
+	    writer.write("{\\bf "
+		    + ExtMetaDataCols.TRANSPARENCY_NAME.getColName() + ":} & "
+		    + metaData[ExtMetaDataCols.TRANSPARENCY_NAME.ordinal()]
+		    + " \\\\ \n");
+	}
+	if (!metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()].isEmpty()) {
+	    writer.write("{\\bf " + ExtMetaDataCols.DARKNESS_NAME.getColName()
 		    + ":} & "
-		    + metaData[ExtMetaDataCols.ALTITUDE_NAME.ordinal()]
-		    + " & {\\bf "
+		    + metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()]
+		    + " \\\\ \n");
+	}
+	if (!metaData[ExtMetaDataCols.TELESCOPES_NAME.ordinal()].isEmpty()) {
+	    writer.write("{\\bf "
 		    + ExtMetaDataCols.TELESCOPES_NAME.getColName() + ":} & "
 		    + metaData[ExtMetaDataCols.TELESCOPES_NAME.ordinal()]
 		    + " \\\\ \n");
 	}
-
-	writer.write("& & {\\bf " + ExtMetaDataCols.EYEPIECES_NAME.getColName()
-		+ ":} & " + metaData[ExtMetaDataCols.EYEPIECES_NAME.ordinal()]
-		+ " \\\\ \n");
-	writer.write("& & {\\bf " + ExtMetaDataCols.FILTERS_NAME.getColName()
-		+ ":} & " + metaData[ExtMetaDataCols.FILTERS_NAME.ordinal()]
-		+ " \\\\ \n");
-
+	if (!metaData[ExtMetaDataCols.EYEPIECES_NAME.ordinal()].isEmpty()) {
+	    writer.write("{\\bf " + ExtMetaDataCols.EYEPIECES_NAME.getColName()
+		    + ":} & "
+		    + metaData[ExtMetaDataCols.EYEPIECES_NAME.ordinal()]
+		    + " \\\\ \n");
+	}
+	if (!metaData[ExtMetaDataCols.FILTERS_NAME.ordinal()].isEmpty()) {
+	    writer.write("{\\bf " + ExtMetaDataCols.FILTERS_NAME.getColName()
+		    + ":} & "
+		    + metaData[ExtMetaDataCols.FILTERS_NAME.ordinal()]
+		    + " \\\\ \n");
+	}
 	writer.write("\\end{tabular}\n");
 
 	writer.write("% Detailed observation data\n");

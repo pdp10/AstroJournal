@@ -95,7 +95,7 @@ public class ExtTSVImporter extends TSVImporter {
 		// We also accept naked eye observations. Therefore, the only
 		// required value
 		// is the date.
-		values = (line + '\t' + " ").split(delimiter);
+		values = (line + '\t' + "").split(delimiter);
 	    }
 	    if (values.length == 2) {
 
