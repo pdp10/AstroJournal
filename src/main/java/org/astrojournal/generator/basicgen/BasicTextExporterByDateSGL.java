@@ -31,6 +31,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.generator.Report;
 import org.astrojournal.generator.absgen.TextExporterByDateSGL;
+import org.astrojournal.generator.extgen.ExtMetaDataCols;
 
 /**
  * Exports an AstroJournal observation to txt for Stargazers Lounge reports.
@@ -61,14 +62,23 @@ public class BasicTextExporterByDateSGL extends TextExporterByDateSGL {
 	List<String[]> targets = report.getAllData();
 	writer.write(BasicMetaDataCols.DATE_NAME.getColName() + ": "
 		+ metaData[BasicMetaDataCols.DATE_NAME.ordinal()] + "\n");
-	writer.write(BasicMetaDataCols.SEEING_NAME.getColName() + ": "
-		+ metaData[BasicMetaDataCols.SEEING_NAME.ordinal()] + "\n");
-	writer.write(BasicMetaDataCols.TRANSPARENCY_NAME.getColName() + ": "
-		+ metaData[BasicMetaDataCols.TRANSPARENCY_NAME.ordinal()]
-		+ "\n");
-	writer.write(BasicMetaDataCols.TELESCOPES_NAME.getColName() + ": "
-		+ metaData[BasicMetaDataCols.TELESCOPES_NAME.ordinal()]
-		+ "\n\n");
+
+	if (!metaData[ExtMetaDataCols.SEEING_NAME.ordinal()].isEmpty()) {
+	    writer.write(ExtMetaDataCols.SEEING_NAME.getColName() + " "
+		    + metaData[ExtMetaDataCols.SEEING_NAME.ordinal()] + "\n");
+	}
+	if (!metaData[ExtMetaDataCols.TRANSPARENCY_NAME.ordinal()].isEmpty()) {
+	    writer.write(ExtMetaDataCols.TRANSPARENCY_NAME.getColName() + " "
+		    + metaData[ExtMetaDataCols.TRANSPARENCY_NAME.ordinal()]
+		    + "\n");
+	}
+	if (!metaData[ExtMetaDataCols.TELESCOPES_NAME.ordinal()].isEmpty()) {
+	    writer.write(ExtMetaDataCols.TELESCOPES_NAME.getColName() + " "
+		    + metaData[ExtMetaDataCols.TELESCOPES_NAME.ordinal()]
+		    + "\n");
+	}
+	writer.write("\n");
+
 	for (String[] targetEntry : targets) {
 	    log.debug("Target "
 		    + targetEntry[BasicDataCols.TARGET_NAME.ordinal()]);

@@ -61,31 +61,56 @@ public class ExtTextExporterByDateSGL extends TextExporterByDateSGL {
 	List<String[]> targets = report.getAllData();
 	writer.write(ExtMetaDataCols.DATE_NAME.getColName() + " "
 		+ metaData[ExtMetaDataCols.DATE_NAME.ordinal()] + "\n");
-	writer.write(ExtMetaDataCols.TIME_NAME.getColName() + " "
-		+ metaData[ExtMetaDataCols.TIME_NAME.ordinal()] + "\n");
-	writer.write(ExtMetaDataCols.LOCATION_NAME.getColName() + " "
-		+ metaData[ExtMetaDataCols.LOCATION_NAME.ordinal()] + "\n");
-	writer.write(ExtMetaDataCols.ALTITUDE_NAME.getColName() + " "
-		+ metaData[ExtMetaDataCols.ALTITUDE_NAME.ordinal()] + "\n");
-	writer.write(ExtMetaDataCols.LUNAR_PHASE_NAME.getColName() + " "
-		+ metaData[ExtMetaDataCols.LUNAR_PHASE_NAME.ordinal()] + "\n");
-	writer.write(ExtMetaDataCols.TEMPERATURE_NAME.getColName() + " "
-		+ metaData[ExtMetaDataCols.TEMPERATURE_NAME.ordinal()] + "\n");
-	writer.write(ExtMetaDataCols.SEEING_NAME.getColName() + " "
-		+ metaData[ExtMetaDataCols.SEEING_NAME.ordinal()] + "\n");
-	writer.write(ExtMetaDataCols.TRANSPARENCY_NAME.getColName() + " "
-		+ metaData[ExtMetaDataCols.TRANSPARENCY_NAME.ordinal()] + "\n");
-	// This requires a SQM-L meter.
-	if (!metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()].equals("")) {
+
+	if (!metaData[ExtMetaDataCols.TIME_NAME.ordinal()].isEmpty()) {
+	    writer.write(ExtMetaDataCols.TIME_NAME.getColName() + " "
+		    + metaData[ExtMetaDataCols.TIME_NAME.ordinal()] + "\n");
+	}
+	if (!metaData[ExtMetaDataCols.LOCATION_NAME.ordinal()].isEmpty()) {
+	    writer.write(ExtMetaDataCols.LOCATION_NAME.getColName() + " "
+		    + metaData[ExtMetaDataCols.LOCATION_NAME.ordinal()] + "\n");
+	}
+	if (!metaData[ExtMetaDataCols.ALTITUDE_NAME.ordinal()].isEmpty()) {
+	    writer.write(ExtMetaDataCols.ALTITUDE_NAME.getColName() + " "
+		    + metaData[ExtMetaDataCols.ALTITUDE_NAME.ordinal()] + "\n");
+	}
+	if (!metaData[ExtMetaDataCols.LUNAR_PHASE_NAME.ordinal()].isEmpty()) {
+	    writer.write(ExtMetaDataCols.LUNAR_PHASE_NAME.getColName() + " "
+		    + metaData[ExtMetaDataCols.LUNAR_PHASE_NAME.ordinal()]
+		    + "\n");
+	}
+	if (!metaData[ExtMetaDataCols.TEMPERATURE_NAME.ordinal()].isEmpty()) {
+	    writer.write(ExtMetaDataCols.TEMPERATURE_NAME.getColName() + " "
+		    + metaData[ExtMetaDataCols.TEMPERATURE_NAME.ordinal()]
+		    + "\n");
+	}
+	if (!metaData[ExtMetaDataCols.SEEING_NAME.ordinal()].isEmpty()) {
+	    writer.write(ExtMetaDataCols.SEEING_NAME.getColName() + " "
+		    + metaData[ExtMetaDataCols.SEEING_NAME.ordinal()] + "\n");
+	}
+	if (!metaData[ExtMetaDataCols.TRANSPARENCY_NAME.ordinal()].isEmpty()) {
+	    writer.write(ExtMetaDataCols.TRANSPARENCY_NAME.getColName() + " "
+		    + metaData[ExtMetaDataCols.TRANSPARENCY_NAME.ordinal()]
+		    + "\n");
+	}
+	if (!metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()].isEmpty()) {
 	    writer.write(ExtMetaDataCols.DARKNESS_NAME.getColName() + " "
 		    + metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()] + "\n");
 	}
-	writer.write(ExtMetaDataCols.TELESCOPES_NAME.getColName() + " "
-		+ metaData[ExtMetaDataCols.TELESCOPES_NAME.ordinal()] + "\n");
-	writer.write(ExtMetaDataCols.EYEPIECES_NAME.getColName() + " "
-		+ metaData[ExtMetaDataCols.EYEPIECES_NAME.ordinal()] + "\n");
-	writer.write(ExtMetaDataCols.FILTERS_NAME.getColName() + " "
-		+ metaData[ExtMetaDataCols.FILTERS_NAME.ordinal()] + "\n\n");
+	if (!metaData[ExtMetaDataCols.TELESCOPES_NAME.ordinal()].isEmpty()) {
+	    writer.write(ExtMetaDataCols.TELESCOPES_NAME.getColName() + " "
+		    + metaData[ExtMetaDataCols.TELESCOPES_NAME.ordinal()]
+		    + "\n");
+	}
+	if (!metaData[ExtMetaDataCols.EYEPIECES_NAME.ordinal()].isEmpty()) {
+	    writer.write(ExtMetaDataCols.EYEPIECES_NAME.getColName() + " "
+		    + metaData[ExtMetaDataCols.EYEPIECES_NAME.ordinal()] + "\n");
+	}
+	if (!metaData[ExtMetaDataCols.FILTERS_NAME.ordinal()].isEmpty()) {
+	    writer.write(ExtMetaDataCols.FILTERS_NAME.getColName() + " "
+		    + metaData[ExtMetaDataCols.FILTERS_NAME.ordinal()] + "\n");
+	}
+	writer.write("\n");
 
 	for (String[] targetEntry : targets) {
 	    log.debug("Target "

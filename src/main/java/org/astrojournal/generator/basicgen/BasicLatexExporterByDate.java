@@ -62,7 +62,7 @@ public class BasicLatexExporterByDate extends LatexExporterByDate {
 	writer.write("{\\bf " + BasicMetaDataCols.DATE_NAME.getColName()
 		+ ":} & " + metaData[BasicMetaDataCols.DATE_NAME.ordinal()]
 		+ " \\\\ \n");
-	if (!metaData[BasicMetaDataCols.TELESCOPES_NAME.ordinal()].equals("")) {
+	if (!metaData[BasicMetaDataCols.TELESCOPES_NAME.ordinal()].isEmpty()) {
 	    writer.write("{\\bf "
 		    + BasicMetaDataCols.TELESCOPES_NAME.getColName() + ":} & "
 		    + metaData[BasicMetaDataCols.TELESCOPES_NAME.ordinal()]
@@ -73,13 +73,13 @@ public class BasicLatexExporterByDate extends LatexExporterByDate {
 
 	// second metadata table
 	writer.write("\\begin{tabular}[t]{ll}\n");
-	if (!metaData[BasicMetaDataCols.SEEING_NAME.ordinal()].equals("")) {
+	if (!metaData[BasicMetaDataCols.SEEING_NAME.ordinal()].isEmpty()) {
 	    writer.write("{\\bf " + BasicMetaDataCols.SEEING_NAME.getColName()
 		    + ":} & "
 		    + metaData[BasicMetaDataCols.SEEING_NAME.ordinal()]
 		    + " \\\\ \n");
 	}
-	if (!metaData[BasicMetaDataCols.TRANSPARENCY_NAME.ordinal()].equals("")) {
+	if (!metaData[BasicMetaDataCols.TRANSPARENCY_NAME.ordinal()].isEmpty()) {
 	    writer.write("{\\bf "
 		    + BasicMetaDataCols.TRANSPARENCY_NAME.getColName()
 		    + ":} & "
