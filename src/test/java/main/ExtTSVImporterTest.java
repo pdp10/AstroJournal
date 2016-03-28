@@ -354,7 +354,7 @@ public class ExtTSVImporterTest {
 
 	assertEquals("11/06/2015",
 		metaData[ExtMetaDataCols.DATE_NAME.ordinal()]);
-	assertEquals(" ", metaData[ExtMetaDataCols.TEMPERATURE_NAME.ordinal()]);
+	assertEquals("", metaData[ExtMetaDataCols.TEMPERATURE_NAME.ordinal()]);
 	assertEquals("5 - Clear",
 		metaData[ExtMetaDataCols.TRANSPARENCY_NAME.ordinal()]);
 	assertEquals("", metaData[ExtMetaDataCols.TELESCOPES_NAME.ordinal()]);

@@ -197,14 +197,17 @@ public class ExtLatexExporterByTarget extends LatexExporterByTarget {
 					.ordinal()]);
 		    }
 
-		    if (!metaData[ExtDataCols.POWER_NAME.ordinal()].isEmpty()) {
+		    if (!targetEntry[ExtDataCols.POWER_NAME.ordinal()]
+			    .isEmpty()) {
 			writer.write(", "
 				+ targetEntry[ExtDataCols.POWER_NAME.ordinal()]);
 		    }
+		    writer.write(". ");
 
-		    if (!metaData[ExtDataCols.NOTES_NAME.ordinal()].isEmpty()) {
-			writer.write(". "
-				+ targetEntry[ExtDataCols.NOTES_NAME.ordinal()]);
+		    if (!targetEntry[ExtDataCols.NOTES_NAME.ordinal()]
+			    .isEmpty()) {
+			writer.write(targetEntry[ExtDataCols.NOTES_NAME
+				.ordinal()]);
 		    }
 
 		    writer.write("\n");
