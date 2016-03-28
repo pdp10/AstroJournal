@@ -44,6 +44,7 @@ import org.astrojournal.generator.Report;
 import org.astrojournal.generator.headfoot.LatexFooter;
 import org.astrojournal.generator.headfoot.LatexHeader;
 import org.astrojournal.generator.minigen.MiniDataCols;
+import org.astrojournal.generator.statistics.TargetStatistics;
 import org.astrojournal.utilities.filefilters.LaTeXFilter;
 
 /**
@@ -76,6 +77,9 @@ public abstract class LatexExporterByTarget extends LatexExporter {
 	    return num.isEmpty() ? 0 : Integer.parseInt(num);
 	}
     };
+
+    /** The statistics for these targets */
+    protected TargetStatistics targetStatistics = new TargetStatistics();
 
     /**
      * Default constructor.
@@ -113,6 +117,21 @@ public abstract class LatexExporterByTarget extends LatexExporter {
 		    new FileOutputStream(filesLocation + File.separator
 			    + reportFilename), "utf-8"));
 	    writeLatexMain(writer, latexHeader, latexFooter);
+
+	    // TODO This must be put into a LaTeX file.
+	    log.error("absgen (~122) - "
+		    + targetStatistics.getCount("solar system"));
+	    log.error("absgen (~122) - " + targetStatistics.getCount("galaxy"));
+	    log.error("absgen (~122) - " + targetStatistics.getCount("opn cl"));
+	    log.error("absgen (~122) - " + targetStatistics.getCount("glob cl"));
+	    log.error("absgen (~122) - " + targetStatistics.getCount("pln neb"));
+	    log.error("absgen (~122) - " + targetStatistics.getCount("sn rem"));
+	    log.error("absgen (~122) - " + targetStatistics.getCount("neb"));
+	    log.error("absgen (~122) - " + targetStatistics.getCount("quasar"));
+	    log.error("absgen (~122) - " + targetStatistics.getCount("star"));
+	    log.error("absgen (~122) - " + targetStatistics.getCount("neb+cl")); // TODO
+										 // CHECK
+										 // THIS
 
 	} catch (IOException ex) {
 	    log.error("Error when opening the file " + filesLocation
