@@ -13,7 +13,8 @@ Unplanned
 
 v3.0.0 (under development)
 
-- Replaced Help Contents with a user manual
+- Meta data fields except Date are now optional.
+- Replaced Help Contents with a user manual.
 - Adopt Spring Framework for dependency injection. So far Generator and Configuration.
 - Created deb package for GNU/Linux Debian. This is automatically created with maven.  
 - Reports by target are now sorted by date decreasing.
