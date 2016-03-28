@@ -84,9 +84,10 @@ public class ExtLatexExporterByDate extends LatexExporterByDate {
 	}
 	if (!metaData[ExtMetaDataCols.LUNAR_PHASE_NAME.ordinal()].equals("")) {
 	    writer.write("{\\bf "
-		    + ExtMetaDataCols.LUNAR_PHASE_NAME.getColName() + ":} & "
+		    + ExtMetaDataCols.LUNAR_PHASE_NAME.getColName()
+		    + ":} & "
 		    + metaData[ExtMetaDataCols.LUNAR_PHASE_NAME.ordinal()]
-		    + " \\\\ \n");
+			    .replace("%", "\\%") + " \\\\ \n");
 	}
 	writer.write("\\end{tabular}\n");
 	writer.write("\\quad\n");
