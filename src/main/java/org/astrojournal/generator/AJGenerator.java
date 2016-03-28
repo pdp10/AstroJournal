@@ -201,9 +201,10 @@ public class AJGenerator implements Generator {
 	    log.error(resourceBundle.getString("AJ.errNoDataImported.text"));
 	    return false;
 	}
-	resetReports();
 	configureImporters();
 
+	// reset the reports
+	resetReports();
 	// import the reports
 	for (Importer importer : importers) {
 	    log.debug(importer.getName() + " is importing reports");
@@ -277,6 +278,7 @@ public class AJGenerator implements Generator {
      * @return true if the importers are loaded correctly.
      */
     private boolean loadImporters() {
+	resetImporters();
 	boolean status = true;
 	List<String> importerNames = ClassesInstanceOf
 		.getClassFullNamesInstanceOf(
@@ -324,6 +326,7 @@ public class AJGenerator implements Generator {
      * @return true if the exporters are loaded correctly.
      */
     private boolean loadExporters() {
+	resetExporters();
 	boolean status = true;
 	List<String> exporterNames = ClassesInstanceOf
 		.getClassFullNamesInstanceOf(
