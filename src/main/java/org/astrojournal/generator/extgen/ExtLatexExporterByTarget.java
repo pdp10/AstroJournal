@@ -138,28 +138,49 @@ public class ExtLatexExporterByTarget extends LatexExporterByTarget {
 		    }
 		    String[] metaData = report.getMetaData();
 		    writer.write("\\item "
-			    + metaData[ExtMetaDataCols.DATE_NAME.ordinal()]
-			    + " "
-			    + metaData[ExtMetaDataCols.TIME_NAME.ordinal()]
-			    + ", "
-			    + metaData[ExtMetaDataCols.LOCATION_NAME.ordinal()]);
-		    if (!metaData[ExtMetaDataCols.LUNAR_PHASE_NAME.ordinal()]
+			    + metaData[ExtMetaDataCols.DATE_NAME.ordinal()]);
+
+		    if (!metaData[ExtMetaDataCols.TIME_NAME.ordinal()]
 			    .isEmpty()) {
 			writer.write(", "
+				+ metaData[ExtMetaDataCols.TIME_NAME.ordinal()]);
+		    }
+
+		    if (!metaData[ExtMetaDataCols.LOCATION_NAME.ordinal()]
+			    .isEmpty()) {
+			writer.write(", "
+				+ metaData[ExtMetaDataCols.LOCATION_NAME
+					.ordinal()]);
+		    }
+
+		    if (!metaData[ExtMetaDataCols.LUNAR_PHASE_NAME.ordinal()]
+			    .isEmpty()) {
+			writer.write("; "
 				+ ExtMetaDataCols.LUNAR_PHASE_NAME.getColName()
 				+ ": "
 				+ metaData[ExtMetaDataCols.LUNAR_PHASE_NAME
 					.ordinal()].replace("%", "\\%"));
 		    }
-		    writer.write(". "
-			    + ExtMetaDataCols.SEEING_NAME.getColName()
-			    + ": "
-			    + metaData[ExtMetaDataCols.SEEING_NAME.ordinal()]
-			    + ", "
-			    + ExtMetaDataCols.TRANSPARENCY_NAME.getColName()
-			    + ": "
-			    + metaData[ExtMetaDataCols.TRANSPARENCY_NAME
-				    .ordinal()]);
+
+		    if (!metaData[ExtMetaDataCols.SEEING_NAME.ordinal()]
+			    .isEmpty()) {
+			writer.write("; "
+				+ ExtMetaDataCols.SEEING_NAME.getColName()
+				+ ": "
+				+ metaData[ExtMetaDataCols.SEEING_NAME
+					.ordinal()]);
+		    }
+
+		    if (!metaData[ExtMetaDataCols.TRANSPARENCY_NAME.ordinal()]
+			    .isEmpty()) {
+			writer.write(", "
+				+ ExtMetaDataCols.TRANSPARENCY_NAME
+					.getColName()
+				+ ": "
+				+ metaData[ExtMetaDataCols.TRANSPARENCY_NAME
+					.ordinal()]);
+		    }
+
 		    if (!metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()]
 			    .isEmpty()) {
 			writer.write(", "
@@ -168,13 +189,28 @@ public class ExtLatexExporterByTarget extends LatexExporterByTarget {
 				+ metaData[ExtMetaDataCols.DARKNESS_NAME
 					.ordinal()]);
 		    }
-		    writer.write(". "
-			    + metaData[ExtMetaDataCols.TELESCOPES_NAME
-				    .ordinal()] + ", "
-			    + targetEntry[ExtDataCols.POWER_NAME.ordinal()]
-			    + ". "
-			    + targetEntry[ExtDataCols.NOTES_NAME.ordinal()]
-			    + "\n");
+
+		    if (!metaData[ExtMetaDataCols.TELESCOPES_NAME.ordinal()]
+			    .isEmpty()) {
+			writer.write("; "
+				+ metaData[ExtMetaDataCols.TELESCOPES_NAME
+					.ordinal()]);
+		    }
+
+		    if (!targetEntry[ExtDataCols.POWER_NAME.ordinal()]
+			    .isEmpty()) {
+			writer.write(", "
+				+ targetEntry[ExtDataCols.POWER_NAME.ordinal()]);
+		    }
+		    writer.write(". ");
+
+		    if (!targetEntry[ExtDataCols.NOTES_NAME.ordinal()]
+			    .isEmpty()) {
+			writer.write(targetEntry[ExtDataCols.NOTES_NAME
+				.ordinal()]);
+		    }
+
+		    writer.write("\n");
 
 		    // do not close the Latex 'itemize' block now because
 		    // nothing is known about other observations
