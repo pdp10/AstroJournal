@@ -166,13 +166,14 @@ public class BasicLatexExporterByTarget extends LatexExporterByTarget {
 				+ metaData[BasicMetaDataCols.TELESCOPES_NAME
 					.ordinal()]);
 		    }
-		    if (!metaData[BasicDataCols.POWER_NAME.ordinal()].isEmpty()) {
+		    if (!targetEntry[BasicDataCols.POWER_NAME.ordinal()]
+			    .isEmpty()) {
 			writer.write(", "
 				+ targetEntry[BasicDataCols.POWER_NAME
 					.ordinal()]);
 		    }
 
-		    writer.write("\n");
+		    writer.write(".\n");
 
 		    // do not close the Latex 'itemize' block now because
 		    // nothing is known about other observations
