@@ -142,17 +142,37 @@ public class BasicLatexExporterByTarget extends LatexExporterByTarget {
 		    }
 		    String[] metaData = report.getMetaData();
 		    writer.write("\\item "
-			    + metaData[BasicMetaDataCols.DATE_NAME.ordinal()]
-			    + ". "
-			    + metaData[BasicMetaDataCols.SEEING_NAME.ordinal()]
-			    + ", "
-			    + metaData[BasicMetaDataCols.TRANSPARENCY_NAME
-				    .ordinal()]
-			    + ". "
-			    + metaData[BasicMetaDataCols.TELESCOPES_NAME
-				    .ordinal()] + ", "
-			    + targetEntry[BasicDataCols.POWER_NAME.ordinal()]
-			    + "\n");
+			    + metaData[BasicMetaDataCols.DATE_NAME.ordinal()]);
+		    if (!metaData[BasicMetaDataCols.SEEING_NAME.ordinal()]
+			    .isEmpty()) {
+			writer.write("; "
+				+ BasicMetaDataCols.SEEING_NAME.getColName()
+				+ ": "
+				+ metaData[BasicMetaDataCols.SEEING_NAME
+					.ordinal()]);
+		    }
+		    if (!metaData[BasicMetaDataCols.TRANSPARENCY_NAME.ordinal()]
+			    .isEmpty()) {
+			writer.write(", "
+				+ BasicMetaDataCols.TRANSPARENCY_NAME
+					.getColName()
+				+ ": "
+				+ metaData[BasicMetaDataCols.TRANSPARENCY_NAME
+					.ordinal()]);
+		    }
+		    if (!metaData[BasicMetaDataCols.TELESCOPES_NAME.ordinal()]
+			    .isEmpty()) {
+			writer.write("; "
+				+ metaData[BasicMetaDataCols.TELESCOPES_NAME
+					.ordinal()]);
+		    }
+		    if (!metaData[BasicDataCols.POWER_NAME.ordinal()].isEmpty()) {
+			writer.write(", "
+				+ targetEntry[BasicDataCols.POWER_NAME
+					.ordinal()]);
+		    }
+
+		    writer.write("\n");
 
 		    // do not close the Latex 'itemize' block now because
 		    // nothing is known about other observations

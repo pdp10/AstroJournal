@@ -65,24 +65,24 @@ public class ExtLatexExporterByDate extends LatexExporterByDate {
 	writer.write("{\\bf " + ExtMetaDataCols.DATE_NAME.getColName()
 		+ ":} & " + metaData[ExtMetaDataCols.DATE_NAME.ordinal()]
 		+ " \\\\ \n");
-	if (!metaData[ExtMetaDataCols.TIME_NAME.ordinal()].equals("")) {
+	if (!metaData[ExtMetaDataCols.TIME_NAME.ordinal()].isEmpty()) {
 	    writer.write("{\\bf " + ExtMetaDataCols.TIME_NAME.getColName()
 		    + ":} & " + metaData[ExtMetaDataCols.TIME_NAME.ordinal()]
 		    + " \\\\ \n");
 	}
-	if (!metaData[ExtMetaDataCols.LOCATION_NAME.ordinal()].equals("")) {
+	if (!metaData[ExtMetaDataCols.LOCATION_NAME.ordinal()].isEmpty()) {
 	    writer.write("{\\bf " + ExtMetaDataCols.LOCATION_NAME.getColName()
 		    + ":} & "
 		    + metaData[ExtMetaDataCols.LOCATION_NAME.ordinal()]
 		    + " \\\\ \n");
 	}
-	if (!metaData[ExtMetaDataCols.ALTITUDE_NAME.ordinal()].equals("")) {
+	if (!metaData[ExtMetaDataCols.ALTITUDE_NAME.ordinal()].isEmpty()) {
 	    writer.write("{\\bf " + ExtMetaDataCols.ALTITUDE_NAME.getColName()
 		    + ":} & "
 		    + metaData[ExtMetaDataCols.ALTITUDE_NAME.ordinal()]
 		    + " \\\\ \n");
 	}
-	if (!metaData[ExtMetaDataCols.LUNAR_PHASE_NAME.ordinal()].equals("")) {
+	if (!metaData[ExtMetaDataCols.LUNAR_PHASE_NAME.ordinal()].isEmpty()) {
 	    writer.write("{\\bf "
 		    + ExtMetaDataCols.LUNAR_PHASE_NAME.getColName()
 		    + ":} & "
@@ -94,42 +94,42 @@ public class ExtLatexExporterByDate extends LatexExporterByDate {
 
 	// second metadata table
 	writer.write("\\begin{tabular}[t]{ll}\n");
-	if (!metaData[ExtMetaDataCols.TEMPERATURE_NAME.ordinal()].equals("")) {
+	if (!metaData[ExtMetaDataCols.TEMPERATURE_NAME.ordinal()].isEmpty()) {
 	    writer.write("{\\bf "
 		    + ExtMetaDataCols.TEMPERATURE_NAME.getColName() + ":} & "
 		    + metaData[ExtMetaDataCols.TEMPERATURE_NAME.ordinal()]
 		    + " \\\\ \n");
 	}
-	if (!metaData[ExtMetaDataCols.SEEING_NAME.ordinal()].equals("")) {
+	if (!metaData[ExtMetaDataCols.SEEING_NAME.ordinal()].isEmpty()) {
 	    writer.write("{\\bf " + ExtMetaDataCols.SEEING_NAME.getColName()
 		    + ":} & " + metaData[ExtMetaDataCols.SEEING_NAME.ordinal()]
 		    + " \\\\ \n");
 	}
-	if (!metaData[ExtMetaDataCols.TRANSPARENCY_NAME.ordinal()].equals("")) {
+	if (!metaData[ExtMetaDataCols.TRANSPARENCY_NAME.ordinal()].isEmpty()) {
 	    writer.write("{\\bf "
 		    + ExtMetaDataCols.TRANSPARENCY_NAME.getColName() + ":} & "
 		    + metaData[ExtMetaDataCols.TRANSPARENCY_NAME.ordinal()]
 		    + " \\\\ \n");
 	}
-	if (!metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()].equals("")) {
+	if (!metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()].isEmpty()) {
 	    writer.write("{\\bf " + ExtMetaDataCols.DARKNESS_NAME.getColName()
 		    + ":} & "
 		    + metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()]
 		    + " \\\\ \n");
 	}
-	if (!metaData[ExtMetaDataCols.TELESCOPES_NAME.ordinal()].equals("")) {
+	if (!metaData[ExtMetaDataCols.TELESCOPES_NAME.ordinal()].isEmpty()) {
 	    writer.write("{\\bf "
 		    + ExtMetaDataCols.TELESCOPES_NAME.getColName() + ":} & "
 		    + metaData[ExtMetaDataCols.TELESCOPES_NAME.ordinal()]
 		    + " \\\\ \n");
 	}
-	if (!metaData[ExtMetaDataCols.EYEPIECES_NAME.ordinal()].equals("")) {
+	if (!metaData[ExtMetaDataCols.EYEPIECES_NAME.ordinal()].isEmpty()) {
 	    writer.write("{\\bf " + ExtMetaDataCols.EYEPIECES_NAME.getColName()
 		    + ":} & "
 		    + metaData[ExtMetaDataCols.EYEPIECES_NAME.ordinal()]
 		    + " \\\\ \n");
 	}
-	if (!metaData[ExtMetaDataCols.FILTERS_NAME.ordinal()].equals("")) {
+	if (!metaData[ExtMetaDataCols.FILTERS_NAME.ordinal()].isEmpty()) {
 	    writer.write("{\\bf " + ExtMetaDataCols.FILTERS_NAME.getColName()
 		    + ":} & "
 		    + metaData[ExtMetaDataCols.FILTERS_NAME.ordinal()]
