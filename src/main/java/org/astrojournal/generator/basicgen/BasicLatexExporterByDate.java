@@ -57,20 +57,35 @@ public class BasicLatexExporterByDate extends LatexExporterByDate {
 	    throws IOException {
 	String[] metaData = report.getMetaData();
 	writer.write("% General observation data\n");
-	writer.write("\\begin{tabular}{ p{0.7in} p{1.2in} p{1.1in} p{5.7in}}\n");
+	// first metadata table
+	writer.write("\\begin{tabular}[t]{ll}\n");
 	writer.write("{\\bf " + BasicMetaDataCols.DATE_NAME.getColName()
 		+ ":} & " + metaData[BasicMetaDataCols.DATE_NAME.ordinal()]
-		+ " & {\\bf " + BasicMetaDataCols.SEEING_NAME.getColName()
-		+ ":} & " + metaData[BasicMetaDataCols.SEEING_NAME.ordinal()]
 		+ " \\\\ \n");
-	writer.write("{\\bf " + BasicMetaDataCols.TELESCOPES_NAME.getColName()
-		+ ":} & "
-		+ metaData[BasicMetaDataCols.TELESCOPES_NAME.ordinal()]
-		+ " & {\\bf "
-		+ BasicMetaDataCols.TRANSPARENCY_NAME.getColName() + ":} & "
-		+ metaData[BasicMetaDataCols.TRANSPARENCY_NAME.ordinal()]
-		+ " \\\\ \n");
+	if (!metaData[BasicMetaDataCols.TELESCOPES_NAME.ordinal()].equals("")) {
+	    writer.write("{\\bf "
+		    + BasicMetaDataCols.TELESCOPES_NAME.getColName() + ":} & "
+		    + metaData[BasicMetaDataCols.TELESCOPES_NAME.ordinal()]
+		    + " \\\\ \n");
+	}
+	writer.write("\\end{tabular}\n");
+	writer.write("\\quad\n");
 
+	// second metadata table
+	writer.write("\\begin{tabular}[t]{ll}\n");
+	if (!metaData[BasicMetaDataCols.SEEING_NAME.ordinal()].equals("")) {
+	    writer.write("{\\bf " + BasicMetaDataCols.SEEING_NAME.getColName()
+		    + ":} & "
+		    + metaData[BasicMetaDataCols.SEEING_NAME.ordinal()]
+		    + " \\\\ \n");
+	}
+	if (!metaData[BasicMetaDataCols.TRANSPARENCY_NAME.ordinal()].equals("")) {
+	    writer.write("{\\bf "
+		    + BasicMetaDataCols.TRANSPARENCY_NAME.getColName()
+		    + ":} & "
+		    + metaData[BasicMetaDataCols.TRANSPARENCY_NAME.ordinal()]
+		    + " \\\\ \n");
+	}
 	writer.write("\\end{tabular}\n");
 
 	writer.write("% Detailed observation data\n");
