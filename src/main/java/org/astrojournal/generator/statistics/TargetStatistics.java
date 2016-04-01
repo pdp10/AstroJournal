@@ -83,6 +83,15 @@ public class TargetStatistics {
 	return 0;
     }
 
+    /**
+     * Return the countings for the target types.
+     * 
+     * @return the counting object
+     */
+    public HashMap<String, MutableInt> getCounting() {
+	return counting;
+    }
+
     /** A class wrapping an int */
     class MutableInt {
 	/** The wrapped variable */
