@@ -102,6 +102,10 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
 	    log.info("");
 	    log.info("Exporting reports by target:");
 	}
+	// Statistics
+	String typeCount = "";
+	targetStatistics.reset();
+
 	processedTargetCache.clear();
 	for (int i = 0; i < reports.size(); i++) {
 	    Report report = reports.get(i);
@@ -132,6 +136,7 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
 			    writer.write("\\subsection*{"
 				    + targetEntry[MiniDataCols.TARGET_NAME
 					    .ordinal()]);
+			    typeCount = "solar system";
 			} else if (targetEntry[MiniDataCols.TYPE_NAME.ordinal()]
 				.toLowerCase().equals("star")
 				|| targetEntry[MiniDataCols.TYPE_NAME.ordinal()]
@@ -144,6 +149,7 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
 			    writer.write(", "
 				    + targetEntry[MiniDataCols.TARGET_NAME
 					    .ordinal()]);
+			    typeCount = "star";
 			} else if (targetEntry[MiniDataCols.TYPE_NAME.ordinal()]
 				.toLowerCase().equals("galaxy")
 				&& targetEntry[MiniDataCols.TARGET_NAME
@@ -154,6 +160,7 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
 			    writer.write("\\subsection*{"
 				    + targetEntry[MiniDataCols.TARGET_NAME
 					    .ordinal()]);
+			    typeCount = "galaxy";
 			} else {
 			    writer.write("\\subsection*{"
 				    + targetEntry[MiniDataCols.TARGET_NAME
@@ -161,10 +168,15 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
 			    writer.write(", "
 				    + targetEntry[MiniDataCols.CONSTELLATION_NAME
 					    .ordinal()]);
+			    typeCount = targetEntry[MiniDataCols.TYPE_NAME
+				    .ordinal()].toLowerCase();
 			}
 			writer.write(", "
 				+ targetEntry[MiniDataCols.TYPE_NAME.ordinal()]
 				+ "}\n");
+			// increment the counter for this typeCount.
+			targetStatistics.increment(typeCount);
+
 			writer.write("\\par\n");
 		    } else {
 			// if file was already created skip the previous two
@@ -208,13 +220,22 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
     }
 
     @Override
-    protected String writeSectionName(Writer writer, String target,
-	    String type, String catName) throws IOException {
+    protected String writeSectionName(Writer writer, String type, String catName)
+	    throws IOException {
 	if (!type.equals(catName)) {
 	    type = catName;
 	    writer.write("\\section*{" + type + "}\n");
 	}
 	return type;
+    }
+
+    @Override
+    protected void writeSectionStatistics(Writer writer) throws Exception {
+	writer.write("\\clearpage\n");
+	writer.write("\\section*{Basic Statistics}\n");
+	// include the file removing the extension .tex
+	writer.write("\\input{" + reportFolder + "/"
+		+ basicStatisticsFilename.replaceFirst("[.][^.]+$", "") + "}\n");
     }
 
     @Override

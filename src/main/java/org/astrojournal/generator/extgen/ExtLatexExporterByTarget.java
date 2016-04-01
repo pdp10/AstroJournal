@@ -64,9 +64,11 @@ public class ExtLatexExporterByTarget extends LatexExporterByTarget {
 	    log.info("");
 	    log.info("Exporting reports by target:");
 	}
-	targetStatistics.reset();
-	processedTargetCache.clear();
+	// Statistics
 	String typeCount = "";
+	targetStatistics.reset();
+
+	processedTargetCache.clear();
 	for (int i = 0; i < reports.size(); i++) {
 	    Report report = reports.get(i);
 	    List<String[]> targets = report.getAllData();
@@ -120,6 +122,7 @@ public class ExtLatexExporterByTarget extends LatexExporterByTarget {
 			    writer.write("\\subsection{"
 				    + targetEntry[ExtDataCols.TARGET_NAME
 					    .ordinal()]);
+			    typeCount = "galaxy";
 			} else {
 			    writer.write("\\subsection{"
 				    + targetEntry[ExtDataCols.TARGET_NAME
