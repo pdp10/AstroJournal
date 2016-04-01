@@ -13,6 +13,7 @@ Unplanned
 
 v3.0.0 (under development)
 
+- Added basic statistics in report by target.
 - Meta data fields except Date are now optional.
 - Replaced Help Contents with a user manual.
 - Adopt Spring Framework for dependency injection. So far Generator and Configuration.
