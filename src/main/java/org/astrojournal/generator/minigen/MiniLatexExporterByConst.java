@@ -30,6 +30,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
+import org.apache.commons.io.comparator.NameFileComparator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.generator.Report;
@@ -75,7 +76,7 @@ public class MiniLatexExporterByConst extends LatexExporterByConst {
 		    + reportFolder + " not found");
 	}
 	// sort the constellations when we parse the files
-	Arrays.sort(files);
+	Arrays.sort(files, NameFileComparator.NAME_COMPARATOR);
 
 	String currConst = "", filename = "";
 	// If this pathname does not denote a directory, then listFiles()
