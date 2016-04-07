@@ -214,6 +214,7 @@ public class AJGenerator implements Generator {
 		    + " reports");
 	}
 
+	Collections.sort(reports);
 	// reverse the reports so that the most recent is the first.
 	Collections.reverse(reports);
 
