@@ -82,6 +82,7 @@ public class AJMainGUI extends JFrame implements ActionListener {
     private Generator generator;
 
     private JButton btnCreateJournal;
+    private JButton btnOpenJournal;
     private JButton btnQuit;
     private JTextPane textPane;
     private JPanel mainPanel;
@@ -152,11 +153,16 @@ public class AJMainGUI extends JFrame implements ActionListener {
 			.getString("AJ.lblFileGenerationinProgressLong.text"));
 		cleanJTextPane();
 		btnCreateJournal.setEnabled(false);
+		btnOpenJournal.setEnabled(false);
 		menu.setEnabled(AJGUIActions.CREATE_JOURNAL.name(), false);
+		menu.setEnabled(AJGUIActions.OPEN_JOURNAL.name(), false);
 		menu.setEnabled(AJGUIActions.EDIT_PREFERENCES.name(), false);
 		if (!ajMainControls.createJournal()) {
 		    setStatusPanelText(resourceBundle
 			    .getString("AJ.errPDFLatexShort.text"));
+		} else {
+		    btnOpenJournal.setEnabled(true);
+		    menu.setEnabled(AJGUIActions.OPEN_JOURNAL.name(), true);
 		}
 		btnCreateJournal.setEnabled(true);
 		menu.setEnabled(AJGUIActions.CREATE_JOURNAL.name(), true);
@@ -166,6 +172,13 @@ public class AJMainGUI extends JFrame implements ActionListener {
 	};
 	// execute the background thread
 	worker.execute();
+    }
+
+    /**
+     * Visualise the journal content.
+     */
+    public void openJournals() {
+
     }
 
     /**
@@ -240,6 +253,16 @@ public class AJMainGUI extends JFrame implements ActionListener {
 	// Set this button as default. :)
 	getRootPane().setDefaultButton(btnCreateJournal);
 
+	// Create the button for opening the journals
+	btnOpenJournal = new JButton();
+	btnOpenJournal.setIcon(new ImageIcon(ClassLoader
+		.getSystemResource("graphics/icons/open_journals_16.png")));
+	btnOpenJournal.setText(resourceBundle
+		.getString("AJ.cmdOpenJournal.text"));
+	btnOpenJournal.setActionCommand(AJGUIActions.OPEN_JOURNAL.name());
+	btnOpenJournal.addActionListener(this);
+	btnOpenJournal.setEnabled(false);
+
 	// Create the button for closing the application
 	btnQuit = new JButton();
 	btnQuit.setIcon(new ImageIcon(ClassLoader
@@ -254,6 +277,8 @@ public class AJMainGUI extends JFrame implements ActionListener {
 	String action = ae.getActionCommand();
 	if (action.equals(AJGUIActions.CREATE_JOURNAL.name())) {
 	    createJournals();
+	} else if (action.equals(AJGUIActions.OPEN_JOURNAL.name())) {
+	    openJournals();
 	} else if (action.equals(AJGUIActions.QUIT.name())) {
 	    quit();
 	} else {
@@ -282,6 +307,7 @@ public class AJMainGUI extends JFrame implements ActionListener {
 	// Create the control panel containing the button and the checkbox
 	controlPanel = new JPanel();
 	controlPanel.add(btnCreateJournal);
+	controlPanel.add(btnOpenJournal);
 	controlPanel.add(btnQuit);
 
 	// Setup for the welcome panel
