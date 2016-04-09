@@ -67,6 +67,7 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 
     private JMenu fileMenu;
     private JMenuItem fileCreateJournal;
+    private JMenuItem fileOpenJournal;
     private JMenuItem fileQuit;
 
     private JMenu editMenu;
@@ -109,7 +110,19 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	fileCreateJournal.addActionListener(this);
 	fileMenu.add(fileCreateJournal);
 
-	// fileMenu.addSeparator();
+	fileOpenJournal = new JMenuItem(
+		resourceBundle.getString("AJ.cmdOpenJournal.text"));
+	fileOpenJournal.setIcon(new ImageIcon(ClassLoader
+		.getSystemResource("graphics/icons/open_journals_16.png")));
+	fileOpenJournal.setMnemonic(KeyEvent.VK_O);
+	fileOpenJournal.setAccelerator(KeyStroke.getKeyStroke('O', Toolkit
+		.getDefaultToolkit().getMenuShortcutKeyMask()));
+	fileOpenJournal.setActionCommand(AJGUIActions.OPEN_JOURNAL.name());
+	fileOpenJournal.addActionListener(this);
+	fileOpenJournal.setEnabled(false);
+	fileMenu.add(fileOpenJournal);
+
+	fileMenu.addSeparator();
 
 	fileQuit = new JMenuItem(resourceBundle.getString("AJ.mnuQuit.text"));
 	fileQuit.setIcon(new ImageIcon(ClassLoader
@@ -176,6 +189,9 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
 	if (action.equals(AJGUIActions.CREATE_JOURNAL.name())) {
 	    application.createJournals();
 
+	} else if (action.equals(AJGUIActions.OPEN_JOURNAL.name())) {
+	    application.openJournals();
+
 	} else if (action.equals(AJGUIActions.QUIT.name())) {
 	    application.quit();
 
@@ -223,6 +239,8 @@ public class AJMenuBar extends JMenuBar implements ActionListener {
     public void setEnabled(String action, boolean enabled) {
 	if (action.equals(AJGUIActions.CREATE_JOURNAL.name())) {
 	    fileCreateJournal.setEnabled(enabled);
+	} else if (action.equals(AJGUIActions.OPEN_JOURNAL.name())) {
+	    fileOpenJournal.setEnabled(enabled);
 	} else if (action.equals(AJGUIActions.EDIT_PREFERENCES.name())) {
 	    editPreferences.setEnabled(enabled);
 	} else {
