@@ -42,8 +42,8 @@ import org.astrojournal.utilities.ClassesInstanceOf;
  * This class automatically generates astro journal documents.
  * 
  * @author Piero Dalle Pezze
- * @version 0.11
- * @since 12/04/2015
+ * @version $Rev$
+ * @since 1.0
  */
 public class AJGenerator implements Generator {
 

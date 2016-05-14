@@ -38,8 +38,8 @@ import org.astrojournal.generator.absgen.TSVImporter;
  * BasicMetaDataCols and BasicDataCols enum types for column import.
  * 
  * @author Piero Dalle Pezze
- * @version 0.4
- * @since 28/05/2015
+ * @version $Rev$
+ * @since 1.0
  */
 public class BasicTSVImporter extends TSVImporter {
 

@@ -36,8 +36,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * A class for running AstroJournal via command line.
  * 
  * @author Piero Dalle Pezze
- * @version 0.1
- * @since 22/12/2015
+ * @version $Rev$
+ * @since 1.0
  */
 public class AJMainConsole {
 

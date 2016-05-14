@@ -43,7 +43,6 @@ import org.astrojournal.gui.AJMainGUI;
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
- * @date 13 Dec 2015
  */
 public class AboutDialog extends JDialog {
 

@@ -51,7 +51,6 @@ import org.astrojournal.gui.dialogs.LicenseDialog;
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
- * @date 13 Dec 2015
  */
 public class AJMenuBar extends JMenuBar implements ActionListener {
 

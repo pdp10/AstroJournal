@@ -38,7 +38,6 @@ import javax.swing.JPanel;
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
- * @date 9 Jan 2016
  */
 public class WelcomePanel extends JPanel {
 

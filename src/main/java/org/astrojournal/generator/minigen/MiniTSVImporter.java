@@ -38,8 +38,8 @@ import org.astrojournal.generator.basicgen.BasicMetaDataCols;
  * files containing the reports.
  * 
  * @author Piero Dalle Pezze
- * @version 0.4
- * @since 28/05/2015
+ * @version $Rev$
+ * @since 1.0
  */
 public class MiniTSVImporter extends TSVImporter {
 

@@ -55,7 +55,6 @@ import org.astrojournal.AJMetaInfo;
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
- * @date 12 Jan 2016
  */
 @Plugin(name = "JTextPaneAppender", category = "Core", elementType = "appender", printObject = true)
 public class JTextPaneAppender extends AbstractAppender {

@@ -66,8 +66,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * scripts.
  * 
  * @author Piero Dalle Pezze
- * @version 0.1
- * @since 10/09/2015
+ * @version $Rev$
+ * @since 1.0
  */
 public class AJMainGUI extends JFrame implements ActionListener {
 

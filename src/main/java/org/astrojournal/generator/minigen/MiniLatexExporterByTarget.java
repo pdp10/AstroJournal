@@ -44,8 +44,8 @@ import org.astrojournal.generator.headfoot.LatexHeader;
  * column export.
  * 
  * @author Piero Dalle Pezze
- * @version 0.3
- * @since 22/07/2015
+ * @version $Rev$
+ * @since 1.0
  */
 public class MiniLatexExporterByTarget extends LatexExporterByTarget {
 

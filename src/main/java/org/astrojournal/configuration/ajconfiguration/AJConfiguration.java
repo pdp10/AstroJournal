@@ -45,7 +45,6 @@ import org.astrojournal.utilities.ReadFromJar;
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
- * @date 12 Dec 2015
  */
 public class AJConfiguration implements Configuration {
 

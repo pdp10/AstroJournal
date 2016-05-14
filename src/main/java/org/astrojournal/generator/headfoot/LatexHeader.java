@@ -29,8 +29,8 @@ import java.io.File;
  * The header of the LaTeX main file.
  * 
  * @author Piero Dalle Pezze
- * @version 0.2
- * @since 28/05/2015
+ * @version $Rev$
+ * @since 1.0
  */
 public class LatexHeader extends LatexHeaderFooter {
 

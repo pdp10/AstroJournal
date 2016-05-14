@@ -32,7 +32,6 @@ import java.io.FileFilter;
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
- * @date 20 Jan 2016
  */
 public class TextFilter implements FileFilter {
     @Override
