@@ -13,6 +13,8 @@ Unplanned
 
 v3.0.0 (under development)
 
+- Added buttons to open generated journals from GUI.
+- Added subsection ''year'' in report by date.
 - Added basic statistics in report by target.
 - Meta data fields except Date are now optional.
 - Replaced Help Contents with a user manual.
