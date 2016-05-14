@@ -32,7 +32,6 @@ import org.astrojournal.generator.Generator;
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
- * @date 22 Dec 2015
  */
 public class AJMainConsoleControls extends AJMainControls {
 

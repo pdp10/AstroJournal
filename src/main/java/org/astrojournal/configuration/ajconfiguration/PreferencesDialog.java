@@ -53,6 +53,10 @@ import org.astrojournal.gui.AJMainGUI;
 
 /**
  * A Dialog to allow the viewing and editing of all AstroJournal preferences.
+ * 
+ * @author Piero Dalle Pezze
+ * @version $Rev$
+ * @since 1.0
  */
 public class PreferencesDialog extends JDialog implements ActionListener {
 

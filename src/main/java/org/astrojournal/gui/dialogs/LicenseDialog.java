@@ -49,7 +49,6 @@ import org.astrojournal.utilities.ReadFromJar;
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
- * @date 13 Dec 2015
  */
 public class LicenseDialog extends JDialog {
 

@@ -16,7 +16,6 @@ import java.util.List;
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
- * @date 28 Jan 2016
  */
 public class Report implements Comparable<Report> {
 

@@ -36,8 +36,8 @@ import org.astrojournal.generator.absgen.LatexExporterByDate;
  * which uses BasicMetaDataCols and BasicDataCols enum types for column export.
  * 
  * @author Piero Dalle Pezze
- * @version 0.2
- * @since 28/05/2015
+ * @version $Rev$
+ * @since 1.0
  */
 public class BasicLatexExporterByDate extends LatexExporterByDate {
 

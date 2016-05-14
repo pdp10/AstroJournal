@@ -32,7 +32,6 @@ import java.util.ResourceBundle;
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
- * @date 12 Dec 2015
  */
 public interface Configuration {
 

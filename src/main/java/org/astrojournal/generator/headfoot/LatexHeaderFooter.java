@@ -36,8 +36,8 @@ import org.apache.logging.log4j.Logger;
  * The Header Footer of the LaTeX main file.
  * 
  * @author Piero Dalle Pezze
- * @version 0.2
- * @since 28/05/2015
+ * @version $Rev$
+ * @since 1.0
  */
 public abstract class LatexHeaderFooter {
 

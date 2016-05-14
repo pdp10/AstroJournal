@@ -46,8 +46,8 @@ import org.astrojournal.utilities.filefilters.LaTeXFilter;
  * export.
  * 
  * @author Piero Dalle Pezze
- * @version 0.2
- * @since 28/05/2015
+ * @version $Rev$
+ * @since 1.0
  */
 public class MiniLatexExporterByDate extends LatexExporterByDate {
 

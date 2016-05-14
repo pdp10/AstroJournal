@@ -43,8 +43,8 @@ import org.astrojournal.utilities.filefilters.TSVRawReportFilter;
  * The parser for AstroJournal. It imports files containing the reports.
  * 
  * @author Piero Dalle Pezze
- * @version 0.1
- * @since 28/05/2015
+ * @version $Rev$
+ * @since 1.0
  */
 public abstract class Importer {
 

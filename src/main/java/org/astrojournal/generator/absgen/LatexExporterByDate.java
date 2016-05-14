@@ -49,7 +49,6 @@ import org.astrojournal.utilities.filefilters.LaTeXFilter;
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
- * @date 17 Jan 2016
  */
 public abstract class LatexExporterByDate extends LatexExporter {
 

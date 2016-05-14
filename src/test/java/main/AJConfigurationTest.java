@@ -40,7 +40,6 @@ import org.junit.Test;
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
- * @date 15 Jan 2016
  */
 public class AJConfigurationTest {
 

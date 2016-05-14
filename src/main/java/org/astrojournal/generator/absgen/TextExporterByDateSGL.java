@@ -50,7 +50,6 @@ import org.astrojournal.utilities.filefilters.TextFilter;
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
- * @date 17 Jan 2016
  */
 public abstract class TextExporterByDateSGL extends Exporter {
 

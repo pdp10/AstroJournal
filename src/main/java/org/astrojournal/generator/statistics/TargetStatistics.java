@@ -29,8 +29,8 @@ import java.util.HashMap;
  * A collector of statistics
  * 
  * @author Piero Dalle Pezze
- * @version 0.1
- * @since 28/03/2016
+ * @version $Rev$
+ * @since 1.0
  */
 public class TargetStatistics {
 

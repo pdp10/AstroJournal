@@ -29,7 +29,6 @@ package org.astrojournal.gui;
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
- * @date 26 Jan 2016
  */
 public enum AJGUIActions {
 

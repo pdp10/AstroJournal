@@ -38,8 +38,8 @@ import org.astrojournal.generator.absgen.TextExporterByDateSGL;
  * enum types for column export.
  * 
  * @author Piero Dalle Pezze
- * @version 0.1
- * @since 11/09/2015
+ * @version $Rev$
+ * @since 1.0
  */
 public class MiniTextExporterByDateSGL extends TextExporterByDateSGL {
 

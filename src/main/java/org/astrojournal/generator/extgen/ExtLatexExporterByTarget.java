@@ -42,8 +42,8 @@ import org.astrojournal.generator.absgen.LatexExporterByTarget;
  * for column export.
  * 
  * @author Piero Dalle Pezze
- * @version 0.2
- * @since 22/07/2015
+ * @version $Rev$
+ * @since 1.0
  */
 public class ExtLatexExporterByTarget extends LatexExporterByTarget {
 
