@@ -41,8 +41,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * This class automatically generates the Latex code for the AstroJournal.
  * 
  * @author Piero Dalle Pezze
- * @version 0.9
- * @since 12/04/2015
+ * @version $Rev$
+ * @since 1.0
  */
 public class AJMain {
 

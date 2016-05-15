@@ -31,8 +31,8 @@ import org.astrojournal.generator.basicgen.BasicLatexExporterByConst;
  * column export.
  * 
  * @author Piero Dalle Pezze
- * @version 0.2
- * @since 28/05/2015
+ * @version $Rev$
+ * @since 1.0
  */
 public class ExtLatexExporterByConst extends BasicLatexExporterByConst {
 

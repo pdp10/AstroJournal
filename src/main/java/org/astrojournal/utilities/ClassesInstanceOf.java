@@ -37,8 +37,8 @@ import org.astrojournal.generator.absgen.Importer;
  * time.
  * 
  * @author Piero Dalle Pezze
- * @version 0.2
- * @since 12/04/2015
+ * @version $Rev$
+ * @since 1.0
  */
 public class ClassesInstanceOf {
 

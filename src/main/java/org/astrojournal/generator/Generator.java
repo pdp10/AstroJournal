@@ -33,8 +33,8 @@ import org.astrojournal.generator.absgen.Importer;
  * Interface of a generator.
  * 
  * @author Piero Dalle Pezze
- * @version 0.1
- * @since 19/03/2016
+ * @version $Rev$
+ * @since 1.0
  */
 public interface Generator {
 

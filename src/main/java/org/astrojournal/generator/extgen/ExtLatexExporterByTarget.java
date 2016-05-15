@@ -42,8 +42,8 @@ import org.astrojournal.generator.absgen.LatexExporterByTarget;
  * for column export.
  * 
  * @author Piero Dalle Pezze
- * @version 0.2
- * @since 22/07/2015
+ * @version $Rev$
+ * @since 1.0
  */
 public class ExtLatexExporterByTarget extends LatexExporterByTarget {
 
@@ -64,6 +64,10 @@ public class ExtLatexExporterByTarget extends LatexExporterByTarget {
 	    log.info("");
 	    log.info("Exporting reports by target:");
 	}
+	// Statistics
+	String typeCount = "";
+	targetStatistics.reset();
+
 	processedTargetCache.clear();
 	for (int i = 0; i < reports.size(); i++) {
 	    Report report = reports.get(i);
@@ -94,6 +98,7 @@ public class ExtLatexExporterByTarget extends LatexExporterByTarget {
 			    writer.write("\\subsection{"
 				    + targetEntry[ExtDataCols.TARGET_NAME
 					    .ordinal()]);
+			    typeCount = "solar system";
 			} else if (targetEntry[ExtDataCols.TYPE_NAME.ordinal()]
 				.toLowerCase().equals("star")
 				|| targetEntry[ExtDataCols.TYPE_NAME.ordinal()]
@@ -106,6 +111,7 @@ public class ExtLatexExporterByTarget extends LatexExporterByTarget {
 			    writer.write(", "
 				    + targetEntry[ExtDataCols.TARGET_NAME
 					    .ordinal()]);
+			    typeCount = "star";
 			} else if (targetEntry[ExtDataCols.TYPE_NAME.ordinal()]
 				.toLowerCase().equals("galaxy")
 				&& targetEntry[ExtDataCols.TARGET_NAME
@@ -116,6 +122,7 @@ public class ExtLatexExporterByTarget extends LatexExporterByTarget {
 			    writer.write("\\subsection{"
 				    + targetEntry[ExtDataCols.TARGET_NAME
 					    .ordinal()]);
+			    typeCount = "galaxy";
 			} else {
 			    writer.write("\\subsection{"
 				    + targetEntry[ExtDataCols.TARGET_NAME
@@ -123,10 +130,16 @@ public class ExtLatexExporterByTarget extends LatexExporterByTarget {
 			    writer.write(", "
 				    + targetEntry[ExtDataCols.CONSTELLATION_NAME
 					    .ordinal()]);
+			    typeCount = targetEntry[ExtDataCols.TYPE_NAME
+				    .ordinal()].toLowerCase();
 			}
 			writer.write(", "
 				+ targetEntry[ExtDataCols.TYPE_NAME.ordinal()]
 				+ "}\n");
+
+			// increment the counter for this typeCount.
+			targetStatistics.increment(typeCount);
+
 			writer.write("\\begin{itemize}\n");
 		    } else {
 			// if file was already created skip the previous two

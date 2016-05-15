@@ -40,7 +40,6 @@ import org.apache.logging.log4j.Logger;
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
- * @date 16 Jan 2016
  */
 public class DesktopBrowse {
 

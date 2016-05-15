@@ -31,7 +31,6 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
- * @date 11 Jan 2016
  */
 @RunWith(Suite.class)
 @SuiteClasses({ AJConfigurationTest.class, MiniTSVImporterTest.class,

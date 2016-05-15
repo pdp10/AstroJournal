@@ -16,9 +16,8 @@ import java.util.List;
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
- * @date 28 Jan 2016
  */
-public class Report {
+public class Report implements Comparable<Report> {
 
     /** The report meta data. */
     private String[] metaData = null;
@@ -143,4 +142,19 @@ public class Report {
 	return dataColumnNumber;
     }
 
+    @Override
+    public int compareTo(Report report) {
+	String thisStr = metaData[0].replaceAll("[^\\d.]", "");
+	String thatStr = report.getMetaData()[0].replaceAll("[^\\d.]", "");
+	if (thisStr.length() == 8 && thatStr.length() == 8) {
+	    thisStr = thisStr.substring(4) + thisStr.substring(2, 4)
+		    + thisStr.substring(0, 2);
+	    thatStr = thatStr.substring(4) + thatStr.substring(2, 4)
+		    + thatStr.substring(0, 2);
+	    return thisStr.compareTo(thatStr);
+	} else if (thisStr.length() < thatStr.length()) {
+	    return -1;
+	}
+	return 1;
+    }
 }
