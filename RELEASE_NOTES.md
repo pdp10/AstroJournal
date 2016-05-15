@@ -22,6 +22,7 @@ v3.0.0 (under development)
 - Created deb package for GNU/Linux Debian. This is automatically created with maven.  
 - Reports by target are now sorted by date decreasing.
 - Added lunar phase in the meta information for the extended generator.
+- Bug-fixes
 
 v2.0.0
 
