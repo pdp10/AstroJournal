@@ -31,7 +31,6 @@ import java.io.IOException;
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
- * @date 18 Jan 2016
  */
 public interface ConfigurationUtils {
 

@@ -40,8 +40,8 @@ import org.astrojournal.utilities.filefilters.TSVRawReportFilter;
  * It imports files containing the reports. Data are separated by tab.
  * 
  * @author Piero Dalle Pezze
- * @version 0.1
- * @since 28/05/2015
+ * @version $Rev$
+ * @since 1.0
  */
 public abstract class TSVImporter extends Importer {
 

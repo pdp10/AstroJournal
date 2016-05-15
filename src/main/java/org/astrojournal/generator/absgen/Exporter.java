@@ -35,8 +35,8 @@ import org.astrojournal.generator.Report;
  * Abstract class of AstroJournal report exporter.
  * 
  * @author Piero Dalle Pezze
- * @version 0.1
- * @since 13/09/2015
+ * @version $Rev$
+ * @since 1.0
  */
 public abstract class Exporter {
 

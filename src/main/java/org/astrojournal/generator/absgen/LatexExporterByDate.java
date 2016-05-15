@@ -49,7 +49,6 @@ import org.astrojournal.utilities.filefilters.LaTeXFilter;
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
- * @date 17 Jan 2016
  */
 public abstract class LatexExporterByDate extends LatexExporter {
 
@@ -158,6 +157,8 @@ public abstract class LatexExporterByDate extends LatexExporter {
 	writer.write("\\hspace{4 mm}\n");
 	// parse each file in the latex obs folder (sorted by observation
 	// increasing)
+	// If this pathname does not denote a directory, then listFiles()
+	// returns null.
 	File[] files = new File(filesLocation + File.separator + reportFolder)
 		.listFiles(new LaTeXFilter());
 	if (files == null) {
@@ -165,10 +166,14 @@ public abstract class LatexExporterByDate extends LatexExporter {
 		    + reportFolder + " not found");
 	}
 	Arrays.sort(files, Collections.reverseOrder());
-	// If this pathname does not denote a directory, then listFiles()
-	// returns null.
+	String currentYear = "";
 	for (File file : files) {
 	    if (file.isFile()) {
+		if (!currentYear.equals(file.getName().substring(0, 4))) {
+		    // collect observations by year
+		    currentYear = file.getName().substring(0, 4);
+		    writer.write("\\subsection{" + currentYear + "}\n");
+		}
 		// include the file removing the extension .tex
 		writer.write("\\input{" + reportFolder + "/"
 			+ file.getName().replaceFirst("[.][^.]+$", "") + "}\n");

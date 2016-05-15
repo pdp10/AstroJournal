@@ -29,7 +29,6 @@ package org.astrojournal.gui;
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
- * @date 26 Jan 2016
  */
 public enum AJGUIActions {
 
@@ -37,6 +36,8 @@ public enum AJGUIActions {
     CANCEL,
     /** Event: Create the astronomy journals */
     CREATE_JOURNAL,
+    /** Event: Open the astronomy journals */
+    OPEN_JOURNAL,
     /** Event: Edit the application preferences */
     EDIT_PREFERENCES,
     /** Event: Retrieve the files location Event */

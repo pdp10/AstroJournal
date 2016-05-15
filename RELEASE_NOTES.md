@@ -13,12 +13,16 @@ Unplanned
 
 v3.0.0 (under development)
 
+- Added buttons to open generated journals from GUI.
+- Added subsection ''year'' in report by date.
+- Added basic statistics in report by target.
 - Meta data fields except Date are now optional.
 - Replaced Help Contents with a user manual.
 - Adopt Spring Framework for dependency injection. So far Generator and Configuration.
 - Created deb package for GNU/Linux Debian. This is automatically created with maven.  
 - Reports by target are now sorted by date decreasing.
 - Added lunar phase in the meta information for the extended generator.
+- Bug-fixes
 
 v2.0.0
 

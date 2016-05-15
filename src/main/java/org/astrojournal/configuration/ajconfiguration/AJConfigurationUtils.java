@@ -48,7 +48,6 @@ import org.astrojournal.utilities.filefilters.TSVRawReportFilter;
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
- * @date 18 Jan 2016
  */
 public class AJConfigurationUtils implements ConfigurationUtils {
 

@@ -20,6 +20,21 @@ AstroJournal input folder.\\
 These files can be edited with any spreadsheet (e.g. Google SpreadSheet, MS Excel, LibreOffice SpreadSheet) or a common text editor (e.g. MS Wordpad, Emacs, Kate, or GEdit).\\
 To customise the document header and footer, please look into the folder 
 latex\_header\_footer to find the LaTeX files for the header and footer. Also these files can be edited with any common text editor.\\
+If desired, LaTeX code can be inserted in the report. For instance, a target note could be customised as:
+\begin{lstlisting}
+{\color{red} Invisible} at 100x.  
+\end{lstlisting}
+to print the text ``{\color{red} Invisible} at 100x''. Other common customisations could be:
+\begin{lstlisting}
+{\bf Invisible} at 100x.  
+{\it Invisible} at 100x.  
+\end{lstlisting}
+to print ``{\bf Invisible} at 100x'' and ``{\it Invisible} at 100x'', respectively. A combination of two could be: 
+Other common customisations could be:
+\begin{lstlisting}
+{\color{red}\bf Invisible} at 100x.  
+\end{lstlisting}
+to print ``{\color{red}\bf Invisible} at 100x''.\\ 
 Example of observation records contained in a file parsed by AstroJournal:\\
 
 \begin{center}

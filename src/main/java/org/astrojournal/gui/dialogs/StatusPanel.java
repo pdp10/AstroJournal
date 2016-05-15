@@ -33,6 +33,10 @@ import javax.swing.border.BevelBorder;
 /**
  * The Class StatusPanel shows the interactive bar at the bottom of the main
  * application screen.
+ * 
+ * @author Piero Dalle Pezze
+ * @version $Rev$
+ * @since 1.0
  */
 public class StatusPanel extends JPanel {
 

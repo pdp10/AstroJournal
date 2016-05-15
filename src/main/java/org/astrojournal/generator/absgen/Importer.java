@@ -31,6 +31,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.apache.commons.io.comparator.NameFileComparator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.Configuration;
@@ -42,8 +43,8 @@ import org.astrojournal.utilities.filefilters.TSVRawReportFilter;
  * The parser for AstroJournal. It imports files containing the reports.
  * 
  * @author Piero Dalle Pezze
- * @version 0.1
- * @since 28/05/2015
+ * @version $Rev$
+ * @since 1.0
  */
 public abstract class Importer {
 
@@ -107,7 +108,7 @@ public abstract class Importer {
      * @return a list of Report objects
      */
     public List<Report> importReports(File[] files) {
-	Arrays.sort(files);
+	Arrays.sort(files, NameFileComparator.NAME_COMPARATOR);
 	List<Report> reports = new ArrayList<Report>();
 	for (File file : files) {
 	    reports.addAll(importReports(file));

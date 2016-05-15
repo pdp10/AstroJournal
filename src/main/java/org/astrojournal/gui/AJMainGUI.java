@@ -24,9 +24,12 @@
 package org.astrojournal.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
@@ -47,6 +50,7 @@ import org.apache.logging.log4j.Logger;
 import org.astrojournal.AJMainControls;
 import org.astrojournal.AJMetaInfo;
 import org.astrojournal.configuration.Configuration;
+import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.configuration.ajconfiguration.PreferencesDialog;
 import org.astrojournal.generator.Generator;
 import org.astrojournal.gui.dialogs.StatusPanel;
@@ -62,8 +66,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * scripts.
  * 
  * @author Piero Dalle Pezze
- * @version 0.1
- * @since 10/09/2015
+ * @version $Rev$
+ * @since 1.0
  */
 public class AJMainGUI extends JFrame implements ActionListener {
 
@@ -82,6 +86,7 @@ public class AJMainGUI extends JFrame implements ActionListener {
     private Generator generator;
 
     private JButton btnCreateJournal;
+    private JButton btnOpenJournal;
     private JButton btnQuit;
     private JTextPane textPane;
     private JPanel mainPanel;
@@ -152,11 +157,16 @@ public class AJMainGUI extends JFrame implements ActionListener {
 			.getString("AJ.lblFileGenerationinProgressLong.text"));
 		cleanJTextPane();
 		btnCreateJournal.setEnabled(false);
+		btnOpenJournal.setEnabled(false);
 		menu.setEnabled(AJGUIActions.CREATE_JOURNAL.name(), false);
+		menu.setEnabled(AJGUIActions.OPEN_JOURNAL.name(), false);
 		menu.setEnabled(AJGUIActions.EDIT_PREFERENCES.name(), false);
 		if (!ajMainControls.createJournal()) {
 		    setStatusPanelText(resourceBundle
 			    .getString("AJ.errPDFLatexShort.text"));
+		} else {
+		    btnOpenJournal.setEnabled(true);
+		    menu.setEnabled(AJGUIActions.OPEN_JOURNAL.name(), true);
 		}
 		btnCreateJournal.setEnabled(true);
 		menu.setEnabled(AJGUIActions.CREATE_JOURNAL.name(), true);
@@ -166,6 +176,58 @@ public class AJMainGUI extends JFrame implements ActionListener {
 	};
 	// execute the background thread
 	worker.execute();
+    }
+
+    /**
+     * Visualise the astro journals.
+     */
+    public void openJournals() {
+	ArrayList<File> files = new ArrayList<File>();
+	File journalByTarget = new File(
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
+			+ File.separator
+			+ config.getProperty(
+				AJPropertyConstants.LATEX_REPORT_BY_TARGET_FILENAME
+					.getKey()).replace(".tex", ".pdf"));
+	files.add(journalByTarget);
+	File journalByConstellation = new File(
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
+			+ File.separator
+			+ config.getProperty(
+				AJPropertyConstants.LATEX_REPORT_BY_CONSTELLATION_FILENAME
+					.getKey()).replace(".tex", ".pdf"));
+	files.add(journalByConstellation);
+	File journalByDate = new File(
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
+			+ File.separator
+			+ config.getProperty(
+				AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME
+					.getKey()).replace(".tex", ".pdf"));
+	files.add(journalByDate);
+	File journalByDateSGL = new File(
+		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
+			+ File.separator
+			+ config.getProperty(AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME
+				.getKey()));
+	files.add(journalByDateSGL);
+
+	for (File file : files) {
+	    if (file.exists()) {
+		try {
+		    if (Desktop.isDesktopSupported()) {
+			Desktop.getDesktop().open(file);
+			log.debug("Open file : " + file.getAbsolutePath());
+		    } else {
+			log.error("Awt Desktop is not supported!");
+		    }
+		} catch (Exception ex) {
+		    log.warn(ex);
+		    log.debug(ex, ex);
+		}
+	    } else {
+		log.error("File is not exists!");
+	    }
+	}
     }
 
     /**
@@ -240,6 +302,16 @@ public class AJMainGUI extends JFrame implements ActionListener {
 	// Set this button as default. :)
 	getRootPane().setDefaultButton(btnCreateJournal);
 
+	// Create the button for opening the journals
+	btnOpenJournal = new JButton();
+	btnOpenJournal.setIcon(new ImageIcon(ClassLoader
+		.getSystemResource("graphics/icons/open_journals_16.png")));
+	btnOpenJournal.setText(resourceBundle
+		.getString("AJ.cmdOpenJournal.text"));
+	btnOpenJournal.setActionCommand(AJGUIActions.OPEN_JOURNAL.name());
+	btnOpenJournal.addActionListener(this);
+	btnOpenJournal.setEnabled(false);
+
 	// Create the button for closing the application
 	btnQuit = new JButton();
 	btnQuit.setIcon(new ImageIcon(ClassLoader
@@ -254,6 +326,8 @@ public class AJMainGUI extends JFrame implements ActionListener {
 	String action = ae.getActionCommand();
 	if (action.equals(AJGUIActions.CREATE_JOURNAL.name())) {
 	    createJournals();
+	} else if (action.equals(AJGUIActions.OPEN_JOURNAL.name())) {
+	    openJournals();
 	} else if (action.equals(AJGUIActions.QUIT.name())) {
 	    quit();
 	} else {
@@ -282,6 +356,7 @@ public class AJMainGUI extends JFrame implements ActionListener {
 	// Create the control panel containing the button and the checkbox
 	controlPanel = new JPanel();
 	controlPanel.add(btnCreateJournal);
+	controlPanel.add(btnOpenJournal);
 	controlPanel.add(btnQuit);
 
 	// Setup for the welcome panel
