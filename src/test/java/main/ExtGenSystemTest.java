@@ -114,12 +114,12 @@ public class ExtGenSystemTest {
 			+ config.getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_CONSTELLATION
 				.getKey()));
 	reportByConstellation.delete();
-	File reportByDateSGL = new File(
+	File reportByDateTXT = new File(
 		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
 			+ File.separator
-			+ config.getProperty(AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE
+			+ config.getProperty(AJPropertyConstants.TXT_REPORTS_FOLDER_BY_DATE
 				.getKey()));
-	reportByDateSGL.delete();
+	reportByDateTXT.delete();
 	File headerFooter = new File(
 		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
 			+ File.separator
@@ -227,10 +227,10 @@ public class ExtGenSystemTest {
     }
 
     /**
-     * Test the generation of SGL report by date.
+     * Test the generation of TXT report by date.
      */
     @Test
-    public void testGeneratedSGLReportByDate() {
+    public void testGeneratedTXTReportByDate() {
 	System.out.println("Running test " + this.getClass().getSimpleName()
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
@@ -239,7 +239,7 @@ public class ExtGenSystemTest {
 	assertTrue(new File(
 		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
 			+ File.separator
-			+ config.getProperty(AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME
+			+ config.getProperty(AJPropertyConstants.TXT_REPORT_BY_DATE_FILENAME
 				.getKey())).exists());
     }
 }
