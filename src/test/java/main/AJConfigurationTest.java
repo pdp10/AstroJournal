@@ -351,16 +351,16 @@ public class AJConfigurationTest {
      * Test `Latex report by constellation` properties.
      */
     @Test
-    public void testSGLReportByDateProperties() {
+    public void testTXTReportByDateProperties() {
 	System.out.println("Running test " + this.getClass().getSimpleName()
 		+ "." + new Object() {
 		}.getClass().getEnclosingMethod().getName());
 
 	System.setProperty(
-		AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE.getKey(),
+		AJPropertyConstants.TXT_REPORTS_FOLDER_BY_DATE.getKey(),
 		"trdate_test");
 	System.setProperty(
-		AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME.getKey(),
+		AJPropertyConstants.TXT_REPORT_BY_DATE_FILENAME.getKey(),
 		"trdatefile_test");
 
 	Configuration config = new AJConfiguration();
@@ -368,10 +368,10 @@ public class AJConfigurationTest {
 	config.loadSystemProperties();
 
 	assertEquals(
-		config.getProperty(AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE
+		config.getProperty(AJPropertyConstants.TXT_REPORTS_FOLDER_BY_DATE
 			.getKey()), "trdate_test");
 	assertEquals(
-		config.getProperty(AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME
+		config.getProperty(AJPropertyConstants.TXT_REPORT_BY_DATE_FILENAME
 			.getKey()), "trdatefile_test");
 
     }
