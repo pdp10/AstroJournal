@@ -131,17 +131,17 @@ public enum AJPropertyConstants {
 	    "aj.latex_footer_by_constellation_filename",
 	    "footer_by_constellation.tex"),
 
-    // SGL REPORT BY DATE
+    // TXT REPORT BY DATE
     /**
      * The name of the folder containing the latex observation files by date
      * (observation output folder).
      */
-    SGL_REPORTS_FOLDER_BY_DATE("aj.sgl_reports_folder_by_date",
-	    "sgl_reports_by_date"),
+    TXT_REPORTS_FOLDER_BY_DATE("aj.txt_reports_folder_by_date",
+	    "txt_reports_by_date"),
 
-    /** The name of the SGL main file sorted by date. */
-    SGL_REPORT_BY_DATE_FILENAME("aj.sgl_report_by_date_filename",
-	    "astrojournal_by_date_sgl.txt"),
+    /** The name of the TXT main file sorted by date. */
+    TXT_REPORT_BY_DATE_FILENAME("aj.txt_report_by_date_filename",
+	    "astrojournal_by_date.txt"),
 
     ;
 

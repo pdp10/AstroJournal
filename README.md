@@ -16,7 +16,7 @@ This software utility aims to generate structured documents from astronomy obser
 - Generation of a PDF document containing all user observation reports collected by increasing target catalogue number. This is useful for comparing targets observed over time.
 - Generation of a PDF document containing all user observation reports collected by decreasing date. This is useful for visualising one’s observations by session.
 - Generation of a PDF document containing the targets observed by constellation. This is useful for checking observed and unobserved targets by constellation.
-- Generation of a TXT document containing all user observation reports collected by decreasing date. This is for creating observation reports to be published in an astronomy forum (e.g. Stargazers Lounge).
+- Generation of a TXT document containing all user observation reports collected by decreasing date. This is useful for copying and pasting reports with any text editor.
 
 
 ### Requirements

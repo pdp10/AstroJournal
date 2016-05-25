@@ -204,12 +204,12 @@ public class AJMainGUI extends JFrame implements ActionListener {
 				AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME
 					.getKey()).replace(".tex", ".pdf"));
 	files.add(journalByDate);
-	File journalByDateSGL = new File(
+	File journalByDateTXT = new File(
 		config.getProperty(AJPropertyConstants.FILES_LOCATION.getKey())
 			+ File.separator
-			+ config.getProperty(AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME
+			+ config.getProperty(AJPropertyConstants.TXT_REPORT_BY_DATE_FILENAME
 				.getKey()));
-	files.add(journalByDateSGL);
+	files.add(journalByDateTXT);
 
 	for (File file : files) {
 	    if (file.exists()) {

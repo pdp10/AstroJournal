@@ -63,7 +63,7 @@ v1.0.0
 - AJ now supports input parameters but also Java properties.
 - Added report by constellation.
 - Added report of additional catalogues in astrojournal by target.
-- Added exporter to SGL report files.
+- Added exporter to TXT report files.
 - Added support for csv input files.
 - Added Messier and Caldwell catalogues as reference in the end
 - Improved pdf layout

@@ -24,6 +24,6 @@
 <entry key="aj.latex_report_by_constellation_filename">astrojournal_by_constellation.tex</entry>
 <entry key="aj.latex_header_by_constellation_filename">header_by_constellation.tex</entry>
 <entry key="aj.latex_footer_by_constellation_filename">footer_by_constellation.tex</entry>
-<entry key="aj.sgl_reports_folder_by_date">sgl_reports_by_date</entry>
-<entry key="aj.sgl_report_by_date_filename">astrojournal_by_date_sgl.txt</entry>
+<entry key="aj.txt_reports_folder_by_date">txt_reports_by_date</entry>
+<entry key="aj.txt_report_by_date_filename">astrojournal_by_date.txt</entry>
 </properties>
