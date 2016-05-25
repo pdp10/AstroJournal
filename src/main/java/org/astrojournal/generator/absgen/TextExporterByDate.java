@@ -51,16 +51,16 @@ import org.astrojournal.utilities.filefilters.TextFilter;
  * @version $Rev$
  * @since 1.0
  */
-public abstract class TextExporterByDateSGL extends Exporter {
+public abstract class TextExporterByDate extends Exporter {
 
     /** The log associated to this class */
     private static Logger log = LogManager
-	    .getLogger(TextExporterByDateSGL.class);
+	    .getLogger(TextExporterByDate.class);
 
     /**
      * Default constructor.
      */
-    public TextExporterByDateSGL() {
+    public TextExporterByDate() {
 	super();
     }
 
@@ -68,10 +68,10 @@ public abstract class TextExporterByDateSGL extends Exporter {
     public void setConfiguration(Configuration config) {
 	super.setConfiguration(config);
 	setReportFolder(config
-		.getProperty(AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE
+		.getProperty(AJPropertyConstants.TXT_REPORTS_FOLDER_BY_DATE
 			.getKey()));
 	setReportFilename(config
-		.getProperty(AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME
+		.getProperty(AJPropertyConstants.TXT_REPORT_BY_DATE_FILENAME
 			.getKey()));
     }
 
@@ -79,7 +79,7 @@ public abstract class TextExporterByDateSGL extends Exporter {
     public boolean exportReports(List<Report> reports) {
 	if (resourceBundle != null) {
 	    log.info("");
-	    log.info("Exporting reports by date for SGL:");
+	    log.info("Exporting txt reports by date:");
 	}
 	Report report = null;
 	int nReports = reports.size();
