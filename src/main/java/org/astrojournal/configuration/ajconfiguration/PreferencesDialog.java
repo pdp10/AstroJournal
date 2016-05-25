@@ -144,10 +144,10 @@ public class PreferencesDialog extends JDialog implements ActionListener {
      * The name of the folder containing the text observation files by date
      * (observation output folder).
      */
-    private JTextField sglReportsFolderByDate = new JTextField();
+    private JTextField txtReportsFolderByDate = new JTextField();
 
-    /** The name of the main SGL file sorted by date. */
-    private JTextField sglReportByDateFilename = new JTextField();
+    /** The name of the main TXT file sorted by date. */
+    private JTextField txtReportByDateFilename = new JTextField();
 
     // FLAGS
     /** True if the application should run quietly */
@@ -371,11 +371,11 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 			    .getText());
 
 	    System.setProperty(
-		    AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE.getKey(),
-		    sglReportsFolderByDate.getText());
+		    AJPropertyConstants.TXT_REPORTS_FOLDER_BY_DATE.getKey(),
+		    txtReportsFolderByDate.getText());
 	    System.setProperty(
-		    AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME.getKey(),
-		    sglReportByDateFilename.getText());
+		    AJPropertyConstants.TXT_REPORT_BY_DATE_FILENAME.getKey(),
+		    txtReportByDateFilename.getText());
 
 	    // combobox fields
 	    System.setProperty(AJPropertyConstants.QUIET.getKey(),
@@ -508,13 +508,13 @@ public class PreferencesDialog extends JDialog implements ActionListener {
 		AJPropertyConstants.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
 			.getKey());
 
-	// SGL REPORT BY DATE
-	addStringEntry(panel, constraints, "AJ.lblSGLOutByDateDir.text",
-		"AJ.lblSGLOutByDateDir.toolTipText", sglReportsFolderByDate,
-		AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE.getKey());
-	addStringEntry(panel, constraints, "AJ.lblSGLOutByDateFile.text",
-		"AJ.lblSGLOutByDateFile.toolTipText", sglReportByDateFilename,
-		AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME.getKey());
+	// TXT REPORT BY DATE
+	addStringEntry(panel, constraints, "AJ.lblTXTOutByDateDir.text",
+		"AJ.lblTXTOutByDateDir.toolTipText", txtReportsFolderByDate,
+		AJPropertyConstants.TXT_REPORTS_FOLDER_BY_DATE.getKey());
+	addStringEntry(panel, constraints, "AJ.lblTXTOutByDateFile.text",
+		"AJ.lblTXTOutByDateFile.toolTipText", txtReportByDateFilename,
+		AJPropertyConstants.TXT_REPORT_BY_DATE_FILENAME.getKey());
     }
 
     /**

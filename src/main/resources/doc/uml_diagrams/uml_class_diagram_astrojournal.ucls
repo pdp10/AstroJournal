@@ -331,8 +331,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="35" language="java" name="org.astrojournal.generator.absgen.TextExporterByDateSGL" project="astrojournal" 
-    file="/astrojournal/src/main/java/org/astrojournal/generator/absgen/TextExporterByDateSGL.java" binary="false" 
+  <class id="35" language="java" name="org.astrojournal.generator.absgen.TextExporterByDateTXT" project="astrojournal" 
+    file="/astrojournal/src/main/java/org/astrojournal/generator/absgen/TextExporterByDateTXT.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="187" width="214" x="7302" y="1427"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -433,9 +433,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="45" language="java" name="org.astrojournal.generator.basicgen.BasicTextExporterByDateSGL" 
+  <class id="45" language="java" name="org.astrojournal.generator.basicgen.BasicTextExporterByDateTXT" 
     project="astrojournal" 
-    file="/astrojournal/src/main/java/org/astrojournal/generator/basicgen/BasicTextExporterByDateSGL.java" 
+    file="/astrojournal/src/main/java/org/astrojournal/generator/basicgen/BasicTextExporterByDateTXT.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="115" width="202" x="7758" y="1816"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -496,9 +496,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="51" language="java" name="org.astrojournal.generator.extgen.ExtTextExporterByDateSGL" 
+  <class id="51" language="java" name="org.astrojournal.generator.extgen.ExtTextExporterByDateTXT" 
     project="astrojournal" 
-    file="/astrojournal/src/main/java/org/astrojournal/generator/extgen/ExtTextExporterByDateSGL.java" binary="false" 
+    file="/astrojournal/src/main/java/org/astrojournal/generator/extgen/ExtTextExporterByDateTXT.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="115" width="202" x="8000" y="1816"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -578,9 +578,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="59" language="java" name="org.astrojournal.generator.minigen.MiniTextExporterByDateSGL" 
+  <class id="59" language="java" name="org.astrojournal.generator.minigen.MiniTextExporterByDateTXT" 
     project="astrojournal" 
-    file="/astrojournal/src/main/java/org/astrojournal/generator/minigen/MiniTextExporterByDateSGL.java" binary="false" 
+    file="/astrojournal/src/main/java/org/astrojournal/generator/minigen/MiniTextExporterByDateTXT.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="115" width="202" x="7516" y="1816"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -649,133 +649,133 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="66">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="67" name="application">        
-        <position height="0" width="0" x="73" y="-294"/>      
-      </attribute>      
-      <multiplicity id="68" minimum="0" maximum="1">        
-        <position height="0" width="0" x="73" y="-294"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="69">    
-    <end type="SOURCE" refId="35"/>    
-    <end type="TARGET" refId="38"/>  
-  </generalization>  
-  <generalization id="70">    
+  <generalization id="66">    
     <end type="SOURCE" refId="58"/>    
     <end type="TARGET" refId="36"/>  
   </generalization>  
-  <generalization id="71">    
-    <end type="SOURCE" refId="64"/>    
-    <end type="TARGET" refId="34"/>  
+  <generalization id="67">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="33"/>  
   </generalization>  
-  <generalization id="72">    
-    <end type="SOURCE" refId="41"/>    
-    <end type="TARGET" refId="32"/>  
-  </generalization>  
-  <generalization id="73">    
-    <end type="SOURCE" refId="55"/>    
-    <end type="TARGET" refId="56"/>  
-  </generalization>  
-  <association id="74">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="75" name="statusPanel">        
-        <position height="0" width="0" x="-3" y="-318"/>      
-      </attribute>      
-      <multiplicity id="76" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-3" y="-318"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="77">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="21"/>  
-  </realization>  
-  <generalization id="78">    
-    <end type="SOURCE" refId="39"/>    
-    <end type="TARGET" refId="37"/>  
-  </generalization>  
-  <association id="79">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="80" name="config">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="81" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="21" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="82">    
-    <end type="SOURCE" refId="42"/>    
-    <end type="TARGET" refId="39"/>  
-  </generalization>  
-  <association id="83">    
+  <association id="68">    
     <end type="SOURCE" refId="26" navigable="false">      
-      <attribute id="84" name="configUtils">        
+      <attribute id="69" name="configUtils">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="85" minimum="0" maximum="1">        
+      <multiplicity id="70" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="19" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="86">    
-    <end type="SOURCE" refId="51"/>    
-    <end type="TARGET" refId="35"/>  
+  <generalization id="71">    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="37"/>  
   </generalization>  
-  <association id="87">    
+  <generalization id="72">    
+    <end type="SOURCE" refId="55"/>    
+    <end type="TARGET" refId="56"/>  
+  </generalization>  
+  <generalization id="73">    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="39"/>  
+  </generalization>  
+  <association id="74">    
     <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="88" name="ajMainControls">        
+      <attribute id="75" name="ajMainControls">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="89" minimum="0" maximum="1">        
+      <multiplicity id="76" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="26" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="90">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="26"/>  
+  <association id="77">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="78" name="application">        
+        <position height="0" width="0" x="73" y="-294"/>      
+      </attribute>      
+      <multiplicity id="79" minimum="0" maximum="1">        
+        <position height="0" width="0" x="73" y="-294"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="80">    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="33"/>  
   </generalization>  
-  <generalization id="91">    
+  <generalization id="81">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="38"/>  
+  </generalization>  
+  <generalization id="82">    
+    <end type="SOURCE" refId="54"/>    
+    <end type="TARGET" refId="56"/>  
+  </generalization>  
+  <generalization id="83">    
     <end type="SOURCE" refId="52"/>    
     <end type="TARGET" refId="32"/>  
   </generalization>  
-  <realization id="92">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="19"/>  
-  </realization>  
-  <generalization id="93">    
-    <end type="SOURCE" refId="53"/>    
-    <end type="TARGET" refId="39"/>  
+  <generalization id="84">    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="36"/>  
   </generalization>  
-  <generalization id="94">    
+  <generalization id="85">    
     <end type="SOURCE" refId="59"/>    
     <end type="TARGET" refId="35"/>  
   </generalization>  
-  <generalization id="95">    
-    <end type="SOURCE" refId="45"/>    
-    <end type="TARGET" refId="35"/>  
+  <generalization id="86">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="26"/>  
   </generalization>  
-  <generalization id="96">    
-    <end type="SOURCE" refId="32"/>    
-    <end type="TARGET" refId="33"/>  
+  <generalization id="87">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="36"/>  
   </generalization>  
+  <generalization id="88">    
+    <end type="SOURCE" refId="49"/>    
+    <end type="TARGET" refId="46"/>  
+  </generalization>  
+  <generalization id="89">    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="34"/>  
+  </generalization>  
+  <generalization id="90">    
+    <end type="SOURCE" refId="63"/>    
+    <end type="TARGET" refId="39"/>  
+  </generalization>  
+  <association id="91">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="92" name="config">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="93" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="94">    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="95" name="config">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="96" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
   <generalization id="97">    
-    <end type="SOURCE" refId="54"/>    
-    <end type="TARGET" refId="56"/>  
+    <end type="SOURCE" refId="65"/>    
+    <end type="TARGET" refId="32"/>  
   </generalization>  
   <association id="98">    
     <end type="SOURCE" refId="5" navigable="false">      
@@ -789,81 +789,81 @@
     <end type="TARGET" refId="13" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="101">    
+  <generalization id="101">    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="38"/>  
+  </generalization>  
+  <realization id="102">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="19"/>  
+  </realization>  
+  <generalization id="103">    
+    <end type="SOURCE" refId="53"/>    
+    <end type="TARGET" refId="39"/>  
+  </generalization>  
+  <generalization id="104">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="26"/>  
+  </generalization>  
+  <association id="105">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="106" name="config">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="107" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="108">    
     <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="102" name="menu">        
+      <attribute id="109" name="menu">        
         <position height="0" width="0" x="-387" y="-314"/>      
       </attribute>      
-      <multiplicity id="103" minimum="0" maximum="1">        
+      <multiplicity id="110" minimum="0" maximum="1">        
         <position height="0" width="0" x="-387" y="-314"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="104">    
-    <end type="SOURCE" refId="63"/>    
-    <end type="TARGET" refId="39"/>  
+  <generalization id="111">    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="35"/>  
   </generalization>  
-  <generalization id="105">    
-    <end type="SOURCE" refId="65"/>    
-    <end type="TARGET" refId="32"/>  
-  </generalization>  
-  <generalization id="106">    
-    <end type="SOURCE" refId="33"/>    
-    <end type="TARGET" refId="38"/>  
-  </generalization>  
-  <generalization id="107">    
-    <end type="SOURCE" refId="44"/>    
-    <end type="TARGET" refId="36"/>  
-  </generalization>  
-  <generalization id="108">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="26"/>  
-  </generalization>  
-  <association id="109">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="110" name="config">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="111" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="21" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
   <generalization id="112">    
     <end type="SOURCE" refId="46"/>    
     <end type="TARGET" refId="64"/>  
   </generalization>  
-  <association id="113">    
-    <end type="SOURCE" refId="26" navigable="false">      
-      <attribute id="114" name="config">        
-        <position height="0" width="0" x="0" y="0"/>      
+  <realization id="113">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="21"/>  
+  </realization>  
+  <association id="114">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="115" name="statusPanel">        
+        <position height="0" width="0" x="-3" y="-318"/>      
       </attribute>      
-      <multiplicity id="115" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <multiplicity id="116" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-3" y="-318"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="21" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="116">    
-    <end type="SOURCE" refId="34"/>    
-    <end type="TARGET" refId="33"/>  
-  </generalization>  
   <generalization id="117">    
-    <end type="SOURCE" refId="48"/>    
-    <end type="TARGET" refId="36"/>  
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="33"/>  
   </generalization>  
   <generalization id="118">    
-    <end type="SOURCE" refId="36"/>    
-    <end type="TARGET" refId="33"/>  
+    <end type="SOURCE" refId="41"/>    
+    <end type="TARGET" refId="32"/>  
   </generalization>  
   <generalization id="119">    
-    <end type="SOURCE" refId="49"/>    
-    <end type="TARGET" refId="46"/>  
+    <end type="SOURCE" refId="51"/>    
+    <end type="TARGET" refId="35"/>  
   </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

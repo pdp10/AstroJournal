@@ -30,27 +30,27 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.generator.Report;
-import org.astrojournal.generator.absgen.TextExporterByDateSGL;
+import org.astrojournal.generator.absgen.TextExporterByDate;
 
 /**
- * Exports an AstroJournal observation to txt for Stargazers Lounge reports.
- * This is an extended exporter which uses ExtMetaDataCols and ExtDataCols enum
- * types for column export.
+ * Exports an AstroJournal observation to txt format. This is an extended
+ * exporter which uses ExtMetaDataCols and ExtDataCols enum types for column
+ * export.
  * 
  * @author Piero Dalle Pezze
  * @version $Rev$
  * @since 1.0
  */
-public class ExtTextExporterByDateSGL extends TextExporterByDateSGL {
+public class ExtTextExporterByDate extends TextExporterByDate {
 
     /** The log associated to this class */
     private static Logger log = LogManager
-	    .getLogger(ExtTextExporterByDateSGL.class);
+	    .getLogger(ExtTextExporterByDate.class);
 
     /**
      * Default constructor
      */
-    public ExtTextExporterByDateSGL() {
+    public ExtTextExporterByDate() {
 	super();
     }
 

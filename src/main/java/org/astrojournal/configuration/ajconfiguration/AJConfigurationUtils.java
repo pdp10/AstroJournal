@@ -243,14 +243,14 @@ public class AJConfigurationUtils implements ConfigurationUtils {
 		+ config.getProperty(AJPropertyConstants.LATEX_FOOTER_BY_CONSTELLATION_FILENAME
 			.getKey())
 		+ "\n\t"
-		+ resourceBundle.getString("AJ.lblSGLOutByDateDir.text")
+		+ resourceBundle.getString("AJ.lblTXTOutByDateDir.text")
 		+ " "
-		+ config.getProperty(AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE
+		+ config.getProperty(AJPropertyConstants.TXT_REPORTS_FOLDER_BY_DATE
 			.getKey())
 		+ "\n\t"
-		+ resourceBundle.getString("AJ.lblSGLOutByDateFile.text")
+		+ resourceBundle.getString("AJ.lblTXTOutByDateFile.text")
 		+ " "
-		+ config.getProperty(AJPropertyConstants.SGL_REPORT_BY_DATE_FILENAME
+		+ config.getProperty(AJPropertyConstants.TXT_REPORT_BY_DATE_FILENAME
 			.getKey())
 		+ "\n\t"
 		+ resourceBundle.getString("AJ.lblQuiet.text")
@@ -423,7 +423,7 @@ public class AJConfigurationUtils implements ConfigurationUtils {
 	file = new File(
 		filesLocation.getAbsolutePath()
 			+ File.separator
-			+ config.getProperty(AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE
+			+ config.getProperty(AJPropertyConstants.TXT_REPORTS_FOLDER_BY_DATE
 				.getKey()));
 	if (file.getParentFile() != null) {
 	    file.getParentFile().mkdirs();
@@ -469,7 +469,7 @@ public class AJConfigurationUtils implements ConfigurationUtils {
 		    .cleanDirectory(new File(
 			    filesLocation.getAbsolutePath()
 				    + File.separator
-				    + config.getProperty(AJPropertyConstants.SGL_REPORTS_FOLDER_BY_DATE
+				    + config.getProperty(AJPropertyConstants.TXT_REPORTS_FOLDER_BY_DATE
 					    .getKey())));
 	} catch (IOException e) {
 	    throw e;
