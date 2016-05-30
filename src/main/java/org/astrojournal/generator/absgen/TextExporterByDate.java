@@ -42,6 +42,7 @@ import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.generator.Report;
 import org.astrojournal.generator.extgen.ExtMetaDataCols;
 import org.astrojournal.generator.minigen.MiniMetaDataCols;
+import org.astrojournal.generator.statistics.BasicStatistics;
 import org.astrojournal.utilities.filefilters.TextFilter;
 
 /**
@@ -54,8 +55,7 @@ import org.astrojournal.utilities.filefilters.TextFilter;
 public abstract class TextExporterByDate extends Exporter {
 
     /** The log associated to this class */
-    private static Logger log = LogManager
-	    .getLogger(TextExporterByDate.class);
+    private static Logger log = LogManager.getLogger(TextExporterByDate.class);
 
     /**
      * Default constructor.
@@ -156,7 +156,7 @@ public abstract class TextExporterByDate extends Exporter {
      * Generate a txt document sorting the observation by decreasing date
      */
     @Override
-    public boolean generateJournal() {
+    public boolean generateJournal(BasicStatistics basicStatistics) {
 	Writer writer = null;
 	try {
 	    writer = new BufferedWriter(new OutputStreamWriter(

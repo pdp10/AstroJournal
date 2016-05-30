@@ -37,6 +37,7 @@ import org.astrojournal.generator.Report;
 import org.astrojournal.generator.absgen.LatexExporterByConst;
 import org.astrojournal.generator.headfoot.LatexFooter;
 import org.astrojournal.generator.headfoot.LatexHeader;
+import org.astrojournal.generator.statistics.BasicStatistics;
 import org.astrojournal.utilities.filefilters.LaTeXFilter;
 
 /**
@@ -63,7 +64,8 @@ public class MiniLatexExporterByConst extends LatexExporterByConst {
 
     @Override
     public void writeLatexMain(Writer writer, LatexHeader latexHeader,
-	    LatexFooter latexFooter) throws Exception {
+	    LatexFooter latexFooter, BasicStatistics basicStatistics)
+	    throws Exception {
 	// write the Latex Header
 	writer.write(latexHeader.getHeader());
 
