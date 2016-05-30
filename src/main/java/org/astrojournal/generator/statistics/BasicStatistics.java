@@ -28,6 +28,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.mutable.MutableFloat;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.astrojournal.generator.Report;
 import org.astrojournal.generator.extgen.ExtDataCols;
@@ -56,6 +57,11 @@ public class BasicStatistics {
      * A counter for the reports per year
      */
     private HashMap<String, MutableInt> countReportsYear = new HashMap<String, MutableInt>();
+
+    /**
+     * A counter for the average number of reports for each month.
+     */
+    private HashMap<String, MutableFloat> countAvgReportsMonth = new HashMap<String, MutableFloat>();
 
     /**
      * Constructor.
@@ -101,17 +107,20 @@ public class BasicStatistics {
 					.ordinal()].trim().toLowerCase());
 			entry = targetEntry[ExtDataCols.TYPE_NAME.ordinal()];
 			if (!entry.isEmpty()) {
-			    incrementMap(countType, entry.trim().toLowerCase());
+			    incrementIntMap(countType, entry.trim()
+				    .toLowerCase());
 			}
 		    }
 		}
 	    }
 
-	    // extract the reports per year
+	    // extract the reports per year AND avg reports per month
 	    if (metaData.length > ExtMetaDataCols.DATE_NAME.ordinal()) {
 		entry = metaData[ExtMetaDataCols.DATE_NAME.ordinal()];
 		if (!entry.isEmpty()) {
-		    incrementMap(countReportsYear, entry.substring(6, 10));
+		    incrementIntMap(countReportsYear, entry.substring(6, 10));
+		    incrementFloatMap(countAvgReportsMonth,
+			    entry.substring(3, 5));
 		}
 	    }
 
@@ -119,7 +128,7 @@ public class BasicStatistics {
 	    if (metaData.length > ExtMetaDataCols.LOCATION_NAME.ordinal()) {
 		entry = metaData[ExtMetaDataCols.LOCATION_NAME.ordinal()];
 		if (!entry.isEmpty()) {
-		    incrementMap(countLocations, entry.trim().toLowerCase());
+		    incrementIntMap(countLocations, entry.trim().toLowerCase());
 		}
 	    }
 
@@ -133,6 +142,18 @@ public class BasicStatistics {
 	     * (!entry.isEmpty()) { }
 	     */
 	}
+
+	// post processing
+
+	// Average reports per month
+	// Scale by the number of years
+	String[] keys = countAvgReportsMonth.keySet().toArray(new String[0]);
+	for (String key : keys) {
+	    countAvgReportsMonth.get(key).setValue(
+		    countAvgReportsMonth.get(key).floatValue()
+			    / countReportsYear.size());
+	}
+
 	return true;
     }
 
@@ -144,9 +165,25 @@ public class BasicStatistics {
      * @param type
      *            The type to increment.
      */
-    private void incrementMap(HashMap<String, MutableInt> map, String type) {
+    private void incrementIntMap(HashMap<String, MutableInt> map, String type) {
 	if (!map.containsKey(type)) {
 	    map.put(type, new MutableInt());
+	}
+	map.get(type).increment();
+    }
+
+    /**
+     * Increment the counting for this target type.
+     * 
+     * @param map
+     *            The map to use
+     * @param type
+     *            The type to increment.
+     */
+    private void incrementFloatMap(HashMap<String, MutableFloat> map,
+	    String type) {
+	if (!map.containsKey(type)) {
+	    map.put(type, new MutableFloat());
 	}
 	map.get(type).increment();
     }
@@ -179,6 +216,15 @@ public class BasicStatistics {
     }
 
     /**
+     * Return the average number of reports per month
+     * 
+     * @return the counting object
+     */
+    public HashMap<String, MutableFloat> getCountAvgReportsMonth() {
+	return countAvgReportsMonth;
+    }
+
+    /**
      * Return the counting for this target type.
      * 
      * @param map
@@ -187,9 +233,25 @@ public class BasicStatistics {
      *            the target type
      * @return the count
      */
-    public int getCount(HashMap<String, MutableInt> map, String type) {
+    public int getIntCount(HashMap<String, MutableInt> map, String type) {
 	if (map.containsKey(type)) {
 	    return map.get(type).intValue();
+	}
+	return 0;
+    }
+
+    /**
+     * Return the counting for this target type.
+     * 
+     * @param map
+     *            The map to use
+     * @param type
+     *            the target type
+     * @return the count
+     */
+    public float getFloatCount(HashMap<String, MutableFloat> map, String type) {
+	if (map.containsKey(type)) {
+	    return map.get(type).floatValue();
 	}
 	return 0;
     }
