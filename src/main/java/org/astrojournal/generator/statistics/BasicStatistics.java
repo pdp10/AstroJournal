@@ -53,6 +53,11 @@ public class BasicStatistics {
     private HashMap<String, MutableInt> countLocations = new HashMap<String, MutableInt>();
 
     /**
+     * A counter for the reports per year
+     */
+    private HashMap<String, MutableInt> countReportsYear = new HashMap<String, MutableInt>();
+
+    /**
      * Constructor.
      * 
      */
@@ -100,8 +105,16 @@ public class BasicStatistics {
 			}
 		    }
 		}
-
 	    }
+
+	    // extract the reports per year
+	    if (metaData.length > ExtMetaDataCols.DATE_NAME.ordinal()) {
+		entry = metaData[ExtMetaDataCols.DATE_NAME.ordinal()];
+		if (!entry.isEmpty()) {
+		    incrementMap(countReportsYear, entry.substring(6, 10));
+		}
+	    }
+
 	    // extract the location
 	    if (metaData.length > ExtMetaDataCols.LOCATION_NAME.ordinal()) {
 		entry = metaData[ExtMetaDataCols.LOCATION_NAME.ordinal()];
@@ -152,8 +165,17 @@ public class BasicStatistics {
      * 
      * @return the counting object
      */
-    public HashMap<String, MutableInt> getCountLocation() {
+    public HashMap<String, MutableInt> getCountLocations() {
 	return countLocations;
+    }
+
+    /**
+     * Return the counting of reports per year.
+     * 
+     * @return the counting object
+     */
+    public HashMap<String, MutableInt> getCountReportsYear() {
+	return countReportsYear;
     }
 
     /**
@@ -166,8 +188,8 @@ public class BasicStatistics {
      * @return the count
      */
     public int getCount(HashMap<String, MutableInt> map, String type) {
-	if (countType.containsKey(type)) {
-	    return countType.get(type).intValue();
+	if (map.containsKey(type)) {
+	    return map.get(type).intValue();
 	}
 	return 0;
     }
