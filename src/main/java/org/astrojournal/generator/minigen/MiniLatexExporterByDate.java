@@ -38,6 +38,7 @@ import org.astrojournal.generator.Report;
 import org.astrojournal.generator.absgen.LatexExporterByDate;
 import org.astrojournal.generator.headfoot.LatexFooter;
 import org.astrojournal.generator.headfoot.LatexHeader;
+import org.astrojournal.generator.statistics.BasicStatistics;
 import org.astrojournal.utilities.filefilters.LaTeXFilter;
 
 /**
@@ -63,7 +64,7 @@ public class MiniLatexExporterByDate extends LatexExporterByDate {
     }
 
     @Override
-    public boolean generateJournal() {
+    public boolean generateJournal(BasicStatistics basicStatistics) {
 	LatexHeader latexHeader = new LatexHeader();
 	LatexFooter latexFooter = new LatexFooter();
 	Writer writer = null;
@@ -71,7 +72,7 @@ public class MiniLatexExporterByDate extends LatexExporterByDate {
 	    writer = new BufferedWriter(new OutputStreamWriter(
 		    new FileOutputStream(filesLocation + File.separator
 			    + reportFilename), "utf-8"));
-	    writeLatexMain(writer, latexHeader, latexFooter);
+	    writeLatexMain(writer, latexHeader, latexFooter, basicStatistics);
 
 	} catch (IOException ex) {
 	    log.error("Error when opening the file " + filesLocation
@@ -104,7 +105,8 @@ public class MiniLatexExporterByDate extends LatexExporterByDate {
      */
     @Override
     public void writeLatexMain(Writer writer, LatexHeader latexHeader,
-	    LatexFooter latexFooter) throws Exception {
+	    LatexFooter latexFooter, BasicStatistics basicStatistics)
+	    throws Exception {
 
 	// write the Latex Header
 	writer.write(latexHeader.getHeader());

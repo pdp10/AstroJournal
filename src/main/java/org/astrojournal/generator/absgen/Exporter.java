@@ -30,6 +30,7 @@ import java.util.ResourceBundle;
 import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.generator.Report;
+import org.astrojournal.generator.statistics.BasicStatistics;
 
 /**
  * Abstract class of AstroJournal report exporter.
@@ -99,9 +100,12 @@ public abstract class Exporter {
     /**
      * Generate the journal document.
      * 
+     * @param basicStatistics
+     *            The statistics to export.
+     * 
      * @return true if the journal was generated
      */
-    public abstract boolean generateJournal();
+    public abstract boolean generateJournal(BasicStatistics basicStatistics);
 
     /**
      * Run additional post processing commands if necessary.

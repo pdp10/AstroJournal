@@ -30,9 +30,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.Arrays;
+import java.util.HashMap;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.SystemUtils;
+import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.Configuration;
@@ -40,6 +43,7 @@ import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.generator.Report;
 import org.astrojournal.generator.headfoot.LatexFooter;
 import org.astrojournal.generator.headfoot.LatexHeader;
+import org.astrojournal.generator.statistics.BasicStatistics;
 import org.astrojournal.utilities.RunExternalCommand;
 
 /**
@@ -59,6 +63,9 @@ public abstract class LatexExporter extends Exporter {
 
     /** If the LaTeX output should be printed. */
     protected boolean latexOutput = false;
+
+    /** The LaTeX filename for storing the statistics. */
+    protected String basicStatisticsFilename = "BasicStatistics.tex";
 
     /**
      * Default constructor.
@@ -97,7 +104,7 @@ public abstract class LatexExporter extends Exporter {
      * Generate the LaTeX document sorting the observation by decreasing date.
      */
     @Override
-    public boolean generateJournal() {
+    public boolean generateJournal(BasicStatistics basicStatistics) {
 	LatexHeader latexHeader = new LatexHeader(filesLocation,
 		headerFooterFolder, headerFilename);
 	LatexFooter latexFooter = new LatexFooter(filesLocation,
@@ -108,7 +115,7 @@ public abstract class LatexExporter extends Exporter {
 	    writer = new BufferedWriter(new OutputStreamWriter(
 		    new FileOutputStream(filesLocation + File.separator
 			    + reportFilename), "utf-8"));
-	    writeLatexMain(writer, latexHeader, latexFooter);
+	    writeLatexMain(writer, latexHeader, latexFooter, basicStatistics);
 
 	} catch (IOException ex) {
 	    log.error("Error when opening the file " + filesLocation
@@ -141,10 +148,13 @@ public abstract class LatexExporter extends Exporter {
      * @param writer
      * @param latexHeader
      * @param latexFooter
+     * @param basicStatistics
+     *            The statistics to write
      * @throws Exception
      */
     public abstract void writeLatexMain(Writer writer, LatexHeader latexHeader,
-	    LatexFooter latexFooter) throws Exception;
+	    LatexFooter latexFooter, BasicStatistics basicStatistics)
+	    throws Exception;
 
     /**
      * This method contains the LaTeX code for the document content.
@@ -155,6 +165,68 @@ public abstract class LatexExporter extends Exporter {
      */
     public abstract void writeLatexContent(Writer writer, Report report)
 	    throws IOException;
+
+    /**
+     * Write the statistics to a LaTeX file.
+     * 
+     * @param basicStatistics
+     *            The statistics to write
+     * 
+     * @return true if the file was written correctly
+     */
+    public boolean writeLatexStatistics(BasicStatistics basicStatistics) {
+	Writer writer = null;
+	try {
+	    writer = new BufferedWriter(new OutputStreamWriter(
+		    new FileOutputStream(new File(filesLocation
+			    + File.separator + reportFolder,
+			    basicStatisticsFilename)), "utf-8"));
+
+	    log.debug("Writing basic statistics for the target type.");
+	    writer.write("% Basic statistics for the target type. \n");
+	    writer.write("\\begin{tabular}[t]{ll} \n");
+	    writer.write("\\hline \n");
+	    writer.write("{\\bf Target Type } & {\\bf Count (\\#)} \\\\ \n");
+	    writer.write("\\hline \n");
+
+	    // Let's sort the elements for improving readability
+	    HashMap<String, MutableInt> countType = basicStatistics
+		    .getCountType();
+	    String[] sortedKeys = countType.keySet().toArray(new String[0]);
+	    Arrays.sort(sortedKeys);
+	    for (String key : sortedKeys) {
+		log.debug("Count(" + key.toUpperCase() + "): "
+			+ basicStatistics.getCount(countType, key));
+		writer.write(key.toUpperCase() + " & "
+			+ basicStatistics.getCount(countType, key) + "\\\\ \n");
+	    }
+	    writer.write("\\hline \n");
+	    writer.write("\\end{tabular} \n");
+	    writer.write("\\clearpage \n\n");
+	} catch (IOException ex) {
+	    log.error("Error when opening the file " + filesLocation
+		    + File.separator + reportFolder + File.separator
+		    + basicStatisticsFilename);
+	    log.debug("Error when opening the file " + filesLocation
+		    + File.separator + reportFolder + File.separator
+		    + basicStatisticsFilename, ex);
+	    return false;
+	} catch (Exception ex) {
+	    log.debug(ex);
+	    log.error(ex, ex);
+	    return false;
+	} finally {
+	    try {
+		if (writer != null)
+		    writer.close();
+	    } catch (Exception ex) {
+		log.debug(ex);
+		log.error(ex, ex);
+		return false;
+	    }
+	}
+	return true;
+    }
 
     @Override
     public void postProcessing() throws IOException {
