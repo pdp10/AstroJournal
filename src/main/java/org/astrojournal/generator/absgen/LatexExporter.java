@@ -30,11 +30,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.text.DateFormatSymbols;
 import java.util.Arrays;
 import java.util.HashMap;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.SystemUtils;
+import org.apache.commons.lang3.mutable.MutableFloat;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -191,7 +193,7 @@ public abstract class LatexExporter extends Exporter {
 	    // Type counts
 	    writer.write("\\begin{tabular}[t]{ll} \n");
 	    writer.write("\\hline \n");
-	    writer.write("{\\bf Target Type } & {\\bf Count (\\#)} \\\\ \n");
+	    writer.write("{\\bf Target Type } & {\\bf Count} \\\\ \n");
 	    writer.write("\\hline \n");
 	    // Let's sort the elements for improving readability
 	    HashMap<String, MutableInt> countType = basicStatistics
@@ -200,9 +202,10 @@ public abstract class LatexExporter extends Exporter {
 	    Arrays.sort(sortedKeys);
 	    for (String key : sortedKeys) {
 		log.debug("Count(" + key.toUpperCase() + "): "
-			+ basicStatistics.getCount(countType, key));
+			+ basicStatistics.getIntCount(countType, key));
 		writer.write(key.toUpperCase() + " & "
-			+ basicStatistics.getCount(countType, key) + "\\\\ \n");
+			+ basicStatistics.getIntCount(countType, key)
+			+ "\\\\ \n");
 	    }
 	    writer.write("\\hline \n");
 	    writer.write("\\end{tabular} \n");
@@ -211,7 +214,7 @@ public abstract class LatexExporter extends Exporter {
 	    // Location counts
 	    writer.write("\\begin{tabular}[t]{ll} \n");
 	    writer.write("\\hline \n");
-	    writer.write("{\\bf Location } & {\\bf Count (\\#)} \\\\ \n");
+	    writer.write("{\\bf Location } & {\\bf Reports} \\\\ \n");
 	    writer.write("\\hline \n");
 	    // Let's sort the elements for improving readability
 	    HashMap<String, MutableInt> countLocations = basicStatistics
@@ -219,10 +222,15 @@ public abstract class LatexExporter extends Exporter {
 	    sortedKeys = countLocations.keySet().toArray(new String[0]);
 	    Arrays.sort(sortedKeys);
 	    for (String key : sortedKeys) {
-		log.debug("Count(" + key.toUpperCase() + "): "
-			+ basicStatistics.getCount(countLocations, key));
-		writer.write(key.toUpperCase() + " & "
-			+ basicStatistics.getCount(countLocations, key)
+		// Only print the first 30 chars.
+		log.debug("Count("
+			+ key.substring(0, Math.min(30, key.length()))
+				.toUpperCase() + "): "
+			+ basicStatistics.getIntCount(countLocations, key));
+		writer.write(key.substring(0, Math.min(30, key.length()))
+			.toUpperCase()
+			+ " & "
+			+ basicStatistics.getIntCount(countLocations, key)
 			+ "\\\\ \n");
 	    }
 	    writer.write("\\hline \n");
@@ -232,7 +240,7 @@ public abstract class LatexExporter extends Exporter {
 	    // Reports per year
 	    writer.write("\\begin{tabular}[t]{ll} \n");
 	    writer.write("\\hline \n");
-	    writer.write("{\\bf Target Type } & {\\bf Count (\\#)} \\\\ \n");
+	    writer.write("{\\bf Year } & {\\bf Reports} \\\\ \n");
 	    writer.write("\\hline \n");
 	    // Let's sort the elements for improving readability
 	    HashMap<String, MutableInt> countReportsYear = basicStatistics
@@ -241,10 +249,37 @@ public abstract class LatexExporter extends Exporter {
 	    Arrays.sort(sortedKeys);
 	    for (String key : sortedKeys) {
 		log.debug("Count(" + key.toUpperCase() + "): "
-			+ basicStatistics.getCount(countReportsYear, key));
+			+ basicStatistics.getIntCount(countReportsYear, key));
 		writer.write(key.toUpperCase() + " & "
-			+ basicStatistics.getCount(countReportsYear, key)
+			+ basicStatistics.getIntCount(countReportsYear, key)
 			+ "\\\\ \n");
+	    }
+	    writer.write("\\hline \n");
+	    writer.write("\\end{tabular} \n");
+	    writer.write("\\vspace{1cm} \n");
+
+	    // Average reports per month
+	    writer.write("\\begin{tabular}[t]{ll} \n");
+	    writer.write("\\hline \n");
+	    writer.write("{\\bf Month } & {\\bf Avg Reports} \\\\ \n");
+	    writer.write("\\hline \n");
+	    // Let's sort the elements for improving readability
+	    HashMap<String, MutableFloat> countAvgReportsMonth = basicStatistics
+		    .getCountAvgReportsMonth();
+	    sortedKeys = countAvgReportsMonth.keySet().toArray(new String[0]);
+	    Arrays.sort(sortedKeys);
+	    for (String key : sortedKeys) {
+		log.debug("Count("
+			+ new DateFormatSymbols().getMonths()[Integer
+				.parseInt(key) - 1]
+			+ "): "
+			+ basicStatistics.getFloatCount(countAvgReportsMonth,
+				key));
+		writer.write(new DateFormatSymbols().getMonths()[Integer
+			.parseInt(key) - 1]
+			+ " & "
+			+ basicStatistics.getFloatCount(countAvgReportsMonth,
+				key) + "\\\\ \n");
 	    }
 	    writer.write("\\hline \n");
 	    writer.write("\\end{tabular} \n");
