@@ -175,6 +175,8 @@ public abstract class LatexExporter extends Exporter {
      * @return true if the file was written correctly
      */
     public boolean writeLatexStatistics(BasicStatistics basicStatistics) {
+
+	// TODO THIS CODE SHOULD BE PUT IN A SEPARATE CLASS.
 	Writer writer = null;
 	try {
 	    writer = new BufferedWriter(new OutputStreamWriter(
@@ -183,12 +185,14 @@ public abstract class LatexExporter extends Exporter {
 			    basicStatisticsFilename)), "utf-8"));
 
 	    log.debug("Writing basic statistics for the target type.");
+
 	    writer.write("% Basic statistics for the target type. \n");
+
+	    // Type counts
 	    writer.write("\\begin{tabular}[t]{ll} \n");
 	    writer.write("\\hline \n");
 	    writer.write("{\\bf Target Type } & {\\bf Count (\\#)} \\\\ \n");
 	    writer.write("\\hline \n");
-
 	    // Let's sort the elements for improving readability
 	    HashMap<String, MutableInt> countType = basicStatistics
 		    .getCountType();
@@ -202,7 +206,52 @@ public abstract class LatexExporter extends Exporter {
 	    }
 	    writer.write("\\hline \n");
 	    writer.write("\\end{tabular} \n");
+	    writer.write("\\vspace{1cm} \n");
+
+	    // Location counts
+	    writer.write("\\begin{tabular}[t]{ll} \n");
+	    writer.write("\\hline \n");
+	    writer.write("{\\bf Location } & {\\bf Count (\\#)} \\\\ \n");
+	    writer.write("\\hline \n");
+	    // Let's sort the elements for improving readability
+	    HashMap<String, MutableInt> countLocations = basicStatistics
+		    .getCountLocations();
+	    sortedKeys = countLocations.keySet().toArray(new String[0]);
+	    Arrays.sort(sortedKeys);
+	    for (String key : sortedKeys) {
+		log.debug("Count(" + key.toUpperCase() + "): "
+			+ basicStatistics.getCount(countLocations, key));
+		writer.write(key.toUpperCase() + " & "
+			+ basicStatistics.getCount(countLocations, key)
+			+ "\\\\ \n");
+	    }
+	    writer.write("\\hline \n");
+	    writer.write("\\end{tabular} \n");
+	    writer.write("\\vspace{1cm} \n");
+
+	    // Reports per year
+	    writer.write("\\begin{tabular}[t]{ll} \n");
+	    writer.write("\\hline \n");
+	    writer.write("{\\bf Target Type } & {\\bf Count (\\#)} \\\\ \n");
+	    writer.write("\\hline \n");
+	    // Let's sort the elements for improving readability
+	    HashMap<String, MutableInt> countReportsYear = basicStatistics
+		    .getCountReportsYear();
+	    sortedKeys = countReportsYear.keySet().toArray(new String[0]);
+	    Arrays.sort(sortedKeys);
+	    for (String key : sortedKeys) {
+		log.debug("Count(" + key.toUpperCase() + "): "
+			+ basicStatistics.getCount(countReportsYear, key));
+		writer.write(key.toUpperCase() + " & "
+			+ basicStatistics.getCount(countReportsYear, key)
+			+ "\\\\ \n");
+	    }
+	    writer.write("\\hline \n");
+	    writer.write("\\end{tabular} \n");
+	    writer.write("\\vspace{1cm} \n");
+
 	    writer.write("\\clearpage \n\n");
+
 	} catch (IOException ex) {
 	    log.error("Error when opening the file " + filesLocation
 		    + File.separator + reportFolder + File.separator
