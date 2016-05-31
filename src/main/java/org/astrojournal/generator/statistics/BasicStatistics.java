@@ -193,7 +193,7 @@ public class BasicStatistics {
      * 
      * @return the counting object
      */
-    public HashMap<String, MutableInt> getCountType() {
+    public HashMap<String, MutableInt> getTypeCount() {
 	return countType;
     }
 
@@ -202,7 +202,7 @@ public class BasicStatistics {
      * 
      * @return the counting object
      */
-    public HashMap<String, MutableInt> getCountLocations() {
+    public HashMap<String, MutableInt> getLocationCount() {
 	return countLocations;
     }
 
@@ -211,7 +211,7 @@ public class BasicStatistics {
      * 
      * @return the counting object
      */
-    public HashMap<String, MutableInt> getCountReportsYear() {
+    public HashMap<String, MutableInt> getReportsYearCount() {
 	return countReportsYear;
     }
 
@@ -220,7 +220,7 @@ public class BasicStatistics {
      * 
      * @return the counting object
      */
-    public HashMap<String, MutableFloat> getCountAvgReportsMonth() {
+    public HashMap<String, MutableFloat> getMonthlyReportsAvg() {
 	return countAvgReportsMonth;
     }
 

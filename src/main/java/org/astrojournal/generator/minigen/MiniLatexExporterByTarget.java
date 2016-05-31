@@ -211,7 +211,7 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
     }
 
     @Override
-    protected String writeSectionName(Writer writer, String type, String catName)
+    public String writeSectionName(Writer writer, String type, String catName)
 	    throws IOException {
 	if (!type.equals(catName)) {
 	    type = catName;
@@ -221,7 +221,7 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
     }
 
     @Override
-    protected void writeSectionStatistics(Writer writer) throws Exception {
+    public void writeSectionStatistics(Writer writer) throws Exception {
 	writer.write("\\clearpage\n");
 	writer.write("\\section*{Basic Statistics}\n");
 	// include the file removing the extension .tex

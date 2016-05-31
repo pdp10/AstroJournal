@@ -225,7 +225,7 @@ public abstract class LatexExporterByTarget extends LatexExporter {
      * @return type
      * @throws IOException
      */
-    protected String writeSectionName(Writer writer, String type, String catName)
+    public String writeSectionName(Writer writer, String type, String catName)
 	    throws IOException {
 	if (!type.equals(catName)) {
 	    type = catName;
@@ -233,23 +233,6 @@ public abstract class LatexExporterByTarget extends LatexExporter {
 	    writer.write("\\section{" + type + "}\n");
 	}
 	return type;
-    }
-
-    /**
-     * Write the statistics section.
-     * 
-     * @param writer
-     *            the Writer
-     * @throws Exception
-     */
-    protected void writeSectionStatistics(Writer writer) throws Exception {
-	writer.write("\\clearpage\n");
-	writer.write("\\section{Basic Statistics}\n");
-	// include the file removing the extension .tex
-	writer.write("\\begin{center} \n");
-	writer.write("\\input{" + reportFolder + "/"
-		+ basicStatisticsFilename.replaceFirst("[.][^.]+$", "") + "}\n");
-	writer.write("\\end{center} \n");
     }
 
     /**
