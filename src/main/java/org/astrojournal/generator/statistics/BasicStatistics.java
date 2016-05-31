@@ -23,6 +23,7 @@
  */
 package org.astrojournal.generator.statistics;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -42,26 +43,29 @@ import org.astrojournal.generator.extgen.ExtMetaDataCols;
  * @since 1.0
  */
 public class BasicStatistics {
+    // TODO : consider splitting these statistics in different files.
 
     /**
      * A counter for each type of object.
      */
-    private HashMap<String, MutableInt> countType = new HashMap<String, MutableInt>();
+    private HashMap<String, MutableInt> typeCount = new HashMap<String, MutableInt>();
 
     /**
-     * A counter for each location.
+     * A counter for each location including information about seeing,
+     * transparency and darkness.
      */
     private HashMap<String, MutableInt> countLocations = new HashMap<String, MutableInt>();
+    private HashMap<String, ArrayList<ArrayList<Float>>> locationWeatherCount = new HashMap<String, ArrayList<ArrayList<Float>>>();
 
     /**
      * A counter for the reports per year
      */
-    private HashMap<String, MutableInt> countReportsYear = new HashMap<String, MutableInt>();
+    private HashMap<String, MutableInt> reportsYearCount = new HashMap<String, MutableInt>();
 
     /**
      * A counter for the average number of reports for each month.
      */
-    private HashMap<String, MutableFloat> countAvgReportsMonth = new HashMap<String, MutableFloat>();
+    private HashMap<String, MutableFloat> monthlyReportsAvg = new HashMap<String, MutableFloat>();
 
     /**
      * Constructor.
@@ -74,7 +78,7 @@ public class BasicStatistics {
      * Reset the statistics.
      */
     public void reset() {
-	countType.clear();
+	typeCount.clear();
 	countLocations.clear();
     }
 
@@ -107,7 +111,7 @@ public class BasicStatistics {
 					.ordinal()].trim().toLowerCase());
 			entry = targetEntry[ExtDataCols.TYPE_NAME.ordinal()];
 			if (!entry.isEmpty()) {
-			    incrementIntMap(countType, entry.trim()
+			    incrementIntMap(typeCount, entry.trim()
 				    .toLowerCase());
 			}
 		    }
@@ -118,43 +122,84 @@ public class BasicStatistics {
 	    if (metaData.length > ExtMetaDataCols.DATE_NAME.ordinal()) {
 		entry = metaData[ExtMetaDataCols.DATE_NAME.ordinal()];
 		if (!entry.isEmpty()) {
-		    incrementIntMap(countReportsYear, entry.substring(6, 10));
-		    incrementFloatMap(countAvgReportsMonth,
-			    entry.substring(3, 5));
+		    incrementIntMap(reportsYearCount, entry.substring(6, 10));
+		    incrementFloatMap(monthlyReportsAvg, entry.substring(3, 5));
 		}
 	    }
 
 	    // extract the location
 	    if (metaData.length > ExtMetaDataCols.LOCATION_NAME.ordinal()) {
 		entry = metaData[ExtMetaDataCols.LOCATION_NAME.ordinal()];
+
+		float seeing = 0.0f, transparency = 0.0f, darkness = 0.0f;
+		String number;
+		if (metaData.length > ExtMetaDataCols.SEEING_NAME.ordinal()) {
+		    try {
+			number = metaData[ExtMetaDataCols.SEEING_NAME.ordinal()];
+			seeing = Float.parseFloat(number.substring(0,
+				Math.min(1, number.length())));
+		    } catch (NumberFormatException e) {
+			seeing = 0.0f;
+		    }
+		}
+		if (metaData.length > ExtMetaDataCols.TRANSPARENCY_NAME
+			.ordinal()) {
+		    try {
+			number = metaData[ExtMetaDataCols.TRANSPARENCY_NAME
+				.ordinal()];
+			transparency = Float.parseFloat(number.substring(0,
+				Math.min(1, number.length())));
+		    } catch (NumberFormatException e) {
+			transparency = 0.0f;
+		    }
+		}
+		if (metaData.length > ExtMetaDataCols.DARKNESS_NAME.ordinal()) {
+		    try {
+			number = metaData[ExtMetaDataCols.DARKNESS_NAME
+				.ordinal()];
+			darkness = Float.parseFloat(number.substring(0,
+				Math.min(4, number.length())));
+		    } catch (NumberFormatException e) {
+			darkness = 0.0f;
+		    }
+		}
 		if (!entry.isEmpty()) {
 		    incrementIntMap(countLocations, entry.trim().toLowerCase());
+		    incrementLocationWeatherMap(entry.trim().toLowerCase(),
+			    seeing, transparency, darkness);
 		}
 	    }
-
-	    /**
-	     * CHECK THE SIZE OF METADATA - SEE ABOVE!! entry =
-	     * metaData[ExtMetaDataCols.SEEING_NAME.ordinal()]; if
-	     * (!entry.isEmpty()) { } entry =
-	     * metaData[ExtMetaDataCols.TRANSPARENCY_NAME.ordinal()]; if
-	     * (!entry.isEmpty()) { } entry =
-	     * metaData[ExtMetaDataCols.DARKNESS_NAME.ordinal()]; if
-	     * (!entry.isEmpty()) { }
-	     */
 	}
 
 	// post processing
 
 	// Average reports per month
 	// Scale by the number of years
-	String[] keys = countAvgReportsMonth.keySet().toArray(new String[0]);
+	String[] keys = monthlyReportsAvg.keySet().toArray(new String[0]);
 	for (String key : keys) {
-	    countAvgReportsMonth.get(key).setValue(
-		    countAvgReportsMonth.get(key).floatValue()
-			    / countReportsYear.size());
+	    monthlyReportsAvg.get(key).setValue(
+		    monthlyReportsAvg.get(key).floatValue()
+			    / reportsYearCount.size());
 	}
 
 	return true;
+    }
+
+    private void incrementLocationWeatherMap(String type, float seeing,
+	    float transparency, float darkness) {
+	if (!locationWeatherCount.containsKey(type)) {
+	    locationWeatherCount.put(type, new ArrayList<ArrayList<Float>>(3));
+	    locationWeatherCount.get(type).add(new ArrayList<Float>());
+	    locationWeatherCount.get(type).add(new ArrayList<Float>());
+	    locationWeatherCount.get(type).add(new ArrayList<Float>());
+	}
+
+	if (seeing != 0.0f)
+	    locationWeatherCount.get(type).get(0).add(new Float(seeing));
+	if (transparency != 0.0f)
+	    locationWeatherCount.get(type).get(1).add(new Float(transparency));
+	if (darkness != 0.0f)
+	    locationWeatherCount.get(type).get(2).add(new Float(darkness));
     }
 
     /**
@@ -194,7 +239,7 @@ public class BasicStatistics {
      * @return the counting object
      */
     public HashMap<String, MutableInt> getTypeCount() {
-	return countType;
+	return typeCount;
     }
 
     /**
@@ -207,12 +252,22 @@ public class BasicStatistics {
     }
 
     /**
+     * Return the counting for the locations with relative measures about
+     * seeing, transparency and darkness.
+     * 
+     * @return the counting object
+     */
+    public HashMap<String, ArrayList<ArrayList<Float>>> getLocationWeatherCount() {
+	return locationWeatherCount;
+    }
+
+    /**
      * Return the counting of reports per year.
      * 
      * @return the counting object
      */
     public HashMap<String, MutableInt> getReportsYearCount() {
-	return countReportsYear;
+	return reportsYearCount;
     }
 
     /**
@@ -221,7 +276,7 @@ public class BasicStatistics {
      * @return the counting object
      */
     public HashMap<String, MutableFloat> getMonthlyReportsAvg() {
-	return countAvgReportsMonth;
+	return monthlyReportsAvg;
     }
 
     /**
@@ -256,4 +311,26 @@ public class BasicStatistics {
 	return 0;
     }
 
+    /**
+     * Return the averages for seeing (0), transparency (1) and darkness (2).
+     * 
+     * @param type
+     *            the target type
+     * @param index
+     *            the index of the reader. Seeing (0), transparency (1) and
+     *            darkness (2).
+     * @return the reading average
+     */
+    public float getLocationWeatherAvgs(String type, int index) {
+	if (locationWeatherCount.containsKey(type) && index >= 0 && index <= 2) {
+	    ArrayList<Float> reading = locationWeatherCount.get(type)
+		    .get(index);
+	    float sum = 0;
+	    for (Float f : reading) {
+		sum = sum + f.floatValue();
+	    }
+	    return sum / reading.size();
+	}
+	return 0;
+    }
 }
