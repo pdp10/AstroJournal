@@ -188,7 +188,7 @@ public class LatexStatistics {
 	// Location counts
 	writer.write("\\begin{tabular}[t]{lllll} \n");
 	writer.write("\\hline \n");
-	writer.write("{\\bf Location } & {\\bf Reports} & {\\bf Seeing} & {\\bf Transparency} & {\\bf Darkness}\\\\ \n");
+	writer.write("{\\bf Location } & {\\bf Reports} & {\\bf AvgSeeing} & {\\bf AvgTransparency} & {\\bf AvgDarkness}\\\\ \n");
 	writer.write("\\hline \n");
 	// Let's sort the elements for improving readability
 	HashMap<String, MutableInt> locationCount = basicStatistics
