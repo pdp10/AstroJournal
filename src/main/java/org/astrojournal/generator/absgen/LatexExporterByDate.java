@@ -152,6 +152,10 @@ public abstract class LatexExporterByDate extends LatexExporter {
 	// write the Latex Header
 	writer.write(latexHeader.getHeader());
 
+	// write target type statistics
+	writeSectionStatistics(writer);
+	writeLatexStatistics(basicStatistics);
+
 	// write the Latex Body
 	// Write the observation reports
 	writer.write("\\section{Observation reports}\n");

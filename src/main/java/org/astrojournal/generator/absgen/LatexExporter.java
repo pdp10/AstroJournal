@@ -30,14 +30,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.text.DateFormatSymbols;
-import java.util.Arrays;
-import java.util.HashMap;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.SystemUtils;
-import org.apache.commons.lang3.mutable.MutableFloat;
-import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.astrojournal.configuration.Configuration;
@@ -46,6 +41,7 @@ import org.astrojournal.generator.Report;
 import org.astrojournal.generator.headfoot.LatexFooter;
 import org.astrojournal.generator.headfoot.LatexHeader;
 import org.astrojournal.generator.statistics.BasicStatistics;
+import org.astrojournal.generator.statistics.LatexStatistics;
 import org.astrojournal.utilities.RunExternalCommand;
 
 /**
@@ -169,6 +165,23 @@ public abstract class LatexExporter extends Exporter {
 	    throws IOException;
 
     /**
+     * Write the statistics section.
+     * 
+     * @param writer
+     *            the Writer
+     * @throws Exception
+     */
+    public void writeSectionStatistics(Writer writer) throws Exception {
+	writer.write("\\clearpage\n");
+	writer.write("\\section{Basic Statistics}\n");
+	// include the file removing the extension .tex
+	writer.write("\\begin{center} \n");
+	writer.write("\\input{" + reportFolder + "/"
+		+ basicStatisticsFilename.replaceFirst("[.][^.]+$", "") + "}\n");
+	writer.write("\\end{center} \n");
+    }
+
+    /**
      * Write the statistics to a LaTeX file.
      * 
      * @param basicStatistics
@@ -177,116 +190,14 @@ public abstract class LatexExporter extends Exporter {
      * @return true if the file was written correctly
      */
     public boolean writeLatexStatistics(BasicStatistics basicStatistics) {
-
-	// TODO THIS CODE SHOULD BE PUT IN A SEPARATE CLASS.
 	Writer writer = null;
 	try {
 	    writer = new BufferedWriter(new OutputStreamWriter(
 		    new FileOutputStream(new File(filesLocation
 			    + File.separator + reportFolder,
 			    basicStatisticsFilename)), "utf-8"));
-
-	    log.debug("Writing basic statistics for the target type.");
-
-	    writer.write("% Basic statistics for the target type. \n");
-
-	    // Type counts
-	    writer.write("\\begin{tabular}[t]{ll} \n");
-	    writer.write("\\hline \n");
-	    writer.write("{\\bf Target Type } & {\\bf Count} \\\\ \n");
-	    writer.write("\\hline \n");
-	    // Let's sort the elements for improving readability
-	    HashMap<String, MutableInt> countType = basicStatistics
-		    .getCountType();
-	    String[] sortedKeys = countType.keySet().toArray(new String[0]);
-	    Arrays.sort(sortedKeys);
-	    for (String key : sortedKeys) {
-		log.debug("Count(" + key.toUpperCase() + "): "
-			+ basicStatistics.getIntCount(countType, key));
-		writer.write(key.toUpperCase() + " & "
-			+ basicStatistics.getIntCount(countType, key)
-			+ "\\\\ \n");
-	    }
-	    writer.write("\\hline \n");
-	    writer.write("\\end{tabular} \n");
-	    writer.write("\\vspace{1cm} \n");
-
-	    // Location counts
-	    writer.write("\\begin{tabular}[t]{ll} \n");
-	    writer.write("\\hline \n");
-	    writer.write("{\\bf Location } & {\\bf Reports} \\\\ \n");
-	    writer.write("\\hline \n");
-	    // Let's sort the elements for improving readability
-	    HashMap<String, MutableInt> countLocations = basicStatistics
-		    .getCountLocations();
-	    sortedKeys = countLocations.keySet().toArray(new String[0]);
-	    Arrays.sort(sortedKeys);
-	    for (String key : sortedKeys) {
-		// Only print the first 30 chars.
-		log.debug("Count("
-			+ key.substring(0, Math.min(30, key.length()))
-				.toUpperCase() + "): "
-			+ basicStatistics.getIntCount(countLocations, key));
-		writer.write(key.substring(0, Math.min(30, key.length()))
-			.toUpperCase()
-			+ " & "
-			+ basicStatistics.getIntCount(countLocations, key)
-			+ "\\\\ \n");
-	    }
-	    writer.write("\\hline \n");
-	    writer.write("\\end{tabular} \n");
-	    writer.write("\\vspace{1cm} \n");
-
-	    // Reports per year
-	    writer.write("\\begin{tabular}[t]{ll} \n");
-	    writer.write("\\hline \n");
-	    writer.write("{\\bf Year } & {\\bf Reports} \\\\ \n");
-	    writer.write("\\hline \n");
-	    // Let's sort the elements for improving readability
-	    HashMap<String, MutableInt> countReportsYear = basicStatistics
-		    .getCountReportsYear();
-	    sortedKeys = countReportsYear.keySet().toArray(new String[0]);
-	    Arrays.sort(sortedKeys);
-	    for (String key : sortedKeys) {
-		log.debug("Count(" + key.toUpperCase() + "): "
-			+ basicStatistics.getIntCount(countReportsYear, key));
-		writer.write(key.toUpperCase() + " & "
-			+ basicStatistics.getIntCount(countReportsYear, key)
-			+ "\\\\ \n");
-	    }
-	    writer.write("\\hline \n");
-	    writer.write("\\end{tabular} \n");
-	    writer.write("\\vspace{1cm} \n");
-
-	    // Average reports per month
-	    writer.write("\\begin{tabular}[t]{ll} \n");
-	    writer.write("\\hline \n");
-	    writer.write("{\\bf Month } & {\\bf Avg Reports} \\\\ \n");
-	    writer.write("\\hline \n");
-	    // Let's sort the elements for improving readability
-	    HashMap<String, MutableFloat> countAvgReportsMonth = basicStatistics
-		    .getCountAvgReportsMonth();
-	    sortedKeys = countAvgReportsMonth.keySet().toArray(new String[0]);
-	    Arrays.sort(sortedKeys);
-	    for (String key : sortedKeys) {
-		log.debug("Count("
-			+ new DateFormatSymbols().getMonths()[Integer
-				.parseInt(key) - 1]
-			+ "): "
-			+ basicStatistics.getFloatCount(countAvgReportsMonth,
-				key));
-		writer.write(new DateFormatSymbols().getMonths()[Integer
-			.parseInt(key) - 1]
-			+ " & "
-			+ basicStatistics.getFloatCount(countAvgReportsMonth,
-				key) + "\\\\ \n");
-	    }
-	    writer.write("\\hline \n");
-	    writer.write("\\end{tabular} \n");
-	    writer.write("\\vspace{1cm} \n");
-
-	    writer.write("\\clearpage \n\n");
-
+	    LatexStatistics latexStatistics = new LatexStatistics();
+	    latexStatistics.writeAll(writer, basicStatistics);
 	} catch (IOException ex) {
 	    log.error("Error when opening the file " + filesLocation
 		    + File.separator + reportFolder + File.separator
@@ -303,10 +214,7 @@ public abstract class LatexExporter extends Exporter {
 	    try {
 		if (writer != null)
 		    writer.close();
-	    } catch (Exception ex) {
-		log.debug(ex);
-		log.error(ex, ex);
-		return false;
+	    } catch (IOException e) {
 	    }
 	}
 	return true;
