@@ -27,6 +27,7 @@ package org.astrojournal.generator.statistics;
 import java.io.IOException;
 import java.io.Writer;
 import java.text.DateFormatSymbols;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -79,7 +80,7 @@ public class LatexStatistics {
 	value = value && writeTypeCounts(writer, basicStatistics);
 	writer.write("\\vspace{1cm} \n");
 
-	value = value && writeLocationCount(writer, basicStatistics);
+	writeLocationWeatherAvg(writer, basicStatistics);
 	writer.write("\\vspace{1cm} \n");
 
 	value = value && writeReportsYearCount(writer, basicStatistics);
@@ -162,6 +163,60 @@ public class LatexStatistics {
 		    .toUpperCase()
 		    + " & "
 		    + basicStatistics.getIntCount(locationCount, key)
+		    + "\\\\ \n");
+	}
+	writer.write("\\hline \n");
+	writer.write("\\end{tabular} \n");
+	return true;
+    }
+
+    /**
+     * Write the location count with weather information to a LaTeX file.
+     * 
+     * @param writer
+     *            The writer to write the statistics in LaTeX format.
+     * 
+     * @param basicStatistics
+     *            The statistics to write
+     * 
+     * @return true if the file was written correctly
+     * @throws IOException
+     *             if the statistics are not written correctly.
+     */
+    public boolean writeLocationWeatherAvg(Writer writer,
+	    BasicStatistics basicStatistics) throws IOException {
+	// Location counts
+	writer.write("\\begin{tabular}[t]{lllll} \n");
+	writer.write("\\hline \n");
+	writer.write("{\\bf Location } & {\\bf Reports} & {\\bf Seeing} & {\\bf Transparency} & {\\bf Darkness}\\\\ \n");
+	writer.write("\\hline \n");
+	// Let's sort the elements for improving readability
+	HashMap<String, MutableInt> locationCount = basicStatistics
+		.getLocationCount();
+	HashMap<String, ArrayList<ArrayList<Float>>> locationWeatherCount = basicStatistics
+		.getLocationWeatherCount();
+	String[] sortedKeys = locationWeatherCount.keySet().toArray(
+		new String[0]);
+	Arrays.sort(sortedKeys);
+	for (String key : sortedKeys) {
+	    // Only print the first 30 chars.
+	    log.debug("Count("
+		    + key.substring(0, Math.min(30, key.length()))
+			    .toUpperCase() + "): "
+		    + basicStatistics.getIntCount(locationCount, key) + ", "
+		    + basicStatistics.getLocationWeatherAvgs(key, 0) + ", "
+		    + basicStatistics.getLocationWeatherAvgs(key, 1) + ", "
+		    + basicStatistics.getLocationWeatherAvgs(key, 2));
+	    writer.write(key.substring(0, Math.min(30, key.length()))
+		    .toUpperCase()
+		    + " & "
+		    + basicStatistics.getIntCount(locationCount, key)
+		    + " & "
+		    + basicStatistics.getLocationWeatherAvgs(key, 0)
+		    + " & "
+		    + basicStatistics.getLocationWeatherAvgs(key, 1)
+		    + " & "
+		    + basicStatistics.getLocationWeatherAvgs(key, 2)
 		    + "\\\\ \n");
 	}
 	writer.write("\\hline \n");
