@@ -96,11 +96,23 @@ public interface Generator {
     public void resetExporters();
 
     /**
+     * Reset the Statistics
+     */
+    public void resetStatistics();
+
+    /**
      * Export the reports using the available Importers.
      * 
      * @return true if the reports have been imported.
      */
     public boolean ajImport();
+
+    /**
+     * Extract the statistics.
+     * 
+     * @return true if the statistics have been extracted.
+     */
+    public boolean ajStatistics();
 
     /**
      * Export the reports using the available Exporters.
