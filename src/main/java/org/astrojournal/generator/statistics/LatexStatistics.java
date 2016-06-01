@@ -111,7 +111,7 @@ public class LatexStatistics {
 	    BasicStatistics basicStatistics) throws IOException {
 	writer.write("\\begin{tabular}[t]{ll} \n");
 	writer.write("\\hline \n");
-	writer.write("{\\bf Target Type } & {\\bf Count} \\\\ \n");
+	writer.write("{\\bf Target Type} & {\\bf Count} \\\\ \n");
 	writer.write("\\hline \n");
 	// Let's sort the elements for improving readability
 	HashMap<String, MutableInt> typeCount = basicStatistics.getTypeCount();
@@ -146,7 +146,7 @@ public class LatexStatistics {
 	// Location counts
 	writer.write("\\begin{tabular}[t]{ll} \n");
 	writer.write("\\hline \n");
-	writer.write("{\\bf Location } & {\\bf Reports} \\\\ \n");
+	writer.write("{\\bf Location} & {\\bf Reports} \\\\ \n");
 	writer.write("\\hline \n");
 	// Let's sort the elements for improving readability
 	HashMap<String, MutableInt> locationCount = basicStatistics
@@ -188,7 +188,7 @@ public class LatexStatistics {
 	// Location counts
 	writer.write("\\begin{tabular}[t]{lllll} \n");
 	writer.write("\\hline \n");
-	writer.write("{\\bf Location } & {\\bf Reports} & {\\bf AvgSeeing} & {\\bf AvgTransparency} & {\\bf AvgDarkness}\\\\ \n");
+	writer.write("{\\bf Location} & {\\bf Reports} & {\\bf AvgSeeing} & {\\bf AvgTransparency} & {\\bf AvgDarkness}\\\\ \n");
 	writer.write("\\hline \n");
 	// Let's sort the elements for improving readability
 	HashMap<String, MutableInt> locationCount = basicStatistics
@@ -242,7 +242,7 @@ public class LatexStatistics {
 	// Reports per year
 	writer.write("\\begin{tabular}[t]{ll} \n");
 	writer.write("\\hline \n");
-	writer.write("{\\bf Year } & {\\bf Reports} \\\\ \n");
+	writer.write("{\\bf Year} & {\\bf Reports} \\\\ \n");
 	writer.write("\\hline \n");
 	// Let's sort the elements for improving readability
 	HashMap<String, MutableInt> reportsYearCount = basicStatistics
@@ -280,7 +280,7 @@ public class LatexStatistics {
 	// Average reports per month
 	writer.write("\\begin{tabular}[t]{ll} \n");
 	writer.write("\\hline \n");
-	writer.write("{\\bf Month } & {\\bf Avg Reports} \\\\ \n");
+	writer.write("{\\bf Month} & {\\bf AvgReports} \\\\ \n");
 	writer.write("\\hline \n");
 	// Let's sort the elements for improving readability
 	HashMap<String, MutableFloat> monthlyReportsAvg = basicStatistics
