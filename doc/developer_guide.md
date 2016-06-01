@@ -118,17 +118,15 @@ $ git merge --no-ff feature10
 ```
 
 
-
-
 When the integration tests are successful, then: 
 ```
 $ git branch -d feature10      # delete the branch feature10 (locally)
 ```
 
+** OBSOLETE - replaced by pull request mechanism **
 Finally, push everything to the server:
 ```
 $ git push origin develop
-$ git push origin feature10   # if not done before
 ```
 
 ### New Releases:
