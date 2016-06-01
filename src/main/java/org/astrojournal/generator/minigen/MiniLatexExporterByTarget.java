@@ -37,6 +37,7 @@ import org.astrojournal.generator.Report;
 import org.astrojournal.generator.absgen.LatexExporterByTarget;
 import org.astrojournal.generator.headfoot.LatexFooter;
 import org.astrojournal.generator.headfoot.LatexHeader;
+import org.astrojournal.generator.statistics.BasicStatistics;
 
 /**
  * Exports an AstroJournal set of observations by target to Latex code. This is
@@ -61,7 +62,7 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
     }
 
     @Override
-    public boolean generateJournal() {
+    public boolean generateJournal(BasicStatistics basicStatistics) {
 	LatexHeader latexHeader = new LatexHeader();
 	LatexFooter latexFooter = new LatexFooter();
 	Writer writer = null;
@@ -69,7 +70,7 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
 	    writer = new BufferedWriter(new OutputStreamWriter(
 		    new FileOutputStream(filesLocation + File.separator
 			    + reportFilename), "utf-8"));
-	    writeLatexMain(writer, latexHeader, latexFooter);
+	    writeLatexMain(writer, latexHeader, latexFooter, basicStatistics);
 
 	} catch (IOException ex) {
 	    log.error("Error when opening the file " + filesLocation
@@ -102,9 +103,6 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
 	    log.info("");
 	    log.info("Exporting reports by target:");
 	}
-	// Statistics
-	String typeCount = "";
-	targetStatistics.reset();
 
 	processedTargetCache.clear();
 	for (int i = 0; i < reports.size(); i++) {
@@ -136,7 +134,6 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
 			    writer.write("\\subsection*{"
 				    + targetEntry[MiniDataCols.TARGET_NAME
 					    .ordinal()]);
-			    typeCount = "solar system";
 			} else if (targetEntry[MiniDataCols.TYPE_NAME.ordinal()]
 				.toLowerCase().equals("star")
 				|| targetEntry[MiniDataCols.TYPE_NAME.ordinal()]
@@ -149,7 +146,6 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
 			    writer.write(", "
 				    + targetEntry[MiniDataCols.TARGET_NAME
 					    .ordinal()]);
-			    typeCount = "star";
 			} else if (targetEntry[MiniDataCols.TYPE_NAME.ordinal()]
 				.toLowerCase().equals("galaxy")
 				&& targetEntry[MiniDataCols.TARGET_NAME
@@ -160,7 +156,6 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
 			    writer.write("\\subsection*{"
 				    + targetEntry[MiniDataCols.TARGET_NAME
 					    .ordinal()]);
-			    typeCount = "galaxy";
 			} else {
 			    writer.write("\\subsection*{"
 				    + targetEntry[MiniDataCols.TARGET_NAME
@@ -168,14 +163,10 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
 			    writer.write(", "
 				    + targetEntry[MiniDataCols.CONSTELLATION_NAME
 					    .ordinal()]);
-			    typeCount = targetEntry[MiniDataCols.TYPE_NAME
-				    .ordinal()].toLowerCase();
 			}
 			writer.write(", "
 				+ targetEntry[MiniDataCols.TYPE_NAME.ordinal()]
 				+ "}\n");
-			// increment the counter for this typeCount.
-			targetStatistics.increment(typeCount);
 
 			writer.write("\\par\n");
 		    } else {
@@ -220,7 +211,7 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
     }
 
     @Override
-    protected String writeSectionName(Writer writer, String type, String catName)
+    public String writeSectionName(Writer writer, String type, String catName)
 	    throws IOException {
 	if (!type.equals(catName)) {
 	    type = catName;
@@ -230,7 +221,7 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
     }
 
     @Override
-    protected void writeSectionStatistics(Writer writer) throws Exception {
+    public void writeSectionStatistics(Writer writer) throws Exception {
 	writer.write("\\clearpage\n");
 	writer.write("\\section*{Basic Statistics}\n");
 	// include the file removing the extension .tex

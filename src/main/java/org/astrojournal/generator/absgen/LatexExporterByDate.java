@@ -41,6 +41,7 @@ import org.astrojournal.generator.Report;
 import org.astrojournal.generator.basicgen.BasicMetaDataCols;
 import org.astrojournal.generator.headfoot.LatexFooter;
 import org.astrojournal.generator.headfoot.LatexHeader;
+import org.astrojournal.generator.statistics.BasicStatistics;
 import org.astrojournal.utilities.filefilters.LaTeXFilter;
 
 /**
@@ -145,10 +146,15 @@ public abstract class LatexExporterByDate extends LatexExporter {
 
     @Override
     public void writeLatexMain(Writer writer, LatexHeader latexHeader,
-	    LatexFooter latexFooter) throws Exception {
+	    LatexFooter latexFooter, BasicStatistics basicStatistics)
+	    throws Exception {
 
 	// write the Latex Header
 	writer.write(latexHeader.getHeader());
+
+	// write target type statistics
+	writeSectionStatistics(writer);
+	writeLatexStatistics(basicStatistics);
 
 	// write the Latex Body
 	// Write the observation reports
