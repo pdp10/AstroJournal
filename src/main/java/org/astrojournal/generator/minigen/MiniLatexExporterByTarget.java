@@ -232,7 +232,6 @@ public class MiniLatexExporterByTarget extends LatexExporterByTarget {
     @Override
     public void writeLatexContent(Writer writer, Report report)
 	    throws IOException {
-	// TODO Auto-generated method stub
     }
 
 }
