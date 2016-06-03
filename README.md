@@ -7,41 +7,31 @@ Licence: GPL v3 (2015-16)
 
 Mailing list: astrojournal AT googlegroups.com
 
+[![Build Status](https://travis-ci.org/pdp10/AstroJournal.svg?branch=master)](https://travis-ci.org/pdp10/AstroJournal)
+
+[![Code Climate](https://codeclimate.com/github/pdp10/AstroJournal/badges/gpa.svg)](https://codeclimate.com/github/pdp10/AstroJournal)
+
+[![Test Coverage](https://codeclimate.com/github/pdp10/AstroJournal/badges/coverage.svg)](https://codeclimate.com/github/pdp10/AstroJournal/coverage)
+
+[![Issue Count](https://codeclimate.com/github/pdp10/AstroJournal/badges/issue_count.svg)](https://codeclimate.com/github/pdp10/AstroJournal)
+
 
 ### Description
-This software utility aims to generate structured documents from astronomy observation reports created as basic tables. These tables are saved as .tsv or .csv format files and imported by AstroJournal. Once imported, the program will export this information by category (reports by date, by target, by constellation) in PDF format using LaTeX.
+This software utility aims to generate LaTeX / PDF structured documents from astronomy observation reports created as basic tables.
 
-
-### Main Features
+##### Main Features
 - Generation of a PDF document containing all user observation reports collected by increasing target catalogue number. This is useful for comparing targets observed over time.
 - Generation of a PDF document containing all user observation reports collected by decreasing date. This is useful for visualising one’s observations by session.
 - Generation of a PDF document containing the targets observed by constellation. This is useful for checking observed and unobserved targets by constellation.
 - Generation of a TXT document containing all user observation reports collected by decreasing date. This is useful for copying and pasting reports with any text editor.
 - Extraction of basic statistics from the reports.
 
+### Download and Run
+The latest stable release of AstroJournal can be downloaded [here](https://github.com/pdp10/AstroJournal/releases/latest). 
 
-### Requirements
-To use AstroJournal you need to install:
+A user manual is provided with the package in the doc folder.
 
-- [Java 1.7+](https://java.com/en/download/)
-
-- [TeX Live](http://www.tug.org/texlive/) (for GNU/Linux users only)
- 
-- [MikTeX](http://miktex.org/download) (for Windows users only)
-
-- [MacTeX](https://tug.org/mactex/) (for Mac OS X users only)
-
-Please, see the last section for further details.
-
-
-### Download
-The AstroJournal user manual can be downloaded from this [link](https://github.com/pdp10/AstroJournal/blob/master/doc/user_manual.pdf). A copy of it is also provided in the folder doc/ of this software application.
-
-The latest stable version of AstroJournal can be downloaded here:
-
-[https://github.com/pdp10/AstroJournal/zipball/master](https://github.com/pdp10/AstroJournal/zipball/master)
-
-After downloading and uncompressing the file, once in the folder, run AstroJournal as follows:
+After downloading and uncompressing the file, open the folder and run AstroJournal as follows:
 ```
 # On GNU/Linux or Mac OS X type or click:
 ./astrojournal.sh
@@ -59,7 +49,19 @@ This will start a simple graphical user interface to generate the journals. To r
 Please use the option -h (--help) to see the available options.
 
 
-### Additional notes for installing AstroJournal dependencies:
+### Requirements
+To use AstroJournal you need to install:
+
+- [Java 1.7+](https://java.com/en/download/)
+
+- [TeX Live](http://www.tug.org/texlive/) (for GNU/Linux users only)
+ 
+- [MikTeX](http://miktex.org/download) (for Windows users only)
+
+- [MacTeX](https://tug.org/mactex/) (for Mac OS X users only)
+
+
+#### Additional notes for installing AstroJournal dependencies:
 
 ##### GNU/Linux Debian/Ubuntu 14.04+
 Users can install the LaTeX dependencies required by AstroJournal with the following command:

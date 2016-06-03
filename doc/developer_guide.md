@@ -114,20 +114,15 @@ This was used in the past when the branches `master` and `develop` were not prot
 ```
 $ git pull origin develop         # update the branch develop in the local repository. Don't do this on master.
 $ git checkout develop            # switch to develop
-$ git merge --no-ff feature10  
+$ git merge --no-ff feature10 
+$ git push origin develop
 ```
 
-
-When the integration tests are successful, then: 
+Finally delete the branch: 
 ```
 $ git branch -d feature10      # delete the branch feature10 (locally)
 ```
 
-** OBSOLETE - replaced by pull request mechanism **
-Finally, push everything to the server:
-```
-$ git push origin develop
-```
 
 ### New Releases:
 When the `develop` branch includes all the desired feature for a release, it is time to checkout this 
@@ -144,7 +139,7 @@ To see all the releases:
 ```
 git show
 ```
-
+Once a release is pushed (source code only .zip, .tar.gz), compile AstroJournal with mvn package and upload the zipped folder as executable for that specific release.
 
 
 ## Project Structure: 
