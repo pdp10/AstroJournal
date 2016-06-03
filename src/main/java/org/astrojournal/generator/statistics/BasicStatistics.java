@@ -43,7 +43,6 @@ import org.astrojournal.generator.extgen.ExtMetaDataCols;
  * @since 1.0
  */
 public class BasicStatistics {
-    // TODO : consider splitting these statistics in different files.
 
     /**
      * A counter for each type of object.
