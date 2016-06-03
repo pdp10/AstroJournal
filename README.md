@@ -8,6 +8,11 @@ Licence: GPL v3 (2015-16)
 Mailing list: astrojournal AT googlegroups.com
 
 [![Build Status](https://travis-ci.org/pdp10/AstroJournal.svg?branch=master)](https://travis-ci.org/pdp10/AstroJournal)
+
+[![Code Climate](https://codeclimate.com/github/pdp10/AstroJournal/badges/gpa.svg)](https://codeclimate.com/github/pdp10/AstroJournal)
+
+[![Test Coverage](https://codeclimate.com/github/pdp10/AstroJournal/badges/coverage.svg)](https://codeclimate.com/github/pdp10/AstroJournal/coverage)
+
 [![Issue Count](https://codeclimate.com/github/pdp10/AstroJournal/badges/issue_count.svg)](https://codeclimate.com/github/pdp10/AstroJournal)
 
 
