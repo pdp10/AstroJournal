@@ -119,7 +119,6 @@ public class AJMainGUI extends JFrame implements ActionListener {
     /**
      * Clean the text area.
      */
-    // TODO QUESTION. This somehow / sometimes freeze the application..
     public void cleanJTextPane() {
 	textPane.setText("");
     }
