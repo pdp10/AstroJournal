@@ -64,9 +64,6 @@ public class BasicLatexExporterByTarget extends LatexExporterByTarget {
 	    log.info("");
 	    log.info("Exporting reports by target:");
 	}
-	// Statistics
-	String typeCount = "";
-	targetStatistics.reset();
 
 	processedTargetCache.clear();
 	for (int i = 0; i < reports.size(); i++) {
@@ -100,7 +97,6 @@ public class BasicLatexExporterByTarget extends LatexExporterByTarget {
 			    writer.write("\\subsection{"
 				    + targetEntry[BasicDataCols.TARGET_NAME
 					    .ordinal()]);
-			    typeCount = "solar system";
 			} else if (targetEntry[BasicDataCols.TYPE_NAME
 				.ordinal()].toLowerCase().equals("star")
 				|| targetEntry[BasicDataCols.TYPE_NAME
@@ -115,7 +111,6 @@ public class BasicLatexExporterByTarget extends LatexExporterByTarget {
 			    writer.write(", "
 				    + targetEntry[BasicDataCols.TARGET_NAME
 					    .ordinal()]);
-			    typeCount = "star";
 			} else if (targetEntry[BasicDataCols.TYPE_NAME
 				.ordinal()].toLowerCase().equals("galaxy")
 				&& targetEntry[BasicDataCols.TARGET_NAME
@@ -126,7 +121,6 @@ public class BasicLatexExporterByTarget extends LatexExporterByTarget {
 			    writer.write("\\subsection{"
 				    + targetEntry[BasicDataCols.TARGET_NAME
 					    .ordinal()]);
-			    typeCount = "galaxy";
 			} else {
 			    writer.write("\\subsection{"
 				    + targetEntry[BasicDataCols.TARGET_NAME
@@ -134,14 +128,10 @@ public class BasicLatexExporterByTarget extends LatexExporterByTarget {
 			    writer.write(", "
 				    + targetEntry[BasicDataCols.CONSTELLATION_NAME
 					    .ordinal()]);
-			    typeCount = targetEntry[BasicDataCols.TYPE_NAME
-				    .ordinal()].toLowerCase();
 			}
 			writer.write(", "
 				+ targetEntry[BasicDataCols.TYPE_NAME.ordinal()]
 				+ "}\n");
-			// increment the counter for this typeCount.
-			targetStatistics.increment(typeCount);
 
 			writer.write("\\begin{itemize}\n");
 		    } else {

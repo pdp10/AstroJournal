@@ -24,6 +24,7 @@ This software utility aims to generate LaTeX / PDF structured documents from ast
 - Generation of a PDF document containing all user observation reports collected by decreasing date. This is useful for visualising one’s observations by session.
 - Generation of a PDF document containing the targets observed by constellation. This is useful for checking observed and unobserved targets by constellation.
 - Generation of a TXT document containing all user observation reports collected by decreasing date. This is useful for copying and pasting reports with any text editor.
+- Extraction of basic statistics from the reports.
 
 ### Download and Run
 The latest stable release of AstroJournal can be downloaded [here](https://github.com/pdp10/AstroJournal/releases/latest). 

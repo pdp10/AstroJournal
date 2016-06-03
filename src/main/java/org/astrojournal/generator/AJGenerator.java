@@ -36,6 +36,7 @@ import org.astrojournal.configuration.Configuration;
 import org.astrojournal.configuration.ajconfiguration.AJPropertyConstants;
 import org.astrojournal.generator.absgen.Exporter;
 import org.astrojournal.generator.absgen.Importer;
+import org.astrojournal.generator.statistics.BasicStatistics;
 import org.astrojournal.utilities.ClassesInstanceOf;
 
 /**
@@ -65,39 +66,26 @@ public class AJGenerator implements Generator {
     /** The list of Exporter objects. */
     private List<Exporter> exporters = new ArrayList<Exporter>();
 
+    /** An object for managing statistics. */
+    private BasicStatistics basicStatistics = new BasicStatistics();
+
     /**
      * Default constructor
      */
     public AJGenerator() {
     }
 
-    /**
-     * Return the configuration.
-     * 
-     * @return config
-     */
     @Override
     public Configuration getConfiguration() {
 	return config;
     }
 
-    /**
-     * Set a new configuration
-     * 
-     * @param config
-     */
     @Override
     public void setConfiguration(Configuration config) {
 	this.config = config;
 	this.resourceBundle = config.getResourceBundle();
     }
 
-    /**
-     * It generates the files for AstroJournal.
-     * 
-     * @return true if the reports sorted by date and by target have been
-     *         exported correctly
-     */
     @Override
     public boolean generateJournals() {
 	if (config == null) {
@@ -117,6 +105,13 @@ public class AJGenerator implements Generator {
 	    }
 	    log.error(resourceBundle.getString("AJ.errSomeImporterFailed.text"));
 	}
+
+	if (!ajStatistics()) {
+	    log.error(resourceBundle
+		    .getString("AJ.errStatisticsExtraction.text"));
+	    // continue exporting.
+	}
+
 	if (!ajExport()) {
 	    log.error(resourceBundle.getString("AJ.errSomeExporterFailed.text"));
 	    return false;
@@ -124,42 +119,25 @@ public class AJGenerator implements Generator {
 	return true;
     }
 
-    /**
-     * Returns the imported reports.
-     * 
-     * @return the reports
-     */
     @Override
     public List<Report> getReports() {
 	return reports;
     }
 
-    /**
-     * Returns the list of Importer objects.
-     * 
-     * @return the Importers
-     */
     @Override
     public List<Importer> getImporters() {
 	return importers;
     }
 
-    /**
-     * Returns the list of Exporter objects.
-     * 
-     * @return the Exporters
-     */
     @Override
     public List<Exporter> getExporters() {
 	return exporters;
     }
 
-    /**
-     * Reset the generator.
-     */
     @Override
     public void reset() {
 	resetImporters();
+	resetStatistics();
 	resetExporters();
     }
 
@@ -170,27 +148,21 @@ public class AJGenerator implements Generator {
 	reports = new ArrayList<Report>();
     }
 
-    /**
-     * Reset the Importers.
-     */
     @Override
     public void resetImporters() {
 	importers = new ArrayList<Importer>();
     }
 
-    /**
-     * Reset the Exporters.
-     */
     @Override
     public void resetExporters() {
 	exporters = new ArrayList<Exporter>();
     }
 
-    /**
-     * Export the reports using the available Importers.
-     * 
-     * @return true if the reports have been imported.
-     */
+    @Override
+    public void resetStatistics() {
+	basicStatistics.reset();
+    }
+
     @Override
     public boolean ajImport() {
 	if (config == null) {
@@ -221,11 +193,14 @@ public class AJGenerator implements Generator {
 	return status;
     }
 
-    /**
-     * Export the reports using the available Exporters.
-     * 
-     * @return true if the reports have been exported.
-     */
+    @Override
+    public boolean ajStatistics() {
+	if (basicStatistics.process(reports)) {
+	    return true;
+	}
+	return false;
+    }
+
     @Override
     public boolean ajExport() {
 	if (config == null) {
@@ -242,7 +217,7 @@ public class AJGenerator implements Generator {
 	for (Exporter exporter : exporters) {
 	    log.debug(exporter.getName() + " is exporting reports");
 	    boolean result = exporter.exportReports(reports)
-		    && exporter.generateJournal();
+		    && exporter.generateJournal(basicStatistics);
 	    status = result && status;
 	    if (result) {
 		log.debug(exporter.getName() + " SUCCEEDED");
@@ -253,11 +228,6 @@ public class AJGenerator implements Generator {
 	return status;
     }
 
-    /**
-     * Runs the method postProcessing() for each available ajExporter.
-     * 
-     * @return true if the post processing succeeded.
-     */
     @Override
     public boolean postProcessing() {
 	boolean status = true;
