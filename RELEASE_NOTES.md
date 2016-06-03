@@ -13,6 +13,7 @@ Unplanned
 
 v3.0.0 (under development)
 
+- Extraction of basic statistics from the reports.
 - Added buttons to open generated journals from GUI.
 - Added subsection ''year'' in report by date.
 - Added basic statistics in report by target.
