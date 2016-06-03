@@ -139,7 +139,7 @@ To see all the releases:
 ```
 git show
 ```
-
+Once a release is pushed (source code only .zip, .tar.gz), compile AstroJournal with mvn package and upload the zipped folder as executable for that specific release.
 
 
 ## Project Structure: 
