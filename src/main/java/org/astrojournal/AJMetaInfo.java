@@ -44,7 +44,7 @@ public enum AJMetaInfo {
     /**
      * The default application configuration file name. This is in resources/.
      */
-    DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME("application_properties.xml"),
+    DEFAULT_CONFIGURATION_PROPERTIES_FILE_NAME("astrojournal.xml"),
 
     /** The user configuration file name. */
     USER_CONFIGURATION_PROPERTIES_FILE_NAME("astrojournal.xml"),
