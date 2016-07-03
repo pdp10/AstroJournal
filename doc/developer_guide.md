@@ -108,16 +108,6 @@ base:develop  compare:feature10   Able to merge. These branches can be automatic
 ```
 A small discussion about feature10 should also be included to allow other users to understand the feature.
 
-
-**OBSOLETE**
-This was used in the past when the branches `master` and `develop` were not protected. At the time a user could push directly into these branches. The procedure worked as follows: `feature10` was merged to `develop` WITHOUT a fast-forward, so that the history of `feature10` was also recorded (= we know that there was a branch, which is very useful for debugging). 
-```
-$ git pull origin develop         # update the branch develop in the local repository. Don't do this on master.
-$ git checkout develop            # switch to develop
-$ git merge --no-ff feature10 
-$ git push origin develop
-```
-
 Finally delete the branch: 
 ```
 $ git branch -d feature10      # delete the branch feature10 (locally)
@@ -143,7 +133,12 @@ Once a release is pushed (source code only .zip, .tar.gz), compile AstroJournal 
 
 
 ## Project Structure: 
-Not written yet! 
+- The AstroJournal project is built using Maven, so the main directory structure for main and test under the folder `src/` is equivalent to any other Maven project. The AstroJournal main source code is in `src/main/java/org/astrojournal`. Meta information (e.g. program name and version, website, license, etc) about the software are stored in `AJMetaInfo.java`. `AJMain.java` is the main class and initialises dependency injection using the Spring Framework. The Spring configuration file is stored in `src/main/resources/META-INF`. As of June 2016, only instances of `Configuration` and `Generator` can be injected using the Spring Framework. Injection of other classes might be added in the future. After initialising Spring `AJMain.java` executes AstroJournal via Command Line Interface (CLI) or Graphical User Interface (GUI). The code relative to the CLI is in the package `console`, while the code for the GUI is in the package `gui`. A separation between controls and logic is provided within the packages. Utility functions for AstroJournal are stored in the package `utilities`.
+- AstroJournal communicates with the user using the Apache package `log4j2`. Using this package, AstroJournal sends messages regarding information, warnings and errors. Log messages are instead stored in log files and overridden at every execution of the program. In the GUI, log messages are printed with different colours to clearly distinguish them. The redirection from log4j2 to the application JTextPane is organised within the package `logging`.
+- The program configuration is stored in the package `configuration`. A generic `Configuration` interface is provided, but specific configurations can be implemented and injected using the Spring Framework. The program configurations are managed using Java properties. AstroJournal configuration is stored within the application and in a configuration file within the folder `src/main/resources/`. This file is processed at program initialisation. If present, a user configuration file is processed straight after. As AstroJournal configuration is based on Java properties, the passage of program configurations using Java properties directly via command line is straight forward. To reduce coupling between the program and this configuration, no singleton pattern is adopted, but rather an instance of Configuration is passed through the classes controlling the application (e.g. GUI and Generator). 
+- The management for importing, processing and converting raw observations to LaTeX files is in the package `generator`. The interface `Generator` is responsible for dynamically loading the available importers and exporters. This class is independent of the logic for importing and exporting observations, but just processes a list of `Report` objects. Each imported report is stored in an AstroJournal `Report` object. This object contains report meta data and information about the observed targets. The organisation of the logic for importing and exporting is managed with a hierarchy. The most generic classes are in the package `absgen`. As of June 2016, AstroJournal allows to process raw observations in three modes: minimal (`mini-`), basic (`basic-`) and extended (`ext-`). These modes define the amount of information to be processed from the input files and stored in LaTeX files. The package `statistics` contains the code for computing statistics from the imported reports. The package `headfoot` contains the code for generating the LaTeX header and footer. 
+- Test cases are provided in `src/test/java` which uses resources from `src/test/resources`. The `resources` folders for `main` and `test` also contain the configuration for `log4j2` and the `locale` translations. 
+- In the main AstroJournal directory, the folder `debian` contains files for creating a debian package for AstroJournal. The folder `latex_header_footer` contains default files for the LaTeX header and footers. The folder `raw_reports` contains examples of raw reports so that a user can see their structure.
 
 
 
