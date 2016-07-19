@@ -3,11 +3,10 @@
 
 Author: Piero Dalle Pezze
 
-Licence: GPL v3 (2015-16)
-
 Mailing list: astrojournal AT googlegroups.com
 
-[![Build Status](https://travis-ci.org/pdp10/AstroJournal.svg?branch=master)](https://travis-ci.org/pdp10/AstroJournal)
+[![Build Status](https://travis-ci.org/pdp10/astroJournal.svg?branch=master)](https://travis-ci.org/pdp10/astrojournal)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
 
 ### Description
