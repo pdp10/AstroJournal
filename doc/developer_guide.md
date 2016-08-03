@@ -6,6 +6,8 @@ Licence: GPL v3 (2015)
 
 Mailing list: astrojournal AT googlegroups.com
 
+Forum: [https://groups.google.com/forum/#!forum/astrojournal](https://groups.google.com/forum/#!forum/astrojournal)
+
 
 ## Introduction
 This guide is meant for developers of the project (AstroJournal)[https://github.com/pdp10/AstroJournal].
