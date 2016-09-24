@@ -120,6 +120,8 @@ public class MiniLatexExporterByConst extends LatexExporterByConst {
 		// skip solar system targets. We only consider DSOs.
 		if (targetEntry[MiniDataCols.TYPE_NAME.ordinal()].toLowerCase()
 			.equals("planet")
+			|| targetEntry[MiniDataCols.TYPE_NAME.ordinal()]
+				.toLowerCase().equals("asteroid")
 			|| targetEntry[MiniDataCols.TARGET_NAME.ordinal()]
 				.toLowerCase().equals("sun")
 			|| targetEntry[MiniDataCols.TARGET_NAME.ordinal()]
@@ -131,18 +133,17 @@ public class MiniLatexExporterByConst extends LatexExporterByConst {
 		if (!constellations
 			.containsKey(targetEntry[MiniDataCols.CONSTELLATION_NAME
 				.ordinal()])) {
-		    constellations.put(
-			    targetEntry[MiniDataCols.CONSTELLATION_NAME
+		    constellations
+			    .put(targetEntry[MiniDataCols.CONSTELLATION_NAME
 				    .ordinal()], new HashSet<String>());
 		}
 		log.debug(targetEntry[MiniDataCols.CONSTELLATION_NAME.ordinal()]
-			+ " "
-			+ targetEntry[MiniDataCols.TARGET_NAME.ordinal()]
-			+ " ("
-			+ targetEntry[MiniDataCols.TYPE_NAME.ordinal()]
+			+ " " + targetEntry[MiniDataCols.TARGET_NAME.ordinal()]
+			+ " (" + targetEntry[MiniDataCols.TYPE_NAME.ordinal()]
 			+ ")");
-		constellations.get(
-			targetEntry[MiniDataCols.CONSTELLATION_NAME.ordinal()])
+		constellations
+			.get(targetEntry[MiniDataCols.CONSTELLATION_NAME
+				.ordinal()])
 			.add(targetEntry[MiniDataCols.TARGET_NAME.ordinal()]
 				+ " ("
 				+ targetEntry[MiniDataCols.TYPE_NAME.ordinal()]
