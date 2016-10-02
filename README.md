@@ -7,7 +7,7 @@ Mailing list: astrojournal AT googlegroups.com
 
 Forum: [https://groups.google.com/forum/#!forum/astrojournal](https://groups.google.com/forum/#!forum/astrojournal)
 
-[![Build Status](https://travis-ci.org/pdp10/astroJournal.svg?branch=master)](https://travis-ci.org/pdp10/astrojournal)
+[![Build Status](https://travis-ci.org/pdp10/astrojournal.svg?branch=master)](https://travis-ci.org/pdp10/astrojournal)
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
