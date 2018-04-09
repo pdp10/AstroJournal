@@ -70,8 +70,9 @@ public class MiniLatexExporterByDate extends LatexExporterByDate {
 	Writer writer = null;
 	try {
 	    writer = new BufferedWriter(new OutputStreamWriter(
-		    new FileOutputStream(filesLocation + File.separator
-			    + reportFilename), "utf-8"));
+		    new FileOutputStream(
+			    filesLocation + File.separator + reportFilename),
+		    "utf-8"));
 	    writeLatexMain(writer, latexHeader, latexFooter, basicStatistics);
 
 	} catch (IOException ex) {
@@ -130,6 +131,9 @@ public class MiniLatexExporterByDate extends LatexExporterByDate {
 	String currentYear = "";
 	for (File file : files) {
 	    if (file.isFile()) {
+		if (file.getName().equals("BasicStatistics.tex")) {
+		    continue;
+		}
 		if (!currentYear.equals(file.getName().substring(0, 4))) {
 		    // collect observations by year
 		    currentYear = file.getName().substring(0, 4);

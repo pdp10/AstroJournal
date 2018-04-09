@@ -66,18 +66,14 @@ public abstract class LatexExporterByDate extends LatexExporter {
     @Override
     public void setConfiguration(Configuration config) {
 	super.setConfiguration(config);
-	setReportFolder(config
-		.getProperty(AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE
-			.getKey()));
-	setReportFilename(config
-		.getProperty(AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME
-			.getKey()));
-	setHeaderFilename(config
-		.getProperty(AJPropertyConstants.LATEX_HEADER_BY_DATE_FILENAME
-			.getKey()));
-	setFooterFilename(config
-		.getProperty(AJPropertyConstants.LATEX_FOOTER_BY_DATE_FILENAME
-			.getKey()));
+	setReportFolder(config.getProperty(
+		AJPropertyConstants.LATEX_REPORTS_FOLDER_BY_DATE.getKey()));
+	setReportFilename(config.getProperty(
+		AJPropertyConstants.LATEX_REPORT_BY_DATE_FILENAME.getKey()));
+	setHeaderFilename(config.getProperty(
+		AJPropertyConstants.LATEX_HEADER_BY_DATE_FILENAME.getKey()));
+	setFooterFilename(config.getProperty(
+		AJPropertyConstants.LATEX_FOOTER_BY_DATE_FILENAME.getKey()));
     }
 
     @Override
@@ -108,10 +104,13 @@ public abstract class LatexExporterByDate extends LatexExporter {
 
 	    Writer writer = null;
 	    try {
-		writer = new BufferedWriter(new OutputStreamWriter(
-			new FileOutputStream(new File(filesLocation
-				+ File.separator + reportFolder, filenameOut
-				+ ".tex")), "utf-8"));
+		writer = new BufferedWriter(
+			new OutputStreamWriter(
+				new FileOutputStream(new File(
+					filesLocation + File.separator
+						+ reportFolder,
+					filenameOut + ".tex")),
+				"utf-8"));
 
 		writeLatexContent(writer, report);
 
@@ -175,6 +174,9 @@ public abstract class LatexExporterByDate extends LatexExporter {
 	String currentYear = "";
 	for (File file : files) {
 	    if (file.isFile()) {
+		if (file.getName().equals("BasicStatistics.tex")) {
+		    continue;
+		}
 		if (!currentYear.equals(file.getName().substring(0, 4))) {
 		    // collect observations by year
 		    currentYear = file.getName().substring(0, 4);
