@@ -7,7 +7,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- Define Spring version as a constant -->
-    <spring.version>[4.3.17,)</spring.version>
+    <spring.version>4.2.5.RELEASE</spring.version>
   </properties>
   
   <!-- Output to jar format -->
